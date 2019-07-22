@@ -1,10 +1,8 @@
 # QA Portal - Source Control
 
-Source code for the QA Portal will be managed in Github repositories. There are currently 3 github repositories for the Portal
+Source code for the QA Portal will be managed in Github. The Qa Portal repository is located at 
 
-https://github.com/swttech2017/qa-portal-angular.git<br>
-https://github.com/swttech2017/qa-portal-services.git<br>
-https://github.com/swttech2017/qa-portal-infra.git<br>
+https://github.com/DevQAC/QA-Portal<br>
 
 
 ## Assumption
@@ -16,18 +14,16 @@ b) It is also assumed that you have Git installed on your development machine (e
 
 ## Project Startup
 
-### Clone the Git repositories
+### Clone the Git repository
 
 Create a top level (workspace) folder to store the source code. From this folder run the following command
 
-git clone https://github.com/swttech2017/qa-portal-angular.git<br>
-git clone https://github.com/swttech2017/qa-portal-services.git<br>
-git clone https://github.com/swttech2017/qa-portal-infra.git<br>
+git clone https://github.com/DevQAC/QA-Portal.git<br>
 
 
 ### Pull the development branches
 
-For each of the repositories pull the development branch into your local workspace as follows
+Pull the development branch into your local workspace as follows
 
 git checkout -t origin/development
 
@@ -38,7 +34,7 @@ When starting work on a new Jira task, for each repository that you will have to
 
 ### Create local feature branch
 
-Make sure you are in the develop branch of the repository and get the latest changes by running the following commands
+Make sure you are in the development branch of the repository and get the latest changes by running the following commands
 
 cd {path to repo folder in your local workspace}
 
@@ -54,7 +50,7 @@ Switch to the new branch
 
 git checkout feature/JIRA-XXXX-Task-title
 
-Once you've created your local feature branch(es) start making your changes to the feature branch(es). After you've made amendments to your code, it is advisable to push your local feature branch to the remote repo and create a pull request. This can be done as follows
+Once you've created your local feature branch start making your changes to the feature branch(es). After you've made amendments to your code, it is advisable to push your local feature branch to the remote repo and create a pull request. This can be done as follows
 
 
 ### Push your local feature branch(es)
