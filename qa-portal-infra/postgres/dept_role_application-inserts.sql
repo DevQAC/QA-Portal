@@ -1,0 +1,17 @@
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (1, 1, 1);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (2, 2, 1);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (4, 2, 2);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (3, 3, 1);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (5, 3, 2);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (6, 5, 3);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (7, 6, 3);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (8, 3, 4);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (11, 11, 5);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (10, 10, 5);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (16, 16, 5);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (17, 17, 5);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (15, 15, 5);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (14, 14, 5);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (13, 13, 5);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (12, 12, 5);
+INSERT INTO training.dept_role_application (id, dept_role_id, app_id) VALUES (18, 18, 5);
