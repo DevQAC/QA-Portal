@@ -25,6 +25,8 @@ git clone https://github.com/DevQAC/QA-Portal.git<br>
 
 Pull the development branch into your local workspace as follows
 
+git fetch
+
 git checkout -t origin/development
 
 
@@ -64,7 +66,11 @@ git push origin feature/JIRA-XXXX-Task-title
 
 Log in to Github
 
-Navigate to the repository with your feature branch.
+Navigate to the repository branches page.
+
+https://github.com/DevQAC/QA-Portal/branches
+
+Select your feature branch
 
 Press the 'New Pull Request' button
 
