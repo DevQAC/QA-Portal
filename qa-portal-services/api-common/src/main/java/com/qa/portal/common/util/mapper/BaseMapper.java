@@ -1,27 +1,36 @@
 package com.qa.portal.common.util.mapper;
 
-import com.qa.portal.common.dto.QaUserDto;
-import com.qa.portal.common.persistence.entity.QaUserEntity;
 import org.dozer.DozerBeanMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import com.qa.portal.common.dto.QaUserDto;
+import com.qa.portal.common.persistence.entity.QaUserEntity;
+
 @Component
+@Primary
 public class BaseMapper {
 
-    @Autowired
-    private DozerBeanMapper mapper;
+	private DozerBeanMapper mapper;
 
+	public BaseMapper(DozerBeanMapper mapper) {
+		this.mapper = mapper;
+	}
 
-    public <S, T> T mapObject(S object, Class<T> clazz) {
-        return mapper.map(object, clazz);
-    }
+	public DozerBeanMapper getMapper() {
+		return mapper;
+	}
 
-    public QaUserEntity mapToQaUserEntity(QaUserDto qaUserDto) {
-        return mapper.map(qaUserDto, QaUserEntity.class);
-    }
+	public <S, T> T mapObject(S object, Class<T> clazz) {
+		return mapper.map(object, clazz);
+	}
 
-    public QaUserDto mapToQaUserDto(QaUserEntity qaUserEntity) {
-        return mapper.map(qaUserEntity, QaUserDto.class);
-    }
+	public QaUserEntity mapToQaUserEntity(QaUserDto qaUserDto) {
+		return mapper.map(qaUserDto, QaUserEntity.class);
+	}
+
+	public QaUserDto mapToQaUserDto(QaUserEntity qaUserEntity) {
+		return mapper.map(qaUserEntity, QaUserDto.class);
+	}
+
 }
