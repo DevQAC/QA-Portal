@@ -1,0 +1,25 @@
+.side-menu-panel {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.side-menu-title {
+  margin-left: 10px;
+  width: 280px;
+  height:60px;
+  line-height: 60px;
+  text-align: left;
+  color: #0060B9;
+  background-color: lightgrey;
+}
+
+.side-menu-item {
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+.menu-item-text {
+  color: #0060B9;
+  font-size: 19px;
+}

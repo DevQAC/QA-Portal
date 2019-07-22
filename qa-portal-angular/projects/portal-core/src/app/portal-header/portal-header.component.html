@@ -1,0 +1,30 @@
+<mat-toolbar style="color:#0060B9">
+  <mat-toolbar-row style="display: flex; align-items: center">
+    <span><img src="../../assets/QA-logo.png" height="35px" width="60px" style="margin-top: 10px;"></span>
+    <span><h1>QA Portal</h1></span>
+    <span class="portal-toolbar-spacer"></span>
+    <span *ngFor="let deptApps of portalApplications">
+      <button mat-flat-button [mat-menu-trigger-for]="sub_menu">
+        {{deptApps.department.name}}
+      </button>
+      <mat-menu #sub_menu="matMenu">
+        <ng-container *ngFor="let appl of deptApps.applications">
+          <a routerLink="{{getAppHome(appl.url)}}" mat-menu-item> {{appl.name}} </a>
+        </ng-container>
+      </mat-menu>
+    </span>
+    <span>
+      <button mat-icon-button [mat-menu-trigger-for]="acct_menu">
+        <mat-icon>
+          account_circle
+        </mat-icon>
+      </button>
+      <mat-menu #acct_menu="matMenu">
+        <button (click)="logout()" mat-menu-item>
+          Logout
+        </button>
+      </mat-menu>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
+

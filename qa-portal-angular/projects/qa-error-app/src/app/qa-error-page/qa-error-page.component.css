@@ -1,0 +1,7 @@
+.qa-error-container {
+  display: flex;
+  justify-content: center;
+  background-color: lightcoral;
+  color: white;
+  margin-top: 100px;
+}
