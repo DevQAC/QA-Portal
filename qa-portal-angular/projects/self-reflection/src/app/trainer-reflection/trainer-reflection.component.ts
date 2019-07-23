@@ -17,6 +17,8 @@ export class TrainerReflectionComponent implements OnInit {
   public authorRow: Tile[] = [];
   public scoreRow: Tile[] = [];
   public COL_MAX = 24;
+  public firstname = '';
+  public surname = '';
   constructor(private traineeReflectionService: TraineeReflectionService) {
   }
 
@@ -52,6 +54,8 @@ export class TrainerReflectionComponent implements OnInit {
 
   ngOnInit() {
     this.traineeReflectionService.getTraineeReflection().subscribe((skillAreas) => this.skillAreas = skillAreas);
+    this.firstname = 'Firstname';
+    this.surname = 'Surname';
     const titleColSpan = this.COL_MAX / this.skillAreas.length;
     let questionColSpan;
     let authorColSpan;
