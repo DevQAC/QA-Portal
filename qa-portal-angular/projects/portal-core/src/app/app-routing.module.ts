@@ -7,7 +7,7 @@ import { SelfReflectionSharedModule } from '../../../self-reflection/src/app/app
 const routes: Routes = [
   // Add routes for new application here
   {
-    path: 'qa/portal/selfreflection',
+    path: 'qa/portal/training',
     loadChildren: () => SelfReflectionSharedModule
   },
   {

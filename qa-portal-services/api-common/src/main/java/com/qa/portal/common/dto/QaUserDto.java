@@ -7,8 +7,6 @@ public class QaUserDto extends QaBaseDto {
 
     private String userName;
 
-    private QaUserDto reviewer;
-
     public Integer getId() {
         return id;
     }
@@ -25,13 +23,6 @@ public class QaUserDto extends QaBaseDto {
         this.userName = userName;
     }
 
-    public QaUserDto getReviewer() {
-        return reviewer;
-    }
-
-    public void setReviewer(QaUserDto reviewer) {
-        this.reviewer = reviewer;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -40,13 +31,12 @@ public class QaUserDto extends QaBaseDto {
         if (!super.equals(o)) return false;
         QaUserDto qaUserDto = (QaUserDto) o;
         return Objects.equals(id, qaUserDto.id) &&
-                Objects.equals(userName, qaUserDto.userName) &&
-                Objects.equals(reviewer, qaUserDto.reviewer);
+                Objects.equals(userName, qaUserDto.userName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, userName, reviewer);
+        return Objects.hash(super.hashCode(), id, userName);
     }
 
     @Override
@@ -54,7 +44,6 @@ public class QaUserDto extends QaBaseDto {
         return "QaUserDto{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", reviewer=" + reviewer +
                 ", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
                 ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
                 '}';

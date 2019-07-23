@@ -13,13 +13,14 @@ import { TrainerReflectionComponent } from './trainer-reflection/trainer-reflect
   ],
   imports: [
     BrowserModule,
-    QaCommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    QaCommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 
 @NgModule({})
 export class SelfReflectionSharedModule {
