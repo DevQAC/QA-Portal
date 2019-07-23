@@ -1,0 +1,87 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .self-reflection-grid .question-text {
+    font-size: 5px;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .self-reflection-grid .question-text {
+    font-size: 8px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+  .self-reflection-grid .question-text {
+    font-size: 10px;
+  }
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .self-reflection-grid .question-text {
+    font-size: 12px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .self-reflection-grid .question-text {
+    font-size: 16px;
+  }
+}
+
+.self-reflection-grid-container {
+  padding: 0 3em 2em;
+}
+
+.self-reflection-grid {
+  height: 700px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+  /* padding-bottom: 3em; */
+}
+
+.self-reflection-grid .header {
+  background-color: #eee;
+  color: black;
+}
+
+.self-reflection-grid .header span.title {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+}
+
+.self-reflection-grid .author {
+  background-color: #eee;
+}
+
+.self-reflection-grid .author span {
+  font-size: 15px;
+}
+
+.self-reflection-grid .scores span {
+  font-size: 15px;
+}
+
+.self-reflection-grid .questions,
+.self-reflection-grid .scores,
+.self-reflection-grid .header,
+.self-reflection-grid .author {
+  border: 1px solid #eee;
+}
+
+
+.self-reflection-grid .question-text {
+  font-weight: normal;
+  height: 100%;
+  padding: 3em 1em 0;
+}
+
+.self-reflection-grid {
+  margin-bottom: 2em;
+}
