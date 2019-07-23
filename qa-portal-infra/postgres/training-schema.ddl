@@ -1,3 +1,21 @@
+CREATE SCHEMA training
+    AUTHORIZATION postgres;
+
+CREATE TABLE training.application
+(
+    id integer NOT NULL,
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    url character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT application_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE training.application
+    OWNER to postgres;
 
 CREATE TABLE training.app_menu_item
 (
@@ -22,22 +40,6 @@ ALTER TABLE training.app_menu_item
     OWNER to postgres;
 
 
-CREATE TABLE training.application
-(
-    id integer NOT NULL,
-    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    url character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT application_pkey PRIMARY KEY (id)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE training.application
-    OWNER to postgres;
-
-
 CREATE TABLE training.department
 (
     id integer NOT NULL,
@@ -52,6 +54,21 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE training.department
+    OWNER to postgres;
+
+CREATE TABLE training.role
+(
+    id integer NOT NULL,
+    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    level integer NOT NULL,
+    CONSTRAINT role_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE training.role
     OWNER to postgres;
 
 
@@ -152,6 +169,22 @@ TABLESPACE pg_default;
 ALTER TABLE training.qa_user_self_reflection_form
     OWNER to postgres;
 
+CREATE TABLE training.self_reflection_status
+(
+    id integer NOT NULL,
+    status_text character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    last_updated_timestamp timestamp without time zone NOT NULL,
+    last_updated_by character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    version integer NOT NULL DEFAULT 1,
+    CONSTRAINT self_reflection_status_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE training.self_reflection_status
+    OWNER to postgres;
 
 CREATE TABLE training.qa_user_self_reflection_form_status
 (
@@ -185,19 +218,22 @@ ALTER TABLE training.qa_user_self_reflection_form_status
     OWNER to postgres;
 
 
-CREATE TABLE training.role
+CREATE TABLE training.self_rating_question
 (
     id integer NOT NULL,
-    name character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    level integer NOT NULL,
-    CONSTRAINT role_pkey PRIMARY KEY (id)
+    question_text character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    num_options integer NOT NULL,
+    last_updated_timestamp timestamp without time zone NOT NULL,
+    last_updated_by character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    version integer NOT NULL DEFAULT 1,
+    CONSTRAINT self_rating_question_pkey PRIMARY KEY (id)
 )
 WITH (
     OIDS = FALSE
 )
 TABLESPACE pg_default;
 
-ALTER TABLE training.role
+ALTER TABLE training.self_rating_question
     OWNER to postgres;
 
 
@@ -229,24 +265,6 @@ ALTER TABLE training.self_rating
     OWNER to postgres;
 
 
-CREATE TABLE training.self_rating_question
-(
-    id integer NOT NULL,
-    question_text character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    num_options integer NOT NULL,
-    last_updated_timestamp timestamp without time zone NOT NULL,
-    last_updated_by character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    version integer NOT NULL DEFAULT 1,
-    CONSTRAINT self_rating_question_pkey PRIMARY KEY (id)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE training.self_rating_question
-    OWNER to postgres;
-
 
 CREATE TABLE training.self_reflection_review
 (
@@ -277,22 +295,6 @@ ALTER TABLE training.self_reflection_review
     OWNER to postgres;
 
 
-CREATE TABLE training.self_reflection_status
-(
-    id integer NOT NULL,
-    status_text character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    last_updated_timestamp timestamp without time zone NOT NULL,
-    last_updated_by character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    version integer NOT NULL DEFAULT 1,
-    CONSTRAINT self_reflection_status_pkey PRIMARY KEY (id)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE training.self_reflection_status
-    OWNER to postgres;
 
 
 CREATE SEQUENCE training.application_sequence

@@ -4,10 +4,12 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
+import { CohortTraineesComponent } from './cohort-trainees/cohort-trainees.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CohortTraineesComponent
   ],
   imports: [
     BrowserModule,

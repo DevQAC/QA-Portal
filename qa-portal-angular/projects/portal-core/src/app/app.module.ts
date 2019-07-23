@@ -22,7 +22,7 @@ import {QaToastrService} from './_common/services/qa-toastr.service';
     PortalHeaderComponent,
     PortalSideMenuComponent,
     PortalSideMenuContentComponent,
-    PortalFooterComponent
+    PortalFooterComponent,
   ],
   imports: [
     QaCommonModule,
