@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
 
 @NgModule({
@@ -12,20 +12,20 @@ import {QaCommonModule} from '../../../qa-common/src/app/app.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-	QaCommonModule
+    QaCommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 
 @NgModule({})
 export class SelfReflectionSharedModule {
-static forRoot(): ModuleWithProviders {
-return {
-ngModule: AppModule,
-providers: []
-};
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AppModule,
+      providers: []
+    };
+  }
 }
-}
-	
