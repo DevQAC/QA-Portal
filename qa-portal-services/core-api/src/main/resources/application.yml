@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/qa-portal
     username: postgres
-    password: postgres
+    password: pass
 
   jpa:
     properties:
