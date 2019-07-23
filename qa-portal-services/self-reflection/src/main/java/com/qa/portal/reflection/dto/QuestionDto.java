@@ -1,5 +1,6 @@
 package com.qa.portal.reflection.dto;
 
+import java.util.Collections;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,7 +13,7 @@ public class QuestionDto extends QaBaseDto {
 
 	private final String body;
 
-	private final String Category;
+	private final String category;
 
 	private final Set<ReflectionDto> forms;
 
@@ -22,8 +23,9 @@ public class QuestionDto extends QaBaseDto {
 		super();
 		this.id = id;
 		this.body = body;
-		Category = category;
+		this.category = category;
 		this.forms = forms;
+		
 	}
 
 	public Integer getId() {
@@ -35,11 +37,11 @@ public class QuestionDto extends QaBaseDto {
 	}
 
 	public String getCategory() {
-		return Category;
+		return category;
 	}
 
 	public Set<ReflectionDto> getForms() {
-		return forms;
+		return Collections.unmodifiableSet(forms);
 	}
 
 }
