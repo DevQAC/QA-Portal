@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -14,16 +15,18 @@ import com.qa.portal.common.persistence.entity.QaBaseEntity;
 @Entity
 @Table(name = "reflection_question", schema = "training")
 public class ReflectionQuestionEntity extends QaBaseEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "reflection_question_sequence", sequenceName = "training.reflection_question_sequence", allocationSize = 1)
 	private Integer id;
 
 	@ManyToOne
+	@JoinColumn(name = "reflection_id")
 	private ReflectionEntity reflection;
 
 	@ManyToOne
+	@JoinColumn(name = "question_id")
 	private QuestionEntity question;
 
 	@Column(name = "response")

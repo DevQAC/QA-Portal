@@ -3,6 +3,9 @@ package com.qa.portal.reflection.service;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
@@ -11,6 +14,7 @@ import com.qa.portal.reflection.persistence.entity.CohortQuestionEntity;
 import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.util.mapper.QuestionMapper;
 
+@Service
 public class QuestionService {
 
 	private CohortQuestionRepository cohortQuestionRepo;
@@ -27,6 +31,7 @@ public class QuestionService {
 		this.mapper = mapper;
 	}
 
+	@Transactional
 	public Set<QuestionDto> getQuestionsForCohort(Integer cohortId) {
 		QaCohortEntity cohort = this.cohortRepo.findById(cohortId)
 				.orElseThrow(() -> new QaResourceNotFoundException("Cohort doesn't exist"));
