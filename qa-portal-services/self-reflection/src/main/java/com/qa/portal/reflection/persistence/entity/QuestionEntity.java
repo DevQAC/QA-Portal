@@ -25,7 +25,7 @@ public class QuestionEntity extends QaBaseEntity {
 
 	private String category;
 
-	@OneToMany(mappedBy = "reflection")
+	@OneToMany(mappedBy = "question")
 	private Set<ReflectionQuestionEntity> forms;
 
 	public Integer getId() {
