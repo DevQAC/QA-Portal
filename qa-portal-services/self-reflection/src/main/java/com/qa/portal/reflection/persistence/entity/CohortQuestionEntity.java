@@ -1,23 +1,41 @@
 package com.qa.portal.reflection.persistence.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
+
 @Entity
 @Table(name = "cohort_question", schema = "training")
 public class CohortQuestionEntity extends QaBaseEntity {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "cohort_question_sequence", sequenceName = "training.cohort_question_sequence", allocationSize = 1)
+	private Integer id;
+
 	@ManyToOne
+	@JoinColumn(name = "cohort_id")
 	private QaCohortEntity cohort;
-	
-	@Id
+
 	@ManyToOne
+	@JoinColumn(name = "question_id")
 	private QuestionEntity question;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public QaCohortEntity getCohort() {
 		return cohort;
@@ -40,6 +58,7 @@ public class CohortQuestionEntity extends QaBaseEntity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cohort == null) ? 0 : cohort.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		return result;
 	}
@@ -58,6 +77,11 @@ public class CohortQuestionEntity extends QaBaseEntity {
 				return false;
 		} else if (!cohort.equals(other.cohort))
 			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (question == null) {
 			if (other.question != null)
 				return false;
@@ -68,7 +92,7 @@ public class CohortQuestionEntity extends QaBaseEntity {
 
 	@Override
 	public String toString() {
-		return "CohortQuestionEntity [cohort=" + cohort + ", question=" + question + "]";
+		return "CohortQuestionEntity [id=" + id + ", cohort=" + cohort + ", question=" + question + "]";
 	}
-	
+
 }

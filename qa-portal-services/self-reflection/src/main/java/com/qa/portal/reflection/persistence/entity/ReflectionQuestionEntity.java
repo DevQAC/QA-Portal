@@ -2,8 +2,11 @@ package com.qa.portal.reflection.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
@@ -11,12 +14,15 @@ import com.qa.portal.common.persistence.entity.QaBaseEntity;
 @Entity
 @Table(name = "reflection_question", schema = "training")
 public class ReflectionQuestionEntity extends QaBaseEntity {
-
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "reflection_question_sequence", sequenceName = "training.reflection_question_sequence", allocationSize = 1)
+	private Integer id;
+
 	@ManyToOne
 	private ReflectionEntity reflection;
 
-	@Id
 	@ManyToOne
 	private QuestionEntity question;
 
@@ -25,6 +31,14 @@ public class ReflectionQuestionEntity extends QaBaseEntity {
 
 	@Column(name = "trainer_response")
 	private Integer trainerResponse;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public ReflectionEntity getReflection() {
 		return reflection;
@@ -62,6 +76,7 @@ public class ReflectionQuestionEntity extends QaBaseEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		result = prime * result + ((reflection == null) ? 0 : reflection.hashCode());
 		result = prime * result + ((response == null) ? 0 : response.hashCode());
@@ -78,6 +93,11 @@ public class ReflectionQuestionEntity extends QaBaseEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		ReflectionQuestionEntity other = (ReflectionQuestionEntity) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (question == null) {
 			if (other.question != null)
 				return false;
@@ -103,8 +123,8 @@ public class ReflectionQuestionEntity extends QaBaseEntity {
 
 	@Override
 	public String toString() {
-		return "ReflectionQuestionEntity [reflection=" + reflection + ", question=" + question + ", response="
-				+ response + ", trainerResponse=" + trainerResponse + "]";
+		return "ReflectionQuestionEntity [id=" + id + ", reflection=" + reflection + ", question=" + question
+				+ ", response=" + response + ", trainerResponse=" + trainerResponse + "]";
 	}
 
 }
