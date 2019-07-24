@@ -23,12 +23,15 @@ public class ReflectionService {
 	private ReflectionMapper mapper;
 
 	private QaTrainerRepository trainerRepo;
+	
+	private GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation;
 
-	public ReflectionService(ReflectionRepository repo, ReflectionMapper mapper, QaTrainerRepository trainerRepo) {
+	public ReflectionService(ReflectionRepository repo, ReflectionMapper mapper, QaTrainerRepository trainerRepo, GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation) {
 		super();
 		this.reflectionRepo = repo;
 		this.mapper = mapper;
 		this.trainerRepo = trainerRepo;
+		this.getSelfReflectionsForUserOperation = getSelfReflectionsForUserOperation;
 	}
 
 	@Transactional
