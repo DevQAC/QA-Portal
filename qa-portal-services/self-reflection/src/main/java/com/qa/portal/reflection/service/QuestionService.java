@@ -19,6 +19,14 @@ public class QuestionService {
 
 	private QuestionMapper mapper;
 
+	public QuestionService(CohortQuestionRepository cohortQuestionRepo, QaCohortRepository cohortRepo,
+			QuestionMapper mapper) {
+		super();
+		this.cohortQuestionRepo = cohortQuestionRepo;
+		this.cohortRepo = cohortRepo;
+		this.mapper = mapper;
+	}
+
 	public Set<QuestionDto> getQuestionsForCohort(Integer cohortId) {
 		QaCohortEntity cohort = this.cohortRepo.findById(cohortId)
 				.orElseThrow(() -> new QaResourceNotFoundException("Cohort doesn't exist"));

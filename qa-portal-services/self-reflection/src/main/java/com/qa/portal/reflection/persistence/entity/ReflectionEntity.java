@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -24,9 +25,11 @@ public class ReflectionEntity extends QaBaseEntity {
 	private Integer id;
 
 	@ManyToOne
+	@JoinColumn(name = "id")
 	private TrainerEntity reviewer;
 
 	@ManyToOne
+	@JoinColumn(name = "id")
 	private TraineeEntity responder;
 
 	private LocalDate date;

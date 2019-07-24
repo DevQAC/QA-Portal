@@ -18,6 +18,12 @@ public class ReflectionService {
 
 	private ReflectionMapper mapper;
 
+	public ReflectionService(ReflectionRepository repo, ReflectionMapper mapper) {
+		super();
+		this.repo = repo;
+		this.mapper = mapper;
+	}
+
 	public Set<ReflectionDto> getSelfReflectionsForTrainee(Integer traineeId) {
 		return null;
 	}
