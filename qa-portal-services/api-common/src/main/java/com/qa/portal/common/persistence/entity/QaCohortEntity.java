@@ -25,8 +25,7 @@ public class QaCohortEntity extends QaBaseEntity {
 	@Column(name = "cohort_name")
 	private String name;
 
-	@OneToMany
-	@JoinColumn(name = "user_id")
+	@OneToMany(mappedBy = "cohort")
 	private Set<TraineeEntity> trainees;
 
 	@ManyToOne
