@@ -16,6 +16,8 @@ drop table if exists training.qa_cohort;
 
 drop table if exists training.qa_user;
 
+CREATE SCHEMA IF NOT EXISTS qa-portal;
+
 create table if not exists training.application
 (
 	id integer not null
@@ -110,34 +112,5 @@ create table if not exists training.dept_role_menu_item
 
 alter table training.dept_role_menu_item owner to postgres;
 
-
-create table if not exists training.qa_user
-(
-	id integer not null
-		constraint qa_user_pkey
-			primary key,
-	user_name varchar(255) not null,
-	reviewer_id integer
-		constraint fk_user_id
-			references training.qa_user,
-	last_updated_timestamp timestamp not null,
-	last_updated_by varchar(255) not null,
-	version integer default 1 not null,
-	cohort_id integer
-);
-
-alter table training.qa_user owner to postgres;
-
-
-create table if not exists training.qa_cohort
-(
-	id integer not null
-		constraint qa_cohort_pk
-			primary key,
-	cohort_name varchar(255) not null,
-	trainer_id integer not null
-);
-
-alter table training.qa_cohort owner to postgres;
 
 

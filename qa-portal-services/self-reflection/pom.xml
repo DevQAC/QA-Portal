@@ -96,6 +96,12 @@
 			<version>9.4-1206-jdbc42</version>
 		</dependency>
 
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.199</version>
+            <scope>test</scope>
+        </dependency>
 
 	</dependencies>
 
