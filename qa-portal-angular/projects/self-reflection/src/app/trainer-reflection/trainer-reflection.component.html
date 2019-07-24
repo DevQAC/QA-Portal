@@ -21,4 +21,12 @@
       </mat-grid-tile>
     </mat-grid-list>
   </div>
+  <div class='trainer-textareas'>
+    <div class='trainer-comments'>
+      <app-comment-box [title]='"Trainer Comments"' [comments]='""'></app-comment-box>
+    </div>
+    <div class='learning-pathway'>
+      <app-comment-box [title]='"Learning Pathway"' [comments]='trainerComments'></app-comment-box>
+    </div>
+  </div>
 </div>

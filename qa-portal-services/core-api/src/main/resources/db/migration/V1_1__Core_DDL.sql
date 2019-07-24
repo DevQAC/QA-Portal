@@ -14,7 +14,7 @@ drop table if exists training.application;
 
 drop table if exists training.qa_cohort;
 
-drop table if exists training.qa_user;
+drop table if exists training.qa_user cascade;
 
 create table if not exists training.application
 (

@@ -1,0 +1,17 @@
+<mat-card class='comments-card'>
+  <mat-card-title class='title'>
+    <span>{{title}}
+    </span>
+    <span class='save-icon'>
+      <button aria-label='save-button'>
+        <span class='save-label'>Save</span>
+        <mat-icon class='icon' aria-hidden="false" aria-label="save-icon">save</mat-icon>
+      </button>
+    </span>
+  </mat-card-title>
+  <mat-card-content class='content'>
+    <mat-form-field class='form-field'>
+      <textarea matInput [value]='comments' [placeholder]='placeHolder' cdkTextareaAutosize></textarea>
+    </mat-form-field>
+  </mat-card-content>
+</mat-card>

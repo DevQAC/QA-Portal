@@ -35,8 +35,12 @@
   }
 }
 
+.trainer-reflection {
+  padding: 0 3em;
+}
+
 .self-reflection-grid-container {
-  padding: 0 3em 2em;
+  padding-bottom: 2em;
 }
 
 .self-reflection-grid {
@@ -84,4 +88,8 @@
 
 .self-reflection-grid {
   margin-bottom: 2em;
+}
+
+.trainer-textareas div {
+  margin-bottom: 3em;
 }

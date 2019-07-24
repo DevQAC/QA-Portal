@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { SkillArea } from './models/skill-area';
 import { Tile } from './models/tileRow';
 import { User } from './models/User.enum';
@@ -19,7 +20,14 @@ export class TrainerReflectionComponent implements OnInit {
   public COL_MAX = 24;
   public firstname = '';
   public surname = '';
+  public trainerComments = '';
+  public learningPathway = '';
+
   constructor(private traineeReflectionService: TraineeReflectionService) {
+    this.trainerComments = 'Ea qui ipsum sint nisi et sunt et eu commodo proident id.' +
+      'Exercitation adipisicing ut aute consequat pariatur minim duis cupidatat velit quis. Qui ' +
+      'consectetur reprehenderit nisi deserunt adipisicing velit enim quis cillum eiusmod. Minim ea mollit in ' +
+      'eu tempor tempor quis. Veniam enim voluptate est do velit aute.';
   }
 
   private getUserTitle(user: User): string {
