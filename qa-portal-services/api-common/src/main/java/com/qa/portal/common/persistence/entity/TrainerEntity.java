@@ -1,15 +1,13 @@
 package com.qa.portal.common.persistence.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 @Entity
 public class TrainerEntity extends QaUserEntity {
 
-	@OneToMany
-	@JoinColumn(name = "trainer_id")
+	@OneToMany(mappedBy = "trainer")
 	private Set<QaCohortEntity> cohorts;
 
 	public Set<QaCohortEntity> getCohorts() {
@@ -19,8 +17,4 @@ public class TrainerEntity extends QaUserEntity {
 	public void setCohorts(Set<QaCohortEntity> cohorts) {
 		this.cohorts = cohorts;
 	}
-	
-	
-	
-	
 }
