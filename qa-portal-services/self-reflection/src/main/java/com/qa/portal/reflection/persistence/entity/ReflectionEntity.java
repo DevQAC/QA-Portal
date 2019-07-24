@@ -25,11 +25,11 @@ public class ReflectionEntity extends QaBaseEntity {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "reviewer_id")
 	private TrainerEntity reviewer;
 
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "responder_id")
 	private TraineeEntity responder;
 
 	private LocalDate date;
