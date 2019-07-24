@@ -24,7 +24,7 @@
 	<modules>
 		<module>api-common</module>
 		<module>core-api</module>
-		<module>self-reflection-api</module>
+		<module>self-reflection</module>
 	</modules>
 
 </project>
