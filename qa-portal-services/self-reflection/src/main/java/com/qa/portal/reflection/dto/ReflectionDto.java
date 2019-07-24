@@ -1,6 +1,7 @@
 package com.qa.portal.reflection.dto;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,6 +17,8 @@ public final class ReflectionDto extends QaBaseDto {
 	private final QaUserDto reviewer;
 
 	private final LocalDate date;
+
+	private Set<QuestionDto> questions;
 
 	@JsonCreator
 	public ReflectionDto(@JsonProperty Integer id, @JsonProperty QaUserDto responder, @JsonProperty QaUserDto reviewer,
@@ -41,6 +44,10 @@ public final class ReflectionDto extends QaBaseDto {
 
 	public LocalDate getDate() {
 		return date;
+	}
+
+	public Set<QuestionDto> getQuestions() {
+		return questions;
 	}
 
 }

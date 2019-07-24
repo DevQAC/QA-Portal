@@ -17,7 +17,7 @@ import com.qa.portal.common.persistence.entity.TrainerEntity;
 @Entity
 @Table(name = "reflection", schema = "training")
 public class ReflectionEntity extends QaBaseEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "reflection_sequence", sequenceName = "training.reflection_sequence", allocationSize = 1)
