@@ -1,11 +1,13 @@
 package com.qa.portal.reflection.util.mapper;
 
 import org.dozer.DozerBeanMapper;
+import org.springframework.stereotype.Component;
 
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 
+@Component
 public class ReflectionMapper extends BaseMapper {
 
 	public ReflectionMapper(DozerBeanMapper mapper) {
