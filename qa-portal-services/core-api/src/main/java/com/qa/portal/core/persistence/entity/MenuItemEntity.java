@@ -1,6 +1,7 @@
 package com.qa.portal.core.persistence.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,12 +23,13 @@ public class MenuItemEntity {
     @Column(name = "tooltip")
     private String tooltip;
 
-    @Column(name = "level")
-    private Integer level;
-
     @ManyToOne
     @JoinColumn(name = "app_id")
     private ApplicationEntity application;
+
+    @OneToMany(mappedBy = "menuItem")
+    private List<DeptRoleMenuItem> deptRoleMenuItems;
+
 
     public Integer getId() {
         return id;
@@ -61,20 +63,20 @@ public class MenuItemEntity {
         this.tooltip = tooltip;
     }
 
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
     public ApplicationEntity getApplication() {
         return application;
     }
 
     public void setApplication(ApplicationEntity application) {
         this.application = application;
+    }
+
+    public List<DeptRoleMenuItem> getDeptRoleMenuItems() {
+        return deptRoleMenuItems;
+    }
+
+    public void setDeptRoleMenuItems(List<DeptRoleMenuItem> deptRoleMenuItems) {
+        this.deptRoleMenuItems = deptRoleMenuItems;
     }
 
     @Override
@@ -86,13 +88,13 @@ public class MenuItemEntity {
                 Objects.equals(name, that.name) &&
                 Objects.equals(url, that.url) &&
                 Objects.equals(tooltip, that.tooltip) &&
-                Objects.equals(level, that.level) &&
-                Objects.equals(application, that.application);
+                Objects.equals(application, that.application) &&
+                Objects.equals(deptRoleMenuItems, that.deptRoleMenuItems);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, url, tooltip, level, application);
+        return Objects.hash(id, name, url, tooltip, application, deptRoleMenuItems);
     }
 
     @Override
@@ -102,8 +104,7 @@ public class MenuItemEntity {
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", tooltip='" + tooltip + '\'' +
-                ", level=" + level +
-                ", application=" + application +
+                ", deptRoleMenuItems=" + deptRoleMenuItems +
                 '}';
     }
 }
