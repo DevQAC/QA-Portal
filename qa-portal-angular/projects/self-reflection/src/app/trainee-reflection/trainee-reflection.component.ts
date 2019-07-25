@@ -3,6 +3,10 @@ import {RatedQuestionComponent} from './../../../../qa-common/src/app/rated-ques
 import {SelectedRatingModel} from './../../../../qa-common/src/app/rated-question/selected-rating.model';
 import {SelectedRatingObject} from './models/SelectedRatingObject';
 import { SelectionModel } from '@angular/cdk/collections';
+import { QuestionsServiceService } from './services/questions-service.service'
+import { SelfReflectionFormViewModel } from './models/self-reflection-form-vmodel';
+import { RatedQuestionsService } from './services/rated-questions.service';
+import { SelfReflectionFormService } from './services/self-reflection-form.service';
 
 @Component({
   selector: 'app-trainee-reflection',
@@ -10,18 +14,15 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrls: ['./trainee-reflection.component.css']
 })
 export class TraineeReflectionComponent implements OnInit {
-  questions: RatedQuestionComponent;
-  rating:SelectedRatingModel;
-  constructor() { }
+
+  selfReflectionViewModel = new SelfReflectionFormViewModel();
+  
+  constructor(private ratedQuestionsService: RatedQuestionsService,
+    private selfReflectionFormService: SelfReflectionFormService) {
+  }
 
   ngOnInit() {
-    // this.questions = [
-    //   {
-    //     options:10,
-    //     questionText:'hi',
-    //     selectedRating:this.ngOnInit;
-    //   }
-    // ]
+    
   }
 
 }

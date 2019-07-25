@@ -1,3 +1,3 @@
-export class SelectedRatingObject implements SelectedRatingObject{
-    
+export class SelectedRatingObject implements SelectedRatingObject {
+
 }
