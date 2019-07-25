@@ -5,20 +5,19 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface CohortTableItem {
-  name: string;
+  firstName: string;
+  secondName: string;
   week1: number;
   week2: number;
- 
-
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: CohortTableItem[] = [
-  { name: 'Carl', week1: 7.5, week2: 6.9 },
-  { name: 'John', week1: 7.2, week2: 6.4 },
-  { name: 'Luke', week1: 9.4, week2: 9.6 },
-  { name: 'Mary', week1: 8.5, week2: 7.9 },
-  { name: 'Lucy', week1: 6.7, week2: 4.8 },
+  { firstName: 'Carl', secondName: 'Malone', week1: 7.5, week2: 6.9 },
+  { firstName: 'John', secondName: 'Stockton', week1: 7.2, week2: 6.4 },
+  { firstName: 'Luke', secondName: 'Shaw', week1: 9.4, week2: 9.6 },
+  { firstName: 'Mary', secondName: 'Magdalene', week1: 8.5, week2: 7.9 },
+  { firstName: 'Lucy', secondName: 'Holmes', week1: 6.7, week2: 4.8 },
 
 ];
 
@@ -82,7 +81,8 @@ export class CohortTableDataSource extends DataSource<CohortTableItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
+        case 'firstName': return compare(a.firstName, b.firstName, isAsc);
+        case 'secondName': return compare(a.secondName, b.secondName, isAsc);
         case 'week1': return compare(+a.week1, +b.week1, isAsc);
         case 'week2': return compare(+a.week2, +b.week2, isAsc);
         default: return 0;

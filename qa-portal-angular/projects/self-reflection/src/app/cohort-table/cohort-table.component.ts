@@ -14,7 +14,7 @@ export class CohortTableComponent implements AfterViewInit, OnInit {
   dataSource: CohortTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'week1', 'week2', 'week3', 'week4', 'week5', 'week6', 'week7', 'week8', 'week9'];
+  displayedColumns = ['firstName', 'secondName', 'week1', 'week2', 'week3', 'week4', 'week5', 'week6', 'week7', 'week8', 'week9'];
 
   ngOnInit() {
     this.dataSource = new CohortTableDataSource();
