@@ -1,3 +1,20 @@
-<p>
-  cohort-trainees works!
-</p>
+<div class='cohort-trainees'>
+  <div class='self-reflection-heading'>
+    <h5 class='title'>
+      <span class='cohort-trainees-name'> Cohort Name </span> &nbsp; <span class='cohort-trainees-number'> Cohort
+        Number
+      </span> &nbsp;
+    </h5>
+  </div>
+  <span class='cohort-trainees-pleaseselect'>Please Select a trainee:</span>
+  <div class='cohort-trainees-grid-container'>
+    <table>
+      <tr><td>first name</td><td>last name</td></tr>
+      <tr ng-repeat='x in trainees'>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+      </tr>
+
+    </table>
+  </div>
+</div>
