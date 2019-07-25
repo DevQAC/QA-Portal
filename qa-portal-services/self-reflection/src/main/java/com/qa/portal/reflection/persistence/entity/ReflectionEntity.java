@@ -1,15 +1,10 @@
 package com.qa.portal.reflection.persistence.entity;
 
 import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
@@ -24,6 +19,9 @@ public class ReflectionEntity extends QaBaseEntity {
 	@SequenceGenerator(name = "reflection_sequence", sequenceName = "training.reflection_sequence", allocationSize = 1)
 	private Integer id;
 
+	@OneToMany(mappedBy = "reflection")
+	private Set<ReflectionQuestionEntity> reflectionQuestions;
+
 	@ManyToOne
 	@JoinColumn(name = "reviewer_id")
 	private TrainerEntity reviewer;
@@ -32,7 +30,8 @@ public class ReflectionEntity extends QaBaseEntity {
 	@JoinColumn(name = "responder_id")
 	private TraineeEntity responder;
 
-	private LocalDate date;
+	@Column(name = "form_date")
+	private LocalDate formDate;
 
 	public Integer getId() {
 		return id;
@@ -40,6 +39,14 @@ public class ReflectionEntity extends QaBaseEntity {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Set<ReflectionQuestionEntity> getReflectionQuestions() {
+		return reflectionQuestions;
+	}
+
+	public void setReflectionQuestions(Set<ReflectionQuestionEntity> reflectionQuestions) {
+		this.reflectionQuestions = reflectionQuestions;
 	}
 
 	public TrainerEntity getReviewer() {
@@ -58,61 +65,42 @@ public class ReflectionEntity extends QaBaseEntity {
 		this.responder = responder;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getFormDate() {
+		return formDate;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setFormDate(LocalDate formDate) {
+		this.formDate = formDate;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ReflectionEntity that = (ReflectionEntity) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(reflectionQuestions, that.reflectionQuestions) &&
+				Objects.equals(reviewer, that.reviewer) &&
+				Objects.equals(responder, that.responder) &&
+				Objects.equals(formDate, that.formDate);
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((responder == null) ? 0 : responder.hashCode());
-		result = prime * result + ((reviewer == null) ? 0 : reviewer.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ReflectionEntity other = (ReflectionEntity) obj;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (responder == null) {
-			if (other.responder != null)
-				return false;
-		} else if (!responder.equals(other.responder))
-			return false;
-		if (reviewer == null) {
-			if (other.reviewer != null)
-				return false;
-		} else if (!reviewer.equals(other.reviewer))
-			return false;
-		return true;
+		return Objects.hash(id, reflectionQuestions, reviewer, responder, formDate);
 	}
 
 	@Override
 	public String toString() {
-		return "ReflectionEntity [id=" + id + ", reviewer=" + reviewer + ", responder=" + responder + ", date=" + date
-				+ "]";
+		return "ReflectionEntity{" +
+				"id=" + id +
+				", reflectionQuestions=" + reflectionQuestions +
+				", reviewer=" + reviewer +
+				", responder=" + responder +
+				", formDate=" + formDate +
+				", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
+				", lastUpdatedBy='" + lastUpdatedBy + '\'' +
+				", version=" + version +
+				'}';
 	}
-
 }

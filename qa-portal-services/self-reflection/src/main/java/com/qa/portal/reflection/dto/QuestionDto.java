@@ -1,47 +1,54 @@
 package com.qa.portal.reflection.dto;
 
-import java.util.Collections;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qa.portal.common.dto.QaBaseDto;
 
-public class QuestionDto extends QaBaseDto {
+import java.util.Objects;
 
-	private final Integer id;
+public final class QuestionDto extends QaBaseDto {
 
-	private final String body;
+    private Integer id;
 
-	private final String category;
+    private String body;
 
-	private final Set<ReflectionDto> forms;
+    private String category;
 
-	@JsonCreator
-	public QuestionDto(@JsonProperty Integer id, @JsonProperty String body, @JsonProperty String category,
-			@JsonProperty Set<ReflectionDto> forms) {
-		super();
-		this.id = id;
-		this.body = body;
-		this.category = category;
-		this.forms = forms;
-		
-	}
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getBody() {
-		return body;
-	}
+    public String getBody() {
+        return body;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public String getCategory() {
+        return category;
+    }
 
-	public Set<ReflectionDto> getForms() {
-		return Collections.unmodifiableSet(forms);
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QuestionDto that = (QuestionDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(body, that.body) &&
+                Objects.equals(category, that.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, body, category);
+    }
 }
