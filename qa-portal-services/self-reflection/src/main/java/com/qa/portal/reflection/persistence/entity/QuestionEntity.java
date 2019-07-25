@@ -1,14 +1,9 @@
 package com.qa.portal.reflection.persistence.entity;
 
+import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 
@@ -21,9 +16,14 @@ public class QuestionEntity extends QaBaseEntity {
 	@SequenceGenerator(name = "question_sequence", sequenceName = "training.question_sequence", allocationSize = 1)
 	private Integer id;
 
+	@Column(name="body")
 	private String body;
 
+	@Column(name="category")
 	private String category;
+
+	@Column(name="num_options")
+	private Integer numberOfOptions;
 
 	@OneToMany(mappedBy = "question")
 	private Set<ReflectionQuestionEntity> forms;
@@ -52,6 +52,14 @@ public class QuestionEntity extends QaBaseEntity {
 		this.category = category;
 	}
 
+	public Integer getNumberOfOptions() {
+		return numberOfOptions;
+	}
+
+	public void setNumberOfOptions(Integer numberOfOptions) {
+		this.numberOfOptions = numberOfOptions;
+	}
+
 	public Set<ReflectionQuestionEntity> getForms() {
 		return forms;
 	}
@@ -61,51 +69,33 @@ public class QuestionEntity extends QaBaseEntity {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((body == null) ? 0 : body.hashCode());
-		result = prime * result + ((category == null) ? 0 : category.hashCode());
-		result = prime * result + ((forms == null) ? 0 : forms.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		QuestionEntity that = (QuestionEntity) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(body, that.body) &&
+				Objects.equals(category, that.category) &&
+				Objects.equals(numberOfOptions, that.numberOfOptions) &&
+				Objects.equals(forms, that.forms);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		QuestionEntity other = (QuestionEntity) obj;
-		if (body == null) {
-			if (other.body != null)
-				return false;
-		} else if (!body.equals(other.body))
-			return false;
-		if (category == null) {
-			if (other.category != null)
-				return false;
-		} else if (!category.equals(other.category))
-			return false;
-		if (forms == null) {
-			if (other.forms != null)
-				return false;
-		} else if (!forms.equals(other.forms))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+	public int hashCode() {
+		return Objects.hash(id, body, category, numberOfOptions, forms);
 	}
 
 	@Override
 	public String toString() {
-		return "QuestionEntity [id=" + id + ", body=" + body + ", category=" + category + ", forms=" + forms + "]";
+		return "QuestionEntity{" +
+				"id=" + id +
+				", body='" + body + '\'' +
+				", category='" + category + '\'' +
+				", numberOfOptions=" + numberOfOptions +
+				", forms=" + forms +
+				", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
+				", lastUpdatedBy='" + lastUpdatedBy + '\'' +
+				", version=" + version +
+				'}';
 	}
-
 }
