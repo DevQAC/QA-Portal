@@ -1,20 +1,31 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 <div class='cohort-trainees'>
   <div class='self-reflection-heading'>
-    <h5 class='title'>
-      <span class='cohort-trainees-name'> Cohort Name </span> &nbsp; <span class='cohort-trainees-number'> Cohort
-        Number
-      </span> &nbsp;
-    </h5>
+    <span class='cohort-trainees-name'> Cohort Name </span> &nbsp; <span class='cohort-trainees-number'> Cohort
+      Number
+    </span> &nbsp;
   </div>
   <span class='cohort-trainees-pleaseselect'>Please Select a trainee:</span>
   <div class='cohort-trainees-grid-container'>
-    <table>
-      <tr><td>first name</td><td>last name</td></tr>
-      <tr ng-repeat='x in trainees'>
-        <td>{{ x.firstname }}</td>
-        <td>{{ x.lastname }}</td>
-      </tr>
+    <table class='table table-striped'>
+      <thead class='thead-light'>
+        <tr class='cohort-trainees-tableheader'>
+          <td>#</td>
+          <td>first name</td>
+          <td>last name</td>
+        </tr>
+      </thead>
 
+      <tbody>
+
+        <tr *ngFor='let x of trainees' class='cohort-trainees-tablerow'>
+          <th scope='row'>1</th>
+          <td>{{ x.firstname }}</td>
+          <td>{{ x.lastname }}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>
