@@ -13,9 +13,6 @@ const routes: Routes = [
         component: QaErrorPageComponent
       }
     ]
-  },
-  {
-    path: '**', redirectTo: '/qa/portal/home', pathMatch: 'full'
   }
 ];
 
