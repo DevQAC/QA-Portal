@@ -13,8 +13,6 @@ import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 @Repository
 public interface ReflectionRepository extends JpaRepository<ReflectionEntity, Integer> {
 
-	Optional<ReflectionEntity> findByReviewerAndDate(QaTrainerEntity trainer, LocalDate date);
-
 	Optional<ReflectionEntity> findByResponder(QaTraineeEntity trainee);
 
 	Optional<ReflectionEntity> findByReviewerAndFormDate(TrainerEntity trainer, LocalDate date);

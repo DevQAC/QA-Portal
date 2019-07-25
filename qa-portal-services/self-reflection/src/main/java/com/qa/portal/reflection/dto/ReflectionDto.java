@@ -1,18 +1,12 @@
 package com.qa.portal.reflection.dto;
 
-import java.sql.Date;
+import com.qa.portal.common.dto.QaBaseDto;
+import com.qa.portal.common.dto.QaUserDto;
+
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.qa.portal.common.dto.QaBaseDto;
-import com.qa.portal.common.dto.QaTraineeDto;
-import com.qa.portal.common.dto.QaTrainerDto;
-import com.qa.portal.common.dto.QaUserDto;
 
 public final class ReflectionDto extends QaBaseDto {
 
@@ -22,44 +16,16 @@ public final class ReflectionDto extends QaBaseDto {
 
     private QaUserDto reviewer;
 
+    private LocalDate date;
+
     private String trainerComments;
 
     private String learningPathway;
 
-    private LocalDate date;
-
-    private Set<QuestionDto> questions;
-
-    // @JsonCreator
-    // public ReflectionDto(@JsonProperty Integer id, @JsonProperty QaTraineeDto
-    // responder, @JsonProperty QaTrainerDto reviewer,
-    // @JsonProperty Date date, @JsonProperty Set<QuestionDto> questions) {
-    // super();
-    // this.id = id;
-    // this.responder = responder;
-    // this.reviewer = reviewer;
-    // this.date = date;
-    // this.setQuestions(questions);
-    // }
-
-    // public ReflectionDto() {
-    // this.setQuestions(null);
-    // }
+    private Set<ReflectionQuestionDto> questions;
 
     public Integer getId() {
         return id;
-    }
-
-    public String getTrainerComments() {
-        return trainerComments;
-    }
-
-    public String getLearningPathway() {
-        return learningPathway;
-    }
-
-    public Set<ReflectionQuestionDto> getQuestions() {
-        return Collections.unmodifiableSet(this.questions);
     }
 
     public QaUserDto getResponder() {
@@ -72,6 +38,18 @@ public final class ReflectionDto extends QaBaseDto {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public String getTrainerComments() {
+        return trainerComments;
+    }
+
+    public String getLearningPathway() {
+        return learningPathway;
+    }
+
+    public Set<ReflectionQuestionDto> getQuestions() {
+        return Collections.unmodifiableSet(this.questions);
     }
 
     public void setId(Integer id) {
@@ -90,16 +68,16 @@ public final class ReflectionDto extends QaBaseDto {
         this.date = date;
     }
 
-    public void setQuestions(Set<QuestionDto> questions) {
-        this.questions = Optional.ofNullable(questions).orElse(new HashSet<QuestionDto>());
-    }
-
     public void setTrainerComments(String trainerComments) {
         this.trainerComments = trainerComments;
     }
 
     public void setLearningPathway(String learningPathway) {
         this.learningPathway = learningPathway;
+    }
+
+    public void setQuestions(Set<ReflectionQuestionDto> questions) {
+        this.questions = questions;
     }
 
     @Override
