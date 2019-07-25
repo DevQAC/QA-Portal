@@ -1,20 +1,20 @@
-drop table if exists training.dept_role_menu_item cascade;
+drop table if exists training.dept_role_menu_item CASCADE;
 
-drop table if exists training.dept_role_application cascade;
+drop table if exists training.dept_role_application CASCADE;
 
-drop table if exists training.dept_role cascade;
+drop table if exists training.dept_role CASCADE;
 
-drop table if exists training.app_menu_item cascade;
+drop table if exists training.app_menu_item CASCADE;
 
-drop table if exists training.role cascade;
+drop table if exists training.role CASCADE;
 
-drop table if exists training.department cascade;
+drop table if exists training.department CASCADE;
 
-drop table if exists training.application cascade;
+drop table if exists training.application CASCADE;
 
-drop table if exists training.qa_cohort cascade;
+drop table if exists training.qa_cohort CASCADE;
 
-drop table if exists training.qa_user cascade;
+drop table if exists training.qa_user CASCADE;
 
 create table if not exists training.application
 (
@@ -139,5 +139,3 @@ create table if not exists training.qa_cohort
 );
 
 alter table training.qa_cohort owner to postgres;
-
-
