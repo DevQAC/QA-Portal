@@ -6,31 +6,20 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 // TODO: Replace this with your own data model type
 export interface CohortTableItem {
   name: string;
-  id: number;
+  week1: number;
+  week2: number;
+ 
+
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: CohortTableItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  { name: 'Carl', week1: 7.5, week2: 6.9 },
+  { name: 'John', week1: 7.2, week2: 6.4 },
+  { name: 'Luke', week1: 9.4, week2: 9.6 },
+  { name: 'Mary', week1: 8.5, week2: 7.9 },
+  { name: 'Lucy', week1: 6.7, week2: 4.8 },
+
 ];
 
 /**
@@ -94,7 +83,8 @@ export class CohortTableDataSource extends DataSource<CohortTableItem> {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
         case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'week1': return compare(+a.week1, +b.week1, isAsc);
+        case 'week2': return compare(+a.week2, +b.week2, isAsc);
         default: return 0;
       }
     });
