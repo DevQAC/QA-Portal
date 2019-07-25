@@ -4,12 +4,12 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
-import { TraineeReflectionHistoryComponent } from './trainee-reflection-history/trainee-reflection-history.component';
+import { SelfReflectionHistoryComponent } from './self-reflection-history/self-reflection-history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TraineeReflectionHistoryComponent
+    SelfReflectionHistoryComponent
   ],
   imports: [
     BrowserModule,

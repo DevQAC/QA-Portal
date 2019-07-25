@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TraineeReflectionHistoryComponent } from './trainee-reflection-history/trainee-reflection-history.component';
+import { SelfReflectionHistoryComponent } from './self-reflection-history/self-reflection-history.component';
 
 const routes: Routes = [
   {
     path: 'trainee',
     children: [
       {
-        path: 'selfreflections', component: TraineeReflectionHistoryComponent
+        path: 'selfreflections', component: SelfReflectionHistoryComponent
       }
   ]}
 ];

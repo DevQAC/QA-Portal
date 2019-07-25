@@ -22,11 +22,11 @@ const reflections: reflection[] = [
 ]
 
 @Component({
-  selector: 'app-trainee-reflection-history',
-  templateUrl: './trainee-reflection-history.component.html',
-  styleUrls: ['./trainee-reflection-history.component.css']
+  selector: 'app-self-reflection-history',
+  templateUrl: './self-reflection-history.component.html',
+  styleUrls: ['./self-reflection-history.component.css']
 })
-export class TraineeReflectionHistoryComponent implements OnInit {
+export class SelfReflectionHistoryComponent implements OnInit {
   displayedColumns: string[] = ['content', 'date'];
   dataSource = new MatTableDataSource<reflection>(reflections);
   today = new Date().getDay();
