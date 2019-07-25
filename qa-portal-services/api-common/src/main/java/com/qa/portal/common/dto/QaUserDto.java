@@ -2,15 +2,27 @@ package com.qa.portal.common.dto;
 
 import java.util.Objects;
 
-public final class QaUserDto extends QaBaseDto {
+public class QaUserDto extends QaBaseDto {
 	
-	private final Integer id;
+	private Integer id;
 
-	private final String userName;
+	private String userName;
 
 	public QaUserDto(Integer id, String userName) {
 		super();
 		this.id = id;
+		this.userName = userName;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public QaUserDto() {
+		super();
+	}
+
+	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 

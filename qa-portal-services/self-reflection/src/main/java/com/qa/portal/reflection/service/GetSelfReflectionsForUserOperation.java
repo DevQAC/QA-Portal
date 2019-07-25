@@ -5,7 +5,7 @@ import java.util.Set;
 import org.springframework.stereotype.Component;
 
 import com.qa.portal.common.exception.QaResourceNotFoundException;
-import com.qa.portal.common.persistence.entity.TraineeEntity;
+import com.qa.portal.common.persistence.entity.QaTraineeEntity;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.persistence.repository.ReflectionRepository;
@@ -14,7 +14,7 @@ import com.qa.portal.reflection.persistence.repository.ReflectionRepository;
 public class GetSelfReflectionsForUserOperation {
 	
 	public Set<ReflectionDto> getSelfReflectionsForUser(String traineeId, ReflectionRepository reflectionRepo, QaTraineeRepository traineeRepo) {
-		TraineeEntity trainee = traineeRepo.findByUserName(traineeId).stream().findFirst()
+		QaTraineeEntity trainee = traineeRepo.findByUserName(traineeId).stream().findFirst()
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
 		reflectionRepo.findByResponder(trainee);
 		return null;

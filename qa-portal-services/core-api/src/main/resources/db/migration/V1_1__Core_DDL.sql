@@ -16,6 +16,8 @@ drop table if exists training.qa_cohort CASCADE;
 
 drop table if exists training.qa_user CASCADE;
 
+create schema if not exists training authorization postgres;
+
 create table if not exists training.application
 (
 	id integer not null

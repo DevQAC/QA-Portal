@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @DiscriminatorValue(value = "TRAINEE")
-public class TraineeEntity extends QaUserEntity {
+public class QaTraineeEntity extends QaUserEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "cohort_id")

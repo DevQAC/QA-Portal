@@ -25,7 +25,7 @@ export class TrainerReflectionComponent implements OnInit {
   public trainerComments = '';
   public learningPathway = '';
 
-  constructor(private traineeReflectionService: SelfReflectionService) {
+  constructor(private selfReflectionService: SelfReflectionService) {
     this.trainerComments = 'Ea qui ipsum sint nisi et sunt et eu commodo proident id.' +
       'Exercitation adipisicing ut aute consequat pariatur minim duis cupidatat velit quis. Qui ' +
       'consectetur reprehenderit nisi deserunt adipisicing velit enim quis cillum eiusmod. Minim ea mollit in ' +
@@ -63,18 +63,20 @@ export class TrainerReflectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    const randomId = () => Math.floor(Math.random() * Math.pow(10, 7));
     const fakeReflection: Reflection = {
-      responder: { id: randomId(), userName: 'David' },
-      reviewer: { id: randomId(), userName: 'Alan' },
-      date: new Date(),
-      questions: []
+      responder: { userName: 'David' },
+      reviewer: { userName: 'Alan' },
+      // date: Reflection.dateToDays(new Date()),
+      date: new Date()
     };
-    // this.traineeReflectionService.create(fakeReflection)
+    // console.log(fakeReflection);
+    this.selfReflectionService.create(fakeReflection)
+      .subscribe(data => console.log(data), error => console.log(error));
+    // this.selfReflectionService.getCurrent().subscribe(data => console.log(data), error => console.log(error));
+    // this.selfReflectionService.getById(3).subscribe(data => console.log(data), error => console.log(error));
+    // this.selfReflectionService.resp()
     //   .subscribe(data => console.log(data), error => console.log(error));
-    // this.traineeReflectionService.getCurrent().subscribe(data => console.log(data), error => console.log(error));
-    this.traineeReflectionService.getById(3).subscribe(data => console.log(data), error => console.log(error));
-    this.traineeReflectionService.getTraineeReflection().subscribe((skillAreas) => this.skillAreas = skillAreas);
+    this.selfReflectionService.getTraineeReflection().subscribe((skillAreas) => this.skillAreas = skillAreas);
     this.firstname = 'Firstname';
     this.surname = 'Surname';
     const titleColSpan = this.COL_MAX / this.skillAreas.length;

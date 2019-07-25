@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,7 +42,7 @@ public class ReflectionController {
 //		return ResponseEntity.ok(this.service.getSelfReflection(userId, date));
 //	}
 	@PostMapping
-	public ResponseEntity<ReflectionDto> createSelfReflection(ReflectionDto reflection) {
+	public ResponseEntity<ReflectionDto> createSelfReflection(@RequestBody ReflectionDto reflection) {
 		return ResponseEntity.ok(this.service.createSelfReflection(reflection, context.getUserName()));
 	}
 

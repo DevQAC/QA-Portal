@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.qa.portal.common.persistence.entity.TraineeEntity;
-import com.qa.portal.common.persistence.entity.TrainerEntity;
+import com.qa.portal.common.persistence.entity.QaTraineeEntity;
+import com.qa.portal.common.persistence.entity.QaTrainerEntity;
 import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 
 @Repository
 public interface ReflectionRepository extends JpaRepository<ReflectionEntity, Integer> {
 
-	Optional<ReflectionEntity> findByReviewerAndDate(TrainerEntity trainer, LocalDate date);
-	Optional<ReflectionEntity> findByResponder(TraineeEntity trainee);
+	Optional<ReflectionEntity> findByReviewerAndDate(QaTrainerEntity trainer, LocalDate date);
+	Optional<ReflectionEntity> findByResponder(QaTraineeEntity trainee);
 
 }

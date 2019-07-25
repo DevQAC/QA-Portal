@@ -1,12 +1,15 @@
 import { User } from './user';
 import { Question } from './question';
-import { Trainer } from './trainer';
-import { Trainee } from './trainee';
+import { Base } from './base';
 
-export class Reflection {
+export class Reflection extends Base {
   id?: number;
   responder: User;
   reviewer: User;
-  date: Date;
-  questions: Question[];
+  date?: Date;
+  questions?: Question[];
+
+  public static dateToDays(date: Date): number {
+    return Math.floor(+date / 86400000);
+  }
 }

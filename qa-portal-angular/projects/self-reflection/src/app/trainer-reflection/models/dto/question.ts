@@ -1,7 +1,7 @@
 import { Reflection } from './reflection';
-import { ReflectionQuestion } from './reflection-question';
+import { Base } from './base';
 
-export class Question {
+export class Question extends Base {
   id?: number;
   body: string;
   category: string;

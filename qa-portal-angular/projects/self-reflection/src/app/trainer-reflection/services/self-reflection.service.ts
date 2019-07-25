@@ -24,8 +24,12 @@ export class SelfReflectionService {
     return this.http.get<any>(`${SELF_REFLECTION_API}/${id}`);
   }
 
-  public create(reflection: Reflection): Observable<Reflection> {
-    return this.http.post<Reflection>(SELF_REFLECTION_API, reflection);
+  public resp(): Observable<any> {
+    return this.http.get<any>(`${SELF_REFLECTION_API}/resp`);
+  }
+
+  public create(reflection: Reflection): Observable<any> {
+    return this.http.post<any>(SELF_REFLECTION_API, reflection);
   }
 
   private traineeReflectionData(): SkillArea[] {

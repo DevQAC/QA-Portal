@@ -1,7 +1,9 @@
 package com.qa.portal.reflection.persistence.entity;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +14,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
-import com.qa.portal.common.persistence.entity.TraineeEntity;
-import com.qa.portal.common.persistence.entity.TrainerEntity;
+import com.qa.portal.common.persistence.entity.QaTraineeEntity;
+import com.qa.portal.common.persistence.entity.QaTrainerEntity;
 
 @Entity
 @Table(name = "reflection", schema = "training")
@@ -24,13 +26,13 @@ public class ReflectionEntity extends QaBaseEntity {
 	@SequenceGenerator(name = "reflection_sequence", sequenceName = "training.reflection_sequence", allocationSize = 1)
 	private Integer id;
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "reviewer_id")
-	private TrainerEntity reviewer;
+	private QaTrainerEntity reviewer;
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "responder_id")
-	private TraineeEntity responder;
+	private QaTraineeEntity responder;
 
 	private LocalDate date;
 
@@ -42,19 +44,19 @@ public class ReflectionEntity extends QaBaseEntity {
 		this.id = id;
 	}
 
-	public TrainerEntity getReviewer() {
+	public QaTrainerEntity getReviewer() {
 		return reviewer;
 	}
 
-	public void setReviewer(TrainerEntity reviewer) {
+	public void setReviewer(QaTrainerEntity reviewer) {
 		this.reviewer = reviewer;
 	}
 
-	public TraineeEntity getResponder() {
+	public QaTraineeEntity getResponder() {
 		return responder;
 	}
 
-	public void setResponder(TraineeEntity responder) {
+	public void setResponder(QaTraineeEntity responder) {
 		this.responder = responder;
 	}
 
@@ -65,7 +67,7 @@ public class ReflectionEntity extends QaBaseEntity {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
