@@ -20,8 +20,8 @@
 
       <tbody>
 
-        <tr *ngFor='let x of trainees' class='cohort-trainees-tablerow'>
-          <th scope='row'>1</th>
+        <tr *ngFor='let x of trainees; let i=index' class='cohort-trainees-tablerow'>
+          <th scope='row'>{{i+1}}</th>
           <td>{{ x.firstname }}</td>
           <td>{{ x.lastname }}</td>
         </tr>
