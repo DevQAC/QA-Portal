@@ -4,26 +4,29 @@
       This Week:
     </h5>
   </div>
-  <div>
-    <span class='left'>Self Reflection Form:</span><span class='right'>26/07/2019</span>
-  </div>
+  <table >
+    <tr><td>Self Reflection Form:</td><td>26/07/2019</td></tr>
+  </table>
+
   <div class='self-reflection-heading'>
     <h5 class='title'>
       Previous Weeks:
     </h5>
   </div>
-  <mat-table [dataSource]='dataSource' class="mat-elevation-z8">
-    <ng-container matColumnDef="content">
-      <mat-cell *matCellDef="let element"> Self Relfection Form </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="date">
-      <mat-cell *matCellDef="let reflection"> {{reflection.date}} </mat-cell>
+  <table mat-table [dataSource]='dataSource' class="mat-elevation-z8">
+
+    <ng-container matColumnDef='content'>
+      <mat-header-cell *matHeaderCellDef>Content</mat-header-cell>
+      <mat-cell *matCellDef='let element'> {{element.content}} </mat-cell>
     </ng-container>
 
-    <tr mat-row *matRowDef="let row; columns: displayedComuns;"></tr>
-  </mat-table>
-  
-  <div class='past-reflection-grid-container'>
-    
-  </div>
+    <ng-container matColumnDef='date'>
+        <mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+      <mat-cell *matCellDef='let element'> {{element.date}} </mat-cell>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef='let row; columns: displayedColumns;'></tr>
+  </table>
+
 </div>

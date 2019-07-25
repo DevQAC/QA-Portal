@@ -10,6 +10,7 @@ export interface reflection {
 
 const reflections: reflection[] = [
   {id:1, content:'Self Reflection Form', date: '19/07/2019'},
+  {id:2, content:'Self Reflection Form', date: '12/07/2019'},
   {id:2, content:'Self Reflection Form', date: '12/07/2019'}
 ]
 
