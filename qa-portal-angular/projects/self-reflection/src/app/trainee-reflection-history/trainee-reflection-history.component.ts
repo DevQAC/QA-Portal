@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 
 export interface reflection {
@@ -9,6 +10,12 @@ export interface reflection {
 }
 
 const reflections: reflection[] = [
+  {id:1, content:'Self Reflection Form', date: '19/07/2019'},
+  {id:2, content:'Self Reflection Form', date: '12/07/2019'},
+  {id:2, content:'Self Reflection Form', date: '12/07/2019'},
+  {id:1, content:'Self Reflection Form', date: '19/07/2019'},
+  {id:2, content:'Self Reflection Form', date: '12/07/2019'},
+  {id:2, content:'Self Reflection Form', date: '12/07/2019'},
   {id:1, content:'Self Reflection Form', date: '19/07/2019'},
   {id:2, content:'Self Reflection Form', date: '12/07/2019'},
   {id:2, content:'Self Reflection Form', date: '12/07/2019'}
@@ -21,14 +28,18 @@ const reflections: reflection[] = [
 })
 export class TraineeReflectionHistoryComponent implements OnInit {
   displayedColumns: string[] = ['content', 'date'];
-  dataSource = reflections;
+  dataSource = new MatTableDataSource<reflection>(reflections);
+  today = new Date().getDay();
+  upcomingFriday = new Date();
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor() {
     
   }
 
   ngOnInit() {
-    
+    this.dataSource.paginator = this.paginator;
   }
 
 }
