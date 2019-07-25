@@ -9,7 +9,7 @@
       </button>
       <mat-menu #sub_menu="matMenu">
         <ng-container *ngFor="let appl of deptApps.applications">
-          <a routerLink="{{getAppHome(appl.url)}}" mat-menu-item> {{appl.name}} </a>
+          <a routerLink="{{appl.url}}" mat-menu-item> {{appl.name}} </a>
         </ng-container>
       </mat-menu>
     </span>
