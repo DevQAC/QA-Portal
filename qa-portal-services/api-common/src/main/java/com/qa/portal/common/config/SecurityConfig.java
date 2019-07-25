@@ -16,9 +16,12 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @KeycloakConfiguration
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
-    @Autowired
-    KeycloakConfigResolver configResolver;
+    private KeycloakConfigResolver configResolver;
 
+    @Autowired
+    public SecurityConfig(KeycloakConfigResolver configResolver) {
+        this.configResolver = configResolver;
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

@@ -23,17 +23,20 @@ public class ApplicationService {
     //TODO - Maybe Cache this info for performance
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationService.class);
 
-    @Autowired
     private ApplicationServiceMapper applicationServiceMapper;
 
-    @Autowired
     private DepartmentRoleRepository departmentRoleRepository;
 
+    @Autowired
+    public ApplicationService(ApplicationServiceMapper applicationServiceMapper, DepartmentRoleRepository departmentRoleRepository) {
+        this.applicationServiceMapper = applicationServiceMapper;
+        this.departmentRoleRepository = departmentRoleRepository;
+    }
 
     @Transactional
     public List<DepartmentApplicationsDto> getApplicationsByDepartment(Collection<String> userRoles) {
         Set<DepartmentRoleApplicationEntity> dras = getDeptRoleApps(userRoles);
-        return applicationServiceMapper.createDepartmentsApplicationsDto(dras);
+        return applicationServiceMapper.createDepartmentsApplicationsDto(dras, userRoles);
     }
 
     private Set<DepartmentRoleApplicationEntity> getDeptRoleApps(Collection<String> userRoles) {
@@ -41,5 +44,9 @@ public class ApplicationService {
                 .filter(dr -> userRoles.contains(dr.getDepartmentRoleName()) || userRoles.contains(SUPER_USER_ROLE))
                 .flatMap(dr -> dr.getDeptRoleApplications().stream())
                 .collect(Collectors.toSet());
+    }
+
+    private void filterMenuItemsByRole() {
+
     }
 }
