@@ -26,11 +26,11 @@ public class QaCohortEntity extends QaBaseEntity {
 	private String name;
 
 	@OneToMany(mappedBy = "cohort")
-	private Set<QaTraineeEntity> trainees;
+	private Set<TraineeEntity> trainees;
 
 	@ManyToOne
 	@JoinColumn(name = "trainer_id")
-	private QaTrainerEntity trainer;
+	private TrainerEntity trainer;
 
 	public Integer getId() {
 		return id;
@@ -48,19 +48,19 @@ public class QaCohortEntity extends QaBaseEntity {
 		this.name = name;
 	}
 
-	public Set<QaTraineeEntity> getTrainees() {
+	public Set<TraineeEntity> getTrainees() {
 		return trainees;
 	}
 
-	public void setTrainees(Set<QaTraineeEntity> trainees) {
+	public void setTrainees(Set<TraineeEntity> trainees) {
 		this.trainees = trainees;
 	}
 
-	public QaTrainerEntity getTrainer() {
+	public TrainerEntity getTrainer() {
 		return trainer;
 	}
 
-	public void setTrainer(QaTrainerEntity trainer) {
+	public void setTrainer(TrainerEntity trainer) {
 		this.trainer = trainer;
 	}
 }

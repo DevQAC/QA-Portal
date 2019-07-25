@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 @Entity
 @DiscriminatorValue(value = "TRAINER")
-public class QaTrainerEntity extends QaUserEntity {
+public class TrainerEntity extends QaUserEntity {
 
 	@OneToMany(mappedBy = "trainer")
 	private Set<QaCohortEntity> cohorts;

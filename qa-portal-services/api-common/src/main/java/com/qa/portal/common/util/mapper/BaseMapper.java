@@ -4,12 +4,12 @@ import org.dozer.DozerBeanMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-import com.qa.portal.common.dto.QaTraineeDto;
-import com.qa.portal.common.dto.QaTrainerDto;
+import com.qa.portal.common.dto.TraineeDto;
+import com.qa.portal.common.dto.TrainerDto;
 import com.qa.portal.common.dto.QaUserDto;
 import com.qa.portal.common.persistence.entity.QaUserEntity;
-import com.qa.portal.common.persistence.entity.QaTraineeEntity;
-import com.qa.portal.common.persistence.entity.QaTrainerEntity;
+import com.qa.portal.common.persistence.entity.TraineeEntity;
+import com.qa.portal.common.persistence.entity.TrainerEntity;
 
 @Component
 @Primary
@@ -37,20 +37,20 @@ public class BaseMapper {
 		return mapper.map(qaUserEntity, QaUserDto.class);
 	}
 	
-	public QaTraineeEntity mapToQaTraineeEntity(QaTraineeDto qaTraineeDto) {
-		return mapper.map(qaTraineeDto, QaTraineeEntity.class);
+	public TraineeEntity mapToQaTraineeEntity(TraineeDto qaTraineeDto) {
+		return mapper.map(qaTraineeDto, TraineeEntity.class);
 	}
 	
-	public QaTraineeDto mapToQaTraineeDto(QaTraineeEntity qaTraineeEntity) {
-		return mapper.map(qaTraineeEntity, QaTraineeDto.class);
+	public TraineeDto mapToQaTraineeDto(TraineeEntity qaTraineeEntity) {
+		return mapper.map(qaTraineeEntity, TraineeDto.class);
 	}
 	
-	public QaTrainerEntity mapToQaTrainerEntity(QaTrainerDto qaTrainerDto) {
-		return mapper.map(qaTrainerDto, QaTrainerEntity.class);
+	public TrainerEntity mapToQaTrainerEntity(TrainerDto qaTrainerDto) {
+		return mapper.map(qaTrainerDto, TrainerEntity.class);
 	}
 	
-	public QaTrainerDto mapToQaTrainerDto(QaTrainerEntity qaTrainerEntity) {
-		return mapper.map(qaTrainerEntity, QaTrainerDto.class);
+	public TrainerDto mapToQaTrainerDto(TrainerEntity qaTrainerEntity) {
+		return mapper.map(qaTrainerEntity, TrainerDto.class);
 	}
 
 }

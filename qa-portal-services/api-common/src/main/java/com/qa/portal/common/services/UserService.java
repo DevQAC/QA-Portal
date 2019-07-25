@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.qa.portal.common.dto.QaCohortDto;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
-import com.qa.portal.common.persistence.entity.QaTrainerEntity;
+import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.CohortMapper;
 
@@ -27,7 +27,7 @@ public class UserService {
 
 	@Transactional
 	public List<QaCohortDto> getCohortsForTrainer(Integer id) {
-		QaTrainerEntity trainer = this.trainerRepo.findById(id)
+		TrainerEntity trainer = this.trainerRepo.findById(id)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainer not found"));
 		return trainer.getCohorts().stream().map(this.mapper::mapToQaCohortDto).collect(Collectors.toList());
 	}

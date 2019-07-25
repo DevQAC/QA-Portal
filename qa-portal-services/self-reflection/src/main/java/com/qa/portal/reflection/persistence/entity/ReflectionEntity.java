@@ -8,8 +8,8 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
-import com.qa.portal.common.persistence.entity.QaTraineeEntity;
-import com.qa.portal.common.persistence.entity.QaTrainerEntity;
+import com.qa.portal.common.persistence.entity.TraineeEntity;
+import com.qa.portal.common.persistence.entity.TrainerEntity;
 
 @Entity
 @Table(name = "reflection", schema = "training")
@@ -25,11 +25,11 @@ public class ReflectionEntity extends QaBaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "reviewer_id")
-	private QaTrainerEntity reviewer;
+	private TrainerEntity reviewer;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "responder_id")
-	private QaTraineeEntity responder;
+	private TraineeEntity responder;
 
 	@Column(name = "form_date")
 	private LocalDate formDate;
@@ -54,15 +54,15 @@ public class ReflectionEntity extends QaBaseEntity {
 		return reviewer;
 	}
 
-	public void setReviewer(QaTrainerEntity reviewer) {
+	public void setReviewer(TrainerEntity reviewer) {
 		this.reviewer = reviewer;
 	}
 
-	public QaTraineeEntity getResponder() {
+	public TraineeEntity getResponder() {
 		return responder;
 	}
 
-	public void setResponder(QaTraineeEntity responder) {
+	public void setResponder(TraineeEntity responder) {
 		this.responder = responder;
 	}
 

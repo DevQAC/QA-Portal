@@ -1,16 +1,13 @@
 package com.qa.portal.reflection.service;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.qa.portal.common.dto.QaTraineeDto;
-import com.qa.portal.common.dto.QaTrainerDto;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
-import com.qa.portal.common.persistence.entity.QaTrainerEntity;
+import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.reflection.dto.ReflectionDto;
@@ -54,7 +51,7 @@ public class ReflectionService {
 
 	@Transactional
 	public ReflectionDto getSelfReflection(Integer userId, LocalDate date) {
-		QaTrainerEntity trainer = this.trainerRepo.findById(userId)
+		TrainerEntity trainer = this.trainerRepo.findById(userId)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainer does not exist"));
 		ReflectionEntity reflection = this.reflectionRepo.findByReviewerAndFormDate(trainer, date)
 				.orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));

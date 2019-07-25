@@ -3,7 +3,7 @@ package com.qa.portal.common.dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public final class QaTraineeDto extends QaUserDto {
+public final class TraineeDto extends QaUserDto {
 	
 	private QaCohortDto cohort;
 
@@ -15,13 +15,13 @@ public final class QaTraineeDto extends QaUserDto {
 		this.cohort = cohort;
 	}
 
-	@JsonCreator
-	public QaTraineeDto(@JsonProperty Integer id, @JsonProperty String userName, @JsonProperty QaCohortDto cohort) {
-		super(id, userName);
-		this.cohort = cohort;
-	}
+//	@JsonCreator
+//	public QaTraineeDto(@JsonProperty Integer id, @JsonProperty String userName, @JsonProperty QaCohortDto cohort) {
+//		super(id, userName);
+//		this.cohort = cohort;
+//	}
 	
-	public QaTraineeDto() {
+	public TraineeDto() {
 		
 	}
 

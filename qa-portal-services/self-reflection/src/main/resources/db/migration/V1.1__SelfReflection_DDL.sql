@@ -44,7 +44,7 @@ create table if not exists training.qa_cohort
 	trainer_id integer not null,
 	last_updated_timestamp timestamp not null,
    	last_updated_by varchar(255) not null,
-   	version integer default 1 not null,
+   	version integer default 1 not null
 );
 
 alter table training.qa_cohort owner to postgres;
@@ -90,7 +90,7 @@ create table if not exists training.reflection
 	form_date date not null,
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
-	version integer default 1 not null,
+	version integer default 1 not null
 );
 
 alter table training.reflection owner to postgres;
@@ -107,7 +107,7 @@ create table if not exists training.reflection_question
 	trainer_response integer,
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
-	version integer default 1 not null,
+	version integer default 1 not null
 );
 
 alter table training.reflection_question owner to postgres;
