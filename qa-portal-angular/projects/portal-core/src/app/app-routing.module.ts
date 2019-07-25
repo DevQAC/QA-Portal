@@ -21,7 +21,9 @@ const routes: Routes = [
   {
     path: 'qa',
     children: [
+/*
       {path: '**', redirectTo: '/qa/portal/home'}
+*/
     ]
   },
   {
