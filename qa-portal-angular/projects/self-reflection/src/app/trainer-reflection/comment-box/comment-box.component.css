@@ -3,6 +3,10 @@
   .save-icon .save-label {
     display: none;
   }
+
+  .comments-card .title span {
+    font-size: 18px;
+  }
 }
 
 .comments-card {

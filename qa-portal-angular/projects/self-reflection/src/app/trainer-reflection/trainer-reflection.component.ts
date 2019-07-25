@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { SkillArea } from './models/skill-area';
 import { Tile } from './models/tileRow';
 import { User } from './models/User.enum';
-import { TraineeReflectionService } from './services/trainee-reflection.service';
+import { SelfReflectionService } from './services/self-reflection.service';
+import { Reflection } from './models/dto/reflection';
+import { Trainee } from './models/dto/trainee';
 
 @Component({
   selector: 'app-trainer-reflection',
@@ -23,7 +25,7 @@ export class TrainerReflectionComponent implements OnInit {
   public trainerComments = '';
   public learningPathway = '';
 
-  constructor(private traineeReflectionService: TraineeReflectionService) {
+  constructor(private traineeReflectionService: SelfReflectionService) {
     this.trainerComments = 'Ea qui ipsum sint nisi et sunt et eu commodo proident id.' +
       'Exercitation adipisicing ut aute consequat pariatur minim duis cupidatat velit quis. Qui ' +
       'consectetur reprehenderit nisi deserunt adipisicing velit enim quis cillum eiusmod. Minim ea mollit in ' +
@@ -61,6 +63,17 @@ export class TrainerReflectionComponent implements OnInit {
   }
 
   ngOnInit() {
+    const randomId = () => Math.floor(Math.random() * Math.pow(10, 7));
+    const fakeReflection: Reflection = {
+      responder: { id: randomId(), userName: 'David' },
+      reviewer: { id: randomId(), userName: 'Alan' },
+      date: new Date(),
+      questions: []
+    };
+    // this.traineeReflectionService.create(fakeReflection)
+    //   .subscribe(data => console.log(data), error => console.log(error));
+    // this.traineeReflectionService.getCurrent().subscribe(data => console.log(data), error => console.log(error));
+    this.traineeReflectionService.getById(3).subscribe(data => console.log(data), error => console.log(error));
     this.traineeReflectionService.getTraineeReflection().subscribe((skillAreas) => this.skillAreas = skillAreas);
     this.firstname = 'Firstname';
     this.surname = 'Surname';

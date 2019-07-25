@@ -2,16 +2,30 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { SkillArea } from '../models/skill-area';
 import { User } from '../models/User.enum';
+import { HttpClient } from '@angular/common/http';
+import { SELF_REFLECTION_API } from 'projects/portal-core/src/app/_common/models/portal-constants';
+import { Reflection } from '../models/dto/reflection';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TraineeReflectionService {
+export class SelfReflectionService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   public getTraineeReflection(): Observable<SkillArea[]> {
     return of(this.traineeReflectionData());
+  }
+
+  public getCurrent(): Observable<any> {
+    return this.http.get<any>(`${SELF_REFLECTION_API}/current`);
+  }
+  public getById(id: number): Observable<any> {
+    return this.http.get<any>(`${SELF_REFLECTION_API}/${id}`);
+  }
+
+  public create(reflection: Reflection): Observable<Reflection> {
+    return this.http.post<Reflection>(SELF_REFLECTION_API, reflection);
   }
 
   private traineeReflectionData(): SkillArea[] {

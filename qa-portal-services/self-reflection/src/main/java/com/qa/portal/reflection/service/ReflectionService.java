@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
+import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
@@ -24,19 +25,22 @@ public class ReflectionService {
 
 	private QaTrainerRepository trainerRepo;
 	
+	private QaTraineeRepository traineeRepo;
+	
 	private GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation;
 
-	public ReflectionService(ReflectionRepository repo, ReflectionMapper mapper, QaTrainerRepository trainerRepo, GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation) {
+	public ReflectionService(ReflectionRepository repo, ReflectionMapper mapper, QaTrainerRepository trainerRepo, QaTraineeRepository traineeRepo, GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation) {
 		super();
 		this.reflectionRepo = repo;
 		this.mapper = mapper;
 		this.trainerRepo = trainerRepo;
 		this.getSelfReflectionsForUserOperation = getSelfReflectionsForUserOperation;
+		this.traineeRepo = traineeRepo;
 	}
 
 	@Transactional
 	public Set<ReflectionDto> getSelfReflectionsForTrainee(String traineeId) {
-		return Collections.emptySet();
+		return this.getSelfReflectionsForUserOperation.getSelfReflectionsForUser(traineeId, this.reflectionRepo, this.traineeRepo);
 	}
 
 	@Transactional

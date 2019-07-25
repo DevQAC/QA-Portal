@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QaCommonModule } from '../../../qa-common/src/app/app.module';
 import { TrainerReflectionComponent } from './trainer-reflection/trainer-reflection.component';
-import { CommentBoxComponent } from './comment-box/comment-box.component';
+import { CommentBoxComponent } from './trainer-reflection/comment-box/comment-box.component';
 
 @NgModule({
   declarations: [
