@@ -1,6 +1,7 @@
 package com.qa.portal.reflection.dto;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
@@ -11,20 +12,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qa.portal.common.dto.QaBaseDto;
 import com.qa.portal.common.dto.QaTraineeDto;
 import com.qa.portal.common.dto.QaTrainerDto;
+import com.qa.portal.common.dto.QaUserDto;
 
 public final class ReflectionDto extends QaBaseDto {
 
     private Integer id;
 
-    private QaTraineeDto responder;
+    private QaUserDto responder;
 
-    private QaTrainerDto reviewer;
+    private QaUserDto reviewer;
 
     private String trainerComments;
 
     private String learningPathway;
 
-    private Date date;
+    private LocalDate date;
 
     private Set<QuestionDto> questions;
 
@@ -60,15 +62,15 @@ public final class ReflectionDto extends QaBaseDto {
         return Collections.unmodifiableSet(this.questions);
     }
 
-    public QaTraineeDto getResponder() {
+    public QaUserDto getResponder() {
         return responder;
     }
 
-    public QaTrainerDto getReviewer() {
+    public QaUserDto getReviewer() {
         return reviewer;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -76,15 +78,15 @@ public final class ReflectionDto extends QaBaseDto {
         this.id = id;
     }
 
-    public void setResponder(QaTraineeDto responder) {
+    public void setResponder(QaUserDto responder) {
         this.responder = responder;
     }
 
-    public void setReviewer(QaTrainerDto reviewer) {
+    public void setReviewer(QaUserDto reviewer) {
         this.reviewer = reviewer;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
