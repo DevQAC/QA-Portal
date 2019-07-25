@@ -6,6 +6,7 @@ import { User } from './models/User.enum';
 import { SelfReflectionService } from './services/self-reflection.service';
 import { Reflection } from './models/dto/reflection';
 import { Trainee } from './models/dto/trainee';
+import { Question } from './models/dto/question';
 
 @Component({
   selector: 'app-trainer-reflection',
@@ -63,19 +64,11 @@ export class TrainerReflectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    const fakeReflection: Reflection = {
-      responder: { userName: 'David' },
-      reviewer: { userName: 'Alan' },
-      // date: Reflection.dateToDays(new Date()),
-      date: new Date()
-    };
-    // console.log(fakeReflection);
-    this.selfReflectionService.create(fakeReflection)
-      .subscribe(data => console.log(data), error => console.log(error));
-    // this.selfReflectionService.getCurrent().subscribe(data => console.log(data), error => console.log(error));
-    // this.selfReflectionService.getById(3).subscribe(data => console.log(data), error => console.log(error));
-    // this.selfReflectionService.resp()
-    //   .subscribe(data => console.log(data), error => console.log(error));
+    // const fakeReflection: Reflection = {
+    //   responder: { userName: 'David' },
+    //   reviewer: { userName: 'Alan' },
+    //   date: new Date()
+    // };
     this.selfReflectionService.getTraineeReflection().subscribe((skillAreas) => this.skillAreas = skillAreas);
     this.firstname = 'Firstname';
     this.surname = 'Surname';

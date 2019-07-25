@@ -18,7 +18,6 @@ public final class ReflectionDto extends QaBaseDto {
 
 	private QaTraineeDto responder;
 
-
 	private QaTrainerDto reviewer;
 
 	private Date date;
