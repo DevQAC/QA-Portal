@@ -3,57 +3,71 @@ package com.qa.portal.common.dto;
 import java.util.Objects;
 
 public class QaUserDto extends QaBaseDto {
-	
-	private Integer id;
 
-	private String userName;
+    private Integer id;
 
-	public QaUserDto(Integer id, String userName) {
-		super();
-		this.id = id;
-		this.userName = userName;
-	}
+    private String userName;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private String firstName;
 
-	public QaUserDto() {
-		super();
-	}
+    private String lastName;
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public QaUserDto() {
+        super();
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-		if (!super.equals(o))
-			return false;
-		QaUserDto qaUserDto = (QaUserDto) o;
-		return Objects.equals(id, qaUserDto.id) && Objects.equals(userName, qaUserDto.userName);
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(super.hashCode(), id, userName);
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	@Override
-	public String toString() {
-		return "QaUserDto{" + "id=" + id + ", userName='" + userName + '\'' + ", lastUpdatedTimestamp="
-				+ lastUpdatedTimestamp + ", lastUpdatedBy='" + lastUpdatedBy + '\'' + '}';
-	}
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        QaUserDto qaUserDto = (QaUserDto) o;
+        return Objects.equals(id, qaUserDto.id) && Objects.equals(userName, qaUserDto.userName)
+                && Objects.equals(firstName, qaUserDto.firstName) && Objects.equals(lastName, qaUserDto.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userName, firstName, lastName);
+    }
+
+    @Override
+    public String toString() {
+        return "QaUserDto{" + "id=" + id + ", userName='" + userName + '\'' + ", firstName='" + firstName + '\''
+                + ", lastName='" + lastName + '\'' + ", lastUpdatedTimestamp=" + lastUpdatedTimestamp
+                + ", lastUpdatedBy='" + lastUpdatedBy + '\'' + '}';
+    }
 }
