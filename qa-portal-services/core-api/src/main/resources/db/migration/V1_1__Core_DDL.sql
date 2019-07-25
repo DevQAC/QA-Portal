@@ -1,20 +1,20 @@
-drop table if exists training.dept_role_menu_item;
+drop table if exists training.dept_role_menu_item CASCADE;
 
-drop table if exists training.dept_role_application;
+drop table if exists training.dept_role_application CASCADE;
 
-drop table if exists training.dept_role;
+drop table if exists training.dept_role CASCADE;
 
-drop table if exists training.app_menu_item;
+drop table if exists training.app_menu_item CASCADE;
 
-drop table if exists training.role;
+drop table if exists training.role CASCADE;
 
-drop table if exists training.department;
+drop table if exists training.department CASCADE;
 
-drop table if exists training.application;
+drop table if exists training.application CASCADE;
 
-drop table if exists training.qa_cohort;
+drop table if exists training.qa_cohort CASCADE;
 
-drop table if exists training.qa_user cascade;
+drop table if exists training.qa_user CASCADE;
 
 create table if not exists training.application
 (
