@@ -1,17 +1,19 @@
 
-drop table if exists training.question;
+drop table if exists training.question CASCADE;
 
-drop table if exists training.cohort_question;
+drop table if exists training.cohort_question CASCADE;
 
-drop table if exists training.qa_user;
+drop table if exists training.qa_user CASCADE;
 
-drop table if exists training.qa_cohort;
+drop table if exists training.qa_cohort CASCADE;
 
-drop table if exists training.reflection;
+drop table if exists training.reflection CASCADE;
 
-drop table if exists training.reflection_question;
+drop table if exists training.reflection_question CASCADE;
 
+drop table if exists training.qa_cohort CASCADE;
 
+drop table if exists training.qa_user CASCADE;
 
 create table if not exists training.qa_user
 (
@@ -19,6 +21,8 @@ create table if not exists training.qa_user
 		constraint qa_user_pkey
 			primary key,
 	user_name varchar(255) not null,
+	first_name varchar(255) not null,
+	last_name varchar(255) not null,
 	reviewer_id integer
 		constraint fk_user_id
 			references training.qa_user,

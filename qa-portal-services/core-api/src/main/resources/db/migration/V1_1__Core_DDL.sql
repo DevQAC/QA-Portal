@@ -12,10 +12,6 @@ drop table if exists training.department CASCADE;
 
 drop table if exists training.application CASCADE;
 
-drop table if exists training.qa_cohort CASCADE;
-
-drop table if exists training.qa_user CASCADE;
-
 CREATE SCHEMA IF NOT EXISTS training;
 
 create table if not exists training.application

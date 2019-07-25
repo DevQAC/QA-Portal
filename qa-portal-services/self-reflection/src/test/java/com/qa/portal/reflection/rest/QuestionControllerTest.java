@@ -1,6 +1,7 @@
 package com.qa.portal.reflection.rest;
 
 import com.qa.portal.SelfReflectionApplication;
+import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -9,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Map;
 import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
@@ -30,16 +31,13 @@ public class QuestionControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private HttpHeaders httpHeaders = new HttpHeaders();
-
     @Test
+    @FlywayTest
     public void testGetUserRoles() {
-        HttpEntity<Map> request = new HttpEntity<>(null, httpHeaders);
         try {
-            LOGGER.debug("Calling get Questions for Cohort");
             ResponseEntity<Set> response = restTemplate.getForEntity(createURLWithPort("/self-reflection-api/question/cohort/1"), Set.class);
-            LOGGER.debug("Called get questions for cohort - response is " + response.getBody());
             response.getBody().stream().forEach(q -> LOGGER.info(q.toString()));
+            assertThat(5, equalTo(response.getBody().size()));
         }
         catch (Exception e) {
             LOGGER.error("Exception " + e.getMessage());

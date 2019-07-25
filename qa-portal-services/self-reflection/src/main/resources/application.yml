@@ -48,7 +48,7 @@ spring:
         path: /h2
 
   flyway:
-    locations: classpath:/db/migration-test
+    locations: classpath:/db/migration-test-base
 
 logging:
   level:

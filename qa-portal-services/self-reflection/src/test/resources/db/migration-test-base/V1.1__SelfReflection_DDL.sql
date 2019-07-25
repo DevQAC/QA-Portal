@@ -6,6 +6,9 @@ create table if not exists training.qa_user
 		constraint qa_user_pkey
 			primary key,
 	user_name varchar(255) not null,
+
+	first_name varchar(255) not null,
+	last_name varchar(255) not null,
 	reviewer_id integer
 		constraint fk_user_id
 			references training.qa_user,
