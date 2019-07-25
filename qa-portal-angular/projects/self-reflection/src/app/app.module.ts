@@ -16,7 +16,7 @@ import { TrainerCohortsComponent } from './trainer-cohorts/trainer-cohorts.compo
     AppRoutingModule,
     QaCommonModule
   ],
-  providers: [],
+  providers: [TrainerCohortsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
