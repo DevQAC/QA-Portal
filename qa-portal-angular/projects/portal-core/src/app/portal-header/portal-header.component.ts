@@ -33,11 +33,6 @@ export class PortalHeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.navMenuSubscription.unsubscribe();
   }
-
-  getAppHome(appUrl: string) {
-    return appUrl + '/home';
-  }
-
   logout() {
     this.keycloak.logout();
   }

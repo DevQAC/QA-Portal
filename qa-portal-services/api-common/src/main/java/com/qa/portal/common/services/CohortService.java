@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.qa.portal.common.dto.QaUserDto;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
@@ -17,7 +18,7 @@ import com.qa.portal.common.util.mapper.BaseMapper;
 public class CohortService {
 
 	private QaCohortRepository repo;
-	
+
 	private BaseMapper mapper;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CohortService.class);
@@ -28,12 +29,11 @@ public class CohortService {
 		this.mapper = mapper;
 	}
 
+	@Transactional
 	public List<QaUserDto> getTraineesForCohort(Integer id) {
-		QaCohortEntity cohort = this.repo.findById(id).orElseThrow(() -> new QaResourceNotFoundException("Cohort does not exist"));
+		QaCohortEntity cohort = this.repo.findById(id)
+				.orElseThrow(() -> new QaResourceNotFoundException("Cohort does not exist"));
 		return cohort.getTrainees().stream().map(this.mapper::mapToQaUserDto).collect(Collectors.toList());
 	}
-	
-	
-	
 
 }

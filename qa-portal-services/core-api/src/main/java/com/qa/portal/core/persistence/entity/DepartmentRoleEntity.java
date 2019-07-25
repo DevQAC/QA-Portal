@@ -26,6 +26,9 @@ public class DepartmentRoleEntity {
     @OneToMany(mappedBy = "departmentRole")
     private List<DepartmentRoleApplicationEntity> deptRoleApplications;
 
+    @OneToMany(mappedBy = "departmentRole")
+    private List<DeptRoleMenuItem> deptRoleMenuItems;
+
     public Integer getId() {
         return id;
     }
@@ -58,12 +61,16 @@ public class DepartmentRoleEntity {
         this.deptRoleApplications = deptRoleApplications;
     }
 
-    public String getDepartmentRoleName() {
-        return this.role.getName();
+    public List<DeptRoleMenuItem> getDeptRoleMenuItems() {
+        return deptRoleMenuItems;
     }
 
-    public Integer getDepartmentRoleLevel() {
-        return this.role.getLevel();
+    public void setDeptRoleMenuItems(List<DeptRoleMenuItem> deptRoleMenuItems) {
+        this.deptRoleMenuItems = deptRoleMenuItems;
+    }
+
+    public String getDepartmentRoleName() {
+        return this.role.getName();
     }
 
     @Override
@@ -74,12 +81,13 @@ public class DepartmentRoleEntity {
         return Objects.equals(id, that.id) &&
                 Objects.equals(department, that.department) &&
                 Objects.equals(role, that.role) &&
-                Objects.equals(deptRoleApplications, that.deptRoleApplications);
+                Objects.equals(deptRoleApplications, that.deptRoleApplications) &&
+                Objects.equals(deptRoleMenuItems, that.deptRoleMenuItems);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, department, role, deptRoleApplications);
+        return Objects.hash(id, department, role, deptRoleApplications, deptRoleMenuItems);
     }
 
     @Override
@@ -89,6 +97,7 @@ public class DepartmentRoleEntity {
                 ", department=" + department +
                 ", role=" + role +
                 ", deptRoleApplications=" + deptRoleApplications +
+                ", deptRoleMenuItems=" + deptRoleMenuItems +
                 '}';
     }
 }

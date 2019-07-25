@@ -2,14 +2,15 @@ package com.qa.portal.common.persistence.entity;
 
 import java.util.Set;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 @Entity
+@DiscriminatorValue(value = "TRAINER")
 public class TrainerEntity extends QaUserEntity {
 
-	@OneToMany
-	@JoinColumn(name = "trainer_id")
+	@OneToMany(mappedBy = "trainer")
 	private Set<QaCohortEntity> cohorts;
 
 	public Set<QaCohortEntity> getCohorts() {
