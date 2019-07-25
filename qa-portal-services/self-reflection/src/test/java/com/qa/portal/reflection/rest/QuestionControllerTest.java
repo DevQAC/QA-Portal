@@ -1,7 +1,6 @@
 package com.qa.portal.reflection.rest;
 
 import com.qa.portal.SelfReflectionApplication;
-import com.qa.portal.reflection.dto.QuestionDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -10,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -40,8 +37,9 @@ public class QuestionControllerTest {
         HttpEntity<Map> request = new HttpEntity<>(null, httpHeaders);
         try {
             LOGGER.debug("Calling get Questions for Cohort");
-            ResponseEntity<Set<QuestionDto>> response = restTemplate.exchange(createURLWithPort("/self-reflection-api/question/cohort/1"), HttpMethod.GET, null, new ParameterizedTypeReference<Set<QuestionDto>>() {});
+            ResponseEntity<Set> response = restTemplate.getForEntity(createURLWithPort("/self-reflection-api/question/cohort/1"), Set.class);
             LOGGER.debug("Called get questions for cohort - response is " + response.getBody());
+            response.getBody().stream().forEach(q -> LOGGER.info(q.toString()));
         }
         catch (Exception e) {
             LOGGER.error("Exception " + e.getMessage());

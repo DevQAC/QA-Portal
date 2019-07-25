@@ -16,7 +16,7 @@ drop table if exists training.qa_cohort;
 
 drop table if exists training.qa_user;
 
-CREATE SCHEMA IF NOT EXISTS qa-portal;
+CREATE SCHEMA IF NOT EXISTS training;
 
 create table if not exists training.application
 (

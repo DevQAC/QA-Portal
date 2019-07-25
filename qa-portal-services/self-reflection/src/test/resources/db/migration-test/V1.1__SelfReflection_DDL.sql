@@ -1,6 +1,4 @@
-create database qa-portal
-
-CREATE SCHEMA IF NOT EXISTS training;
+CREATE SCHEMA training;
 
 create table if not exists training.qa_user
 (
@@ -17,9 +15,6 @@ create table if not exists training.qa_user
 	cohort_id integer
 );
 
-alter table training.qa_user owner to postgres;
-
-
 create table if not exists training.qa_cohort
 (
 	id integer not null
@@ -32,7 +27,6 @@ create table if not exists training.qa_cohort
    	version integer default 1 not null,
 );
 
-alter table training.qa_cohort owner to postgres;
 
 create table if not exists training.question
 (
@@ -47,8 +41,6 @@ create table if not exists training.question
 	version integer default 1 not null
 );
 
-alter table training.question owner to postgres;
-
 
 create table if not exists training.cohort_question
 (
@@ -61,7 +53,5 @@ create table if not exists training.cohort_question
 	last_updated_by varchar(255) not null,
 	version integer default 1 not null
 );
-
-alter table training.cohort_question owner to postgres;
 
 

@@ -7,6 +7,12 @@ drop table if exists training.qa_user;
 
 drop table if exists training.qa_cohort;
 
+drop table if exists training.reflection;
+
+drop table if exists training.reflection_question;
+
+
+
 create table if not exists training.qa_user
 (
 	id integer not null
