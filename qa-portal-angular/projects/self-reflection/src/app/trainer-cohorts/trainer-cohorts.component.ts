@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Subscription} from 'rxjs';
+import {TrainerCohortsService} from '/Users/hamzaar/Documents/workspace/QA-Portal/qa-portal-angular/projects/portal-core/src/app/_common/services/trainer-cohorts-service/trainer-cohorts.service.ts';
+
 
 export interface PeriodicElement {
   name: string;
@@ -27,9 +30,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class TrainerCohortsComponent implements OnInit {
     displayedColumns: string[] = ['position', 'name', 'date'];
     dataSource = ELEMENT_DATA;
-  constructor() { }
+
+    trainerCohortsSubscription: Subscription;
+
+  constructor(private trainerCohortsService: TrainerCohortsService) { }
 
   ngOnInit() {
+    this.trainerCohortsSubscription = this.trainerCohortsService.getPortalTrainerCohorts()
+      .subscribe((response) => {
+          console.log(response);
+          //this.dataSource = response;
+        }
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.trainerCohortsSubscription.unsubscribe();
   }
 
 }

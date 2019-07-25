@@ -8,7 +8,7 @@ export class TrainerCohortsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getPortalMenu(): Observable<any[]> {
+  getPortalTrainerCohorts(): Observable<any[]> {
     return this.httpClient.get<any[]>(TRAINER_COHORTS_API);
   }
 }

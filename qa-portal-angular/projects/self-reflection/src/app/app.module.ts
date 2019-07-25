@@ -5,6 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
 import { TrainerCohortsComponent } from './trainer-cohorts/trainer-cohorts.component';
+import {TrainerCohortsService} from '/Users/hamzaar/Documents/workspace/QA-Portal/qa-portal-angular/projects/portal-core/src/app/_common/services/trainer-cohorts-service/trainer-cohorts.service.ts';
 
 @NgModule({
   declarations: [
