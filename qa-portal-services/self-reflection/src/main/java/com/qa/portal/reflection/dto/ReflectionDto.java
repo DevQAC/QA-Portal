@@ -3,8 +3,10 @@ package com.qa.portal.reflection.dto;
 import com.qa.portal.common.dto.QaBaseDto;
 import com.qa.portal.common.dto.QaUserDto;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,13 +18,13 @@ public final class ReflectionDto extends QaBaseDto {
 
     private QaUserDto reviewer;
 
-    private LocalDate date;
+    private Date formDate;
 
     private String trainerComments;
 
     private String learningPathway;
 
-    private Set<ReflectionQuestionDto> questions;
+    private Set<ReflectionQuestionDto> questions = new HashSet<ReflectionQuestionDto>();
 
     public Integer getId() {
         return id;
@@ -36,8 +38,8 @@ public final class ReflectionDto extends QaBaseDto {
         return reviewer;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Date getFormDate() {
+        return formDate;
     }
 
     public String getTrainerComments() {
@@ -64,8 +66,8 @@ public final class ReflectionDto extends QaBaseDto {
         this.reviewer = reviewer;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setFormDate(Date date) {
+        this.formDate = date;
     }
 
     public void setTrainerComments(String trainerComments) {
@@ -88,13 +90,13 @@ public final class ReflectionDto extends QaBaseDto {
             return false;
         ReflectionDto that = (ReflectionDto) o;
         return Objects.equals(id, that.id) && Objects.equals(responder, that.responder)
-                && Objects.equals(reviewer, that.reviewer) && Objects.equals(date, that.date)
+                && Objects.equals(reviewer, that.reviewer) && Objects.equals(formDate, that.formDate)
                 && Objects.equals(trainerComments, that.trainerComments)
                 && Objects.equals(learningPathway, that.learningPathway) && Objects.equals(questions, that.questions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, responder, reviewer, date, trainerComments, learningPathway, questions);
+        return Objects.hash(id, responder, reviewer, formDate, trainerComments, learningPathway, questions);
     }
 }

@@ -64,11 +64,13 @@ export class TrainerReflectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    // const fakeReflection: Reflection = {
-    //   responder: { userName: 'David' },
-    //   reviewer: { userName: 'Alan' },
-    //   date: new Date()
-    // };
+    const fakeReflection: Reflection = {
+      responder: { firstName: 'David', lastName: 'Davidson', userName: 'davideo' },
+      reviewer: { firstName: 'Alan', lastName: 'Alanadopoulous', userName: 'aaaalan' },
+      formDate: new Date(),
+      reflectionQuestions: []
+    };
+    this.selfReflectionService.create(fakeReflection).subscribe(data => console.log(data), error => console.log(error));
     this.selfReflectionService.getTraineeReflection().subscribe((skillAreas) => this.skillAreas = skillAreas);
     this.firstname = 'Firstname';
     this.surname = 'Surname';

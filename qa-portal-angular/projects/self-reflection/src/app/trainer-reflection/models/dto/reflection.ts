@@ -3,12 +3,16 @@ import { Question } from './question';
 import { Base } from './base';
 import { Trainee } from './trainee';
 import { Trainer } from './trainer';
+import { ReflectionQuestion } from './reflection-question';
 
 export class Reflection extends Base {
   id?: number;
-  responder: Trainee;
+  reflectionQuestions: ReflectionQuestion[];
   reviewer: Trainer;
-  date?: Date;
+  responder: Trainee;
+  formDate: Date;
+  trainerComments?: string;
+  learningPathway?: string;
   questions?: Question[];
 
   public static dateToDays(date: Date): number {

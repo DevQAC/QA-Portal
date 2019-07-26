@@ -23,7 +23,7 @@ public class ReflectionEntity extends QaBaseEntity {
 	@OneToMany(mappedBy = "reflection")
 	private Set<ReflectionQuestionEntity> reflectionQuestions;
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "reviewer_id")
 	private TrainerEntity reviewer;
 
