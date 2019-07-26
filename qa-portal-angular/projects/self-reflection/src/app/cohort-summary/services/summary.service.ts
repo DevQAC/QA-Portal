@@ -4,11 +4,11 @@ import {Observable} from 'rxjs';
 import {PORTAL_APPLICATIONS_API} from '../../../../../portal-core/src/app/_common/models/portal-constants';
 
 @Injectable()
-export class ConfigService {
+export class SummaryService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getSummary() {
+  getSummary(): Observable<any> {
     return this.httpClient.get('/self-reflection-api/reflection/summary');
   }
 }

@@ -5,6 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
 import { CohortSummaryComponent } from './cohort-summary/cohort-summary.component';
+import {SummaryService} from './cohort-summary/services/summary.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { CohortSummaryComponent } from './cohort-summary/cohort-summary.componen
     AppRoutingModule,
     QaCommonModule
   ],
-  providers: [],
+  providers: [SummaryService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
