@@ -5,6 +5,7 @@ import { Reflection } from './models/dto/reflection';
 import { Trainee } from './models/dto/trainee';
 import { Question } from './models/dto/question';
 import { ReflectionQuestion } from './models/dto/reflection-question';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-trainer-reflection',
@@ -25,13 +26,13 @@ export class TrainerReflectionComponent implements OnInit {
   public learningPathway = '';
   public numberOfCategories = 0;
   public skillAreas = ['Technical Skills', 'Soft Skills', 'Attitude'];
-  private traineeId = 9;
+  private traineeId = 0;
 
-  constructor(private selfReflectionService: SelfReflectionService) {
-    this.trainerComments = 'Ea qui ipsum sint nisi et sunt et eu commodo proident id.' +
+  constructor(private selfReflectionService: SelfReflectionService, private activatedRoute: ActivatedRoute) {
+    this.trainerComments = this.learningPathway = 'Ea qui ipsum sint nisi et sunt et eu commodo proident id.' +
       'Exercitation adipisicing ut aute consequat pariatur minim duis cupidatat velit quis. Qui ' +
       'consectetur reprehenderit nisi deserunt adipisicing velit enim quis cillum eiusmod. Minim ea mollit in ' +
-      'eu tempor tempor quis. Veniam enim voluptate est do velit aute.';
+      'eu tempor tempor quis.';
   }
 
   private updateReflections() {
@@ -52,7 +53,10 @@ export class TrainerReflectionComponent implements OnInit {
     //   formDate: new Date(),
     //   reflectionQuestions: []
     // };
-
+    // Trainee id
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap): void => {
+      this.traineeId = +paramMap.get('id');
+    });
     // Get questions
     this.selfReflectionService.getQuestions()
       .subscribe(questions => {
