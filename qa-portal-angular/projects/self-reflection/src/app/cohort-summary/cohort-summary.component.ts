@@ -1,23 +1,35 @@
-import {Component, OnInit} from '@angular/core';
-import {MenuService} from '../../../../portal-core/src/app/_common/services/menu-service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SummaryService} from './services/summary.service';
+import {MatTableDataSource} from '@angular/material';
+import {Subscription} from 'rxjs';
+
+export interface Summary {
+  cohortName: string;
+  scores: number[];
+}
 
 @Component({
   selector: 'app-cohort-summary',
   templateUrl: './cohort-summary.component.html',
   styleUrls: ['./cohort-summary.component.css']
 })
-export class CohortSummaryComponent implements OnInit {
+export class CohortSummaryComponent implements OnInit, OnDestroy {
 
   constructor(private summaryService: SummaryService) {
   }
 
-  summary: any[] = [];
+  columnsToDisplay: string[] = ['name', 'wk1', 'wk2', 'wk3', 'wk4', 'wk5', 'wk6', 'wk7', 'wk8', 'wk9', 'wk10', 'wk11', 'wk12'];
+  summary: MatTableDataSource<Summary>;
+  sub: Subscription;
 
-  ngOnInit() {
-    this.summaryService.getSummary().subscribe((response) => {
-      this.summary = response;
+  ngOnInit(): void {
+    this.sub = this.summaryService.getSummary().subscribe((response: Summary[]) => {
+      this.summary = new MatTableDataSource(response);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
 }
