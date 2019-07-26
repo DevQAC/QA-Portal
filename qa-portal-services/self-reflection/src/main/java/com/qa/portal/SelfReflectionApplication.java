@@ -8,7 +8,5 @@ public class SelfReflectionApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SelfReflectionApplication.class, args);
-
 	}
-
 }

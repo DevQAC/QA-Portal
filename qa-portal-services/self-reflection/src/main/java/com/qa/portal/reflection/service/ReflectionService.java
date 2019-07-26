@@ -38,8 +38,18 @@ public class ReflectionService {
 	}
 
 	@Transactional
-	public Set<ReflectionDto> getSelfReflectionsForTrainee(String traineeId) {
-		return this.getSelfReflectionsForUserOperation.getSelfReflectionsForUser(traineeId, this.reflectionRepo, this.traineeRepo);
+	public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
+		return this.getSelfReflectionsForUserOperation.getSelfReflectionsForUser(userName, this.reflectionRepo, this.traineeRepo, this.mapper);
+	}
+	
+	@Transactional
+	public Set<ReflectionDto> getSelfReflectionsForTrainer(String userName) {
+		return this.getSelfReflectionsForUserOperation.getSelfReflectionsForUser(userName, this.reflectionRepo, this.trainerRepo, this.mapper);
+	}
+	
+	@Transactional
+	public Set<ReflectionDto> getSelfReflectionsForTrainee(Integer traineeId) {
+		return this.getSelfReflectionsForUserOperation.getSelfReflectionsForUser(traineeId, this.reflectionRepo, this.traineeRepo, this.mapper);
 	}
 
 	@Transactional
@@ -60,8 +70,7 @@ public class ReflectionService {
 
 	@Transactional
 	public ReflectionDto createSelfReflection(ReflectionDto reflection, String userName) {
-		ReflectionDto output = this.mapper.mapToReflectionDto(this.reflectionRepo.save(this.mapper.mapToReflectionEntity(reflection)));
-		return output;
+		return this.mapper.mapToReflectionDto(this.reflectionRepo.save(this.mapper.mapToReflectionEntity(reflection)));
 	}
 
 	@Transactional

@@ -1,23 +1,25 @@
 <div class='trainer-reflection'>
   <div class='self-reflection-heading'>
     <h5 class='title'>
-      <span class='trainee-firstname'>{{firstname}}</span>&nbsp;<span
-        class='trainee-surname'>{{surname}}</span>&nbsp;Self&nbsp;Reflection&nbsp;Form
+      <span class='trainee-firstname'>{{trainee.firstName}}</span>&nbsp;<span
+        class='trainee-lastname'>{{trainee.lastName}}</span>&nbsp;Self&nbsp;Reflection&nbsp;Form
     </h5>
   </div>
   <div class='self-reflection-grid-container'>
     <mat-grid-list [cols]='COL_MAX' rowHeight='fit' class='self-reflection-grid'>
-      <mat-grid-tile *ngFor=' let row of titleRow' rowspan='1' [colspan]='row.colspan' class='header'>
-        <span class='title'>{{ row.text }}</span>
+      <mat-grid-tile *ngFor=' let skillArea of skillAreas' rowspan='1' [colspan]='COL_MAX / skillAreas.length'
+        class='header'>
+        <span class='title'>{{ skillArea }}</span>
       </mat-grid-tile>
-      <mat-grid-tile *ngFor='let row of questionRow' [colspan]='row.colspan' rowspan='6' class='questions'>
-        <span class='question-text'>{{ row.text }}</span>
+      <mat-grid-tile *ngFor='let question of questions' [colspan]='COL_MAX / numberOfCategories' rowspan='6'
+        class='questions'>
+        <span class='question-text'>{{ question.body }}</span>
       </mat-grid-tile>
-      <mat-grid-tile *ngFor='let row of authorRow' [colspan]='row.colspan' rowspan='1' class='author'>
-        <span class='author'> {{ row.text }}</span>
+      <mat-grid-tile *ngFor='let tile of authorRow' [colspan]='tile.colspan' rowspan='1' class='author'>
+        <span class='author'> {{ tile.text }}</span>
       </mat-grid-tile>
-      <mat-grid-tile *ngFor='let row of scoreRow' [colspan]='row.colspan' rowspan='1' class='scores'>
-        <span class='score'> {{ row.text }}</span>
+      <mat-grid-tile *ngFor='let tile of scoreRow' [colspan]='tile.colspan' rowspan='1' class='scores'>
+        <span class='score'> {{ tile.text }}</span>
       </mat-grid-tile>
     </mat-grid-list>
   </div>

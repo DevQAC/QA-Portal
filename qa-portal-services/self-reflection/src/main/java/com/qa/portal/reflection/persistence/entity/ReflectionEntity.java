@@ -81,19 +81,22 @@ public class ReflectionEntity extends QaBaseEntity {
 		if (o == null || getClass() != o.getClass())
 			return false;
 		ReflectionEntity that = (ReflectionEntity) o;
-		return Objects.equals(id, that.id) && Objects.equals(reflectionQuestions, that.reflectionQuestions)
+//		return Objects.equals(id, that.id) && Objects.equals(reflectionQuestions, that.reflectionQuestions)
+		return Objects.equals(id, that.id)
 				&& Objects.equals(reviewer, that.reviewer) && Objects.equals(responder, that.responder)
 				&& Objects.equals(formDate, that.formDate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, reflectionQuestions, reviewer, responder, formDate);
+//		return Objects.hash(id, reflectionQuestions, reviewer, responder, formDate);
+		return Objects.hash(id, reviewer, responder, formDate);
 	}
 
 	@Override
 	public String toString() {
-		return "ReflectionEntity{" + "id=" + id + ", reflectionQuestions=" + reflectionQuestions + ", reviewer="
+//		return "ReflectionEntity{" + "id=" + id + ", reflectionQuestions=" + reflectionQuestions + ", reviewer="
+		return "ReflectionEntity{" + "id=" + id + ", reviewer="
 				+ reviewer + ", responder=" + responder + ", formDate=" + formDate + ", lastUpdatedTimestamp="
 				+ lastUpdatedTimestamp + ", lastUpdatedBy='" + lastUpdatedBy + '\'' + ", version=" + version + '}';
 	}

@@ -24,7 +24,7 @@ public final class ReflectionDto extends QaBaseDto {
 
     private String learningPathway;
 
-    private Set<ReflectionQuestionDto> questions = new HashSet<ReflectionQuestionDto>();
+    private Set<ReflectionQuestionDto> reflectionQuestions = new HashSet<ReflectionQuestionDto>();
 
     public Integer getId() {
         return id;
@@ -51,7 +51,7 @@ public final class ReflectionDto extends QaBaseDto {
     }
 
     public Set<ReflectionQuestionDto> getQuestions() {
-        return Collections.unmodifiableSet(this.questions);
+        return Collections.unmodifiableSet(this.reflectionQuestions);
     }
 
     public void setId(Integer id) {
@@ -79,7 +79,7 @@ public final class ReflectionDto extends QaBaseDto {
     }
 
     public void setQuestions(Set<ReflectionQuestionDto> questions) {
-        this.questions = questions;
+        this.reflectionQuestions = questions;
     }
 
     @Override
@@ -92,11 +92,11 @@ public final class ReflectionDto extends QaBaseDto {
         return Objects.equals(id, that.id) && Objects.equals(responder, that.responder)
                 && Objects.equals(reviewer, that.reviewer) && Objects.equals(formDate, that.formDate)
                 && Objects.equals(trainerComments, that.trainerComments)
-                && Objects.equals(learningPathway, that.learningPathway) && Objects.equals(questions, that.questions);
+                && Objects.equals(learningPathway, that.learningPathway) && Objects.equals(reflectionQuestions, that.reflectionQuestions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, responder, reviewer, formDate, trainerComments, learningPathway, questions);
+        return Objects.hash(id, responder, reviewer, formDate, trainerComments, learningPathway, reflectionQuestions);
     }
 }

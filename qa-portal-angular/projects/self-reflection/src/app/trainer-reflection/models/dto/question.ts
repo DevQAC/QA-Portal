@@ -4,7 +4,7 @@ import { ReflectionQuestion } from './reflection-question';
 
 export class Question extends Base {
   id?: number;
-  body: string;
+  body?: string;
   category: string;
-  forms: ReflectionQuestion[];
+  forms?: ReflectionQuestion[];
 }

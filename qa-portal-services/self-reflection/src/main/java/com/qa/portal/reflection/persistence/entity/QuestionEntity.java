@@ -76,13 +76,15 @@ public class QuestionEntity extends QaBaseEntity {
 		return Objects.equals(id, that.id) &&
 				Objects.equals(body, that.body) &&
 				Objects.equals(category, that.category) &&
-				Objects.equals(numberOfOptions, that.numberOfOptions) &&
-				Objects.equals(forms, that.forms);
+				Objects.equals(numberOfOptions, that.numberOfOptions);
+//				Objects.equals(numberOfOptions, that.numberOfOptions) &&
+//				Objects.equals(forms, that.forms);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, body, category, numberOfOptions, forms);
+//		return Objects.hash(id, body, category, numberOfOptions, forms);
+		return Objects.hash(id, body, category, numberOfOptions);
 	}
 
 	@Override
@@ -92,7 +94,7 @@ public class QuestionEntity extends QaBaseEntity {
 				", body='" + body + '\'' +
 				", category='" + category + '\'' +
 				", numberOfOptions=" + numberOfOptions +
-				", forms=" + forms +
+//				", forms=" + forms +
 				", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
 				", lastUpdatedBy='" + lastUpdatedBy + '\'' +
 				", version=" + version +

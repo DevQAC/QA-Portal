@@ -5,6 +5,6 @@ export class ReflectionQuestion {
   id?: number;
   reflection: Reflection;
   question: Question;
-  response: number;
-  trainerResponse: number;
+  response?: number;
+  trainerResponse?: number;
 }

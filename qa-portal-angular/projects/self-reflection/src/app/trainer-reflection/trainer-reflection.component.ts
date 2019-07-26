@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-// import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { SkillArea } from './models/skill-area';
 import { Tile } from './models/tileRow';
-import { User } from './models/User.enum';
 import { SelfReflectionService } from './services/self-reflection.service';
 import { Reflection } from './models/dto/reflection';
 import { Trainee } from './models/dto/trainee';
 import { Question } from './models/dto/question';
+import { ReflectionQuestion } from './models/dto/reflection-question';
 
 @Component({
   selector: 'app-trainer-reflection',
@@ -15,16 +13,19 @@ import { Question } from './models/dto/question';
 })
 export class TrainerReflectionComponent implements OnInit {
 
-  public skillAreas: SkillArea[] = [];
   public titleRow: Tile[] = [];
   public questionRow: Tile[] = [];
   public authorRow: Tile[] = [];
   public scoreRow: Tile[] = [];
   public COL_MAX = 24;
-  public firstname = '';
-  public surname = '';
+  public trainee: Trainee = new Trainee();
+  public reflections: Reflection[] = [];
+  public questions: Question[] = [];
   public trainerComments = '';
   public learningPathway = '';
+  public numberOfCategories = 0;
+  public skillAreas = ['Technical Skills', 'Soft Skills', 'Attitude'];
+  private traineeId = 9;
 
   constructor(private selfReflectionService: SelfReflectionService) {
     this.trainerComments = 'Ea qui ipsum sint nisi et sunt et eu commodo proident id.' +
@@ -33,69 +34,54 @@ export class TrainerReflectionComponent implements OnInit {
       'eu tempor tempor quis. Veniam enim voluptate est do velit aute.';
   }
 
-  private getUserTitle(user: User): string {
-    switch (user) {
-      case User.TRAINEE:
-        return 'Self';
-      case User.TRAINER:
-        return 'Trainer';
-      default:
-        return 'Undefined';
-    }
-  }
-
-  private transpose(arrays: any[][]): any[][] {
-    const outerLen = arrays.length;
-    if (outerLen < 1) {
-      return [];
-    }
-    const innerLen = arrays[0].length;
-    const output = [];
-    // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < innerLen; ++i) {
-      const inner = [];
-      // tslint:disable-next-line: prefer-for-of
-      for (let j = 0; j < outerLen; ++j) {
-        inner.push(arrays[j][i]);
+  private updateReflections() {
+    for (const reflection of this.reflections) {
+      for (const reflectionQuestion of reflection.reflectionQuestions) {
+        const traineeResponse = reflectionQuestion.response ? reflectionQuestion.response.toString() : 'N/A';
+        const trainerResponse = reflectionQuestion.trainerResponse ? reflectionQuestion.trainerResponse.toString() : 'N/A';
+        this.scoreRow.push({ colspan: 2, text: traineeResponse });
+        this.scoreRow.push({ colspan: 2, text: trainerResponse });
       }
-      output.push(inner);
     }
-    return output;
   }
 
   ngOnInit() {
-    const fakeReflection: Reflection = {
-      responder: { firstName: 'David', lastName: 'Davidson', userName: 'davideo' },
-      reviewer: { firstName: 'Alan', lastName: 'Alanadopoulous', userName: 'aaaalan' },
-      formDate: new Date(),
-      reflectionQuestions: []
-    };
-    this.selfReflectionService.create(fakeReflection).subscribe(data => console.log(data), error => console.log(error));
-    this.selfReflectionService.getTraineeReflection().subscribe((skillAreas) => this.skillAreas = skillAreas);
-    this.firstname = 'Firstname';
-    this.surname = 'Surname';
-    const titleColSpan = this.COL_MAX / this.skillAreas.length;
-    let questionColSpan;
-    let authorColSpan;
-    let innerScores;
-    const outerScores = [];
-    for (const skillArea of this.skillAreas) {
-      this.titleRow.push({ text: skillArea.name, colspan: titleColSpan });
-      questionColSpan = titleColSpan / skillArea.forms.length;
-      for (const form of skillArea.forms) {
-        this.questionRow.push({ text: form.text, colspan: questionColSpan });
-        authorColSpan = questionColSpan / form.userScores.length;
-        for (const userScore of form.userScores) {
-          this.authorRow.push({ text: this.getUserTitle(userScore.author), colspan: authorColSpan });
-          innerScores = [];
-          for (const score of userScore.scores) {
-            innerScores.push({ text: score.value.toString(), colspan: authorColSpan });
-          }
-          outerScores.push(innerScores);
-        }
-      }
-    }
-    this.scoreRow = this.transpose(outerScores).reduce((prev, curr) => prev.concat(curr), []);
-  }
+    // const fakeReflection: Reflection = {
+    //   responder: { firstName: 'Gordon', lastName: 'Wells', userName: 'user' },
+    //   reviewer: { firstName: 'Alan', lastName: 'Alanadopoulous', userName: 'aaaalan' },
+    //   formDate: new Date(),
+    //   reflectionQuestions: []
+    // };
 
+    // Get questions
+    this.selfReflectionService.getQuestions()
+      .subscribe(questions => {
+        this.questions = questions;
+        this.numberOfCategories = questions.length;
+        // Get reflections for this user
+        this.selfReflectionService.getReflectionsByTraineeId(this.traineeId)
+          .subscribe(reflections => {
+            if (reflections && reflections.length > 0) {
+              console.log(reflections);
+              this.trainee = reflections[0].responder;
+              reflections.forEach((reflection: Reflection): void => {
+                this.selfReflectionService.getReflectionQuestionsByReflectionId(reflection.id)
+                  .subscribe((reflectionQuestions: ReflectionQuestion[]): void => {
+                    Reflection.setReflectionQuestions(reflection, reflectionQuestions, this.numberOfCategories);
+                    console.log(reflection);
+                    this.reflections.push(reflection);
+                    this.updateReflections();
+                  });
+              });
+            } else {
+              console.log('There are no entries for this trainee');
+            }
+          });
+      });
+    // Create Self/Trainer tiles for view
+    for (let i = 0; i < this.numberOfCategories; ++i) {
+      this.authorRow.push({ colspan: 2, text: 'Self' });
+      this.authorRow.push({ colspan: 2, text: 'Trainer' });
+    }
+  }
 }

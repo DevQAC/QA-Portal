@@ -29,15 +29,31 @@ public class ReflectionController {
 		this.context = context;
 	}
 
-	@GetMapping("/current")
+	@GetMapping("/trainee/current")
 	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainee() {
 		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(context.getUserName()));
 	}
-
+	
+	@GetMapping("trainee/{id}")
+	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsByTraineeId(@PathVariable Integer id) {
+		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(id));
+	}
+	
+	@GetMapping("trainee/username/{userName}")
+	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsByTraineeUserName(@PathVariable String userName) {
+		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(userName));
+	}
+	
+	@GetMapping("/trainer/current")
+	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainer() {
+		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainer(context.getUserName()));
+	}
+	
 	@GetMapping("{id}")
 	public ResponseEntity<ReflectionDto> getSelfReflection(@PathVariable Integer id) {
 		return ResponseEntity.ok(this.service.getSelfReflection(id));
 	}
+	
 
 //	public ResponseEntity<ReflectionDto> getSelfReflection(Integer userId, LocalDate date) {
 //		return ResponseEntity.ok(this.service.getSelfReflection(userId, date));

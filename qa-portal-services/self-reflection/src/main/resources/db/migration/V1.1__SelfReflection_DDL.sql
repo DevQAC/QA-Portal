@@ -29,6 +29,7 @@ create table if not exists training.qa_user
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
 	version integer default 1 not null,
+	role varchar(255) not null,
 	cohort_id integer
 );
 
