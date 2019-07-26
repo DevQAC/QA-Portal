@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription} from 'rxjs';
-import {TrainerCohortsService} from '/Users/hamzaar/Documents/workspace/QA-Portal/qa-portal-angular/projects/portal-core/src/app/_common/services/trainer-cohorts-service/trainer-cohorts.service.ts';
+import {TrainerCohortsService} from '/Users/hamzaar/Documents/workspace/QA-Portal/qa-portal-angular/projects/portal-core/src/app/_common/services/trainer-cohorts-service/trainer-cohorts.service';
 
 
 export interface PeriodicElement {
@@ -36,7 +36,7 @@ export class TrainerCohortsComponent implements OnInit {
   constructor(private trainerCohortsService: TrainerCohortsService) { }
 
   ngOnInit() {
-    this.trainerCohortsSubscription = this.trainerCohortsService.getPortalTrainerCohorts()
+    this.trainerCohortsSubscription = this.trainerCohortsService.getTrainerCohorts()
       .subscribe((response) => {
           console.log(response);
           //this.dataSource = response;

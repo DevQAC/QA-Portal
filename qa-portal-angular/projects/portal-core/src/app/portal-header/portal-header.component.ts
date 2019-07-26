@@ -17,7 +17,7 @@ export class PortalHeaderComponent implements OnInit, OnDestroy {
 
   @Output() public sidenavToggle = new EventEmitter();
 
-  constructor(private menuService: MenuService, //being init
+  constructor(private menuService: MenuService,
               private applicationSelectionService: ApplicationSelectionService,
               private keycloak: KeycloakService) {
   }

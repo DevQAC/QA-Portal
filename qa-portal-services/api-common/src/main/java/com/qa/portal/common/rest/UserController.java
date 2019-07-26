@@ -23,6 +23,7 @@ public class UserController {
 
 	@GetMapping("/user/getCohorts/{id}")
 	public ResponseEntity<List<QaCohortDto>> getCohortsForTrainer(@PathVariable("id") Integer id) {
+		System.out.println("-*****------*******IT WORKSSSSS*********---------");
 		return ResponseEntity.ok(this.service.getCohortsForTrainer(id));
 	}
 
