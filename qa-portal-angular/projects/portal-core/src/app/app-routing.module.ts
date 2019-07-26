@@ -35,6 +35,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     PortalHomeSharedModule.forRoot(),
+    SelfReflectionSharedModule.forRoot()
   ],
   exports: [RouterModule]
 })

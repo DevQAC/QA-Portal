@@ -1,3 +1,36 @@
-<p>
-  cohort-summary works!
+<p class="qa-app-title">
+  SELF REFLECTION
+  {{summary}}
 </p>
+<table mat-table [dataSource]="summary">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name</th>
+    <td mat-cell *matCellDef="let data"> {{data.cohort}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk1">
+    <th mat-header-cell *matHeaderCellDef> Week 1</th>
+    <td mat-cell *matCellDef="let data"> {{data.wk1}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk2">
+    <th mat-header-cell *matHeaderCellDef> Week 2</th>
+    <td mat-cell *matCellDef="let data"> {{data.wk2}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk3">
+    <th mat-header-cell *matHeaderCellDef> Week 3</th>
+    <td mat-cell *matCellDef="let data"> {{data.wk3}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk4">
+    <th mat-header-cell *matHeaderCellDef> Week 4</th>
+    <td mat-cell *matCellDef="let data"> {{data.wk4}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk5">
+    <th mat-header-cell *matHeaderCellDef> Week 5</th>
+    <td mat-cell *matCellDef="let data"> {{data.wk5}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk6">
+    <th mat-header-cell *matHeaderCellDef> Week 6</th>
+    <td mat-cell *matCellDef="let data"> {{data.wk6}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table>

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MenuService} from '../../../../portal-core/src/app/_common/services/menu-service';
+import {SummaryService} from './services/summary.service';
 
 @Component({
   selector: 'app-cohort-summary',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CohortSummaryComponent implements OnInit {
 
-  constructor() { }
+  constructor(private summaryService: SummaryService) {
+  }
+
+  summary: any[] = [];
 
   ngOnInit() {
+    this.summaryService.getSummary().subscribe((response) => {
+      this.summary = response;
+    });
   }
 
 }

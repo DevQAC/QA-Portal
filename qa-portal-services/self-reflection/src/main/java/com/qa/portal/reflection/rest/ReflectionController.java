@@ -1,5 +1,6 @@
 package com.qa.portal.reflection.rest;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.portal.common.security.QaSecurityContext;
+import com.qa.portal.reflection.dto.CohortSummaryDto;
 import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.service.ReflectionService;
 
@@ -25,6 +27,11 @@ public class ReflectionController {
 	public ReflectionController(ReflectionService service, QaSecurityContext context) {
 		this.service = service;
 		this.context = context;
+	}
+
+	@GetMapping("/summary")
+	public ResponseEntity<List<CohortSummaryDto>> getCohortSummaryDto() {
+		return ResponseEntity.ok(this.service.getCohortSummaryDto());
 	}
 
 	@GetMapping("/current")
