@@ -11,7 +11,7 @@
         class='header'>
         <span class='title'>{{ skillArea }}</span>
       </mat-grid-tile>
-      <mat-grid-tile *ngFor='let question of questions' [colspan]='COL_MAX / numberOfCategories' rowspan='6'
+      <mat-grid-tile *ngFor='let question of questions' [colspan]='floor(COL_MAX / numberOfCategories)' rowspan='6'
         class='questions'>
         <span class='question-text'>{{ question.body }}</span>
       </mat-grid-tile>

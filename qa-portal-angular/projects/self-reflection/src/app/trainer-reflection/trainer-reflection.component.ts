@@ -18,7 +18,7 @@ export class TrainerReflectionComponent implements OnInit {
   public questionRow: Tile[] = [];
   public authorRow: Tile[] = [];
   public scoreRow: Tile[] = [];
-  public COL_MAX = 24;
+  public COL_MAX = 0;
   public trainee: Trainee = new Trainee();
   public reflections: Reflection[] = [];
   public questions: Question[] = [];
@@ -46,6 +46,10 @@ export class TrainerReflectionComponent implements OnInit {
     }
   }
 
+  public floor(arg) {
+    return Math.floor(arg);
+  }
+
   ngOnInit() {
     // const fakeReflection: Reflection = {
     //   responder: { firstName: 'Gordon', lastName: 'Wells', userName: 'user' },
@@ -58,10 +62,24 @@ export class TrainerReflectionComponent implements OnInit {
       this.traineeId = +paramMap.get('id');
     });
     // Get questions
-    this.selfReflectionService.getQuestions()
+    this.selfReflectionService.getQuestions(1)
       .subscribe(questions => {
-        this.questions = questions;
+        this.questions = questions.sort((a, b) => {
+          if (a.category < b.category) {
+            return -1;
+          } else if (a.category > b.category) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         this.numberOfCategories = questions.length;
+        // Create Self/Trainer tiles for view
+        for (let i = 0; i < this.numberOfCategories; ++i) {
+          this.authorRow.push({ colspan: 2, text: 'Self' });
+          this.authorRow.push({ colspan: 2, text: 'Trainer' });
+        }
+        this.COL_MAX = this.numberOfCategories * 4;
         // Get reflections for this user
         this.selfReflectionService.getReflectionsByTraineeId(this.traineeId)
           .subscribe(reflections => {
@@ -82,10 +100,6 @@ export class TrainerReflectionComponent implements OnInit {
             }
           });
       });
-    // Create Self/Trainer tiles for view
-    for (let i = 0; i < this.numberOfCategories; ++i) {
-      this.authorRow.push({ colspan: 2, text: 'Self' });
-      this.authorRow.push({ colspan: 2, text: 'Trainer' });
-    }
+
   }
 }
