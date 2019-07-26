@@ -1,4 +1,5 @@
-export class reflections {
+export interface reflection {
   id: number;
-  date: number;
+  content: string;
+  date: string;
 }
