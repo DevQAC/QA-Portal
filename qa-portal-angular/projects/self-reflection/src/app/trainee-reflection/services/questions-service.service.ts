@@ -8,7 +8,7 @@ import { SELF_REFLECTION_API } from '../../../../../portal-core/src/app/_common/
   providedIn: 'root'
 })
 export class QuestionsServiceService {
-  cohortId = '15';
+  cohortId = '1';
   constructor(private http:HttpClient) { }
 
   public getQuestions():Observable<any[]> {

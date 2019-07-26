@@ -19,6 +19,7 @@ export class TraineeReflectionComponent implements OnInit {
   selfReflectionViewModel = new SelfReflectionFormViewModel();
   questionsArray: any[] = [];
   questionSubscription: Subscription;
+  title:string = 'hello';
 
   constructor(private ratedQuestionsService: RatedQuestionsService,
     private selfReflectionFormService: SelfReflectionFormService,
@@ -27,7 +28,7 @@ export class TraineeReflectionComponent implements OnInit {
 
   ngOnInit() {
     this.questionSubscription = this.questionsService.getQuestions().subscribe((response)=>{
-      this.questionsArray = response;
+      this.questionsArray = response;console.log(response);
     });
   }
   ngOnDestroy(): void {
