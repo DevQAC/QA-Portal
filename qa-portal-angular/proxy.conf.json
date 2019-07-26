@@ -11,8 +11,8 @@
     "logLevel": "debug"
   },
   
-  "/api-common": {
-    "target": "http://localhost:8081",
+  "/self-reflection-api": {
+    "target": "http://localhost:8082",
     "secure": false,
     "logLevel": "debug"
   }

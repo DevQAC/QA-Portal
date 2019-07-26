@@ -1,8 +1,4 @@
 <p>
   trainee-reflection works!
-  <app-rated-question *ngFor="let sr of selfReflectionViewModel.selfRatings"
-                        [options]="sr.selfRatingQuestion.numOptions"
-                        [questionText]="sr.selfRatingQuestion.questionText"
-                        [selectedRating]="sr">
-  </app-rated-question>
+  {{ .questionsArray }}
 </p>

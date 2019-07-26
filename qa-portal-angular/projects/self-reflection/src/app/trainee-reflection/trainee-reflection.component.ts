@@ -7,6 +7,7 @@ import { QuestionsServiceService } from './services/questions-service.service'
 import { SelfReflectionFormViewModel } from './models/self-reflection-form-vmodel';
 import { RatedQuestionsService } from './services/rated-questions.service';
 import { SelfReflectionFormService } from './services/self-reflection-form.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-trainee-reflection',
@@ -16,13 +17,21 @@ import { SelfReflectionFormService } from './services/self-reflection-form.servi
 export class TraineeReflectionComponent implements OnInit {
 
   selfReflectionViewModel = new SelfReflectionFormViewModel();
-  
+  questionsArray: any[] = [];
+  questionSubscription: Subscription;
+
   constructor(private ratedQuestionsService: RatedQuestionsService,
-    private selfReflectionFormService: SelfReflectionFormService) {
+    private selfReflectionFormService: SelfReflectionFormService,
+    private questionsService:QuestionsServiceService) {
   }
 
   ngOnInit() {
-    
+    this.questionSubscription = this.questionsService.getQuestions().subscribe((response)=>{
+      this.questionsArray = response;
+    });
+  }
+  ngOnDestroy(): void {
+    this.questionSubscription.unsubscribe();
   }
 
 }
