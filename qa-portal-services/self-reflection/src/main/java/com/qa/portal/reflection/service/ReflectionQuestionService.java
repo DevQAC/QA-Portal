@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
 import org.springframework.stereotype.Service;
 
 import com.qa.portal.common.exception.QaResourceNotFoundException;
@@ -12,7 +13,6 @@ import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.reflection.dto.ReflectionQuestionDto;
 import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
 import com.qa.portal.reflection.persistence.repository.ReflectionQuestionRepository;
-import com.qa.portal.reflection.util.mapper.ReflectionQuestionMapper;
 
 @Service
 public class ReflectionQuestionService {
@@ -33,7 +33,7 @@ public class ReflectionQuestionService {
 	public Set<ReflectionQuestionDto> getReflectionQuestionsByReflectionId(Integer id) {
 		return this.reflectionQuestionRepo.findByReflectionId(id)
 				.stream().map(this.mapper::mapToReflectionQuestionDto)
-				.collect(Collectors.toUnmodifiableSet());
+				.collect(Collectors.toSet());
 	}
 	
 	@Transactional
@@ -48,7 +48,7 @@ public class ReflectionQuestionService {
 			reflectionQuestionToUpdate.setLastUpdatedBy(context.getUserName());
 			return this.mapper.mapToReflectionQuestionDto(this.reflectionQuestionRepo.save(reflectionQuestionToUpdate));
 		})
-		.collect(Collectors.toUnmodifiableSet());
+		.collect(Collectors.toSet());
 	}
 
 }

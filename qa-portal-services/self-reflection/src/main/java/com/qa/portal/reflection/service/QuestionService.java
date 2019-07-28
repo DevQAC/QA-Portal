@@ -12,7 +12,7 @@ import com.qa.portal.common.persistence.repository.QaCohortRepository;
 import com.qa.portal.reflection.dto.QuestionDto;
 import com.qa.portal.reflection.persistence.entity.CohortQuestionEntity;
 import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
-import com.qa.portal.reflection.util.mapper.QuestionMapper;
+import com.qa.portal.reflection.service.mapper.QuestionMapper;
 
 @Service
 public class QuestionService {

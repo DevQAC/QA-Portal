@@ -22,7 +22,7 @@ import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 import com.qa.portal.reflection.persistence.repository.ReflectionQuestionRepository;
 import com.qa.portal.reflection.persistence.repository.ReflectionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
-import com.qa.portal.reflection.util.mapper.ReflectionMapper;
+import com.qa.portal.reflection.service.mapper.ReflectionMapper;
 
 @Service
 public class ReflectionService {

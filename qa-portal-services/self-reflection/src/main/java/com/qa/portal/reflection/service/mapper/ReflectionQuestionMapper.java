@@ -14,8 +14,13 @@ public class ReflectionQuestionMapper extends BaseMapper {
 		super(mapper);
 	}
 
-	public ReflectionQuestionDto mapToReflectionQuestionDto(ReflectionQuestionEntity entity) {
-		return this.mapObject(entity, ReflectionQuestionDto.class);
+	public ReflectionQuestionEntity mapToReflectionQuestionEntity(ReflectionQuestionDto rqdto) {
+		return this.getMapper().map(rqdto, ReflectionQuestionEntity.class);
 	}
+
+	public ReflectionQuestionDto mapToReflectionQuestionDto(ReflectionQuestionEntity rqe) {
+		return this.getMapper().map(rqe, ReflectionQuestionDto.class);
+	}
+
 
 }
