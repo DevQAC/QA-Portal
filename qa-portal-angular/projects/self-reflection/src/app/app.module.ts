@@ -17,6 +17,7 @@ import { CohortSummaryComponent } from './cohort-summary/cohort-summary.componen
 import { CohortTableComponent } from './cohort-table/cohort-table.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { CohortChartComponent } from './cohort-chart/cohort-chart.component';
+import { CohortTraineesComponent } from './cohort-trainees/cohort-trainees.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CohortChartComponent } from './cohort-chart/cohort-chart.component';
     SelfReflectionHistoryComponent,
     CohortSummaryComponent,
     CohortTableComponent,
-    CohortChartComponent
+    CohortChartComponent,
+    CohortTraineesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,15 +1,13 @@
 package com.qa.portal.reflection.persistence.entity;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.*;
-
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "reflection", schema = "training")

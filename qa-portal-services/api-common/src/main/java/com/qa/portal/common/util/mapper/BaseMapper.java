@@ -32,23 +32,23 @@ public class BaseMapper {
 	public QaUserEntity mapToQaUserEntity(QaUserDto qaUserDto) {
 		return mapper.map(qaUserDto, QaUserEntity.class);
 	}
-	
+
 	public QaUserDto mapToQaUserDto(QaUserEntity qaUserEntity) {
 		return mapper.map(qaUserEntity, QaUserDto.class);
 	}
-	
+
 	public TraineeEntity mapToQaTraineeEntity(TraineeDto qaTraineeDto) {
 		return mapper.map(qaTraineeDto, TraineeEntity.class);
 	}
-	
+
 	public TraineeDto mapToQaTraineeDto(TraineeEntity qaTraineeEntity) {
 		return mapper.map(qaTraineeEntity, TraineeDto.class);
 	}
-	
+
 	public TrainerEntity mapToQaTrainerEntity(TrainerDto qaTrainerDto) {
 		return mapper.map(qaTrainerDto, TrainerEntity.class);
 	}
-	
+
 	public TrainerDto mapToQaTrainerDto(TrainerEntity qaTrainerEntity) {
 		return mapper.map(qaTrainerEntity, TrainerDto.class);
 	}
