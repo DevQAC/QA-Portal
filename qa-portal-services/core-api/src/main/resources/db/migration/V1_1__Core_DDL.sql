@@ -109,6 +109,3 @@ create table if not exists training.dept_role_menu_item
 );
 
 alter table training.dept_role_menu_item owner to postgres;
-
-
-

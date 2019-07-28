@@ -13,6 +13,7 @@ import {PortalHomeSharedModule} from '../../../portal-home/src/app/app.module';
 import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 import {QaErrorHandlerService} from './_common/services/qa-error-handler.service';
 import {QaErrorSharedModule} from '../../../qa-error-app/src/app/app.module';
+import {SelfReflectionSharedModule} from '../../../self-reflection/src/app/app.module';
 import {initializer} from '../../../../app-init';
 import {QaToastrService} from './_common/services/qa-toastr.service';
 
@@ -29,6 +30,7 @@ import {QaToastrService} from './_common/services/qa-toastr.service';
     AppRoutingModule,
     PortalHomeSharedModule.forRoot(),
     QaErrorSharedModule.forRoot(),
+    SelfReflectionSharedModule.forRoot(),
     HttpClientModule,
     KeycloakAngularModule
   ],

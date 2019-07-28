@@ -4,6 +4,13 @@
     "secure": false,
     "logLevel": "debug"
   },
+  
+  
+  "/self-reflection-api": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "logLevel": "debug"
+  },
 
   "/auth": {
     "target": "http://localhost:8080",
@@ -16,4 +23,7 @@
     "secure": false,
     "logLevel": "debug"
   }
+  
+  
 }
+
