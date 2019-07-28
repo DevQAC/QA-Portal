@@ -2,6 +2,7 @@ HELP.md
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 /bin/
+.metadata
 
 ### STS ###
 .apt_generated
