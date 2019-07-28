@@ -37,6 +37,10 @@ export class SelfReflectionService {
     return this.http.get<ReflectionQuestion[]>(`${REFLECTION_QUESTION_API}/reflection-id/${reflectionId}`);
   }
 
+  public updateReflectionQuestions(reflectionQuestions: ReflectionQuestion[]): Observable<ReflectionQuestion[]> {
+    return this.http.put<ReflectionQuestion[]>(`${REFLECTION_QUESTION_API}`, reflectionQuestions);
+  }
+
   public create(reflection: Reflection): Observable<Reflection> {
     return this.http.post<Reflection>(REFLECTION_API, reflection);
   }

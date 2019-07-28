@@ -23,7 +23,8 @@ export class Reflection extends Base {
         reflectionQuestions.push({
           reflection,
           question: {
-            category: i.toString()
+            category: i.toString(),
+            numOptions: null
           }
         });
       }

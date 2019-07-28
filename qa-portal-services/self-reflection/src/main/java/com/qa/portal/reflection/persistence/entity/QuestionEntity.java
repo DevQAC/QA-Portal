@@ -25,8 +25,8 @@ public class QuestionEntity extends QaBaseEntity {
 	@Column(name="num_options")
 	private Integer numberOfOptions;
 
-	@OneToMany(mappedBy = "question")
-	private Set<ReflectionQuestionEntity> forms;
+//	@OneToMany(mappedBy = "question")
+//	private Set<ReflectionQuestionEntity> forms;
 
 	public Integer getId() {
 		return id;
@@ -60,13 +60,13 @@ public class QuestionEntity extends QaBaseEntity {
 		this.numberOfOptions = numberOfOptions;
 	}
 
-	public Set<ReflectionQuestionEntity> getForms() {
-		return forms;
-	}
-
-	public void setForms(Set<ReflectionQuestionEntity> forms) {
-		this.forms = forms;
-	}
+//	public Set<ReflectionQuestionEntity> getForms() {
+//		return forms;
+//	}
+//
+//	public void setForms(Set<ReflectionQuestionEntity> forms) {
+//		this.forms = forms;
+//	}
 
 	@Override
 	public boolean equals(Object o) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-comment-box',
@@ -13,10 +13,16 @@ export class CommentBoxComponent implements OnInit {
   public title: string;
   @Input()
   public placeHolder: string;
+  @Output()
+  public save = new EventEmitter();
   constructor() {
     this.comments = this.comments || '';
     this.title = this.title || '';
     this.placeHolder = this.placeHolder || '';
+  }
+
+  public emitSave(event: any): void {
+    this.save.emit(event);
   }
 
   ngOnInit() {

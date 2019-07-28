@@ -12,8 +12,17 @@ public final class QuestionDto extends QaBaseDto {
 
     private String category;
 
+    private Integer numberOfOptions;
 
-    public Integer getId() {
+    public Integer getNumberOfOptions() {
+		return numberOfOptions;
+	}
+
+	public void setNumberOfOptions(Integer numberOfOptions) {
+		this.numberOfOptions = numberOfOptions;
+	}
+
+	public Integer getId() {
         return id;
     }
 

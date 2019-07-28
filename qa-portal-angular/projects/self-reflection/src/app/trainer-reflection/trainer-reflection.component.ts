@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Tile } from './models/tileRow';
+import { Tile } from './models/tile';
 import { SelfReflectionService } from './services/self-reflection.service';
 import { Reflection } from './models/dto/reflection';
 import { Trainee } from './models/dto/trainee';
 import { Question } from './models/dto/question';
 import { ReflectionQuestion } from './models/dto/reflection-question';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ScoreTile } from './models/score-tile';
+import { UserType } from './models/user-type.enum';
 
 @Component({
   selector: 'app-trainer-reflection',
@@ -14,10 +16,10 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class TrainerReflectionComponent implements OnInit {
 
-  public titleRow: Tile[] = [];
+  // public titleRow: Tile[] = [];
   public questionRow: Tile[] = [];
   public authorRow: Tile[] = [];
-  public scoreRow: Tile[] = [];
+  public scoreRow: ScoreTile[] = [];
   public COL_MAX = 0;
   public trainee: Trainee = new Trainee();
   public reflections: Reflection[] = [];
@@ -26,6 +28,7 @@ export class TrainerReflectionComponent implements OnInit {
   public learningPathway = '';
   public numberOfCategories = 0;
   public skillAreas = ['Technical Skills', 'Soft Skills', 'Attitude'];
+  public disableInputs = false;
   private traineeId = 0;
 
   constructor(private selfReflectionService: SelfReflectionService, private activatedRoute: ActivatedRoute) {
@@ -36,18 +39,58 @@ export class TrainerReflectionComponent implements OnInit {
   }
 
   private updateReflections() {
+    this.scoreRow = [];
     for (const reflection of this.reflections) {
       for (const reflectionQuestion of reflection.reflectionQuestions) {
-        const traineeResponse = reflectionQuestion.response ? reflectionQuestion.response.toString() : 'N/A';
-        const trainerResponse = reflectionQuestion.trainerResponse ? reflectionQuestion.trainerResponse.toString() : 'N/A';
-        this.scoreRow.push({ colspan: 2, text: traineeResponse });
-        this.scoreRow.push({ colspan: 2, text: trainerResponse });
+        const traineeResponse = reflectionQuestion.response ? reflectionQuestion.response.toString() : null;
+        const trainerResponse = reflectionQuestion.trainerResponse ? reflectionQuestion.trainerResponse.toString() : null;
+        this.scoreRow.push({ colspan: 2, text: traineeResponse, data: reflectionQuestion, userType: UserType.TRAINEE });
+        this.scoreRow.push({ colspan: 2, text: trainerResponse, data: reflectionQuestion, userType: UserType.TRAINER });
       }
     }
   }
 
-  public floor(arg) {
-    return Math.floor(arg);
+  public saveReflectionQuestions(): void {
+    console.log('Saving ReflectionQuestions!');
+    this.disableInputs = true;
+    const reflectionQuestions: ReflectionQuestion[] = [];
+    this.scoreRow.forEach((scoreTile: ScoreTile): void => {
+      const score = scoreTile.text !== null ? Math.max(Math.min(+scoreTile.text, 10), 1) : null;
+      switch (scoreTile.userType) {
+        case UserType.TRAINEE:
+          scoreTile.data.response = score;
+          break;
+        case UserType.TRAINER:
+          scoreTile.data.trainerResponse = score;
+          break;
+        default:
+      }
+      if (scoreTile.data.id !== null) {
+        if (!reflectionQuestions.find(rq => rq === scoreTile.data)) {
+          reflectionQuestions.push(scoreTile.data);
+        }
+      }
+      if (scoreTile.text) {
+        scoreTile.text = score.toString();
+      }
+    });
+    // Send all the reflection questions to the backend
+    // On successful save, re-enable input fields and show snackbar.
+    this.selfReflectionService.updateReflectionQuestions(reflectionQuestions)
+      .subscribe(updatedReflections => {
+        console.log('reflections updated!');
+        this.disableInputs = false;
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  public saveTrainerComments(): void {
+    console.log('Saving TrainerComments!');
+  }
+
+  public saveLearningPathway(): void {
+    console.log('Saving Learning Pathway!');
   }
 
   ngOnInit() {

@@ -14,7 +14,6 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-
   .self-reflection-grid .question-text {
     font-size: 10px;
   }
@@ -38,6 +37,8 @@
 .trainer-reflection {
   padding: 0 3em;
 }
+
+
 
 .self-reflection-grid-container {
   padding-bottom: 2em;
@@ -68,8 +69,26 @@
   font-size: 15px;
 }
 
-.self-reflection-grid .scores span {
-  font-size: 15px;
+.scores:hover {
+  background-color: #ccc;
+}
+
+input.scores {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border: none;
+}
+
+input[type=number].scores::-webkit-inner-spin-button,
+input[type=number].scores::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.self-reflection-grid .scores {
+  font-size: 18px;
 }
 
 .self-reflection-grid .questions,
@@ -79,6 +98,9 @@
   border: 1px solid #eee;
 }
 
+.save-button-container {
+  background-color: #eee;
+}
 
 .self-reflection-grid .question-text {
   font-weight: normal;
