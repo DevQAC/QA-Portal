@@ -83,6 +83,7 @@ export class TrainerReflectionComponent implements OnInit {
         this.disableInputs = false;
       }, error => {
         // TODO: Use general error service
+        this.snackBar.open('Error: Self Reflection not saved (see console).', 'Dismiss', { duration: 3000 });
         console.log(error);
       });
   }
@@ -93,6 +94,11 @@ export class TrainerReflectionComponent implements OnInit {
 
   public saveLearningPathway(): void {
     console.log('Saving Learning Pathway!');
+  }
+
+  private handleError(error): void {
+    console.log(error);
+    this.statusMessage = 'Error: Self Reflections could not be loaded.';
   }
 
   ngOnInit() {
@@ -136,7 +142,9 @@ export class TrainerReflectionComponent implements OnInit {
             } else {
               this.statusMessage = 'There are no Self Reflections for this user.';
             }
-          });
-      });
+          },
+            error => this.handleError(error));
+      },
+        error => this.handleError(error));
   }
 }
