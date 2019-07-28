@@ -12,6 +12,6 @@ import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 @Repository
 public interface ReflectionRepository extends JpaRepository<ReflectionEntity, Integer> {
 
-	Optional<ReflectionEntity> findByReviewerAndDate(TrainerEntity trainer, LocalDate date);
+	Optional<ReflectionEntity> findByReviewerAndFormDate(TrainerEntity trainer, LocalDate date);
 
 }
