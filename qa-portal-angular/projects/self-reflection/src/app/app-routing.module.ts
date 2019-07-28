@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {AppComponent} from './app.component';
 import { TrainerReflectionComponent } from './trainer-reflection/trainer-reflection.component';
 import {TrainerCohortsComponent} from './trainer-cohorts/trainer-cohorts.component';
+import {CohortSummaryComponent} from './cohort-summary/cohort-summary.component';
 
 const routes: Routes = [
     {
@@ -15,7 +16,15 @@ const routes: Routes = [
             path: 'selfreflection/:id', component: TrainerReflectionComponent
           }
         ]
-    }
+    },
+  {
+    path: 'admin',
+    children: [
+      {
+        path: 'cohorts', component: CohortSummaryComponent
+      }
+    ]
+  }
 ];
 
 

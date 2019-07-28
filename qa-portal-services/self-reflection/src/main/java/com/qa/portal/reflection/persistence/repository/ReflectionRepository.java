@@ -14,9 +14,11 @@ import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 @Repository
 public interface ReflectionRepository extends JpaRepository<ReflectionEntity, Integer> {
 
-	Set <ReflectionEntity> findByResponder(TraineeEntity trainee);
-	Set <ReflectionEntity> findByResponderId(Integer id);
-	Set <ReflectionEntity> findByReviewerId(Integer id);
+	Set<ReflectionEntity> findAllByResponder(TraineeEntity trainee);
+
+	Set<ReflectionEntity> findByResponderId(Integer id);
+
+	Set<ReflectionEntity> findByReviewerId(Integer id);
 
 	Optional<ReflectionEntity> findByReviewerAndFormDate(TrainerEntity trainer, LocalDate date);
 

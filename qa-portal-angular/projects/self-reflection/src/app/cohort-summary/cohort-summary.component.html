@@ -1,0 +1,59 @@
+<p class="qa-app-title">
+  SELF REFLECTION
+</p>
+<table id="summaryTable" mat-table [dataSource]="summary">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name</th>
+    <td mat-cell *matCellDef="let element"> {{element.cohortName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk1">
+    <th mat-header-cell *matHeaderCellDef> Week 1</th>
+    <td mat-cell *matCellDef="let element"> {{element.scores[0]}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk2">
+    <th mat-header-cell *matHeaderCellDef> Week 2</th>
+    <td mat-cell *matCellDef="let element"> {{element.scores[1]}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk3">
+    <th mat-header-cell *matHeaderCellDef> Week 3</th>
+    <td mat-cell *matCellDef="let element"> {{element.scores[2]}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk4">
+    <th mat-header-cell *matHeaderCellDef> Week 4</th>
+    <td mat-cell *matCellDef="let element"> {{element.scores[3]}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk5">
+    <th mat-header-cell *matHeaderCellDef> Week 5</th>
+    <td mat-cell *matCellDef="let element"> {{element.scores[4]}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk6">
+    <th mat-header-cell *matHeaderCellDef> Week 6</th>
+    <td mat-cell *matCellDef="let element"> {{element.wk6}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk7">
+    <th mat-header-cell *matHeaderCellDef> Week 7</th>
+    <td mat-cell *matCellDef="let element"> {{element.wk7}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk8">
+    <th mat-header-cell *matHeaderCellDef> Week 8</th>
+    <td mat-cell *matCellDef="let element"> {{element.wk8}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk9">
+    <th mat-header-cell *matHeaderCellDef> Week 9</th>
+    <td mat-cell *matCellDef="let element"> {{element.wk9}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk10">
+    <th mat-header-cell *matHeaderCellDef> Week 10</th>
+    <td mat-cell *matCellDef="let element"> {{element.wk10}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk11">
+    <th mat-header-cell *matHeaderCellDef> Week 11</th>
+    <td mat-cell *matCellDef="let element"> {{element.wk11}} </td>
+  </ng-container>
+  <ng-container matColumnDef="wk12">
+    <th mat-header-cell *matHeaderCellDef> Week 12</th>
+    <td mat-cell *matCellDef="let element"> {{element.wk12}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table>

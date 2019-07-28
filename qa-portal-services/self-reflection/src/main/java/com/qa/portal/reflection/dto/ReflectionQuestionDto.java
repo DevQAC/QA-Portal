@@ -1,84 +1,67 @@
 package com.qa.portal.reflection.dto;
 
-import java.util.Objects;
+import com.qa.portal.common.dto.QaBaseDto;
 
-public final class ReflectionQuestionDto {
+public class ReflectionQuestionDto extends QaBaseDto {
 
-    private Integer id;
+	private Integer id;
 
-    private ReflectionDto reflection;
+	private ReflectionDto reflection;
 
-    private QuestionDto question;
+	private QuestionDto question;
 
-    private Integer response;
+	private Integer response;
 
-    private Integer trainerResponse;
+	private Integer trainerResponse;
 
-    public Integer getId() {
-        return id;
-    }
+	public ReflectionQuestionDto(Integer id, ReflectionDto reflection, QuestionDto question, Integer response,
+			Integer trainerResponse) {
+		super();
+		this.id = id;
+		this.reflection = reflection;
+		this.question = question;
+		this.response = response;
+		this.trainerResponse = trainerResponse;
+	}
 
-    public ReflectionDto getReflection() {
-        return reflection;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public QuestionDto getQuestion() {
-        return question;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getResponse() {
-        return response;
-    }
+	public ReflectionDto getReflection() {
+		return reflection;
+	}
 
-    public Integer getTrainerResponse() {
-        return trainerResponse;
-    }
+	public void setReflection(ReflectionDto reflection) {
+		this.reflection = reflection;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public QuestionDto getQuestion() {
+		return question;
+	}
 
-    public void setReflection(ReflectionDto reflection) {
-        this.reflection = reflection;
-    }
+	public void setQuestion(QuestionDto question) {
+		this.question = question;
+	}
 
-    public void setQuestion(QuestionDto question) {
-        this.question = question;
-    }
+	public Integer getResponse() {
+		return response;
+	}
 
-    public void setResponse(Integer response) {
-        this.response = response;
-    }
+	public void setResponse(Integer response) {
+		this.response = response;
+	}
 
-    public void setTrainerResponse(Integer trainerResponse) {
-        this.trainerResponse = trainerResponse;
-    }
+	public Integer getTrainerResponse() {
+		return trainerResponse;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ReflectionQuestionDto that = (ReflectionQuestionDto) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(reflection, that.reflection) &&
-                Objects.equals(question, that.question) &&
-                Objects.equals(response, that.response) &&
-                Objects.equals(trainerResponse, that.trainerResponse);
-    }
+	public void setTrainerResponse(Integer trainerResponse) {
+		this.trainerResponse = trainerResponse;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, reflection, question, response, trainerResponse);
-    }
-
-    @Override
-    public String toString() {
-        return "ReflectionQuestionDto{" +
-                "id=" + id +
-                ", reflection=" + reflection +
-                ", question=" + question +
-                ", response=" + response +
-                ", trainerResponse=" + trainerResponse +
-                '}';
-    }
 }
