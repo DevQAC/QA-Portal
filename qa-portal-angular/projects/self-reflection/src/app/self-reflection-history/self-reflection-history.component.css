@@ -1,0 +1,13 @@
+table {
+    width: 100%;
+}
+
+mat-cell{
+    font-size: 20px;
+}
+
+mat-cell.cdk-column-date{
+    position: relative;
+    left: 60%;
+    top:-32px;
+}

@@ -4,6 +4,7 @@ import {TrainerReflectionComponent} from './trainer-reflection/trainer-reflectio
 import {TrainerCohortsComponent} from './trainer-cohorts/trainer-cohorts.component';
 import {CohortSummaryComponent} from './cohort-summary/cohort-summary.component';
 import {TraineeReflectionComponent} from './trainee-reflection/trainee-reflection.component';
+import { SelfReflectionHistoryComponent } from './self-reflection-history/self-reflection-history.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,11 @@ const routes: Routes = [
     children: [
       {
         path: 'selfreflection', component: TraineeReflectionComponent
+      },
+      {
+        path: 'selfreflections', component: SelfReflectionHistoryComponent
       }
+
     ]
   },
   {

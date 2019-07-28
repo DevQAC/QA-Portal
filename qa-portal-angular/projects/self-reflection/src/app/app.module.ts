@@ -13,6 +13,7 @@ import { SaveButtonComponent } from './trainer-reflection/save-button/save-butto
 import { CohortSummaryComponent } from './cohort-summary/cohort-summary.component';
 import {SummaryService} from './cohort-summary/services/summary.service';
 import { TraineeReflectionComponent } from './trainee-reflection/trainee-reflection.component';
+import { SelfReflectionHistoryComponent } from './self-reflection-history/self-reflection-history.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { TraineeReflectionComponent } from './trainee-reflection/trainee-reflect
     CommentBoxComponent,
     SaveButtonComponent,
     CohortSummaryComponent,
-    TraineeReflectionComponent
+    TraineeReflectionComponent,
+    AppComponent,
+    SelfReflectionHistoryComponent
   ],
   imports: [
     BrowserModule,
