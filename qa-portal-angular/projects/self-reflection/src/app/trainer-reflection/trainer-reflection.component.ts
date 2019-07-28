@@ -8,6 +8,7 @@ import { ReflectionQuestion } from './models/dto/reflection-question';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ScoreTile } from './models/score-tile';
 import { UserType } from './models/user-type.enum';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-trainer-reflection',
@@ -16,7 +17,6 @@ import { UserType } from './models/user-type.enum';
 })
 export class TrainerReflectionComponent implements OnInit {
 
-  // public titleRow: Tile[] = [];
   public questionRow: Tile[] = [];
   public authorRow: Tile[] = [];
   public scoreRow: ScoreTile[] = [];
@@ -30,8 +30,9 @@ export class TrainerReflectionComponent implements OnInit {
   public skillAreas = ['Technical Skills', 'Soft Skills', 'Attitude'];
   public disableInputs = false;
   private traineeId = 0;
+  public statusMessage = 'Checking for Self Reflections...';
 
-  constructor(private selfReflectionService: SelfReflectionService, private activatedRoute: ActivatedRoute) {
+  constructor(private selfReflectionService: SelfReflectionService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) {
     this.trainerComments = this.learningPathway = 'Ea qui ipsum sint nisi et sunt et eu commodo proident id.' +
       'Exercitation adipisicing ut aute consequat pariatur minim duis cupidatat velit quis. Qui ' +
       'consectetur reprehenderit nisi deserunt adipisicing velit enim quis cillum eiusmod. Minim ea mollit in ' +
@@ -78,9 +79,10 @@ export class TrainerReflectionComponent implements OnInit {
     // On successful save, re-enable input fields and show snackbar.
     this.selfReflectionService.updateReflectionQuestions(reflectionQuestions)
       .subscribe(updatedReflections => {
-        console.log('reflections updated!');
+        this.snackBar.open('Self Reflections Updated.', 'Dismiss', { duration: 3000 });
         this.disableInputs = false;
       }, error => {
+        // TODO: Use general error service
         console.log(error);
       });
   }
@@ -94,17 +96,12 @@ export class TrainerReflectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    // const fakeReflection: Reflection = {
-    //   responder: { firstName: 'Gordon', lastName: 'Wells', userName: 'user' },
-    //   reviewer: { firstName: 'Alan', lastName: 'Alanadopoulous', userName: 'aaaalan' },
-    //   formDate: new Date(),
-    //   reflectionQuestions: []
-    // };
-    // Trainee id
+    // Get trainee id from path
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap): void => {
       this.traineeId = +paramMap.get('id');
     });
-    // Get questions
+    // Get questions.
+    // TODO: remove hard-coded value
     this.selfReflectionService.getQuestions(1)
       .subscribe(questions => {
         this.questions = questions.sort((a, b) => {
@@ -127,22 +124,19 @@ export class TrainerReflectionComponent implements OnInit {
         this.selfReflectionService.getReflectionsByTraineeId(this.traineeId)
           .subscribe(reflections => {
             if (reflections && reflections.length > 0) {
-              console.log(reflections);
               this.trainee = reflections[0].responder;
               reflections.forEach((reflection: Reflection): void => {
                 this.selfReflectionService.getReflectionQuestionsByReflectionId(reflection.id)
                   .subscribe((reflectionQuestions: ReflectionQuestion[]): void => {
                     Reflection.setReflectionQuestions(reflection, reflectionQuestions, this.numberOfCategories);
-                    console.log(reflection);
                     this.reflections.push(reflection);
                     this.updateReflections();
                   });
               });
             } else {
-              console.log('There are no entries for this trainee');
+              this.statusMessage = 'There are no Self Reflections for this user.';
             }
           });
       });
-
   }
 }

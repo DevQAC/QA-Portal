@@ -1,5 +1,4 @@
-export class Tile<T = any> {
+export class Tile {
   text: string;
   colspan: number;
-  data?: T;
 }

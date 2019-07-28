@@ -38,8 +38,6 @@
   padding: 0 3em;
 }
 
-
-
 .self-reflection-grid-container {
   padding-bottom: 2em;
 }
@@ -70,7 +68,7 @@
 }
 
 .scores:hover {
-  background-color: #ccc;
+  background-color: #eee;
 }
 
 input.scores {
