@@ -1,54 +1,102 @@
 package com.qa.portal.reflection.dto;
 
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qa.portal.common.dto.QaBaseDto;
 import com.qa.portal.common.dto.QaUserDto;
 
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Set;
+
+
 public final class ReflectionDto extends QaBaseDto {
 
-	private final Integer id;
+    private Integer id;
 
-	private final QaUserDto responder;
+    private QaUserDto responder;
 
-	private final QaUserDto reviewer;
+    private QaUserDto reviewer;
 
-	private final LocalDate date;
+    private LocalDate date;
 
-	private Set<QuestionDto> questions;
+    private String trainerComments;
 
-	@JsonCreator
-	public ReflectionDto(@JsonProperty Integer id, @JsonProperty QaUserDto responder, @JsonProperty QaUserDto reviewer,
-			@JsonProperty LocalDate date) {
-		super();
-		this.id = id;
-		this.responder = responder;
-		this.reviewer = reviewer;
-		this.date = date;
-	}
+    private String learningPathway;
 
-	public Integer getId() {
-		return id;
-	}
+    private Set<ReflectionQuestionDto> questions;
 
-	public QaUserDto getResponder() {
-		return responder;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public QaUserDto getReviewer() {
-		return reviewer;
-	}
+    public QaUserDto getResponder() {
+        return responder;
+    }
 
-	public LocalDate getDate() {
-		return date;
-	}
+    public QaUserDto getReviewer() {
+        return reviewer;
+    }
 
-	public Set<QuestionDto> getQuestions() {
-		return Collections.unmodifiableSet(this.questions);
-	}
+    public LocalDate getDate() {
+        return date;
+    }
 
+    public String getTrainerComments() {
+        return trainerComments;
+    }
+
+    public String getLearningPathway() {
+        return learningPathway;
+    }
+
+    public Set<ReflectionQuestionDto> getQuestions() {
+        return Collections.unmodifiableSet(this.questions);
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setResponder(QaUserDto responder) {
+        this.responder = responder;
+    }
+
+    public void setReviewer(QaUserDto reviewer) {
+        this.reviewer = reviewer;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setTrainerComments(String trainerComments) {
+        this.trainerComments = trainerComments;
+    }
+
+    public void setLearningPathway(String learningPathway) {
+        this.learningPathway = learningPathway;
+    }
+
+    public void setQuestions(Set<ReflectionQuestionDto> questions) {
+        this.questions = questions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReflectionDto that = (ReflectionDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(responder, that.responder) &&
+                Objects.equals(reviewer, that.reviewer) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(trainerComments, that.trainerComments) &&
+                Objects.equals(learningPathway, that.learningPathway) &&
+                Objects.equals(questions, that.questions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, responder, reviewer, date, trainerComments, learningPathway, questions);
+    }
 }

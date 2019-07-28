@@ -47,7 +47,7 @@ public class ReflectionService {
 	public ReflectionDto getSelfReflection(Integer userId, LocalDate date) {
 		TrainerEntity trainer = this.trainerRepo.findById(userId)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainer does not exist"));
-		ReflectionEntity reflection = this.reflectionRepo.findByReviewerAndDate(trainer, date)
+		ReflectionEntity reflection = this.reflectionRepo.findByReviewerAndFormDate(trainer, date)
 				.orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));
 		return this.mapper.mapToReflectionDto(reflection);
 	}
@@ -62,7 +62,7 @@ public class ReflectionService {
 		ReflectionEntity reflectionToUpdate = this.reflectionRepo.findById(reflection.getId())
 				.orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));
 		ReflectionEntity reflectionToUpdateFrom = this.mapper.mapToReflectionEntity(reflection);
-		reflectionToUpdate.setDate(reflectionToUpdateFrom.getDate());
+		reflectionToUpdate.setFormDate(reflectionToUpdateFrom.getFormDate());
 		reflectionToUpdate.setResponder(reflectionToUpdateFrom.getResponder());
 		reflectionToUpdate.setReviewer(reflectionToUpdateFrom.getReviewer());
 		return this.mapper.mapToReflectionDto(this.reflectionRepo.save(reflectionToUpdate));
