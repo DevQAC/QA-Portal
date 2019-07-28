@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
 import { CohortTraineesComponent } from './cohort-trainees/cohort-trainees.component';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -13,6 +13,7 @@ import { CohortTraineesComponent } from './cohort-trainees/cohort-trainees.compo
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     QaCommonModule
   ],
