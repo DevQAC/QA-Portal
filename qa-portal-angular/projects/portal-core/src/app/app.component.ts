@@ -4,6 +4,7 @@ import {MenuService} from './_common/services/menu-service';
 import {Subscription} from 'rxjs';
 import {ApplicationSelectionService} from './_common/services/application-selection.service';
 import {Application} from './_common/models/application';
+import {MenuItem} from './_common/models/menu-item';
 
 @Component({
   selector: 'app-root',
@@ -49,7 +50,9 @@ export class AppComponent implements OnInit, OnDestroy {
     let appSelected = false;
     this.portalApplications.forEach((pa) => {
       pa.applications.forEach(a => {
-        if (currUrl.startsWith(a.url) && a.url !== '/qa/portal' && !appSelected) {
+        if ((currUrl.startsWith(a.url) || this.isAppMenuItem(currUrl, a.menuItems)) &&
+          a.url !== '/qa/portal' &&
+          !appSelected) {
           this.applicationSelectionService.setSelectedApplication(a);
           appSelected = true;
         }
@@ -65,6 +68,10 @@ export class AppComponent implements OnInit, OnDestroy {
     } else if (currUrl.startsWith('/qa/portal/error')) {
       this.applicationSelectionService.setSelectedApplication(this.errorApp);
     }
+  }
+
+  private isAppMenuItem(url: string, menuItems: MenuItem[]): boolean {
+    return menuItems.filter(mi => mi.url === url).length > 0;
   }
 
   private getErrorApplication(): Application {
