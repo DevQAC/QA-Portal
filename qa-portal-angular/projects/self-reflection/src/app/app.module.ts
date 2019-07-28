@@ -10,10 +10,13 @@ import {TrainerCohortsService} from '../../../portal-core/src/app/_common/servic
 import { TrainerReflectionComponent } from './trainer-reflection/trainer-reflection.component';
 import { CommentBoxComponent } from './trainer-reflection/comment-box/comment-box.component';
 import { SaveButtonComponent } from './trainer-reflection/save-button/save-button.component';
-import { CohortSummaryComponent } from './cohort-summary/cohort-summary.component';
 import {SummaryService} from './cohort-summary/services/summary.service';
 import { TraineeReflectionComponent } from './trainee-reflection/trainee-reflection.component';
 import { SelfReflectionHistoryComponent } from './self-reflection-history/self-reflection-history.component';
+import { CohortSummaryComponent } from './cohort-summary/cohort-summary.component';
+import { CohortTableComponent } from './cohort-table/cohort-table.component';
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { CohortChartComponent } from './cohort-chart/cohort-chart.component';
 
 @NgModule({
   declarations: [
@@ -22,16 +25,21 @@ import { SelfReflectionHistoryComponent } from './self-reflection-history/self-r
     TrainerReflectionComponent,
     CommentBoxComponent,
     SaveButtonComponent,
-    CohortSummaryComponent,
     TraineeReflectionComponent,
     AppComponent,
-    SelfReflectionHistoryComponent
+    SelfReflectionHistoryComponent,
+    CohortSummaryComponent,
+    CohortTableComponent,
+    CohortChartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     QaCommonModule,
-    FormsModule
+    FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [SummaryService,
     TrainerCohortsService],
