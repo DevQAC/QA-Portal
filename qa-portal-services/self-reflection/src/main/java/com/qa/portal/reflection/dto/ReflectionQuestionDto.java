@@ -14,15 +14,15 @@ public class ReflectionQuestionDto extends QaBaseDto {
 
 	private Integer trainerResponse;
 
-	public ReflectionQuestionDto(Integer id, ReflectionDto reflection, QuestionDto question, Integer response,
-			Integer trainerResponse) {
-		super();
-		this.id = id;
-		this.reflection = reflection;
-		this.question = question;
-		this.response = response;
-		this.trainerResponse = trainerResponse;
-	}
+//	public ReflectionQuestionDto(Integer id, ReflectionDto reflection, QuestionDto question, Integer response,
+//			Integer trainerResponse) {
+//		super();
+//		this.id = id;
+//		this.reflection = reflection;
+//		this.question = question;
+//		this.response = response;
+//		this.trainerResponse = trainerResponse;
+//	}
 
 	public Integer getId() {
 		return id;
