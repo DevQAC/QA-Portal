@@ -1,18 +1,14 @@
 package com.qa.portal.reflection.rest;
 
-import java.util.Set;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.qa.portal.common.security.QaSecurityContext;
+import com.qa.portal.reflection.dto.CohortSummaryDto;
 import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.service.ReflectionService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/reflection")
@@ -27,9 +23,29 @@ public class ReflectionController {
 		this.context = context;
 	}
 
-	@GetMapping("/current")
+	@GetMapping("/summary")
+	public ResponseEntity<List<CohortSummaryDto>> getCohortSummaryDto() {
+		return ResponseEntity.ok(this.service.getCohortSummaryDto());
+	}
+
+	@GetMapping("/trainee/current")
 	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainee() {
 		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(context.getUserName()));
+	}
+
+	@GetMapping("trainee/{id}")
+	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsByTraineeId(@PathVariable Integer id) {
+		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(id));
+	}
+
+	@GetMapping("trainee/username/{userName}")
+	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsByTraineeUserName(@PathVariable String userName) {
+		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(userName));
+	}
+
+	@GetMapping("/trainer/current")
+	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainer() {
+		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainer(context.getUserName()));
 	}
 
 	@GetMapping("{id}")
@@ -40,13 +56,14 @@ public class ReflectionController {
 //	public ResponseEntity<ReflectionDto> getSelfReflection(Integer userId, LocalDate date) {
 //		return ResponseEntity.ok(this.service.getSelfReflection(userId, date));
 //	}
+
 	@PostMapping
-	public ResponseEntity<ReflectionDto> createSelfReflection(ReflectionDto reflection) {
+	public ResponseEntity<ReflectionDto> createSelfReflection(@RequestBody ReflectionDto reflection) {
 		return ResponseEntity.ok(this.service.createSelfReflection(reflection, context.getUserName()));
 	}
 
 	@PutMapping()
-	public ResponseEntity<ReflectionDto> updateSelfReflection(ReflectionDto reflection) {
+	public ResponseEntity<ReflectionDto> updateSelfReflection(@RequestBody ReflectionDto reflection) {
 		return ResponseEntity.ok(this.service.updateSelfReflection(reflection));
 	}
 

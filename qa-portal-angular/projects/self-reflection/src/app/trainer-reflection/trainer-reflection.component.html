@@ -1,0 +1,46 @@
+<div class='trainer-reflection'>
+  <div class='self-reflection-heading'>
+    <h5 class='title'>
+      <span class='trainee-firstname'>{{trainee.firstName}}</span>&nbsp;<span
+        class='trainee-lastname'>{{trainee.lastName}}</span>&nbsp;Self&nbsp;Reflection&nbsp;Form
+    </h5>
+  </div>
+  <div *ngIf='scoreRow.length > 0; else noSelfReflections'>
+    <div class='self-reflection-grid-container'>
+      <mat-grid-list [cols]='COL_MAX' rowHeight='fit' class='self-reflection-grid'>
+        <mat-grid-tile *ngFor=' let skillArea of skillAreas' rowspan='1' [colspan]='COL_MAX / skillAreas.length'
+          class='header'>
+          <span class='title'>{{ skillArea }}</span>
+        </mat-grid-tile>
+        <mat-grid-tile *ngFor='let question of questions' [colspan]='COL_MAX / numberOfCategories'
+          [rowspan]='3 + (scoreRow.length / 12) * .75' class='questions'>
+          <span class='question-text'>{{ question.body }}</span>
+        </mat-grid-tile>
+        <mat-grid-tile *ngFor='let tile of authorRow' [colspan]='tile.colspan' rowspan='1' class='author'>
+          <span class='author'> {{ tile.text }}</span>
+        </mat-grid-tile>
+        <mat-grid-tile *ngFor='let tile of scoreRow' [colspan]='tile.colspan' rowspan='1' class='scores'>
+          <input [(ngModel)]="tile.text" class='scores' type='number' min="1" max="10" />
+        </mat-grid-tile>
+        <mat-grid-tile class='save-button-container' [colspan]='COL_MAX'>
+          <app-save-button [disabled]='disableInputs' (save)='saveReflectionQuestions()'></app-save-button>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <div class='trainer-textareas'>
+      <div class='trainer-comments'>
+        <app-comment-box (save)='saveTrainerComments()' [title]='"Trainer Comments"' [comments]='trainerComments'>
+        </app-comment-box>
+      </div>
+      <div class='learning-pathway'>
+        <app-comment-box (save)='saveLearningPathway()' [title]='"Learning Pathway"' [comments]='learningPathway'>
+        </app-comment-box>
+      </div>
+    </div>
+  </div>
+  <ng-template #noSelfReflections>
+    <div>
+      <span>{{statusMessage}}</span>
+    </div>
+  </ng-template>
+</div>

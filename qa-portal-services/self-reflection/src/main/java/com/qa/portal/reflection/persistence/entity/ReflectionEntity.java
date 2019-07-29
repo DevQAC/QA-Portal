@@ -1,14 +1,13 @@
 package com.qa.portal.reflection.persistence.entity;
 
-import java.time.LocalDate;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.*;
-
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "reflection", schema = "training")
@@ -22,11 +21,11 @@ public class ReflectionEntity extends QaBaseEntity {
 	@OneToMany(mappedBy = "reflection")
 	private Set<ReflectionQuestionEntity> reflectionQuestions;
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "reviewer_id")
 	private TrainerEntity reviewer;
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "responder_id")
 	private TraineeEntity responder;
 
@@ -75,32 +74,28 @@ public class ReflectionEntity extends QaBaseEntity {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 		ReflectionEntity that = (ReflectionEntity) o;
-		return Objects.equals(id, that.id) &&
-				Objects.equals(reflectionQuestions, that.reflectionQuestions) &&
-				Objects.equals(reviewer, that.reviewer) &&
-				Objects.equals(responder, that.responder) &&
-				Objects.equals(formDate, that.formDate);
+//		return Objects.equals(id, that.id) && Objects.equals(reflectionQuestions, that.reflectionQuestions)
+		return Objects.equals(id, that.id)
+				&& Objects.equals(reviewer, that.reviewer) && Objects.equals(responder, that.responder)
+				&& Objects.equals(formDate, that.formDate);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, reflectionQuestions, reviewer, responder, formDate);
+//		return Objects.hash(id, reflectionQuestions, reviewer, responder, formDate);
+		return Objects.hash(id, reviewer, responder, formDate);
 	}
 
 	@Override
 	public String toString() {
-		return "ReflectionEntity{" +
-				"id=" + id +
-				", reflectionQuestions=" + reflectionQuestions +
-				", reviewer=" + reviewer +
-				", responder=" + responder +
-				", formDate=" + formDate +
-				", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
-				", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-				", version=" + version +
-				'}';
+//		return "ReflectionEntity{" + "id=" + id + ", reflectionQuestions=" + reflectionQuestions + ", reviewer="
+		return "ReflectionEntity{" + "id=" + id + ", reviewer="
+				+ reviewer + ", responder=" + responder + ", formDate=" + formDate + ", lastUpdatedTimestamp="
+				+ lastUpdatedTimestamp + ", lastUpdatedBy='" + lastUpdatedBy + '\'' + ", version=" + version + '}';
 	}
 }

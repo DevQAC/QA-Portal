@@ -1,5 +1,6 @@
 package com.qa.portal.reflection.persistence.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class ReflectionQuestionEntity extends QaBaseEntity {
 	@JoinColumn(name = "reflection_id")
 	private ReflectionEntity reflection;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "question_id")
 	private QuestionEntity question;
 

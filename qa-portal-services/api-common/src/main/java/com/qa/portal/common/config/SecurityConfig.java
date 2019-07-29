@@ -3,8 +3,6 @@ package com.qa.portal.common.config;
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
@@ -19,8 +17,6 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @KeycloakConfiguration
 @Profile("!test")
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
 
     private KeycloakConfigResolver configResolver;
 
@@ -48,8 +44,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        LOGGER.info("Configure of Full Security");
-        System.out.println("Configure of Full security");
         http.csrf().disable().authorizeRequests()
                 .anyRequest().authenticated();
     }

@@ -1,0 +1,62 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .save-icon .save-label {
+    display: none;
+  }
+
+  .comments-card .title span {
+    font-size: 18px;
+  }
+}
+
+.comments-card {
+  padding: 0;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+}
+
+.comments-card .title {
+  padding: .7em .65em;
+  background-color: #eee;
+}
+
+.comments-card .title h5 {
+  margin: 0;
+}
+
+.comments-card .content {
+  padding: 1.5em;
+  color: #777;
+}
+
+.comments-card .content .form-field {
+  width: 100%;
+  font-size: 18px;
+}
+
+.save-icon {
+  float: right;
+  margin-right: 1em;
+}
+
+.save-icon button .icon {
+  color: #bbb;
+  font-size: 35px;
+}
+
+.save-icon .save-label {
+  position: relative;
+  bottom: 10px;
+  font-size: 18px;
+  color: #bbb;
+  margin-right: .5em;
+}
+
+.save-icon button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.save-icon button:focus {
+  outline: none;
+}

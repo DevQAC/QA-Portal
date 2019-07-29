@@ -48,5 +48,3 @@ public class QuestionControllerTest {
         return "http://localhost:" + port + uri;
     }
 }
-
-

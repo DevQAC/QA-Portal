@@ -13,13 +13,12 @@ spring:
   jpa:
     properties:
       hibernate:
-        ddl-auto: none
         jdbc:
           lob:
             non_contextual_creation=true:logging: true
   level:
     org.springframework.web: DEBUG
-    com.swttech.bignash: DEBUG
+    com.qa.portal: DEBUG
 
 qa:
   keycloak:
@@ -43,9 +42,9 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
 
   h2:
-     console:
-        enabled: true
-        path: /h2
+    console:
+      enabled: true
+      path: /h2
 
   flyway:
     locations: classpath:/db/migration-test-base

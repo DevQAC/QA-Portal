@@ -1,0 +1,33 @@
+@media only screen and (max-width: 600px) {
+  .save-icon .save-label {
+    display: none;
+  }
+}
+
+.save-icon {
+  float: right;
+  margin-right: 1em;
+}
+
+.save-icon button .icon {
+  color: #bbb;
+  font-size: 35px;
+}
+
+.save-icon .save-label {
+  position: relative;
+  bottom: 10px;
+  font-size: 18px;
+  color: #888;
+  margin-right: .5em;
+}
+
+.save-icon button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.save-icon button:focus {
+  outline: none;
+}

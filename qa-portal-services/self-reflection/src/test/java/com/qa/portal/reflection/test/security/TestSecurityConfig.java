@@ -20,4 +20,3 @@ public class TestSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests().antMatchers("/**").permitAll();
     }
 }
-

@@ -2,32 +2,35 @@ package com.qa.portal.common.dto;
 
 import java.util.Objects;
 
-public final class QaUserDto extends QaBaseDto {
-	
-	private Integer id;
+public class QaUserDto extends QaBaseDto {
 
-	private String userName;
+    private Integer id;
 
-	private String firstName;
+    private String userName;
 
-	private String lastName;
+    private String firstName;
 
+    private String lastName;
 
-	public Integer getId() {
-		return id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public QaUserDto() {
+        super();
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public Integer getId() {
+        return id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -47,13 +50,13 @@ public final class QaUserDto extends QaBaseDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         QaUserDto qaUserDto = (QaUserDto) o;
-        return Objects.equals(id, qaUserDto.id) &&
-                Objects.equals(userName, qaUserDto.userName) &&
-                Objects.equals(firstName, qaUserDto.firstName) &&
-                Objects.equals(lastName, qaUserDto.lastName);
+        return Objects.equals(id, qaUserDto.id) && Objects.equals(userName, qaUserDto.userName)
+                && Objects.equals(firstName, qaUserDto.firstName) && Objects.equals(lastName, qaUserDto.lastName);
     }
 
     @Override
@@ -63,13 +66,8 @@ public final class QaUserDto extends QaBaseDto {
 
     @Override
     public String toString() {
-        return "QaUserDto{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
-                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-                '}';
+        return "QaUserDto{" + "id=" + id + ", userName='" + userName + '\'' + ", firstName='" + firstName + '\''
+                + ", lastName='" + lastName + '\'' + ", lastUpdatedTimestamp=" + lastUpdatedTimestamp
+                + ", lastUpdatedBy='" + lastUpdatedBy + '\'' + '}';
     }
 }
