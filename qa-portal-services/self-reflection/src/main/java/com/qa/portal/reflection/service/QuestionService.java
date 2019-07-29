@@ -32,7 +32,7 @@ public class QuestionService {
 	}
 
 	@Transactional
-	public Set<QuestionDto> getQuestionsForCohort(Integer cohortId) {
+	public Set<QuestionDto> getQuestionsByCohortId(Integer cohortId) {
 		QaCohortEntity cohort = this.cohortRepo.findById(cohortId)
 				.orElseThrow(() -> new QaResourceNotFoundException("Cohort doesn't exist"));
 		Set<CohortQuestionEntity> cohortQuestions = this.cohortQuestionRepo.findByCohort(cohort);

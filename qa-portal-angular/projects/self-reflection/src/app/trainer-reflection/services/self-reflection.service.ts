@@ -43,7 +43,7 @@ export class SelfReflectionService {
     return this.http.post<Reflection>(REFLECTION_API, reflection);
   }
 
-  public getQuestions(cohortId: number): Observable<Question[]> {
+  public getQuestionsByCohortId(cohortId: number): Observable<Question[]> {
     return this.http.get<Question[]>(`${QUESTION_API}/cohort/${cohortId}`);
   }
 }

@@ -6,7 +6,7 @@
     </h5>
   </div>
   <div *ngIf='scoreRow.length > 0; else noSelfReflections'>
-    <div class='self-reflection-grid-container'>
+    <!-- <div class='self-reflection-grid-container'>
       <mat-grid-list [cols]='COL_MAX' rowHeight='fit' class='self-reflection-grid'>
         <mat-grid-tile *ngFor=' let skillArea of skillAreas' rowspan='1' [colspan]='COL_MAX / skillAreas.length'
           class='header'>
@@ -24,6 +24,23 @@
         </mat-grid-tile>
         <mat-grid-tile class='save-button-container' [colspan]='COL_MAX'>
           <app-save-button [disabled]='disableInputs' (save)='saveReflectionQuestions()'></app-save-button>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+    </div>-->
+    <div class='grids-container'>
+      <mat-grid-list rowHeight='100%' *ngFor='let category of categories' cols='8'
+        [style.width]='(1 / categories.length * 100) + "%"'>
+        <mat-grid-tile colspan='8'>
+          <div>
+            <span class='header'>{{ category }}</span>
+          </div>
+          <div>
+            question 1
+          </div>
+          <div>
+            question 2
+          </div>
         </mat-grid-tile>
       </mat-grid-list>
     </div>

@@ -23,7 +23,7 @@ public class QuestionController {
 	}
 
 	@GetMapping("/cohort/{id}")
-	public ResponseEntity<Set<QuestionDto>> getQuestionsForCohort(@PathVariable("id") Integer cohortId) {
-		return ResponseEntity.ok(service.getQuestionsForCohort(cohortId));
+	public ResponseEntity<Set<QuestionDto>> getQuestionsByCohortId(@PathVariable("id") Integer cohortId) {
+		return ResponseEntity.ok(service.getQuestionsByCohortId(cohortId));
 	}
 }

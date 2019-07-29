@@ -5,4 +5,7 @@ export class User extends Base {
   firstName = '';
   lastName = '';
   userName = '';
+  role: string;
+  reviewerId: number;
+  cohortId: number;
 }

@@ -113,3 +113,21 @@ input[type=number].scores::-webkit-outer-spin-button {
 .trainer-textareas div {
   margin-bottom: 3em;
 }
+
+.grids-container {
+  display: flex;
+  height: 800px;
+}
+
+.grids-container .header-container {
+  display: flex;
+  justify-content: center;
+}
+
+.grids-container * {
+  border: 1px solid black;
+}
+
+::ng-deep mat-grid-tile figure.mat-figure {
+  display: block;
+}

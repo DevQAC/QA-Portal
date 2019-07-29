@@ -9,6 +9,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ScoreTile } from './models/score-tile';
 import { UserType } from './models/user-type.enum';
 import { MatSnackBar } from '@angular/material';
+import { CohortQuestion } from './models/dto/cohort-question';
 
 @Component({
   selector: 'app-trainer-reflection',
@@ -20,14 +21,14 @@ export class TrainerReflectionComponent implements OnInit {
   public questionRow: Tile[] = [];
   public authorRow: Tile[] = [];
   public scoreRow: ScoreTile[] = [];
-  public COL_MAX = 0;
+  public COL_MAX = 24;
   public trainee: Trainee = new Trainee();
   public reflections: Reflection[] = [];
   public questions: Question[] = [];
   public trainerComments = '';
   public learningPathway = '';
   public numberOfCategories = 0;
-  public skillAreas = ['Technical Skills', 'Soft Skills', 'Attitude'];
+  public categories = [];
   public disableInputs = false;
   private traineeId = 0;
   public statusMessage = 'Checking for Self Reflections...';
@@ -108,7 +109,17 @@ export class TrainerReflectionComponent implements OnInit {
     });
     // Get questions.
     // TODO: remove hard-coded value
-    this.selfReflectionService.getQuestions(1)
+    this.trainee = {
+      id: 9,
+      userName: 'smith01',
+      firstName: 'John',
+      lastName: 'Smith',
+      cohortId: 1,
+      role: 'TRAINEE',
+      reviewerId: 8
+    };
+
+    this.selfReflectionService.getQuestionsByCohortId(this.trainee.cohortId)
       .subscribe(questions => {
         this.questions = questions.sort((a, b) => {
           if (a.category < b.category) {
@@ -119,13 +130,17 @@ export class TrainerReflectionComponent implements OnInit {
             return 0;
           }
         });
-        this.numberOfCategories = questions.length;
+        this.questions.forEach(question => {
+          if (!this.categories.includes(question.category)) {
+            this.categories.push(question.category);
+          }
+        });
+        console.log((this.categories.length / this.COL_MAX * 100));
         // Create Self/Trainer tiles for view
         for (let i = 0; i < this.numberOfCategories; ++i) {
           this.authorRow.push({ colspan: 2, text: 'Self' });
           this.authorRow.push({ colspan: 2, text: 'Trainer' });
         }
-        this.COL_MAX = this.numberOfCategories * 4;
         // Get reflections for this user
         this.selfReflectionService.getReflectionsByTraineeId(this.traineeId)
           .subscribe(reflections => {
@@ -134,7 +149,7 @@ export class TrainerReflectionComponent implements OnInit {
               reflections.forEach((reflection: Reflection): void => {
                 this.selfReflectionService.getReflectionQuestionsByReflectionId(reflection.id)
                   .subscribe((reflectionQuestions: ReflectionQuestion[]): void => {
-                    Reflection.setReflectionQuestions(reflection, reflectionQuestions, this.numberOfCategories);
+                    Reflection.setReflectionQuestions(reflection, reflectionQuestions, this.categories.length);
                     this.reflections.push(reflection);
                     this.updateReflections();
                   });
