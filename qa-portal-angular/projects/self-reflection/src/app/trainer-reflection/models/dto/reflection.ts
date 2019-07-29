@@ -16,16 +16,19 @@ export class Reflection extends Base {
   // questions?: Question[];
 
   public static setReflectionQuestions(
-    reflection: Reflection, reflectionQuestions: ReflectionQuestion[], numberOfCategories: number): void {
+    reflection: Reflection, reflectionQuestions: ReflectionQuestion[], questionIds: number[]): void {
     reflectionQuestions.filter(rq => rq.question && rq.question.category);
-    for (let i = 1; i <= numberOfCategories; ++i) {
-      if (!reflectionQuestions.find((reflectionQuestion) => reflectionQuestion.question.category === i.toString())) {
+    for (const i of questionIds) {
+      if (!reflectionQuestions.find((reflectionQuestion) => reflectionQuestion.question && reflectionQuestion.question.id === i)) {
         reflectionQuestions.push({
+          id: null,
           reflection,
           question: {
-            category: i.toString(),
+            id: i,
             numOptions: null
-          }
+          },
+          response: null,
+          trainerResponse: null
         });
       }
     }

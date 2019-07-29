@@ -6,6 +6,6 @@ export class Question extends Base {
   id?: number;
   body?: string;
   numOptions: number;
-  category: string;
+  category?: string;
   forms?: ReflectionQuestion[];
 }

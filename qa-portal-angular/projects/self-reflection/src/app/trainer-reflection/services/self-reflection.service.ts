@@ -11,14 +11,6 @@ export class SelfReflectionService {
 
   constructor(private http: HttpClient) { }
 
-  public getReflectionsForCurrentTrainee(): Observable<Reflection[]> {
-    return this.http.get<Reflection[]>(`${REFLECTION_API}/trainee/current`);
-  }
-
-  public getReflectionsForCurrentTrainer(): Observable<Reflection[]> {
-    return this.http.get<Reflection[]>(`${REFLECTION_API}/trainer/current`);
-  }
-
   public getReflectionById(id: number): Observable<Reflection> {
     return this.http.get<Reflection>(`${REFLECTION_API}/${id}`);
   }
@@ -37,10 +29,6 @@ export class SelfReflectionService {
 
   public updateReflectionQuestions(reflectionQuestions: ReflectionQuestion[]): Observable<ReflectionQuestion[]> {
     return this.http.put<ReflectionQuestion[]>(`${REFLECTION_QUESTION_API}`, reflectionQuestions);
-  }
-
-  public create(reflection: Reflection): Observable<Reflection> {
-    return this.http.post<Reflection>(REFLECTION_API, reflection);
   }
 
   public getQuestionsByCohortId(cohortId: number): Observable<Question[]> {
