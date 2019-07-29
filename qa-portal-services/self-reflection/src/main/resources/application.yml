@@ -5,8 +5,6 @@ server:
 spring:
   main:
     allow-bean-definition-overriding: true
-  flyway:
-    baseline-on-migrate: true
   datasource:
     url: jdbc:postgresql://localhost:5432/qa-portal
     username: postgres
