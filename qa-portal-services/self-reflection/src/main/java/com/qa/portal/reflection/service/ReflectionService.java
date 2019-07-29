@@ -113,7 +113,7 @@ public class ReflectionService {
 
     @Transactional
     public List<CohortSummaryDto> getCohortSummaryDto() {
-	    return Collections.emptyList();
+	    return this.cohortRepo.findAll().stream().map(this::buildCSD).collect(Collectors.toList());
     }
 
 
