@@ -6,9 +6,7 @@ import { Reflection } from '../models/dto/reflection';
 import { ReflectionQuestion } from '../models/dto/reflection-question';
 import { Question } from '../models/dto/question';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SelfReflectionService {
 
   constructor(private http: HttpClient) { }
