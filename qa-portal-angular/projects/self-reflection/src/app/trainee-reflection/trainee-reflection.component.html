@@ -26,8 +26,8 @@
 
   <mat-card-content>
     <app-rated-question *ngFor="let sr of selfReflectionViewModel.selfReflectionForm.selfRatings"
-                        [options]="sr.selfRatingQuestion.numOptions"
-                        [questionText]="sr.selfRatingQuestion.questionText"
+                        [options]="sr.selfRatingQuestion.numberOfOptions"
+                        [questionText]="sr.selfRatingQuestion.body"
                         [selectedRating]="sr">
     </app-rated-question>
   </mat-card-content>

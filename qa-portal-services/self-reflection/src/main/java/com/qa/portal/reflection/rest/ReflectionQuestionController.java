@@ -5,6 +5,7 @@ import java.util.Set;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.reflection.dto.QuestionDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,11 +21,15 @@ import com.qa.portal.reflection.service.ReflectionQuestionService;
 public class ReflectionQuestionController {
 	
 	private ReflectionQuestionService service;
+
 	private QaSecurityContext securityContext;
-	public ReflectionQuestionController(ReflectionQuestionService service) {
+
+	@Autowired
+	public ReflectionQuestionController(ReflectionQuestionService service, QaSecurityContext securityContext) {
 		this.service = service;
+		this.securityContext = securityContext;
 	}
-	
+
 	@GetMapping("/reflection-id/{id}")
 	public Set<ReflectionQuestionDto> getReflectionQuestionsByReflectionId(@PathVariable Integer id) {
 		return this.service.getReflectionQuestionsByReflectionId(id);

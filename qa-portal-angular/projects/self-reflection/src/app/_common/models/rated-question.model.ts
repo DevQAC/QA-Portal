@@ -1,7 +1,7 @@
 export class RatedQuestionModel {
   id: number;
 
-  numOptions: number;
+  numberOfOptions: number;
 
-  questionText: string;
+  body: string;
 }

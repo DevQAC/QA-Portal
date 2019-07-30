@@ -16,7 +16,6 @@ import {QaErrorHandlerService} from "../../../../portal-core/src/app/_common/ser
 export class TraineeReflectionComponent implements OnInit, OnDestroy {
 
   selfReflectionViewModel = new SelfReflectionFormViewModel();
-  questionsArray: any[] = [];
   questionSubscription: Subscription;
   loadingData = true;
 
@@ -26,16 +25,9 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
               private errorHandlerService: QaErrorHandlerService) {
   }
 
-  //
-  // ngOnInit() {
-  //   this.questionSubscription = this.questionsService.getQuestions().subscribe((response) => {
-  //     this.questionsArray = response;
-  //     console.log(response);
-  //   });
-  // }
   ngOnInit() {
     this.selfReflectionViewModel.selfReflectionForm = new SelfReflectionFormModel();
-    this.ratedQuestionsService.getSelfReflectionQuestions().subscribe(
+    this.questionSubscription = this.ratedQuestionsService.getSelfReflectionQuestions().subscribe(
       (response) => {
         response.forEach((entry) => {
           const selfRating = new SelfRatingModel();

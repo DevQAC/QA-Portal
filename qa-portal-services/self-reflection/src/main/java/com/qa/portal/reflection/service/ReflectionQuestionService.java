@@ -6,9 +6,13 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
+import com.qa.portal.reflection.dto.QuestionDto;
 import com.qa.portal.reflection.persistence.entity.CohortQuestionEntity;
 import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.portal.common.exception.QaResourceNotFoundException;
@@ -19,22 +23,31 @@ import com.qa.portal.reflection.persistence.repository.ReflectionQuestionReposit
 
 @Service
 public class ReflectionQuestionService {
-	
-	ReflectionQuestionRepository reflectionQuestionRepo;
+	private final Logger LOGGER = LoggerFactory.getLogger(ReflectionQuestionService.class);
 
-	CohortQuestionRepository cohortQuestionRepository;
-	QaCohortRepository cohortRepository;
+	private ReflectionQuestionRepository reflectionQuestionRepo;
 
-	ReflectionQuestionMapper mapper;
+	private CohortQuestionRepository cohortQuestionRepository;
+
+	private QaCohortRepository cohortRepository;
+
+	private ReflectionQuestionMapper mapper;
 
 	private QaSecurityContext context;
-	
-	public ReflectionQuestionService(ReflectionQuestionRepository reflectionQuestionRepo, ReflectionQuestionMapper mapper, QaSecurityContext context) {
+
+	@Autowired
+	public ReflectionQuestionService(ReflectionQuestionRepository reflectionQuestionRepo,
+									 CohortQuestionRepository cohortQuestionRepository,
+									 QaCohortRepository cohortRepository,
+									 ReflectionQuestionMapper mapper,
+									 QaSecurityContext context) {
 		this.reflectionQuestionRepo = reflectionQuestionRepo;
+		this.cohortQuestionRepository = cohortQuestionRepository;
+		this.cohortRepository = cohortRepository;
 		this.mapper = mapper;
 		this.context = context;
 	}
-	
+
 	@Transactional
 	public Set<ReflectionQuestionDto> getReflectionQuestionsByReflectionId(Integer id) {
 		return this.reflectionQuestionRepo.findByReflectionId(id)
@@ -57,11 +70,12 @@ public class ReflectionQuestionService {
 		.collect(Collectors.toSet());
 	}
 
-	public Set<Co> getReflectionQuestionsByCohort(String cohortName){
-
+	public Set<QuestionDto> getReflectionQuestionsByCohort(String cohortName){
+		LOGGER.info("Cohort name" + cohortName);
 		return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByname(cohortName).orElseThrow(
 				()-> new QaResourceNotFoundException("Cohort not found for supplied name")))
 				.stream()
-				.map((e) -> mapper.mapt(e));
+				.map((e) -> mapper.mapObject(e.getQuestion(), QuestionDto.class))
+				.collect(Collectors.toSet());
 	}
 }
