@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
 import com.qa.portal.reflection.dto.QuestionDto;
-import com.qa.portal.reflection.persistence.entity.CohortQuestionEntity;
 import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
 import org.slf4j.Logger;
@@ -31,7 +30,7 @@ public class ReflectionQuestionService {
 
 	private QaCohortRepository cohortRepository;
 
-	private ReflectionQuestionMapper mapper;
+	private ReflectionQuestionMapper reflectionQuestionMapper;
 
 	private QaSecurityContext context;
 
@@ -39,19 +38,19 @@ public class ReflectionQuestionService {
 	public ReflectionQuestionService(ReflectionQuestionRepository reflectionQuestionRepo,
 									 CohortQuestionRepository cohortQuestionRepository,
 									 QaCohortRepository cohortRepository,
-									 ReflectionQuestionMapper mapper,
+									 ReflectionQuestionMapper reflectionQuestionMapper,
 									 QaSecurityContext context) {
 		this.reflectionQuestionRepo = reflectionQuestionRepo;
 		this.cohortQuestionRepository = cohortQuestionRepository;
 		this.cohortRepository = cohortRepository;
-		this.mapper = mapper;
+		this.reflectionQuestionMapper = reflectionQuestionMapper;
 		this.context = context;
 	}
 
 	@Transactional
 	public Set<ReflectionQuestionDto> getReflectionQuestionsByReflectionId(Integer id) {
 		return this.reflectionQuestionRepo.findByReflectionId(id)
-				.stream().map(this.mapper::mapToReflectionQuestionDto)
+				.stream().map(this.reflectionQuestionMapper::mapToReflectionQuestionDto)
 				.collect(Collectors.toSet());
 	}
 	
@@ -61,11 +60,11 @@ public class ReflectionQuestionService {
 		.map(rqdto -> {
 			ReflectionQuestionEntity reflectionQuestionToUpdate = this.reflectionQuestionRepo.findById(rqdto.getId())
 					.orElseThrow(() -> new QaResourceNotFoundException("Reflection Question not found"));
-			ReflectionQuestionEntity reflectionQuestionToUpdateFrom = this.mapper.mapToReflectionQuestionEntity(rqdto);
+			ReflectionQuestionEntity reflectionQuestionToUpdateFrom = this.reflectionQuestionMapper.mapToReflectionQuestionEntity(rqdto);
 			reflectionQuestionToUpdate.setResponse(reflectionQuestionToUpdateFrom.getResponse());
 			reflectionQuestionToUpdate.setTrainerResponse(reflectionQuestionToUpdateFrom.getTrainerResponse());
 			reflectionQuestionToUpdate.setLastUpdatedBy(context.getUserName());
-			return this.mapper.mapToReflectionQuestionDto(this.reflectionQuestionRepo.save(reflectionQuestionToUpdate));
+			return this.reflectionQuestionMapper.mapToReflectionQuestionDto(this.reflectionQuestionRepo.save(reflectionQuestionToUpdate));
 		})
 		.collect(Collectors.toSet());
 	}
@@ -75,7 +74,7 @@ public class ReflectionQuestionService {
 		return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByname(cohortName).orElseThrow(
 				()-> new QaResourceNotFoundException("Cohort not found for supplied name")))
 				.stream()
-				.map((e) -> mapper.mapObject(e.getQuestion(), QuestionDto.class))
+				.map((e) -> reflectionQuestionMapper.mapToQuestionDto(e.getQuestion()))
 				.collect(Collectors.toSet());
 	}
 }

@@ -63,19 +63,19 @@ public class ReflectionService {
     }
 
     @Transactional
-    public ReflectionDto getSelfReflection(Integer userId, LocalDate date) {
+    public ReflectionDto getSelfReflection(String userId, LocalDate date) {
         return this.getSelfReflectionOperation.getSelfReflectionByUserAndDate(userId, date);
     }
 
     @Transactional
     public ReflectionDto createSelfReflection(ReflectionDto reflectionDto, String userName) {
-        return this.createSelfReflectionOperation.createSelfReflection(reflectionDto);
+        return this.createSelfReflectionOperation.createSelfReflection(reflectionDto, userName);
     }
 
 
     @Transactional
-    public ReflectionDto updateSelfReflection(ReflectionDto reflectionDto) {
-        return this.updateSelfReflectionOperation.updateSelfReflection(reflectionDto);
+    public ReflectionDto updateSelfReflection(ReflectionDto reflectionDto, String userName) {
+        return this.updateSelfReflectionOperation.updateSelfReflection(reflectionDto, userName);
     }
 
     @Transactional

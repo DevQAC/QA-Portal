@@ -4,15 +4,20 @@ import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.reflection.dto.CohortSummaryDto;
 import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.service.ReflectionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/reflection")
 public class ReflectionController {
+
+	private final Logger LOGGER = LoggerFactory.getLogger(ReflectionController.class);
 
 	private ReflectionService service;
 
@@ -53,18 +58,22 @@ public class ReflectionController {
 		return ResponseEntity.ok(this.service.getSelfReflection(id));
 	}
 
-//	public ResponseEntity<ReflectionDto> getSelfReflection(Integer userId, LocalDate date) {
-//		return ResponseEntity.ok(this.service.getSelfReflection(userId, date));
-//	}
+	@GetMapping
+	public ResponseEntity<ReflectionDto> getSelfReflectionByDate(@RequestBody LocalDate date) {
+		return ResponseEntity.ok(this.service.getSelfReflection(context.getUserName(), date));
+	}
 
 	@PostMapping
 	public ResponseEntity<ReflectionDto> createSelfReflection(@RequestBody ReflectionDto reflection) {
+		LOGGER.info("Reflection Dto Questions");
+		reflection.getReflectionQuestions().stream()
+				.forEach(q -> LOGGER.info(q.toString()));
 		return ResponseEntity.ok(this.service.createSelfReflection(reflection, context.getUserName()));
 	}
 
 	@PutMapping()
 	public ResponseEntity<ReflectionDto> updateSelfReflection(@RequestBody ReflectionDto reflection) {
-		return ResponseEntity.ok(this.service.updateSelfReflection(reflection));
+		return ResponseEntity.ok(this.service.updateSelfReflection(reflection, context.getUserName()));
 	}
 
 }

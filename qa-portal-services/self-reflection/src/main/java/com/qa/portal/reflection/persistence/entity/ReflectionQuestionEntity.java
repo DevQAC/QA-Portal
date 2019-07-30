@@ -20,8 +20,11 @@ import java.util.Objects;
 public class ReflectionQuestionEntity extends QaBaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "reflection_question_sequence", sequenceName = "training.reflection_question_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator="reflection_question_sequence")
+	@SequenceGenerator(name = "reflection_question_sequence",
+			sequenceName = "training.reflection_question_sequence",
+			allocationSize = 1)
 	private Integer id;
 
 	@ManyToOne
@@ -92,6 +95,6 @@ public class ReflectionQuestionEntity extends QaBaseEntity {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, reflection, question, response, trainerResponse);
+		return Objects.hash(id, question, response, trainerResponse);
 	}
 }

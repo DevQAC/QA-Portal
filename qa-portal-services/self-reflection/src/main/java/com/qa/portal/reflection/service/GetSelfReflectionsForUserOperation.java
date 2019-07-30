@@ -27,7 +27,7 @@ public class GetSelfReflectionsForUserOperation {
 
 
 	public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
-		TraineeEntity trainee = traineeRepository.findByUserName(userName).stream().findFirst()
+		TraineeEntity trainee = traineeRepository.findByUserName(userName)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
 		return reflectionRepository.findByResponderId(trainee.getId())
 				.stream().map(reflectionMapper::mapToReflectionDto)
@@ -35,7 +35,7 @@ public class GetSelfReflectionsForUserOperation {
 	}
 	
 	public Set<ReflectionDto> getSelfReflectionsForTrainer(String userName) {
-		TrainerEntity trainer = trainerRepository.findByUserName(userName).stream().findFirst()
+		TrainerEntity trainer = trainerRepository.findByUserName(userName)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainer does not exist"));
 		return reflectionRepository.findByReviewerId(trainer.getId())
 				.stream().map(reflectionMapper::mapToReflectionDto)

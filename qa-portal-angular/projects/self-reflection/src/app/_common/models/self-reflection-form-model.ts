@@ -1,27 +1,25 @@
-import {RatedQuestionModel} from './rated-question.model';
-import {SelfReflectionFormStatus} from './self-reflection-form-status';
-import {SelfRatingModel} from './self-rating.model';
+import {ReflectionQuestionModel} from './reflection.question.model';
 
 export class SelfReflectionFormModel {
   id: number;
 
-  qaUser: any;
+  // qaUser: any;
+  //
+  // qaUserSelfReflectionFormStatuses: SelfReflectionFormStatus[];
+  //
+  // selfReflectionReviews: any;
 
-  qaUserSelfReflectionFormStatuses: SelfReflectionFormStatus[];
+  reflectionQuestions: ReflectionQuestionModel[] = [];
 
-  selfReflectionReviews: any;
+  strengths: string;
 
-  selfRatings: SelfRatingModel[] = [];
+  weaknesses: string;
 
-  strengthsText: string;
+  opportunities: string;
 
-  weaknessesText: string;
+  threats: string;
 
-  opportunitiesText: string;
-
-  threatsText: string;
-
-  weekCommencing: Date;
+  formDate: Date;
 
   currentStatus: string;
 }

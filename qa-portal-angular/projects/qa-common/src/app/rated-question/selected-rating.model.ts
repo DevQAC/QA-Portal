@@ -1,3 +1,3 @@
 export interface SelectedRatingModel {
-  selectedRating: number;
+  response: number;
 }

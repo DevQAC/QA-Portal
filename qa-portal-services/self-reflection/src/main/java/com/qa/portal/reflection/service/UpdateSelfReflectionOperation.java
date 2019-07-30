@@ -21,10 +21,10 @@ public class UpdateSelfReflectionOperation {
         this.reflectionMapper = reflectionMapper;
     }
 
-    public ReflectionDto updateSelfReflection(ReflectionDto reflectionDto) {
+    public ReflectionDto updateSelfReflection(ReflectionDto reflectionDto, String userName) {
         ReflectionEntity reflectionToUpdate = this.reflectionRepository.findById(reflectionDto.getId())
                 .orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));
-        ReflectionEntity reflectionToUpdateFrom = this.reflectionMapper.mapToReflectionEntity(reflectionDto);
+        ReflectionEntity reflectionToUpdateFrom = this.reflectionMapper.mapToReflectionEntity(reflectionDto, userName);
         reflectionToUpdate.setFormDate(reflectionToUpdateFrom.getFormDate());
         reflectionToUpdate.setResponder(reflectionToUpdateFrom.getResponder());
         reflectionToUpdate.setReviewer(reflectionToUpdateFrom.getReviewer());

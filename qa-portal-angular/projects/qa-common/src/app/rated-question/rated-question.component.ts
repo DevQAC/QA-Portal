@@ -25,6 +25,6 @@ export class RatedQuestionComponent implements OnInit {
   }
 
   setModel(rating: number) {
-    this.selectedRating.selectedRating = rating;
+    this.selectedRating.response = rating;
   }
 }

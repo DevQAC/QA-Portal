@@ -22,6 +22,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {SelfReflectionService} from './trainer-reflection/services/self-reflection.service';
 import {CohortTraineesService} from './cohort-trainees/services/cohort-trainees.service';
 import {RatedQuestionsService} from './trainee-reflection/services/rated-questions.service';
+import {SelfReflectionFormService} from './trainee-reflection/services/self-reflection-form.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {RatedQuestionsService} from './trainee-reflection/services/rated-questio
     TrainerCohortsService,
     SelfReflectionService,
     CohortTraineesService,
-    RatedQuestionsService],
+    RatedQuestionsService,
+    SelfReflectionFormService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

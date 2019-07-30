@@ -19,7 +19,8 @@ public class CreateSelfReflectionOperation {
         this.reflectionRepository = reflectionRepository;
     }
 
-    public ReflectionDto createSelfReflection(ReflectionDto reflectionDto) {
-        return this.reflectionMapper.mapToReflectionDto(this.reflectionRepository.save(this.reflectionMapper.mapToReflectionEntity(reflectionDto)));
+    public ReflectionDto createSelfReflection(ReflectionDto reflectionDto, String userName) {
+        return this.reflectionMapper
+                .mapToReflectionDto(this.reflectionRepository.save(this.reflectionMapper.mapToReflectionEntity(reflectionDto, userName)));
     }
 }

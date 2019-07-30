@@ -71,6 +71,18 @@ public class ReflectionQuestionDto extends QaBaseDto {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, reflection, question, response, trainerResponse);
+		return Objects.hash(id, question, response, trainerResponse);
+	}
+
+	@Override
+	public String toString() {
+		return "ReflectionQuestionDto{" +
+				"id=" + id +
+				", question=" + question +
+				", response=" + response +
+				", trainerResponse=" + trainerResponse +
+				", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
+				", lastUpdatedBy='" + lastUpdatedBy + '\'' +
+				'}';
 	}
 }

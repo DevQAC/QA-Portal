@@ -36,11 +36,11 @@ public class GetSelfReflectionOperation {
         return this.reflectionMapper.mapToReflectionDto(reflection);
     }
 
-    public ReflectionDto getSelfReflectionByUserAndDate(Integer userId, LocalDate date) {
-        TrainerEntity trainer = this.trainerRepository.findById(userId)
+    public ReflectionDto getSelfReflectionByUserAndDate(String userName, LocalDate date) {
+        TrainerEntity trainer = this.trainerRepository.findByUserName(userName)
                 .orElseThrow(() -> new QaResourceNotFoundException("Trainer does not exist"));
-        ReflectionEntity reflection = this.reflectionRepository.findByReviewerAndFormDate(trainer, date)
-                .orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));
-        return this.reflectionMapper.mapToReflectionDto(reflection);
+        return this.reflectionRepository.findByReviewerAndFormDate(trainer, date)
+                .map(entity -> this.reflectionMapper.mapToReflectionDto(entity))
+                .orElseGet(ReflectionDto::new);
     }
 }
