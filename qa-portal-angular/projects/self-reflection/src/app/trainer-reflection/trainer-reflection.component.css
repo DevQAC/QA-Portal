@@ -68,6 +68,10 @@
   }
 }
 
+.title {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
 
 .save-button-container {
   background-color: #eee;
@@ -83,15 +87,15 @@
   margin-bottom: 2em;
 }
 
+.trainer-reflection {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .trainer-textareas div {
   margin-bottom: 3em;
 }
 
-.trainer-textareas div,
-.grids-wrapper {
-  margin-right: 1.7em;
-  margin-left: 1.7em;
-}
 
 .grids-wrapper {
   margin-bottom: 2em;
