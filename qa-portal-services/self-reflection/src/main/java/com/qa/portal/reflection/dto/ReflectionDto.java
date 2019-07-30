@@ -1,22 +1,19 @@
 package com.qa.portal.reflection.dto;
 
-import com.qa.portal.common.dto.QaBaseDto;
-import com.qa.portal.common.dto.QaUserDto;
-
 import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+
+import com.qa.portal.common.dto.QaBaseDto;
+import com.qa.portal.common.dto.TraineeDto;
+import com.qa.portal.common.dto.TrainerDto;
 
 public final class ReflectionDto extends QaBaseDto {
 
     private Integer id;
 
-    private QaUserDto responder;
+    private TraineeDto responder;
 
-    private QaUserDto reviewer;
+    private TrainerDto reviewer;
 
     private Date formDate;
 
@@ -32,18 +29,17 @@ public final class ReflectionDto extends QaBaseDto {
 
     private String threats;
 
-
-    private Set<ReflectionQuestionDto> reflectionQuestions = new HashSet<ReflectionQuestionDto>();
+//    private Set<ReflectionQuestionDto> reflectionQuestions = new HashSet<ReflectionQuestionDto>();
 
     public Integer getId() {
         return id;
     }
 
-    public QaUserDto getResponder() {
+    public TraineeDto getResponder() {
         return responder;
     }
 
-    public QaUserDto getReviewer() {
+    public TrainerDto getReviewer() {
         return reviewer;
     }
 
@@ -56,19 +52,15 @@ public final class ReflectionDto extends QaBaseDto {
         return learningPathway;
     }
 
-    public Set<ReflectionQuestionDto> getQuestions() {
-        return Collections.unmodifiableSet(this.reflectionQuestions);
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setResponder(QaUserDto responder) {
+    public void setResponder(TraineeDto responder) {
         this.responder = responder;
     }
 
-    public void setReviewer(QaUserDto reviewer) {
+    public void setReviewer(TrainerDto reviewer) {
         this.reviewer = reviewer;
     }
 
@@ -80,9 +72,6 @@ public final class ReflectionDto extends QaBaseDto {
         this.learningPathway = learningPathway;
     }
 
-    public void setQuestions(Set<ReflectionQuestionDto> questions) {
-        this.reflectionQuestions = questions;
-    }
 
     public String getTrainerFeedback() {
         return trainerFeedback;
@@ -124,13 +113,13 @@ public final class ReflectionDto extends QaBaseDto {
         this.threats = threats;
     }
 
-    public Set<ReflectionQuestionDto> getReflectionQuestions() {
-        return reflectionQuestions;
-    }
+//    public Set<ReflectionQuestionDto> getReflectionQuestions() {
+//        return reflectionQuestions;
+//    }
 
-    public void setReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
-        this.reflectionQuestions = reflectionQuestions;
-    }
+//    public void setReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
+//        this.reflectionQuestions = reflectionQuestions;
+//    }
 
     @Override
     public boolean equals(Object object) {
@@ -147,11 +136,13 @@ public final class ReflectionDto extends QaBaseDto {
                 java.util.Objects.equals(strengths, that.strengths) &&
                 java.util.Objects.equals(weaknesses, that.weaknesses) &&
                 java.util.Objects.equals(opportunities, that.opportunities) &&
-                java.util.Objects.equals(threats, that.threats) &&
-                java.util.Objects.equals(reflectionQuestions, that.reflectionQuestions);
+//                java.util.Objects.equals(threats, that.threats) &&
+                java.util.Objects.equals(threats, that.threats);
+//                java.util.Objects.equals(reflectionQuestions, that.reflectionQuestions);
     }
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, responder, reviewer, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats, reflectionQuestions);
+//        return Objects.hash(super.hashCode(), id, responder, reviewer, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats, reflectionQuestions);
+    	return Objects.hash(super.hashCode(), id, responder, reviewer, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats);
     }
 }

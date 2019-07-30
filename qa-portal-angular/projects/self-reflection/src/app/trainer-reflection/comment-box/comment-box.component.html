@@ -6,7 +6,7 @@
   </mat-card-title>
   <mat-card-content class='content'>
     <mat-form-field class='form-field'>
-      <textarea matInput [value]='comments' [placeholder]='placeHolder' cdkTextareaAutosize></textarea>
+      <textarea matInput [(ngModel)]='comments' [placeholder]='placeHolder' cdkTextareaAutosize></textarea>
     </mat-form-field>
   </mat-card-content>
 </mat-card>

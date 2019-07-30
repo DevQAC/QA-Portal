@@ -71,6 +71,35 @@
 .title {
   margin-top: 1em;
   margin-bottom: 1em;
+  font-weight: normal;
+  color: grey;
+}
+
+.status {
+  height: 87vh;
+}
+
+.status-message {
+  position: relative;
+  top: 29%;
+  color: #999;
+}
+
+.status-message.loading {
+  top: 49%;
+}
+
+.status-message .icon {
+  font-size: 9em;
+  color: #bbb;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+.status-message .message {
+  text-align: center;
 }
 
 .save-button-container {

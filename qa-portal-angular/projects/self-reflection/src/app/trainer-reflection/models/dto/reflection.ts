@@ -1,5 +1,3 @@
-import { User } from './user';
-import { Question } from './question';
 import { Base } from './base';
 import { Trainee } from './trainee';
 import { Trainer } from './trainer';
@@ -7,12 +5,16 @@ import { ReflectionQuestion } from './reflection-question';
 
 export class Reflection extends Base {
   id?: number;
-  reflectionQuestions: ReflectionQuestion[];
   reviewer: Trainer;
   responder: Trainee;
   formDate: Date;
-  trainerComments?: string;
+  reflectionQuestions: ReflectionQuestion[];
+  trainerFeedback?: string;
   learningPathway?: string;
+  strengths?: string;
+  weaknesses?: string;
+  opportunities?: string;
+  threats?: string;
   // questions?: Question[];
 
   public static setReflectionQuestions(

@@ -34,8 +34,9 @@ public class GetSelfReflectionsForUserOperation {
 	}
 	
 	public Set<ReflectionDto> getSelfReflectionsForUser(Integer traineeId, ReflectionRepository reflectionRepo, QaTraineeRepository traineeRepo, ReflectionMapper mapper) {
-		return reflectionRepo.findByResponderId(traineeId)
+		Set<ReflectionDto> result = reflectionRepo.findByResponderId(traineeId)
 				.stream().map(mapper::mapToReflectionDto)
 				.collect(Collectors.toSet());
+		return result;
 	}
 }

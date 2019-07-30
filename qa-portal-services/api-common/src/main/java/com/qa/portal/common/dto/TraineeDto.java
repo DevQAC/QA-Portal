@@ -1,8 +1,5 @@
 package com.qa.portal.common.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public final class TraineeDto extends QaUserDto {
 	
 	private QaCohortDto cohort;

@@ -106,8 +106,11 @@ public class ReflectionService {
                 .orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));
         ReflectionEntity reflectionToUpdateFrom = this.mapper.mapToReflectionEntity(reflection);
         reflectionToUpdate.setFormDate(reflectionToUpdateFrom.getFormDate());
-        reflectionToUpdate.setResponder(reflectionToUpdateFrom.getResponder());
-        reflectionToUpdate.setReviewer(reflectionToUpdateFrom.getReviewer());
+//        Keep getting 'optimistic locking failed' exceptions when saving the responder/reviewer fields.
+//        reflectionToUpdate.setResponder(reflectionToUpdateFrom.getResponder());
+//        reflectionToUpdate.setReviewer(reflectionToUpdateFrom.getReviewer());
+        reflectionToUpdate.setLearningPathway(reflectionToUpdateFrom.getLearningPathway());
+        reflectionToUpdate.setTrainerFeedback(reflectionToUpdateFrom.getTrainerFeedback());
         return this.mapper.mapToReflectionDto(this.reflectionRepo.save(reflectionToUpdate));
     }
 

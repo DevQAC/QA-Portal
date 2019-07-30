@@ -14,7 +14,7 @@ export class CommentBoxComponent implements OnInit {
   @Input()
   public placeHolder: string;
   @Output()
-  public save = new EventEmitter();
+  public save = new EventEmitter<string>();
   constructor() {
     this.comments = this.comments || '';
     this.title = this.title || '';
@@ -22,7 +22,7 @@ export class CommentBoxComponent implements OnInit {
   }
 
   public emitSave(event: any): void {
-    this.save.emit(event);
+    this.save.emit(this.comments);
   }
 
   ngOnInit() {

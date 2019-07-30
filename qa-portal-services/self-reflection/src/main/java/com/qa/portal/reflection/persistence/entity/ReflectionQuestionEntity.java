@@ -82,7 +82,7 @@ public class ReflectionQuestionEntity extends QaBaseEntity {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((question == null) ? 0 : question.hashCode());
-		result = prime * result + ((reflection == null) ? 0 : reflection.hashCode());
+//		result = prime * result + ((reflection == null) ? 0 : reflection.hashCode());
 		result = prime * result + ((response == null) ? 0 : response.hashCode());
 		result = prime * result + ((trainerResponse == null) ? 0 : trainerResponse.hashCode());
 		return result;
@@ -127,7 +127,8 @@ public class ReflectionQuestionEntity extends QaBaseEntity {
 
 	@Override
 	public String toString() {
-		return "ReflectionQuestionEntity [id=" + id + ", reflection=" + reflection + ", question=" + question
+//		return "ReflectionQuestionEntity [id=" + id + ", reflection=" + reflection + ", question=" + question
+		return "ReflectionQuestionEntity [id=" + id + ", question=" + question
 				+ ", response=" + response + ", trainerResponse=" + trainerResponse + "]";
 	}
 

@@ -4,11 +4,15 @@ import { Reflection } from './models/dto/reflection';
 import { Trainee } from './models/dto/trainee';
 import { Question } from './models/dto/question';
 import { ReflectionQuestion } from './models/dto/reflection-question';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, RouteConfigLoadEnd } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { RowData } from './models/row-data';
 import { QaToastrService } from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
+
+enum PageState {
+  LOADING = 'loading', NO_SELF_REFLECTIONS = 'no-self-reflections', READY = 'ready', ERROR = 'error'
+}
 
 @Component({
   selector: 'app-trainer-reflection',
@@ -21,26 +25,24 @@ export class TrainerReflectionComponent implements OnInit {
   public trainee: Trainee = new Trainee();
   public reflections: Reflection[] = [];
   public questions: Question[] = [];
-  public trainerComments = '';
+  public trainerFeedback = '';
   public learningPathway = '';
   public rowData: RowData[] = [];
   public disableInputs = false;
   public questionIds = [];
   public loaded = false;
-  public statusMessage = 'Checking for Self Reflections...';
   public authors = ['Self', 'Trainer'];
+  public pageState: PageState;
+  public updateMessage = ' successfully updated.';
 
   constructor(
-    private selfReflectionService: SelfReflectionService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar,
+    private reflectionService: SelfReflectionService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar,
     private toastrService: QaToastrService, private errorService: QaErrorHandlerService) {
-    this.trainerComments = this.learningPathway = 'Ea qui ipsum sint nisi et sunt et eu commodo proident id.' +
-      'Exercitation adipisicing ut aute consequat pariatur minim duis cupidatat velit quis. Qui ' +
-      'consectetur reprehenderit nisi deserunt adipisicing velit enim quis cillum eiusmod. Minim ea mollit in ' +
-      'eu tempor tempor quis.';
+    this.pageState = PageState.LOADING;
+
   }
 
   private updateReflections() {
-    this.loaded = true;
     this.reflections.sort((a, b): number => {
       const aVal = new Date(a.lastUpdatedTimestamp);
       const bVal = new Date(b.lastUpdatedTimestamp);
@@ -53,6 +55,12 @@ export class TrainerReflectionComponent implements OnInit {
       }
     });
     for (const reflection of this.reflections) {
+      if (!this.trainerFeedback && reflection.trainerFeedback) {
+        this.trainerFeedback = reflection.trainerFeedback;
+      }
+      if (!this.learningPathway && reflection.learningPathway) {
+        this.learningPathway = reflection.learningPathway;
+      }
       for (const reflectionQuestion of reflection.reflectionQuestions) {
         this.rowData.forEach((rowData) => {
           const q = rowData.questions.find(question => question.id === reflectionQuestion.question.id);
@@ -62,19 +70,29 @@ export class TrainerReflectionComponent implements OnInit {
         });
       }
     }
+    this.pageState = PageState.READY;
+  }
+
+  /**
+   * Errors that prevent the flow of the program but may not redirect to
+   * the error page.
+   * @param error error object to be handled by the QaErrorHandlerService.
+   */
+  private handleSevereError(error): void {
+    this.errorService.handleError(error);
+    this.pageState = PageState.ERROR;
   }
 
   public saveReflectionQuestions(): void {
-    console.log('Saving ReflectionQuestions!');
     this.disableInputs = true;
     const reflectionQuestions: ReflectionQuestion[] = [];
-    const betweenOneAndTen = (i) => Math.min(Math.max(1, i), 10);
+    const betweenOneAndTen = i => Math.min(Math.max(1, i), 10);
     for (const reflection of this.reflections) {
       for (const reflectionQuestion of reflection.reflectionQuestions) {
-        if (reflectionQuestion.response) {
+        if (reflectionQuestion.response !== null) {
           reflectionQuestion.response = betweenOneAndTen(reflectionQuestion.response);
         }
-        if (reflectionQuestion.trainerResponse) {
+        if (reflectionQuestion.trainerResponse !== null) {
           reflectionQuestion.trainerResponse = betweenOneAndTen(reflectionQuestion.trainerResponse);
         }
         if (reflectionQuestion.id !== null) {
@@ -82,25 +100,37 @@ export class TrainerReflectionComponent implements OnInit {
         }
       }
     }
-    // Send all the reflection questions to the backend
-    // On successful save, re-enable input fields and show snackbar.
-    this.selfReflectionService.updateReflectionQuestions(reflectionQuestions)
+    this.reflectionService.updateReflectionQuestions(reflectionQuestions)
       .subscribe(updatedReflections => {
-        // this.snackBar.open('Self Reflections Updated.', 'Dismiss', { duration: 3000 });
-        this.toastrService.showSuccess('Reflection successfully updated.');
+        this.toastrService.showSuccess(`Reflection ${this.updateMessage}`);
         this.disableInputs = false;
       }, error => {
-        // TODO: Use general error service
         this.errorService.handleError(error);
       });
   }
 
-  public saveTrainerComments(): void {
-    console.log('Saving TrainerComments!');
+  public saveTrainerFeedback(newFeedback: string): void {
+    if (this.reflections.length > 0) {
+      const newestReflection = this.reflections[0];
+      newestReflection.trainerFeedback = newFeedback;
+      this.reflectionService.updateReflection(newestReflection)
+        .subscribe(updatedReflection => {
+          this.trainerFeedback = updatedReflection.trainerFeedback;
+          this.toastrService.showSuccess(`Trainer Feedback ${this.updateMessage}`);
+        }, error => this.errorService.handleError(error));
+    }
   }
 
-  public saveLearningPathway(): void {
-    console.log('Saving Learning Pathway!');
+  public saveLearningPathway(newPathway: string): void {
+    if (this.reflections.length > 0) {
+      const newestReflection = this.reflections[0];
+      newestReflection.learningPathway = newPathway;
+      this.reflectionService.updateReflection(newestReflection)
+        .subscribe(updatedReflection => {
+          this.learningPathway = updatedReflection.learningPathway;
+          this.toastrService.showSuccess(`Learning Pathway ${this.updateMessage}`);
+        }, error => this.errorService.handleError(error));
+    }
   }
 
   ngOnInit() {
@@ -108,20 +138,25 @@ export class TrainerReflectionComponent implements OnInit {
     let traineeId;
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap): void => {
       traineeId = +paramMap.get('id');
-    }, error => this.errorService.handleError(error));
+    }, error => this.handleSevereError(error));
     // Get questions.
     // TODO: remove hard-coded value
     this.trainee = {
       id: 9,
-      userName: 'smith01',
-      firstName: 'John',
-      lastName: 'Smith',
-      cohortId: 1,
+      userName: 'trainee6@qa.com',
+      cohort: {
+        id: 1,
+        name: 'CI Intake 1',
+        trainerId: 1
+      },
+      firstName: 'Ray',
+      lastName: 'Trainee6',
+      cohortId: 2,
       role: 'TRAINEE',
-      reviewerId: 8
+      reviewerId: 1
     };
 
-    this.selfReflectionService.getQuestionsByCohortId(this.trainee.cohortId)
+    this.reflectionService.getQuestionsByCohortId(this.trainee.cohortId)
       .subscribe(questions => {
         this.questions = questions.sort((a, b) => {
           const aVal = a.id;
@@ -155,13 +190,13 @@ export class TrainerReflectionComponent implements OnInit {
           }
         }
         // Get reflections for this user
-        this.selfReflectionService.getReflectionsByTraineeId(traineeId)
+        this.reflectionService.getReflectionsByTraineeId(traineeId)
           .subscribe(reflections => {
             if (reflections && reflections.length > 0) {
               let num = 0;
               // TODO: Change to async
               reflections.forEach((reflection: Reflection, index: number): void => {
-                this.selfReflectionService.getReflectionQuestionsByReflectionId(reflection.id)
+                this.reflectionService.getReflectionQuestionsByReflectionId(reflection.id)
                   .subscribe((reflectionQuestions: ReflectionQuestion[]): void => {
                     Reflection.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
                     this.reflections.push(reflection);
@@ -173,9 +208,9 @@ export class TrainerReflectionComponent implements OnInit {
                   });
               }, error => this.errorService.handleError(error));
             } else {
-              this.statusMessage = 'There are no Self Reflections for this user.';
+              this.pageState = PageState.NO_SELF_REFLECTIONS;
             }
-          }, error => this.errorService.handleError(error));
-      }, error => this.errorService.handleError(error));
+          }, error => this.handleSevereError(error));
+      }, error => this.handleSevereError(error));
   }
 }
