@@ -37,7 +37,7 @@ public class QuestionControllerTest {
         try {
             ResponseEntity<Set> response = restTemplate.getForEntity(createURLWithPort("/self-reflection-api/question/cohort/1"), Set.class);
             response.getBody().stream().forEach(q -> LOGGER.info(q.toString()));
-            assertThat(5, equalTo(response.getBody().size()));
+            assertThat(6, equalTo(response.getBody().size()));
         }
         catch (Exception e) {
             LOGGER.error("Exception " + e.getMessage());

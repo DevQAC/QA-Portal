@@ -20,9 +20,18 @@ public final class ReflectionDto extends QaBaseDto {
 
     private Date formDate;
 
-    private String trainerComments;
+    private String trainerFeedback;
 
     private String learningPathway;
+
+    private String strengths;
+
+    private String weaknesses;
+
+    private String opportunities;
+
+    private String threats;
+
 
     private Set<ReflectionQuestionDto> reflectionQuestions = new HashSet<ReflectionQuestionDto>();
 
@@ -42,9 +51,6 @@ public final class ReflectionDto extends QaBaseDto {
         return formDate;
     }
 
-    public String getTrainerComments() {
-        return trainerComments;
-    }
 
     public String getLearningPathway() {
         return learningPathway;
@@ -70,10 +76,6 @@ public final class ReflectionDto extends QaBaseDto {
         this.formDate = date;
     }
 
-    public void setTrainerComments(String trainerComments) {
-        this.trainerComments = trainerComments;
-    }
-
     public void setLearningPathway(String learningPathway) {
         this.learningPathway = learningPathway;
     }
@@ -82,21 +84,74 @@ public final class ReflectionDto extends QaBaseDto {
         this.reflectionQuestions = questions;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        ReflectionDto that = (ReflectionDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(responder, that.responder)
-                && Objects.equals(reviewer, that.reviewer) && Objects.equals(formDate, that.formDate)
-                && Objects.equals(trainerComments, that.trainerComments)
-                && Objects.equals(learningPathway, that.learningPathway) && Objects.equals(reflectionQuestions, that.reflectionQuestions);
+    public String getTrainerFeedback() {
+        return trainerFeedback;
+    }
+
+    public void setTrainerFeedback(String trainerFeedback) {
+        this.trainerFeedback = trainerFeedback;
+    }
+
+    public String getStrengths() {
+        return strengths;
+    }
+
+    public void setStrengths(String strengths) {
+        this.strengths = strengths;
+    }
+
+    public String getWeaknesses() {
+        return weaknesses;
+    }
+
+    public void setWeaknesses(String weaknesses) {
+        this.weaknesses = weaknesses;
+    }
+
+    public String getOpportunities() {
+        return opportunities;
+    }
+
+    public void setOpportunities(String opportunities) {
+        this.opportunities = opportunities;
+    }
+
+    public String getThreats() {
+        return threats;
+    }
+
+    public void setThreats(String threats) {
+        this.threats = threats;
+    }
+
+    public Set<ReflectionQuestionDto> getReflectionQuestions() {
+        return reflectionQuestions;
+    }
+
+    public void setReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
+        this.reflectionQuestions = reflectionQuestions;
     }
 
     @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+        ReflectionDto that = (ReflectionDto) object;
+        return java.util.Objects.equals(id, that.id) &&
+                java.util.Objects.equals(responder, that.responder) &&
+                java.util.Objects.equals(reviewer, that.reviewer) &&
+                java.util.Objects.equals(formDate, that.formDate) &&
+                java.util.Objects.equals(trainerFeedback, that.trainerFeedback) &&
+                java.util.Objects.equals(learningPathway, that.learningPathway) &&
+                java.util.Objects.equals(strengths, that.strengths) &&
+                java.util.Objects.equals(weaknesses, that.weaknesses) &&
+                java.util.Objects.equals(opportunities, that.opportunities) &&
+                java.util.Objects.equals(threats, that.threats) &&
+                java.util.Objects.equals(reflectionQuestions, that.reflectionQuestions);
+    }
+    @Override
     public int hashCode() {
-        return Objects.hash(id, responder, reviewer, formDate, trainerComments, learningPathway, reflectionQuestions);
+        return Objects.hash(super.hashCode(), id, responder, reviewer, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats, reflectionQuestions);
     }
 }

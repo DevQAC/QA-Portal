@@ -20,7 +20,7 @@ export class CohortTraineesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.getCohorts();
 
-    this.http.get<QaCohortModel[]>('self-reflection-api/user/getCohorts/15').subscribe(
+    this.http.get<QaCohortModel[]>('user-api/user/cohorts/15').subscribe(
       data => console.log(data)
     );
   }
@@ -30,7 +30,7 @@ export class CohortTraineesComponent implements OnInit, OnDestroy {
   }
 
   getCohorts() {
-    return this.http.get('core-api/applications/user/getCohorts/15').subscribe(
+    return this.http.get('user-api/user/cohorts/15').subscribe(
       (data) => console.log(data)
     );
   }
