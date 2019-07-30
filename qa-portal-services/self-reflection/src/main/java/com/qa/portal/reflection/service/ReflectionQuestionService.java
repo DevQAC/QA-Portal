@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.qa.portal.common.persistence.repository.QaCohortRepository;
+import com.qa.portal.reflection.persistence.entity.CohortQuestionEntity;
+import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +21,10 @@ import com.qa.portal.reflection.persistence.repository.ReflectionQuestionReposit
 public class ReflectionQuestionService {
 	
 	ReflectionQuestionRepository reflectionQuestionRepo;
-	
+
+	CohortQuestionRepository cohortQuestionRepository;
+	QaCohortRepository cohortRepository;
+
 	ReflectionQuestionMapper mapper;
 
 	private QaSecurityContext context;
@@ -51,4 +57,11 @@ public class ReflectionQuestionService {
 		.collect(Collectors.toSet());
 	}
 
+	public Set<Co> getReflectionQuestionsByCohort(String cohortName){
+
+		return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByname(cohortName).orElseThrow(
+				()-> new QaResourceNotFoundException("Cohort not found for supplied name")))
+				.stream()
+				.map((e) -> mapper.mapt(e));
+	}
 }

@@ -2,6 +2,9 @@ package com.qa.portal.reflection.rest;
 
 import java.util.Set;
 
+import com.qa.portal.common.exception.QaResourceNotFoundException;
+import com.qa.portal.common.security.QaSecurityContext;
+import com.qa.portal.reflection.dto.QuestionDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,7 +20,7 @@ import com.qa.portal.reflection.service.ReflectionQuestionService;
 public class ReflectionQuestionController {
 	
 	private ReflectionQuestionService service;
-
+	private QaSecurityContext securityContext;
 	public ReflectionQuestionController(ReflectionQuestionService service) {
 		this.service = service;
 	}
@@ -26,7 +29,14 @@ public class ReflectionQuestionController {
 	public Set<ReflectionQuestionDto> getReflectionQuestionsByReflectionId(@PathVariable Integer id) {
 		return this.service.getReflectionQuestionsByReflectionId(id);
 	}
-	
+
+	@GetMapping("/questions")
+	public Set<QuestionDto> getReflectionQuestionsByCohort() {
+		return this.service.getReflectionQuestionsByCohort(securityContext.getCohorts()
+				.stream()
+				.findFirst()
+				.orElseThrow(() -> new QaResourceNotFoundException("No cohorts for user")));
+	}
 	@PutMapping
 	public Set<ReflectionQuestionDto> updateReflectionQuestions(@RequestBody Set<ReflectionQuestionDto> reflectionQuestions) {
 		return this.service.updateReflectionQuestions(reflectionQuestions);
