@@ -32,6 +32,24 @@ public class ReflectionEntity extends QaBaseEntity {
 	@Column(name = "form_date")
 	private LocalDate formDate;
 
+	@Column(name = "trainer_feedback")
+	private String trainerFeedback;
+
+	@Column(name = "learning_pathway")
+	private String learningPathway;
+
+	@Column(name = "strengths")
+	private String strengths;
+
+	@Column(name = "weaknesses")
+	private String weaknesses;
+
+	@Column(name = "opportunities")
+	private String opportunities;
+
+	@Column(name = "threats")
+	private String threats;
+
 	public Integer getId() {
 		return id;
 	}
@@ -72,30 +90,91 @@ public class ReflectionEntity extends QaBaseEntity {
 		this.formDate = formDate;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-		ReflectionEntity that = (ReflectionEntity) o;
-//		return Objects.equals(id, that.id) && Objects.equals(reflectionQuestions, that.reflectionQuestions)
-		return Objects.equals(id, that.id)
-				&& Objects.equals(reviewer, that.reviewer) && Objects.equals(responder, that.responder)
-				&& Objects.equals(formDate, that.formDate);
+	public String getTrainerFeedback() {
+		return trainerFeedback;
 	}
 
+	public void setTrainerFeedback(String trainerFeedback) {
+		this.trainerFeedback = trainerFeedback;
+	}
+
+	public String getLearningPathway() {
+		return learningPathway;
+	}
+
+	public void setLearningPathway(String learningPathway) {
+		this.learningPathway = learningPathway;
+	}
+
+	public String getStrengths() {
+		return strengths;
+	}
+
+	public void setStrengths(String strengths) {
+		this.strengths = strengths;
+	}
+
+	public String getWeaknesses() {
+		return weaknesses;
+	}
+
+	public void setWeaknesses(String weaknesses) {
+		this.weaknesses = weaknesses;
+	}
+
+	public String getOpportunities() {
+		return opportunities;
+	}
+
+	public void setOpportunities(String opportunities) {
+		this.opportunities = opportunities;
+	}
+
+	public String getThreats() {
+		return threats;
+	}
+
+	public void setThreats(String threats) {
+		this.threats = threats;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (this == object) return true;
+		if (object == null || getClass() != object.getClass()) return false;
+		if (!super.equals(object)) return false;
+		ReflectionEntity that = (ReflectionEntity) object;
+		return java.util.Objects.equals(id, that.id) &&
+				java.util.Objects.equals(reflectionQuestions, that.reflectionQuestions) &&
+				java.util.Objects.equals(reviewer, that.reviewer) &&
+				java.util.Objects.equals(responder, that.responder) &&
+				java.util.Objects.equals(formDate, that.formDate) &&
+				java.util.Objects.equals(trainerFeedback, that.trainerFeedback) &&
+				java.util.Objects.equals(learningPathway, that.learningPathway) &&
+				java.util.Objects.equals(strengths, that.strengths) &&
+				java.util.Objects.equals(weaknesses, that.weaknesses) &&
+				java.util.Objects.equals(opportunities, that.opportunities) &&
+				java.util.Objects.equals(threats, that.threats);
+	}
 	@Override
 	public int hashCode() {
-//		return Objects.hash(id, reflectionQuestions, reviewer, responder, formDate);
-		return Objects.hash(id, reviewer, responder, formDate);
+		return Objects.hash(super.hashCode(), id, reflectionQuestions, reviewer, responder, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats);
 	}
 
 	@Override
-	public String toString() {
-//		return "ReflectionEntity{" + "id=" + id + ", reflectionQuestions=" + reflectionQuestions + ", reviewer="
-		return "ReflectionEntity{" + "id=" + id + ", reviewer="
-				+ reviewer + ", responder=" + responder + ", formDate=" + formDate + ", lastUpdatedTimestamp="
-				+ lastUpdatedTimestamp + ", lastUpdatedBy='" + lastUpdatedBy + '\'' + ", version=" + version + '}';
+	public java.lang.String toString() {
+		return "ReflectionEntity{" +
+				"id=" + id +
+				", reflectionQuestions=" + reflectionQuestions +
+				", reviewer=" + reviewer +
+				", responder=" + responder +
+				", formDate=" + formDate +
+				", trainerFeedback='" + trainerFeedback + '\'' +
+				", learningPathway='" + learningPathway + '\'' +
+				", strengths='" + strengths + '\'' +
+				", weaknesses='" + weaknesses + '\'' +
+				", opportunities='" + opportunities + '\'' +
+				", threats='" + threats + '\'' +
+				'}';
 	}
 }
