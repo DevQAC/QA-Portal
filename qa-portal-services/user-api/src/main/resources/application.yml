@@ -1,0 +1,40 @@
+server:
+  port: 8084
+  servlet:
+    context-path: /user-api
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qa-portal
+    username: postgres
+    password: postgres
+
+  jpa:
+    properties:
+        jdbc:
+          lob:
+            non_contextual_creation=true:logging: true
+  level:
+    org.springframework.web: DEBUG
+    com.swttech.bignash: DEBUG
+
+qa:
+  keycloak:
+    config:
+      file: keycloak.json
+
+
+---
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qa-portal
+    username: postgres
+    password: postgres
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.qa.portal: DEBUG
