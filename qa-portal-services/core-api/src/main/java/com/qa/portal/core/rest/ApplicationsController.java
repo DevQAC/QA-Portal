@@ -33,8 +33,6 @@ public class ApplicationsController {
 
     @GetMapping()
     public ResponseEntity<List<DepartmentApplicationsDto>> getApplicationsByDepartment() {
-        securityContext.getRoles().forEach(r -> LOGGER.info(r));
         return ResponseEntity.ok(applicationService.getApplicationsByDepartment(securityContext.getRoles()));
     }
-
- }
+}

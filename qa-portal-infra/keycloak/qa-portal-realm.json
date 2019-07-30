@@ -39,41 +39,8 @@
   "roles": {
     "realm": [
       {
-        "id": "e78113a0-b225-417d-8b0d-e7ff500cedfd",
-        "name": "offline_access",
-        "description": "${role_offline-access}",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "qa-portal",
-        "attributes": {}
-      },
-      {
         "id": "b2da0b88-a710-4806-928c-3408f837405e",
         "name": "hr-user",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "qa-portal",
-        "attributes": {}
-      },
-      {
-        "id": "4fa71a8f-cd4c-49b3-a2e3-69c2d607100b",
-        "name": "training-user",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "qa-portal",
-        "attributes": {}
-      },
-      {
-        "id": "ab0a5a6b-f806-46c3-a961-1b9c6a127816",
-        "name": "finance-user",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "qa-portal",
-        "attributes": {}
-      },
-      {
-        "id": "fa1210e1-6c79-4ff3-afee-d36d6d66ff4c",
-        "name": "training-manager",
         "composite": false,
         "clientRole": false,
         "containerId": "qa-portal",
@@ -88,24 +55,8 @@
         "attributes": {}
       },
       {
-        "id": "ca4690bb-16a7-47da-81ad-1f56db5cf089",
-        "name": "hr-admin",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "qa-portal",
-        "attributes": {}
-      },
-      {
-        "id": "4b88bd10-492c-44d6-b826-50cb380a4e63",
-        "name": "training-admin",
-        "composite": false,
-        "clientRole": false,
-        "containerId": "qa-portal",
-        "attributes": {}
-      },
-      {
-        "id": "d4705768-146d-4a03-91c8-cf72f59d7bec",
-        "name": "super-user",
+        "id": "a46d6c6a-d432-44d7-bbbb-3f94058b9c29",
+        "name": "cohort_CI_Intake_1",
         "composite": false,
         "clientRole": false,
         "containerId": "qa-portal",
@@ -131,6 +82,95 @@
       {
         "id": "8b201246-a450-43d1-8e11-a2a2a0fea950",
         "name": "finance-admin",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "6bc524be-0d09-4668-8003-60543c2400e9",
+        "name": "cohort_CI_Intake_2",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "e78113a0-b225-417d-8b0d-e7ff500cedfd",
+        "name": "offline_access",
+        "description": "${role_offline-access}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "4fa71a8f-cd4c-49b3-a2e3-69c2d607100b",
+        "name": "training-user",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "ab0a5a6b-f806-46c3-a961-1b9c6a127816",
+        "name": "finance-user",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "731c30ce-b5f8-476b-aaf3-b22261680bad",
+        "name": "cohort_Java_Intake_1",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "975cbfda-c73d-4ddc-b87a-e165909d2855",
+        "name": "cohort_Java_Intake_2",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "fa1210e1-6c79-4ff3-afee-d36d6d66ff4c",
+        "name": "training-manager",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "ca4690bb-16a7-47da-81ad-1f56db5cf089",
+        "name": "hr-admin",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "4b88bd10-492c-44d6-b826-50cb380a4e63",
+        "name": "training-admin",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "50f2a97b-ed25-4ace-a4ad-c5e2dca30272",
+        "name": "cohort_Scala_Intake_1",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "qa-portal",
+        "attributes": {}
+      },
+      {
+        "id": "d4705768-146d-4a03-91c8-cf72f59d7bec",
+        "name": "super-user",
         "composite": false,
         "clientRole": false,
         "containerId": "qa-portal",
@@ -431,16 +471,21 @@
     {
       "clientScope": "roles",
       "roles": [
+        "hr-manager",
+        "cohort_Scala_Intake_1",
+        "super-user",
+        "hr-user",
+        "cohort_Java_Intake_1",
         "finance-manager",
+        "cohort_Java_Intake_2",
         "training-admin",
         "training-manager",
-        "hr-manager",
         "finance-admin",
+        "cohort_CI_Intake_1",
         "training-user",
         "finance-user",
-        "super-user",
-        "hr-admin",
-        "hr-user"
+        "cohort_CI_Intake_2",
+        "hr-admin"
       ]
     }
   ],
