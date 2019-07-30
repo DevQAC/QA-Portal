@@ -1,18 +1,40 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 <div class="qa-app-title">
   Trainer - Cohort Trainees
 </div>
 <div class='cohort-trainees'>
   <div class='self-reflection-heading'>
-    <span class='cohort-trainees-name'> Cohort Name </span> &nbsp; <span class='cohort-trainees-number'> Cohort
-      Number
-    </span> &nbsp;
   </div>
+  <span class='cohort-pleaseselect'>Please Select a cohort:</span>
+
+  <div class='cohort-grid-container'>
+      <table class='table table-striped'>
+        <thead class='thead-light'>
+        <tr class='cohort-tableheader'>
+          <td>ID</td>
+          <td>cohort name</td>
+        </tr>
+        </thead>
+  
+        <tbody>
+  
+        <tr *ngFor='let cohort of cohorts' class='cohort-tablerow'>
+          <th scope='row'>{{cohort.id}}</th>
+          <td>{{ cohort.name }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
   <span class='cohort-trainees-pleaseselect'>Please Select a trainee:</span>
   <div class='cohort-trainees-grid-container'>
     <table class='table table-striped'>
       <thead class='thead-light'>
       <tr class='cohort-trainees-tableheader'>
-        <td>#</td>
+        <td>ID</td>
+        <td>user name</td>
         <td>first name</td>
         <td>last name</td>
       </tr>
@@ -22,8 +44,9 @@
 
       <tr *ngFor='let trainee of trainees' class='cohort-trainees-tablerow'>
         <th scope='row'>{{trainee.id}}</th>
-        <td>{{ trainee.firstname }}</td>
-        <td>{{ trainee.lastname }}</td>
+        <td>{{ trainee.userName }}</td>
+        <td>{{ trainee.firstName }}</td>
+        <td>{{ trainee.lastName }}</td>
       </tr>
       </tbody>
     </table>
