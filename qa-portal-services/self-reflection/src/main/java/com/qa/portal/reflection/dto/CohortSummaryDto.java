@@ -1,6 +1,7 @@
 package com.qa.portal.reflection.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.qa.portal.common.dto.QaBaseDto;
 
@@ -32,4 +33,17 @@ public class CohortSummaryDto extends QaBaseDto {
 		this.scores = scores;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		CohortSummaryDto that = (CohortSummaryDto) o;
+		return Objects.equals(cohortName, that.cohortName) &&
+				Objects.equals(scores, that.scores);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cohortName, scores);
+	}
 }

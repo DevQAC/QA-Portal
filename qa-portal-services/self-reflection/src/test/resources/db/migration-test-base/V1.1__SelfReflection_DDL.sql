@@ -1,4 +1,4 @@
-CREATE SCHEMA training;
+CREATE SCHEMA IF NOT EXISTS training;
 
 create table if not exists training.qa_user
 (
@@ -6,7 +6,6 @@ create table if not exists training.qa_user
 		constraint qa_user_pkey
 			primary key,
 	user_name varchar(255) not null,
-
 	first_name varchar(255) not null,
 	last_name varchar(255) not null,
 	reviewer_id integer
@@ -15,8 +14,10 @@ create table if not exists training.qa_user
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
 	version integer default 1 not null,
+	role varchar(255) not null,
 	cohort_id integer
 );
+
 
 create table if not exists training.qa_cohort
 (
@@ -27,9 +28,8 @@ create table if not exists training.qa_cohort
 	trainer_id integer not null,
 	last_updated_timestamp timestamp not null,
    	last_updated_by varchar(255) not null,
-   	version integer default 1 not null,
+   	version integer default 1 not null
 );
-
 
 create table if not exists training.question
 (
@@ -43,6 +43,7 @@ create table if not exists training.question
 	last_updated_by varchar(255) not null,
 	version integer default 1 not null
 );
+
 
 
 create table if not exists training.cohort_question
@@ -68,8 +69,9 @@ create table if not exists training.reflection
 	form_date date not null,
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
-	version integer default 1 not null,
+	version integer default 1 not null
 );
+
 
 create table if not exists training.reflection_question
 (
@@ -82,7 +84,6 @@ create table if not exists training.reflection_question
 	trainer_response integer,
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
-	version integer default 1 not null,
+	version integer default 1 not null
 );
-
 

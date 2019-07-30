@@ -8,11 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class QaSecurityContext {
 
     private final Logger LOGGER = LoggerFactory.getLogger(QaSecurityContext.class);
+
+    private static final String COHORT_ROLE_PREFIX = "cohort_";
 
     public String getUserName() {
         return getAccessToken().getPreferredUsername();
@@ -23,7 +26,16 @@ public class QaSecurityContext {
     }
 
     public Set<String> getRoles() {
-        return getAccessToken().getRealmAccess().getRoles();
+        return getAccessToken().getRealmAccess().getRoles().stream()
+                .filter(r -> !r.startsWith(COHORT_ROLE_PREFIX))
+                .collect(Collectors.toSet());
+    }
+
+    public Set<String> getCohorts() {
+        return getAccessToken().getRealmAccess().getRoles().stream()
+                .filter(r -> r.startsWith(COHORT_ROLE_PREFIX))
+                .map(r -> r.substring(COHORT_ROLE_PREFIX.length()).replace('_', ' '))
+                .collect(Collectors.toSet());
     }
 
     public String getFirstName() {
