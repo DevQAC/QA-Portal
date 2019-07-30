@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { REFLECTION_API, REFLECTION_QUESTION_API, QUESTION_API } from 'projects/portal-core/src/app/_common/models/portal-constants';
+import {
+  REFLECTION_API,
+  REFLECTION_QUESTION_API,
+  QUESTION_API, USER_API
+} from 'projects/portal-core/src/app/_common/models/portal-constants';
 import { Reflection } from '../models/dto/reflection';
 import { ReflectionQuestion } from '../models/dto/reflection-question';
 import { Question } from '../models/dto/question';
+import { Trainee } from '../models/dto/trainee';
 
 @Injectable()
 export class SelfReflectionService {
@@ -37,6 +42,11 @@ export class SelfReflectionService {
 
   public getQuestionsByCohortId(cohortId: number): Observable<Question[]> {
     return this.http.get<Question[]>(`${QUESTION_API}/cohort/${cohortId}`);
+  }
+
+  // TODO: move to portal-common
+  public getTraineeById(traineeId: number): Observable<Trainee> {
+    return this.http.get<Trainee>(`${USER_API}/trainee/${traineeId}`);
   }
 
 }

@@ -5,3 +5,4 @@ export const QUESTION_API = `self-reflection-api/question`;
 export const TRAINER_COHORTS_API = 'user-api/user/cohorts/1';
 export const SELF_REFLECTION_QUESTION_API = 'self-reflection-api/question';
 export const SELF_REFLECTIONS_API = 'self-reflection-api/reflections';
+export const USER_API = '/user-api/user';

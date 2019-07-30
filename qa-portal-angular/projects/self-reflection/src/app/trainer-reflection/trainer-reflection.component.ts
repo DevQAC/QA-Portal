@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material';
 import { RowData } from './models/row-data';
 import { QaToastrService } from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
+import { Observer, Observable, Subscription } from 'rxjs';
+import { resolve } from 'dns';
 
 enum PageState {
   LOADING = 'loading', NO_SELF_REFLECTIONS = 'no-self-reflections', READY = 'ready', ERROR = 'error'
@@ -133,84 +135,72 @@ export class TrainerReflectionComponent implements OnInit {
     }
   }
 
+
   ngOnInit() {
     // Get trainee id from path
-    let traineeId;
-    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap): void => {
-      traineeId = +paramMap.get('id');
-    }, error => this.handleSevereError(error));
-    // Get questions.
-    // TODO: remove hard-coded value
-    this.trainee = {
-      id: 9,
-      userName: 'trainee6@qa.com',
-      cohort: {
-        id: 1,
-        name: 'CI Intake 1',
-        trainerId: 1
-      },
-      firstName: 'Ray',
-      lastName: 'Trainee6',
-      cohortId: 2,
-      role: 'TRAINEE',
-      reviewerId: 1
-    };
-
-    this.reflectionService.getQuestionsByCohortId(this.trainee.cohortId)
-      .subscribe(questions => {
-        this.questions = questions.sort((a, b) => {
-          const aVal = a.id;
-          const bVal = b.id;
-          if (aVal < bVal) {
-            return -1;
-          } else if (aVal > bVal) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-        this.questions.forEach(question => {
-          const categories = this.rowData.map(rowData => rowData.category);
-          if (!categories.includes(question.category)) {
-            this.rowData.push(
-              {
-                category: question.category,
-                questions: [],
+    this.activatedRoute.paramMap.subscribe((pm: ParamMap): void => {
+      const traineeId = +pm.get('id');
+      // Get trainee
+      this.reflectionService.getTraineeById(traineeId).subscribe((trainee: Trainee): void => {
+        this.trainee = trainee;
+        // Get questions.
+        this.reflectionService.getQuestionsByCohortId(this.trainee.cohort.id)
+          .subscribe(questions => {
+            this.questions = questions.sort((a, b) => {
+              const aVal = a.id;
+              const bVal = b.id;
+              if (aVal < bVal) {
+                return -1;
+              } else if (aVal > bVal) {
+                return 1;
+              } else {
+                return 0;
               }
-            );
-          }
-          if (!this.questionIds.includes(question.id)) {
-            this.questionIds.push(question.id);
-          }
-        });
-        for (const question of this.questions) {
-          const category = this.rowData.find(rowData => rowData.category === question.category);
-          if (category !== undefined) {
-            category.questions.push({ id: question.id, body: question.body, reflectionQuestions: [] });
-          }
-        }
-        // Get reflections for this user
-        this.reflectionService.getReflectionsByTraineeId(traineeId)
-          .subscribe(reflections => {
-            if (reflections && reflections.length > 0) {
-              let num = 0;
-              // TODO: Change to async
-              reflections.forEach((reflection: Reflection, index: number): void => {
-                this.reflectionService.getReflectionQuestionsByReflectionId(reflection.id)
-                  .subscribe((reflectionQuestions: ReflectionQuestion[]): void => {
-                    Reflection.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
-                    this.reflections.push(reflection);
-                    if (num === reflections.length - 1) {
-                      this.updateReflections();
-                    } else {
-                      ++num;
-                    }
-                  });
-              }, error => this.errorService.handleError(error));
-            } else {
-              this.pageState = PageState.NO_SELF_REFLECTIONS;
+            });
+            this.questions.forEach(question => {
+              const categories = this.rowData.map(rowData => rowData.category);
+              if (!categories.includes(question.category)) {
+                this.rowData.push(
+                  {
+                    category: question.category,
+                    questions: [],
+                  }
+                );
+              }
+              if (!this.questionIds.includes(question.id)) {
+                this.questionIds.push(question.id);
+              }
+            });
+            for (const question of this.questions) {
+              const category = this.rowData.find(rowData => rowData.category === question.category);
+              if (category !== undefined) {
+                category.questions.push({ id: question.id, body: question.body, reflectionQuestions: [] });
+              }
             }
+            // Get reflections for this user
+            this.reflectionService.getReflectionsByTraineeId(traineeId)
+              .subscribe(reflections => {
+                if (reflections && reflections.length > 0) {
+                  let num = 0;
+                  // TODO: Change to async
+                  reflections.forEach((reflection: Reflection, index: number): void => {
+                    this.reflectionService.getReflectionQuestionsByReflectionId(reflection.id)
+                      .subscribe((reflectionQuestions: ReflectionQuestion[]): void => {
+                        Reflection.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
+                        this.reflections.push(reflection);
+                        if (num === reflections.length - 1) {
+                          this.updateReflections();
+                        } else {
+                          ++num;
+                        }
+                      });
+                  }, error => this.errorService.handleError(error));
+                } else {
+                  this.pageState = PageState.NO_SELF_REFLECTIONS;
+                }
+              }, error => this.handleSevereError(error));
           }, error => this.handleSevereError(error));
       }, error => this.handleSevereError(error));
+    }, error => this.handleSevereError(error));
   }
 }
