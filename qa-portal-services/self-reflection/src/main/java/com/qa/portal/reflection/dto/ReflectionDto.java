@@ -1,6 +1,11 @@
 package com.qa.portal.reflection.dto;
 
-import java.sql.Date;
+import com.qa.portal.common.dto.QaBaseDto;
+import com.qa.portal.common.dto.TraineeDto;
+import com.qa.portal.common.dto.TrainerDto;
+
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 
 import com.qa.portal.common.dto.QaBaseDto;
@@ -15,7 +20,7 @@ public final class ReflectionDto extends QaBaseDto {
 
     private TrainerDto reviewer;
 
-    private Date formDate;
+    private LocalDate formDate;
 
     private String trainerFeedback;
 
@@ -29,7 +34,8 @@ public final class ReflectionDto extends QaBaseDto {
 
     private String threats;
 
-//    private Set<ReflectionQuestionDto> reflectionQuestions = new HashSet<ReflectionQuestionDto>();
+    // private Set<ReflectionQuestionDto> reflectionQuestions = new
+    // HashSet<ReflectionQuestionDto>();
 
     public Integer getId() {
         return id;
@@ -43,10 +49,9 @@ public final class ReflectionDto extends QaBaseDto {
         return reviewer;
     }
 
-    public Date getFormDate() {
+    public LocalDate getFormDate() {
         return formDate;
     }
-
 
     public String getLearningPathway() {
         return learningPathway;
@@ -64,14 +69,13 @@ public final class ReflectionDto extends QaBaseDto {
         this.reviewer = reviewer;
     }
 
-    public void setFormDate(Date date) {
+    public void setFormDate(LocalDate date) {
         this.formDate = date;
     }
 
     public void setLearningPathway(String learningPathway) {
         this.learningPathway = learningPathway;
     }
-
 
     public String getTrainerFeedback() {
         return trainerFeedback;
@@ -113,36 +117,43 @@ public final class ReflectionDto extends QaBaseDto {
         this.threats = threats;
     }
 
-//    public Set<ReflectionQuestionDto> getReflectionQuestions() {
-//        return reflectionQuestions;
-//    }
+    // public Set<ReflectionQuestionDto> getReflectionQuestions() {
+    // return reflectionQuestions;
+    // }
 
-//    public void setReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
-//        this.reflectionQuestions = reflectionQuestions;
-//    }
+    // public void setReflectionQuestions(Set<ReflectionQuestionDto>
+    // reflectionQuestions) {
+    // this.reflectionQuestions = reflectionQuestions;
+    // }
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
+        if (this == object)
+            return true;
+        if (object == null || getClass() != object.getClass())
+            return false;
+        if (!super.equals(object))
+            return false;
         ReflectionDto that = (ReflectionDto) object;
-        return java.util.Objects.equals(id, that.id) &&
-                java.util.Objects.equals(responder, that.responder) &&
-                java.util.Objects.equals(reviewer, that.reviewer) &&
-                java.util.Objects.equals(formDate, that.formDate) &&
-                java.util.Objects.equals(trainerFeedback, that.trainerFeedback) &&
-                java.util.Objects.equals(learningPathway, that.learningPathway) &&
-                java.util.Objects.equals(strengths, that.strengths) &&
-                java.util.Objects.equals(weaknesses, that.weaknesses) &&
-                java.util.Objects.equals(opportunities, that.opportunities) &&
-//                java.util.Objects.equals(threats, that.threats) &&
+        return java.util.Objects.equals(id, that.id) && java.util.Objects.equals(responder, that.responder)
+                && java.util.Objects.equals(reviewer, that.reviewer)
+                && java.util.Objects.equals(formDate, that.formDate)
+                && java.util.Objects.equals(trainerFeedback, that.trainerFeedback)
+                && java.util.Objects.equals(learningPathway, that.learningPathway)
+                && java.util.Objects.equals(strengths, that.strengths)
+                && java.util.Objects.equals(weaknesses, that.weaknesses)
+                && java.util.Objects.equals(opportunities, that.opportunities) &&
+                // java.util.Objects.equals(threats, that.threats) &&
                 java.util.Objects.equals(threats, that.threats);
-//                java.util.Objects.equals(reflectionQuestions, that.reflectionQuestions);
+        // java.util.Objects.equals(reflectionQuestions, that.reflectionQuestions);
     }
+
     @Override
     public int hashCode() {
-//        return Objects.hash(super.hashCode(), id, responder, reviewer, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats, reflectionQuestions);
-    	return Objects.hash(super.hashCode(), id, responder, reviewer, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats);
+        // return Objects.hash(super.hashCode(), id, responder, reviewer, formDate,
+        // trainerFeedback, learningPathway, strengths, weaknesses, opportunities,
+        // threats, reflectionQuestions);
+        return Objects.hash(super.hashCode(), id, responder, reviewer, formDate, trainerFeedback, learningPathway,
+                strengths, weaknesses, opportunities, threats);
     }
 }

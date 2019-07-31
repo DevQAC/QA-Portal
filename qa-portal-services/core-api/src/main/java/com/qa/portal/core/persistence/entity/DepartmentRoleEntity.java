@@ -9,7 +9,8 @@ import java.util.StringJoiner;
 @Table(schema="training", name="dept_role")
 public class DepartmentRoleEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,
+            generator = "dept_role_sequence")
     @SequenceGenerator(name = "dept_role_sequence",
             sequenceName = "training.dept_role_sequence",
             allocationSize=1)

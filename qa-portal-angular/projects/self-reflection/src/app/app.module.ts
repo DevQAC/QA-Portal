@@ -21,6 +21,9 @@ import { CohortTraineesComponent } from './cohort-trainees/cohort-trainees.compo
 import { HttpClientModule } from '@angular/common/http';
 import { SelfReflectionService } from './trainer-reflection/services/self-reflection.service';
 import { CohortTraineesService } from './cohort-trainees/services/cohort-trainees.service';
+import { RatedQuestionsService } from './trainee-reflection/services/rated-questions.service';
+import { SelfReflectionFormService } from './trainee-reflection/services/self-reflection-form.service';
+
 
 @NgModule({
   declarations: [
@@ -51,7 +54,9 @@ import { CohortTraineesService } from './cohort-trainees/services/cohort-trainee
   providers: [SummaryService,
     TrainerCohortsService,
     SelfReflectionService,
-    CohortTraineesService],
+    CohortTraineesService,
+    RatedQuestionsService,
+    SelfReflectionFormService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

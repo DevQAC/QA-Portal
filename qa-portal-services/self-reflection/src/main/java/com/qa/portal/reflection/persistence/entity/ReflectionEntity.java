@@ -5,6 +5,7 @@ import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
@@ -14,11 +15,14 @@ import java.util.Set;
 public class ReflectionEntity extends QaBaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "reflection_sequence", sequenceName = "training.reflection_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator = "reflection_sequence")
+	@SequenceGenerator(name = "reflection_sequence",
+			sequenceName = "training.reflection_sequence",
+			allocationSize = 1)
 	private Integer id;
 
-	@OneToMany(mappedBy = "reflection")
+	@OneToMany(mappedBy = "reflection", cascade = CascadeType.ALL)
 	private Set<ReflectionQuestionEntity> reflectionQuestions;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
@@ -30,7 +34,7 @@ public class ReflectionEntity extends QaBaseEntity {
 	private TraineeEntity responder;
 
 	@Column(name = "form_date")
-	private LocalDate formDate;
+	private Date formDate;
 
 	@Column(name = "trainer_feedback")
 	private String trainerFeedback;
@@ -82,11 +86,11 @@ public class ReflectionEntity extends QaBaseEntity {
 		this.responder = responder;
 	}
 
-	public LocalDate getFormDate() {
+	public Date getFormDate() {
 		return formDate;
 	}
 
-	public void setFormDate(LocalDate formDate) {
+	public void setFormDate(Date formDate) {
 		this.formDate = formDate;
 	}
 

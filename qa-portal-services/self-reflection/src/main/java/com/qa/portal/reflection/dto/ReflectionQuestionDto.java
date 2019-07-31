@@ -58,16 +58,16 @@ public class ReflectionQuestionDto extends QaBaseDto {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 		ReflectionQuestionDto that = (ReflectionQuestionDto) o;
-		return Objects.equals(id, that.id) &&
-				Objects.equals(reflection, that.reflection) &&
-				Objects.equals(question, that.question) &&
-				Objects.equals(response, that.response) &&
-				Objects.equals(trainerResponse, that.trainerResponse);
+		return Objects.equals(id, that.id) && Objects.equals(reflection, that.reflection)
+				&& Objects.equals(question, that.question) && Objects.equals(response, that.response)
+				&& Objects.equals(trainerResponse, that.trainerResponse);
 	}
-	
+
 	/*
 	 * @Override public boolean equals(Object o) { if (this == o) return true; if (o
 	 * == null || getClass() != o.getClass()) return false; ReflectionQuestionEntity
@@ -79,7 +79,7 @@ public class ReflectionQuestionDto extends QaBaseDto {
 
 	@Override
 	public int hashCode() {
-//		return Objects.hash(id, reflection, question, response, trainerResponse);
+		// return Objects.hash(id, reflection, question, response, trainerResponse);
 		return Objects.hash(id, question, response, trainerResponse);
 	}
 }
