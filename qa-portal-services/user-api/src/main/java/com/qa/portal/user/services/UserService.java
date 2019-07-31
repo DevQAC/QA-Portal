@@ -15,21 +15,21 @@ import com.qa.portal.common.util.mapper.CohortMapper;
 @Service
 public class UserService {
 
-	private QaTrainerRepository trainerRepo;
+    private QaTrainerRepository trainerRepo;
 
-	private CohortMapper mapper;
+    private CohortMapper mapper;
 
-	public UserService(QaTrainerRepository trainerRepo, CohortMapper mapper) {
-		super();
-		this.trainerRepo = trainerRepo;
-		this.mapper = mapper;
-	}
+    public UserService(QaTrainerRepository trainerRepo, CohortMapper mapper) {
+        super();
+        this.trainerRepo = trainerRepo;
+        this.mapper = mapper;
+    }
 
-	@Transactional
-	public List<QaCohortDto> getCohortsForTrainer(Integer id) {
-		TrainerEntity trainer = this.trainerRepo.findById(id)
-				.orElseThrow(() -> new QaResourceNotFoundException("Trainer not found"));
-		return trainer.getCohorts().stream().map(this.mapper::mapToQaCohortDto).collect(Collectors.toList());
-	}
+    @Transactional
+    public List<QaCohortDto> getCohortsForTrainer(Integer id) {
+        TrainerEntity trainer = this.trainerRepo.findById(id)
+                .orElseThrow(() -> new QaResourceNotFoundException("Trainer not found"));
+        return trainer.getCohorts().stream().map(this.mapper::mapToQaCohortDto).collect(Collectors.toList());
+    }
 
 }

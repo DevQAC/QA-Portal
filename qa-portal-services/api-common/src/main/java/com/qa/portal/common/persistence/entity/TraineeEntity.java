@@ -8,17 +8,17 @@ import javax.persistence.ManyToOne;
 @Entity
 @DiscriminatorValue(value = "TRAINEE")
 public class TraineeEntity extends QaUserEntity {
-	
-	@ManyToOne
-	@JoinColumn(name = "cohort_id")
-	private QaCohortEntity cohort;
 
-	public QaCohortEntity getCohort() {
-		return cohort;
-	}
+    @ManyToOne
+    @JoinColumn(name = "cohort_id")
+    private QaCohortEntity cohort;
 
-	public void setCohort(QaCohortEntity cohort) {
-		this.cohort = cohort;
-	}
+    public QaCohortEntity getCohort() {
+        return cohort;
+    }
+
+    public void setCohort(QaCohortEntity cohort) {
+        this.cohort = cohort;
+    }
 
 }

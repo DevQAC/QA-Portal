@@ -23,6 +23,8 @@ import {SelfReflectionService} from './trainer-reflection/services/self-reflecti
 import {CohortTraineesService} from './cohort-trainees/services/cohort-trainees.service';
 import {RatedQuestionsService} from './trainee-reflection/services/rated-questions.service';
 import {SelfReflectionFormService} from './trainee-reflection/services/self-reflection-form.service';
+import {ReflectionHistoryService} from "./self-reflection-history/services/reflection-history.service";
+import { TraineeNewReflectionComponent } from './trainee-new-reflection/trainee-new-reflection.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import {SelfReflectionFormService} from './trainee-reflection/services/self-refl
     CohortSummaryComponent,
     CohortTableComponent,
     CohortChartComponent,
-    CohortTraineesComponent
+    CohortTraineesComponent,
+    TraineeNewReflectionComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import {SelfReflectionFormService} from './trainee-reflection/services/self-refl
     SelfReflectionService,
     CohortTraineesService,
     RatedQuestionsService,
-    SelfReflectionFormService],
+    SelfReflectionFormService,
+  ReflectionHistoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

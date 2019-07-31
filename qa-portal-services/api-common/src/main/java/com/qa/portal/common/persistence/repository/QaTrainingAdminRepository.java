@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface QaTrainingAdminRepository extends JpaRepository<TrainingAdminEntity, Integer> {
-	List<TrainingAdminEntity> findByUserName(String userName);
+    List<TrainingAdminEntity> findByUserName(String userName);
 }

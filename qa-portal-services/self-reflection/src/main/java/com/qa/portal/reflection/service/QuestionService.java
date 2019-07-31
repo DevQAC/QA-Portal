@@ -17,27 +17,27 @@ import com.qa.portal.reflection.service.mapper.QuestionMapper;
 @Service
 public class QuestionService {
 
-	private CohortQuestionRepository cohortQuestionRepo;
+    private CohortQuestionRepository cohortQuestionRepo;
 
-	private QaCohortRepository cohortRepo;
+    private QaCohortRepository cohortRepo;
 
-	private QuestionMapper mapper;
+    private QuestionMapper mapper;
 
-	public QuestionService(CohortQuestionRepository cohortQuestionRepo, QaCohortRepository cohortRepo,
-			QuestionMapper mapper) {
-		super();
-		this.cohortQuestionRepo = cohortQuestionRepo;
-		this.cohortRepo = cohortRepo;
-		this.mapper = mapper;
-	}
+    public QuestionService(CohortQuestionRepository cohortQuestionRepo, QaCohortRepository cohortRepo,
+                           QuestionMapper mapper) {
+        super();
+        this.cohortQuestionRepo = cohortQuestionRepo;
+        this.cohortRepo = cohortRepo;
+        this.mapper = mapper;
+    }
 
-	@Transactional
-	public Set<QuestionDto> getQuestionsForCohort(Integer cohortId) {
-		QaCohortEntity cohort = this.cohortRepo.findById(cohortId)
-				.orElseThrow(() -> new QaResourceNotFoundException("Cohort doesn't exist"));
-		Set<CohortQuestionEntity> cohortQuestions = this.cohortQuestionRepo.findByCohort(cohort);
-		return cohortQuestions.stream().map(cq -> cq.getQuestion()).map(this.mapper::mapToQuestionDto)
-				.collect(Collectors.toSet());
-	}
+    @Transactional
+    public Set<QuestionDto> getQuestionsForCohort(Integer cohortId) {
+        QaCohortEntity cohort = this.cohortRepo.findById(cohortId)
+                .orElseThrow(() -> new QaResourceNotFoundException("Cohort doesn't exist"));
+        Set<CohortQuestionEntity> cohortQuestions = this.cohortQuestionRepo.findByCohort(cohort);
+        return cohortQuestions.stream().map(cq -> cq.getQuestion()).map(this.mapper::mapToQuestionDto)
+                .collect(Collectors.toSet());
+    }
 
 }
