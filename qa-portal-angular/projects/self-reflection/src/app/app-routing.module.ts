@@ -15,6 +15,9 @@ const routes: Routes = [
         path: 'selfreflection', component: TraineeReflectionComponent
       },
       {
+        path: 'selfreflection/:id', component: TraineeReflectionComponent
+      } ,
+      {
         path: 'selfreflections', component: SelfReflectionHistoryComponent
       }
     ]

@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 import {SelfReflectionFormModel} from '../_common/models/self-reflection-form-model';
 import {ReflectionQuestionModel} from '../_common/models/reflection.question.model';
 import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {subscriptionLogsToBeFn} from 'rxjs/internal/testing/TestScheduler';
 
 @Component({
@@ -29,10 +29,12 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
               private selfReflectionFormService: SelfReflectionFormService,
               private questionsService: QuestionsServiceService,
               private errorHandlerService: QaErrorHandlerService,
-              private router: Router) {
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    if(this.route.paramMap)
     this.intialiseSelfReflectionForm();
 
     // this.currentReflectionSubscription = this.selfReflectionFormService.getCurrentSelfReflectionForm().subscribe(
