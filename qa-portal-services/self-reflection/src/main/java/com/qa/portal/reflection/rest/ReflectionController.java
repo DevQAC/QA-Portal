@@ -33,7 +33,7 @@ public class ReflectionController {
 		return ResponseEntity.ok(this.service.getCohortSummaryDto());
 	}
 
-	@GetMapping("/trainee/current")
+	@GetMapping("/trainee")
 	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainee() {
 		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(context.getUserName()));
 	}

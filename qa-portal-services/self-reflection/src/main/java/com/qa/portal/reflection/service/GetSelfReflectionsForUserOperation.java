@@ -25,11 +25,17 @@ public class GetSelfReflectionsForUserOperation {
 
 	private QaTrainerRepository trainerRepository;
 
+	public GetSelfReflectionsForUserOperation(ReflectionMapper reflectionMapper, ReflectionRepository reflectionRepository, QaTraineeRepository traineeRepository, QaTrainerRepository trainerRepository) {
+		this.reflectionMapper = reflectionMapper;
+		this.reflectionRepository = reflectionRepository;
+		this.traineeRepository = traineeRepository;
+		this.trainerRepository = trainerRepository;
+	}
 
 	public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
 		TraineeEntity trainee = traineeRepository.findByUserName(userName)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
-		return reflectionRepository.findByResponderId(trainee.getId())
+		return reflectionRepository.findAllByResponder(trainee)
 				.stream().map(reflectionMapper::mapToReflectionDto)
 				.collect(Collectors.toSet());
 	}
