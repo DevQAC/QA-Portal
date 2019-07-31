@@ -246,11 +246,18 @@ input.response:focus {
   right: -100px;
 }
 
+.reflection-dates .entry {
+  justify-content: left;
+}
+
+.trainer-names .entry {
+  justify-content: right;
+}
+
 .reflection-dates .entry,
 .trainer-names .entry {
   height: 61px;
   overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
