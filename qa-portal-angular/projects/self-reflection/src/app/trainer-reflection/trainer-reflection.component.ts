@@ -23,6 +23,9 @@ enum PageState {
  * a question in the grid, disable those trainer and trainee fields.
  * If two reflections were created/updated on the same day, ordering
  * becomes inconsistent.
+ * Trainer feedback and Learning pathway are taken from any reflection that
+ * has those entries as non-null, but they're saved to the latest
+ * reflection.
  */
 @Component({
   selector: 'app-trainer-reflection',
@@ -148,9 +151,13 @@ export class TrainerReflectionComponent implements OnInit {
       newestReflection.trainerFeedback = newFeedback;
       this.reflectionService.updateReflection(newestReflection)
         .subscribe(updatedReflection => {
-          this.trainerFeedback = updatedReflection.trainerFeedback;
-          this.toastrService.showSuccess(`Trainer Feedback ${this.updateMessage}`);
-        }, error => { console.log(error); this.errorService.handleError(error); });
+          if (updatedReflection.trainerFeedback !== newFeedback) {
+            this.toastrService.showError('Training Feedback did not update.');
+          } else {
+            this.trainerFeedback = updatedReflection.trainerFeedback;
+            this.toastrService.showSuccess(`Trainer Feedback ${this.updateMessage}`);
+          }
+        }, error => this.errorService.handleError(error));
     }
   }
 
@@ -160,8 +167,12 @@ export class TrainerReflectionComponent implements OnInit {
       newestReflection.learningPathway = newPathway;
       this.reflectionService.updateReflection(newestReflection)
         .subscribe(updatedReflection => {
-          this.learningPathway = updatedReflection.learningPathway;
-          this.toastrService.showSuccess(`Learning Pathway ${this.updateMessage}`);
+          if (updatedReflection.learningPathway !== newPathway) {
+            this.toastrService.showError('Learning Pathway did not update.');
+          } else {
+            this.learningPathway = updatedReflection.learningPathway;
+            this.toastrService.showSuccess(`Learning Pathway ${this.updateMessage}`);
+          }
         }, error => this.errorService.handleError(error));
     }
   }

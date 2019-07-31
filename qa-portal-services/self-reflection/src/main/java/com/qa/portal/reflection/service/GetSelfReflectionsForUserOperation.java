@@ -38,8 +38,6 @@ public class GetSelfReflectionsForUserOperation {
 		this.trainerRepository = trainerRepository;
 	}
 
-	private Logger LOGGER = LoggerFactory.getLogger(GetSelfReflectionsForUserOperation.class);
-
 	public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
 		TraineeEntity trainee = traineeRepository.findByUserName(userName)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
@@ -55,12 +53,10 @@ public class GetSelfReflectionsForUserOperation {
 	}
 
 	public Set<ReflectionDto> getSelfReflectionsForUser(Integer traineeId) {
-		LOGGER.info("== getSelfReflectionsForUser ==");
 		Set<ReflectionDto> result = reflectionRepository.findByResponderId(traineeId)
 				.stream()
 				.map(reflectionMapper::mapToReflectionDto)
 				.collect(Collectors.toSet());
-		LOGGER.info(String.format("reflection set size: %d", result.size()));
 		return result;
 	}
 }
