@@ -84,7 +84,7 @@
           <div class='save-button-container'>
             <app-save-button [disabled]='disableInputs' (save)='saveReflectionQuestions()'></app-save-button>
           </div>
-          <div class='paginator'>
+          <div *ngIf='reflections.length > 5' class='paginator'>
             <mat-paginator [length]='reflections.length' [pageSize]='entriesPerPage' (page)='onPagination($event)'>
             </mat-paginator>
           </div>

@@ -21,6 +21,8 @@ enum PageState {
  * questions exist for questions outside of the user's cohort,
  * don't show them. If a reflection question does not exist for
  * a question in the grid, disable those trainer and trainee fields.
+ * If two reflections were created/updated on the same day, ordering
+ * becomes inconsistent.
  */
 @Component({
   selector: 'app-trainer-reflection',
