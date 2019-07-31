@@ -16,26 +16,35 @@ import com.qa.portal.reflection.service.mapper.ReflectionMapper;
 
 @Component
 public class GetSelfReflectionsForUserOperation {
-	
-	public Set<ReflectionDto> getSelfReflectionsForUser(String userName, ReflectionRepository reflectionRepo, QaTraineeRepository traineeRepo, ReflectionMapper mapper) {
-		TraineeEntity trainee = traineeRepo.findByUserName(userName).stream().findFirst()
+
+	private ReflectionMapper reflectionMapper;
+
+	private ReflectionRepository reflectionRepository;
+
+	private QaTraineeRepository traineeRepository;
+
+	private QaTrainerRepository trainerRepository;
+
+
+	public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
+		TraineeEntity trainee = traineeRepository.findByUserName(userName)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
-		return reflectionRepo.findByResponderId(trainee.getId())
-				.stream().map(mapper::mapToReflectionDto)
+		return reflectionRepository.findByResponderId(trainee.getId())
+				.stream().map(reflectionMapper::mapToReflectionDto)
 				.collect(Collectors.toSet());
 	}
 	
-	public Set<ReflectionDto> getSelfReflectionsForUser(String userName, ReflectionRepository reflectionRepo, QaTrainerRepository trainerRepo, ReflectionMapper mapper) {
-		TrainerEntity trainer = trainerRepo.findByUserName(userName).stream().findFirst()
+	public Set<ReflectionDto> getSelfReflectionsForTrainer(String userName) {
+		TrainerEntity trainer = trainerRepository.findByUserName(userName)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainer does not exist"));
-		return reflectionRepo.findByReviewerId(trainer.getId())
-				.stream().map(mapper::mapToReflectionDto)
+		return reflectionRepository.findByReviewerId(trainer.getId())
+				.stream().map(reflectionMapper::mapToReflectionDto)
 				.collect(Collectors.toSet());
 	}
 	
-	public Set<ReflectionDto> getSelfReflectionsForUser(Integer traineeId, ReflectionRepository reflectionRepo, QaTraineeRepository traineeRepo, ReflectionMapper mapper) {
-		return reflectionRepo.findByResponderId(traineeId)
-				.stream().map(mapper::mapToReflectionDto)
+	public Set<ReflectionDto> getSelfReflectionsForUser(Integer traineeId) {
+		return reflectionRepository.findByResponderId(traineeId)
+				.stream().map(reflectionMapper::mapToReflectionDto)
 				.collect(Collectors.toSet());
 	}
 }

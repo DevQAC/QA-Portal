@@ -8,9 +8,10 @@ import java.util.Objects;
 public class DepartmentRoleApplicationEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "dept_role_app_sequence",
-            sequenceName = "training.dept_role_app_sequence",
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,
+            generator = "dept_role_application_sequence")
+    @SequenceGenerator(name = "dept_role_application_sequence",
+            sequenceName = "training.dept_role_application_sequence",
             allocationSize=1)
     private Integer id;
 

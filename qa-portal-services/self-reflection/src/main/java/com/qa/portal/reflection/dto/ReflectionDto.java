@@ -1,11 +1,10 @@
 package com.qa.portal.reflection.dto;
 
 import com.qa.portal.common.dto.QaBaseDto;
-import com.qa.portal.common.dto.QaUserDto;
+import com.qa.portal.common.dto.TraineeDto;
+import com.qa.portal.common.dto.TrainerDto;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,11 +13,11 @@ public final class ReflectionDto extends QaBaseDto {
 
     private Integer id;
 
-    private QaUserDto responder;
+    private TraineeDto responder;
 
-    private QaUserDto reviewer;
+    private TrainerDto reviewer;
 
-    private Date formDate;
+    private LocalDate formDate;
 
     private String trainerFeedback;
 
@@ -32,22 +31,21 @@ public final class ReflectionDto extends QaBaseDto {
 
     private String threats;
 
-
     private Set<ReflectionQuestionDto> reflectionQuestions = new HashSet<ReflectionQuestionDto>();
 
     public Integer getId() {
         return id;
     }
 
-    public QaUserDto getResponder() {
+    public TraineeDto getResponder() {
         return responder;
     }
 
-    public QaUserDto getReviewer() {
+    public TrainerDto getReviewer() {
         return reviewer;
     }
 
-    public Date getFormDate() {
+    public LocalDate getFormDate() {
         return formDate;
     }
 
@@ -56,32 +54,24 @@ public final class ReflectionDto extends QaBaseDto {
         return learningPathway;
     }
 
-    public Set<ReflectionQuestionDto> getQuestions() {
-        return Collections.unmodifiableSet(this.reflectionQuestions);
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setResponder(QaUserDto responder) {
+    public void setResponder(TraineeDto responder) {
         this.responder = responder;
     }
 
-    public void setReviewer(QaUserDto reviewer) {
+    public void setReviewer(TrainerDto reviewer) {
         this.reviewer = reviewer;
     }
 
-    public void setFormDate(Date date) {
+    public void setFormDate(LocalDate date) {
         this.formDate = date;
     }
 
     public void setLearningPathway(String learningPathway) {
         this.learningPathway = learningPathway;
-    }
-
-    public void setQuestions(Set<ReflectionQuestionDto> questions) {
-        this.reflectionQuestions = questions;
     }
 
     public String getTrainerFeedback() {

@@ -16,5 +16,34 @@
             </converter>
         </custom-converters>
     </configuration>
+
+    <mapping>
+        <class-a>com.qa.portal.reflection.dto.ReflectionDto</class-a>
+        <class-b>com.qa.portal.reflection.persistence.entity.ReflectionEntity</class-b>
+    </mapping>
+
+    <mapping>
+        <class-a>com.qa.portal.reflection.dto.QuestionDto</class-a>
+        <class-b>com.qa.portal.reflection.persistence.entity.QuestionEntity</class-b>
+    </mapping>
+
+    <mapping>
+        <class-a>com.qa.portal.reflection.dto.ReflectionQuestionDto</class-a>
+        <class-b>com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity</class-b>
+        <field-exclude>
+            <a>reflection</a>
+            <b>reflection</b>
+        </field-exclude>
+    </mapping>
+
+    <mapping>
+        <class-a>com.qa.portal.common.dto.TraineeDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.TraineeEntity</class-b>
+    </mapping>
+
+    <mapping>
+        <class-a>com.qa.portal.common.dto.TrainerDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.TrainerEntity</class-b>
+    </mapping>
 </mappings>
 

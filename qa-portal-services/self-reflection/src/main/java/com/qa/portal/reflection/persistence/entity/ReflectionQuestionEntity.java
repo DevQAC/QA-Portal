@@ -13,13 +13,18 @@ import javax.persistence.Table;
 
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "reflection_question", schema = "training")
 public class ReflectionQuestionEntity extends QaBaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "reflection_question_sequence", sequenceName = "training.reflection_question_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator="reflection_question_sequence")
+	@SequenceGenerator(name = "reflection_question_sequence",
+			sequenceName = "training.reflection_question_sequence",
+			allocationSize = 1)
 	private Integer id;
 
 	@ManyToOne
@@ -77,58 +82,19 @@ public class ReflectionQuestionEntity extends QaBaseEntity {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ReflectionQuestionEntity that = (ReflectionQuestionEntity) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(reflection, that.reflection) &&
+				Objects.equals(question, that.question) &&
+				Objects.equals(response, that.response) &&
+				Objects.equals(trainerResponse, that.trainerResponse);
+	}
+
+	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((question == null) ? 0 : question.hashCode());
-		result = prime * result + ((reflection == null) ? 0 : reflection.hashCode());
-		result = prime * result + ((response == null) ? 0 : response.hashCode());
-		result = prime * result + ((trainerResponse == null) ? 0 : trainerResponse.hashCode());
-		return result;
+		return Objects.hash(id, question, response, trainerResponse);
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ReflectionQuestionEntity other = (ReflectionQuestionEntity) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (question == null) {
-			if (other.question != null)
-				return false;
-		} else if (!question.equals(other.question))
-			return false;
-		if (reflection == null) {
-			if (other.reflection != null)
-				return false;
-		} else if (!reflection.equals(other.reflection))
-			return false;
-		if (response == null) {
-			if (other.response != null)
-				return false;
-		} else if (!response.equals(other.response))
-			return false;
-		if (trainerResponse == null) {
-			if (other.trainerResponse != null)
-				return false;
-		} else if (!trainerResponse.equals(other.trainerResponse))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "ReflectionQuestionEntity [id=" + id + ", reflection=" + reflection + ", question=" + question
-				+ ", response=" + response + ", trainerResponse=" + trainerResponse + "]";
-	}
-
 }

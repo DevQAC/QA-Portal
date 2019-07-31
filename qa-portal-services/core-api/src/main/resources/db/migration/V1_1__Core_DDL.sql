@@ -200,6 +200,12 @@ create table if not exists training.reflection
 	reviewer_id integer,
 	responder_id integer,
 	form_date date not null,
+	trainer_feedback varchar(4000),
+	learning_pathway varchar(4000),
+	strengths varchar(4000),
+	weaknesses varchar(4000),
+	opportunities varchar(4000),
+	threats varchar(4000),
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
 	version integer default 1 not null
@@ -223,3 +229,84 @@ create table if not exists training.reflection_question
 );
 
 alter table training.reflection_question owner to postgres;
+
+--
+
+create sequence training.app_menu_item_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.app_menu_item_sequence owner to postgres;
+
+create sequence training.application_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.application_sequence owner to postgres;
+
+create sequence training.cohort_question_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.cohort_question_sequence owner to postgres;
+
+create sequence training.department_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.department_sequence owner to postgres;
+
+create sequence training.dept_role_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.dept_role_sequence owner to postgres;
+
+create sequence training.dept_role_application_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.dept_role_application_sequence owner to postgres;
+
+create sequence training.dept_role_menu_item_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.dept_role_menu_item_sequence owner to postgres;
+
+create sequence training.qa_cohort_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.qa_cohort_sequence owner to postgres;
+
+create sequence training.qa_user_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.qa_user_sequence owner to postgres;
+
+create sequence training.question_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.question_sequence owner to postgres;
+
+create sequence training.reflection_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.reflection_sequence owner to postgres;
+
+create sequence training.reflection_question_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.reflection_question_sequence owner to postgres;
+
+create sequence training.role_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.role_sequence owner to postgres;
+
