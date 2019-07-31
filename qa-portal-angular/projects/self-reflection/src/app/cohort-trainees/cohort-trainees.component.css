@@ -1,0 +1,35 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .self-reflection-grid .question-text {
+      font-size: 5px;
+    }
+  }
+  
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    .self-reflection-grid .question-text {
+      font-size: 8px;
+    }
+  }
+  
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .self-reflection-grid .question-text {
+      font-size: 10px;
+    }
+  }
+  
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .self-reflection-grid .question-text {
+      font-size: 12px;
+    }
+  }
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .self-reflection-grid .question-text {
+      font-size: 16px;
+    }
+  }
