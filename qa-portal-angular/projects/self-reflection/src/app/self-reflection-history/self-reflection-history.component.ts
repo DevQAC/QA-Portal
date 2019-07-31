@@ -50,4 +50,7 @@ export class SelfReflectionHistoryComponent implements OnInit, OnDestroy {
     this.reflectionSubscription.unsubscribe();
   }
 
+  getReflectionUrl(reflectionId: string) {
+    return '/qa/portal/training/trainee/selfreflection/' + reflectionId;
+  }
 }

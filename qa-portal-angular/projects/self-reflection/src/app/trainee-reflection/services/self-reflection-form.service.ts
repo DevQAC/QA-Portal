@@ -13,7 +13,7 @@ export class SelfReflectionFormService {
     return this.httpClient.post<SelfReflectionFormModel>(CREATE_SELF_REFLECTION_API , form);
   }
 
-  public getCurrentSelfReflectionForm(): Observable<SelfReflectionFormModel> {
-    return this.httpClient.get<SelfReflectionFormModel>(GET_SELF_REFLECTION_API);
+  public getSelfReflectionForm(formId: string): Observable<SelfReflectionFormModel> {
+    return this.httpClient.get<SelfReflectionFormModel>(GET_SELF_REFLECTION_API + '/' + formId);
   }
 }

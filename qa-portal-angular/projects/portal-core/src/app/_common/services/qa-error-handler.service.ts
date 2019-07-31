@@ -23,6 +23,10 @@ export class QaErrorHandlerService {
     );
   }
 
+  public showError(error: string): void {
+        this.toastrService.showError(error);
+  }
+
   private processError(error: HttpErrorResponse): Observable<string> {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Display in an error toast.
