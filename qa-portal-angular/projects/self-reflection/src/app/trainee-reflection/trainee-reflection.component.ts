@@ -69,9 +69,9 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
     this.questionSubscription = this.ratedQuestionsService.getSelfReflectionQuestions().subscribe(
       (response) => {
         response.forEach((entry) => {
-          const selfRating = new ReflectionQuestionModel();
-          selfRating.question = entry;
-          this.selfReflectionViewModel.selfReflectionForm.reflectionQuestions.push(selfRating);
+          const reflectionQuestion = new ReflectionQuestionModel();
+          reflectionQuestion.question = entry;
+          this.selfReflectionViewModel.selfReflectionForm.reflectionQuestions.push(reflectionQuestion);
           this.selfReflectionViewModel.selfReflectionForm.formDate = new Date();
         });
         this.loadingData = false;

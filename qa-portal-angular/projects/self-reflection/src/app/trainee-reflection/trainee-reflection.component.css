@@ -7,3 +7,7 @@
   justify-content: center;
   margin-bottom: 10px;
 }
+
+textarea {
+  border:solid 1px grey;
+}
