@@ -31,8 +31,8 @@
         <span class='trainee-firstname'>{{trainee.firstName}}</span>&nbsp;<span
           class='trainee-lastname'>{{trainee.lastName}}</span>&nbsp;Self&nbsp;Reflection&nbsp;Form
       </div>
-      <div class='grids-wrapper'>
-        <div class='grids-container' [style.height]='(393 + (reflections.length * 60)) + "px"'>
+      <div class='grid-wrapper'>
+        <div class='grid-container' [style.height]='(393 + (visibleReflections.length * 60)) + "px"'>
           <mat-grid-list rowHeight='100%' *ngFor='let rows of rowData' cols='8'
             [style.width]='(1 / rowData.length * 100) + "%"'>
             <mat-grid-tile colspan='8'>
@@ -68,9 +68,26 @@
               </div>
             </mat-grid-tile>
           </mat-grid-list>
+          <div class='reflection-dates'>
+            <div class='entry' *ngFor='let reflection of visibleReflections'>
+              <div>{{ showDate(reflection.lastUpdatedTimestamp)}}</div>
+            </div>
+          </div>
+          <!-- Possibly show the trainer's name for each reflection.-->
+          <div class='trainer-names' [style.display]='"none"'>
+            <div class='entry' *ngFor='let reflection of visibleReflections'>
+              <div>{{ reflection.id}}</div>
+            </div>
+          </div>
         </div>
-        <div class='save-button-container' matRipple>
-          <app-save-button [disabled]='disableInputs' (save)='saveReflectionQuestions()'></app-save-button>
+        <div class='grid-footer' matRipple>
+          <div class='save-button-container'>
+            <app-save-button [disabled]='disableInputs' (save)='saveReflectionQuestions()'></app-save-button>
+          </div>
+          <div class='paginator'>
+            <mat-paginator [length]='reflections.length' [pageSize]='entriesPerPage' (page)='onPagination($event)'>
+            </mat-paginator>
+          </div>
         </div>
       </div>
       <div class='trainer-textareas'>

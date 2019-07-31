@@ -5,17 +5,23 @@ import { Trainee } from './models/dto/trainee';
 import { Question } from './models/dto/question';
 import { ReflectionQuestion } from './models/dto/reflection-question';
 import { ActivatedRoute, ParamMap, RouteConfigLoadEnd } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, PageEvent } from '@angular/material';
 import { RowData } from './models/row-data';
 import { QaToastrService } from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
-import { Observer, Observable, Subscription } from 'rxjs';
-import { resolve } from 'dns';
 
 enum PageState {
   LOADING = 'loading', NO_SELF_REFLECTIONS = 'no-self-reflections', READY = 'ready', ERROR = 'error'
 }
 
+/**
+ * Display a row of reflection responses from both a trainer and
+ * trainee. If two reflection responses exist for the same
+ * reflection and question, prefer the latest one. If reflection
+ * questions exist for questions outside of the user's cohort,
+ * don't show them. If a reflection question does not exist for
+ * a question in the grid, disable those trainer and trainee fields.
+ */
 @Component({
   selector: 'app-trainer-reflection',
   templateUrl: './trainer-reflection.component.html',
@@ -36,12 +42,14 @@ export class TrainerReflectionComponent implements OnInit {
   public authors = ['Self', 'Trainer'];
   public pageState: PageState;
   public updateMessage = ' successfully updated.';
+  public visibleReflections: Reflection[] = [];
+  private pageIndex = 0;
+  public entriesPerPage = 5;
 
   constructor(
     private reflectionService: SelfReflectionService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar,
     private toastrService: QaToastrService, private errorService: QaErrorHandlerService) {
     this.pageState = PageState.LOADING;
-
   }
 
   private updateReflections() {
@@ -63,6 +71,21 @@ export class TrainerReflectionComponent implements OnInit {
       if (!this.learningPathway && reflection.learningPathway) {
         this.learningPathway = reflection.learningPathway;
       }
+    }
+    this.updateView();
+    this.pageState = PageState.READY;
+  }
+
+  private updateView(): void {
+    this.rowData.forEach(rd => {
+      rd.questions.forEach(q => {
+        q.reflectionQuestions = [];
+      });
+    });
+    const start = this.pageIndex * this.entriesPerPage;
+    const end = start + this.entriesPerPage;
+    this.visibleReflections = this.reflections.slice(start, end);
+    for (const reflection of this.visibleReflections) {
       for (const reflectionQuestion of reflection.reflectionQuestions) {
         this.rowData.forEach((rowData) => {
           const q = rowData.questions.find(question => question.id === reflectionQuestion.question.id);
@@ -72,12 +95,11 @@ export class TrainerReflectionComponent implements OnInit {
         });
       }
     }
-    this.pageState = PageState.READY;
   }
 
   /**
    * Errors that prevent the flow of the program but may not redirect to
-   * the error page.
+   * the error page. Shows a custom error dialogue.
    * @param error error object to be handled by the QaErrorHandlerService.
    */
   private handleSevereError(error): void {
@@ -119,7 +141,7 @@ export class TrainerReflectionComponent implements OnInit {
         .subscribe(updatedReflection => {
           this.trainerFeedback = updatedReflection.trainerFeedback;
           this.toastrService.showSuccess(`Trainer Feedback ${this.updateMessage}`);
-        }, error => this.errorService.handleError(error));
+        }, error => { console.log(error); this.errorService.handleError(error); });
     }
   }
 
@@ -135,6 +157,14 @@ export class TrainerReflectionComponent implements OnInit {
     }
   }
 
+  public showDate(dateString: string): string {
+    return new Date(dateString).toLocaleDateString();
+  }
+
+  public onPagination(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.updateView();
+  }
 
   ngOnInit() {
     // Get trainee id from path
