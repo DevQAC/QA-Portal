@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public final class ReflectionDto extends QaBaseDto {
+public class ReflectionDto extends QaBaseDto {
 
     private Integer id;
 
