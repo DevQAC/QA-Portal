@@ -17,49 +17,52 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public abstract class QaUserEntity extends QaBaseEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "qa_user_sequence")
-	@SequenceGenerator(name = "qa_user_sequence", sequenceName = "qa_user_sequence")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "qa_user_sequence")
+    @SequenceGenerator(name = "qa_user_sequence",
+            sequenceName = "training.qa_user_sequence",
+            allocationSize = 1)
+    private Integer id;
 
-	@Column(name = "user_name")
-	private String userName;
+    @Column(name = "user_name")
+    private String userName;
 
-	@Column(name = "first_name")
-	private String firstName;
+    @Column(name = "first_name")
+    private String firstName;
 
-	@Column(name = "last_name")
-	private String lastName;
+    @Column(name = "last_name")
+    private String lastName;
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

@@ -17,50 +17,53 @@ import javax.persistence.Table;
 @Table(schema = "training", name = "qa_cohort")
 public class QaCohortEntity extends QaBaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "qa_cohort_sequence")
-	@SequenceGenerator(name = "qa_cohort_sequence", sequenceName = "qa_cohort_sequence")
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "qa_cohort_sequence")
+    @SequenceGenerator(name = "qa_cohort_sequence",
+            sequenceName = "training.qa_cohort_sequence",
+            allocationSize = 1)
+    private Integer id;
 
-	@Column(name = "cohort_name")
-	private String name;
+    @Column(name = "cohort_name")
+    private String name;
 
-	@OneToMany(mappedBy = "cohort")
-	private Set<TraineeEntity> trainees;
+    @OneToMany(mappedBy = "cohort")
+    private Set<TraineeEntity> trainees;
 
-	@ManyToOne
-	@JoinColumn(name = "trainer_id")
-	private TrainerEntity trainer;
+    @ManyToOne
+    @JoinColumn(name = "trainer_id")
+    private TrainerEntity trainer;
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Set<TraineeEntity> getTrainees() {
-		return trainees;
-	}
+    public Set<TraineeEntity> getTrainees() {
+        return trainees;
+    }
 
-	public void setTrainees(Set<TraineeEntity> trainees) {
-		this.trainees = trainees;
-	}
+    public void setTrainees(Set<TraineeEntity> trainees) {
+        this.trainees = trainees;
+    }
 
-	public TrainerEntity getTrainer() {
-		return trainer;
-	}
+    public TrainerEntity getTrainer() {
+        return trainer;
+    }
 
-	public void setTrainer(TrainerEntity trainer) {
-		this.trainer = trainer;
-	}
+    public void setTrainer(TrainerEntity trainer) {
+        this.trainer = trainer;
+    }
 }

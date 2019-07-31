@@ -8,7 +8,8 @@ import java.util.Objects;
 @Table(schema="training", name="application")
 public class ApplicationEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,
+            generator = "application_sequence")
     @SequenceGenerator(name = "application_sequence",
             sequenceName = "training.application_sequence",
             allocationSize=1)

@@ -17,8 +17,11 @@ import com.qa.portal.common.persistence.entity.QaCohortEntity;
 public class CohortQuestionEntity extends QaBaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "cohort_question_sequence", sequenceName = "training.cohort_question_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator = "cohort_question_sequence")
+	@SequenceGenerator(name = "cohort_question_sequence",
+			sequenceName = "training.cohort_question_sequence",
+			allocationSize = 1)
 	private Integer id;
 
 	@ManyToOne

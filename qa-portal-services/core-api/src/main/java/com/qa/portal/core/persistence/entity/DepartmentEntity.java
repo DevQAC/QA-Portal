@@ -7,9 +7,10 @@ import java.util.Objects;
 @Table(schema="training", name="department")
 public class DepartmentEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "dept_sequence",
-            sequenceName = "training.dept_sequence",
+    @GeneratedValue(strategy= GenerationType.SEQUENCE,
+            generator = "department_sequence")
+    @SequenceGenerator(name = "department_sequence",
+            sequenceName = "training.department_sequence",
             allocationSize=1)
     private Integer id;
 

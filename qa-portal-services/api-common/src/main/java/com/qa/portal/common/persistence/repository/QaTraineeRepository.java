@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface QaTraineeRepository extends JpaRepository<TraineeEntity, Integer> {
-	List<TraineeEntity> findByUserName(String userName);
+	Optional<TraineeEntity> findByUserName(String userName);
 }

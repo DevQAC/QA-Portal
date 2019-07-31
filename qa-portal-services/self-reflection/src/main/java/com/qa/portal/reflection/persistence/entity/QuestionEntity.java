@@ -12,8 +12,11 @@ import com.qa.portal.common.persistence.entity.QaBaseEntity;
 public class QuestionEntity extends QaBaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "question_sequence", sequenceName = "training.question_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator = "question_sequence")
+	@SequenceGenerator(name = "question_sequence",
+			sequenceName = "training.question_sequence",
+			allocationSize = 1)
 	private Integer id;
 
 	@Column(name="body")

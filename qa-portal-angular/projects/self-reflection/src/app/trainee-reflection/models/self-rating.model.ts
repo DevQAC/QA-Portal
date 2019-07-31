@@ -6,5 +6,5 @@ export class SelfRatingModel implements SelectedRatingModel {
 
     selfRatingQuestion: RatedQuestionModel;
 
-    selectedRating: number;
+    response: number;
 }
