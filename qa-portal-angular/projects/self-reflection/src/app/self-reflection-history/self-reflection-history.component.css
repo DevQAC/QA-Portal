@@ -23,3 +23,9 @@ mat-cell.cdk-column-date{
   left: 0;
   top: 0;
 }
+
+.data-row:hover{
+  filter: brightness(95%);
+  cursor: pointer;
+
+}
