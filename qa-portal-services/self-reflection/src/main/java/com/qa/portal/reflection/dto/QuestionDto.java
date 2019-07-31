@@ -4,7 +4,7 @@ import com.qa.portal.common.dto.QaBaseDto;
 
 import java.util.Objects;
 
-public final class QuestionDto extends QaBaseDto {
+public class QuestionDto extends QaBaseDto {
 
     private Integer id;
 
