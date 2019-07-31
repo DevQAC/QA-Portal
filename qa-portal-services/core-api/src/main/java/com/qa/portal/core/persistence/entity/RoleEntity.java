@@ -4,17 +4,17 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(schema="training", name="role")
+@Table(schema = "training", name = "role")
 public class RoleEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "role_sequence")
     @SequenceGenerator(name = "role_sequence",
             sequenceName = "training.role_sequence",
-            allocationSize=1)
+            allocationSize = 1)
     private Integer id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
     public Integer getId() {

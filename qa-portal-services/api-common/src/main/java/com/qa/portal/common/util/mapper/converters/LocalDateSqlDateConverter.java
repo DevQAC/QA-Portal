@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class LocalDateSqlDateConverter  extends DozerConverter<LocalDate, Date> {
+public class LocalDateSqlDateConverter extends DozerConverter<LocalDate, Date> {
 
     public LocalDateSqlDateConverter() {
         super(LocalDate.class, Date.class);

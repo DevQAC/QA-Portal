@@ -4,23 +4,23 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(schema="training", name="department")
+@Table(schema = "training", name = "department")
 public class DepartmentEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "department_sequence")
     @SequenceGenerator(name = "department_sequence",
             sequenceName = "training.department_sequence",
-            allocationSize=1)
+            allocationSize = 1)
     private Integer id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="display_order")
+    @Column(name = "display_order")
     private Integer displayOrder;
 
 

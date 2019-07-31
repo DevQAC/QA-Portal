@@ -140,6 +140,7 @@ public final class ReflectionDto extends QaBaseDto {
                 java.util.Objects.equals(threats, that.threats) &&
                 java.util.Objects.equals(reflectionQuestions, that.reflectionQuestions);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), id, responder, reviewer, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats, reflectionQuestions);

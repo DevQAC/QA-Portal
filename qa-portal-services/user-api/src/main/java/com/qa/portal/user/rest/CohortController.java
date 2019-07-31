@@ -12,17 +12,17 @@ import com.qa.portal.common.services.CohortService;
 
 @RestController
 public class CohortController {
-	
-	private CohortService service;
-	
-	public CohortController(CohortService service) {
-		super();
-		this.service = service;
-	}
 
-	@GetMapping("/cohort/getTrainees/{id}")
-	public ResponseEntity<List<QaUserDto>> getTraineesForCohort(@PathVariable("id") Integer id) {
-		return ResponseEntity.ok(this.service.getTraineesForCohort(id));
-	}
+    private CohortService service;
+
+    public CohortController(CohortService service) {
+        super();
+        this.service = service;
+    }
+
+    @GetMapping("/cohort/getTrainees/{id}")
+    public ResponseEntity<List<QaUserDto>> getTraineesForCohort(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(this.service.getTraineesForCohort(id));
+    }
 
 }

@@ -13,17 +13,17 @@ import com.qa.portal.common.services.UserService;
 
 @RestController
 public class UserController {
-	
-	private UserService service;
 
-	@Autowired
-	public UserController(UserService service) {
-		this.service = service;
-	}
+    private UserService service;
 
-	@GetMapping("/user/cohorts/{id}")
-	public ResponseEntity<List<QaCohortDto>> getCohortsForTrainer(@PathVariable("id") Integer id) {
-		return ResponseEntity.ok(this.service.getCohortsForTrainer(id));
-	}
+    @Autowired
+    public UserController(UserService service) {
+        this.service = service;
+    }
+
+    @GetMapping("/user/cohorts/{id}")
+    public ResponseEntity<List<QaCohortDto>> getCohortsForTrainer(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(this.service.getCohortsForTrainer(id));
+    }
 
 }

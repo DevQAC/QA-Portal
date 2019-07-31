@@ -14,19 +14,19 @@ import java.util.Set;
 @Service
 public class ReflectionService {
 
-	private QaCohortRepository cohortRepo;
+    private QaCohortRepository cohortRepo;
 
-	private ReflectionQuestionMapper rqMapper;
+    private ReflectionQuestionMapper rqMapper;
 
-	private GetSelfReflectionOperation getSelfReflectionOperation;
+    private GetSelfReflectionOperation getSelfReflectionOperation;
 
-	private GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation;
+    private GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation;
 
-	private CreateSelfReflectionOperation createSelfReflectionOperation;
+    private CreateSelfReflectionOperation createSelfReflectionOperation;
 
-	private UpdateSelfReflectionOperation updateSelfReflectionOperation;
+    private UpdateSelfReflectionOperation updateSelfReflectionOperation;
 
-	private GetCohortSummaryOperation getCohortSummaryOperation;
+    private GetCohortSummaryOperation getCohortSummaryOperation;
 
     public ReflectionService(QaCohortRepository cohortRepo,
                              GetSelfReflectionOperation getSelfReflectionOperation,
@@ -43,9 +43,9 @@ public class ReflectionService {
     }
 
     @Transactional
-	public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
-		return this.getSelfReflectionsForUserOperation.getSelfReflectionsForTrainee(userName);
-	}
+    public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
+        return this.getSelfReflectionsForUserOperation.getSelfReflectionsForTrainee(userName);
+    }
 
     @Transactional
     public Set<ReflectionDto> getSelfReflectionsForTrainer(String userName) {
@@ -80,6 +80,6 @@ public class ReflectionService {
 
     @Transactional
     public List<CohortSummaryDto> getCohortSummaryDto() {
-	    return this.getCohortSummaryOperation.getCohortSummary();
+        return this.getCohortSummaryOperation.getCohortSummary();
     }
 }

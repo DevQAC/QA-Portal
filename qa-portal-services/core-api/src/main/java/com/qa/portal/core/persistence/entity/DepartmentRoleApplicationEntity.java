@@ -4,23 +4,23 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(schema="training", name="dept_role_application")
+@Table(schema = "training", name = "dept_role_application")
 public class DepartmentRoleApplicationEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "dept_role_application_sequence")
     @SequenceGenerator(name = "dept_role_application_sequence",
             sequenceName = "training.dept_role_application_sequence",
-            allocationSize=1)
+            allocationSize = 1)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="app_id")
+    @JoinColumn(name = "app_id")
     private ApplicationEntity application;
 
     @ManyToOne
-    @JoinColumn(name="dept_role_id")
+    @JoinColumn(name = "dept_role_id")
     private DepartmentRoleEntity departmentRole;
 
     public Integer getId() {

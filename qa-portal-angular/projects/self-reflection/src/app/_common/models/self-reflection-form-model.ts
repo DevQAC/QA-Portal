@@ -22,4 +22,5 @@ export class SelfReflectionFormModel {
   formDate: Date;
 
   currentStatus: string;
+
 }

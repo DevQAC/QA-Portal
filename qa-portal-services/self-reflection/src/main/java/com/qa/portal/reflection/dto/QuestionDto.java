@@ -15,14 +15,14 @@ public final class QuestionDto extends QaBaseDto {
     private Integer numberOfOptions;
 
     public Integer getNumberOfOptions() {
-		return numberOfOptions;
-	}
+        return numberOfOptions;
+    }
 
-	public void setNumberOfOptions(Integer numberOfOptions) {
-		this.numberOfOptions = numberOfOptions;
-	}
+    public void setNumberOfOptions(Integer numberOfOptions) {
+        this.numberOfOptions = numberOfOptions;
+    }
 
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 

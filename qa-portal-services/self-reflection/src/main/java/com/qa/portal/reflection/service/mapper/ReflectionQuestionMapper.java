@@ -12,26 +12,26 @@ import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
 @Component
 public class ReflectionQuestionMapper {
 
-	private DozerBeanMapper mapper;
+    private DozerBeanMapper mapper;
 
-	public ReflectionQuestionMapper(DozerBeanMapper mapper) {
-		this.mapper = mapper;
-	}
+    public ReflectionQuestionMapper(DozerBeanMapper mapper) {
+        this.mapper = mapper;
+    }
 
-	public ReflectionQuestionEntity mapToReflectionQuestionEntity(ReflectionQuestionDto rqdto) {
-		return mapper.map(rqdto, ReflectionQuestionEntity.class);
-	}
+    public ReflectionQuestionEntity mapToReflectionQuestionEntity(ReflectionQuestionDto rqdto) {
+        return mapper.map(rqdto, ReflectionQuestionEntity.class);
+    }
 
-	public ReflectionQuestionDto mapToReflectionQuestionDto(ReflectionQuestionEntity rqe) {
-		return mapper.map(rqe, ReflectionQuestionDto.class);
-	}
+    public ReflectionQuestionDto mapToReflectionQuestionDto(ReflectionQuestionEntity rqe) {
+        return mapper.map(rqe, ReflectionQuestionDto.class);
+    }
 
-	public QuestionEntity mapToQuestionEntity(QuestionDto rqdto) {
-		return mapper.map(rqdto, QuestionEntity.class);
-	}
+    public QuestionEntity mapToQuestionEntity(QuestionDto rqdto) {
+        return mapper.map(rqdto, QuestionEntity.class);
+    }
 
-	public QuestionDto mapToQuestionDto(QuestionEntity rqe) {
-		return mapper.map(rqe, QuestionDto.class);
-	}
+    public QuestionDto mapToQuestionDto(QuestionEntity rqe) {
+        return mapper.map(rqe, QuestionDto.class);
+    }
 
 }

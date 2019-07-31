@@ -41,11 +41,13 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
+
     this.currentReflectionSubscription =
-                      this.selfReflectionFormService.createSelfReflectionForm(this.selfReflectionViewModel.selfReflectionForm)
+                      this.selfReflectionFormService.updateSelfReflectionForm(this.selfReflectionViewModel.selfReflectionForm)
       .subscribe(
       (response) => {
         this.router.navigateByUrl('qa/portal/training/trainee/selfreflections');
+        console.log(this.selfReflectionViewModel)
       },
       (error) => {
         this.errorHandlerService.handleError(error);
