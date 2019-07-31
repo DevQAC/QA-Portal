@@ -26,8 +26,10 @@ public class UpdateSelfReflectionOperation {
                 .orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));
         ReflectionEntity reflectionToUpdateFrom = this.reflectionMapper.mapToReflectionEntity(reflectionDto, userName);
         reflectionToUpdate.setFormDate(reflectionToUpdateFrom.getFormDate());
-        reflectionToUpdate.setResponder(reflectionToUpdateFrom.getResponder());
-        reflectionToUpdate.setReviewer(reflectionToUpdateFrom.getReviewer());
+//        reflectionToUpdate.setResponder(reflectionToUpdateFrom.getResponder());
+//        reflectionToUpdate.setReviewer(reflectionToUpdateFrom.getReviewer());
+        reflectionToUpdate.setLearningPathway(reflectionToUpdateFrom.getLearningPathway());
+        reflectionToUpdate.setTrainerFeedback(reflectionToUpdateFrom.getTrainerFeedback());
         return this.reflectionMapper.mapToReflectionDto(this.reflectionRepository.save(reflectionToUpdate));
     }
 }

@@ -109,6 +109,13 @@ export class TrainerReflectionComponent implements OnInit {
     this.pageState = PageState.ERROR;
   }
 
+  public noSelfReflectionMessage(): string {
+    const userName = this.trainee && this.trainee.userName
+      ? this.trainee.userName
+      : 'this user';
+    return `There are no Self Reflections for ${userName}.`;
+  }
+
   public saveReflectionQuestions(): void {
     this.disableInputs = true;
     const reflectionQuestions: ReflectionQuestion[] = [];

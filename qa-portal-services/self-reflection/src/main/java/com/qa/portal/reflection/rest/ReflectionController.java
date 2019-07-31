@@ -78,7 +78,7 @@ public class ReflectionController {
 	@PostMapping
 	public ResponseEntity<ReflectionDto> createSelfReflection(@RequestBody ReflectionDto reflection) {
 		LOGGER.info("Reflection Dto Questions");
-		reflection.getReflectionQuestions().stream().forEach(q -> LOGGER.info(q.toString()));
+//		reflection.getReflectionQuestions().stream().forEach(q -> LOGGER.info(q.toString()));
 		return ResponseEntity.ok(this.service.createSelfReflection(reflection, context.getUserName()));
 	}
 

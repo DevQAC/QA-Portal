@@ -36,11 +36,11 @@ public class ReflectionMapper {
 
     public ReflectionDto mapToReflectionDto(ReflectionEntity reflectionEntity) {
         ReflectionDto reflectionDto = mapper.map(reflectionEntity, ReflectionDto.class);
-        reflectionDto.setReflectionQuestions(
-                reflectionEntity.getReflectionQuestions()
-                        .stream()
-                        .map(reflectionQuestionEntity -> createReflectionQuestionDto(reflectionQuestionEntity))
-                        .collect(Collectors.toSet()));
+//        reflectionDto.setReflectionQuestions(
+//                reflectionEntity.getReflectionQuestions()
+//                        .stream()
+//                        .map(reflectionQuestionEntity -> createReflectionQuestionDto(reflectionQuestionEntity))
+//                        .collect(Collectors.toSet()));
         Optional.ofNullable(reflectionEntity.getResponder())
                 .ifPresent(responder -> reflectionDto.setResponder(mapper.map(responder, TraineeDto.class)));
         Optional.ofNullable(reflectionEntity.getReviewer())
@@ -48,13 +48,14 @@ public class ReflectionMapper {
         return reflectionDto;
     }
 
-    public ReflectionEntity mapToReflectionEntity(ReflectionDto dto, String userName) {
+    public ReflectionEntity mapToReflectionEntity(ReflectionDto dto) {
         ReflectionEntity reflectionEntity = mapper.map(dto, ReflectionEntity.class);
         reflectionEntity.setFormDate(Date.valueOf(LocalDate.now()));
-        reflectionEntity.setReflectionQuestions(dto.getReflectionQuestions().stream()
-                .map(reflectionQuestionDto -> createReflectionQuestionEntity(reflectionQuestionDto, reflectionEntity))
-                .collect(Collectors.toSet()));
-        traineeRepository.findByUserName(userName).ifPresent(traineeEntity -> reflectionEntity.setResponder(traineeEntity));
+//        reflectionEntity.setReflectionQuestions(dto.getReflectionQuestions().stream()
+//                .map(reflectionQuestionDto -> createReflectionQuestionEntity(reflectionQuestionDto, reflectionEntity))
+//                .collect(Collectors.toSet()));
+//        traineeRepository.findByUserName(userName).ifPresent(traineeEntity -> reflectionEntity.setResponder(traineeEntity));
+        
         return reflectionEntity;
     }
 

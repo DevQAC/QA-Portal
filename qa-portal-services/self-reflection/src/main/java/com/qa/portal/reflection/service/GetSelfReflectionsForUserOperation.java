@@ -3,6 +3,9 @@ package com.qa.portal.reflection.service;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.qa.portal.common.exception.QaResourceNotFoundException;
@@ -16,14 +19,26 @@ import com.qa.portal.reflection.service.mapper.ReflectionMapper;
 
 @Component
 public class GetSelfReflectionsForUserOperation {
-
+	
 	private ReflectionMapper reflectionMapper;
-
+	
 	private ReflectionRepository reflectionRepository;
 
 	private QaTraineeRepository traineeRepository;
 
 	private QaTrainerRepository trainerRepository;
+	
+	public GetSelfReflectionsForUserOperation(ReflectionMapper reflectionMapper,
+			ReflectionRepository reflectionRepository, QaTraineeRepository traineeRepository,
+			QaTrainerRepository trainerRepository) {
+		super();
+		this.reflectionMapper = reflectionMapper;
+		this.reflectionRepository = reflectionRepository;
+		this.traineeRepository = traineeRepository;
+		this.trainerRepository = trainerRepository;
+	}
+
+	private Logger LOGGER = LoggerFactory.getLogger(GetSelfReflectionsForUserOperation.class);
 
 	public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
 		TraineeEntity trainee = traineeRepository.findByUserName(userName)
@@ -40,8 +55,12 @@ public class GetSelfReflectionsForUserOperation {
 	}
 
 	public Set<ReflectionDto> getSelfReflectionsForUser(Integer traineeId) {
-		return reflectionRepository.findByResponderId(traineeId).stream().map(reflectionMapper::mapToReflectionDto)
+		LOGGER.info("== getSelfReflectionsForUser ==");
+		Set<ReflectionDto> result = reflectionRepository.findByResponderId(traineeId)
+				.stream()
+				.map(reflectionMapper::mapToReflectionDto)
 				.collect(Collectors.toSet());
+		LOGGER.info(String.format("reflection set size: %d", result.size()));
 		return result;
 	}
 }

@@ -25,7 +25,6 @@ export class Reflection extends Base {
       if (!reflectionQuestions.find(questionIdEqualsI)) {
         reflectionQuestions.push({
           id: null,
-          reflection,
           question: {
             id: i,
             numOptions: null
