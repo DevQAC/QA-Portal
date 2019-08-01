@@ -14,37 +14,48 @@
           please select a cohort
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <mat-expansion-panel *ngFor="let cohort of cohorts">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{cohort.name}}
-          </mat-panel-title>
-          <mat-panel-description>
-            {{cohort.id}}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-      </mat-expansion-panel>
+
+      <table mat-table [dataSource]='dataSource' class="mat-elevation-z8">
+        <ng-container matColumnDef='name'>
+          <mat-cell *matCellDef='let element'> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef='id'>
+          <mat-cell *matCellDef='let element'>{{element.id}} </mat-cell>
+        </ng-container>
+
+        <tr mat-row *matRowDef='let row; columns: displayedColumns;' (click)='updateTraineesTable(row.id)'></tr>
+      </table>
     </mat-expansion-panel>
+
+
     <mat-expansion-panel>
-        <mat-expansion-panel-header>
+      <mat-expansion-panel-header>
 
         <mat-panel-title>
-            Trainees
-          </mat-panel-title>
-          <mat-panel-description>
-              please select a trainee
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <mat-expansion-panel *ngFor="let trainee of trainees">
-              <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{trainee.id}}
-                  </mat-panel-title>
-                  <mat-panel-description>
-                    {{trainee.userName}}    {{trainee.firstName}}    {{trainee.lastName}}
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                </mat-expansion-panel>
+          Trainees
+        </mat-panel-title>
+        <mat-panel-description>
+          please select a trainee
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <table mat-table [dataSource]='dataSourceTrainees' class="mat-elevation-z8">
+        <ng-container matColumnDef='id'>
+          <mat-cell *matCellDef='let element'> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef='userName'>
+          <mat-cell *matCellDef='let element'>{{element.userName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef='firstName'>
+          <mat-cell *matCellDef='let element'>{{element.firstName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef='lastName'>
+          <mat-cell *matCellDef='let element'>{{element.lastName}} </mat-cell>
+        </ng-container>
+        <tr mat-row *matRowDef='let row; columns: displayedColumnsTrainees;'></tr>
+      </table>
     </mat-expansion-panel>
 
   </mat-accordion>
