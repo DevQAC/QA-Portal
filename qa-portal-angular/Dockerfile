@@ -5,5 +5,5 @@ COPY . .
 RUN NG_CLI_ANALYTICS=ci npm install
 RUN ng build --prod --configuration=production
 FROM nginx:alpine
-COPY --from=build /build /opt/portal-core
+COPY --from=build /build/dist/portal-core /opt/portal-core
 COPY nginx.conf /etc/nginx/nginx.conf
