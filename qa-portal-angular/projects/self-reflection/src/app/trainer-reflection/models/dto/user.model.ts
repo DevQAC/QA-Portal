@@ -1,6 +1,6 @@
-import { Base } from './base';
+import { BaseModel } from './base.model';
 
-export class User extends Base {
+export class UserModel extends BaseModel {
   id?: number;
   firstName = '';
   lastName = '';

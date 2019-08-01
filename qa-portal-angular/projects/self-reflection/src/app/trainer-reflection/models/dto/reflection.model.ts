@@ -1,14 +1,14 @@
-import { Base } from './base';
-import { Trainee } from './trainee';
-import { Trainer } from './trainer';
-import { ReflectionQuestion } from './reflection-question';
+import { BaseModel } from './base.model';
+import { TraineeModel } from './trainee.model';
+import { Trainer } from './trainer.model';
+import { ReflectionQuestionModel } from './reflection-question.model';
 
-export class Reflection extends Base {
+export class ReflectionModel extends BaseModel {
   id?: number;
   reviewer: Trainer;
-  responder: Trainee;
+  responder: TraineeModel;
   formDate: Date;
-  reflectionQuestions: ReflectionQuestion[];
+  reflectionQuestions: ReflectionQuestionModel[];
   trainerFeedback?: string;
   learningPathway?: string;
   strengths?: string;
@@ -18,7 +18,7 @@ export class Reflection extends Base {
   // questions?: Question[];
 
   public static setReflectionQuestions(
-    reflection: Reflection, reflectionQuestions: ReflectionQuestion[], questionIds: number[]): void {
+    reflection: ReflectionModel, reflectionQuestions: ReflectionQuestionModel[], questionIds: number[]): void {
     reflectionQuestions = reflectionQuestions.filter(rq => rq.question && rq.question.category);
     for (const i of questionIds) {
       const questionIdEqualsI = (reflectionQuestion) => reflectionQuestion.question && reflectionQuestion.question.id === i;
@@ -41,9 +41,9 @@ export class Reflection extends Base {
             const aVal = a.lastUpdatedTimestamp;
             const bVal = b.lastUpdatedTimestamp;
             if (aVal > bVal) {
-              return -1;
+              return 1;
             } else if (aVal < bVal) {
-              return 11;
+              return -1;
             } else {
               return 0;
             }
@@ -54,7 +54,7 @@ export class Reflection extends Base {
         }
       }
     }
-    reflectionQuestions.sort((a: ReflectionQuestion, b: ReflectionQuestion): number => {
+    reflectionQuestions.sort((a: ReflectionQuestionModel, b: ReflectionQuestionModel): number => {
       const aCategory = a.question.category;
       const bCategory = b.question.category;
       if (aCategory < bCategory) {

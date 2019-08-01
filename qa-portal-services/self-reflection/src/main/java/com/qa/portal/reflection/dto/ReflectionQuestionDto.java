@@ -9,6 +9,8 @@ public class ReflectionQuestionDto extends QaBaseDto {
 	private Integer id;
 
 	private ReflectionDto reflection;
+	
+	private Integer reflectionId;
 
 	private QuestionDto question;
 
@@ -56,6 +58,14 @@ public class ReflectionQuestionDto extends QaBaseDto {
 		this.trainerResponse = trainerResponse;
 	}
 
+	public Integer getReflectionId() {
+		return reflectionId;
+	}
+
+	public void setReflectionId(Integer reflectionId) {
+		this.reflectionId = reflectionId;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -82,4 +92,5 @@ public class ReflectionQuestionDto extends QaBaseDto {
 		// return Objects.hash(id, reflection, question, response, trainerResponse);
 		return Objects.hash(id, question, response, trainerResponse);
 	}
+
 }

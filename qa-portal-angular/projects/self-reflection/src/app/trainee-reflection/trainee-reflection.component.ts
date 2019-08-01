@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {QuestionsServiceService} from './services/questions-service.service';
-import {SelfReflectionFormViewModel} from './models/self-reflection-form-vmodel';
-import {RatedQuestionsService} from './services/rated-questions.service';
-import {SelfReflectionFormService} from './services/self-reflection-form.service';
-import {Subscription} from 'rxjs';
-import {SelfReflectionFormModel} from '../_common/models/self-reflection-form-model';
-import {ReflectionQuestionModel} from '../_common/models/reflection.question.model';
-import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
-import {Router} from '@angular/router';
-import {subscriptionLogsToBeFn} from 'rxjs/internal/testing/TestScheduler';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { QuestionsServiceService } from './services/questions-service.service';
+import { SelfReflectionFormViewModel } from './models/self-reflection-form-vmodel';
+import { RatedQuestionsService } from './services/rated-questions.service';
+import { SelfReflectionFormService } from './services/self-reflection-form.service';
+import { Subscription } from 'rxjs';
+import { SelfReflectionFormModel } from '../_common/models/self-reflection-form-model';
+import { ReflectionQuestionModel } from '../_common/models/reflection.question.model';
+import { QaErrorHandlerService } from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import { Router } from '@angular/router';
+import { subscriptionLogsToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 @Component({
   selector: 'app-trainee-reflection',
@@ -25,11 +25,12 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
 
   loadingData = true;
 
-  constructor(private ratedQuestionsService: RatedQuestionsService,
-              private selfReflectionFormService: SelfReflectionFormService,
-              private questionsService: QuestionsServiceService,
-              private errorHandlerService: QaErrorHandlerService,
-              private router: Router) {
+  constructor(
+    private ratedQuestionsService: RatedQuestionsService,
+    private selfReflectionFormService: SelfReflectionFormService,
+    private questionsService: QuestionsServiceService,
+    private errorHandlerService: QaErrorHandlerService,
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -56,7 +57,16 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
   submitForm() {
     this.selfReflectionFormService.createSelfReflectionForm(this.selfReflectionViewModel.selfReflectionForm).subscribe(
       (response) => {
-        this.router.navigateByUrl('qa/portal/training/trainee/selfreflections');
+        // persist reflection questions
+        this.selfReflectionViewModel.selfReflectionForm.reflectionQuestions.forEach(rq => {
+          rq.reflectionId = response.id;
+        });
+        this.selfReflectionFormService
+          .createSelfReflectionQuestions(this.selfReflectionViewModel.selfReflectionForm.reflectionQuestions).subscribe(
+            (rqResponse) => {
+              this.router.navigateByUrl('qa/portal/training/trainee/selfreflections');
+            }, error => this.errorHandlerService.handleError(error)
+          );
       },
       (error) => {
         this.errorHandlerService.handleError(error);

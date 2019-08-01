@@ -1,4 +1,4 @@
-import { ReflectionQuestion } from './dto/reflection-question';
+import { ReflectionQuestionModel } from './dto/reflection-question.model';
 
 export class RowData {
   category: string;
@@ -9,5 +9,5 @@ export class RowData {
 export class QuestionData {
   id: number;
   body: string;
-  reflectionQuestions: ReflectionQuestion[];
+  reflectionQuestions: ReflectionQuestionModel[];
 }

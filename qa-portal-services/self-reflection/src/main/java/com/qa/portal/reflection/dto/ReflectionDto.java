@@ -7,6 +7,7 @@ import com.qa.portal.common.dto.TrainerDto;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.qa.portal.common.dto.QaBaseDto;
 import com.qa.portal.common.dto.TraineeDto;
@@ -34,8 +35,8 @@ public final class ReflectionDto extends QaBaseDto {
 
     private String threats;
 
-    // private Set<ReflectionQuestionDto> reflectionQuestions = new
-    // HashSet<ReflectionQuestionDto>();
+     private Set <ReflectionQuestionDto> reflectionQuestions = new
+     HashSet<ReflectionQuestionDto>();
 
     public Integer getId() {
         return id;
@@ -117,14 +118,14 @@ public final class ReflectionDto extends QaBaseDto {
         this.threats = threats;
     }
 
-    // public Set<ReflectionQuestionDto> getReflectionQuestions() {
-    // return reflectionQuestions;
-    // }
+     public Set<ReflectionQuestionDto> getReflectionQuestions() {
+     return reflectionQuestions;
+     }
 
-    // public void setReflectionQuestions(Set<ReflectionQuestionDto>
-    // reflectionQuestions) {
-    // this.reflectionQuestions = reflectionQuestions;
-    // }
+     public void setReflectionQuestions(Set<ReflectionQuestionDto>
+     reflectionQuestions) {
+     this.reflectionQuestions = reflectionQuestions;
+     }
 
     @Override
     public boolean equals(Object object) {

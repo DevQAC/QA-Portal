@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SelfReflectionService } from './services/self-reflection.service';
-import { Reflection } from './models/dto/reflection';
-import { Trainee } from './models/dto/trainee';
-import { Question } from './models/dto/question';
-import { ReflectionQuestion } from './models/dto/reflection-question';
+import { ReflectionModel } from './models/dto/reflection.model';
+import { TraineeModel } from './models/dto/trainee.model';
+import { QuestionModel } from './models/dto/question.model';
+import { ReflectionQuestionModel } from './models/dto/reflection-question.model';
 import { ActivatedRoute, ParamMap, RouteConfigLoadEnd } from '@angular/router';
 import { MatSnackBar, PageEvent } from '@angular/material';
 import { RowData } from './models/row-data';
@@ -35,19 +35,18 @@ enum PageState {
 export class TrainerReflectionComponent implements OnInit {
 
   public COL_MAX = 24;
-  public trainee: Trainee = new Trainee();
-  public reflections: Reflection[] = [];
-  public questions: Question[] = [];
+  public trainee: TraineeModel = new TraineeModel();
+  public reflections: ReflectionModel[] = [];
+  public questions: QuestionModel[] = [];
   public trainerFeedback = '';
   public learningPathway = '';
   public rowData: RowData[] = [];
   public disableInputs = false;
   public questionIds = [];
-  public loaded = false;
   public authors = ['Self', 'Trainer'];
   public pageState: PageState;
   public updateMessage = ' successfully updated.';
-  public visibleReflections: Reflection[] = [];
+  public visibleReflections: ReflectionModel[] = [];
   private pageIndex = 0;
   public entriesPerPage = 5;
 
@@ -121,7 +120,7 @@ export class TrainerReflectionComponent implements OnInit {
 
   public saveReflectionQuestions(): void {
     this.disableInputs = true;
-    const reflectionQuestions: ReflectionQuestion[] = [];
+    const reflectionQuestions: ReflectionQuestionModel[] = [];
     const betweenOneAndTen = i => Math.min(Math.max(1, i), 10);
     for (const reflection of this.reflections) {
       for (const reflectionQuestion of reflection.reflectionQuestions) {
@@ -191,7 +190,7 @@ export class TrainerReflectionComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((pm: ParamMap): void => {
       const traineeId = +pm.get('id');
       // Get trainee
-      this.reflectionService.getTraineeById(traineeId).subscribe((trainee: Trainee): void => {
+      this.reflectionService.getTraineeById(traineeId).subscribe((trainee: TraineeModel): void => {
         this.trainee = trainee;
         // Get questions.
         this.reflectionService.getQuestionsByCohortId(this.trainee.cohort.id)
@@ -233,10 +232,11 @@ export class TrainerReflectionComponent implements OnInit {
                 if (reflections && reflections.length > 0) {
                   let num = 0;
                   // TODO: Change to async
-                  reflections.forEach((reflection: Reflection, index: number): void => {
+                  reflections.forEach((reflection: ReflectionModel): void => {
                     this.reflectionService.getReflectionQuestionsByReflectionId(reflection.id)
-                      .subscribe((reflectionQuestions: ReflectionQuestion[]): void => {
-                        Reflection.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
+                      .subscribe((reflectionQuestions: ReflectionQuestionModel[]): void => {
+                        console.log(reflectionQuestions);
+                        ReflectionModel.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
                         this.reflections.push(reflection);
                         if (num === reflections.length - 1) {
                           this.updateReflections();
