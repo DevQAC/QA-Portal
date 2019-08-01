@@ -10,18 +10,18 @@ import com.qa.portal.reflection.persistence.entity.QuestionEntity;
 @Component
 public class QuestionMapper {
 
-	private DozerBeanMapper mapper;
+    private DozerBeanMapper mapper;
 
-	public QuestionMapper(DozerBeanMapper mapper) {
-		this.mapper = mapper;
-	}
+    public QuestionMapper(DozerBeanMapper mapper) {
+        this.mapper = mapper;
+    }
 
-	public QuestionDto mapToQuestionDto(QuestionEntity entity) {
-		return mapper.map(entity, QuestionDto.class);
-	}
+    public QuestionDto mapToQuestionDto(QuestionEntity entity) {
+        return mapper.map(entity, QuestionDto.class);
+    }
 
-	public QuestionEntity mapToQuestionEntity(QuestionDto dto) {
-		return mapper.map(dto, QuestionEntity.class);
-	}
+    public QuestionEntity mapToQuestionEntity(QuestionDto dto) {
+        return mapper.map(dto, QuestionEntity.class);
+    }
 
 }

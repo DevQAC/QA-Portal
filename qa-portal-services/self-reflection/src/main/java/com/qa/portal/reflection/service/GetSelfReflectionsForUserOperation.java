@@ -3,6 +3,9 @@ package com.qa.portal.reflection.service;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.qa.portal.common.exception.QaResourceNotFoundException;
@@ -25,6 +28,16 @@ public class GetSelfReflectionsForUserOperation {
 
 	private QaTrainerRepository trainerRepository;
 
+	@Autowired
+	public GetSelfReflectionsForUserOperation(ReflectionMapper reflectionMapper,
+											  ReflectionRepository reflectionRepository,
+											  QaTraineeRepository traineeRepository,
+											  QaTrainerRepository trainerRepository) {
+		this.reflectionMapper = reflectionMapper;
+		this.reflectionRepository = reflectionRepository;
+		this.traineeRepository = traineeRepository;
+		this.trainerRepository = trainerRepository;
+	}
 
 	public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
 		TraineeEntity trainee = traineeRepository.findByUserName(userName)

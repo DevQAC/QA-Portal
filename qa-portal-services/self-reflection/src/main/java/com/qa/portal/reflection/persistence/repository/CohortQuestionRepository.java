@@ -11,5 +11,5 @@ import com.qa.portal.reflection.persistence.entity.CohortQuestionEntity;
 @Repository
 public interface CohortQuestionRepository extends JpaRepository<CohortQuestionEntity, Integer> {
 
-	public Set<CohortQuestionEntity> findByCohort(QaCohortEntity cohort);
+    public Set<CohortQuestionEntity> findByCohort(QaCohortEntity cohort);
 }

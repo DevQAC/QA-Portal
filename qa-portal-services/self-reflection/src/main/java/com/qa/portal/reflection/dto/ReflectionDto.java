@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public final class ReflectionDto extends QaBaseDto {
+public class ReflectionDto extends QaBaseDto {
 
     private Integer id;
 
@@ -31,7 +31,7 @@ public final class ReflectionDto extends QaBaseDto {
 
     private String threats;
 
-    private Set<ReflectionQuestionDto> reflectionQuestions = new HashSet<ReflectionQuestionDto>();
+    private Set<ReflectionQuestionDto> reflectionQuestions;
 
     public Integer getId() {
         return id;
@@ -48,7 +48,6 @@ public final class ReflectionDto extends QaBaseDto {
     public LocalDate getFormDate() {
         return formDate;
     }
-
 
     public String getLearningPathway() {
         return learningPathway;

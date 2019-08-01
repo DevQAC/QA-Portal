@@ -1,28 +1,28 @@
 package com.qa.portal.user.rest;
 
-import com.qa.portal.common.dto.QaUserDto;
+import java.util.List;
+
 import com.qa.portal.user.services.CohortService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.qa.portal.common.dto.QaUserDto;
 
 @RestController
 public class CohortController {
-	
-	private CohortService service;
 
-	@Autowired
-	public CohortController(CohortService service) {
-		this.service = service;
-	}
+    private CohortService service;
 
-	@GetMapping("/cohort/getTrainees{id}")
-	public ResponseEntity<List<QaUserDto>> getTraineesForCohort(@PathVariable("id") Integer id) {
-		return ResponseEntity.ok(this.service.getTraineesForCohort(id));
-	}
+    public CohortController(CohortService service) {
+        super();
+        this.service = service;
+    }
+
+    @GetMapping("/cohort/trainees/{id}")
+    public ResponseEntity<List<QaUserDto>> getTraineesForCohort(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(this.service.getTraineesForCohort(id));
+    }
 
 }
