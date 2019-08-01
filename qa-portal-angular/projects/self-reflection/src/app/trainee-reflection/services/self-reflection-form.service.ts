@@ -21,7 +21,7 @@ export class SelfReflectionFormService {
     return this.httpClient.get<SelfReflectionFormModel>(GET_SELF_REFLECTION_API + '/' + formId);
   }
 
-  public updateSelfReflectionForm(form:SelfReflectionFormModel):Observable<SelfReflectionFormModel> {
+  public updateSelfReflectionForm(form: SelfReflectionFormModel): Observable<SelfReflectionFormModel> {
     return this.httpClient.put<SelfReflectionFormModel>(UPDATE_SELF_REFLECTION_API, form);
   }
 }

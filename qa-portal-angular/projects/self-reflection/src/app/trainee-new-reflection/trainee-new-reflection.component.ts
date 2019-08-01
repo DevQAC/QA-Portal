@@ -51,6 +51,7 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
   private intialiseSelfReflectionForm(): void {
     this.selfReflectionViewModel.selfReflectionForm = new SelfReflectionFormModel();
+    this.selfReflectionViewModel.selfReflectionForm.status = 'Submitted';
     this.questionSubscription = this.ratedQuestionsService.getSelfReflectionQuestions().subscribe(
       (response) => {
         response.forEach((entry) => {

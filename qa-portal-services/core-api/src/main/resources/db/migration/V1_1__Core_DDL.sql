@@ -235,6 +235,7 @@ create table if not exists training.reflection
 	threats varchar(4000),
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
+	status varchar(20) not null,
 	version integer default 1 not null
 );
 
