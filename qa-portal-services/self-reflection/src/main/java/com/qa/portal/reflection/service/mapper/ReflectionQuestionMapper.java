@@ -17,11 +17,8 @@ public class ReflectionQuestionMapper {
 
 	private DozerBeanMapper mapper;
 
-	private ReflectionRepository reflectionRepository;
-
-	public ReflectionQuestionMapper(DozerBeanMapper mapper, ReflectionRepository reflectionRepository) {
+	public ReflectionQuestionMapper(DozerBeanMapper mapper) {
 		this.mapper = mapper;
-		this.reflectionRepository = reflectionRepository;
 	}
 
 	public ReflectionQuestionEntity mapToReflectionQuestionEntity(ReflectionQuestionDto rqdto) {
