@@ -47,7 +47,7 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
       .subscribe(
       (response) => {
         this.router.navigateByUrl('qa/portal/training/trainee/selfreflections');
-        console.log(this.selfReflectionViewModel)
+        console.log(this.selfReflectionViewModel);
       },
       (error) => {
         this.errorHandlerService.handleError(error);

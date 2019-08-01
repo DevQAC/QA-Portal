@@ -127,10 +127,14 @@
   margin: 0 auto;
 }
 
-.trainer-textareas div {
-  margin-bottom: 3em;
+.trainer-textareas>div {
+  margin-bottom: 1.5em;
 }
 
+.trainer-textareas .heading {
+  background-color: lightgrey;
+  font-size: 16px;
+}
 
 .grid-wrapper {
   margin-bottom: 3em;
@@ -260,4 +264,9 @@ input.response:focus {
   overflow: hidden;
   display: flex;
   align-items: center;
+}
+
+.submit-button-wrapper {
+  display: flex;
+  justify-content: center;
 }

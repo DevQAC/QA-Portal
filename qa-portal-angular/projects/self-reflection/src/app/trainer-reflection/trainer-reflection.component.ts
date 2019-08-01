@@ -176,6 +176,10 @@ export class TrainerReflectionComponent implements OnInit {
     }
   }
 
+  public onSubmit(): void {
+    // submit
+  }
+
   public showDate(dateString: string): string {
     return new Date(dateString).toLocaleDateString();
   }

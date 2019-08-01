@@ -91,7 +91,7 @@
         </div>
       </div>
       <div class='trainer-textareas'>
-        <div class='trainer-comments'>
+        <!-- <div class='trainer-comments'>
           <app-comment-box (save)='saveTrainerFeedback($event)' [title]='"Trainer Feedback"'
             [comments]='trainerFeedback'>
           </app-comment-box>
@@ -100,7 +100,20 @@
           <app-comment-box (save)='saveLearningPathway($event)' [title]='"Learning Pathway"'
             [comments]='learningPathway'>
           </app-comment-box>
+        </div> -->
+        <div style="display: flex; flex-direction: column;" class='trainer-feedback'>
+          <div class='heading'>Trainer Feedback</div>
+          <textarea [(ngModel)]="trainerFeedback" style="resize: none;" rows="8" matInput
+            placeholder="Trainer Feedback - To be completed by the Trainer"></textarea>
         </div>
+        <div style="display: flex; flex-direction: column;" class='learning-pathway'>
+          <div class='heading'>Learning Pathway</div>
+          <textarea [(ngModel)]="learningPathway" style="resize: none;" rows="8" matInput
+            placeholder="Learning Pathway - To be completed by the Trainer"></textarea>
+        </div>
+      </div>
+      <div class='submit-button-wrapper'>
+        <button class='submit-button' (click)='onSubmit()' mat-raised-button>Submit</button>
       </div>
     </div>
   </div>
