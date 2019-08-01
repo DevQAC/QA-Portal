@@ -2,10 +2,12 @@ table{
     width: 100%;
    }
 
-   
-   th, td {
-    overflow: hidden;
-    width: 200px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+mat-cell{
+    font-size: 20px;
+}
+
+mat-cell.cdk-column-date{
+    position: relative;
+    left: 60%;
+    top:-32px;
+}
