@@ -20,7 +20,7 @@ public class CohortController {
         this.service = service;
     }
 
-    @GetMapping("/cohort/getTrainees/{id}")
+    @GetMapping("/cohort/trainees/{id}")
     public ResponseEntity<List<QaUserDto>> getTraineesForCohort(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.service.getTraineesForCohort(id));
     }

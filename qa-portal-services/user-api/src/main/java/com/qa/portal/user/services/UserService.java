@@ -31,8 +31,8 @@ public class UserService {
 	}
 
     @Transactional
-    public List<QaCohortDto> getCohortsForTrainer(Integer id) {
-        TrainerEntity trainer = this.trainerRepo.findById(id)
+    public List<QaCohortDto> getCohortsForTrainer(String userName) {
+        TrainerEntity trainer = this.trainerRepo.findByUserName(userName)
                 .orElseThrow(() -> new QaResourceNotFoundException("Trainer not found"));
         return trainer.getCohorts().stream().map(this.mapper::mapToQaCohortDto).collect(Collectors.toList());
     }
