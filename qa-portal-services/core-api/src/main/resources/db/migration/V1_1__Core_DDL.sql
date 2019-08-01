@@ -32,6 +32,32 @@ CREATE SCHEMA IF NOT EXISTS training;
 
 create schema if not exists training authorization postgres;
 
+drop sequence if exists training.app_menu_item_sequence;
+
+drop sequence if exists training.application_sequence;
+
+drop sequence if exists training.cohort_question_sequence;
+
+drop sequence if exists training.department_sequence;
+
+drop sequence if exists training.dept_role_sequence;
+
+drop sequence if exists training.dept_role_application_sequence;
+
+drop sequence if exists training.dept_role_menu_item_sequence;
+
+drop sequence if exists training.qa_cohort_sequence;
+
+drop sequence if exists training.qa_user_sequence;
+
+drop sequence if exists training.question_sequence;
+
+drop sequence if exists training.reflection_sequence;
+
+drop sequence if exists training.reflection_question_sequence;
+
+drop sequence if exists training.role_sequence;
+
 create table if not exists training.application
 (
 	id integer not null
@@ -156,6 +182,7 @@ create table if not exists training.qa_cohort
 	trainer_id integer not null,
 	last_updated_timestamp timestamp not null,
    	last_updated_by varchar(255) not null,
+   	start_date date not null,
    	version integer default 1 not null
 );
 

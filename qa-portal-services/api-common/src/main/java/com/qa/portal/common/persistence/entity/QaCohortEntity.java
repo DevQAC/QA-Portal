@@ -1,5 +1,6 @@
 package com.qa.portal.common.persistence.entity;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -27,6 +28,9 @@ public class QaCohortEntity extends QaBaseEntity {
 
     @Column(name = "cohort_name")
     private String name;
+
+    @Column(name = "start_date")
+    private LocalDate startDate;
 
     @OneToMany(mappedBy = "cohort")
     private Set<TraineeEntity> trainees;
@@ -65,5 +69,13 @@ public class QaCohortEntity extends QaBaseEntity {
 
     public void setTrainer(TrainerEntity trainer) {
         this.trainer = trainer;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 }
