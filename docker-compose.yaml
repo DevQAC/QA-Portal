@@ -1,0 +1,81 @@
+version: '3.7'
+services:
+  keycloak:
+    image: jboss/keycloak:latest
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_IMPORT=/tmp/realm.json
+      - DB_DATABASE=qa-portal
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - PROXY_ADDRESS_FORWARDING=true
+    volumes:
+      - type: bind
+        source: ./qa-portal-infra/keycloak/qa-portal-realm.json
+        target: /tmp/realm.json
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=qa-portal
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/nginx.conf
+    depends_on:
+      - keycloak
+      - portal-core
+      - core-api
+      - user-api
+      - self-reflection
+    ports:
+      - target: 80
+        published: 80
+  portal-core:
+    image: portal-core:latest
+    build: ./qa-portal-angular
+  core-api:
+    image: core-api:latest
+    build: 
+      context: ./qa-portal-services
+      args:
+        - PROJECT=core-api
+        - PORT=8081
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+  self-reflection:
+    image: self-reflection:latest
+    build: 
+      context: ./qa-portal-services
+      args:
+        - PROJECT=self-reflection
+        - PORT=8082
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+  user-api:
+    image: user-api:latest
+    build: 
+      context: ./qa-portal-services
+      args:
+        - PROJECT=user-api
+        - PORT=8084
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+
+
+
+
+
+

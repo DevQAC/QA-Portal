@@ -1,11 +1,12 @@
 import { KeycloakService, KeycloakOptions } from 'keycloak-angular';
+import { keycloak_url } from "projects/portal-core/src/environments/environment";
 
 // TODO - values to be sourced from environment-{env}.ts files
 export function initializer(keycloak: KeycloakService): () => Promise<any> {
 
   const options: KeycloakOptions = {
     config: {
-      url: 'http://localhost:8080/auth',
+      url: keycloak_url,
       realm: 'qa-portal',
       clientId: 'qa-portal-ui'
     },
