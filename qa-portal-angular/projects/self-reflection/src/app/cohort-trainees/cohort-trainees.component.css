@@ -11,3 +11,19 @@ mat-cell.cdk-column-date{
     left: 60%;
     top:-32px;
 }
+
+.cohort-trainees {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cohort-row:hover {
+  filter: brightness(95%);
+  cursor: pointer;
+}
+
+.trainee-row:hover {
+  filter: brightness(95%);
+  cursor: pointer;
+}

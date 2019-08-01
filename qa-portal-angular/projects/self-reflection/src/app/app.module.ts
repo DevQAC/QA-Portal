@@ -5,7 +5,6 @@ import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
-import {TrainerCohortsComponent} from './trainer-cohorts/trainer-cohorts.component';
 import {TrainerCohortsService} from '../../../portal-core/src/app/_common/services/trainer-cohorts-service/trainer-cohorts.service';
 import {TrainerReflectionComponent} from './trainer-reflection/trainer-reflection.component';
 import {CommentBoxComponent} from './trainer-reflection/comment-box/comment-box.component';
@@ -23,13 +22,12 @@ import {SelfReflectionService} from './trainer-reflection/services/self-reflecti
 import {CohortTraineesService} from './cohort-trainees/services/cohort-trainees.service';
 import {RatedQuestionsService} from './trainee-reflection/services/rated-questions.service';
 import {SelfReflectionFormService} from './trainee-reflection/services/self-reflection-form.service';
-import {ReflectionHistoryService} from "./self-reflection-history/services/reflection-history.service";
 import { TraineeNewReflectionComponent } from './trainee-new-reflection/trainee-new-reflection.component';
+import {ReflectionHistoryService} from './self-reflection-history/services/reflection-history.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TrainerCohortsComponent,
     TrainerReflectionComponent,
     CommentBoxComponent,
     SaveButtonComponent,
