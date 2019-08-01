@@ -1,4 +1,4 @@
-package com.qa.portal.common.rest;
+package com.qa.portal.user.rest;
 
 import java.util.List;
 

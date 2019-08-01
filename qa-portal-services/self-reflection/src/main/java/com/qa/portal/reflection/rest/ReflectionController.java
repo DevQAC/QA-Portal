@@ -6,6 +6,7 @@ import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.service.ReflectionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class ReflectionController {
 
 	private QaSecurityContext context;
 
+	@Autowired
 	public ReflectionController(ReflectionService service, QaSecurityContext context) {
 		this.service = service;
 		this.context = context;
@@ -33,7 +35,7 @@ public class ReflectionController {
 		return ResponseEntity.ok(this.service.getCohortSummaryDto());
 	}
 
-	@GetMapping("/trainee/current")
+	@GetMapping("/trainee")
 	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainee() {
 		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(context.getUserName()));
 	}

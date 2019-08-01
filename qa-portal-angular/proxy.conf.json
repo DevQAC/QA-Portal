@@ -13,15 +13,5 @@
     "target": "http://localhost:8084",
     "secure": false,
     "logLevel": "debug"
-  },
-  "/auth": {
-    "target": "http://localhost:8080",
-    "secure": false,
-    "logLevel": "debug"
-  },
-  "/user-api" : {
-    "target": "http://localhost:8083",
-    "secure": false,
-    "logLevel": "debug"
   }
 }

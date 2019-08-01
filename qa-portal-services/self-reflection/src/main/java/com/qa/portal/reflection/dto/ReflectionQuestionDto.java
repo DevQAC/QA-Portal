@@ -10,6 +10,8 @@ public class ReflectionQuestionDto extends QaBaseDto {
 
 	private ReflectionDto reflection;
 
+	private Integer reflectionId;
+
 	private QuestionDto question;
 
 	private Integer response;
@@ -57,7 +59,15 @@ public class ReflectionQuestionDto extends QaBaseDto {
 		this.trainerResponse = trainerResponse;
 	}
 
-    @Override
+	public Integer getReflectionId() {
+		return reflectionId;
+	}
+
+	public void setReflectionId(Integer reflectionId) {
+		this.reflectionId = reflectionId;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
