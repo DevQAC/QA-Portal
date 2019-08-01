@@ -31,6 +31,11 @@
   </mat-card-subtitle>
 
   <mat-card-content>
+
+    <div style="text-align: left; margin-bottom: 15px;">
+      Rated Questions Score Guide: <b>1 = Poor, 5 = Average, 10 = Excellent</b>
+    </div>
+
     <app-rated-question *ngFor="let sr of selfReflectionViewModel.selfReflectionForm.reflectionQuestions"
                         [options]="sr.question.numberOfOptions"
                         [questionText]="sr.question.body"
@@ -43,7 +48,7 @@
   </mat-card-subtitle>
 
   <mat-card-content>
-    <div style="text-align: center; margin-bottom: 15px;">
+    <div style="text-align: left; margin-bottom: 15px;">
       Make your targets <b>SMART</b>: <span style="margin-left: 10px"><b>S</b>pecific <b>M</b>easurable <b>A</b>ttainable <b>R</b>ealistic <b>T</b>ime-Bound</span>
     </div>
 
