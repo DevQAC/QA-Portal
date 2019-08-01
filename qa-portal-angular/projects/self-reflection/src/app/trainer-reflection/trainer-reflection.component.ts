@@ -70,11 +70,15 @@ export class TrainerReflectionComponent implements OnInit {
       }
     });
     for (const reflection of this.reflections) {
-      if (!this.trainerFeedback && reflection.trainerFeedback) {
-        this.trainerFeedback = reflection.trainerFeedback;
-      }
-      if (!this.learningPathway && reflection.learningPathway) {
-        this.learningPathway = reflection.learningPathway;
+      if (reflection.reflectionQuestions.length < this.questions.length) {
+        this.reflections.splice(this.reflections.indexOf(reflection), 1);
+      } else {
+        if (!this.trainerFeedback && reflection.trainerFeedback) {
+          this.trainerFeedback = reflection.trainerFeedback;
+        }
+        if (!this.learningPathway && reflection.learningPathway) {
+          this.learningPathway = reflection.learningPathway;
+        }
       }
     }
     this.updateView();
@@ -222,12 +226,13 @@ export class TrainerReflectionComponent implements OnInit {
                 if (reflections && reflections.length > 0) {
                   let num = 0;
                   // TODO: Change to async
-                  reflections.forEach((reflection: ReflectionModel): void => {
+                  reflections.forEach((reflection: ReflectionModel, index): void => {
                     this.reflectionService.getReflectionQuestionsByReflectionId(reflection.id)
                       .subscribe((reflectionQuestions: ReflectionQuestionModel[]): void => {
-                        console.log(reflectionQuestions);
-                        ReflectionModel.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
-                        this.reflections.push(reflection);
+                        if (reflectionQuestions.length >= questions.length) {
+                          ReflectionModel.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
+                          this.reflections.push(reflection);
+                        }
                         if (num === reflections.length - 1) {
                           this.updateReflections();
                         } else {

@@ -65,6 +65,7 @@ export class ReflectionModel extends BaseModel {
         return 0;
       }
     });
+
     reflection.reflectionQuestions = reflectionQuestions;
   }
 }
