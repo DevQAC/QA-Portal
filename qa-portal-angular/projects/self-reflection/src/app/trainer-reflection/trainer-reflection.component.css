@@ -71,8 +71,11 @@
 .title {
   margin-top: 1em;
   margin-bottom: 1em;
-  font-weight: normal;
-  color: grey;
+  /*font-weight: normal;*/
+  /*color: grey;*/
+  text-align: center;
+  background-color: lightgray;
+  color: #0060B9;
 }
 
 .status {
