@@ -170,10 +170,6 @@ export class TrainerReflectionComponent implements OnInit {
     }
   }
 
-  public showDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString();
-  }
-
   public onPagination(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.updateView();

@@ -28,12 +28,12 @@
   <div *ngSwitchCase="'ready'" class='ready'>
     <div class='trainer-reflection'>
       <div class='title'>
-        Self&nbsp;Reflection&nbsp;Form Review  - <span class='trainee-firstname'>{{trainee.firstName}}</span>&nbsp;<span
+        Self&nbsp;Reflection&nbsp;Form Review - <span class='trainee-firstname'>{{trainee.firstName}}</span>&nbsp;<span
           class='trainee-lastname'>{{trainee.lastName}}</span>&nbsp;
       </div>
       <div class='grid-wrapper'>
         <div class='grid-container' [style.height]='(393 + (visibleReflections.length * 60)) + "px"'>
-          <mat-grid-list rowHeight='100%' *ngFor='let rows of rowData' cols='8'
+          <mat-grid-list class='grid' rowHeight='100%' *ngFor='let rows of rowData' cols='8'
             [style.width]='(1 / rowData.length * 100) + "%"'>
             <mat-grid-tile colspan='8'>
               <div class='header-container'>
@@ -68,16 +68,16 @@
               </div>
             </mat-grid-tile>
           </mat-grid-list>
-          <div class='reflection-dates'>
-            <div class='entry' *ngFor='let reflection of visibleReflections'>
-              <div>{{ showDate(reflection.lastUpdatedTimestamp)}}</div>
-            </div>
+        </div>
+        <div class='reflection-dates'>
+          <div class='entry' *ngFor='let reflection of visibleReflections'>
+            <div>{{ reflection.lastUpdatedTimestamp | date: 'dd/MM/y'}}</div>
           </div>
-          <!-- Possibly show the trainer's name for each reflection.-->
-          <div class='trainer-names' [style.display]='"none"'>
-            <div class='entry' *ngFor='let reflection of visibleReflections'>
-              <div>{{ reflection.id}}</div>
-            </div>
+        </div>
+        <!-- Possibly show the trainer's name for each reflection.-->
+        <div class='trainer-names' [style.display]='"none"'>
+          <div class='entry' *ngFor='let reflection of visibleReflections'>
+            <div>{{ reflection.id}}</div>
           </div>
         </div>
       </div>
