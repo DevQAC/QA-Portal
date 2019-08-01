@@ -82,7 +82,7 @@
         </div>
         <div class='grid-footer' matRipple>
           <div class='save-button-container'>
-            <app-save-button [disabled]='disableInputs' (save)='saveReflectionQuestions()'></app-save-button>
+            <app-save-button [disabled]='disableInputs' (save)='onSaveReflectionQuestions()'></app-save-button>
           </div>
           <div *ngIf='reflections.length > 5' class='paginator'>
             <mat-paginator [length]='reflections.length' [pageSize]='entriesPerPage' (page)='onPagination($event)'>
@@ -113,7 +113,7 @@
         </div>
       </div>
       <div class='submit-button-wrapper'>
-        <button class='submit-button' (click)='onSubmit()' mat-raised-button>Submit</button>
+        <button class='submit-button' [disabled]='disableInputs' (click)='onSubmit()' mat-raised-button>Submit</button>
       </div>
     </div>
   </div>

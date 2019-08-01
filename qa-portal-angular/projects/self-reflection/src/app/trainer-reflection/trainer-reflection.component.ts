@@ -9,6 +9,7 @@ import { MatSnackBar, PageEvent } from '@angular/material';
 import { RowData } from './models/row-data';
 import { QaToastrService } from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
+import { Observable } from 'rxjs';
 
 enum PageState {
   LOADING = 'loading', NO_SELF_REFLECTIONS = 'no-self-reflections', READY = 'ready', ERROR = 'error'
@@ -118,7 +119,7 @@ export class TrainerReflectionComponent implements OnInit {
     return `There are no Self Reflections for ${userName}.`;
   }
 
-  public saveReflectionQuestions(): void {
+  private saveReflectionQuestions(): Observable<ReflectionQuestionModel[]> {
     this.disableInputs = true;
     const reflectionQuestions: ReflectionQuestionModel[] = [];
     const betweenOneAndTen = i => Math.min(Math.max(1, i), 10);
@@ -135,49 +136,34 @@ export class TrainerReflectionComponent implements OnInit {
         }
       }
     }
-    this.reflectionService.updateReflectionQuestions(reflectionQuestions)
-      .subscribe(updatedReflections => {
-        this.toastrService.showSuccess(`Reflection ${this.updateMessage}`);
-        this.disableInputs = false;
-      }, error => {
-        this.errorService.handleError(error);
-      });
+    return this.reflectionService.updateReflectionQuestions(reflectionQuestions);
   }
 
-  public saveTrainerFeedback(newFeedback: string): void {
-    if (this.reflections.length > 0) {
-      const newestReflection = this.reflections[0];
-      newestReflection.trainerFeedback = newFeedback;
-      this.reflectionService.updateReflection(newestReflection)
-        .subscribe(updatedReflection => {
-          if (updatedReflection.trainerFeedback !== newFeedback) {
-            this.toastrService.showError('Training Feedback did not update.');
-          } else {
-            this.trainerFeedback = updatedReflection.trainerFeedback;
-            this.toastrService.showSuccess(`Trainer Feedback ${this.updateMessage}`);
-          }
-        }, error => this.errorService.handleError(error));
-    }
-  }
-
-  public saveLearningPathway(newPathway: string): void {
-    if (this.reflections.length > 0) {
-      const newestReflection = this.reflections[0];
-      newestReflection.learningPathway = newPathway;
-      this.reflectionService.updateReflection(newestReflection)
-        .subscribe(updatedReflection => {
-          if (updatedReflection.learningPathway !== newPathway) {
-            this.toastrService.showError('Learning Pathway did not update.');
-          } else {
-            this.learningPathway = updatedReflection.learningPathway;
-            this.toastrService.showSuccess(`Learning Pathway ${this.updateMessage}`);
-          }
-        }, error => this.errorService.handleError(error));
-    }
+  public onSaveReflectionQuestions(): void {
+    this.saveReflectionQuestions().subscribe(reflectionQuestions => {
+      this.toastrService.showSuccess(`Reflection questions ${this.updateMessage}`);
+      this.disableInputs = false;
+    }, error => this.errorService.handleError(error));
   }
 
   public onSubmit(): void {
-    // submit
+    if (this.reflections.length > 0) {
+      const newestReflection = this.reflections[0];
+      newestReflection.learningPathway = this.learningPathway;
+      newestReflection.trainerFeedback = this.trainerFeedback;
+      this.reflectionService.updateReflection(newestReflection)
+        .subscribe(updatedReflection => {
+          if (updatedReflection.learningPathway !== this.learningPathway
+            || updatedReflection.trainerFeedback !== this.trainerFeedback) {
+            this.toastrService.showError('Unable to update reflection.');
+          } else {
+            this.saveReflectionQuestions().subscribe(reflecionQuestions => {
+              this.toastrService.showSuccess(`Reflection form ${this.updateMessage}`);
+              this.disableInputs = false;
+            }, error => this.errorService.handleError(error));
+          }
+        }, error => this.errorService.handleError(error));
+    }
   }
 
   public showDate(dateString: string): string {
