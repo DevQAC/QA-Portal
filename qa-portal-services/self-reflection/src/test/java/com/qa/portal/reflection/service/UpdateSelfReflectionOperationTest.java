@@ -74,7 +74,6 @@ public class UpdateSelfReflectionOperationTest {
 	public void updateSelfReflectionTest() {
 		reflectionQuestionDtosToUpdateFrom = Set.of(reflectionQuestionDtoToUpdateFrom1,
 				reflectionQuestionDtoToUpdateFrom2);
-		System.out.println(USER_NAME.hashCode());
 		when(reflectionRepository.findById(reflectionDtoToUpdateFrom.getId()))
 				.thenReturn(Optional.of(reflectionEntityToUpdate));
 		when(reflectionDtoToUpdateFrom.getFormDate()).thenReturn(LocalDate.now());
