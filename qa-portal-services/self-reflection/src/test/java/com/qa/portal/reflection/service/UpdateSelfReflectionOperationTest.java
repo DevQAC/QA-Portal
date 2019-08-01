@@ -56,16 +56,15 @@ public class UpdateSelfReflectionOperationTest {
 	@Mock
 	private ReflectionDto updatedReflectionDto;
 	
-	private final String USER_NAME = String.valueOf(Math.random() * Integer.MAX_VALUE), 
-			TRAINER_FEEDBACK = String.valueOf(Math.random() * Integer.MAX_VALUE),
-			LEARNING_PATHWAY = String.valueOf(Math.random() * Integer.MAX_VALUE), 
-			STRENGTHS = String.valueOf(Math.random() * Integer.MAX_VALUE), 
-			WEAKNESSES = String.valueOf(Math.random() * Integer.MAX_VALUE),
-			OPPORTUNITIES = String.valueOf(Math.random() * Integer.MAX_VALUE), 
-			THREATS = String.valueOf(Math.random() * Integer.MAX_VALUE);
+	private final String USER_NAME = "USER_NAME", 
+			TRAINER_FEEDBACK = "TRAINER_FEEDBACK",
+			LEARNING_PATHWAY = "LEARNING_PATHWAY", 
+			STRENGTHS = "STRENGTHS", 
+			WEAKNESSES = "WEAKNESSES",
+			OPPORTUNITIES = "OPPORTUNITIES", 
+			THREATS = "THREATS";
 
-	private final Integer RESPONSE_ONE = (int) (Math.random() * Integer.MAX_VALUE),
-			RESPONSE_TWO = (int) (Math.random() * Integer.MAX_VALUE);
+	private final Integer RESPONSE_ONE = 4, RESPONSE_TWO = 5;
 
 	@InjectMocks
 	private UpdateSelfReflectionOperation operation;
