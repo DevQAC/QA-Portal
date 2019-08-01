@@ -27,12 +27,9 @@ public class UpdateSelfReflectionOperation {
     }
 
     public ReflectionDto updateSelfReflection(ReflectionDto reflectionDto, String userName) {
-    	LOGGER.info("=== updateSelfReflection ===");
         ReflectionEntity reflectionToUpdate = this.reflectionRepository.findById(reflectionDto.getId())
                 .orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));
         ReflectionEntity reflectionToUpdateFrom = this.reflectionMapper.mapToReflectionEntity(reflectionDto, userName);
-        LOGGER.info("Learning Pathway = " + reflectionToUpdateFrom.getLearningPathway());
-        LOGGER.info("Trainer Feedback = " + reflectionToUpdateFrom.getTrainerFeedback());
         reflectionToUpdate.setFormDate(reflectionToUpdateFrom.getFormDate());
 //        reflectionToUpdate.setResponder(reflectionToUpdateFrom.getResponder());
 //        reflectionToUpdate.setReviewer(reflectionToUpdateFrom.getReviewer());
