@@ -15,7 +15,7 @@ import {TraineeReflectionComponent} from './trainee-reflection/trainee-reflectio
 import {SelfReflectionHistoryComponent} from './self-reflection-history/self-reflection-history.component';
 import {CohortSummaryComponent} from './cohort-summary/cohort-summary.component';
 import {CohortTableComponent} from './cohort-table/cohort-table.component';
-import {MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/material';
+import {MatTableModule, MatPaginatorModule, MatSortModule, MatRippleModule} from '@angular/material';
 import {CohortChartComponent} from './cohort-chart/cohort-chart.component';
 import {CohortTraineesComponent} from './cohort-trainees/cohort-trainees.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -50,7 +50,8 @@ import { TraineeNewReflectionComponent } from './trainee-new-reflection/trainee-
     FormsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatRippleModule
   ],
   providers: [SummaryService,
     TrainerCohortsService,
@@ -58,7 +59,7 @@ import { TraineeNewReflectionComponent } from './trainee-new-reflection/trainee-
     CohortTraineesService,
     RatedQuestionsService,
     SelfReflectionFormService,
-  ReflectionHistoryService],
+    ReflectionHistoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

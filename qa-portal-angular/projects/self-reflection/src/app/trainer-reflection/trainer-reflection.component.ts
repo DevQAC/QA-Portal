@@ -1,15 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { Tile } from './models/tile';
 import { SelfReflectionService } from './services/self-reflection.service';
-import { Reflection } from './models/dto/reflection';
-import { Trainee } from './models/dto/trainee';
-import { Question } from './models/dto/question';
-import { ReflectionQuestion } from './models/dto/reflection-question';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { ScoreTile } from './models/score-tile';
-import { UserType } from './models/user-type.enum';
-import { MatSnackBar } from '@angular/material';
+import { ReflectionModel } from './models/dto/reflection.model';
+import { TraineeModel } from './models/dto/trainee.model';
+import { QuestionModel } from './models/dto/question.model';
+import { ReflectionQuestionModel } from './models/dto/reflection-question.model';
+import { ActivatedRoute, ParamMap, RouteConfigLoadEnd } from '@angular/router';
+import { MatSnackBar, PageEvent } from '@angular/material';
+import { RowData } from './models/row-data';
+import { QaToastrService } from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
+import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
+import { Observable } from 'rxjs';
 
+enum PageState {
+  LOADING = 'loading', NO_SELF_REFLECTIONS = 'no-self-reflections', READY = 'ready', ERROR = 'error'
+}
+
+/**
+ * Display a row of reflection responses from both a trainer and
+ * trainee. If two reflection responses exist for the same
+ * reflection and question, prefer the latest one. If reflection
+ * questions exist for questions outside of the user's cohort,
+ * don't show them. If a reflection question does not exist for
+ * a question in the grid, disable those trainer and trainee fields.
+ * If two reflections were created/updated on the same day, ordering
+ * becomes inconsistent.
+ * Trainer feedback and Learning pathway are taken from any reflection that
+ * has those entries as non-null, but they're saved to the latest
+ * reflection.
+ */
 @Component({
   selector: 'app-trainer-reflection',
   templateUrl: './trainer-reflection.component.html',
@@ -17,134 +35,217 @@ import { MatSnackBar } from '@angular/material';
 })
 export class TrainerReflectionComponent implements OnInit {
 
-  public questionRow: Tile[] = [];
-  public authorRow: Tile[] = [];
-  public scoreRow: ScoreTile[] = [];
-  public COL_MAX = 0;
-  public trainee: Trainee = new Trainee();
-  public reflections: Reflection[] = [];
-  public questions: Question[] = [];
-  public trainerComments = '';
+  public COL_MAX = 24;
+  public trainee: TraineeModel = new TraineeModel();
+  public reflections: ReflectionModel[] = [];
+  public questions: QuestionModel[] = [];
+  public trainerFeedback = '';
   public learningPathway = '';
-  public numberOfCategories = 0;
-  public skillAreas = ['Technical Skills', 'Soft Skills', 'Attitude'];
+  public rowData: RowData[] = [];
   public disableInputs = false;
-  private traineeId = 0;
-  public statusMessage = 'Checking for Self Reflections...';
+  public questionIds = [];
+  public authors = ['Self', 'Trainer'];
+  public pageState: PageState;
+  public updateMessage = ' successfully updated.';
+  public visibleReflections: ReflectionModel[] = [];
+  private pageIndex = 0;
+  public entriesPerPage = 5;
 
-  constructor(private selfReflectionService: SelfReflectionService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) {
-    this.trainerComments = this.learningPathway = 'Ea qui ipsum sint nisi et sunt et eu commodo proident id.' +
-      'Exercitation adipisicing ut aute consequat pariatur minim duis cupidatat velit quis. Qui ' +
-      'consectetur reprehenderit nisi deserunt adipisicing velit enim quis cillum eiusmod. Minim ea mollit in ' +
-      'eu tempor tempor quis.';
+  constructor(
+    private reflectionService: SelfReflectionService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar,
+    private toastrService: QaToastrService, private errorService: QaErrorHandlerService) {
+    this.pageState = PageState.LOADING;
   }
 
   private updateReflections() {
-    this.scoreRow = [];
+    this.reflections.sort((a, b): number => {
+      const aVal = new Date(a.lastUpdatedTimestamp);
+      const bVal = new Date(b.lastUpdatedTimestamp);
+      if (aVal > bVal) {
+        return -1;
+      } else if (aVal < bVal) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
     for (const reflection of this.reflections) {
+      if (reflection.reflectionQuestions.length < this.questions.length) {
+        this.reflections.splice(this.reflections.indexOf(reflection), 1);
+      } else {
+        if (!this.trainerFeedback && reflection.trainerFeedback) {
+          this.trainerFeedback = reflection.trainerFeedback;
+        }
+        if (!this.learningPathway && reflection.learningPathway) {
+          this.learningPathway = reflection.learningPathway;
+        }
+      }
+    }
+    this.updateView();
+    this.pageState = PageState.READY;
+  }
+
+  private updateView(): void {
+    this.rowData.forEach(rd => {
+      rd.questions.forEach(q => {
+        q.reflectionQuestions = [];
+      });
+    });
+    const start = this.pageIndex * this.entriesPerPage;
+    const end = start + this.entriesPerPage;
+    this.visibleReflections = this.reflections.slice(start, end);
+    for (const reflection of this.visibleReflections) {
       for (const reflectionQuestion of reflection.reflectionQuestions) {
-        const traineeResponse = reflectionQuestion.response ? reflectionQuestion.response.toString() : null;
-        const trainerResponse = reflectionQuestion.trainerResponse ? reflectionQuestion.trainerResponse.toString() : null;
-        this.scoreRow.push({ colspan: 2, text: traineeResponse, data: reflectionQuestion, userType: UserType.TRAINEE });
-        this.scoreRow.push({ colspan: 2, text: trainerResponse, data: reflectionQuestion, userType: UserType.TRAINER });
+        this.rowData.forEach((rowData) => {
+          const q = rowData.questions.find(question => question.id === reflectionQuestion.question.id);
+          if (q) {
+            q.reflectionQuestions.push(reflectionQuestion);
+          }
+        });
       }
     }
   }
 
-  public saveReflectionQuestions(): void {
-    console.log('Saving ReflectionQuestions!');
+  /**
+   * Errors that prevent the flow of the program but may not redirect to
+   * the error page. Shows a custom error dialogue.
+   * @param error error object to be handled by the QaErrorHandlerService.
+   */
+  private handleSevereError(error): void {
+    this.errorService.handleError(error);
+    this.pageState = PageState.ERROR;
+  }
+
+  public noSelfReflectionMessage(): string {
+    const userName = this.trainee && this.trainee.userName
+      ? this.trainee.userName
+      : 'this user';
+    return `There are no Self Reflections for ${userName}.`;
+  }
+
+  private saveReflectionQuestions(): Observable<ReflectionQuestionModel[]> {
     this.disableInputs = true;
-    const reflectionQuestions: ReflectionQuestion[] = [];
-    this.scoreRow.forEach((scoreTile: ScoreTile): void => {
-      const score = scoreTile.text !== null ? Math.max(Math.min(+scoreTile.text, 10), 1) : null;
-      switch (scoreTile.userType) {
-        case UserType.TRAINEE:
-          scoreTile.data.response = score;
-          break;
-        case UserType.TRAINER:
-          scoreTile.data.trainerResponse = score;
-          break;
-        default:
-      }
-      if (scoreTile.data.id !== null) {
-        if (!reflectionQuestions.find(rq => rq === scoreTile.data)) {
-          reflectionQuestions.push(scoreTile.data);
+    const reflectionQuestions: ReflectionQuestionModel[] = [];
+    const betweenOneAndTen = i => Math.min(Math.max(1, i), 10);
+    for (const reflection of this.reflections) {
+      for (const reflectionQuestion of reflection.reflectionQuestions) {
+        if (reflectionQuestion.response !== null) {
+          reflectionQuestion.response = betweenOneAndTen(reflectionQuestion.response);
+        }
+        if (reflectionQuestion.trainerResponse !== null) {
+          reflectionQuestion.trainerResponse = betweenOneAndTen(reflectionQuestion.trainerResponse);
+        }
+        if (reflectionQuestion.id !== null) {
+          reflectionQuestions.push(reflectionQuestion);
         }
       }
-      if (scoreTile.text) {
-        scoreTile.text = score.toString();
-      }
-    });
-    // Send all the reflection questions to the backend
-    // On successful save, re-enable input fields and show snackbar.
-    this.selfReflectionService.updateReflectionQuestions(reflectionQuestions)
-      .subscribe(updatedReflections => {
-        this.snackBar.open('Self Reflections Updated.', 'Dismiss', { duration: 3000 });
-        this.disableInputs = false;
-      }, error => {
-        // TODO: Use general error service
-        this.snackBar.open('Error: Self Reflection not saved (see console).', 'Dismiss', { duration: 3000 });
-        console.log(error);
-      });
+    }
+    return this.reflectionService.updateReflectionQuestions(reflectionQuestions);
   }
 
-  public saveTrainerComments(): void {
-    console.log('Saving TrainerComments!');
+  public onSaveReflectionQuestions(): void {
+    this.saveReflectionQuestions().subscribe(reflectionQuestions => {
+      this.toastrService.showSuccess(`Reflection questions ${this.updateMessage}`);
+      this.disableInputs = false;
+    }, error => this.errorService.handleError(error));
   }
 
-  public saveLearningPathway(): void {
-    console.log('Saving Learning Pathway!');
+  public onSubmit(): void {
+    if (this.reflections.length > 0) {
+      const newestReflection = this.reflections[0];
+      newestReflection.learningPathway = this.learningPathway;
+      newestReflection.trainerFeedback = this.trainerFeedback;
+      this.reflectionService.updateReflection(newestReflection)
+        .subscribe(updatedReflection => {
+          if (updatedReflection.learningPathway !== this.learningPathway
+            || updatedReflection.trainerFeedback !== this.trainerFeedback) {
+            this.toastrService.showError('Unable to update reflection.');
+          } else {
+            this.saveReflectionQuestions().subscribe(reflecionQuestions => {
+              this.toastrService.showSuccess(`Reflection form ${this.updateMessage}`);
+              this.disableInputs = false;
+            }, error => this.errorService.handleError(error));
+          }
+        }, error => this.errorService.handleError(error));
+    }
   }
 
-  private handleError(error): void {
-    console.log(error);
-    this.statusMessage = 'Error: Self Reflections could not be loaded.';
+  public showDate(dateString: string): string {
+    return new Date(dateString).toLocaleDateString();
+  }
+
+  public onPagination(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.updateView();
   }
 
   ngOnInit() {
     // Get trainee id from path
-    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap): void => {
-      this.traineeId = +paramMap.get('id');
-    });
-    // Get questions.
-    // TODO: remove hard-coded value
-    this.selfReflectionService.getQuestions(1)
-      .subscribe(questions => {
-        this.questions = questions.sort((a, b) => {
-          if (a.category < b.category) {
-            return -1;
-          } else if (a.category > b.category) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-        this.numberOfCategories = questions.length;
-        // Create Self/Trainer tiles for view
-        for (let i = 0; i < this.numberOfCategories; ++i) {
-          this.authorRow.push({ colspan: 2, text: 'Self' });
-          this.authorRow.push({ colspan: 2, text: 'Trainer' });
-        }
-        this.COL_MAX = this.numberOfCategories * 4;
-        // Get reflections for this user
-        this.selfReflectionService.getReflectionsByTraineeId(this.traineeId)
-          .subscribe(reflections => {
-            if (reflections && reflections.length > 0) {
-              this.trainee = reflections[0].responder;
-              reflections.forEach((reflection: Reflection): void => {
-                this.selfReflectionService.getReflectionQuestionsByReflectionId(reflection.id)
-                  .subscribe((reflectionQuestions: ReflectionQuestion[]): void => {
-                    Reflection.setReflectionQuestions(reflection, reflectionQuestions, this.numberOfCategories);
-                    this.reflections.push(reflection);
-                    this.updateReflections();
-                  });
-              });
-            } else {
-              this.statusMessage = 'There are no Self Reflections for this user.';
+    this.activatedRoute.paramMap.subscribe((pm: ParamMap): void => {
+      const traineeId = +pm.get('id');
+      // Get trainee
+      this.reflectionService.getTraineeById(traineeId).subscribe((trainee: TraineeModel): void => {
+        this.trainee = trainee;
+        // Get questions.
+        this.reflectionService.getQuestionsByCohortId(this.trainee.cohort.id)
+          .subscribe(questions => {
+            this.questions = questions.sort((a, b) => {
+              const aVal = a.id;
+              const bVal = b.id;
+              if (aVal < bVal) {
+                return -1;
+              } else if (aVal > bVal) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+            this.questions.forEach(question => {
+              const categories = this.rowData.map(rowData => rowData.category);
+              if (!categories.includes(question.category)) {
+                this.rowData.push(
+                  {
+                    category: question.category,
+                    questions: [],
+                  }
+                );
+              }
+              if (!this.questionIds.includes(question.id)) {
+                this.questionIds.push(question.id);
+              }
+            });
+            for (const question of this.questions) {
+              const category = this.rowData.find(rowData => rowData.category === question.category);
+              if (category !== undefined) {
+                category.questions.push({ id: question.id, body: question.body, reflectionQuestions: [] });
+              }
             }
-          },
-            error => this.handleError(error));
-      },
-        error => this.handleError(error));
+            // Get reflections for this user
+            this.reflectionService.getReflectionsByTraineeId(traineeId)
+              .subscribe(reflections => {
+                if (reflections && reflections.length > 0) {
+                  let num = 0;
+                  // TODO: Change to async
+                  reflections.forEach((reflection: ReflectionModel, index): void => {
+                    this.reflectionService.getReflectionQuestionsByReflectionId(reflection.id)
+                      .subscribe((reflectionQuestions: ReflectionQuestionModel[]): void => {
+                        if (reflectionQuestions.length >= questions.length) {
+                          ReflectionModel.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
+                          this.reflections.push(reflection);
+                        }
+                        if (num === reflections.length - 1) {
+                          this.updateReflections();
+                        } else {
+                          ++num;
+                        }
+                      });
+                  }, error => this.errorService.handleError(error));
+                } else {
+                  this.pageState = PageState.NO_SELF_REFLECTIONS;
+                }
+              }, error => this.handleSevereError(error));
+          }, error => this.handleSevereError(error));
+      }, error => this.handleSevereError(error));
+    }, error => this.handleSevereError(error));
   }
 }

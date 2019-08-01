@@ -19,21 +19,21 @@ import com.qa.portal.reflection.service.ReflectionQuestionService;
 @RestController
 @RequestMapping("/reflection-question")
 public class ReflectionQuestionController {
+	
+	private ReflectionQuestionService service;
 
-    private ReflectionQuestionService service;
+	private QaSecurityContext securityContext;
 
-    private QaSecurityContext securityContext;
+	@Autowired
+	public ReflectionQuestionController(ReflectionQuestionService service, QaSecurityContext securityContext) {
+		this.service = service;
+		this.securityContext = securityContext;
+	}
 
-    @Autowired
-    public ReflectionQuestionController(ReflectionQuestionService service, QaSecurityContext securityContext) {
-        this.service = service;
-        this.securityContext = securityContext;
-    }
-
-    @GetMapping("/reflection-id/{id}")
-    public Set<ReflectionQuestionDto> getReflectionQuestionsByReflectionId(@PathVariable Integer id) {
-        return this.service.getReflectionQuestionsByReflectionId(id);
-    }
+	@GetMapping("/reflection-id/{id}")
+	public Set<ReflectionQuestionDto> getReflectionQuestionsByReflectionId(@PathVariable Integer id) {
+		return this.service.getReflectionQuestionsByReflectionId(id);
+	}
 
     @GetMapping("/questions")
     public Set<QuestionDto> getReflectionQuestionsByCohort() {

@@ -1,49 +1,52 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { REFLECTION_API, REFLECTION_QUESTION_API, QUESTION_API } from 'projects/portal-core/src/app/_common/models/portal-constants';
-import { Reflection } from '../models/dto/reflection';
-import { ReflectionQuestion } from '../models/dto/reflection-question';
-import { Question } from '../models/dto/question';
+import {
+  REFLECTION_API,
+  REFLECTION_QUESTION_API,
+  QUESTION_API, USER_API
+} from 'projects/portal-core/src/app/_common/models/portal-constants';
+import { ReflectionModel } from '../models/dto/reflection.model';
+import { ReflectionQuestionModel } from '../models/dto/reflection-question.model';
+import { QuestionModel } from '../models/dto/question.model';
+import { TraineeModel } from '../models/dto/trainee.model';
 
 @Injectable()
 export class SelfReflectionService {
 
   constructor(private http: HttpClient) { }
 
-  public getReflectionsForCurrentTrainee(): Observable<Reflection[]> {
-    return this.http.get<Reflection[]>(`${REFLECTION_API}/trainee/current`);
+  public getReflectionById(id: number): Observable<ReflectionModel> {
+    return this.http.get<ReflectionModel>(`${REFLECTION_API}/${id}`);
   }
 
-  public getReflectionsForCurrentTrainer(): Observable<Reflection[]> {
-    return this.http.get<Reflection[]>(`${REFLECTION_API}/trainer/current`);
+  public getReflectionsByTraineeUserName(userName: string): Observable<ReflectionModel[]> {
+    return this.http.get<ReflectionModel[]>(`${REFLECTION_API}/trainee/username/${userName}`);
   }
 
-  public getReflectionById(id: number): Observable<Reflection> {
-    return this.http.get<Reflection>(`${REFLECTION_API}/${id}`);
+  public getReflectionsByTraineeId(traineeId: number): Observable<ReflectionModel[]> {
+    return this.http.get<ReflectionModel[]>(`${REFLECTION_API}/trainee/${traineeId}`);
   }
 
-  public getReflectionsByTraineeUserName(userName: string): Observable<Reflection[]> {
-    return this.http.get<Reflection[]>(`${REFLECTION_API}/trainee/username/${userName}`);
+  public getReflectionQuestionsByReflectionId(reflectionId: number): Observable<ReflectionQuestionModel[]> {
+    return this.http.get<ReflectionQuestionModel[]>(`${REFLECTION_QUESTION_API}/reflection-id/${reflectionId}`);
   }
 
-  public getReflectionsByTraineeId(traineeId: number): Observable<Reflection[]> {
-    return this.http.get<Reflection[]>(`${REFLECTION_API}/trainee/${traineeId}`);
+  public updateReflectionQuestions(reflectionQuestions: ReflectionQuestionModel[]): Observable<ReflectionQuestionModel[]> {
+    return this.http.put<ReflectionQuestionModel[]>(`${REFLECTION_QUESTION_API}`, reflectionQuestions);
   }
 
-  public getReflectionQuestionsByReflectionId(reflectionId: number): Observable<ReflectionQuestion[]> {
-    return this.http.get<ReflectionQuestion[]>(`${REFLECTION_QUESTION_API}/reflection-id/${reflectionId}`);
+  public updateReflection(reflection: ReflectionModel): Observable<ReflectionModel> {
+    return this.http.put<ReflectionModel>(`${REFLECTION_API}`, reflection);
   }
 
-  public updateReflectionQuestions(reflectionQuestions: ReflectionQuestion[]): Observable<ReflectionQuestion[]> {
-    return this.http.put<ReflectionQuestion[]>(`${REFLECTION_QUESTION_API}`, reflectionQuestions);
+  public getQuestionsByCohortId(cohortId: number): Observable<QuestionModel[]> {
+    return this.http.get<QuestionModel[]>(`${QUESTION_API}/cohort/${cohortId}`);
   }
 
-  public create(reflection: Reflection): Observable<Reflection> {
-    return this.http.post<Reflection>(REFLECTION_API, reflection);
+  // TODO: move to portal-common
+  public getTraineeById(traineeId: number): Observable<TraineeModel> {
+    return this.http.get<TraineeModel>(`${USER_API}/trainee/${traineeId}`);
   }
 
-  public getQuestions(cohortId: number): Observable<Question[]> {
-    return this.http.get<Question[]>(`${QUESTION_API}/cohort/${cohortId}`);
-  }
 }

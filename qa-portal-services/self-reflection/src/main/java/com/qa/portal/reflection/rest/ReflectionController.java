@@ -6,6 +6,7 @@ import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.service.ReflectionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,63 +18,61 @@ import java.util.Set;
 @RequestMapping("/reflection")
 public class ReflectionController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(ReflectionController.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(ReflectionController.class);
 
-    private ReflectionService service;
+	private ReflectionService service;
 
-    private QaSecurityContext context;
+	private QaSecurityContext context;
 
-    public ReflectionController(ReflectionService service, QaSecurityContext context) {
-        this.service = service;
-        this.context = context;
-    }
+	@Autowired
+	public ReflectionController(ReflectionService service, QaSecurityContext context) {
+		this.service = service;
+		this.context = context;
+	}
 
-    @GetMapping("/summary")
-    public ResponseEntity<List<CohortSummaryDto>> getCohortSummaryDto() {
-        return ResponseEntity.ok(this.service.getCohortSummaryDto());
-    }
+	@GetMapping("/summary")
+	public ResponseEntity<List<CohortSummaryDto>> getCohortSummaryDto() {
+		return ResponseEntity.ok(this.service.getCohortSummaryDto());
+	}
 
-    @GetMapping("/trainee")
-    public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainee() {
-        return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(context.getUserName()));
-    }
+	@GetMapping("/trainee")
+	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainee() {
+		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(context.getUserName()));
+	}
 
-    @GetMapping("trainee/{id}")
-    public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsByTraineeId(@PathVariable Integer id) {
-        return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(id));
-    }
+	@GetMapping("trainee/{id}")
+	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsByTraineeId(@PathVariable Integer id) {
+		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(id));
+	}
 
-    @GetMapping("trainee/username/{userName}")
-    public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsByTraineeUserName(@PathVariable String userName) {
-        return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(userName));
-    }
+	@GetMapping("trainee/username/{userName}")
+	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsByTraineeUserName(@PathVariable String userName) {
+		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(userName));
+	}
 
-    @GetMapping("/trainer/current")
-    public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainer() {
-        return ResponseEntity.ok(this.service.getSelfReflectionsForTrainer(context.getUserName()));
-    }
+	@GetMapping("/trainer/current")
+	public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainer() {
+		return ResponseEntity.ok(this.service.getSelfReflectionsForTrainer(context.getUserName()));
+	}
 
-    @GetMapping("{id}")
-    public ResponseEntity<ReflectionDto> getSelfReflection(@PathVariable Integer id) {
-        return ResponseEntity.ok(this.service.getSelfReflection(id));
-    }
+	@GetMapping("{id}")
+	public ResponseEntity<ReflectionDto> getSelfReflection(@PathVariable Integer id) {
+		return ResponseEntity.ok(this.service.getSelfReflection(id));
+	}
 
-    @GetMapping
-    public ResponseEntity<ReflectionDto> getSelfReflectionByDate(@RequestBody LocalDate date) {
-        return ResponseEntity.ok(this.service.getSelfReflection(context.getUserName(), date));
-    }
+	@GetMapping
+	public ResponseEntity<ReflectionDto> getSelfReflectionByDate(@RequestBody LocalDate date) {
+		return ResponseEntity.ok(this.service.getSelfReflection(context.getUserName(), date));
+	}
 
-    @PostMapping
-    public ResponseEntity<ReflectionDto> createSelfReflection(@RequestBody ReflectionDto reflection) {
-        LOGGER.info("Reflection Dto Questions");
-        reflection.getReflectionQuestions().stream()
-                .forEach(q -> LOGGER.info(q.toString()));
-        return ResponseEntity.ok(this.service.createSelfReflection(reflection, context.getUserName()));
-    }
+	@PostMapping
+	public ResponseEntity<ReflectionDto> createSelfReflection(@RequestBody ReflectionDto reflection) {
+    	return ResponseEntity.ok(this.service.createSelfReflection(reflection, context.getUserName()));
+	}
 
-    @PutMapping
-    public ResponseEntity<ReflectionDto> updateSelfReflection(@RequestBody ReflectionDto reflection) {
-        return ResponseEntity.ok(this.service.updateSelfReflection(reflection, context.getUserName()));
-    }
+	@PutMapping()
+	public ResponseEntity<ReflectionDto> updateSelfReflection(@RequestBody ReflectionDto reflection) {
+		return ResponseEntity.ok(this.service.updateSelfReflection(reflection, context.getUserName()));
+	}
 
 }
