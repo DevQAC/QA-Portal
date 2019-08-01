@@ -10,11 +10,11 @@ export class CohortTraineesService {
   constructor(private http: HttpClient) {
   }
 
-  getCohorts(id: number): Observable<QaCohortModel[]> {
-    return this.http.get<QaCohortModel[]>(`${USER_API_COHORTS}/${id}`);
+  getCohorts(): Observable<QaCohortModel[]> {
+    return this.http.get<QaCohortModel[]>(`${USER_API_COHORTS}`);
   }
 
   getTrainees(id: number): Observable<TraineeModel[]> {
-    return this.http.get<TraineeModel[]>(`${USER_API_TRAINEES}/${id}`);
+    return this.http.get<TraineeModel[]>(`${USER_API_TRAINEES}${id}`);
   }
 }
