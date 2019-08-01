@@ -503,13 +503,13 @@
     {
       "id": "7d2cc5c6-b222-4cf2-a048-36df2983b2ad",
       "clientId": "qa-portal-ui",
-      "rootUrl": "http://localhost",
+      "rootUrl": "/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "http://localhost/*"
+        "*"
       ],
       "webOrigins": [
         "*"
