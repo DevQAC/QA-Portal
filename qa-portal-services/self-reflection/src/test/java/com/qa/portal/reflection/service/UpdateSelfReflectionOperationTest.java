@@ -5,7 +5,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
@@ -15,8 +14,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import static org.mockito.ArgumentMatchers.*;
 
+import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.dto.ReflectionQuestionDto;
 import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
@@ -109,6 +108,11 @@ public class UpdateSelfReflectionOperationTest {
 		verify(reflectionQuestionEntityToUpdate2, times(1)).setResponse(RESPONSE_TWO);
 		verify(reflectionRepository, times(1)).save(reflectionEntityToUpdate);
 		verify(reflectionMapper, times(1)).mapToReflectionDto(updatedReflectionEntity);
+	}
+	
+	@Test(expected = QaResourceNotFoundException.class)
+	public void updateSelfReflectionNotFoundTest() {
+		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
 	}
 
 }
