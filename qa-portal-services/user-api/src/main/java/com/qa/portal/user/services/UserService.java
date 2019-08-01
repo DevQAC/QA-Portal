@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.qa.portal.common.dto.QaCohortDto;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
-import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
@@ -18,10 +17,11 @@ import com.qa.portal.common.util.mapper.CohortMapper;
 @Service
 public class UserService {
 
-	private QaTrainerRepository trainerRepo;
+    private QaTrainerRepository trainerRepo;
+
 	private QaTraineeRepository traineeRepo;
 
-	private CohortMapper mapper;
+    private CohortMapper mapper;
 
 	public UserService(QaTrainerRepository trainerRepo, QaTraineeRepository traineeRepo, CohortMapper mapper) {
 		super();
@@ -30,17 +30,16 @@ public class UserService {
 		this.mapper = mapper;
 	}
 
-	@Transactional
-	public List<QaCohortDto> getCohortsForTrainer(Integer id) {
-		TrainerEntity trainer = this.trainerRepo.findById(id)
-				.orElseThrow(() -> new QaResourceNotFoundException("Trainer not found"));
-		return trainer.getCohorts().stream().map(this.mapper::mapToQaCohortDto).collect(Collectors.toList());
-	}
-	
+    @Transactional
+    public List<QaCohortDto> getCohortsForTrainer(Integer id) {
+        TrainerEntity trainer = this.trainerRepo.findById(id)
+                .orElseThrow(() -> new QaResourceNotFoundException("Trainer not found"));
+        return trainer.getCohorts().stream().map(this.mapper::mapToQaCohortDto).collect(Collectors.toList());
+    }
+
 	@Transactional
 	public TraineeDto getTraineeById(Integer id) {
 		return this.mapper.mapToQaTraineeDto(this.traineeRepo.findById(id)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee not found")));
 	}
-
 }

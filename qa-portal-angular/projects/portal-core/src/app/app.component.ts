@@ -71,7 +71,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private isAppMenuItem(url: string, menuItems: MenuItem[]): boolean {
-    return menuItems.filter(mi => mi.url === url).length > 0;
+    return menuItems.filter(mi => url.startsWith(mi.url)).length > 0;
   }
 
   private getErrorApplication(): Application {

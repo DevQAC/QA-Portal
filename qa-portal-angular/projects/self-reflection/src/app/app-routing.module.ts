@@ -6,14 +6,18 @@ import { CohortSummaryComponent } from './cohort-summary/cohort-summary.componen
 import { TraineeReflectionComponent } from './trainee-reflection/trainee-reflection.component';
 import { SelfReflectionHistoryComponent } from './self-reflection-history/self-reflection-history.component';
 import { CohortTraineesComponent } from './cohort-trainees/cohort-trainees.component';
+import {TraineeNewReflectionComponent} from './trainee-new-reflection/trainee-new-reflection.component';
 
 const routes: Routes = [
   {
     path: 'trainee',
     children: [
       {
-        path: 'selfreflection', component: TraineeReflectionComponent
+        path: 'selfreflection', component: TraineeNewReflectionComponent
       },
+      {
+        path: 'selfreflection/:id', component: TraineeReflectionComponent
+      } ,
       {
         path: 'selfreflections', component: SelfReflectionHistoryComponent
       }

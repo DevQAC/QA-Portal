@@ -1,4 +1,4 @@
-package com.qa.portal.user.rest;
+package com.qa.portal.common.rest;
 
 import java.util.List;
 
@@ -14,19 +14,19 @@ import com.qa.portal.user.services.UserService;
 
 @RestController
 public class UserController {
-	
-	private UserService service;
 
-	@Autowired
-	public UserController(UserService service) {
-		this.service = service;
-	}
+    private UserService service;
 
-	@GetMapping("/user/cohorts/{id}")
-	public ResponseEntity<List<QaCohortDto>> getCohortsForTrainer(@PathVariable("id") Integer id) {
-		return ResponseEntity.ok(this.service.getCohortsForTrainer(id));
-	}
-	
+    @Autowired
+    public UserController(UserService service) {
+        this.service = service;
+    }
+
+    @GetMapping("/user/cohorts/{id}")
+    public ResponseEntity<List<QaCohortDto>> getCohortsForTrainer(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(this.service.getCohortsForTrainer(id));
+    }
+
 	@GetMapping("/user/trainee/{id}")
 	public ResponseEntity<TraineeDto> getTraineeById(@PathVariable Integer id) {
 		return ResponseEntity.ok(this.service.getTraineeById(id));

@@ -8,10 +8,10 @@ import java.util.Objects;
 public class DeptRoleMenuItem {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "dept_role_menu_item_sequence",
             sequenceName = "training.dept_role_menu_item_sequence",
-            allocationSize=1)
+            allocationSize = 1)
     private Integer id;
 
 

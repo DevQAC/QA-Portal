@@ -78,10 +78,10 @@ public class ReflectionQuestionService {
 				.map((e) -> reflectionQuestionMapper.mapToQuestionDto(e.getQuestion()))
 				.collect(Collectors.toSet());
 	}
-	
+
 	@Transactional
 	public Set<ReflectionQuestionDto> createReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
-		return reflectionQuestions.stream().map(rqdto -> 
+		return reflectionQuestions.stream().map(rqdto ->
 					this.reflectionQuestionMapper
 					.mapToReflectionQuestionDto(this.reflectionQuestionRepo
 							.save(this.reflectionQuestionMapper.mapToReflectionQuestionEntity(rqdto)))

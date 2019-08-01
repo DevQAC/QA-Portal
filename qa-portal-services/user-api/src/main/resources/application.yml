@@ -14,9 +14,9 @@ spring:
 
   jpa:
     properties:
-        jdbc:
-          lob:
-            non_contextual_creation=true:logging: true
+      jdbc:
+        lob:
+          non_contextual_creation=true:logging: true
   level:
     org.springframework.web: DEBUG
     com.swttech.bignash: DEBUG

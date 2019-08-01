@@ -9,10 +9,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import com.qa.portal.common.dto.QaBaseDto;
-import com.qa.portal.common.dto.TraineeDto;
-import com.qa.portal.common.dto.TrainerDto;
-
 public final class ReflectionDto extends QaBaseDto {
 
     private Integer id;
@@ -35,8 +31,7 @@ public final class ReflectionDto extends QaBaseDto {
 
     private String threats;
 
-     private Set <ReflectionQuestionDto> reflectionQuestions = new
-     HashSet<ReflectionQuestionDto>();
+    private Set<ReflectionQuestionDto> reflectionQuestions;
 
     public Integer getId() {
         return id;
@@ -118,43 +113,34 @@ public final class ReflectionDto extends QaBaseDto {
         this.threats = threats;
     }
 
-     public Set<ReflectionQuestionDto> getReflectionQuestions() {
-     return reflectionQuestions;
-     }
+    public Set<ReflectionQuestionDto> getReflectionQuestions() {
+        return reflectionQuestions;
+    }
 
-     public void setReflectionQuestions(Set<ReflectionQuestionDto>
-     reflectionQuestions) {
-     this.reflectionQuestions = reflectionQuestions;
-     }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object)
-            return true;
-        if (object == null || getClass() != object.getClass())
-            return false;
-        if (!super.equals(object))
-            return false;
-        ReflectionDto that = (ReflectionDto) object;
-        return java.util.Objects.equals(id, that.id) && java.util.Objects.equals(responder, that.responder)
-                && java.util.Objects.equals(reviewer, that.reviewer)
-                && java.util.Objects.equals(formDate, that.formDate)
-                && java.util.Objects.equals(trainerFeedback, that.trainerFeedback)
-                && java.util.Objects.equals(learningPathway, that.learningPathway)
-                && java.util.Objects.equals(strengths, that.strengths)
-                && java.util.Objects.equals(weaknesses, that.weaknesses)
-                && java.util.Objects.equals(opportunities, that.opportunities) &&
-                // java.util.Objects.equals(threats, that.threats) &&
-                java.util.Objects.equals(threats, that.threats);
-        // java.util.Objects.equals(reflectionQuestions, that.reflectionQuestions);
+    public void setReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
+        this.reflectionQuestions = reflectionQuestions;
     }
 
     @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+        ReflectionDto that = (ReflectionDto) object;
+        return java.util.Objects.equals(id, that.id) &&
+                java.util.Objects.equals(responder, that.responder) &&
+                java.util.Objects.equals(reviewer, that.reviewer) &&
+                java.util.Objects.equals(formDate, that.formDate) &&
+                java.util.Objects.equals(trainerFeedback, that.trainerFeedback) &&
+                java.util.Objects.equals(learningPathway, that.learningPathway) &&
+                java.util.Objects.equals(strengths, that.strengths) &&
+                java.util.Objects.equals(weaknesses, that.weaknesses) &&
+                java.util.Objects.equals(opportunities, that.opportunities) &&
+                java.util.Objects.equals(threats, that.threats) &&
+                java.util.Objects.equals(reflectionQuestions, that.reflectionQuestions);
+    }
+    @Override
     public int hashCode() {
-        // return Objects.hash(super.hashCode(), id, responder, reviewer, formDate,
-        // trainerFeedback, learningPathway, strengths, weaknesses, opportunities,
-        // threats, reflectionQuestions);
-        return Objects.hash(super.hashCode(), id, responder, reviewer, formDate, trainerFeedback, learningPathway,
-                strengths, weaknesses, opportunities, threats);
+        return Objects.hash(super.hashCode(), id, responder, reviewer, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats, reflectionQuestions);
     }
 }

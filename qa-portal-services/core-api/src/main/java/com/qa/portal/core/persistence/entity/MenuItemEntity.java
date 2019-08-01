@@ -12,7 +12,7 @@ public class MenuItemEntity {
             generator = "app_menu_item_sequence")
     @SequenceGenerator(name = "app_menu_item_sequence",
             sequenceName = "training.app_menu_item_sequence",
-            allocationSize=1)
+            allocationSize = 1)
     private Integer id;
 
     @Column(name = "name")

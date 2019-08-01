@@ -2,14 +2,12 @@ package com.qa.portal.reflection.service.mapper;
 
 import com.qa.portal.reflection.dto.QuestionDto;
 import com.qa.portal.reflection.persistence.entity.QuestionEntity;
-import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 
 import java.util.Optional;
 
 import org.dozer.DozerBeanMapper;
 import org.springframework.stereotype.Component;
 
-import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.reflection.dto.ReflectionQuestionDto;
 import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
 import com.qa.portal.reflection.persistence.repository.ReflectionRepository;
@@ -18,7 +16,7 @@ import com.qa.portal.reflection.persistence.repository.ReflectionRepository;
 public class ReflectionQuestionMapper {
 
 	private DozerBeanMapper mapper;
-	
+
 	private ReflectionRepository reflectionRepository;
 
 	public ReflectionQuestionMapper(DozerBeanMapper mapper, ReflectionRepository reflectionRepository) {
@@ -27,9 +25,7 @@ public class ReflectionQuestionMapper {
 	}
 
 	public ReflectionQuestionEntity mapToReflectionQuestionEntity(ReflectionQuestionDto rqdto) {
-		ReflectionQuestionEntity rqe = mapper.map(rqdto, ReflectionQuestionEntity.class);
-		reflectionRepository.findById(rqdto.getReflectionId()).ifPresent((re) -> rqe.setReflection(re));
-		return rqe;
+		return mapper.map(rqdto, ReflectionQuestionEntity.class);
 	}
 
 	public ReflectionQuestionDto mapToReflectionQuestionDto(ReflectionQuestionEntity rqe) {

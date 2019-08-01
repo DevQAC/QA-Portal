@@ -11,7 +11,7 @@ import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
 
 @Repository
 public interface ReflectionQuestionRepository extends JpaRepository<ReflectionQuestionEntity, Integer> {
-	Set <ReflectionQuestionEntity> findByReflectionId(Integer id);
+    Set<ReflectionQuestionEntity> findByReflectionId(Integer id);
 
-	List<ReflectionQuestionEntity> findAllByReflection(ReflectionEntity reflection);
+    List<ReflectionQuestionEntity> findAllByReflection(ReflectionEntity reflection);
 }
