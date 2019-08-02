@@ -70,6 +70,38 @@ public class UpdateSelfReflectionOperationTest {
 
 	@Test
 	public void updateSelfReflectionTest() {
+		setPreConditions();
+		executeAction();
+		checkPostConditions();
+	}
+	
+	private void checkPostConditions() {
+		verify(reflectionRepository, times(1)).findById(reflectionDtoToUpdateFrom.getId());
+		verify(reflectionEntityToUpdate, times(1)).setFormDate(Date.valueOf(reflectionDtoToUpdateFrom.getFormDate()));
+		verify(reflectionEntityToUpdate, times(1)).setTrainerFeedback(TRAINER_FEEDBACK);
+		verify(reflectionEntityToUpdate, times(1)).setLearningPathway(LEARNING_PATHWAY);
+		verify(reflectionEntityToUpdate, times(1)).setStrengths(STRENGTHS);
+		verify(reflectionEntityToUpdate, times(1)).setWeaknesses(WEAKNESSES);
+		verify(reflectionEntityToUpdate, times(1)).setOpportunities(OPPORTUNITIES);
+		verify(reflectionEntityToUpdate, times(1)).setThreats(THREATS);
+		verify(reflectionEntityToUpdate, times(reflectionQuestionDtosToUpdateFrom.size())).getReflectionQuestions();
+		verify(reflectionDtoToUpdateFrom, times(1)).getReflectionQuestions();
+		verify(reflectionQuestionEntityToUpdate1, times(1)).setResponse(RESPONSE_ONE);
+		verify(reflectionQuestionEntityToUpdate2, times(1)).setResponse(RESPONSE_TWO);
+		verify(reflectionRepository, times(1)).save(reflectionEntityToUpdate);
+		verify(reflectionMapper, times(1)).mapToReflectionDto(updatedReflectionEntity);
+	}
+
+	private void executeAction() {
+		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
+	}
+
+	@Test(expected = QaResourceNotFoundException.class)
+	public void updateSelfReflectionNotFoundTest() {
+		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
+	}
+	
+	private void setPreConditions() {
 		reflectionQuestionDtosToUpdateFrom = Set.of(reflectionQuestionDtoToUpdateFrom1,
 				reflectionQuestionDtoToUpdateFrom2);
 		when(reflectionRepository.findById(reflectionDtoToUpdateFrom.getId()))
@@ -91,28 +123,6 @@ public class UpdateSelfReflectionOperationTest {
 		when(reflectionQuestionDtoToUpdateFrom1.getResponse()).thenReturn(RESPONSE_ONE);
 		when(reflectionQuestionDtoToUpdateFrom2.getResponse()).thenReturn(RESPONSE_TWO);
 		when(reflectionRepository.save(reflectionEntityToUpdate)).thenReturn(updatedReflectionEntity);
-
-		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
-
-		verify(reflectionRepository, times(1)).findById(reflectionDtoToUpdateFrom.getId());
-		verify(reflectionEntityToUpdate, times(1)).setFormDate(Date.valueOf(reflectionDtoToUpdateFrom.getFormDate()));
-		verify(reflectionEntityToUpdate, times(1)).setTrainerFeedback(TRAINER_FEEDBACK);
-		verify(reflectionEntityToUpdate, times(1)).setLearningPathway(LEARNING_PATHWAY);
-		verify(reflectionEntityToUpdate, times(1)).setStrengths(STRENGTHS);
-		verify(reflectionEntityToUpdate, times(1)).setWeaknesses(WEAKNESSES);
-		verify(reflectionEntityToUpdate, times(1)).setOpportunities(OPPORTUNITIES);
-		verify(reflectionEntityToUpdate, times(1)).setThreats(THREATS);
-		verify(reflectionEntityToUpdate, times(reflectionQuestionDtosToUpdateFrom.size())).getReflectionQuestions();
-		verify(reflectionDtoToUpdateFrom, times(1)).getReflectionQuestions();
-		verify(reflectionQuestionEntityToUpdate1, times(1)).setResponse(RESPONSE_ONE);
-		verify(reflectionQuestionEntityToUpdate2, times(1)).setResponse(RESPONSE_TWO);
-		verify(reflectionRepository, times(1)).save(reflectionEntityToUpdate);
-		verify(reflectionMapper, times(1)).mapToReflectionDto(updatedReflectionEntity);
-	}
-	
-	@Test(expected = QaResourceNotFoundException.class)
-	public void updateSelfReflectionNotFoundTest() {
-		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
 	}
 
 }

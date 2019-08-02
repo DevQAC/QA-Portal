@@ -1,13 +1,12 @@
 package com.qa.portal.reflection.dto;
 
+import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Set;
+
 import com.qa.portal.common.dto.QaBaseDto;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.dto.TrainerDto;
-
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 public class ReflectionDto extends QaBaseDto {
 

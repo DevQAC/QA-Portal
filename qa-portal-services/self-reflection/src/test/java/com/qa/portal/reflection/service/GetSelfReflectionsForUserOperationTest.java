@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -56,32 +55,50 @@ public class GetSelfReflectionsForUserOperationTest {
 	@InjectMocks
 	private GetSelfReflectionsForUserOperation operation;
 	
-	@Before
-	public void initialize() {
-		when(traineeRepository.findByUserName(USER_NAME)).thenReturn(Optional.of(traineeEntity));
-		when(reflectionRepository.findByResponderId(traineeEntity.getId())).thenReturn(reflectionEntities);
-		when(reflectionRepository.findByResponderId(TRAINEE_ID)).thenReturn(reflectionEntities);
-		when(reflectionEntities.stream()).thenReturn(Stream.of(re1, re2));
-	}
 	@Test
 	public void getSelfReflectionsForCurrentUserTest() {
-		operation.getSelfReflectionsForTrainee(USER_NAME);
-		
-		verify(traineeRepository, times(1)).findByUserName(USER_NAME);
-		verify(reflectionRepository, times(1)).findByResponderId(traineeEntity.getId());
-		verify(reflectionMapper, times(1)).mapToReflectionDto(re1);
-		verify(reflectionMapper, times(1)).mapToReflectionDto(re2);
+		setPreConditions();
+		executeAction();
+		checkPostConditions();
 	}
+	
 	@Test
 	public void getSelfReflectionsForUserIdTest() {
-		operation.getSelfReflectionsForUser(TRAINEE_ID);
-		verify(reflectionRepository, times(1)).findByResponderId(TRAINEE_ID);
-		verify(reflectionMapper, times(1)).mapToReflectionDto(re1);
-		verify(reflectionMapper, times(1)).mapToReflectionDto(re2);
+		setPreConditions();
+		executeActionUserId();
+		checkPostConditionsUserId();
 	}
 	
 	@Test(expected = QaResourceNotFoundException.class)
 	public void getSelfReflectionsUserNotFound() {
 		operation.getSelfReflectionsForTrainee(UNKNOWN_NAME);
+	}
+	
+	private void setPreConditions() {
+		when(traineeRepository.findByUserName(USER_NAME)).thenReturn(Optional.of(traineeEntity));
+		when(reflectionRepository.findByResponderId(traineeEntity.getId())).thenReturn(reflectionEntities);
+		when(reflectionRepository.findByResponderId(TRAINEE_ID)).thenReturn(reflectionEntities);
+		when(reflectionEntities.stream()).thenReturn(Stream.of(re1, re2));
+	}
+	
+	private void executeAction() {
+		operation.getSelfReflectionsForTrainee(USER_NAME);
+	}
+	
+	private void checkPostConditions() {
+		verify(traineeRepository, times(1)).findByUserName(USER_NAME);
+		verify(reflectionRepository, times(1)).findByResponderId(traineeEntity.getId());
+		verify(reflectionMapper, times(1)).mapToReflectionDto(re1);
+		verify(reflectionMapper, times(1)).mapToReflectionDto(re2);
+	}
+	
+	private void executeActionUserId() {
+		operation.getSelfReflectionsForUser(TRAINEE_ID);
+	}
+	
+	private void checkPostConditionsUserId() {
+		verify(reflectionRepository, times(1)).findByResponderId(TRAINEE_ID);
+		verify(reflectionMapper, times(1)).mapToReflectionDto(re1);
+		verify(reflectionMapper, times(1)).mapToReflectionDto(re2);
 	}
 }

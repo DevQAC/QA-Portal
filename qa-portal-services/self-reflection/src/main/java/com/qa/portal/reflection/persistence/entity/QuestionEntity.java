@@ -1,9 +1,14 @@
 package com.qa.portal.reflection.persistence.entity;
 
 import java.util.Objects;
-import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 

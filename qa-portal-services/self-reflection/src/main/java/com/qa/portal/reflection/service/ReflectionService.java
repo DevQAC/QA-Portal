@@ -1,22 +1,17 @@
 package com.qa.portal.reflection.service;
 
-import com.qa.portal.common.persistence.repository.QaCohortRepository;
-import com.qa.portal.reflection.dto.CohortSummaryDto;
-import com.qa.portal.reflection.dto.ReflectionDto;
-import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.qa.portal.reflection.dto.CohortSummaryDto;
+import com.qa.portal.reflection.dto.ReflectionDto;
+
 @Service
 public class ReflectionService {
-
-    private QaCohortRepository cohortRepo;
-
-    private ReflectionQuestionMapper rqMapper;
 
     private GetSelfReflectionOperation getSelfReflectionOperation;
 
@@ -28,12 +23,11 @@ public class ReflectionService {
 
     private GetCohortSummaryOperation getCohortSummaryOperation;
 
-    public ReflectionService(QaCohortRepository cohortRepo, GetSelfReflectionOperation getSelfReflectionOperation,
+    public ReflectionService(GetSelfReflectionOperation getSelfReflectionOperation,
             GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation,
             CreateSelfReflectionOperation createSelfReflectionOperation,
             UpdateSelfReflectionOperation updateSelfReflectionOperation,
             GetCohortSummaryOperation getCohortSummaryOperation) {
-        this.cohortRepo = cohortRepo;
         this.getSelfReflectionOperation = getSelfReflectionOperation;
         this.getSelfReflectionsForUserOperation = getSelfReflectionsForUserOperation;
         this.createSelfReflectionOperation = createSelfReflectionOperation;
