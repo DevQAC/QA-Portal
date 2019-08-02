@@ -4,7 +4,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
@@ -33,9 +32,6 @@ public class UpdateSelfReflectionOperationTest {
 	private ReflectionDto reflectionDtoToUpdateFrom;
 
 	@Mock
-	private ReflectionDto reflectionDtoToUpdate;
-
-	@Mock
 	private ReflectionEntity reflectionEntityToUpdate;
 
 	@Mock
@@ -52,18 +48,7 @@ public class UpdateSelfReflectionOperationTest {
 	@Mock
 	private ReflectionEntity updatedReflectionEntity;
 	
-	@Mock
-	private ReflectionDto updatedReflectionDto;
-	
-	private final String USER_NAME = "USER_NAME", 
-			TRAINER_FEEDBACK = "TRAINER_FEEDBACK",
-			LEARNING_PATHWAY = "LEARNING_PATHWAY", 
-			STRENGTHS = "STRENGTHS", 
-			WEAKNESSES = "WEAKNESSES",
-			OPPORTUNITIES = "OPPORTUNITIES", 
-			THREATS = "THREATS";
-
-	private final Integer RESPONSE_ONE = 4, RESPONSE_TWO = 5;
+	private final String USER_NAME = "USER_NAME";
 
 	@InjectMocks
 	private UpdateSelfReflectionOperation operation;
@@ -75,54 +60,30 @@ public class UpdateSelfReflectionOperationTest {
 		checkPostConditions();
 	}
 	
-	private void checkPostConditions() {
-		verify(reflectionRepository, times(1)).findById(reflectionDtoToUpdateFrom.getId());
-		verify(reflectionEntityToUpdate, times(1)).setFormDate(Date.valueOf(reflectionDtoToUpdateFrom.getFormDate()));
-		verify(reflectionEntityToUpdate, times(1)).setTrainerFeedback(TRAINER_FEEDBACK);
-		verify(reflectionEntityToUpdate, times(1)).setLearningPathway(LEARNING_PATHWAY);
-		verify(reflectionEntityToUpdate, times(1)).setStrengths(STRENGTHS);
-		verify(reflectionEntityToUpdate, times(1)).setWeaknesses(WEAKNESSES);
-		verify(reflectionEntityToUpdate, times(1)).setOpportunities(OPPORTUNITIES);
-		verify(reflectionEntityToUpdate, times(1)).setThreats(THREATS);
-		verify(reflectionEntityToUpdate, times(reflectionQuestionDtosToUpdateFrom.size())).getReflectionQuestions();
-		verify(reflectionDtoToUpdateFrom, times(1)).getReflectionQuestions();
-		verify(reflectionQuestionEntityToUpdate1, times(1)).setResponse(RESPONSE_ONE);
-		verify(reflectionQuestionEntityToUpdate2, times(1)).setResponse(RESPONSE_TWO);
-		verify(reflectionRepository, times(1)).save(reflectionEntityToUpdate);
-		verify(reflectionMapper, times(1)).mapToReflectionDto(updatedReflectionEntity);
-	}
-
-	private void executeAction() {
-		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
-	}
-
-	@Test(expected = QaResourceNotFoundException.class)
-	public void updateSelfReflectionNotFoundTest() {
-		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
-	}
-	
 	private void setPreConditions() {
 		reflectionQuestionDtosToUpdateFrom = Set.of(reflectionQuestionDtoToUpdateFrom1,
 				reflectionQuestionDtoToUpdateFrom2);
 		when(reflectionRepository.findById(reflectionDtoToUpdateFrom.getId()))
-				.thenReturn(Optional.of(reflectionEntityToUpdate));
+		.thenReturn(Optional.of(reflectionEntityToUpdate));
 		when(reflectionDtoToUpdateFrom.getFormDate()).thenReturn(LocalDate.now());
-		when(reflectionDtoToUpdateFrom.getTrainerFeedback()).thenReturn(TRAINER_FEEDBACK);
-		when(reflectionDtoToUpdateFrom.getLearningPathway()).thenReturn(LEARNING_PATHWAY);
-		when(reflectionDtoToUpdateFrom.getStrengths()).thenReturn(STRENGTHS);
-		when(reflectionDtoToUpdateFrom.getWeaknesses()).thenReturn(WEAKNESSES);
-		when(reflectionDtoToUpdateFrom.getOpportunities()).thenReturn(OPPORTUNITIES);
-		when(reflectionDtoToUpdateFrom.getThreats()).thenReturn(THREATS);
 		when(reflectionDtoToUpdateFrom.getReflectionQuestions()).thenReturn(reflectionQuestionDtosToUpdateFrom);
 		when(reflectionEntityToUpdate.getReflectionQuestions())
-				.thenReturn(Set.of(reflectionQuestionEntityToUpdate1, reflectionQuestionEntityToUpdate2));
-		when(reflectionQuestionDtoToUpdateFrom1.getId()).thenReturn(1);
-		when(reflectionQuestionDtoToUpdateFrom2.getId()).thenReturn(2);
-		when(reflectionQuestionEntityToUpdate1.getId()).thenReturn(1);
-		when(reflectionQuestionEntityToUpdate2.getId()).thenReturn(2);
-		when(reflectionQuestionDtoToUpdateFrom1.getResponse()).thenReturn(RESPONSE_ONE);
-		when(reflectionQuestionDtoToUpdateFrom2.getResponse()).thenReturn(RESPONSE_TWO);
+		.thenReturn(Set.of(reflectionQuestionEntityToUpdate1, reflectionQuestionEntityToUpdate2));
 		when(reflectionRepository.save(reflectionEntityToUpdate)).thenReturn(updatedReflectionEntity);
+	}
+	
+	private void executeAction() {
+		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
+	}
+	
+	@Test(expected = QaResourceNotFoundException.class)
+	public void updateSelfReflectionNotFoundTest() {
+		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
+	}
+	private void checkPostConditions() {
+		verify(reflectionRepository, times(1)).findById(reflectionDtoToUpdateFrom.getId());
+		verify(reflectionRepository, times(1)).save(reflectionEntityToUpdate);
+		verify(reflectionMapper, times(1)).mapToReflectionDto(updatedReflectionEntity);
 	}
 
 }
