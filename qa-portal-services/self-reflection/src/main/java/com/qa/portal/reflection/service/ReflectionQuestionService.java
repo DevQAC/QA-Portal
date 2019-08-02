@@ -71,7 +71,7 @@ public class ReflectionQuestionService {
 
     public Set<QuestionDto> getReflectionQuestionsByCohort(String cohortName) {
         LOGGER.info("Cohort name" + cohortName);
-        return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByname(cohortName).orElseThrow(
+        return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByName(cohortName).orElseThrow(
                 () -> new QaResourceNotFoundException("Cohort not found for supplied name")))
                 .stream()
                 .map((e) -> reflectionQuestionMapper.mapToQuestionDto(e.getQuestion()))

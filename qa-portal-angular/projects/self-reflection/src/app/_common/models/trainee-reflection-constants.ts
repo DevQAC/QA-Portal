@@ -9,3 +9,5 @@ export const GET_SELF_REFLECTION_API = 'self-reflection-api/reflection';
 export const UPDATE_SELF_REFLECTION_API = 'self-reflection-api/reflection';
 
 export const GET_SELF_REFLECTIONS_FOR_TRAINEE_API = 'self-reflection-api/reflection/trainee';
+
+export const GET_SELF_REFLECTIONS_BY_STATUS_API = 'self-reflection-api/reflection/trainee/status';

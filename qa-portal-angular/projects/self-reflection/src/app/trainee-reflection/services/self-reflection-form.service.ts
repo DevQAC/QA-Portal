@@ -4,7 +4,7 @@ import {SelfReflectionFormModel} from '../../_common/models/self-reflection-form
 import {Observable} from 'rxjs';
 import {
   CREATE_SELF_REFLECTION_API,
-  GET_SELF_REFLECTION_API,
+  GET_SELF_REFLECTION_API, GET_SELF_REFLECTIONS_BY_STATUS_API,
   UPDATE_SELF_REFLECTION_API
 } from '../../_common/models/trainee-reflection-constants';
 
@@ -19,6 +19,14 @@ export class SelfReflectionFormService {
 
   public getSelfReflectionForm(formId: string): Observable<SelfReflectionFormModel> {
     return this.httpClient.get<SelfReflectionFormModel>(GET_SELF_REFLECTION_API + '/' + formId);
+  }
+  public getAllReflectionFormsForUser(): Observable<Set<SelfReflectionFormModel>> {
+    return this.httpClient.get<Set<SelfReflectionFormModel>>(GET_SELF_REFLECTION_API + '/trainee');
+  }
+
+
+  public getSelfReflectionFormByStatus(status: string): Observable<SelfReflectionFormModel> {
+    return this.httpClient.get<SelfReflectionFormModel>(GET_SELF_REFLECTIONS_BY_STATUS_API + '/' + status);
   }
 
   public updateSelfReflectionForm(form: SelfReflectionFormModel): Observable<SelfReflectionFormModel> {

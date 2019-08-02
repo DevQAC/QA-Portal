@@ -58,9 +58,14 @@ public class ReflectionController {
         return ResponseEntity.ok(this.service.getSelfReflection(id));
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<ReflectionDto> getSelfReflectionByDate(@RequestBody LocalDate date) {
         return ResponseEntity.ok(this.service.getSelfReflection(context.getUserName(), date));
+    }
+
+    @GetMapping("/trainee/status/{status}")
+    public ResponseEntity<ReflectionDto> getSelfReflectionByStatus(@PathVariable String status) {
+        return ResponseEntity.ok(this.service.getSelfReflection(context.getUserName(), status));
     }
 
     @PostMapping

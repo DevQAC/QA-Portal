@@ -66,6 +66,10 @@ public class ReflectionService {
     public ReflectionDto getSelfReflection(String userId, LocalDate date) {
         return this.getSelfReflectionOperation.getSelfReflectionByUserAndDate(userId, date);
     }
+    @Transactional
+    public ReflectionDto getSelfReflection(String userId, String status) {
+        return this.getSelfReflectionOperation.getSelfReflectionByUserAndStatus(userId, status);
+    }
 
     @Transactional
     public ReflectionDto createSelfReflection(ReflectionDto reflectionDto, String userName) {

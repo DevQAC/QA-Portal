@@ -2,6 +2,9 @@ package com.qa.portal.common.rest;
 
 import java.util.List;
 
+import com.qa.portal.common.exception.QaResourceNotFoundException;
+import com.qa.portal.common.persistence.entity.QaCohortEntity;
+import com.qa.portal.common.security.QaSecurityContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +18,11 @@ public class CohortController {
 
     private CohortService service;
 
-    public CohortController(CohortService service) {
-        super();
+    private QaSecurityContext qaSecurityContext;
+
+    public CohortController(CohortService service, QaSecurityContext qaSecurityContext) {
         this.service = service;
+        this.qaSecurityContext = qaSecurityContext;
     }
 
     @GetMapping("/cohort/getTrainees/{id}")

@@ -23,4 +23,8 @@ export class SelfReflectionFormModel {
 
   status: string;
 
+
+  // buttonLabel = this.isPopulated ? 'Submit' : 'Saved';
+
+
 }
