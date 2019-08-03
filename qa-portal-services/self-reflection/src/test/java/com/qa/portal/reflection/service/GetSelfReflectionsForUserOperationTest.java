@@ -63,10 +63,10 @@ public class GetSelfReflectionsForUserOperationTest {
 	}
 	
 	@Test
-	public void getSelfReflectionsForUserIdTest() {
+	public void getSelfReflectionsForUser() {
 		setPreConditions();
-		executeActionUserId();
-		checkPostConditionsUserId();
+		executeActionForUser();
+		checkPostConditionsForUser();
 	}
 	
 	@Test(expected = QaResourceNotFoundException.class)
@@ -75,10 +75,10 @@ public class GetSelfReflectionsForUserOperationTest {
 	}
 	
 	private void setPreConditions() {
+		reflectionEntities = Set.of(re1, re2);
+		when(traineeEntity.getId()).thenReturn(TRAINEE_ID);
 		when(traineeRepository.findByUserName(USER_NAME)).thenReturn(Optional.of(traineeEntity));
-		when(reflectionRepository.findByResponderId(traineeEntity.getId())).thenReturn(reflectionEntities);
 		when(reflectionRepository.findByResponderId(TRAINEE_ID)).thenReturn(reflectionEntities);
-		when(reflectionEntities.stream()).thenReturn(Stream.of(re1, re2));
 	}
 	
 	private void executeAction() {
@@ -87,16 +87,16 @@ public class GetSelfReflectionsForUserOperationTest {
 	
 	private void checkPostConditions() {
 		verify(traineeRepository, times(1)).findByUserName(USER_NAME);
-		verify(reflectionRepository, times(1)).findByResponderId(traineeEntity.getId());
+		verify(reflectionRepository, times(1)).findByResponderId(TRAINEE_ID);
 		verify(reflectionMapper, times(1)).mapToReflectionDto(re1);
 		verify(reflectionMapper, times(1)).mapToReflectionDto(re2);
 	}
 	
-	private void executeActionUserId() {
+	private void executeActionForUser() {
 		operation.getSelfReflectionsForUser(TRAINEE_ID);
 	}
 	
-	private void checkPostConditionsUserId() {
+	private void checkPostConditionsForUser() {
 		verify(reflectionRepository, times(1)).findByResponderId(TRAINEE_ID);
 		verify(reflectionMapper, times(1)).mapToReflectionDto(re1);
 		verify(reflectionMapper, times(1)).mapToReflectionDto(re2);

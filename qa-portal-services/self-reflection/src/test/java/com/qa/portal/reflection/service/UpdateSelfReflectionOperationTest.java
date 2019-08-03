@@ -40,14 +40,12 @@ public class UpdateSelfReflectionOperationTest {
 	@Mock
 	private ReflectionQuestionDto reflectionQuestionDtoToUpdateFrom1, reflectionQuestionDtoToUpdateFrom2;
 
-	private Set<ReflectionQuestionDto> reflectionQuestionDtosToUpdateFrom;
-
 	@Mock
 	private ReflectionRepository reflectionRepository;
 
 	@Mock
 	private ReflectionEntity updatedReflectionEntity;
-	
+
 	private final String USER_NAME = "USER_NAME";
 
 	@InjectMocks
@@ -59,27 +57,27 @@ public class UpdateSelfReflectionOperationTest {
 		executeAction();
 		checkPostConditions();
 	}
-	
+
 	private void setPreConditions() {
-		reflectionQuestionDtosToUpdateFrom = Set.of(reflectionQuestionDtoToUpdateFrom1,
-				reflectionQuestionDtoToUpdateFrom2);
 		when(reflectionRepository.findById(reflectionDtoToUpdateFrom.getId()))
-		.thenReturn(Optional.of(reflectionEntityToUpdate));
+				.thenReturn(Optional.of(reflectionEntityToUpdate));
 		when(reflectionDtoToUpdateFrom.getFormDate()).thenReturn(LocalDate.now());
-		when(reflectionDtoToUpdateFrom.getReflectionQuestions()).thenReturn(reflectionQuestionDtosToUpdateFrom);
+		when(reflectionDtoToUpdateFrom.getReflectionQuestions())
+				.thenReturn(Set.of(reflectionQuestionDtoToUpdateFrom1, reflectionQuestionDtoToUpdateFrom2));
 		when(reflectionEntityToUpdate.getReflectionQuestions())
-		.thenReturn(Set.of(reflectionQuestionEntityToUpdate1, reflectionQuestionEntityToUpdate2));
+				.thenReturn(Set.of(reflectionQuestionEntityToUpdate1, reflectionQuestionEntityToUpdate2));
 		when(reflectionRepository.save(reflectionEntityToUpdate)).thenReturn(updatedReflectionEntity);
 	}
-	
+
 	private void executeAction() {
 		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
 	}
-	
+
 	@Test(expected = QaResourceNotFoundException.class)
 	public void updateSelfReflectionNotFoundTest() {
 		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
 	}
+
 	private void checkPostConditions() {
 		verify(reflectionRepository, times(1)).findById(reflectionDtoToUpdateFrom.getId());
 		verify(reflectionRepository, times(1)).save(reflectionEntityToUpdate);

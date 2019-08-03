@@ -31,34 +31,26 @@ public class ReflectionQuestionServiceTest {
 	private ReflectionQuestionRepository reflectionQuestionRepo;
 
 	@Mock
-	private CohortQuestionRepository cohortQuestionRepository;
+	private CohortQuestionRepository cohortQuestionRepo;
 
 	@Mock
-	private QaCohortRepository cohortRepository;
+	private QaCohortRepository cohortRepo;
 	
 	@Mock
-	private Set<CohortQuestionEntity> cohortQuestions;
+	private ReflectionQuestionMapper reflectionQuestionMapper;
 	
 	@Mock
-	private CohortQuestionEntity cohortQuestion;
+	private CohortQuestionEntity cohortQuestionEntity;
 	
 	@Mock
 	private QaCohortEntity cohortEntity;
 
 	@Mock
-	private ReflectionQuestionMapper reflectionQuestionMapper;
+	private ReflectionQuestionEntity reflectionQuestionEntity, savedReflectionQuestionEntity;
 
-	@Mock
-	private Set<ReflectionQuestionDto> reflectionQuestionDtos;
-	
 	@Mock
 	private ReflectionQuestionDto reflectionQuestionDto;
 
-	@Mock
-	private Set<ReflectionQuestionEntity> reflectionQuestionEntities;
-	
-	@Mock
-	private ReflectionQuestionEntity reflectionQuestionEntity;
 	
 	@Mock
 	private ReflectionQuestionEntity toUpdateFrom;
@@ -68,6 +60,8 @@ public class ReflectionQuestionServiceTest {
 
 	@InjectMocks
 	private ReflectionQuestionService service;
+	
+	private Integer REFLECTION_QUESTION_ID = 2;
 
 	@Test
 	public void getReflectionQuestionsByReflectionId() {
@@ -79,7 +73,7 @@ public class ReflectionQuestionServiceTest {
 	@Test
 	public void updateReflectionQuestions() {
 		setPreConditions();
-		service.updateReflectionQuestions(reflectionQuestionDtos);
+		service.updateReflectionQuestions(Set.of(reflectionQuestionDto));
 		checkPostConditionsUpdateReflectionQuestions();
 	}
 	
@@ -93,38 +87,39 @@ public class ReflectionQuestionServiceTest {
 	@Test
 	public void createReflectionQuestions() {
 		setPreConditions();
-		service.createReflectionQuestions(reflectionQuestionDtos);
+		service.createReflectionQuestions(Set.of(reflectionQuestionDto));
 		checkPostConditionsCreateReflectionQuestions();
 	}
 
 	private void setPreConditions() {
-		reflectionQuestionEntities = Set.of(reflectionQuestionEntity);
-		reflectionQuestionDtos = Set.of(reflectionQuestionDto);
-		cohortQuestions = Set.of(cohortQuestion);
-		when(reflectionQuestionRepo.findById(anyInt())).thenReturn(Optional.of(reflectionQuestionEntity));
+		when(reflectionQuestionDto.getId()).thenReturn(REFLECTION_QUESTION_ID);
+		when(reflectionQuestionRepo.findById(REFLECTION_QUESTION_ID)).thenReturn(Optional.of(reflectionQuestionEntity));
+		when(reflectionQuestionRepo.findByReflectionId(anyInt())).thenReturn(Set.of(reflectionQuestionEntity));
 		when(reflectionQuestionMapper.mapToReflectionQuestionEntity(reflectionQuestionDto)).thenReturn(reflectionQuestionEntity);
-		when(reflectionQuestionRepo.save(reflectionQuestionEntity)).thenReturn(reflectionQuestionEntity);
-		when(cohortRepository.findByname(anyString())).thenReturn(Optional.of(cohortEntity));
-		when(cohortQuestionRepository.findByCohort(cohortEntity)).thenReturn(cohortQuestions);
+		when(reflectionQuestionRepo.save(reflectionQuestionEntity)).thenReturn(savedReflectionQuestionEntity);
+		when(cohortRepo.findByname(anyString())).thenReturn(Optional.of(cohortEntity));
+		when(cohortQuestionRepo.findByCohort(cohortEntity)).thenReturn(Set.of(cohortQuestionEntity));
 	}
 
 	private void checkPostConditions() {
 		verify(reflectionQuestionRepo).findByReflectionId(anyInt());
+		verify(reflectionQuestionMapper).mapToReflectionQuestionDto(reflectionQuestionEntity);
 	}
 	
 	private void checkPostConditionsUpdateReflectionQuestions() {
-		verify(reflectionQuestionMapper).mapToReflectionQuestionEntity(reflectionQuestionDto);
+		verify(reflectionQuestionRepo).findById(REFLECTION_QUESTION_ID);
 		verify(reflectionQuestionRepo).save(reflectionQuestionEntity);
+		verify(reflectionQuestionMapper).mapToReflectionQuestionDto(savedReflectionQuestionEntity);
 	}
 	
 	private void checkPostConditionsReflectionQuestionsByCohort() {
-		verify(cohortRepository).findByname(anyString());
-		verify(cohortQuestionRepository).findByCohort(cohortEntity);
+		verify(cohortRepo).findByname(anyString());
+		verify(cohortQuestionRepo).findByCohort(cohortEntity);
 	}
 	
 	private void checkPostConditionsCreateReflectionQuestions() {
 		verify(reflectionQuestionMapper).mapToReflectionQuestionEntity(reflectionQuestionDto);
 		verify(reflectionQuestionRepo).save(reflectionQuestionEntity);
-		verify(reflectionQuestionMapper).mapToReflectionQuestionDto(reflectionQuestionEntity);
+		verify(reflectionQuestionMapper).mapToReflectionQuestionDto(savedReflectionQuestionEntity);
 	}
 }

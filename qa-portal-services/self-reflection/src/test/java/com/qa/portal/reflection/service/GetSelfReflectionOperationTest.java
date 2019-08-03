@@ -2,6 +2,7 @@ package com.qa.portal.reflection.service;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -41,12 +42,6 @@ public class GetSelfReflectionOperationTest {
 	@Mock
 	private QaTrainerRepository trainerRepository;
 	
-	private final String USER_NAME = "TEST_USER", FAKE_NAME = "FAKE_USER";
-	
-	private final LocalDate DATE = LocalDate.now();
-	
-	private final Integer REFLECTION_ID = 1, FAKE_ID = 2;
-	
 	@InjectMocks
 	private GetSelfReflectionOperation operation;
 
@@ -59,7 +54,7 @@ public class GetSelfReflectionOperationTest {
 	
 	@Test(expected = QaResourceNotFoundException.class)
 	public void getSelfReflectionIdNotFoundTest() {
-		operation.getSelfReflectionById(FAKE_ID);
+		operation.getSelfReflectionById(anyInt());
 	}
 	
 	@Test
@@ -71,32 +66,31 @@ public class GetSelfReflectionOperationTest {
 	
 	@Test(expected = QaResourceNotFoundException.class)
 	public void getSelfReflectionByUserAndDateTrainerNotFoundTest() {
-		operation.getSelfReflectionByUserAndDate(FAKE_NAME, DATE);
+		operation.getSelfReflectionByUserAndDate(anyString(), LocalDate.now());
 	}
 	
 	private void setPreConditions() {
-		when(reflectionRepository.findById(REFLECTION_ID)).thenReturn(Optional.of(reflectionEntity));
-		when(trainerRepository.findByUserName(USER_NAME)).thenReturn(Optional.of(trainerEntity));
-		when(reflectionRepository.findByReviewerAndFormDate(trainerEntity, DATE)).thenReturn(Optional.of(reflectionEntity));
-		when(reflectionMapper.mapToReflectionDto(reflectionEntity)).thenReturn(reflectionDto);
+		when(reflectionRepository.findById(anyInt())).thenReturn(Optional.of(reflectionEntity));
+		when(trainerRepository.findByUserName(anyString())).thenReturn(Optional.of(trainerEntity));
+		when(reflectionRepository.findByReviewerAndFormDate(any(), any())).thenReturn(Optional.of(reflectionEntity));
 	}
 	
 	private void executeActions() {
-		operation.getSelfReflectionById(REFLECTION_ID);
+		operation.getSelfReflectionById(anyInt());
 	}
 
 	private void checkPostConditions() {
-		verify(reflectionRepository).findById(REFLECTION_ID);
+		verify(reflectionRepository).findById(anyInt());
 	}
 	
 	private void executeActionsUserAndDate() {
-		operation.getSelfReflectionByUserAndDate(USER_NAME, DATE);
+		operation.getSelfReflectionByUserAndDate(anyString(), LocalDate.now());
 	}
 
 	private void checkPostConditionsUserAndDate() {
-		verify(trainerRepository).findByUserName(USER_NAME);
-		verify(reflectionRepository).findByReviewerAndFormDate(trainerEntity, DATE);
-		verify(reflectionRepository).findByReviewerAndFormDate(trainerEntity, DATE);
+		verify(trainerRepository).findByUserName(anyString());
+		verify(reflectionRepository).findByReviewerAndFormDate(any(), any());
+		verify(reflectionRepository).findByReviewerAndFormDate(any(), any());
 		verify(reflectionMapper).mapToReflectionDto(reflectionEntity);
 	}
 }
