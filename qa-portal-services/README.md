@@ -211,13 +211,13 @@ TODO
 ### Pre-Requisites
 
 a) A local keycloak instance and Postgres DB has been installed and configured. See instructions in 
-https://github.com/swttech2017/qa-portal-infra/blob/master/README.md
+https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-infra/README.md
 
 ### Build and Run Core Services
 
-a) Clone the qa-portal-services repo using command
+a) Clone the qa-portal-services repo using command as per instructions on 
 
-git clone https://github.com/swttech2017/qa-portal-services.git
+https://github.com/DevQAC/QA-Portal/blob/development/README.md
 
 b) From the base folder build with maven
 

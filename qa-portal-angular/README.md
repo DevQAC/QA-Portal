@@ -233,17 +233,17 @@ c) For communication between unrelated components (i.e. they don't have a parent
 ### Pre-Requisites
 
 a) A local keycloak instance and Postgres DB has been installed and configured. See instructions in 
-https://github.com/swttech2017/qa-portal-infra/blob/master/README.md
+https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-infra/README.md
 
 b) An instance of core-api services are running locally. See instructions in
-https://github.com/swttech2017/qa-portal-services/blob/master/README.md
+https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-services/README.md
 
 
 ### Build and Run QA Portal
 
 a) Clone the qa-portal-angular repo using command
 
-git clone https://github.com/swttech2017/qa-portal-angular.git
+See instruction in https://github.com/DevQAC/QA-Portal/blob/master/README.md
 
 b) From the base project folder install dependencies using npm
 
