@@ -11,3 +11,20 @@ mat-cell.cdk-column-date{
     left: 60%;
     top:-32px;
 }
+
+.mat-row{
+  position: relative;
+}
+
+.mat-row-link{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.data-row:hover{
+  filter: brightness(95%);
+  cursor: pointer;
+}

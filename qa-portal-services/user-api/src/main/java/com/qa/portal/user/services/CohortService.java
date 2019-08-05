@@ -1,4 +1,4 @@
-package com.qa.portal.common.services;
+package com.qa.portal.user.services;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,23 +17,23 @@ import com.qa.portal.common.util.mapper.BaseMapper;
 @Service
 public class CohortService {
 
-	private QaCohortRepository repo;
+    private QaCohortRepository repo;
 
-	private BaseMapper mapper;
+    private BaseMapper mapper;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(CohortService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CohortService.class);
 
-	public CohortService(QaCohortRepository repo, BaseMapper mapper) {
-		super();
-		this.repo = repo;
-		this.mapper = mapper;
-	}
+    public CohortService(QaCohortRepository repo, BaseMapper mapper) {
+        super();
+        this.repo = repo;
+        this.mapper = mapper;
+    }
 
-	@Transactional
-	public List<QaUserDto> getTraineesForCohort(Integer id) {
-		QaCohortEntity cohort = this.repo.findById(id)
-				.orElseThrow(() -> new QaResourceNotFoundException("Cohort does not exist"));
-		return cohort.getTrainees().stream().map(this.mapper::mapToQaUserDto).collect(Collectors.toList());
-	}
+    @Transactional
+    public List<QaUserDto> getTraineesForCohort(Integer id) {
+        QaCohortEntity cohort = this.repo.findById(id)
+                .orElseThrow(() -> new QaResourceNotFoundException("Cohort does not exist"));
+        return cohort.getTrainees().stream().map(this.mapper::mapToQaUserDto).collect(Collectors.toList());
+    }
 
 }

@@ -27,74 +27,74 @@ public class ReflectionQuestionEntity extends QaBaseEntity {
 			allocationSize = 1)
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name = "reflection_id")
-	private ReflectionEntity reflection;
+    @ManyToOne
+    @JoinColumn(name = "reflection_id")
+    private ReflectionEntity reflection;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "question_id")
-	private QuestionEntity question;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_id")
+    private QuestionEntity question;
 
-	@Column(name = "response")
-	private Integer response;
+    @Column(name = "response")
+    private Integer response;
 
-	@Column(name = "trainer_response")
-	private Integer trainerResponse;
+    @Column(name = "trainer_response")
+    private Integer trainerResponse;
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public ReflectionEntity getReflection() {
-		return reflection;
-	}
+    public ReflectionEntity getReflection() {
+        return reflection;
+    }
 
-	public void setReflection(ReflectionEntity reflection) {
-		this.reflection = reflection;
-	}
+    public void setReflection(ReflectionEntity reflection) {
+        this.reflection = reflection;
+    }
 
-	public QuestionEntity getQuestion() {
-		return question;
-	}
+    public QuestionEntity getQuestion() {
+        return question;
+    }
 
-	public void setQuestion(QuestionEntity question) {
-		this.question = question;
-	}
+    public void setQuestion(QuestionEntity question) {
+        this.question = question;
+    }
 
-	public Integer getResponse() {
-		return response;
-	}
+    public Integer getResponse() {
+        return response;
+    }
 
-	public void setResponse(Integer response) {
-		this.response = response;
-	}
+    public void setResponse(Integer response) {
+        this.response = response;
+    }
 
-	public Integer getTrainerResponse() {
-		return trainerResponse;
-	}
+    public Integer getTrainerResponse() {
+        return trainerResponse;
+    }
 
-	public void setTrainerResponse(Integer trainerResponse) {
-		this.trainerResponse = trainerResponse;
-	}
+    public void setTrainerResponse(Integer trainerResponse) {
+        this.trainerResponse = trainerResponse;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		ReflectionQuestionEntity that = (ReflectionQuestionEntity) o;
-		return Objects.equals(id, that.id) &&
-				Objects.equals(reflection, that.reflection) &&
-				Objects.equals(question, that.question) &&
-				Objects.equals(response, that.response) &&
-				Objects.equals(trainerResponse, that.trainerResponse);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReflectionQuestionEntity that = (ReflectionQuestionEntity) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(reflection, that.reflection) &&
+                Objects.equals(question, that.question) &&
+                Objects.equals(response, that.response) &&
+                Objects.equals(trainerResponse, that.trainerResponse);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, question, response, trainerResponse);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, question, response, trainerResponse);
+    }
 }

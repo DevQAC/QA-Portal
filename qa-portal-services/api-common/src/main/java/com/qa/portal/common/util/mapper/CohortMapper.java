@@ -8,12 +8,12 @@ import com.qa.portal.common.persistence.entity.QaCohortEntity;
 
 @Component
 public class CohortMapper extends BaseMapper {
-	
-	public CohortMapper(DozerBeanMapper mapper) {
-		super(mapper);
-	}
 
-	public QaCohortDto mapToQaCohortDto(QaCohortEntity qaCohortEntity) {
-		return this.getMapper().map(qaCohortEntity, QaCohortDto.class);
-	}
+    public CohortMapper(DozerBeanMapper mapper) {
+        super(mapper);
+    }
+
+    public QaCohortDto mapToQaCohortDto(QaCohortEntity qaCohortEntity) {
+        return this.getMapper().map(qaCohortEntity, QaCohortDto.class);
+    }
 }

@@ -14,7 +14,7 @@ public class SqlTimestampInstantConverter extends DozerConverter<Timestamp, Inst
 
     @Override
     public Instant convertTo(Timestamp timestamp, Instant instant) {
-       return Optional.ofNullable(timestamp).map(t -> t.toInstant()).orElseGet(() -> null);
+        return Optional.ofNullable(timestamp).map(t -> t.toInstant()).orElseGet(() -> null);
     }
 
     @Override

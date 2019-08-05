@@ -7,7 +7,7 @@ public class DepartmentApplicationsDto {
 
     private DepartmentDto department;
 
-    private Set<ApplicationDto>  applications;
+    private Set<ApplicationDto> applications;
 
     public DepartmentApplicationsDto(DepartmentDto department, Set<ApplicationDto> applications) {
         this.department = department;

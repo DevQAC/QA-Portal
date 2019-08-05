@@ -1,30 +1,52 @@
-<div class='self-reflection-history' class="mat-elevation-z8">
-  <div class='reflection-history-heading'>
-    <h5 class='title'>
-      This Week:
-    </h5>
-  </div>
-  <table class="mat-elevation-z4">
-    <tr><td>Self Reflection Form:</td><td><a href=''>{{upcomingFriday | date : 'dd-MM-yyyy'}}</a></td></tr>
-  </table>
-
-  <div class='self-reflection-heading'>
-    <h5 class='title'>
-      Previous Weeks:
-    </h5>
-  </div>
-  <table mat-table [dataSource]='dataSource' class="mat-elevation-z8">
-
-    <ng-container matColumnDef='content'>
-      <mat-cell *matCellDef='let element'> {{element.content}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef='date'>
-      <mat-cell *matCellDef='let element'> <a href=''>{{element.date}}</a> </mat-cell>
-    </ng-container>
-
-    <tr mat-row *matRowDef='let row; columns: displayedColumns;'></tr>
-  </table>
-
-  <mat-paginator [pageSizeOptions]='[5,10,20]' showFirstLastButtons></mat-paginator>
+<div class="qa-app-title">
+  Trainee Self Reflection History
 </div>
+
+<div style="display: flex; justify-content: center">
+  <mat-spinner [diameter]="70" *ngIf="loadingData"></mat-spinner>
+</div>
+
+<mat-card *ngIf="!loadingData">
+  <mat-card-title style="text-align: center; background-color: lightgray; color: #0060B9;">
+    Self Reflection History
+  </mat-card-title>
+
+  <mat-card-subtitle style="color: #0060B9;">
+    Current Form
+  </mat-card-subtitle>
+
+  <mat-card-content>
+
+  </mat-card-content>
+
+
+  <mat-card-subtitle style="color: #0060B9;">
+    Reviewed Forms
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <div style="display: flex; justify-content: center">
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-width">
+
+        <ng-container matColumnDef="content">
+          <th mat-header-cell *matHeaderCellDef> Form Type</th>
+          <td mat-cell *matCellDef="let element">
+            Self Reflection Form {{element.id}}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Form Date</th>
+          <td mat-cell
+              *matCellDef="let element"> {{element.formDate}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="getReflectionUrl(row.id)">
+      </table>
+    </div>
+
+  </mat-card-content>
+
+</mat-card>

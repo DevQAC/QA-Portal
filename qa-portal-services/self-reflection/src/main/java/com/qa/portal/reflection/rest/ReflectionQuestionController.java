@@ -35,16 +35,17 @@ public class ReflectionQuestionController {
 		return this.service.getReflectionQuestionsByReflectionId(id);
 	}
 
-	@GetMapping("/questions")
-	public Set<QuestionDto> getReflectionQuestionsByCohort() {
-		return this.service.getReflectionQuestionsByCohort(securityContext.getCohorts()
-				.stream()
-				.findFirst()
-				.orElseThrow(() -> new QaResourceNotFoundException("No cohorts for user")));
-	}
-	@PutMapping
-	public Set<ReflectionQuestionDto> updateReflectionQuestions(@RequestBody Set<ReflectionQuestionDto> reflectionQuestions) {
-		return this.service.updateReflectionQuestions(reflectionQuestions);
-	}
+    @GetMapping("/questions")
+    public Set<QuestionDto> getReflectionQuestionsByCohort() {
+        return this.service.getReflectionQuestionsByCohort(securityContext.getCohorts()
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new QaResourceNotFoundException("No cohorts for user")));
+    }
+
+    @PutMapping
+    public Set<ReflectionQuestionDto> updateReflectionQuestions(@RequestBody Set<ReflectionQuestionDto> reflectionQuestions) {
+        return this.service.updateReflectionQuestions(reflectionQuestions);
+    }
 
 }

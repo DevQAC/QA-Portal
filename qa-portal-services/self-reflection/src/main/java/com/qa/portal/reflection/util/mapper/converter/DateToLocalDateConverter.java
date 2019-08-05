@@ -8,20 +8,20 @@ import org.dozer.DozerConverter;
 
 public class DateToLocalDateConverter extends DozerConverter<Date, LocalDate> {
 
-	public DateToLocalDateConverter() {
-		super(Date.class, LocalDate.class);
-	}
+    public DateToLocalDateConverter() {
+        super(Date.class, LocalDate.class);
+    }
 
-	@Override
-	public LocalDate convertTo(Date source, LocalDate destination) {
-		return Optional.ofNullable(source).map(Date::toLocalDate)
-				.orElseThrow(() -> new IllegalStateException("Unknown value"));
-	}
+    @Override
+    public LocalDate convertTo(Date source, LocalDate destination) {
+        return Optional.ofNullable(source).map(Date::toLocalDate)
+                .orElseThrow(() -> new IllegalStateException("Unknown value"));
+    }
 
-	@Override
-	public Date convertFrom(LocalDate source, Date destination) {
-		return Optional.ofNullable(source).map(s -> Date.valueOf(s))
-				.orElseThrow(() -> new IllegalStateException("Unknown value"));
-	}
+    @Override
+    public Date convertFrom(LocalDate source, Date destination) {
+        return Optional.ofNullable(source).map(s -> Date.valueOf(s))
+                .orElseThrow(() -> new IllegalStateException("Unknown value"));
+    }
 
 }

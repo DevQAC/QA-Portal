@@ -6,22 +6,22 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 @Entity
-@Table(schema="training", name="dept_role")
+@Table(schema = "training", name = "dept_role")
 public class DepartmentRoleEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE,
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "dept_role_sequence")
     @SequenceGenerator(name = "dept_role_sequence",
             sequenceName = "training.dept_role_sequence",
-            allocationSize=1)
+            allocationSize = 1)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="dept_id")
+    @JoinColumn(name = "dept_id")
     private DepartmentEntity department;
 
     @ManyToOne
-    @JoinColumn(name="role_id")
+    @JoinColumn(name = "role_id")
     private RoleEntity role;
 
     @OneToMany(mappedBy = "departmentRole")

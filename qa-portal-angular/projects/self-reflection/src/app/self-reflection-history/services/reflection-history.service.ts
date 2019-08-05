@@ -1,28 +1,18 @@
 import { Injectable } from '@angular/core';
-import {reflection} from '../models/reflections';
 import { HttpClient } from '@angular/common/http';
+import {GET_SELF_REFLECTIONS_FOR_TRAINEE_API} from "../../_common/models/trainee-reflection-constants";
+import {Observable} from "rxjs";
+import {SelfReflectionFormModel} from "../../_common/models/self-reflection-form-model";
 
-const reflections: reflection[] = [
-    {id:1, content:'Self Reflection Form', date: '19/07/2019'},
-    {id:2, content:'Self Reflection Form', date: '12/07/2019'},
-    {id:2, content:'Self Reflection Form', date: '12/07/2019'},
-    {id:1, content:'Self Reflection Form', date: '19/07/2019'},
-    {id:2, content:'Self Reflection Form', date: '12/07/2019'},
-    {id:2, content:'Self Reflection Form', date: '12/07/2019'},
-    {id:1, content:'Self Reflection Form', date: '19/07/2019'},
-    {id:2, content:'Self Reflection Form', date: '12/07/2019'},
-    {id:2, content:'Self Reflection Form', date: '12/07/2019'}
-]
 
-@Injectable({
-    providedIn: 'root'
-})
+
+@Injectable()
 export class ReflectionHistoryService {
 
     constructor(private http: HttpClient){}
 
-    public getTraineeReflections(): reflection[] {
-        return reflections;
+    public getTraineeReflections(): Observable<SelfReflectionFormModel[]> {
+        return this.http.get<SelfReflectionFormModel[]>(GET_SELF_REFLECTIONS_FOR_TRAINEE_API);
     }
 
 }

@@ -10,6 +10,8 @@ public class ReflectionQuestionDto extends QaBaseDto {
 
 	private ReflectionDto reflection;
 
+	private Integer reflectionId;
+
 	private QuestionDto question;
 
 	private Integer response;
@@ -57,32 +59,40 @@ public class ReflectionQuestionDto extends QaBaseDto {
 		this.trainerResponse = trainerResponse;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		ReflectionQuestionDto that = (ReflectionQuestionDto) o;
-		return Objects.equals(id, that.id) &&
-				Objects.equals(reflection, that.reflection) &&
-				Objects.equals(question, that.question) &&
-				Objects.equals(response, that.response) &&
-				Objects.equals(trainerResponse, that.trainerResponse);
+	public Integer getReflectionId() {
+		return reflectionId;
+	}
+
+	public void setReflectionId(Integer reflectionId) {
+		this.reflectionId = reflectionId;
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(id, question, response, trainerResponse);
-	}
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReflectionQuestionDto that = (ReflectionQuestionDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(reflection, that.reflection) &&
+                Objects.equals(question, that.question) &&
+                Objects.equals(response, that.response) &&
+                Objects.equals(trainerResponse, that.trainerResponse);
+    }
 
-	@Override
-	public String toString() {
-		return "ReflectionQuestionDto{" +
-				"id=" + id +
-				", question=" + question +
-				", response=" + response +
-				", trainerResponse=" + trainerResponse +
-				", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
-				", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-				'}';
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, question, response, trainerResponse);
+    }
+
+    @Override
+    public String toString() {
+        return "ReflectionQuestionDto{" +
+                "id=" + id +
+                ", question=" + question +
+                ", response=" + response +
+                ", trainerResponse=" + trainerResponse +
+                ", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
+                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
+                '}';
+    }
 }
