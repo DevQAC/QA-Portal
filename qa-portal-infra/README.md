@@ -33,7 +33,23 @@ c) Press the Import button
 d) Once the import has completed, the qa-portal realm should be available (drop down at top left of side navigation on the 
 admin page. Should also have a master realm available which is created by default)
 
-**Step4 - Create a user**
+**Step4 - Create users**
+
+This is currently a manual step, but the intention is to migrate to a Postgres DB for storing keycloak data, which should enable loading of users from exported database file. For now, the following users will have to be created manually through the keycloak admin console
+
+admin1@qa.com assign role training-admin
+
+trainer1@qa.com  assign roles training-manager, Cohort_CI_Intake_1 and Cohort_CI_Intake_2
+trainer2@qa.com  assign roles training-manager, Cohort_Java_Intake_1 and Cohort_Java_Intake_2
+trainer3@qa.com  assign roles training-manager and Cohort_Scala_Intake_1)
+
+trainee1@qa.com ... trainee5:qa.com assign roles training-user and Cohort_CI_Intake_1
+trainee6@qa.com ... trainee10@qa.com assign roles training-user and Cohort_CI_Intake_2
+trainee11@qa.com ... trainee15@qa.com assign roles training-user and Cohort_Java_Intake_1
+trainee16@qa.com ... trainee20@qa.com assign roles training-user and Cohort_Java_Intake_2​
+trainee21@qa.com ... trainee25@qa.com assign roles training-user and Cohort_Scala_Intake_1)
+
+The following details how to create a user and add roles in the keucloak admin console
 
 a) After selecting the qa-portal realm, select the Users option
 
@@ -64,21 +80,4 @@ Once downloaded, run the installer, supplying admin user and password (postgres 
 
 Open pgadmin and from the browser right click on Databases and select Create --> Database. Enter the database name as qa-portal and Save
 
-
-**Step3 - Create schema and tables**
-
-Create the schema for the qa-portal database by running the training-schema.ddl file from the qa-portal-infra/postgres folder
-
-
-**Step4 - Populate tables**
-
-Run the insert scripts from the qa-portal-infra/postgres folder as follows
-
-application-inserts.sql<br>
-department-inserts.sql<br>
-role-inserts.sql<br>
-app_menu_item-inserts.sql<br>
-dept_role-inserts.sql<br>
-dept_role_application-inserts.sql<br>
-self_rating_question-inserts.sql<br>
-self_reflection_status-inserts.sql
+The schema and tables will be created when the core-api project in the qa-portal-services folder is run (This is done by a library called Flyway)
