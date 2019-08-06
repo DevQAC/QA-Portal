@@ -10,7 +10,7 @@
         Cohorts
       </mat-panel-title>
       <mat-panel-description>
-        Select a cohort to display the trainees
+        Select a cohort to display the trainees with reflections for review
       </mat-panel-description>
     </mat-expansion-panel-header>
 
@@ -25,7 +25,7 @@
       <ng-container matColumnDef='startDate'>
         <th mat-header-cell *matHeaderCellDef> Cohort Start Date</th>
         <td mat-cell *matCellDef="let element">
-          TBC
+          {{element.startDate}}
         </td>
       </ng-container>
 
@@ -38,8 +38,12 @@
   </div>
 
   <mat-card *ngIf="!!cohortSelected">
-    <mat-card-subtitle style="background-color: lightgrey; color: #0060B9; margin-bottom: 10px;">
-      Trainees for {{ cohortSelected }}
+    <mat-card-subtitle *ngIf="dataSourceTrainees.data.length > 0" style="background-color: lightgrey; color: #0060B9; margin-bottom: 10px;">
+      <span style="margin-left: 5px;">{{ cohortSelected }} has the following trainees with a reflection for review</span>
+    </mat-card-subtitle>
+
+    <mat-card-subtitle *ngIf="dataSourceTrainees.data.length === 0" style="background-color: lightgrey; color: #0060B9; margin-bottom: 10px;">
+      <span style="margin-left: 5px;">No Trainees in {{ cohortSelected }} with a reflection for review</span>
     </mat-card-subtitle>
 
     <mat-card-content>

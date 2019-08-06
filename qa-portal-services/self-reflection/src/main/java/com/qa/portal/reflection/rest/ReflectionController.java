@@ -1,5 +1,6 @@
 package com.qa.portal.reflection.rest;
 
+import com.qa.portal.common.dto.QaUserDto;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.reflection.dto.CohortSummaryDto;
 import com.qa.portal.reflection.dto.ReflectionDto;
@@ -79,5 +80,10 @@ public class ReflectionController {
 	public ResponseEntity<ReflectionDto> updateSelfReflection(@RequestBody ReflectionDto reflection) {
 		return ResponseEntity.ok(this.service.updateSelfReflection(reflection, context.getUserName()));
 	}
+
+    @GetMapping("/cohort/trainees/review/{id}")
+    public ResponseEntity<List<QaUserDto>> getTraineesToReviewForCohort(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(this.service.getTraineesToReviewForCohort(id));
+    }
 
 }
