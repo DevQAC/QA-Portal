@@ -28,6 +28,11 @@
     </mapping>
 
     <mapping>
+        <class-a>com.qa.portal.common.dto.QaCohortDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.QaCohortEntity</class-b>
+    </mapping>
+
+    <mapping>
         <class-a>com.qa.portal.reflection.dto.ReflectionQuestionDto</class-a>
         <class-b>com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity</class-b>
         <field-exclude>

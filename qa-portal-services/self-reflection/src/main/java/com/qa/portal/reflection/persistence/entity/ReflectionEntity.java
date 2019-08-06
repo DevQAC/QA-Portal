@@ -64,6 +64,19 @@ public class ReflectionEntity extends QaBaseEntity {
     @Column(name = "threats")
     private String threats;
 
+    @Column(name = "status")
+    private String status;
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
     public Integer getId() {
         return id;
     }
@@ -153,31 +166,31 @@ public class ReflectionEntity extends QaBaseEntity {
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
-        ReflectionEntity that = (ReflectionEntity) object;
-        return java.util.Objects.equals(id, that.id) &&
-                java.util.Objects.equals(reflectionQuestions, that.reflectionQuestions) &&
-                java.util.Objects.equals(reviewer, that.reviewer) &&
-                java.util.Objects.equals(responder, that.responder) &&
-                java.util.Objects.equals(formDate, that.formDate) &&
-                java.util.Objects.equals(trainerFeedback, that.trainerFeedback) &&
-                java.util.Objects.equals(learningPathway, that.learningPathway) &&
-                java.util.Objects.equals(strengths, that.strengths) &&
-                java.util.Objects.equals(weaknesses, that.weaknesses) &&
-                java.util.Objects.equals(opportunities, that.opportunities) &&
-                java.util.Objects.equals(threats, that.threats);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReflectionEntity that = (ReflectionEntity) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(reflectionQuestions, that.reflectionQuestions) &&
+                Objects.equals(reviewer, that.reviewer) &&
+                Objects.equals(responder, that.responder) &&
+                Objects.equals(formDate, that.formDate) &&
+                Objects.equals(trainerFeedback, that.trainerFeedback) &&
+                Objects.equals(learningPathway, that.learningPathway) &&
+                Objects.equals(strengths, that.strengths) &&
+                Objects.equals(weaknesses, that.weaknesses) &&
+                Objects.equals(opportunities, that.opportunities) &&
+                Objects.equals(threats, that.threats) &&
+                Objects.equals(status, that.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, reflectionQuestions, reviewer, responder, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats);
+        return Objects.hash(id, reflectionQuestions, reviewer, responder, formDate, trainerFeedback, learningPathway, strengths, weaknesses, opportunities, threats, status);
     }
 
     @Override
-    public java.lang.String toString() {
+    public String toString() {
         return "ReflectionEntity{" +
                 "id=" + id +
                 ", reflectionQuestions=" + reflectionQuestions +
@@ -190,6 +203,7 @@ public class ReflectionEntity extends QaBaseEntity {
                 ", weaknesses='" + weaknesses + '\'' +
                 ", opportunities='" + opportunities + '\'' +
                 ", threats='" + threats + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

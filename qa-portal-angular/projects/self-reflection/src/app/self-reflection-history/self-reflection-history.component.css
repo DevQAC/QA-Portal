@@ -27,5 +27,4 @@ mat-cell.cdk-column-date{
 .data-row:hover{
   filter: brightness(95%);
   cursor: pointer;
-
 }

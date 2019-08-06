@@ -1,8 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Trainees} from './trainees';
 import {QaCohortModel} from './models/qa-cohort.model';
-import {Subscription} from 'rxjs';
+import {TraineeModel} from './models/trainee.model';
+import {Subscription, Observable} from 'rxjs';
+import {CohortTraineesService} from './services/cohort-trainees.service';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-cohort-trainees',
@@ -10,32 +13,44 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./cohort-trainees.component.css']
 })
 export class CohortTraineesComponent implements OnInit, OnDestroy {
-  cohorts: any[] = [];
-  trainees = Trainees;
-  subscription: Subscription;
+  cohorts: QaCohortModel[];
+  trainees: TraineeModel[];
+  cohortColumns: string[] = ['name', 'startDate'];
+  traineeColumns: string[] = ['userName', 'firstName', 'lastName'];
+  subscriptionCohorts: Subscription;
+  subscriptionTrainees: Subscription;
+  cohortSelected = false;
+  dataSource = new MatTableDataSource<QaCohortModel>(this.cohorts);
+  dataSourceTrainees = new MatTableDataSource<TraineeModel>(this.trainees);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cohortTraineesService: CohortTraineesService) {
   }
 
   ngOnInit() {
-    this.subscription = this.getCohorts();
+    this.subscriptionCohorts = this.cohortTraineesService.getCohorts()
+      .subscribe((data) => {
+          this.dataSource = new MatTableDataSource<QaCohortModel>(data);
+          this.dataSourceTrainees = new MatTableDataSource<TraineeModel>([]);
+        }
+      );
+  }
 
-    this.http.get<QaCohortModel[]>('user-api/user/cohorts/15').subscribe(
-      data => console.log(data)
+  updateTraineesTable(row) {
+    this.cohortSelected = row.name;
+    this.subscriptionTrainees = this.cohortTraineesService.getTraineesForReview(row.id).subscribe(
+      (data) => {
+        console.log('In update trainees table');
+        this.dataSourceTrainees = new MatTableDataSource<TraineeModel>(data);
+        this.subscriptionTrainees.unsubscribe();
+      }
     );
+  }
+
+  reviewReflectionForm(formId: string) {
+    return '/qa/portal/training/trainer/selfreflection/' + formId;
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptionCohorts.unsubscribe();
   }
-
-  getCohorts() {
-    return this.http.get('user-api/user/cohorts/15').subscribe(
-      (data) => console.log(data)
-    );
-  }
-
-  // getTrainees() {
-  //  return this.http.get('assets/trainees.json');
-  // }
 }

@@ -1,9 +1,14 @@
 package com.qa.portal.common.dto;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 public class QaCohortDto extends QaBaseDto {
     private Integer id;
 
     private String name;
+
+    private LocalDate startDate;
 
     public Integer getId() {
         return id;
@@ -21,40 +26,35 @@ public class QaCohortDto extends QaBaseDto {
         this.name = name;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        QaCohortDto other = (QaCohortDto) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QaCohortDto that = (QaCohortDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(startDate, that.startDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, startDate);
     }
 
     @Override
     public String toString() {
-        return "QaCohortDto [id=" + id + ", name=" + name + "]";
+        return "QaCohortDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", startDate=" + startDate +
+                '}';
     }
-
 }

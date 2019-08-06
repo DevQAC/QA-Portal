@@ -50,7 +50,6 @@ public class ReflectionMapper {
 
     public ReflectionEntity mapToReflectionEntity(ReflectionDto dto, String userName) {
         ReflectionEntity reflectionEntity = mapper.map(dto, ReflectionEntity.class);
-        reflectionEntity.setFormDate(Date.valueOf(LocalDate.now()));
         reflectionEntity.setReflectionQuestions(dto.getReflectionQuestions().stream()
                 .map(reflectionQuestionDto -> createReflectionQuestionEntity(reflectionQuestionDto, reflectionEntity))
                 .collect(Collectors.toSet()));

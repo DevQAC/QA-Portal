@@ -1,17 +1,19 @@
 package com.qa.portal.reflection.service;
 
+import com.qa.portal.common.dto.QaUserDto;
+import com.qa.portal.reflection.dto.CohortSummaryDto;
+import com.qa.portal.reflection.dto.ReflectionDto;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.qa.portal.reflection.dto.CohortSummaryDto;
-import com.qa.portal.reflection.dto.ReflectionDto;
-
 @Service
 public class ReflectionService {
+
+    private GetTraineesForReviewOperation getTraineesForReviewOperation;
 
     private GetSelfReflectionOperation getSelfReflectionOperation;
 
@@ -23,11 +25,13 @@ public class ReflectionService {
 
     private GetCohortSummaryOperation getCohortSummaryOperation;
 
-    public ReflectionService(GetSelfReflectionOperation getSelfReflectionOperation,
+    public ReflectionService(GetTraineesForReviewOperation getTraineesForReviewOperation,
+            GetSelfReflectionOperation getSelfReflectionOperation,
             GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation,
             CreateSelfReflectionOperation createSelfReflectionOperation,
             UpdateSelfReflectionOperation updateSelfReflectionOperation,
             GetCohortSummaryOperation getCohortSummaryOperation) {
+        this.getTraineesForReviewOperation = getTraineesForReviewOperation;
         this.getSelfReflectionOperation = getSelfReflectionOperation;
         this.getSelfReflectionsForUserOperation = getSelfReflectionsForUserOperation;
         this.createSelfReflectionOperation = createSelfReflectionOperation;
@@ -59,6 +63,10 @@ public class ReflectionService {
     public ReflectionDto getSelfReflection(String userId, LocalDate date) {
         return this.getSelfReflectionOperation.getSelfReflectionByUserAndDate(userId, date);
     }
+    @Transactional
+    public ReflectionDto getSelfReflection(String userId, String status) {
+        return this.getSelfReflectionOperation.getSelfReflectionByUserAndStatus(userId, status);
+    }
 
     @Transactional
     public ReflectionDto createSelfReflection(ReflectionDto reflectionDto, String userName) {
@@ -73,5 +81,10 @@ public class ReflectionService {
     @Transactional
     public List<CohortSummaryDto> getCohortSummaryDto() {
         return this.getCohortSummaryOperation.getCohortSummary();
+    }
+
+    @Transactional
+    public List<QaUserDto> getTraineesToReviewForCohort(Integer cohortId) {
+        return this.getTraineesForReviewOperation.getTraineesToReviewForCohort(cohortId);
     }
 }
