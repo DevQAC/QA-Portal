@@ -66,6 +66,8 @@ export class ReflectionModel extends BaseModel {
       }
     });
 
+    console.log('Reflection questions are ');
+    console.log(reflectionQuestions);
     reflection.reflectionQuestions = reflectionQuestions;
   }
 }

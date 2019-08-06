@@ -215,6 +215,10 @@ input[type=number].response::-webkit-outer-spin-button {
   margin: 0;
 }
 
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 input.response:focus {
   outline: none;
 }
@@ -224,6 +228,10 @@ input.response:focus {
 .grid-container .author-container {
   /* .grid-container .response-container { */
   border-right: 1px solid lightgray;
+}
+
+.response-container {
+  flex-direction: column;
 }
 
 /*
@@ -256,7 +264,7 @@ input.response:focus {
 }
 
 .reflection-dates {
-  left: -100px;
+  right: -120px;
 }
 
 .trainer-names {

@@ -97,7 +97,7 @@ public class ReflectionQuestionServiceTest {
 		when(reflectionQuestionRepo.findByReflectionId(anyInt())).thenReturn(Set.of(reflectionQuestionEntity));
 		when(reflectionQuestionMapper.mapToReflectionQuestionEntity(reflectionQuestionDto)).thenReturn(reflectionQuestionEntity);
 		when(reflectionQuestionRepo.save(reflectionQuestionEntity)).thenReturn(savedReflectionQuestionEntity);
-		when(cohortRepo.findByname(anyString())).thenReturn(Optional.of(cohortEntity));
+		when(cohortRepo.findByName(anyString())).thenReturn(Optional.of(cohortEntity));
 		when(cohortQuestionRepo.findByCohort(cohortEntity)).thenReturn(Set.of(cohortQuestionEntity));
 	}
 
@@ -113,7 +113,7 @@ public class ReflectionQuestionServiceTest {
 	}
 	
 	private void checkPostConditionsReflectionQuestionsByCohort() {
-		verify(cohortRepo).findByname(anyString());
+		verify(cohortRepo).findByName(anyString());
 		verify(cohortQuestionRepo).findByCohort(cohortEntity);
 	}
 	

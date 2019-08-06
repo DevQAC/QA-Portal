@@ -1,19 +1,5 @@
 package com.qa.portal.reflection.service;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Stream;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
@@ -21,18 +7,36 @@ import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 import com.qa.portal.reflection.persistence.repository.ReflectionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionMapper;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Optional;
+import java.util.Set;
+
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GetSelfReflectionsForUserOperationTest {
 
 	@Mock
-	private ReflectionDto reflectionDto;
+	private ReflectionDto reflectionDto1;
+
+	@Mock
+	private ReflectionDto reflectionDto2;
 
 	@Mock
 	private Set<ReflectionEntity> reflectionEntities;
 	
 	@Mock
-	private ReflectionEntity re1, re2;
+	private ReflectionEntity re1;
+
+	@Mock
+	private ReflectionEntity re2;
 	
 	@Mock
 	private ReflectionMapper reflectionMapper;
@@ -71,11 +75,16 @@ public class GetSelfReflectionsForUserOperationTest {
 	
 	@Test(expected = QaResourceNotFoundException.class)
 	public void getSelfReflectionsUserNotFound() {
+		setPreConditions();
 		operation.getSelfReflectionsForTrainee(UNKNOWN_NAME);
 	}
 	
 	private void setPreConditions() {
 		reflectionEntities = Set.of(re1, re2);
+		when(reflectionDto1.getFormDate()).thenReturn(LocalDate.now());
+		when(reflectionDto2.getFormDate()).thenReturn(LocalDate.now());
+		when(reflectionMapper.mapToReflectionDto(re1)).thenReturn(reflectionDto1);
+		when(reflectionMapper.mapToReflectionDto(re2)).thenReturn(reflectionDto2);
 		when(traineeEntity.getId()).thenReturn(TRAINEE_ID);
 		when(traineeRepository.findByUserName(USER_NAME)).thenReturn(Optional.of(traineeEntity));
 		when(reflectionRepository.findByResponderId(TRAINEE_ID)).thenReturn(reflectionEntities);

@@ -13,6 +13,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import com.qa.portal.reflection.dto.ReflectionDto;
 
+import java.time.LocalDate;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ReflectionServiceTest {
 	
@@ -48,7 +50,7 @@ public class ReflectionServiceTest {
 		service.getSelfReflectionsForTrainer(anyString());
 		service.getSelfReflectionsForTrainee(anyInt());
 		service.getSelfReflection(anyInt());
-		service.getSelfReflection(anyString(), any());
+		service.getSelfReflection("TEST_STRING", LocalDate.now());
 		service.createSelfReflection(any(), anyString());
 		service.updateSelfReflection(any(), anyString());
 		service.getCohortSummaryDto();
@@ -59,7 +61,7 @@ public class ReflectionServiceTest {
 		verify(getSelfReflectionsForUserOperation).getSelfReflectionsForTrainer(anyString());
 		verify(getSelfReflectionsForUserOperation).getSelfReflectionsForUser(anyInt());
 		verify(getSelfReflectionOperation).getSelfReflectionById(anyInt());
-		verify(getSelfReflectionOperation).getSelfReflectionByUserAndDate(anyString(), any());
+		verify(getSelfReflectionOperation).getSelfReflectionByUserAndDate(anyString(), any(LocalDate.class));
 		verify(createSelfReflectionOperation).createSelfReflection(any(), anyString());
 		verify(updateSelfReflectionOperation).updateSelfReflection(any(), anyString());
 		verify(getCohortSummaryOperation).getCohortSummary();
