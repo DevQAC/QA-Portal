@@ -36,8 +36,8 @@
         <class-a>com.qa.portal.reflection.dto.ReflectionQuestionDto</class-a>
         <class-b>com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity</class-b>
         <field-exclude>
-            <a>reflection</a>
-            <b>reflection</b>
+             <a>reflection</a>
+             <b>reflection</b> 
         </field-exclude>
     </mapping>
 

@@ -1,4 +1,4 @@
-package com.qa.portal.common.services;
+package com.qa.portal.user.services;
 
 import java.util.List;
 import java.util.stream.Collectors;

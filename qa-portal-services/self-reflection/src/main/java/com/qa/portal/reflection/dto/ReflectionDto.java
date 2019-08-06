@@ -33,7 +33,7 @@ public class ReflectionDto extends QaBaseDto {
 
     private String status;
 
-    private Set<ReflectionQuestionDto> reflectionQuestions = new HashSet<ReflectionQuestionDto>();
+    private Set<ReflectionQuestionDto> reflectionQuestions;
 
     public Integer getId() {
         return id;
@@ -50,7 +50,6 @@ public class ReflectionDto extends QaBaseDto {
     public LocalDate getFormDate() {
         return formDate;
     }
-
 
     public String getLearningPathway() {
         return learningPathway;

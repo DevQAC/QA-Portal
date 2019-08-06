@@ -1,31 +1,71 @@
 <div class="qa-app-title">
   Trainer - Cohort Trainees
 </div>
+
 <div class='cohort-trainees'>
-  <div class='self-reflection-heading'>
-    <span class='cohort-trainees-name'> Cohort Name </span> &nbsp; <span class='cohort-trainees-number'> Cohort
-      Number
-    </span> &nbsp;
-  </div>
-  <span class='cohort-trainees-pleaseselect'>Please Select a trainee:</span>
-  <div class='cohort-trainees-grid-container'>
-    <table class='table table-striped'>
-      <thead class='thead-light'>
-      <tr class='cohort-trainees-tableheader'>
-        <td>#</td>
-        <td>first name</td>
-        <td>last name</td>
-      </tr>
-      </thead>
 
-      <tbody>
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Cohorts
+      </mat-panel-title>
+      <mat-panel-description>
+        Select a cohort to display the trainees
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-      <tr *ngFor='let trainee of trainees' class='cohort-trainees-tablerow'>
-        <th scope='row'>{{trainee.id}}</th>
-        <td>{{ trainee.firstname }}</td>
-        <td>{{ trainee.lastname }}</td>
-      </tr>
-      </tbody>
+    <table mat-table [dataSource]='dataSource' class="mat-elevation-z8">
+      <ng-container matColumnDef='name'>
+        <th mat-header-cell *matHeaderCellDef> Cohort Name</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.name}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef='startDate'>
+        <th mat-header-cell *matHeaderCellDef> Cohort Start Date</th>
+        <td mat-cell *matCellDef="let element">
+          TBC
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="cohortColumns"></tr>
+      <tr  class="cohort-row" mat-row *matRowDef='let row; columns: cohortColumns;' (click)='updateTraineesTable(row)'></tr>
     </table>
+  </mat-expansion-panel>
+
+  <div style="margin-bottom: 20px;">
   </div>
+
+  <mat-card *ngIf="!!cohortSelected">
+    <mat-card-subtitle style="background-color: lightgrey; color: #0060B9; margin-bottom: 10px;">
+      Trainees for {{ cohortSelected }}
+    </mat-card-subtitle>
+
+    <mat-card-content>
+      <table mat-table [dataSource]='dataSourceTrainees' class="mat-elevation-z8">
+        <ng-container matColumnDef='userName'>
+          <th mat-header-cell *matHeaderCellDef> User name</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.userName}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef='firstName'>
+          <th mat-header-cell *matHeaderCellDef> Forename</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.firstName}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef='lastName'>
+          <th mat-header-cell *matHeaderCellDef> Surname</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.lastName}}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="traineeColumns"></tr>
+        <tr class="trainee-row" mat-row *matRowDef="let row; columns: traineeColumns;" [routerLink]="reviewReflectionForm(row.id)"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
 </div>

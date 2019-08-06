@@ -69,12 +69,22 @@ public class ReflectionQuestionService {
                 .collect(Collectors.toSet());
     }
 
-    public Set<QuestionDto> getReflectionQuestionsByCohort(String cohortName) {
-        LOGGER.info("Cohort name" + cohortName);
-        return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByName(cohortName).orElseThrow(
-                () -> new QaResourceNotFoundException("Cohort not found for supplied name")))
-                .stream()
-                .map((e) -> reflectionQuestionMapper.mapToQuestionDto(e.getQuestion()))
-                .collect(Collectors.toSet());
-    }
+	@Transactional
+	public Set<QuestionDto> getReflectionQuestionsByCohort(String cohortName){
+		LOGGER.info("Cohort name" + cohortName);
+		return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByname(cohortName).orElseThrow(
+				()-> new QaResourceNotFoundException("Cohort not found for supplied name")))
+				.stream()
+				.map((e) -> reflectionQuestionMapper.mapToQuestionDto(e.getQuestion()))
+				.collect(Collectors.toSet());
+	}
+
+	@Transactional
+	public Set<ReflectionQuestionDto> createReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
+		return reflectionQuestions.stream().map(rqdto ->
+					this.reflectionQuestionMapper
+					.mapToReflectionQuestionDto(this.reflectionQuestionRepo
+							.save(this.reflectionQuestionMapper.mapToReflectionQuestionEntity(rqdto)))
+				).collect(Collectors.toSet());
+	}
 }

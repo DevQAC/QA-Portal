@@ -40,7 +40,6 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
     this.currentReflectionSubscription.unsubscribe();
   }
 
-
   private populateSelfReflectionForm(formId: string): void {
     this.currentReflectionSubscription = this.selfReflectionFormService.getSelfReflectionForm(formId).subscribe(
       (response) => {
@@ -55,8 +54,7 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
         this.errorHandlerService.handleError(error);
       });
   }
-
-
+  
   updateForm() {
     this.selfReflectionFormService.updateSelfReflectionForm(this.selfReflectionViewModel.selfReflectionForm)
       .subscribe(
@@ -99,8 +97,5 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
     } else {
       this.updateForm();
     }
-
   }
-
-
 }

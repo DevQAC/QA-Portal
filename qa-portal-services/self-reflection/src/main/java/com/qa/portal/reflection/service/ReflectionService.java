@@ -28,12 +28,11 @@ public class ReflectionService {
 
     private GetCohortSummaryOperation getCohortSummaryOperation;
 
-    public ReflectionService(QaCohortRepository cohortRepo,
-                             GetSelfReflectionOperation getSelfReflectionOperation,
-                             GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation,
-                             CreateSelfReflectionOperation createSelfReflectionOperation,
-                             UpdateSelfReflectionOperation updateSelfReflectionOperation,
-                             GetCohortSummaryOperation getCohortSummaryOperation) {
+    public ReflectionService(QaCohortRepository cohortRepo, GetSelfReflectionOperation getSelfReflectionOperation,
+            GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation,
+            CreateSelfReflectionOperation createSelfReflectionOperation,
+            UpdateSelfReflectionOperation updateSelfReflectionOperation,
+            GetCohortSummaryOperation getCohortSummaryOperation) {
         this.cohortRepo = cohortRepo;
         this.getSelfReflectionOperation = getSelfReflectionOperation;
         this.getSelfReflectionsForUserOperation = getSelfReflectionsForUserOperation;
@@ -75,7 +74,6 @@ public class ReflectionService {
     public ReflectionDto createSelfReflection(ReflectionDto reflectionDto, String userName) {
         return this.createSelfReflectionOperation.createSelfReflection(reflectionDto, userName);
     }
-
 
     @Transactional
     public ReflectionDto updateSelfReflection(ReflectionDto reflectionDto, String userName) {

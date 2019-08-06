@@ -1,4 +1,4 @@
-package com.qa.portal.common.rest;
+package com.qa.portal.user.rest;
 
 import java.util.List;
 
@@ -22,10 +22,9 @@ public class CohortController {
 
     public CohortController(CohortService service, QaSecurityContext qaSecurityContext) {
         this.service = service;
-        this.qaSecurityContext = qaSecurityContext;
     }
 
-    @GetMapping("/cohort/getTrainees/{id}")
+    @GetMapping("/cohort/trainees/{id}")
     public ResponseEntity<List<QaUserDto>> getTraineesForCohort(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.service.getTraineesForCohort(id));
     }

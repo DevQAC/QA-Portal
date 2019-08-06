@@ -15,15 +15,15 @@ import com.qa.portal.reflection.service.QuestionService;
 @RequestMapping("/question")
 public class QuestionController {
 
-    private QuestionService service;
+	private QuestionService service;
 
-    public QuestionController(QuestionService service) {
-        super();
-        this.service = service;
-    }
+	public QuestionController(QuestionService service) {
+		super();
+		this.service = service;
+	}
 
-    @GetMapping("/cohort/{id}")
-    public ResponseEntity<Set<QuestionDto>> getQuestionsForCohort(@PathVariable("id") Integer cohortId) {
-        return ResponseEntity.ok(service.getQuestionsForCohort(cohortId));
-    }
+	@GetMapping("/cohort/{id}")
+	public ResponseEntity<Set<QuestionDto>> getQuestionsForCohort(@PathVariable("id") Integer cohortId) {
+		return ResponseEntity.ok(service.getQuestionsForCohort(cohortId));
+	}
 }

@@ -6,6 +6,7 @@ import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.service.ReflectionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +24,11 @@ public class ReflectionController {
 
     private QaSecurityContext context;
 
-    public ReflectionController(ReflectionService service, QaSecurityContext context) {
-        this.service = service;
-        this.context = context;
-    }
+	@Autowired
+	public ReflectionController(ReflectionService service, QaSecurityContext context) {
+		this.service = service;
+		this.context = context;
+	}
 
     @GetMapping("/summary")
     public ResponseEntity<List<CohortSummaryDto>> getCohortSummaryDto() {
@@ -58,27 +60,24 @@ public class ReflectionController {
         return ResponseEntity.ok(this.service.getSelfReflection(id));
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<ReflectionDto> getSelfReflectionByDate(@RequestBody LocalDate date) {
         return ResponseEntity.ok(this.service.getSelfReflection(context.getUserName(), date));
     }
+
+	@PostMapping
+	public ResponseEntity<ReflectionDto> createSelfReflection(@RequestBody ReflectionDto reflection) {
+    	return ResponseEntity.ok(this.service.createSelfReflection(reflection, context.getUserName()));
+	}
 
     @GetMapping("/trainee/status/{status}")
     public ResponseEntity<ReflectionDto> getSelfReflectionByStatus(@PathVariable String status) {
         return ResponseEntity.ok(this.service.getSelfReflection(context.getUserName(), status));
     }
 
-    @PostMapping
-    public ResponseEntity<ReflectionDto> createSelfReflection(@RequestBody ReflectionDto reflection) {
-        LOGGER.info("Reflection Dto Questions");
-        reflection.getReflectionQuestions().stream()
-                .forEach(q -> LOGGER.info(q.toString()));
-        return ResponseEntity.ok(this.service.createSelfReflection(reflection, context.getUserName()));
-    }
-
-    @PutMapping
-    public ResponseEntity<ReflectionDto> updateSelfReflection(@RequestBody ReflectionDto reflection) {
-        return ResponseEntity.ok(this.service.updateSelfReflection(reflection, context.getUserName()));
-    }
+	@PutMapping()
+	public ResponseEntity<ReflectionDto> updateSelfReflection(@RequestBody ReflectionDto reflection) {
+		return ResponseEntity.ok(this.service.updateSelfReflection(reflection, context.getUserName()));
+	}
 
 }
