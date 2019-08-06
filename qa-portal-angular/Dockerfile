@@ -1,4 +1,4 @@
-FROM node:10-alpine as build
+FROM node:10 as build
 RUN NG_CLI_ANALYTICS=ci npm install -g @angular/cli
 WORKDIR /build
 COPY . .
