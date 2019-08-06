@@ -3,6 +3,7 @@ package com.qa.portal.user.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.qa.portal.common.dto.QaCohortDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,12 @@ public class CohortService {
         QaCohortEntity cohort = this.repo.findById(id)
                 .orElseThrow(() -> new QaResourceNotFoundException("Cohort does not exist"));
         return cohort.getTrainees().stream().map(this.mapper::mapToQaUserDto).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public QaCohortDto getCohortByName(String name) {
+        return mapper.mapObject(this.repo.findByName(name)
+                .orElseThrow(() -> new QaResourceNotFoundException("Cohort with that name does not exist")), QaCohortDto.class);
     }
 
 }
