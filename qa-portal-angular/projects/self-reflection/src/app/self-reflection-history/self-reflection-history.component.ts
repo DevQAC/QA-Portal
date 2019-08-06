@@ -14,7 +14,7 @@ import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/ser
 })
 export class SelfReflectionHistoryComponent implements OnInit, OnDestroy {
   historyViewModel = new SelfReflectionHistoryModel();
-  displayedColumns: string[] = ['content', 'date'];
+  displayedColumns: string[] = ['content', 'date', 'status'];
   dataSource: MatTableDataSource<SelfReflectionFormModel>;
   currentFormDateSource: MatTableDataSource<SelfReflectionFormModel>;
   currentForm: SelfReflectionFormModel[];

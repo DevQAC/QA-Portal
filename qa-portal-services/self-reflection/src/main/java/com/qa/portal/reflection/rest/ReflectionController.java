@@ -36,7 +36,7 @@ public class ReflectionController {
     }
 
     @GetMapping("/trainee")
-    public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsForTrainee() {
+    public ResponseEntity<List<ReflectionDto>> getSelfReflectionsForTrainee() {
         return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(context.getUserName()));
     }
 
@@ -46,7 +46,7 @@ public class ReflectionController {
     }
 
     @GetMapping("trainee/username/{userName}")
-    public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsByTraineeUserName(@PathVariable String userName) {
+    public ResponseEntity<List<ReflectionDto>> getSelfReflectionsByTraineeUserName(@PathVariable String userName) {
         return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(userName));
     }
 

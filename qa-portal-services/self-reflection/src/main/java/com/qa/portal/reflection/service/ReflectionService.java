@@ -42,7 +42,7 @@ public class ReflectionService {
     }
 
     @Transactional
-    public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
+    public List<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
         return this.getSelfReflectionsForUserOperation.getSelfReflectionsForTrainee(userName);
     }
 

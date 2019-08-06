@@ -16,22 +16,32 @@
   </mat-card-subtitle>
 
   <mat-card-content>
-    <table mat-table [dataSource]="currentFormDateSource" class="mat-elevation-z8 full-width">
+    <div style="display: flex; justify-content: center">
+      <table mat-table [dataSource]="currentFormDateSource" class="mat-elevation-z8 full-width">
 
-      <ng-container matColumnDef="content">
-        <td mat-cell *matCellDef="let element">
-          Self Reflection Form {{element.id}}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="content">
+          <th mat-header-cell *matHeaderCellDef> Form Type</th>
+          <td mat-cell *matCellDef="let element">
+            Self Reflection Form - Week {{dataSource.data.length + 1}}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="date">
-        <td mat-cell
-            *matCellDef="let element"> {{element.formDate}} </td>
-      </ng-container>
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Form Date</th>
+          <td mat-cell
+              *matCellDef="let element"> {{element.formDate}} </td>
+        </ng-container>
 
-      <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="getReflectionUrl(row.id)">
-    </table>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Form Status</th>
+          <td mat-cell
+              *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
 
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="getReflectionUrl(row.id)">
+      </table>
+    </div>
   </mat-card-content>
 
 
@@ -46,8 +56,8 @@
 
         <ng-container matColumnDef="content">
           <th mat-header-cell *matHeaderCellDef> Form Type</th>
-          <td mat-cell *matCellDef="let element">
-            Self Reflection Form {{element.id}}
+          <td mat-cell *matCellDef="let element; let i = index">
+            Self Reflection Form - Week {{dataSource.data.length - i}}
           </td>
         </ng-container>
 
@@ -55,6 +65,12 @@
           <th mat-header-cell *matHeaderCellDef> Form Date</th>
           <td mat-cell
               *matCellDef="let element"> {{element.formDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Form Status</th>
+          <td mat-cell
+              *matCellDef="let element"> {{element.status}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

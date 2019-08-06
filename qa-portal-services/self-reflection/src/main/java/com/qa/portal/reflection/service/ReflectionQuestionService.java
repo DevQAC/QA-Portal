@@ -1,5 +1,7 @@
 package com.qa.portal.reflection.service;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,10 @@ public class ReflectionQuestionService {
 
     private QaSecurityContext context;
 
+    private Comparator<ReflectionQuestionDto> reflectionQuestionComparator = Comparator.comparingInt(rq -> rq.getQuestion().getId());
+
+    private Comparator<QuestionDto> questionComparator = Comparator.comparingInt(QuestionDto::getId);
+
     @Autowired
     public ReflectionQuestionService(ReflectionQuestionRepository reflectionQuestionRepo,
                                      CohortQuestionRepository cohortQuestionRepository,
@@ -48,14 +54,16 @@ public class ReflectionQuestionService {
     }
 
     @Transactional
-    public Set<ReflectionQuestionDto> getReflectionQuestionsByReflectionId(Integer id) {
+    public List<ReflectionQuestionDto> getReflectionQuestionsByReflectionId(Integer id) {
         return this.reflectionQuestionRepo.findByReflectionId(id)
-                .stream().map(this.reflectionQuestionMapper::mapToReflectionQuestionDto)
-                .collect(Collectors.toSet());
+                .stream()
+                .map(this.reflectionQuestionMapper::mapToReflectionQuestionDto)
+                .sorted(reflectionQuestionComparator)
+                .collect(Collectors.toList());
     }
 
     @Transactional
-    public Set<ReflectionQuestionDto> updateReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
+    public List<ReflectionQuestionDto> updateReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
         return reflectionQuestions.stream()
                 .map(rqdto -> {
                     ReflectionQuestionEntity reflectionQuestionToUpdate = this.reflectionQuestionRepo.findById(rqdto.getId())
@@ -66,25 +74,29 @@ public class ReflectionQuestionService {
                     reflectionQuestionToUpdate.setLastUpdatedBy(context.getUserName());
                     return this.reflectionQuestionMapper.mapToReflectionQuestionDto(this.reflectionQuestionRepo.save(reflectionQuestionToUpdate));
                 })
-                .collect(Collectors.toSet());
+                .sorted(reflectionQuestionComparator)
+                .collect(Collectors.toList());
     }
 
 	@Transactional
-	public Set<QuestionDto> getReflectionQuestionsByCohort(String cohortName){
+	public List<QuestionDto> getReflectionQuestionsByCohort(String cohortName){
 		LOGGER.info("Cohort name" + cohortName);
-		return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByname(cohortName).orElseThrow(
+		return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByName(cohortName).orElseThrow(
 				()-> new QaResourceNotFoundException("Cohort not found for supplied name")))
 				.stream()
 				.map((e) -> reflectionQuestionMapper.mapToQuestionDto(e.getQuestion()))
-				.collect(Collectors.toSet());
+                .sorted(questionComparator)
+				.collect(Collectors.toList());
 	}
 
 	@Transactional
-	public Set<ReflectionQuestionDto> createReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
+	public List<ReflectionQuestionDto> createReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
 		return reflectionQuestions.stream().map(rqdto ->
 					this.reflectionQuestionMapper
 					.mapToReflectionQuestionDto(this.reflectionQuestionRepo
 							.save(this.reflectionQuestionMapper.mapToReflectionQuestionEntity(rqdto)))
-				).collect(Collectors.toSet());
+				)
+                .sorted(reflectionQuestionComparator)
+                .collect(Collectors.toList());
 	}
 }

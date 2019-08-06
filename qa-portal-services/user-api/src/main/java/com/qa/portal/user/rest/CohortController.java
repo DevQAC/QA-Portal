@@ -1,17 +1,14 @@
 package com.qa.portal.user.rest;
 
-import java.util.List;
-
-import com.qa.portal.common.exception.QaResourceNotFoundException;
-import com.qa.portal.common.persistence.entity.QaCohortEntity;
+import com.qa.portal.common.dto.QaUserDto;
 import com.qa.portal.common.security.QaSecurityContext;
+import com.qa.portal.user.services.CohortService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.portal.common.dto.QaUserDto;
-import com.qa.portal.common.services.CohortService;
+import java.util.List;
 
 @RestController
 public class CohortController {
