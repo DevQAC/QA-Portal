@@ -25,5 +25,4 @@ public class CohortController {
     public ResponseEntity<List<QaUserDto>> getTraineesForCohort(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.service.getTraineesForCohort(id));
     }
-
 }

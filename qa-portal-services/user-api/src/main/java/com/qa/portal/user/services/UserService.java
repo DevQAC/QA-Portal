@@ -1,13 +1,5 @@
 package com.qa.portal.user.services;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.qa.portal.common.persistence.entity.QaCohortEntity;
-import com.qa.portal.common.persistence.repository.QaTraineeRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.qa.portal.common.dto.QaCohortDto;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
@@ -15,6 +7,12 @@ import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.CohortMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -24,6 +22,8 @@ public class UserService {
 	private QaTraineeRepository traineeRepo;
 
     private CohortMapper mapper;
+
+    private Comparator<QaCohortDto> cohortComparator = (c1, c2) -> c1.getStartDate().isBefore(c2.getStartDate()) ? 1 : -1;
 
 	public UserService(QaTrainerRepository trainerRepo, QaTraineeRepository traineeRepo, CohortMapper mapper) {
 		super();
@@ -42,7 +42,11 @@ public class UserService {
     public List<QaCohortDto> getCohortsForTrainer(String userName) {
         TrainerEntity trainer = this.trainerRepo.findByUserName(userName)
                 .orElseThrow(() -> new QaResourceNotFoundException("Trainer not found"));
-        return trainer.getCohorts().stream().map(this.mapper::mapToQaCohortDto).collect(Collectors.toList());
+        return trainer.getCohorts()
+				.stream()
+				.map(this.mapper::mapToQaCohortDto)
+				.sorted(cohortComparator)
+				.collect(Collectors.toList());
     }
 
 	@Transactional

@@ -1,5 +1,6 @@
 package com.qa.portal.reflection.service;
 
+import com.qa.portal.common.dto.QaUserDto;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
 import com.qa.portal.reflection.dto.CohortSummaryDto;
 import com.qa.portal.reflection.dto.ReflectionDto;
@@ -14,9 +15,7 @@ import java.util.Set;
 @Service
 public class ReflectionService {
 
-    private QaCohortRepository cohortRepo;
-
-    private ReflectionQuestionMapper rqMapper;
+    private GetTraineesForReviewOperation getTraineesForReviewOperation;
 
     private GetSelfReflectionOperation getSelfReflectionOperation;
 
@@ -28,12 +27,13 @@ public class ReflectionService {
 
     private GetCohortSummaryOperation getCohortSummaryOperation;
 
-    public ReflectionService(QaCohortRepository cohortRepo, GetSelfReflectionOperation getSelfReflectionOperation,
+    public ReflectionService(GetTraineesForReviewOperation getTraineesForReviewOperation,
+            GetSelfReflectionOperation getSelfReflectionOperation,
             GetSelfReflectionsForUserOperation getSelfReflectionsForUserOperation,
             CreateSelfReflectionOperation createSelfReflectionOperation,
             UpdateSelfReflectionOperation updateSelfReflectionOperation,
             GetCohortSummaryOperation getCohortSummaryOperation) {
-        this.cohortRepo = cohortRepo;
+        this.getTraineesForReviewOperation = getTraineesForReviewOperation;
         this.getSelfReflectionOperation = getSelfReflectionOperation;
         this.getSelfReflectionsForUserOperation = getSelfReflectionsForUserOperation;
         this.createSelfReflectionOperation = createSelfReflectionOperation;
@@ -83,5 +83,10 @@ public class ReflectionService {
     @Transactional
     public List<CohortSummaryDto> getCohortSummaryDto() {
         return this.getCohortSummaryOperation.getCohortSummary();
+    }
+
+    @Transactional
+    public List<QaUserDto> getTraineesToReviewForCohort(Integer cohortId) {
+        return this.getTraineesForReviewOperation.getTraineesToReviewForCohort(cohortId);
     }
 }
