@@ -21,6 +21,10 @@ export class SelfReflectionFormModel {
 
   formDate: Date;
 
-  currentStatus: string;
+  status: string;
+
+
+  // buttonLabel = this.isPopulated ? 'Submit' : 'Saved';
+
 
 }

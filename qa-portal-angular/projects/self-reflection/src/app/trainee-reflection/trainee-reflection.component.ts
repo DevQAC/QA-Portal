@@ -40,21 +40,6 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
     this.currentReflectionSubscription.unsubscribe();
   }
 
-  submitForm() {
-
-    this.currentReflectionSubscription =
-                      this.selfReflectionFormService.updateSelfReflectionForm(this.selfReflectionViewModel.selfReflectionForm)
-      .subscribe(
-      (response) => {
-        this.router.navigateByUrl('qa/portal/training/trainee/selfreflections');
-        console.log(this.selfReflectionViewModel);
-      },
-      (error) => {
-        this.errorHandlerService.handleError(error);
-      }
-    );
-  }
-
   private populateSelfReflectionForm(formId: string): void {
     this.currentReflectionSubscription = this.selfReflectionFormService.getSelfReflectionForm(formId).subscribe(
       (response) => {
@@ -68,5 +53,49 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
       (error) => {
         this.errorHandlerService.handleError(error);
       });
+  }
+  
+  updateForm() {
+    this.selfReflectionFormService.updateSelfReflectionForm(this.selfReflectionViewModel.selfReflectionForm)
+      .subscribe(
+        (response) => {
+          this.router.navigateByUrl('qa/portal/training/trainee/selfreflections');
+          console.log(this.selfReflectionViewModel);
+        },
+        (error) => {
+          this.errorHandlerService.handleError(error);
+        }
+      );
+  }
+
+  submitForm() {
+    this.selfReflectionViewModel.selfReflectionForm.status = 'Submitted';
+    this.updateForm();
+  }
+
+  getButtonLabel() {
+    let label = 'Submit';
+    if (!(!!this.selfReflectionViewModel.selfReflectionForm.strengths
+      && !!this.selfReflectionViewModel.selfReflectionForm.weaknesses
+      && !!this.selfReflectionViewModel.selfReflectionForm.opportunities
+      && !!this.selfReflectionViewModel.selfReflectionForm.threats)) {
+
+      label = 'Save';
+    } else {
+      this.selfReflectionViewModel.selfReflectionForm.reflectionQuestions.forEach((question) => {
+        if (!question.response) {
+          label = 'Save';
+        }
+      });
+    }
+    return label;
+  }
+
+  saveSubmitButtonPress() {
+    if (this.getButtonLabel() === 'Submit') {
+      this.submitForm();
+    } else {
+      this.updateForm();
+    }
   }
 }

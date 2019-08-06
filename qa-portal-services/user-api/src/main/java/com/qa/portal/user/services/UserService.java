@@ -3,6 +3,8 @@ package com.qa.portal.user.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.qa.portal.common.persistence.entity.QaCohortEntity;
+import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +31,12 @@ public class UserService {
 		this.traineeRepo = traineeRepo;
 		this.mapper = mapper;
 	}
+
+    @Transactional
+    public QaCohortDto getCohortForTrainee(String name) {
+        return mapper.mapToQaCohortDto(this.traineeRepo.findByUserName(name)
+                .orElseThrow(() -> new QaResourceNotFoundException("Cohort with that name does not exist")).getCohort());
+    }
 
     @Transactional
     public List<QaCohortDto> getCohortsForTrainer(String userName) {
