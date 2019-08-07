@@ -24,6 +24,7 @@ import {RatedQuestionsService} from './trainee-reflection/services/rated-questio
 import {SelfReflectionFormService} from './trainee-reflection/services/self-reflection-form.service';
 import { TraineeNewReflectionComponent } from './trainee-new-reflection/trainee-new-reflection.component';
 import {ReflectionHistoryService} from './self-reflection-history/services/reflection-history.service';
+import {SelfReflectionFormStateService} from './_common/services/self-reflection-form-state.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {ReflectionHistoryService} from './self-reflection-history/services/refle
     CohortTraineesService,
     RatedQuestionsService,
     SelfReflectionFormService,
-    ReflectionHistoryService],
+    ReflectionHistoryService,
+    SelfReflectionFormStateService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

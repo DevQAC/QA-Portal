@@ -114,7 +114,9 @@
       </div>
 
       <div class='submit-button-wrapper'>
-        <button class='submit-button' [disabled]='disableInputs' (click)='onSubmit()' mat-raised-button>Submit</button>
+        <button class='submit-button' [disabled]='disableInputs' (click)='onSubmit()' mat-raised-button>
+          {{ isFormCompleted() ? 'Submit' : 'Save' }}
+        </button>
       </div>
 
     </div>

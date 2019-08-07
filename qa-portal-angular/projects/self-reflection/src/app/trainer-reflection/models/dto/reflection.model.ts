@@ -15,6 +15,7 @@ export class ReflectionModel extends BaseModel {
   weaknesses?: string;
   opportunities?: string;
   threats?: string;
+  status: string;
   // questions?: Question[];
 
   public static setReflectionQuestions(

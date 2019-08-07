@@ -156,17 +156,21 @@ export class TrainerReflectionComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    console.log('Form completed ' + this.isFormCompleted());
     if (this.reflections.length > 0) {
       const newestReflection = this.reflections[0];
       newestReflection.learningPathway = this.learningPathway;
       newestReflection.trainerFeedback = this.trainerFeedback;
+      if (this.isFormCompleted()) {
+        newestReflection.status = 'Reviewed';
+      }
       this.reflectionService.updateReflection(newestReflection)
         .subscribe(updatedReflection => {
           if (updatedReflection.learningPathway !== this.learningPathway
             || updatedReflection.trainerFeedback !== this.trainerFeedback) {
             this.toastrService.showError('Unable to update reflection.');
           } else {
-            this.saveReflectionQuestions().subscribe(reflecionQuestions => {
+            this.saveReflectionQuestions().subscribe(reflectionQuestions => {
               this.toastrService.showSuccess(`Reflection form ${this.updateMessage}`);
               this.disableInputs = false;
               this.router.navigateByUrl('/qa/portal/training/trainer/cohort/trainees');
@@ -181,8 +185,21 @@ export class TrainerReflectionComponent implements OnInit {
     this.updateView();
   }
 
-  ngOnInit() {
+  isFormCompleted() {
+    return !!this.learningPathway &&
+      !!this.trainerFeedback &&
+      this.questionsCompleted();
+  }
 
+  private questionsCompleted(): boolean {
+    let questionsCompleted = true;
+    this.rowData.forEach((row) => {
+      questionsCompleted = questionsCompleted && !!row.questions[1].reflectionQuestions[0].trainerResponse;
+    });
+    return questionsCompleted;
+  }
+
+  ngOnInit() {
     // Get trainee id from path
     this.activatedRoute.paramMap.subscribe((pm: ParamMap): void => {
       const traineeId = +pm.get('id');
