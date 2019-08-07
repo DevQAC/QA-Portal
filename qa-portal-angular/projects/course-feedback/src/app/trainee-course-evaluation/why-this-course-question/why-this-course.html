@@ -1,0 +1,7 @@
+<label id="why-this-course">{{question}}</label>
+<mat-radio-group aria-labelledby="why-this-course" class="why-this-course-group" [(ngModel)]="whyResponse">
+  <mat-radio-button class="why-this-course-button" *ngFor="let options of option">{{options}}</mat-radio-button>
+</mat-radio-group>
+<mat-form-field>
+  <textarea ng-disabled="option" matInput placeholder="Textarea"></textarea>
+</mat-form-field>

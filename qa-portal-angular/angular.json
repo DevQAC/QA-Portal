@@ -682,6 +682,119 @@
           }
         }
       }
+    },
+    "course-evaluation": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/course-evaluation",
+      "sourceRoot": "projects/course-evaluation/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/course-evaluation",
+            "index": "projects/course-evaluation/src/index.html",
+            "main": "projects/course-evaluation/src/main.ts",
+            "polyfills": "projects/course-evaluation/src/polyfills.ts",
+            "tsConfig": "projects/course-evaluation/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/course-evaluation/src/favicon.ico",
+              "projects/course-evaluation/src/assets"
+            ],
+            "styles": [
+              "projects/course-evaluation/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/course-evaluation/src/environments/environment.ts",
+                  "with": "projects/course-evaluation/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "course-evaluation:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "course-evaluation:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "course-evaluation:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/course-evaluation/src/test.ts",
+            "polyfills": "projects/course-evaluation/src/polyfills.ts",
+            "tsConfig": "projects/course-evaluation/tsconfig.spec.json",
+            "karmaConfig": "projects/course-evaluation/karma.conf.js",
+            "assets": [
+              "projects/course-evaluation/src/favicon.ico",
+              "projects/course-evaluation/src/assets"
+            ],
+            "styles": [
+              "projects/course-evaluation/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/course-evaluation/tsconfig.app.json",
+              "projects/course-evaluation/tsconfig.spec.json",
+              "projects/course-evaluation/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/course-evaluation/e2e/protractor.conf.js",
+            "devServerTarget": "course-evaluation:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "course-evaluation:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "portal-core"
