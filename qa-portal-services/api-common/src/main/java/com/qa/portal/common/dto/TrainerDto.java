@@ -2,9 +2,6 @@ package com.qa.portal.common.dto;
 
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class TrainerDto extends QaUserDto {
 
     private Set<QaCohortDto> cohorts;

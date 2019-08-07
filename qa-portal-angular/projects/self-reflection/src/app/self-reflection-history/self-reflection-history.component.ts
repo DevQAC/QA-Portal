@@ -34,7 +34,7 @@ export class SelfReflectionHistoryComponent implements OnInit, OnDestroy {
     this.reflectionSubscription = this.reflectionHistoryService.getTraineeReflections().subscribe(
       (response) => {
         response.forEach((selfReflection) => {
-          if (selfReflection.status === 'Saved') {
+          if (selfReflection.status !== 'Reviewed') {
             this.currentForm = [];
             this.currentForm.push(selfReflection);
           } else {

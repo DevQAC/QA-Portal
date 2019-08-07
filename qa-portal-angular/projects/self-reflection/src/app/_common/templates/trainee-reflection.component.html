@@ -67,8 +67,10 @@
   <mat-card-actions>
     <div class="qa-card-action-container">
 
-      <button mat-raised-button [disabled]="selfReflectionViewModel.selfReflectionForm.status==='Submitted'" (click)="saveSubmitButtonPress()">
-        {{getButtonLabel()}}</button>
+      <button *ngIf="selfReflectionViewModel.selfReflectionForm.status !== 'Submitted' &&
+                     selfReflectionViewModel.selfReflectionForm.status !== 'Reviewed'"
+              mat-raised-button (click)="saveSubmitButtonPress()">
+        {{isFormCompleted() ? 'Submit' : 'Save'}}</button>
     </div>
   </mat-card-actions>
 

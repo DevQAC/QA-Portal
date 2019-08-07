@@ -19,11 +19,11 @@ import java.util.Set;
 @RequestMapping("/reflection")
 public class ReflectionController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(ReflectionController.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(ReflectionController.class);
 
-    private ReflectionService service;
+	private ReflectionService service;
 
-    private QaSecurityContext context;
+	private QaSecurityContext context;
 
 	@Autowired
 	public ReflectionController(ReflectionService service, QaSecurityContext context) {
@@ -85,5 +85,4 @@ public class ReflectionController {
     public ResponseEntity<List<QaUserDto>> getTraineesToReviewForCohort(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.service.getTraineesToReviewForCohort(id));
     }
-
 }

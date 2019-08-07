@@ -1,10 +1,8 @@
 package com.qa.portal.reflection.service;
 
 import com.qa.portal.common.dto.QaUserDto;
-import com.qa.portal.common.persistence.repository.QaCohortRepository;
 import com.qa.portal.reflection.dto.CohortSummaryDto;
 import com.qa.portal.reflection.dto.ReflectionDto;
-import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,6 +63,7 @@ public class ReflectionService {
     public ReflectionDto getSelfReflection(String userId, LocalDate date) {
         return this.getSelfReflectionOperation.getSelfReflectionByUserAndDate(userId, date);
     }
+
     @Transactional
     public ReflectionDto getSelfReflection(String userId, String status) {
         return this.getSelfReflectionOperation.getSelfReflectionByUserAndStatus(userId, status);

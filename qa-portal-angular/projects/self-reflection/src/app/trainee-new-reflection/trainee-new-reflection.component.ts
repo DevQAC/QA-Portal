@@ -9,7 +9,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {SelfReflectionFormModel} from '../_common/models/self-reflection-form-model';
 import {ReflectionQuestionModel} from '../_common/models/reflection.question.model';
 import {CohortTraineesService} from '../cohort-trainees/services/cohort-trainees.service';
-import {element} from 'protractor';
+import {SelfReflectionFormStateService} from '../_common/services/self-reflection-form-state.service';
+import {QaToastrService} from '../../../../portal-core/src/app/_common/services/qa-toastr.service';
 
 @Component({
   selector: 'app-trainee-new-reflection',
@@ -26,21 +27,19 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
   listOfFormDates;
 
-  buttonLabel;
-
-
   constructor(private ratedQuestionsService: RatedQuestionsService,
               private selfReflectionFormService: SelfReflectionFormService,
               private questionsService: QuestionsServiceService,
               private errorHandlerService: QaErrorHandlerService,
+              private selfReflectionFormStateService: SelfReflectionFormStateService,
               private router: Router,
               private route: ActivatedRoute,
+              private toastrService: QaToastrService,
               private cohortTraineesService: CohortTraineesService) {
   }
 
   ngOnInit() {
     this.initialiseForm();
-
   }
 
   getSortedDateArray(arrayOfDates: []): Date[] {
@@ -60,18 +59,17 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   }
 
   addDays(date: Date, days: number) {
-    let result = new Date(date);
+    const result = new Date(date);
     result.setDate(result.getDate() + days);
     return result;
   }
 
   initialiseForm() {
-
     this.selfReflectionFormService.getAllReflectionFormsForUser().subscribe(
       (response) => {
         this.selfReflectionViewModel.selfReflectionForm = new SelfReflectionFormModel();
         this.listOfFormDates = [];
-        response.forEach((element) => this.checkIfSubmitted(element));
+        response.forEach((element) => this.checkIfReviewed(element));
 
         if (this.listOfFormDates.length === 0) {
           this.setInitialFormDateFromCohortStartDate();
@@ -79,14 +77,12 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
           this.setFormDateFromExisting();
         }
         this.getSelfReflectionQuestions();
-
       }
     );
-
   }
 
-  checkIfSubmitted(element) {
-    if (element.status === 'Submitted') {
+  checkIfReviewed(element) {
+    if (element.status === 'Reviewed') {
       this.listOfFormDates.push(element.formDate);
     } else {
       this.router.navigateByUrl('qa/portal/training/trainee/selfreflection/' + element.id);
@@ -99,7 +95,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
     const date = new Date(testDate);
     this.setFormDate(this.addDays(date, 7));
-
   }
 
   setInitialFormDateFromCohortStartDate() {
@@ -132,7 +127,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
   }
 
-
   setFormDate(dateToSet: Date) {
     this
       .selfReflectionViewModel
@@ -140,27 +134,12 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
       .formDate = dateToSet;
   }
 
-  submitForm() {
-    this.selfReflectionViewModel.selfReflectionForm.status = 'Submitted';
-    this.commitForm();
-  }
-
-  getButtonLabel() {
-    let label = 'Submit';
-    if (!(!!this.selfReflectionViewModel.selfReflectionForm.strengths
-      && !!this.selfReflectionViewModel.selfReflectionForm.weaknesses
-      && !!this.selfReflectionViewModel.selfReflectionForm.opportunities
-      && !!this.selfReflectionViewModel.selfReflectionForm.threats)) {
-
-      label = 'Save';
+  saveSubmitButtonPress() {
+    if (this.isFormCompleted()) {
+      this.submitForm();
     } else {
-      this.selfReflectionViewModel.selfReflectionForm.reflectionQuestions.forEach((question) => {
-        if (!question.response) {
-          label = 'Save';
-        }
-      });
+      this.saveForm();
     }
-    return label;
   }
 
   commitForm() {
@@ -168,7 +147,7 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           this.router.navigateByUrl('qa/portal/training/trainee/selfreflections');
-          console.log(this.selfReflectionViewModel);
+          this.toastrService.showSuccess('Reflection Form ' + this.selfReflectionViewModel.selfReflectionForm.status);
         },
         (error) => {
           this.errorHandlerService.handleError(error);
@@ -176,21 +155,18 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
       );
   }
 
-
-  saveSubmitButtonPress(){
-    if(this.getButtonLabel() === 'Submit'){
-      this.submitForm();
-    }else{
-      this.saveForm();
-    }
-
-}
-
-
+  submitForm() {
+    this.selfReflectionViewModel.selfReflectionForm.status = 'Submitted';
+    this.commitForm();
+  }
 
   saveForm() {
     this.selfReflectionViewModel.selfReflectionForm.status = 'Saved';
     this.commitForm();
+  }
+
+  isFormCompleted(): boolean {
+    return this.selfReflectionFormStateService.isFormCompleted(this.selfReflectionViewModel.selfReflectionForm);
   }
 
   ngOnDestroy(): void {
