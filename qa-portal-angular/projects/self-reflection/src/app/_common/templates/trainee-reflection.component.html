@@ -68,7 +68,7 @@
     <div class="qa-card-action-container">
 
       <button mat-raised-button [disabled]="selfReflectionViewModel.selfReflectionForm.status==='Submitted'" (click)="saveSubmitButtonPress()">
-        {{getButtonLabel()}}</button>
+        {{isFormCompleted() ? 'Submit' : 'Save'}}</button>
     </div>
   </mat-card-actions>
 

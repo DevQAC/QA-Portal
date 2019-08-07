@@ -54,7 +54,7 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
         this.errorHandlerService.handleError(error);
       });
   }
-  
+
   updateForm() {
     this.selfReflectionFormService.updateSelfReflectionForm(this.selfReflectionViewModel.selfReflectionForm)
       .subscribe(
@@ -73,29 +73,29 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
     this.updateForm();
   }
 
-  getButtonLabel() {
-    let label = 'Submit';
-    if (!(!!this.selfReflectionViewModel.selfReflectionForm.strengths
-      && !!this.selfReflectionViewModel.selfReflectionForm.weaknesses
-      && !!this.selfReflectionViewModel.selfReflectionForm.opportunities
-      && !!this.selfReflectionViewModel.selfReflectionForm.threats)) {
-
-      label = 'Save';
-    } else {
-      this.selfReflectionViewModel.selfReflectionForm.reflectionQuestions.forEach((question) => {
-        if (!question.response) {
-          label = 'Save';
-        }
-      });
-    }
-    return label;
+  isFormCompleted() {
+    return (!!this.selfReflectionViewModel.selfReflectionForm.strengths &&
+      !!this.selfReflectionViewModel.selfReflectionForm.weaknesses &&
+      !!this.selfReflectionViewModel.selfReflectionForm.opportunities &&
+      !!this.selfReflectionViewModel.selfReflectionForm.threats &&
+      this.allQuestionsAnswered());
   }
 
   saveSubmitButtonPress() {
-    if (this.getButtonLabel() === 'Submit') {
+    if (this.isFormCompleted()) {
       this.submitForm();
     } else {
       this.updateForm();
     }
+  }
+
+  private allQuestionsAnswered(): boolean {
+    let allQuestionsAnswered = true;
+    this.selfReflectionViewModel.selfReflectionForm.reflectionQuestions.forEach((question) => {
+      if (!question.response) {
+        allQuestionsAnswered = false;
+      }
+    });
+    return allQuestionsAnswered;
   }
 }

@@ -4,7 +4,7 @@ import {ReflectionModel} from './models/dto/reflection.model';
 import {TraineeModel} from './models/dto/trainee.model';
 import {QuestionModel} from './models/dto/question.model';
 import {ReflectionQuestionModel} from './models/dto/reflection-question.model';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {MatSnackBar, PageEvent} from '@angular/material';
 import {RowData} from './models/row-data';
 import {QaToastrService} from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
@@ -56,7 +56,8 @@ export class TrainerReflectionComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
     private toastrService: QaToastrService,
-    private errorService: QaErrorHandlerService) {
+    private errorService: QaErrorHandlerService,
+    private router: Router) {
     this.pageState = PageState.LOADING;
   }
 
@@ -168,6 +169,7 @@ export class TrainerReflectionComponent implements OnInit {
             this.saveReflectionQuestions().subscribe(reflecionQuestions => {
               this.toastrService.showSuccess(`Reflection form ${this.updateMessage}`);
               this.disableInputs = false;
+              this.router.navigateByUrl('/qa/portal/training/trainer/cohort/trainees');
             }, error => this.errorService.handleError(error));
           }
         }, error => this.errorService.handleError(error));

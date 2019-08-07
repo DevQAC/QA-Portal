@@ -40,7 +40,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initialiseForm();
-
   }
 
   getSortedDateArray(arrayOfDates: []): Date[] {
@@ -60,18 +59,17 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   }
 
   addDays(date: Date, days: number) {
-    let result = new Date(date);
+    const result = new Date(date);
     result.setDate(result.getDate() + days);
     return result;
   }
 
   initialiseForm() {
-
     this.selfReflectionFormService.getAllReflectionFormsForUser().subscribe(
       (response) => {
         this.selfReflectionViewModel.selfReflectionForm = new SelfReflectionFormModel();
         this.listOfFormDates = [];
-        response.forEach((element) => this.checkIfSubmitted(element));
+        response.forEach((element) => this.checkIfReviewed(element));
 
         if (this.listOfFormDates.length === 0) {
           this.setInitialFormDateFromCohortStartDate();
@@ -82,11 +80,10 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
       }
     );
-
   }
 
-  checkIfSubmitted(element) {
-    if (element.status === 'Submitted') {
+  checkIfReviewed(element) {
+    if (element.status === 'Reviewed') {
       this.listOfFormDates.push(element.formDate);
     } else {
       this.router.navigateByUrl('qa/portal/training/trainee/selfreflection/' + element.id);
@@ -132,7 +129,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
   }
 
-
   setFormDate(dateToSet: Date) {
     this
       .selfReflectionViewModel
@@ -176,17 +172,14 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
       );
   }
 
-
-  saveSubmitButtonPress(){
-    if(this.getButtonLabel() === 'Submit'){
+  saveSubmitButtonPress() {
+    if (this.getButtonLabel() === 'Submit') {
       this.submitForm();
-    }else{
+    } else {
       this.saveForm();
     }
 
-}
-
-
+  }
 
   saveForm() {
     this.selfReflectionViewModel.selfReflectionForm.status = 'Saved';

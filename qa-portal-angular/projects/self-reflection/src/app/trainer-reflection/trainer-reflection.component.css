@@ -194,9 +194,10 @@
 .response {
   display: inline-block;
   text-align: center;
-  height: 100%;
-  /* border: 1px solid #eee; */
-  border: none;
+  /*height: 100%;*/
+  border: 1px solid #eee;
+  height: 61px;
+  /*border: none;*/
 }
 
 .response:hover,
@@ -260,7 +261,6 @@ input.response:focus {
   width: 100px;
   color: #bbb;
   font-size: 15px;
-
 }
 
 .reflection-dates {

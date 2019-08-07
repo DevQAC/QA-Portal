@@ -56,20 +56,30 @@
               </div>
 
               <div class='response-wrapper'>
-                <div *ngFor='let question of rows.questions' [style.width]='(1 / rows.questions.length * 100) + "%"'
+                <div *ngFor='let question of rows.questions, let questionIndex = index' [style.width]='(1 / rows.questions.length * 100) + "%"'
                   class='response-container'>
 
-                  <div style="flex-direction: row" *ngFor='let reflectionQuestion of question.reflectionQuestions' [style.width]='(50) + "%"'>
+                  <div style="display: flex; flex-direction: row;" *ngFor='let reflectionQuestion of question.reflectionQuestions, let i = index' [style.width]='(100) + "%"'>
 
                     <!-- Trainee -->
-                    <input type='number' [(ngModel)]='reflectionQuestion.response'
+                    <input *ngIf="questionIndex % 2 === 1" type='number' [(ngModel)]='reflectionQuestion.response'
                       (keydown.enter)='saveReflectionQuestions()' [disabled]="true"
                            [style.width]='(50) + "%"' class='response' min='1' max='10' />
 
                     <!-- Trainer -->
-                    <input type='number' [(ngModel)]='reflectionQuestion.trainerResponse'
-                      (keydown.enter)='saveReflectionQuestions()'
+                    <input *ngIf="questionIndex % 2 === 1" type='number' [(ngModel)]='reflectionQuestion.trainerResponse'
+                      (keydown.enter)='saveReflectionQuestions()' [disabled]="i > 0"
                       [style.width]='(50) + "%"' class='response' min='1' max='10' />
+
+                    <!-- Blank column -->
+                    <input *ngIf="questionIndex % 2 === 0"
+                           (keydown.enter)='saveReflectionQuestions()' [disabled]="true"
+                           [style.width]='(50) + "%"' class='response' />
+
+                    <!-- Trainee -->
+                    <input *ngIf="questionIndex % 2 === 0" type='number' [(ngModel)]='reflectionQuestion.response'
+                           (keydown.enter)='saveReflectionQuestions()' [disabled]="true"
+                           [style.width]='(50) + "%"' class='response' min='1' max='10' />
 
                   </div>
 
