@@ -1,12 +1,12 @@
-import org.springframework.mail.javamail.javamailsender;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.SimpleMailMessage;
 
 public class QaEmailClient {
 
-    @Autowired
     private JavaMailSender javaMailSender;
-	
-	void sendEmail(string emailAddress,string emailSubject,string emailBody) {
+    
+    @Autowired
+	public void sendEmail(String emailAddress,String emailSubject,String emailBody) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(emailAddress);
