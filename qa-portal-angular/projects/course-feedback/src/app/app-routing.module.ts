@@ -8,7 +8,7 @@ const routes: Routes = [{
     component: AppComponent
   },
   {
-    path: 'course',
+    path: 'course-evaluation',
     component: CourseEvaluationComponent
   }
 ];

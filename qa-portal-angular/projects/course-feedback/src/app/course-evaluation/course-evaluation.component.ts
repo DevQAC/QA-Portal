@@ -16,7 +16,7 @@ export class CourseEvaluationComponent implements OnInit {
 
     function DisplayName(){
       var name = document.getElementById('user-name');
-      name.innerHTML = "Allan Smels";
+      name.innerHTML = "Allan Charles";
     }
   }
 }

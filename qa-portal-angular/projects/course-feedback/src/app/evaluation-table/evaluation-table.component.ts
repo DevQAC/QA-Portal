@@ -25,6 +25,8 @@ export class EvaluationTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+    //call service here
   }
 
   displayedColumns: string[] = ['course', 'start', 'end', 'courseid', 'pin', 'status'];
