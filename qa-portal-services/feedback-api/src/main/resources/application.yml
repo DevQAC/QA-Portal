@@ -1,12 +1,12 @@
 server:
-  port: 8081
+  port: 8084
   servlet:
-    context-path: /core-api
+    context-path: /feedback-api
+
 spring:
   main:
     allow-bean-definition-overriding: true
-  flyway:
-    baseline-on-migrate: true
+
   datasource:
     url: jdbc:postgresql://localhost:5432/qa-portal
     username: postgres
@@ -14,10 +14,9 @@ spring:
 
   jpa:
     properties:
-      hibernate:
-        jdbc:
-          lob:
-            non_contextual_creation=true:logging: true
+      jdbc:
+        lob:
+          non_contextual_creation=true:logging: true
   level:
     org.springframework.web: DEBUG
     com.swttech.bignash: DEBUG

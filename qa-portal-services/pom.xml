@@ -26,6 +26,7 @@
         <module>core-api</module>
         <module>self-reflection</module>
         <module>user-api</module>
+        <module>feedback-api</module>
     </modules>
 
 </project>
