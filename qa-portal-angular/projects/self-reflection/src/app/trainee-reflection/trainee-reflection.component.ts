@@ -90,4 +90,8 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
   isFormCompleted() {
     return this.selfReflectionFormStateService.isFormCompleted(this.selfReflectionViewModel.selfReflectionForm);
   }
+
+  disable(): boolean {
+    return this.selfReflectionFormStateService.disable(this.selfReflectionViewModel.selfReflectionForm);
+  }
 }

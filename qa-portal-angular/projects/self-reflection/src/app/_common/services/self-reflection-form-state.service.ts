@@ -21,4 +21,9 @@ export class SelfReflectionFormStateService {
     });
     return allQuestionsAnswered;
   }
+
+  disable(selfReflectionForm: SelfReflectionFormModel): boolean {
+    return (selfReflectionForm.status === 'Reviewed' ||
+           selfReflectionForm.status === 'Submitted');
+  }
 }

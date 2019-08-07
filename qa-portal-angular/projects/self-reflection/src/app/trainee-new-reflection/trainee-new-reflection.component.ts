@@ -169,6 +169,10 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
     return this.selfReflectionFormStateService.isFormCompleted(this.selfReflectionViewModel.selfReflectionForm);
   }
 
+  disable(): boolean {
+    return this.selfReflectionFormStateService.disable(this.selfReflectionViewModel.selfReflectionForm);
+  }
+
   ngOnDestroy(): void {
     if (!!this.questionSubscription) {
       this.questionSubscription.unsubscribe();
