@@ -9,9 +9,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {SelfReflectionFormModel} from '../_common/models/self-reflection-form-model';
 import {ReflectionQuestionModel} from '../_common/models/reflection.question.model';
 import {CohortTraineesService} from '../cohort-trainees/services/cohort-trainees.service';
-import {element} from 'protractor';
-import {SelfReflectionFormStateService} from "../_common/services/self-reflection-form-state.service";
-import {QaToastrService} from "../../../../portal-core/src/app/_common/services/qa-toastr.service";
+import {SelfReflectionFormStateService} from '../_common/services/self-reflection-form-state.service';
+import {QaToastrService} from '../../../../portal-core/src/app/_common/services/qa-toastr.service';
 
 @Component({
   selector: 'app-trainee-new-reflection',
@@ -27,9 +26,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   loadingData = true;
 
   listOfFormDates;
-
-  buttonLabel;
-
 
   constructor(private ratedQuestionsService: RatedQuestionsService,
               private selfReflectionFormService: SelfReflectionFormService,

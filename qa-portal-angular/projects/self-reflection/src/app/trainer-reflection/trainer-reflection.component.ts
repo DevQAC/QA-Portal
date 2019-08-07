@@ -74,17 +74,19 @@ export class TrainerReflectionComponent implements OnInit {
       }
     });
 
+    let i = 0;
     for (const reflection of this.reflections) {
       if (reflection.reflectionQuestions.length < this.questions.length) {
         this.reflections.splice(this.reflections.indexOf(reflection), 1);
       } else {
-        if (!this.trainerFeedback && reflection.trainerFeedback) {
+        if (!this.trainerFeedback && reflection.trainerFeedback && i === 0) {
           this.trainerFeedback = reflection.trainerFeedback;
         }
-        if (!this.learningPathway && reflection.learningPathway) {
+        if (!this.learningPathway && reflection.learningPathway && i === 0) {
           this.learningPathway = reflection.learningPathway;
         }
       }
+      i++;
     }
     this.updateView();
     this.pageState = PageState.READY;
