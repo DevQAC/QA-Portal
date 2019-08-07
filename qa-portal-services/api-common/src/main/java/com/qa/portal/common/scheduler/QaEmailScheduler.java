@@ -1,32 +1,20 @@
-
-import java.text.SimpleDateFormat;
-import ;
+package com.qa.portal.common.scheduler;
+import com.qa.portal.common.emails.QaEmailClient;
+import org.springframework.scheduling.annotation.Scheduled;
 
 public class QaEmailScheduler {
-
+    private QaEmailClient qec;
 
     public QaEmailScheduler(){
-
+        this.qec = new QaEmailClient();
     }
 
-    @Scheduled(cron = "0 1 1 * * *")
-    public void sendScheduledEmails(){
-        QaEmailClient.sendEmail("","","")
+    //scheduler that should run by 1am and send out emails
+    @Scheduled(cron = "0 1 1 * * *")//cron 9am
+    public void sendScheduledEmails(String emailAddress, String emailSubject, String emailBody){
+        //method call to send email
+        qec.sendEmail(emailAddress,emailSubject,emailBody);
     }
-
-
-
-    private String subtractDate(String date){
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Calender c = Calender.getInstance();
-        c.setTime(sdf.parse(date));
-        c.add(Calender.Date, -1);
-        return sdf.format(c.getTime());
-    }
-
-
-
 
 
 }
