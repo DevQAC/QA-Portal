@@ -1,7 +1,7 @@
 #!/bin/bash
-kubectl create -f persistent-volume-claim.yaml
-kubectl create -f pod-postgres.yaml
-kubectl create -f service-postgres.yaml
+kubectl apply -f ../persistent-volume-claim.yaml
+kubectl apply -f ../pod-postgres.yaml
+kubectl apply -f ../service-postgres.yaml
 
-kubectl create -f pod-keycloak.yaml
-kubectl create -f service-keycloak.yaml
+kubectl apply -f ../pod-keycloak.yaml
+kubectl apply -f ../service-keycloak.yaml
