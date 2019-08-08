@@ -1,0 +1,104 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Trainee Name Column -->
+  <ng-container matColumnDef="traineeName">
+      <th mat-header-cell *matHeaderCellDef> Trainee </th>
+      <td mat-cell *matCellDef="let question"> {{question.traineeName}} </td>
+    </ng-container>
+
+  <!-- Question 1 Column -->
+  <ng-container matColumnDef="question1">
+    <th mat-header-cell *matHeaderCellDef> Question 1 </th>
+    <td mat-cell *matCellDef="let question"> {{question.question1}} </td>
+  </ng-container>
+
+  <!-- Question 2 Column -->
+  <ng-container matColumnDef="question2">
+    <th mat-header-cell *matHeaderCellDef> Question 2 </th>
+    <td mat-cell *matCellDef="let question"> {{question.question2}} </td>
+  </ng-container>
+
+  <!-- Question 3 Column -->
+  <ng-container matColumnDef="question3">
+    <th mat-header-cell *matHeaderCellDef> Question 3 </th>
+    <td mat-cell *matCellDef="let question"> {{question.question3}} </td>
+  </ng-container>
+
+  <!-- Question 4 Column -->
+  <ng-container matColumnDef="question4">
+    <th mat-header-cell *matHeaderCellDef> Question 4 </th>
+    <td mat-cell *matCellDef="let question"> {{question.question4}} </td>
+  </ng-container>
+
+   <!-- Question 5 Column -->
+   <ng-container matColumnDef="question5">
+    <th mat-header-cell *matHeaderCellDef>Question 5 </th>
+    <td mat-cell *matCellDef="let question"> {{question.question5}} </td>
+  </ng-container>
+
+  <!-- Question 6 Column -->
+  <ng-container matColumnDef="question6">
+    <th mat-header-cell *matHeaderCellDef> Question 6 </th>
+    <td mat-cell *matCellDef="let question"> {{question.question6}} </td>
+  </ng-container>
+
+  <!-- Question 7 Column -->
+  <ng-container matColumnDef="question7">
+    <th mat-header-cell *matHeaderCellDef> Question 7 </th>
+    <td mat-cell *matCellDef="let question"> {{question.question7}} </td>
+  </ng-container>
+
+  <!-- Question 8 Column -->
+  <ng-container matColumnDef="question8">
+    <th mat-header-cell *matHeaderCellDef> Question 8 </th>
+    <td mat-cell *matCellDef="let question"> {{question.question8}} </td>
+  </ng-container>
+
+  <!-- Question 9 Column -->
+  <ng-container matColumnDef="question9">
+    <th mat-header-cell *matHeaderCellDef> Question 9 </th>
+    <td mat-cell *matCellDef="let question"> {{question.question9}} </td>
+  </ng-container>
+
+  <!-- Question 10 Column -->
+  <ng-container matColumnDef="question10">
+    <th mat-header-cell *matHeaderCellDef> Question 10 </th>
+    <td mat-cell *matCellDef="let question"> {{question.question10}} </td>
+  </ng-container>
+
+  
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+</table>
+
+<table class="average">
+  <!-- Trainee Name Column -->
+  <ng-container matColumnDef="average">
+   <td mat-cell > Average for this event </td>
+ </ng-container>
+
+<!-- Question 1 Column -->
+<ng-container matColumnDef="averageScore">
+ <td mat-cell> 15 </td>
+</ng-container>
+
+</table>
+
+<table>
+  <!-- Trainee Name Column -->
+  <ng-container matColumnDef="tqi">
+   <td mat-cell > TQI for this event </td>
+ </ng-container>
+
+<!-- Question 1 Column -->
+<ng-container matColumnDef="tqiScore">
+ <td mat-cell> 3 </td>
+</ng-container>
+
+</table>

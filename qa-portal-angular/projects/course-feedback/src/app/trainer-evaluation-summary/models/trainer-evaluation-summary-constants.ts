@@ -1,0 +1,1 @@
+export const GET_ALL_FEEDBACK_API = 'course-feedback-api/question-feedback';
