@@ -22,4 +22,6 @@ public interface ReflectionRepository extends JpaRepository<ReflectionEntity, In
 
     Optional<ReflectionEntity> findByReviewerAndFormDate(TrainerEntity trainer, LocalDate date);
 
+    Optional<ReflectionEntity> findByResponderAndStatus(TraineeEntity trainee, String Status);
+
 }

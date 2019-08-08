@@ -1,20 +1,18 @@
 package com.qa.portal.reflection.service.mapper;
 
+import com.qa.portal.common.dto.QuestionDto;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.dto.TrainerDto;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
-import com.qa.portal.reflection.dto.QuestionDto;
+import com.qa.portal.common.persistence.repository.QuestionRepository;
 import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.dto.ReflectionQuestionDto;
 import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
-import com.qa.portal.reflection.persistence.repository.QuestionRepository;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -50,7 +48,6 @@ public class ReflectionMapper {
 
     public ReflectionEntity mapToReflectionEntity(ReflectionDto dto, String userName) {
         ReflectionEntity reflectionEntity = mapper.map(dto, ReflectionEntity.class);
-        reflectionEntity.setFormDate(Date.valueOf(LocalDate.now()));
         reflectionEntity.setReflectionQuestions(dto.getReflectionQuestions().stream()
                 .map(reflectionQuestionDto -> createReflectionQuestionEntity(reflectionQuestionDto, reflectionEntity))
                 .collect(Collectors.toSet()));

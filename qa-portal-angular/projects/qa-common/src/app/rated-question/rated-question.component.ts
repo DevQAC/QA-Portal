@@ -14,6 +14,8 @@ export class RatedQuestionComponent implements OnInit {
 
   @Input() selectedRating: SelectedRatingModel;
 
+  @Input() isDisabled = false;
+
   optionsArr = [];
 
   constructor() { }

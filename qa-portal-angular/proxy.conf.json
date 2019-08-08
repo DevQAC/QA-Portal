@@ -10,11 +10,11 @@
     "logLevel": "debug"
   },
   "/user-api": {
-    "target": "http://localhost:8084",
+    "target": "http://localhost:8083",
     "secure": false,
     "logLevel": "debug"
   },
-  "/user-api": {
+  "/feedback-api": {
     "target": "http://localhost:8084",
     "secure": false,
     "logLevel": "debug"

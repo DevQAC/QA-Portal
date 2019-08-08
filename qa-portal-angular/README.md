@@ -106,7 +106,7 @@ This has been developed to provide guidance for the future development of Portal
 
 a) Invoke external REST services
 
-All REST service calls should be made using the Angular HttpClient service. There are examples of GET and POST requests in the self-reflection-form.service.ts and rated-questions.service.ts services. For more information on HttpClient see https://angular.io/guide/http#httpclient
+All REST service calls should be made using the Angular HttpClient service. There are examples of GET and POST requests in the self-reflection-form-state.service.ts and rated-questions.service.ts services. For more information on HttpClient see https://angular.io/guide/http#httpclient
 
 b) Include components from the QA Common application
 

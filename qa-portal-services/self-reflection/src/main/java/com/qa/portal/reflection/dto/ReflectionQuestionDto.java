@@ -1,6 +1,7 @@
 package com.qa.portal.reflection.dto;
 
 import com.qa.portal.common.dto.QaBaseDto;
+import com.qa.portal.common.dto.QuestionDto;
 
 import java.util.Objects;
 

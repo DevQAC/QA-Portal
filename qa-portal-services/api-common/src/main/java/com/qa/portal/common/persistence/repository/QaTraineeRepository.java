@@ -1,11 +1,11 @@
 package com.qa.portal.common.persistence.repository;
 
-import com.qa.portal.common.persistence.entity.TraineeEntity;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+import com.qa.portal.common.persistence.entity.TraineeEntity;
 
 @Repository
 public interface QaTraineeRepository extends JpaRepository<TraineeEntity, Integer> {
