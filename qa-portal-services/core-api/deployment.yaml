@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata:
+metadata:      
   name: core-api
+  namespace: development
   labels: 
     app: core-api
 spec:
