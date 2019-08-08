@@ -13,10 +13,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.mockito.Mockito.*;
 
@@ -80,7 +81,7 @@ public class GetSelfReflectionsForUserOperationTest {
 	}
 	
 	private void setPreConditions() {
-		reflectionEntities = Set.of(re1, re2);
+		reflectionEntities = Stream.of(re1, re2).collect(Collectors.toSet());
 		when(reflectionDto1.getFormDate()).thenReturn(LocalDate.now());
 		when(reflectionDto2.getFormDate()).thenReturn(LocalDate.now());
 		when(reflectionMapper.mapToReflectionDto(re1)).thenReturn(reflectionDto1);
