@@ -18,5 +18,15 @@
     "target": "http://localhost:8084",
     "secure": false,
     "logLevel": "debug"
+  },
+  "/question-api": {
+    "target": "http://localhost:8085",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/course-api": {
+    "target": "http://localhost:8086",
+    "secure": false,
+    "logLevel": "debug"
   }
 }

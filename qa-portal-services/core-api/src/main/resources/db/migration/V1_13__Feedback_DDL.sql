@@ -4,6 +4,13 @@ drop table if exists training.question CASCADE;
 
 drop table if exists training.question_category CASCADE;
 
+drop table if exists training.cohort_course_feedback CASCADE;
+
+drop table if exists training.cohort_course_evaluation CASCADE;
+
+drop table if exists training.cohort_course CASCADE;
+
+drop table if exists training.course CASCADE;
 
 create table if not exists training.form_type
 (
@@ -51,6 +58,55 @@ create table if not exists training.question
 );
 
 alter table training.question owner to postgres;
+
+create table if not exists training.course
+(
+	id integer not null
+		constraint course_pk
+			primary key,
+	course_name varchar(255) not null,
+	course_code varchar(255) not null
+);
+
+alter table training.course owner to postgres;
+
+
+create table if not exists training.cohort_course
+(
+	id integer not null
+		constraint cohort_course_pk
+			primary key,
+	course_id integer not null,
+	trainer_id integer not null,
+	start_date date not null,
+	end_date date
+);
+
+alter table training.cohort_course owner to postgres;
+
+create table if not exists training.cohort_course_evaluation
+(
+	id integer not null
+		constraint course_evaluation_pk
+			primary key,
+	trainee_id integer not null,
+	trainer_id integer not null,
+	cohort_course_id integer not null
+);
+
+alter table training.cohort_course_evaluation owner to postgres;
+
+
+create table if not exists training.cohort_course_feedback
+(
+	id integer not null
+		constraint cohort_course_feedback_pk
+			primary key,
+	trainer_id integer not null,
+	cohort_course_id integer not null
+);
+
+alter table training.cohort_course_feedback owner to postgres;
 
 
 
