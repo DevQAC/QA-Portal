@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.qa.portal.common.dto.QuestionDto;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
-import com.qa.portal.reflection.dto.QuestionDto;
-import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
+import com.qa.portal.common.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

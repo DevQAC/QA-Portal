@@ -18,9 +18,9 @@ import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.reflection.dto.ReflectionQuestionDto;
-import com.qa.portal.reflection.persistence.entity.CohortQuestionEntity;
+import com.qa.portal.common.persistence.entity.CohortQuestionEntity;
 import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
-import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
+import com.qa.portal.common.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.persistence.repository.ReflectionQuestionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
 

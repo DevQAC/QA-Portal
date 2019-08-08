@@ -1,4 +1,4 @@
-package com.qa.portal.reflection.persistence.entity;
+package com.qa.portal.common.persistence.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,9 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.qa.portal.common.persistence.entity.QaBaseEntity;
-import com.qa.portal.common.persistence.entity.QaCohortEntity;
 
 @Entity
 @Table(name = "cohort_question", schema = "training")

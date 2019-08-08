@@ -3,9 +3,9 @@ package com.qa.portal.reflection.rest;
 import java.util.List;
 import java.util.Set;
 
+import com.qa.portal.common.dto.QuestionDto;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.security.QaSecurityContext;
-import com.qa.portal.reflection.dto.QuestionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

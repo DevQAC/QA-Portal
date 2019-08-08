@@ -1,9 +1,8 @@
-package com.qa.portal.reflection.persistence.repository;
+package com.qa.portal.common.persistence.repository;
 
+import com.qa.portal.common.persistence.entity.QuestionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.qa.portal.reflection.persistence.entity.QuestionEntity;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<QuestionEntity, Integer> {
