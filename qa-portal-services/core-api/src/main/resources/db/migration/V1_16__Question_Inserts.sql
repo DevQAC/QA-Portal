@@ -92,6 +92,19 @@ INSERT INTO training.question (id, body, category_id,
                                 '2019-08-06 14:44:28.745289', 'admin', 1,
                                 true, 'Please provide any comments on your overall learning experience', '[''N/A'', ''1'', ''2'', ''3'', ''4'', ''5'', ''6'', ''7'', ''8'', ''9'', ''10'']');
 
+INSERT INTO training.question (id, body, category_id,
+                               last_updated_timestamp, last_updated_by, version,
+                               has_comment, comment_label, selection_options)
+                        VALUES (14, 'As a result of your overall experience, how likely are you to recommend QA to a colleague or friend?', '9',
+                                '2019-08-06 14:44:28.745289', 'admin', 1,
+                                true, 'What is your primary reason for this response?', '[''N/A'', ''1'', ''2'', ''3'', ''4'', ''5'', ''6'', ''7'', ''8'', ''9'', ''10'']');
+
+INSERT INTO training.question (id, body, category_id,
+                               last_updated_timestamp, last_updated_by, version,
+                               has_comment, comment_label, selection_options)
+                        VALUES (15, 'lease let us know if you would like further information on the following areas. Please note, by checking the box(es) below we will send you a single update email to give you more information about the areas you are interested in. We will not add you to any 3rd party lists or marketing emails unless you have already given your permission to us.', '10',
+                                '2019-08-06 14:44:28.745289', 'admin', 1,
+                                true, '', '[''Cyber Security'', ''Project and Programme Management'', ''Web and App development / Devops'', ''Cloud'', ''Desktop applications (MS Office, Adobe etc)'', ''Service Management / ITIL'', ''Business Skills'', ''Leadership and Management'', ''IT / Digital Resourcing Solutions'', ''QA Higher Education Degrees'', ''QA Apprenticeships'', ''QA Consulting'', ''TAP Programmes (The Training Foundation'', ''Other (please specify)'']');
 
 
 
