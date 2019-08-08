@@ -89,3 +89,4 @@ public class ReflectionService {
         return this.getTraineesForReviewOperation.getTraineesToReviewForCohort(cohortId);
     }
 }
+@RestController
