@@ -1,0 +1,17 @@
+<mat-radio-group *ngIf="DataModel.selectionType == RADIO_BUTTON" class="qa-radio-btn-group">
+  <div class="qa-radio-btn-grp-label">
+      {{questionText}}
+  </div>
+  <div class="qa-radio-btn-layout">
+      <mat-radio-button #matRadioButton color="primary" class="qa-radio-btn" labelPosition="before"
+          *ngFor="let entry of optionsArr" value="{{entry}}" [disabled]="isDisabled"
+          [checked]="entry === selectedRating.response" (change)="setModel(matRadioButton.value)">
+          {{entry}}
+      </mat-radio-button>
+  </div>
+</mat-radio-group>
+<div *ngIf="DataModel.selectionType == CHECK_BOX" class="qa-checkbox-group">
+  <div class="qa-checkbox-group-label">{{questionText}}</div>
+<mat-checkbox class="qa-checkbox" *ngFor="let entry of optionsArr" [disabled]="isDisabled"
+  value="{{entry}}" (change)="setModel(matCheckBox.value)">{{entry}}</mat-checkbox>
+</div>

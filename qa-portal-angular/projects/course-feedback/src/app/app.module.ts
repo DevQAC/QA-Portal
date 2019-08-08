@@ -7,13 +7,15 @@ import {QaCommonModule} from '../../../qa-common/src/app/app.module';
 import { TraineeCourseEvaluationComponent } from './trainee-course-evaluation/trainee-course-evaluation.component';
 import { WhyThisCourseQuestionComponent } from './trainee-course-evaluation/why-this-course-question/why-this-course-question.component';
 import { WhyWithQAComponent } from './trainee-course-evaluation/why-with-qa/why-with-qa.component';
+import { QuestionComponent } from './question/question.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TraineeCourseEvaluationComponent,
     WhyThisCourseQuestionComponent,
-    WhyWithQAComponent
+    WhyWithQAComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,
