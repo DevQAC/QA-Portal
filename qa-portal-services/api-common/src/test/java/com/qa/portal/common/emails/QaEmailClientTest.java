@@ -22,15 +22,11 @@ public class QaEmailClientTest {
     @Mock
     private JavaMailSender javaMailSender;
 
-//    @Mock
-//    private SimpleMailMessage msg;
-
     @InjectMocks
     private QaEmailClient emailClient;
 
-//    private JavaMailSenderImpl javaMailSender2;
 
-
+//  Test to make sure that an email is sent
     @Test
     public void testEmailWasSent() {
 
@@ -38,12 +34,14 @@ public class QaEmailClientTest {
         String emailSubject = "test";
         String emailBody = "testing";
 
+//      To capture the values of the method calls the check their values
+
         ArgumentCaptor<SimpleMailMessage> captor = ArgumentCaptor.forClass(SimpleMailMessage.class);
         emailClient.sendEmail(emailAddress,emailSubject,emailBody);
         Mockito.verify(this.javaMailSender, Mockito.times(1)).send(captor.capture());
         SimpleMailMessage message = captor.getValue();
 
-
+//      Check the values, they can be changed to verify
         assertEquals(1, Objects.requireNonNull(message.getTo()).length);
         assertEquals(emailAddress, message.getTo()[0]);
         assertEquals(emailSubject, message.getSubject());
