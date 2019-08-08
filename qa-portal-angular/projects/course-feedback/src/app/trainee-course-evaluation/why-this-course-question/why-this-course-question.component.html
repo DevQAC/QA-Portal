@@ -1,0 +1,10 @@
+<div>
+  <mat-radio-group class="why-this-course-group">
+    <label id="why-this-course">{{questionText}}</label>
+    <mat-radio-button #matRadioButton color="primary" class="why-this-course-button" *ngFor="let options of question"
+    (change)="setResponse(matRadioButton.value)" value="{{options}}">{{options}}
+    </mat-radio-button>
+    <div><br></div>
+    <input matInput>
+  </mat-radio-group>
+</div>

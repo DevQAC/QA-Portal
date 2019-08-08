@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-trainee-course-evaluation',
   templateUrl: './trainee-course-evaluation.component.html',
@@ -7,19 +6,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TraineeCourseEvaluationComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-  }
-  submitForm() {
-    this.TraineeCourseEvaluationComponent.(this.selfReflectionViewModel.selfReflectionForm).subscribe(
-      (response) => {
-        this.router.navigateByUrl('qa/portal/training/trainee/selfreflections');
-      },
-      (error) => {
-        this.errorHandlerService.handleError(error);
-      }
-    );
   }
 
 }
