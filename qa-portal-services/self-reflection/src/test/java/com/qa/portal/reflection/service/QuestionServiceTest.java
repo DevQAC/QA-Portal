@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 import java.util.Set;
 
+import com.qa.portal.common.persistence.entity.QuestionEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,9 +16,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
-import com.qa.portal.reflection.persistence.entity.CohortQuestionEntity;
-import com.qa.portal.reflection.persistence.entity.QuestionEntity;
-import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
+import com.qa.portal.common.persistence.entity.CohortQuestionEntity;
+import com.qa.portal.common.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.service.mapper.QuestionMapper;
 
 @RunWith(MockitoJUnitRunner.class)

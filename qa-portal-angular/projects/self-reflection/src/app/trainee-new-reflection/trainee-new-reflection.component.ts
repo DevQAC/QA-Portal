@@ -178,4 +178,8 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
       this.questionSubscription.unsubscribe();
     }
   }
+
+  getArrayFromOptionsString(optionsString: string): string[] {
+    return JSON.parse(optionsString);
+  }
 }
