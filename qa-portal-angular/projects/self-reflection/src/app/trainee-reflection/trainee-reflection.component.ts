@@ -94,4 +94,8 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
   disable(): boolean {
     return this.selfReflectionFormStateService.disable(this.selfReflectionViewModel.selfReflectionForm);
   }
+
+  getArrayFromOptionsString(optionsString: string): string[] {
+    return JSON.parse(optionsString);
+  }
 }

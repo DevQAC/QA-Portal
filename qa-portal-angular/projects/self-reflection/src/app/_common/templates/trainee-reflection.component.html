@@ -37,7 +37,7 @@
     </div>
 
     <app-rated-question *ngFor="let sr of selfReflectionViewModel.selfReflectionForm.reflectionQuestions"
-                        [options]="sr.question.numberOfOptions"
+                        [options]="getArrayFromOptionsString(sr.question.selectionOptionsJson).length"
                         [isDisabled]="disable()"
                         [questionText]="sr.question.body"
                         [selectedRating]="sr">

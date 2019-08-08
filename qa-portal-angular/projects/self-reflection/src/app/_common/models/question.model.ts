@@ -1,7 +1,7 @@
 export class QuestionModel {
   id: number;
 
-  numberOfOptions: number;
+  selectedOptionsJson: string;
 
   category: string;
 

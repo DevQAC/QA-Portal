@@ -22,8 +22,8 @@ public class QuestionController {
         this.qaSecurityContext = qaSecurityContext;
     }
 
-    @GetMapping("/question/formtype/{formId}")
-    public ResponseEntity<List<QuestionCategoryDto>> getQuestionsForFormType(@PathVariable("formId") Integer formId) {
-        return ResponseEntity.ok(this.service.getQuestionsForFormType(formId));
+    @GetMapping("/question/formtype/{formName}")
+    public ResponseEntity<List<QuestionCategoryDto>> getQuestionsForFormType(@PathVariable("formName") String formName) {
+        return ResponseEntity.ok(this.service.getQuestionsForFormType(formName));
     }
 }

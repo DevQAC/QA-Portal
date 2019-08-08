@@ -28,10 +28,10 @@ public class QuestionService {
     }
 
     @Transactional
-    public List<QuestionCategoryDto> getQuestionsForFormType(Integer formTypeId) {
-	    return formTypeRepository.findById(formTypeId)
+    public List<QuestionCategoryDto> getQuestionsForFormType(String formName) {
+	    return formTypeRepository.findByFormName(formName)
                 .map(f -> getQuestionCategoryDtos(f.getQuestionCategories()))
-                .orElseThrow(() -> new QaPortalBusinessException("No Questions found for supplied form type " + formTypeId));
+                .orElseThrow(() -> new QaPortalBusinessException("No Questions found for supplied form type " + formName));
     }
 
     private List<QuestionCategoryDto> getQuestionCategoryDtos(List<QuestionCategoryEntity> questionCategoryEntities) {
