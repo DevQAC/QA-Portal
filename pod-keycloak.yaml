@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: keycloak
+  namespace: development
+  labels: 
+    app: keycloak
+spec:
+  containers:
+    - name: keycloak
+      image: delt0p/keycloak:latest
+      ports:
+      - containerPort: 8080
+      env: 
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+        - name: DB_VENDOR
+          value: "postgres"
+        # The PostgreSQL user
+        - name: DB_USER
+          value: "keycloak"
+        # The PostgreSQL user's password
+        - name: DB_PASSWORD
+          value: "keycloak"
+        # The PostgreSQL database address: "<postgres-service-name>"."<namespace>"
+        - name: DB_ADDR
+          value: "./qa-portal-infra/keycloak/qa-portal-realm.json"
+        # The Keycloak user, which will be used for the Keycloak "Admin Console"
+        - name: KEYCLOAK_USER
+          value: "admin"
+        # The Keycloak user's password
+        - name: KEYCLOAK_PASSWORD
+          value: "admin"

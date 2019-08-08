@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: self-reflection
+spec:
+  selector:
+    app: self-reflection
+  ports: 
+  - protocol: TCP
+    port: 8082
+    targetPort: 8082
+  type: ClusterIP

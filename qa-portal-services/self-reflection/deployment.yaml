@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: self-reflection
+  labels: 
+    app: self-reflection
+spec:
+  selector:
+    matchLabels:
+      app: self-reflection
+  template:
+    metadata:
+      labels:
+        app: self-reflection
+    spec:
+      containers:
+      - name: self-reflection
+        image: jpeckover/self-reflection:latest
+        ports:
+        - containerPort: 8082
