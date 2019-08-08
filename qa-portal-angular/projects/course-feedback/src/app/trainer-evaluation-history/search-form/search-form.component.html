@@ -1,6 +1,10 @@
-<form class="example-form">
+<!-- <form class="example-form" [formGroup]="searchForm">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="filter" [formControl]="searchForm">
-    <!-- <button>filter</button> -->
+    <input matInput="text" placeholder="filter" formControlName="search">
   </mat-form-field>
+</form> -->
+
+<form [formGroup]="searchForm">
+  <input type="text" placeholder="filter" formControlName="search">
+  <button (click)="filter();"></button>
 </form>

@@ -38,36 +38,42 @@
   </mat-card-content>
 
   <mat-card-content>
-    <p>Previous Events (Last 8 Weeks) <app-search-form></app-search-form><button (click) = "filterRows();" mat-raised-button color="#0060B9">Filter</button></p>
+    <p>Previous Events (Last 8 Weeks) </p>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input matInput="text" placeholder="filter" [formControl]="searching">
+      </mat-form-field>
+      <button (click)="filterRows();" mat-raised-button color="#0060B9">{{!searching.value ? 'Show All' : 'Filter'}}</button>
+    </form>
     <div style="display: flex; justify-content: center">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 full width">
+      <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8 full width">
         <ng-container matColumnDef="c1">
           <th mat-header-cell *matHeaderCellDef> Course</th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element">{{element.col1}}
           </td>
         </ng-container>
         <ng-container matColumnDef="c2">
           <th mat-header-cell *matHeaderCellDef> Start </th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element">{{element.col2}}
           </td>
         </ng-container>
         <ng-container matColumnDef="c3">
           <th mat-header-cell *matHeaderCellDef> Location </th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element">{{element.col3}}
           </td>
         </ng-container>
         <ng-container matColumnDef="c4">
           <th mat-header-cell *matHeaderCellDef> Knowledge </th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element">{{element.col4}}
           </td>
         </ng-container>
         <ng-container matColumnDef="c5">
           <th mat-header-cell *matHeaderCellDef> TQI </th>
-          <td mat-cell *matCellDef="let element">
+          <td mat-cell *matCellDef="let element">{{element.col5}}
           </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="viewModel.evaluationCols"></tr>
-        <tr class="" mat-row *matRowDef="let row; columns: viewModel.evaluationCols;">
+        <tr mat-header-row *matHeaderRowDef="viewModel2.evaluationCols"></tr>
+        <tr class="" mat-row *matRowDef="let row; columns: viewModel2.evaluationCols;">
       </table>
     </div>
 
@@ -76,7 +82,7 @@
   <mat-card-content>
     <p>Overall (Last 8 Weeks):</p>
     <div style="display: flex; justify-content: center">
-      <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8 full width right-mat-table">
+      <table mat-table [dataSource]="dataSource3" class="mat-elevation-z8 full width right-mat-table">
         <ng-container matColumnDef="c1">
           <th mat-header-cell *matHeaderCellDef> Knowledge </th>
           <td mat-cell *matCellDef="let element">
@@ -87,8 +93,8 @@
           <td mat-cell *matCellDef="let element">
           </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="viewModel2.evaluationCols"></tr>
-        <tr class="" mat-row *matRowDef="let row; columns: viewModel2.evaluationCols;">
+        <tr mat-header-row *matHeaderRowDef="viewModel3.evaluationCols"></tr>
+        <tr class="" mat-row *matRowDef="let row; columns: viewModel3.evaluationCols;">
       </table>
     </div>
 

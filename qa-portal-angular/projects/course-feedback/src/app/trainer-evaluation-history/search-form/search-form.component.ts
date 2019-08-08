@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { TrainerEvaluationHistoryComponent } from '../trainer-evaluation-history.component';
+import { filter } from 'minimatch';
 
 @Component({
   selector: 'app-search-form',
@@ -9,11 +10,21 @@ import { TrainerEvaluationHistoryComponent } from '../trainer-evaluation-history
 })
 export class SearchFormComponent implements OnInit {
 
-  searchForm: FormControl = new FormControl();
+  @Output() searchForm = new FormGroup({
+    search: new FormControl('')
+  });
+  
 
-  constructor() { }
+  constructor(private use: TrainerEvaluationHistoryComponent) { }
 
   ngOnInit() {
   }
   // private eval: TrainerEvaluationHistoryComponent
+
+  filter() {
+    this.use.filterRows();
+  }
+
 }
+
+
