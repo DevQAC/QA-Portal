@@ -3,6 +3,7 @@ import com.qa.portal.common.emails.QaEmailClient;
 import org.springframework.scheduling.annotation.Scheduled;
 
 public class QaEmailScheduler {
+
     private QaEmailClient qec;
 
     public QaEmailScheduler(){
