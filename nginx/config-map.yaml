@@ -4,18 +4,32 @@ metadata:
   name: nginx-config
 data:
   default.conf: |
-    server {
+   server {
         listen 80;
         location / {
             return 200 "OK";
         }
         location /jenkins/ {
             proxy_pass http://jenkins:8080;
-    		proxy_read_timeout  90;
-    		proxy_set_header X-Forwarded-Host $host:$server_port;
-    		proxy_set_header X-Forwarded-Server $host;
-    		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    		proxy_set_header X-Forwarded-Proto $scheme;
-    		proxy_set_header X-Real-IP $remote_addr;
+        }
+        # keycloak
+        location /auth {
+            proxy_pass http://keycloak:8080;
+        }
+        # portal
+        location / {
+            proxy_pass http://portal-core;
+        }
+        # core-api
+        location /core-api {
+            proxy_pass http://core-api:8081;
+        }
+        # user-api 
+        location /user-api {
+            proxy_pass http://user-api:8084;
+        }
+        # self-reflection
+        location /self-reflection {
+            proxy_pass http://self-reflection:8082;
         }
     }
