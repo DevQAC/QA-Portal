@@ -1,5 +1,7 @@
 package com.qa.portal.feedback.dto;
 
+import java.util.Date;
+
 import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.dto.TrainerDto;
@@ -12,9 +14,10 @@ public class CohortCourseEvaluationDto {
     private TrainerDto trainer;
 
     private CohortCourseDto cohortCourse;
+     
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -23,6 +26,14 @@ public class CohortCourseEvaluationDto {
 
     public TraineeDto getTrainee() {
         return trainee;
+    }
+    
+    public Date getCourseStartDate() {
+    	return this.cohortCourse.getStartDate();
+    }
+    
+    public Date getCourseEndDate() {
+    	return this.cohortCourse.getEndDate();
     }
 
     public void setTrainee(TraineeDto trainee) {
@@ -44,4 +55,5 @@ public class CohortCourseEvaluationDto {
     public void setCohortCourse(CohortCourseDto cohortCourse) {
         this.cohortCourse = cohortCourse;
     }
+    
 }

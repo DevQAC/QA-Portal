@@ -1,18 +1,23 @@
 package com.qa.portal.common.dto;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class CohortCourseDto {
 
     private Integer id;
 
-    private Date startDate;
+    private LocalDate startDate;
 
-    private Date endDate;
+    private LocalDate endDate;
 
     private CourseDto course;
 
     private TrainerDto trainer;
+    
+	private BigDecimal averageKnowledgeRating;
+    
+    private BigDecimal tqi;
 
     public Integer getId() {
         return id;
@@ -22,19 +27,19 @@ public class CohortCourseDto {
         this.id = id;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -53,4 +58,21 @@ public class CohortCourseDto {
     public void setTrainer(TrainerDto trainer) {
         this.trainer = trainer;
     }
+    
+    public BigDecimal getAverageKnowledgeRating() {
+		return averageKnowledgeRating;
+	}
+
+	public void setAverageKnowledgeRating(BigDecimal averageKnowledgeRating) {
+		this.averageKnowledgeRating = averageKnowledgeRating;
+	}
+
+	public BigDecimal getTqi() {
+		return tqi;
+	}
+
+	public void setTqi(BigDecimal tqi) {
+		this.tqi = tqi;
+	}
+
 }
