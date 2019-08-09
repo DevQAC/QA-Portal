@@ -12,6 +12,8 @@ public class CohortCourseDto {
 
     private CourseDto course;
 
+    private QaCohortDto cohort;
+
     private TrainerDto trainer;
 
     public Integer getId() {
@@ -44,6 +46,14 @@ public class CohortCourseDto {
 
     public void setCourse(CourseDto course) {
         this.course = course;
+    }
+
+    public QaCohortDto getCohort() {
+        return cohort;
+    }
+
+    public void setCohort(QaCohortDto cohort) {
+        this.cohort = cohort;
     }
 
     public TrainerDto getTrainer() {
