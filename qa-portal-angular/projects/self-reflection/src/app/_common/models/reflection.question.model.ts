@@ -3,8 +3,11 @@ import { SelectedRatingModel } from '../../../../../qa-common/src/app/rated-ques
 
 export class ReflectionQuestionModel implements SelectedRatingModel {
   selectedRating: number;
+
   id: number;
+
   reflectionId: number;
+
   question: QuestionModel;
 
   response: number;

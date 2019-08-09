@@ -9,7 +9,7 @@
 <mat-card *ngIf="!loadingData">
   <mat-card-title style="text-align: center; background-color: lightgray; color: #0060B9;">
     Current Self Reflection Form {{
-      selfReflectionViewModel.selfReflectionForm.formDate| date : "dd/MM/y"
+      selfReflectionViewModel.selfReflectionForm.formDate| date : "dd/MM/yy"
     }}
   </mat-card-title>
 
@@ -37,7 +37,8 @@
     </div>
 
     <app-rated-question *ngFor="let sr of selfReflectionViewModel.selfReflectionForm.reflectionQuestions"
-                        [options]="sr.question.numberOfOptions"
+                        [options]="getArrayFromOptionsString(sr.question.selectionOptionsJson).length"
+                        [isDisabled]="disable()"
                         [questionText]="sr.question.body"
                         [selectedRating]="sr">
     </app-rated-question>
@@ -54,22 +55,30 @@
 
     <div style="display: flex; flex-direction: column;">
       <textarea [(ngModel)]="selfReflectionViewModel.selfReflectionForm.strengths" style="resize: none;" rows="5" matInput
+                [disabled]="disable()"
                 placeholder="Strengths - What went well last week"></textarea>
       <textarea [(ngModel)]="selfReflectionViewModel.selfReflectionForm.weaknesses" style="resize: none;" rows="5" matInput
+                [disabled]="disable()"
                 placeholder="Weaknesses - What did not go well last week"></textarea>
       <textarea [(ngModel)]="selfReflectionViewModel.selfReflectionForm.opportunities" style="resize: none;" rows="5" matInput
+                [disabled]="disable()"
                 placeholder="Opportunities - What could you do in the future to improve your strengths"></textarea>
       <textarea [(ngModel)]="selfReflectionViewModel.selfReflectionForm.threats" style="resize: none;" rows="5" matInput
+                [disabled]="disable()"
                 placeholder="Threats - The issues you need to avoid in the future to minimise your weaknesses"></textarea>
     </div>
   </mat-card-content>
 
   <mat-card-actions>
     <div class="qa-card-action-container">
-<!--      <button mat-raised-button [disabled]="!srForm.valid" (click)="saveForm()">Save</button>-->
-      <button mat-raised-button (click)="submitForm()">Submit</button>
+
+      <button *ngIf="selfReflectionViewModel.selfReflectionForm.status !== 'Submitted' &&
+                     selfReflectionViewModel.selfReflectionForm.status !== 'Reviewed'"
+              mat-raised-button (click)="saveSubmitButtonPress()">
+        {{isFormCompleted() ? 'Submit' : 'Save'}}</button>
     </div>
   </mat-card-actions>
+
 
 
 </mat-card>

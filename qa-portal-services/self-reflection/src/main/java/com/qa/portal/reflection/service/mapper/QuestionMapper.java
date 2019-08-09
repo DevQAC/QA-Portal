@@ -1,11 +1,9 @@
 package com.qa.portal.reflection.service.mapper;
 
+import com.qa.portal.common.dto.QuestionDto;
+import com.qa.portal.common.persistence.entity.QuestionEntity;
 import org.dozer.DozerBeanMapper;
 import org.springframework.stereotype.Component;
-
-import com.qa.portal.common.util.mapper.BaseMapper;
-import com.qa.portal.reflection.dto.QuestionDto;
-import com.qa.portal.reflection.persistence.entity.QuestionEntity;
 
 @Component
 public class QuestionMapper {
