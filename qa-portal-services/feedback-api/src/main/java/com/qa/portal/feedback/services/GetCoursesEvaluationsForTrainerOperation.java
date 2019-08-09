@@ -20,15 +20,18 @@ public class GetCoursesEvaluationsForTrainerOperation {
 
 	private BaseMapper mapper;
 	private CohortCourseRepository cohortRepo;
+	private CohortCourseEvaluationRepository cohortEvaluationRepo;
 	private QaTrainerRepository trainerRepo;
 	private Comparator<CohortCourseDto> couComparator = (r1, r2) -> r1.getStartDate().isBefore(r2.getEndDate()) ? 1 : -1; 
 	
 	@Autowired
 	public GetCoursesEvaluationsForTrainerOperation(BaseMapper mapper,
 			CohortCourseRepository repo,
-			QaTrainerRepository trainerRepo) {
+			QaTrainerRepository trainerRepo,
+			CohortCourseEvaluationRepository cohortEvaluationRepo) {
 		this.mapper = mapper;
 		this.cohortRepo = repo;
+		this.cohortEvaluationRepo = cohortEvaluationRepo;
 		this.trainerRepo = trainerRepo;
 	}
 
@@ -44,6 +47,36 @@ public class GetCoursesEvaluationsForTrainerOperation {
 	
 	private void getTrainerEvaluations(CohortCourseEntity cohortCourseEntity) {
 		CohortCourseDto cohortCourseDto = mapper.mapObject(cohortCourseEntity, CohortCourseDto.class);
-		cohortCourseEntity.
+		cohortEvaluationRepo.findByCohortCourse(cohortCourseEntity).stream()
+		.map(e -> e.get)
 	}
 } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
