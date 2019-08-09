@@ -15,6 +15,10 @@ public class QuestionResponseEntity extends QaBaseEntity {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "question_category_response_id")
+    private QuestionCategoryResponseEntity categoryResponse;
+
+    @ManyToOne
     @JoinColumn(name = "question_id")
     private QuestionEntity question;
 
@@ -31,6 +35,14 @@ public class QuestionResponseEntity extends QaBaseEntity {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public QuestionCategoryResponseEntity getCategoryResponse() {
+        return categoryResponse;
+    }
+
+    public void setCategoryResponse(QuestionCategoryResponseEntity categoryResponse) {
+        this.categoryResponse = categoryResponse;
     }
 
     public QuestionEntity getQuestion() {
