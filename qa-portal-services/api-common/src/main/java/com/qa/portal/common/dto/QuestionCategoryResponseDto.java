@@ -8,6 +8,8 @@ public class QuestionCategoryResponseDto {
 
     private CommentDto comment;
 
+    private QuestionCategoryDto questionCategory;
+
     private List<QuestionResponseDto> questionResponses;
 
     public Integer getId() {
@@ -32,5 +34,13 @@ public class QuestionCategoryResponseDto {
 
     public void setQuestionResponses(List<QuestionResponseDto> questionResponses) {
         this.questionResponses = questionResponses;
+    }
+
+    public QuestionCategoryDto getQuestionCategory() {
+        return questionCategory;
+    }
+
+    public void setQuestionCategory(QuestionCategoryDto questionCategory) {
+        this.questionCategory = questionCategory;
     }
 }
