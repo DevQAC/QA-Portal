@@ -20,5 +20,4 @@ public class GetEvaluationsForCourseOperation {
         // All DB access, mapping from Entity to DTO return the response to the service
         return Collections.emptyList();
     }
-
 }
