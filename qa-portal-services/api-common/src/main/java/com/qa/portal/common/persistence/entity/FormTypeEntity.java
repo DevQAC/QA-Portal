@@ -18,7 +18,7 @@ public class FormTypeEntity extends QaBaseEntity {
     @Column(name = "form_name")
     private String formName;
 
-    @OneToMany(mappedBy = "formType")
+    @OneToMany(mappedBy = "formType", cascade = CascadeType.ALL)
     private List<QuestionCategoryEntity> questionCategories;
 
     public Integer getId() {

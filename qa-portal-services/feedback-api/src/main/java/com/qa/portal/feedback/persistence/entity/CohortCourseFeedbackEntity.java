@@ -5,6 +5,7 @@ import com.qa.portal.common.persistence.entity.QaBaseEntity;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(schema = "training", name = "cohort_course_feedback")
@@ -18,9 +19,8 @@ public class CohortCourseFeedbackEntity extends QaBaseEntity {
             allocationSize = 1)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "trainer_id")
-    private TrainerEntity trainer;
+    @OneToMany(mappedBy = "courseFeedback")
+    private List<FeedbackQuestionCategoryResponseEntity> categoryResponses;
 
     @ManyToOne
     @JoinColumn(name = "cohort_course_id")
@@ -34,12 +34,12 @@ public class CohortCourseFeedbackEntity extends QaBaseEntity {
         this.id = id;
     }
 
-    public TrainerEntity getTrainer() {
-        return trainer;
+    public List<FeedbackQuestionCategoryResponseEntity> getCategoryResponses() {
+        return categoryResponses;
     }
 
-    public void setTrainer(TrainerEntity trainer) {
-        this.trainer = trainer;
+    public void setCategoryResponses(List<FeedbackQuestionCategoryResponseEntity> categoryResponses) {
+        this.categoryResponses = categoryResponses;
     }
 
     public CohortCourseEntity getCohortCourse() {
