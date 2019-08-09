@@ -16,6 +16,10 @@ public abstract class QuestionCategoryResponseEntity extends QaBaseEntity {
             allocationSize = 1)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "question_category_id")
+    private QuestionCategoryEntity questionCategory;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "comment_id")
     private CommentEntity comment;
@@ -36,6 +40,22 @@ public abstract class QuestionCategoryResponseEntity extends QaBaseEntity {
     }
 
     public void setQuestionCategories(List<QuestionResponseEntity> questionResponses) {
+        this.questionResponses = questionResponses;
+    }
+
+    public QuestionCategoryEntity getQuestionCategory() {
+        return questionCategory;
+    }
+
+    public void setQuestionCategory(QuestionCategoryEntity questionCategory) {
+        this.questionCategory = questionCategory;
+    }
+
+    public List<QuestionResponseEntity> getQuestionResponses() {
+        return questionResponses;
+    }
+
+    public void setQuestionResponses(List<QuestionResponseEntity> questionResponses) {
         this.questionResponses = questionResponses;
     }
 
