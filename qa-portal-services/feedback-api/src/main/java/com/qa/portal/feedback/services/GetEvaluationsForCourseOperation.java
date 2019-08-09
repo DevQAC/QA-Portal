@@ -2,11 +2,8 @@ package com.qa.portal.feedback.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+public class GetEvaluationsForCourseOperation {
 
-@Service
-public class CourseEvaluationService {
-	
 	List<CourseEvaluationDto> getEvaluationsForCourse(CourseDto)
-
+	
 }
