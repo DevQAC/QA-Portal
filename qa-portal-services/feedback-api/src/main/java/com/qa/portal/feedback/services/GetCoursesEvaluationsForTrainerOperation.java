@@ -19,10 +19,11 @@ import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepos
 public class GetCoursesEvaluationsForTrainerOperation {
 
 	private BaseMapper mapper;
-	private CohortCourseRepository cohortRepo;
+	private CohortCourseRepository cohortCourseRepo;
 	private CohortCourseEvaluationRepository cohortEvaluationRepo;
 	private QaTrainerRepository trainerRepo;
-	private Comparator<CohortCourseDto> couComparator = (r1, r2) -> r1.getStartDate().isBefore(r2.getEndDate()) ? 1 : -1; 
+	private Comparator<CohortCourseDto> couComparator = (r1, r2) -> r1.getStartDate().isBefore(r2.getEndDate()) ? 1 : -1;
+	private static final String TRAINER_CATEGORY = "Evaluation Trainer";
 	
 	@Autowired
 	public GetCoursesEvaluationsForTrainerOperation(BaseMapper mapper,
@@ -30,29 +31,39 @@ public class GetCoursesEvaluationsForTrainerOperation {
 			QaTrainerRepository trainerRepo,
 			CohortCourseEvaluationRepository cohortEvaluationRepo) {
 		this.mapper = mapper;
-		this.cohortRepo = repo;
+		this.cohortCourseRepo = repo;
 		this.cohortEvaluationRepo = cohortEvaluationRepo;
 		this.trainerRepo = trainerRepo;
 	}
 
-	public List<CohortCourseEvaluationDto> getCourseEvaluationsForTrainer(String userName) {
+	public List<CohortCourseDto> getCourseEvaluationsForTrainer(String userName) {
 		TrainerEntity trainer = trainerRepo.findByUserName(userName).
 				orElseThrow(() -> new QaResourceNotFoundException("Trainer does not exist"));
-		return cohortRepo.findByTrainer(trainer)
+		return cohortCourseRepo.findByTrainer(trainer)
 				.stream()
-				.map(c -> mapper.mapObject(c, CohortCourseEvaluationDto.class))
+				.map(c -> getEvaluatedCohortCourseDto(c))
 				.sorted(couComparator)
 				.collect(Collectors.toList());
 	}
 	
-	private void getTrainerEvaluations(CohortCourseEntity cohortCourseEntity) {
+	private CohortCourseDto getEvaluatedCohortCourseDto(CohortCourseEntity cohortCourseEntity) {
 		CohortCourseDto cohortCourseDto = mapper.mapObject(cohortCourseEntity, CohortCourseDto.class);
+		return cohortCourseDto;
+	}
+	
+	private Double calculateKnowledgeAverage(CohortCourseEntity cohortCourseEntity) {
 		cohortEvaluationRepo.findByCohortCourse(cohortCourseEntity).stream()
-		.map(e -> e.get)
+		.map(e -> e.getCategoryResponses().stream()
+		.filter(r -> r.getQuestionCategory().getCategoryName().equals(TRAINER_CATEGORY)));
+		return null;
+	}
+	
+	private Boolean isTrainerResponse() {
+		
 	}
 } 
 
-
+	
 
 
 
