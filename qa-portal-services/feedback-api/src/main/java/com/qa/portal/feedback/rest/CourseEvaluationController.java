@@ -19,5 +19,5 @@ public class CourseEvaluationController {
         this.qaSecurityContext = qaSecurityContext;
     }
     
-    List<CourseEvaluationDto> getEvaluationsForCourse(CourseDto)
+    //List<CourseEvaluationDto> getEvaluationsForCourse(CourseDto)
 }

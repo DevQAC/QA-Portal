@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class CourseEvaluationService {
 	
-	List<CourseEvaluationDto> getEvaluationsForCourse(CourseDto)
+	//List<CourseEvaluationDto> getEvaluationsForCourse(CourseDto)
 
 }

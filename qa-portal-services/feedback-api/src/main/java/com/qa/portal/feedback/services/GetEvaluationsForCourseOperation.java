@@ -4,6 +4,6 @@ import java.util.List;
 
 public class GetEvaluationsForCourseOperation {
 
-	List<CourseEvaluationDto> getEvaluationsForCourse(CourseDto)
+	//List<CourseEvaluationDto> getEvaluationsForCourse(CourseDto)
 	
 }
