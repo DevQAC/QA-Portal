@@ -10,9 +10,12 @@ public class QaEmailClient {
 
     private JavaMailSender javaMailSender;
 
-
-//    method that sends an email
     @Autowired
+    public QaEmailClient(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
+
+    //    method that sends an email
 	public void sendEmail(String emailAddress,String emailSubject,String emailBody) {
 
         SimpleMailMessage msg = new SimpleMailMessage();

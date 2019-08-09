@@ -1,13 +1,15 @@
 package com.qa.portal.common.scheduler;
 import com.qa.portal.common.emails.QaEmailClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
 public class QaEmailScheduler {
 
     private QaEmailClient qec;
 
-    public QaEmailScheduler(){
-        this.qec = new QaEmailClient();
+    @Autowired
+    public QaEmailScheduler(QaEmailClient qec) {
+        this.qec = qec;
     }
 
     //scheduler that should run by 1am and send out emails
