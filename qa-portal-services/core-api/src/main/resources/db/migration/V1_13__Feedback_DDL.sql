@@ -4,10 +4,6 @@ drop table if exists training.question CASCADE;
 
 drop table if exists training.question_category CASCADE;
 
-drop table if exists training.cohort_course_feedback CASCADE;
-
-drop table if exists training.cohort_course_evaluation CASCADE;
-
 drop table if exists training.cohort_course CASCADE;
 
 drop table if exists training.course CASCADE;
@@ -21,6 +17,27 @@ drop table if exists training.question_category_response CASCADE;
 drop table if exists training.cohort_course_feedback CASCADE;
 
 drop table if exists training.cohort_course_evaluation CASCADE;
+
+drop sequence if exists training.form_type_sequence;
+
+drop sequence if exists training.question_sequence;
+
+drop sequence if exists training.question_category_sequence;
+
+drop sequence if exists training.cohort_course_sequence;
+
+drop sequence if exists training.course_sequence;
+
+drop sequence if exists training.comment_sequence;
+
+drop sequence if exists training.question_response_sequence;
+
+drop sequence if exists training.question_category_response_sequence;
+
+drop sequence if exists training.cohort_course_feedback_sequence;
+
+drop sequence if exists training.cohort_course_evaluation_sequence;
+
 
 create table if not exists training.form_type
 (
@@ -90,6 +107,7 @@ create table if not exists training.cohort_course
 		constraint cohort_course_pk
 			primary key,
 	course_id integer not null,
+	cohort_id integer not null,
 	trainer_id integer not null,
 	start_date date not null,
 	end_date date,
@@ -177,6 +195,71 @@ alter table training.cohort_course_evaluation owner to postgres;
 
 
 
+create sequence training.form_type_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.form_type_sequence owner to postgres;
 
 
+create sequence training.question_sequence
+    minvalue 50
+    maxvalue 999999999;
 
+alter sequence training.question_sequence owner to postgres;
+
+
+create sequence training.question_category_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.question_category_sequence owner to postgres;
+
+
+create sequence training.course_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.course_sequence owner to postgres;
+
+
+create sequence training.cohort_course_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.cohort_course_sequence owner to postgres;
+
+
+create sequence training.comment_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.comment_sequence owner to postgres;
+
+
+create sequence training.question_response_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.question_response_sequence owner to postgres;
+
+
+create sequence training.question_category_response_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.question_category_response_sequence owner to postgres;
+
+
+create sequence training.cohort_course_feedback_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.cohort_course_feedback_sequence owner to postgres;
+
+
+create sequence training.cohort_course_evaluation_sequence
+    minvalue 50
+    maxvalue 999999999;
+
+alter sequence training.cohort_course_evaluation_sequence owner to postgres;
