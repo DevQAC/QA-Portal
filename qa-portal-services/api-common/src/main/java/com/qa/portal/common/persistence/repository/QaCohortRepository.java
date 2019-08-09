@@ -10,5 +10,5 @@ import com.qa.portal.common.persistence.entity.QaCohortEntity;
 @Repository
 public interface QaCohortRepository extends JpaRepository<QaCohortEntity, Integer> {
 
-    Optional<QaCohortEntity> findByname(String name);
+    Optional<QaCohortEntity> findByName(String name);
 }

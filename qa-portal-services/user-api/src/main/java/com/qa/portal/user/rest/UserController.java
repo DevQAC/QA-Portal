@@ -1,17 +1,15 @@
 package com.qa.portal.user.rest;
 
-import java.util.List;
-
+import com.qa.portal.common.dto.QaCohortDto;
+import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.security.QaSecurityContext;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.qa.portal.user.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.portal.common.dto.QaCohortDto;
-import com.qa.portal.common.dto.TraineeDto;
-import com.qa.portal.user.services.UserService;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -35,4 +33,8 @@ public class UserController {
         return ResponseEntity.ok(this.service.getCohortsForTrainer(securityContext.getUserName()));
     }
 
+    @GetMapping("/user/cohort")
+    public ResponseEntity<QaCohortDto> getCohortForTrainee(){
+        return ResponseEntity.ok(this.service.getCohortForTrainee(securityContext.getUserName()));
+    }
 }

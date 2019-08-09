@@ -15,6 +15,7 @@ export class ReflectionModel extends BaseModel {
   weaknesses?: string;
   opportunities?: string;
   threats?: string;
+  status: string;
   // questions?: Question[];
 
   public static setReflectionQuestions(
@@ -66,6 +67,8 @@ export class ReflectionModel extends BaseModel {
       }
     });
 
+    console.log('Reflection questions are ');
+    console.log(reflectionQuestions);
     reflection.reflectionQuestions = reflectionQuestions;
   }
 }

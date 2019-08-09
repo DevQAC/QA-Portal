@@ -12,6 +12,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
+import com.qa.portal.common.persistence.entity.QuestionEntity;
 
 import java.util.Objects;
 
