@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent} from './app.component';
 import { TraineeCourseEvaluationComponent } from './trainee-course-evaluation/trainee-course-evaluation.component';
-import { QuestionComponent } from './question/question.component';
+import { FeedbackPageComponent } from './end-of-course-eval/feedback-page/feedback-page.component';
 
 const routes: Routes = [
   {
-    path: 'feedback/end-of-course-evaluation', component: QuestionComponent
+    path: 'feedback/end-of-course-evaluation', component: FeedbackPageComponent
   },
   {
     path: 'feedback/home', component: AppComponent
