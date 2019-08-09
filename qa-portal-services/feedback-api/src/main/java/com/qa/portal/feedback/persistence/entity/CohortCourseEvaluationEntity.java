@@ -3,7 +3,6 @@ package com.qa.portal.feedback.persistence.entity;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
-import com.qa.portal.common.persistence.entity.TrainerEntity;
 
 import javax.persistence.*;
 
@@ -24,10 +23,6 @@ public class CohortCourseEvaluationEntity extends QaBaseEntity {
     private TraineeEntity trainee;
 
     @ManyToOne
-    @JoinColumn(name = "trainer_id")
-    private TrainerEntity trainer;
-
-    @ManyToOne
     @JoinColumn(name = "cohort_course_id")
     private CohortCourseEntity cohortCourse;
 
@@ -45,14 +40,6 @@ public class CohortCourseEvaluationEntity extends QaBaseEntity {
 
     public void setTrainee(TraineeEntity trainee) {
         this.trainee = trainee;
-    }
-
-    public TrainerEntity getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(TrainerEntity trainer) {
-        this.trainer = trainer;
     }
 
     public CohortCourseEntity getCohortCourse() {
