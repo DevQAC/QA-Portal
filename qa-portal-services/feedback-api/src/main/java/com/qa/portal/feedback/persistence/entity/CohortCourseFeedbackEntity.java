@@ -19,10 +19,6 @@ public class CohortCourseFeedbackEntity extends QaBaseEntity {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "trainer_id")
-    private TrainerEntity trainer;
-
-    @ManyToOne
     @JoinColumn(name = "cohort_course_id")
     private CohortCourseEntity cohortCourse;
 
@@ -32,14 +28,6 @@ public class CohortCourseFeedbackEntity extends QaBaseEntity {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public TrainerEntity getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(TrainerEntity trainer) {
-        this.trainer = trainer;
     }
 
     public CohortCourseEntity getCohortCourse() {
