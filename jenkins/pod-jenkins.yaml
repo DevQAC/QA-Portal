@@ -14,7 +14,7 @@ spec:
         runAsUser: 1000
       image: jenkins/jenkins:latest
       ports:
-      - containerPort: 8443
+      - containerPort: 8080
       env:
       - name: JENKINS_OPTS
         value: "--prefix=/jenkins"
