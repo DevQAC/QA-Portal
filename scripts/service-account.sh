@@ -1,5 +1,5 @@
 #!/bin/bash
-$PROJECT=johnny-20091993
+$PROJECT=johnny20091993
 $SA_EMAIL=johnny-peckover@live.co.uk
 
 #Create the service account
