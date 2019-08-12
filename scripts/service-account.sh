@@ -22,5 +22,5 @@ gcloud projects add-iam-policy-binding $PROJECT --role roles/iam.serviceAccountA
     --member serviceAccount:$SA_EMAIL
 
 # Create the key file:
-gcloud iam service-accounts keys create jenkins-sa.json --iam-account $SA_EMAIL
+gcloud iam service-accounts keys create ~/jenkins-sa.json --iam-account $SA_EMAIL
 
