@@ -101,6 +101,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>-Xmx256m</jvmArguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>
