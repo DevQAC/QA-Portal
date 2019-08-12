@@ -9,7 +9,7 @@ import { DataModel } from '../../_common/models/data.model';
 export class QuestionCategoryComponent implements OnInit {
 
 
-  @Input() value : DataModel;
+  @Input() value: DataModel;
 
   constructor() { }
 
