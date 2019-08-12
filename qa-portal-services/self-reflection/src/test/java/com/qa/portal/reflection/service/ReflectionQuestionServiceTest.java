@@ -6,7 +6,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -78,14 +77,7 @@ public class ReflectionQuestionServiceTest {
 		service.updateReflectionQuestions(Stream.of(reflectionQuestionDto).collect(Collectors.toSet()));
 		checkPostConditionsUpdateReflectionQuestions();
 	}
-	
-	@Test
-	public void getReflectionQuestionsByCohort() {
-		setPreConditions();
-		service.getReflectionQuestionsByCohort(anyString());
-		checkPostConditionsReflectionQuestionsByCohort();
-	}
-	
+
 	@Test
 	public void createReflectionQuestions() {
 		setPreConditions();
@@ -99,8 +91,6 @@ public class ReflectionQuestionServiceTest {
 		when(reflectionQuestionRepo.findByReflectionId(anyInt())).thenReturn(Stream.of(reflectionQuestionEntity).collect(Collectors.toSet()));
 		when(reflectionQuestionMapper.mapToReflectionQuestionEntity(reflectionQuestionDto)).thenReturn(reflectionQuestionEntity);
 		when(reflectionQuestionRepo.save(reflectionQuestionEntity)).thenReturn(savedReflectionQuestionEntity);
-		when(cohortRepo.findByName(anyString())).thenReturn(Optional.of(cohortEntity));
-		when(cohortQuestionRepo.findByCohort(cohortEntity)).thenReturn(Stream.of(cohortQuestionEntity).collect(Collectors.toSet()));
 	}
 
 	private void checkPostConditions() {
