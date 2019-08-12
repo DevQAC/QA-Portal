@@ -27,4 +27,10 @@ export class RatedQuestionComponent implements OnInit {
   setModel(rating: string) {
     this.selectedRating.response = rating;
   }
+
+  matchedValue(entry: string, responseVal: string): boolean {
+    const matched = (entry === responseVal);
+    console.log('Matched ' + matched);
+    return matched;
+  }
 }
