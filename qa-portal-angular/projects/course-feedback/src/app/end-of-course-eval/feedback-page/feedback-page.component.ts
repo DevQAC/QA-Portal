@@ -17,6 +17,7 @@ export class FeedbackPageComponent implements OnInit {
     ngOnInit() {
       this.formTypeService.getFormType(COURSE_EVAL_FORM).subscribe((response: DataModel[]) => {
         this.formInfo = response;
+        console.log(response);
     });
   }
 }

@@ -11,6 +11,7 @@ import { WhyWithQAComponent } from './trainee-course-evaluation/why-with-qa/why-
 import { FormTypeService } from './_common/services/form-type.service';
 import { FeedbackPageComponent } from './end-of-course-eval/feedback-page/feedback-page.component';
 import { QuestionCategoryComponent } from './end-of-course-eval/question-category/question-category.component';
+import { QuestionComponent } from './end-of-course-eval/question/question.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { QuestionCategoryComponent } from './end-of-course-eval/question-categor
     WhyThisCourseQuestionComponent,
     WhyWithQAComponent,
     FeedbackPageComponent,
-    QuestionCategoryComponent
+    QuestionCategoryComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,
