@@ -36,14 +36,6 @@ public class ReflectionQuestionController {
 		return this.service.getReflectionQuestionsByReflectionId(id);
 	}
 
-    @GetMapping("/questions")
-    public List<QuestionDto> getReflectionQuestionsByCohort() {
-        return this.service.getReflectionQuestionsByCohort(securityContext.getCohorts()
-                .stream()
-                .findFirst()
-                .orElseThrow(() -> new QaResourceNotFoundException("No cohorts for user")));
-    }
-
     @PutMapping
     public List<ReflectionQuestionDto> updateReflectionQuestions(@RequestBody Set<ReflectionQuestionDto> reflectionQuestions) {
         return this.service.updateReflectionQuestions(reflectionQuestions);
