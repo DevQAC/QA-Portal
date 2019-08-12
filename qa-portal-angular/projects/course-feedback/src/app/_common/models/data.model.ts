@@ -4,8 +4,9 @@ export class DataModel {
     id : number;
     categoryName : string;
     hasComment: boolean;
+    commentLabel: string;
     selectionType: string;
     displayDirection: string;
-    question: QuestionModel[] = [];
+    questions: QuestionModel[] = [];
 
 }
