@@ -12,6 +12,7 @@ import { FormTypeService } from './_common/services/form-type.service';
 import { FeedbackPageComponent } from './end-of-course-eval/feedback-page/feedback-page.component';
 import { QuestionCategoryComponent } from './end-of-course-eval/question-category/question-category.component';
 import { QuestionComponent } from './end-of-course-eval/question/question.component';
+import { TrainerFeedbackPageComponent } from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { QuestionComponent } from './end-of-course-eval/question/question.compon
     WhyWithQAComponent,
     FeedbackPageComponent,
     QuestionCategoryComponent,
-    QuestionComponent
+    QuestionComponent,
+    TrainerFeedbackPageComponent
   ],
   imports: [
     BrowserModule,

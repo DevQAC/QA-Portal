@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { AppComponent} from './app.component';
-import { TraineeCourseEvaluationComponent } from './trainee-course-evaluation/trainee-course-evaluation.component';
 import { FeedbackPageComponent } from './end-of-course-eval/feedback-page/feedback-page.component';
 import {CourseEvaluationComponent} from './course-evaluation/course-evaluation.component';
+import { TrainerFeedbackPageComponent } from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
 
 const routes: Routes = [
   {
@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'course-evaluation',
     component: CourseEvaluationComponent
+  },
+  {
+    path: 'feedback/trainer',
+    component: TrainerFeedbackPageComponent
   }
 ];
 
