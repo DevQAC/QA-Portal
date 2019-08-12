@@ -1,4 +1,6 @@
 #!/bin/bash
+$PROJECT=johnny-20091993
+$SA_EMAIL=johnny-peckover@live.co.uk
 
 #Create the service account
 gcloud iam service-accounts create jenkins --display-name jenkins
