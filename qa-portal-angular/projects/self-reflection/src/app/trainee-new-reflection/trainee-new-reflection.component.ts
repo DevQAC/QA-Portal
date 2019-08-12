@@ -93,7 +93,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   setFormDateFromExisting() {
     const sortedList = this.getSortedDateArray(this.listOfFormDates);
     const testDate = sortedList[sortedList.length - 1];
-
     const date = new Date(testDate);
     this.setFormDate(this.addDays(date, 7));
   }

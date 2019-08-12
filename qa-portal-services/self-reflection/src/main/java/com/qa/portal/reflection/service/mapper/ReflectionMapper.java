@@ -25,11 +25,16 @@ public class ReflectionMapper {
 
     private QaTraineeRepository traineeRepository;
 
-    @Autowired
-    public ReflectionMapper(DozerBeanMapper mapper, QuestionRepository questionRepository, QaTraineeRepository traineeRepository) {
+    private ReflectionQuestionMapper reflectionQuestionMapper;
+
+    public ReflectionMapper(DozerBeanMapper mapper,
+                            QuestionRepository questionRepository,
+                            QaTraineeRepository traineeRepository,
+                            ReflectionQuestionMapper reflectionQuestionMapper) {
         this.mapper = mapper;
         this.questionRepository = questionRepository;
         this.traineeRepository = traineeRepository;
+        this.reflectionQuestionMapper = reflectionQuestionMapper;
     }
 
     public ReflectionDto mapToReflectionDto(ReflectionEntity reflectionEntity) {
@@ -66,8 +71,6 @@ public class ReflectionMapper {
     }
 
     private ReflectionQuestionDto createReflectionQuestionDto(ReflectionQuestionEntity reflectionQuestionEntity) {
-        ReflectionQuestionDto reflectionQuestionDto = mapper.map(reflectionQuestionEntity, ReflectionQuestionDto.class);
-        reflectionQuestionDto.setQuestion(mapper.map(reflectionQuestionEntity.getQuestion(), QuestionDto.class));
-        return reflectionQuestionDto;
+        return reflectionQuestionMapper.mapToReflectionQuestionDto(reflectionQuestionEntity);
     }
 }
