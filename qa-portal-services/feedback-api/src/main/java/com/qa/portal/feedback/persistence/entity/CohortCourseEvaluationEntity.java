@@ -3,9 +3,9 @@ package com.qa.portal.feedback.persistence.entity;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
-import com.qa.portal.common.persistence.entity.TrainerEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(schema = "training", name = "cohort_course_evaluation")
@@ -24,12 +24,11 @@ public class CohortCourseEvaluationEntity extends QaBaseEntity {
     private TraineeEntity trainee;
 
     @ManyToOne
-    @JoinColumn(name = "trainer_id")
-    private TrainerEntity trainer;
-
-    @ManyToOne
     @JoinColumn(name = "cohort_course_id")
     private CohortCourseEntity cohortCourse;
+
+    @OneToMany(mappedBy = "courseEvaluation")
+    private List<EvalQuestionCategoryResponseEntity> categoryResponses;
 
     public Integer getId() {
         return id;
@@ -47,12 +46,12 @@ public class CohortCourseEvaluationEntity extends QaBaseEntity {
         this.trainee = trainee;
     }
 
-    public TrainerEntity getTrainer() {
-        return trainer;
+    public List<EvalQuestionCategoryResponseEntity> getCategoryResponses() {
+        return categoryResponses;
     }
 
-    public void setTrainer(TrainerEntity trainer) {
-        this.trainer = trainer;
+    public void setCategoryResponses(List<EvalQuestionCategoryResponseEntity> categoryResponses) {
+        this.categoryResponses = categoryResponses;
     }
 
     public CohortCourseEntity getCohortCourse() {

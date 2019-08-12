@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +26,7 @@ import com.qa.portal.common.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.persistence.repository.ReflectionQuestionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
 
-/*@RunWith(MockitoJUnitRunner.class)*/
+@RunWith(MockitoJUnitRunner.class)
 public class ReflectionQuestionServiceTest {
 
 	@Mock
@@ -63,57 +65,63 @@ public class ReflectionQuestionServiceTest {
 	
 	private Integer REFLECTION_QUESTION_ID = 2;
 
-	/*
-	 * @Test public void getReflectionQuestionsByReflectionId() {
-	 * setPreConditions(); service.getReflectionQuestionsByReflectionId(anyInt());
-	 * checkPostConditions(); }
-	 * 
-	 * @Test public void updateReflectionQuestions() { setPreConditions();
-	 * service.updateReflectionQuestions(Set.of(reflectionQuestionDto));
-	 * checkPostConditionsUpdateReflectionQuestions(); }
-	 * 
-	 * @Test public void getReflectionQuestionsByCohort() { setPreConditions();
-	 * service.getReflectionQuestionsByCohort(anyString());
-	 * checkPostConditionsReflectionQuestionsByCohort(); }
-	 * 
-	 * @Test public void createReflectionQuestions() { setPreConditions();
-	 * service.createReflectionQuestions(Set.of(reflectionQuestionDto));
-	 * checkPostConditionsCreateReflectionQuestions(); }
-	 * 
-	 * private void setPreConditions() {
-	 * when(reflectionQuestionDto.getId()).thenReturn(REFLECTION_QUESTION_ID);
-	 * when(reflectionQuestionRepo.findById(REFLECTION_QUESTION_ID)).thenReturn(
-	 * Optional.of(reflectionQuestionEntity));
-	 * when(reflectionQuestionRepo.findByReflectionId(anyInt())).thenReturn(Set.of(
-	 * reflectionQuestionEntity));
-	 * when(reflectionQuestionMapper.mapToReflectionQuestionEntity(
-	 * reflectionQuestionDto)).thenReturn(reflectionQuestionEntity);
-	 * when(reflectionQuestionRepo.save(reflectionQuestionEntity)).thenReturn(
-	 * savedReflectionQuestionEntity);
-	 * when(cohortRepo.findByName(anyString())).thenReturn(Optional.of(cohortEntity)
-	 * ); when(cohortQuestionRepo.findByCohort(cohortEntity)).thenReturn(Set.of(
-	 * cohortQuestionEntity)); }
-	 * 
-	 * private void checkPostConditions() {
-	 * verify(reflectionQuestionRepo).findByReflectionId(anyInt());
-	 * verify(reflectionQuestionMapper).mapToReflectionQuestionDto(
-	 * reflectionQuestionEntity); }
-	 * 
-	 * private void checkPostConditionsUpdateReflectionQuestions() {
-	 * verify(reflectionQuestionRepo).findById(REFLECTION_QUESTION_ID);
-	 * verify(reflectionQuestionRepo).save(reflectionQuestionEntity);
-	 * verify(reflectionQuestionMapper).mapToReflectionQuestionDto(
-	 * savedReflectionQuestionEntity); }
-	 * 
-	 * private void checkPostConditionsReflectionQuestionsByCohort() {
-	 * verify(cohortRepo).findByName(anyString());
-	 * verify(cohortQuestionRepo).findByCohort(cohortEntity); }
-	 * 
-	 * private void checkPostConditionsCreateReflectionQuestions() {
-	 * verify(reflectionQuestionMapper).mapToReflectionQuestionEntity(
-	 * reflectionQuestionDto);
-	 * verify(reflectionQuestionRepo).save(reflectionQuestionEntity);
-	 * verify(reflectionQuestionMapper).mapToReflectionQuestionDto(
-	 * savedReflectionQuestionEntity); }
-	 */
+	@Test
+	public void getReflectionQuestionsByReflectionId() {
+		setPreConditions();
+		service.getReflectionQuestionsByReflectionId(anyInt());
+		checkPostConditions();
+	}
+	
+	@Test
+	public void updateReflectionQuestions() {
+		setPreConditions();
+		service.updateReflectionQuestions(Stream.of(reflectionQuestionDto).collect(Collectors.toSet()));
+		checkPostConditionsUpdateReflectionQuestions();
+	}
+
+	@Test
+	public void getReflectionQuestionsByCohort() {
+		setPreConditions();
+		service.getReflectionQuestionsByCohort(anyString());
+		checkPostConditionsReflectionQuestionsByCohort();
+	}
+
+	@Test
+	public void createReflectionQuestions() {
+		setPreConditions();
+		service.createReflectionQuestions(Stream.of(reflectionQuestionDto).collect(Collectors.toSet()));
+		checkPostConditionsCreateReflectionQuestions();
+	}
+
+	private void setPreConditions() {
+		when(reflectionQuestionDto.getId()).thenReturn(REFLECTION_QUESTION_ID);
+		when(reflectionQuestionRepo.findById(REFLECTION_QUESTION_ID)).thenReturn(Optional.of(reflectionQuestionEntity));
+		when(reflectionQuestionRepo.findByReflectionId(anyInt())).thenReturn(Stream.of(reflectionQuestionEntity).collect(Collectors.toSet()));
+		when(reflectionQuestionMapper.mapToReflectionQuestionEntity(reflectionQuestionDto)).thenReturn(reflectionQuestionEntity);
+		when(reflectionQuestionRepo.save(reflectionQuestionEntity)).thenReturn(savedReflectionQuestionEntity);
+		when(cohortRepo.findByName(anyString())).thenReturn(Optional.of(cohortEntity));
+		when(cohortQuestionRepo.findByCohort(cohortEntity)).thenReturn(Stream.of(cohortQuestionEntity).collect(Collectors.toSet()));
+	}
+
+	private void checkPostConditions() {
+		verify(reflectionQuestionRepo).findByReflectionId(anyInt());
+		verify(reflectionQuestionMapper).mapToReflectionQuestionDto(reflectionQuestionEntity);
+	}
+	
+	private void checkPostConditionsUpdateReflectionQuestions() {
+		verify(reflectionQuestionRepo).findById(REFLECTION_QUESTION_ID);
+		verify(reflectionQuestionRepo).save(reflectionQuestionEntity);
+		verify(reflectionQuestionMapper).mapToReflectionQuestionDto(savedReflectionQuestionEntity);
+	}
+	
+	private void checkPostConditionsReflectionQuestionsByCohort() {
+		verify(cohortRepo).findByName(anyString());
+		verify(cohortQuestionRepo).findByCohort(cohortEntity);
+	}
+	
+	private void checkPostConditionsCreateReflectionQuestions() {
+		verify(reflectionQuestionMapper).mapToReflectionQuestionEntity(reflectionQuestionDto);
+		verify(reflectionQuestionRepo).save(reflectionQuestionEntity);
+		verify(reflectionQuestionMapper).mapToReflectionQuestionDto(savedReflectionQuestionEntity);
+	}
 }

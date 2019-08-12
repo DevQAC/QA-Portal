@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CourseEvaluationComponent } from './course-evaluation/course-evaluation.component';
+import { EvaluationTableComponent } from './evaluation-table/evaluation-table.component';
 import { QaCommonModule } from '../../../qa-common/src/app/app.module';
 import { TraineeCourseEvaluationComponent } from './trainee-course-evaluation/trainee-course-evaluation.component';
 import { WhyThisCourseQuestionComponent } from './trainee-course-evaluation/why-this-course-question/why-this-course-question.component';
@@ -13,6 +15,8 @@ import { QuestionCategoryComponent } from './end-of-course-eval/question-categor
 @NgModule({
   declarations: [
     AppComponent,
+    CourseEvaluationComponent,
+    EvaluationTableComponent,
     TraineeCourseEvaluationComponent,
     WhyThisCourseQuestionComponent,
     WhyWithQAComponent,

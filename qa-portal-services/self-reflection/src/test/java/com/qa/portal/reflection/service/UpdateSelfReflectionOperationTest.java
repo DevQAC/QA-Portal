@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +24,7 @@ import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
 import com.qa.portal.reflection.persistence.repository.ReflectionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionMapper;
 
-/*@RunWith(MockitoJUnitRunner.class)*/
+@RunWith(MockitoJUnitRunner.class)
 public class UpdateSelfReflectionOperationTest {
 
 	@Mock
@@ -48,37 +50,40 @@ public class UpdateSelfReflectionOperationTest {
 
 	private final String USER_NAME = "USER_NAME";
 
-	/*
-	 * @InjectMocks private UpdateSelfReflectionOperation operation;
-	 * 
-	 * @Test public void updateSelfReflectionTest() { setPreConditions();
-	 * executeAction(); checkPostConditions(); }
-	 * 
-	 * private void setPreConditions() {
-	 * when(reflectionRepository.findById(reflectionDtoToUpdateFrom.getId()))
-	 * .thenReturn(Optional.of(reflectionEntityToUpdate));
-	 * when(reflectionDtoToUpdateFrom.getFormDate()).thenReturn(LocalDate.now());
-	 * when(reflectionDtoToUpdateFrom.getReflectionQuestions())
-	 * .thenReturn(Set.of(reflectionQuestionDtoToUpdateFrom1,
-	 * reflectionQuestionDtoToUpdateFrom2));
-	 * when(reflectionEntityToUpdate.getReflectionQuestions())
-	 * .thenReturn(Set.of(reflectionQuestionEntityToUpdate1,
-	 * reflectionQuestionEntityToUpdate2));
-	 * when(reflectionRepository.save(reflectionEntityToUpdate)).thenReturn(
-	 * updatedReflectionEntity); }
-	 * 
-	 * private void executeAction() {
-	 * operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME); }
-	 * 
-	 * @Test(expected = QaResourceNotFoundException.class) public void
-	 * updateSelfReflectionNotFoundTest() {
-	 * operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME); }
-	 * 
-	 * private void checkPostConditions() { verify(reflectionRepository,
-	 * times(1)).findById(reflectionDtoToUpdateFrom.getId());
-	 * verify(reflectionRepository, times(1)).save(reflectionEntityToUpdate);
-	 * verify(reflectionMapper,
-	 * times(1)).mapToReflectionDto(updatedReflectionEntity); }
-	 */
+	@InjectMocks
+	private UpdateSelfReflectionOperation operation;
+
+	@Test
+	public void updateSelfReflectionTest() {
+		setPreConditions();
+		executeAction();
+		checkPostConditions();
+	}
+
+	private void setPreConditions() {
+		when(reflectionRepository.findById(reflectionDtoToUpdateFrom.getId()))
+				.thenReturn(Optional.of(reflectionEntityToUpdate));
+		when(reflectionDtoToUpdateFrom.getFormDate()).thenReturn(LocalDate.now());
+		when(reflectionDtoToUpdateFrom.getReflectionQuestions())
+				.thenReturn(Stream.of(reflectionQuestionDtoToUpdateFrom1, reflectionQuestionDtoToUpdateFrom2).collect(Collectors.toSet()));
+		when(reflectionEntityToUpdate.getReflectionQuestions())
+				.thenReturn(Stream.of(reflectionQuestionEntityToUpdate1, reflectionQuestionEntityToUpdate2).collect(Collectors.toSet()));
+		when(reflectionRepository.save(reflectionEntityToUpdate)).thenReturn(updatedReflectionEntity);
+	}
+
+	private void executeAction() {
+		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
+	}
+
+	@Test(expected = QaResourceNotFoundException.class)
+	public void updateSelfReflectionNotFoundTest() {
+		operation.updateSelfReflection(reflectionDtoToUpdateFrom, USER_NAME);
+	}
+
+	private void checkPostConditions() {
+		verify(reflectionRepository, times(1)).findById(reflectionDtoToUpdateFrom.getId());
+		verify(reflectionRepository, times(1)).save(reflectionEntityToUpdate);
+		verify(reflectionMapper, times(1)).mapToReflectionDto(updatedReflectionEntity);
+	}
 
 }
