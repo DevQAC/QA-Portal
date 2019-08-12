@@ -37,12 +37,9 @@ public class QuestionCategoryMapper {
 
     private void setOptionsListForQuestion(QuestionDto question) {
           try {
-              LOGGER.info("Options for question " + question.getBody());
-              LOGGER.info("Options " + question.getSelectionOptionsJson());
               ObjectMapper objectMapper = new ObjectMapper();
               TypeFactory typeFactory = objectMapper.getTypeFactory();
               question.setSelectionOptionsList(objectMapper.readValue(question.getSelectionOptionsJson(), typeFactory.constructCollectionType(List.class, String.class)));
-              LOGGER.info("Number questions in list " + question.getSelectionOptionsList().size());
           }
           catch (Exception e) {
               throw new QaPortalBusinessException("Could not get options for form questions.");
