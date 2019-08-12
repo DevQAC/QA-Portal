@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SelfReflectionFormViewModel} from '../trainee-reflection/models/self-reflection-form-vmodel';
 import {Subscription} from 'rxjs';
-import {RatedQuestionsService} from '../trainee-reflection/services/rated-questions.service';
 import {SelfReflectionFormService} from '../trainee-reflection/services/self-reflection-form.service';
 import {QuestionsServiceService} from '../trainee-reflection/services/questions-service.service';
 import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
@@ -11,6 +10,8 @@ import {ReflectionQuestionModel} from '../_common/models/reflection.question.mod
 import {CohortTraineesService} from '../cohort-trainees/services/cohort-trainees.service';
 import {SelfReflectionFormStateService} from '../_common/services/self-reflection-form-state.service';
 import {QaToastrService} from '../../../../portal-core/src/app/_common/services/qa-toastr.service';
+import {SelfReflectionService} from '../trainer-reflection/services/self-reflection.service';
+import {QuestionModel} from '../_common/models/question.model';
 
 @Component({
   selector: 'app-trainee-new-reflection',
@@ -27,7 +28,7 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
   listOfFormDates;
 
-  constructor(private ratedQuestionsService: RatedQuestionsService,
+  constructor(private selfReflectionService: SelfReflectionService,
               private selfReflectionFormService: SelfReflectionFormService,
               private questionsService: QuestionsServiceService,
               private errorHandlerService: QaErrorHandlerService,
@@ -92,7 +93,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   setFormDateFromExisting() {
     const sortedList = this.getSortedDateArray(this.listOfFormDates);
     const testDate = sortedList[sortedList.length - 1];
-
     const date = new Date(testDate);
     this.setFormDate(this.addDays(date, 7));
   }
@@ -110,11 +110,11 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   }
 
   getSelfReflectionQuestions() {
-    this.questionSubscription = this.ratedQuestionsService.getSelfReflectionQuestions().subscribe(
-      (answer) => {
-        answer.forEach((entry) => {
+    this.questionSubscription = this.selfReflectionService.getQuestionsByFormType('reflection_form').subscribe(
+      (answers) => {
+        answers.forEach((entry) => {
           const reflectionQuestion = new ReflectionQuestionModel();
-          reflectionQuestion.question = entry;
+          this.setReflectionQuestion(reflectionQuestion, entry);
           this.selfReflectionViewModel.selfReflectionForm.reflectionQuestions.push(reflectionQuestion);
         });
         this.loadingData = false;
@@ -124,7 +124,17 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
         this.errorHandlerService.handleError(error);
       }
     );
+  }
 
+  setReflectionQuestion(reflectionQuestion: ReflectionQuestionModel, question: QuestionModel) {
+    console.log('Setting self reflection question');
+    console.log(question.selectionOptionsList);
+    reflectionQuestion.question = new QuestionModel();
+    reflectionQuestion.question.id = question.id;
+    reflectionQuestion.question.body = question.body;
+    reflectionQuestion.question.category = question.category;
+    reflectionQuestion.question.selectionOptionsList = question.selectionOptionsList;
+    reflectionQuestion.question.selectionOptionsJson = question.selectionOptionsJson;
   }
 
   setFormDate(dateToSet: Date) {
@@ -177,9 +187,5 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
     if (!!this.questionSubscription) {
       this.questionSubscription.unsubscribe();
     }
-  }
-
-  getArrayFromOptionsString(optionsString: string): string[] {
-    return JSON.parse(optionsString);
   }
 }

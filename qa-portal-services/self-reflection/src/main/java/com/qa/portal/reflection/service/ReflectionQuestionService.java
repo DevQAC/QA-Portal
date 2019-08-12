@@ -79,17 +79,6 @@ public class ReflectionQuestionService {
     }
 
 	@Transactional
-	public List<QuestionDto> getReflectionQuestionsByCohort(String cohortName){
-		LOGGER.info("Cohort name" + cohortName);
-		return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByName(cohortName).orElseThrow(
-				()-> new QaResourceNotFoundException("Cohort not found for supplied name")))
-				.stream()
-				.map((e) -> reflectionQuestionMapper.mapToQuestionDto(e.getQuestion()))
-                .sorted(questionComparator)
-				.collect(Collectors.toList());
-	}
-
-	@Transactional
 	public List<ReflectionQuestionDto> createReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
 		return reflectionQuestions.stream().map(rqdto ->
 					this.reflectionQuestionMapper

@@ -8,7 +8,7 @@ import {SelectedRatingModel} from './selected-rating.model';
 })
 export class RatedQuestionComponent implements OnInit {
 
-  @Input() options: number;
+  @Input() options: string[];
 
   @Input() questionText: string;
 
@@ -16,17 +16,15 @@ export class RatedQuestionComponent implements OnInit {
 
   @Input() isDisabled = false;
 
-  optionsArr = [];
-
   constructor() { }
 
   ngOnInit() {
-    for (let i = 0; i < this.options; i++) {
-      this.optionsArr.push(i + 1);
-    }
+    this.options.forEach(o => {
+      console.log(o);
+    });
   }
 
-  setModel(rating: number) {
+  setModel(rating: string) {
     this.selectedRating.response = rating;
   }
 }
