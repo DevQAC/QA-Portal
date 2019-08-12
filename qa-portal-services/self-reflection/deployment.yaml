@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: self-reflection
-  namespace: development
   labels: 
     app: self-reflection
 spec:
