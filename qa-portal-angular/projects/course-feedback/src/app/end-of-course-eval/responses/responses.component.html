@@ -1,0 +1,21 @@
+<div *ngIf="question.selectionType == RADIO_BUTTON">
+  <mat-radio-group>
+    <mat-radio-button #matRadioButton color="primary" class="response-button"
+      *ngFor="let options of value.selectionOptionsJson" (change)="setResponse(matRadioButton.value)" [value]="options">
+      {{options}}
+    </mat-radio-button>
+    <div><br></div>
+    <div *ngIf="value.hasComment">
+      <input matInput>
+    </div>
+  </mat-radio-group>
+</div>
+<div *ngIf="question.selectionType == CHECK_BOX">
+  <mat-card>
+    <mat-card-content>
+      <mat-checkbox class="checkbox-reponse" *ngFor="let options of value.selectionOptionsJson"
+        [value]="options">{{options}}</mat-checkbox>
+    </mat-card-content>
+
+  </mat-card>
+</div>

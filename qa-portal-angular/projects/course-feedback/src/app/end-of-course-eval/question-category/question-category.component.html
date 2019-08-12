@@ -1,1 +1,3 @@
-Value = {{value.questions[0].body}}
+<h4>{{value.categoryName}}</h4>
+<app-question *ngFor="let question of value.questions" [value]="question"></app-question>
+<mat-divider></mat-divider>

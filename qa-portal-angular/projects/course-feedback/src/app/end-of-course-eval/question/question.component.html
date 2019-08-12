@@ -1,3 +1,4 @@
-<p>
-  question works!
-</p>
+<mat-card>
+  {{value.body}}
+  <app-responses *ngFor="let response of value.selectionOptionsJSON" [value]="response"></app-responses>
+</mat-card>
