@@ -1,9 +1,10 @@
 #!/bin/bash
-$PROJECT=johnny20091993
-$SA_EMAIL=johnny-peckover@live.co.uk
 
 #Create the service account
 gcloud iam service-accounts create jenkins --display-name jenkins
+
+echo " Creating service account..."
+sleep 30
 
 #Store the service account email address and your 
 #current GCP project ID in environment variables for use in later commands:
@@ -26,3 +27,11 @@ gcloud projects add-iam-policy-binding $PROJECT --role roles/iam.serviceAccountA
 # Create the key file:
 gcloud iam service-accounts keys create ~/jenkins-sa.json --iam-account $SA_EMAIL
 
+
+echo " "
+echo "*****************************************************"
+echo " "
+echo "jenkins-sa.json key is located in home directory"
+echo " "
+echo "*****************************************************"
+echo " "
