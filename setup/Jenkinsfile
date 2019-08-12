@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     stages {
         stage('Clone repo')
             steps{
@@ -11,9 +12,12 @@ pipeline {
                 sh label: '', script: 'curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -'
                 sh label: '', script: 'sudo apt-get update && sudo apt-get install google-cloud-sdk'
             }
+
+
+
         stage('Build') {
             steps {
-                sh label: '', script: 'docker-compose build .'
+                echo 'Building..'
             }
         }
         stage('Test') {
@@ -24,7 +28,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                sh label: '', script: 'bash ./scripts/deployment.sh'
             }
         }
     }
