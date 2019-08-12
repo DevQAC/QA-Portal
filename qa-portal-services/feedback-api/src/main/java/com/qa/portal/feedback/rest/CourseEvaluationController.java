@@ -25,10 +25,10 @@ public class CourseEvaluationController {
     }
 
     @GetMapping("/trainee/evaluation/{cohort_course_id}")
-    public ResponseEntity<List<CohortCourseEvaluationDto>> getEvaluationsForCourse(@PathVariable("cohort_course_id") String cohortCourseId) {
+    public ResponseEntity<List<CohortCourseEvaluationDto>> getEvaluationsForCourse(@PathVariable("cohort_course_id") int cohortCourseId) {
         // Call course evaluation service to get evaluations for course
-
-
+    	System.out.println("Reached");
+    	service.getEvaluationsForCourse(cohortCourseId);
         // Remove this once service call has been added
         return ResponseEntity.ok(Collections.emptyList());
     }

@@ -16,7 +16,7 @@ public class CourseEvaluationService {
     }
 
     @Transactional
-    public List<CohortCourseEvaluationDto> getEvaluationsForCourse(String cohortCourseId) {
+    public List<CohortCourseEvaluationDto> getEvaluationsForCourse(int cohortCourseId) {
         return getEvaluationsForCourseOperation.getEvaluationsForCourse(cohortCourseId);
     }
 }
