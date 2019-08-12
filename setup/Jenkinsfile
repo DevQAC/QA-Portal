@@ -2,10 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Create service account')
-            steps {
-                sh label: '', script: 'bash ./service-account.sh'
-            }
         stage('Install glcoud sdk')
             steps {
                 sh label: '', script: 'bash ./cloud-sdk.sh'
