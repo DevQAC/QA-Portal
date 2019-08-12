@@ -3,7 +3,7 @@
     {{questionText}}
   </div>
   <div class="qa-radio-btn-layout">
-    <mat-radio-button #matRadioButton color="primary" class="qa-radio-btn" labelPosition="before" *ngFor="let entry of optionsArr"
+    <mat-radio-button #matRadioButton color="primary" class="qa-radio-btn" labelPosition="before" *ngFor="let entry of options"
                       value="{{entry}}" [disabled]="isDisabled" [checked]="entry === selectedRating.response" (change)="setModel(matRadioButton.value)">
       {{entry}}
     </mat-radio-button>

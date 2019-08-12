@@ -1,7 +1,9 @@
 export class QuestionModel {
   id: number;
 
-  selectedOptionsJson: string;
+  selectionOptionsJson: string;
+
+  selectionOptionsList: string[];
 
   category: string;
 
