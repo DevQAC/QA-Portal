@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mappings xmlns="http://dozer.sourceforge.net"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://dozer.sourceforge.net
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
       http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
-	<configuration>
-		<custom-converters> <!-- these are always bi-directional -->
-			<converter
-				type="com.qa.portal.common.util.mapper.converters.SqlTimestampInstantConverter">
-				<class-a>java.sql.Timestamp</class-a>
-				<class-b>java.time.Instant</class-b>
-			</converter>
+    <configuration>
+        <custom-converters> <!-- these are always bi-directional -->
+            <converter type="com.qa.portal.common.util.mapper.converters.SqlTimestampInstantConverter">
+                <class-a>java.sql.Timestamp</class-a>
+                <class-b>java.time.Instant</class-b>
+            </converter>
 
 			<converter
 				type="com.qa.portal.common.util.mapper.converters.LocalDateSqlDateConverter">
@@ -44,4 +43,11 @@
 		<class-b>com.qa.portal.common.persistence.entity.CohortCourseEntity
 		</class-b>
 	</mapping>
+
+    <mapping>
+        <class-a>com.qa.portal.feedback.dto.EvalQuestionCategoryResponseDto</class-a>
+        <class-b>com.qa.portal.feedback.persistence.entity.EvalQuestionCategoryResponseEntity</class-b>
+    </mapping>
 </mappings>
+
+

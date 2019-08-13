@@ -1,27 +1,49 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule, ModuleWithProviders} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
-import { CourseEvaluationComponent } from './course-evaluation/course-evaluation.component';
-import { EvaluationTableComponent } from './evaluation-table/evaluation-table.component';
+import {TrainerEvaluationSummaryComponent} from './trainer-evaluation-summary/trainer-evaluation-summary.component';
+import {TableComponentComponent} from './trainer-evaluation-summary/table-component/table-component.component';
+import {CourseInfoComponent} from './trainer-evaluation-summary/course-info/course-info.component';
+import {SearchBoxComponent} from './trainer-evaluation-summary/search-box/search-box.component';
+import {CourseEvaluationComponent} from './course-evaluation/course-evaluation.component';
+import {EvaluationTableComponent} from './evaluation-table/evaluation-table.component';
+import { TrainerEvaluationHistoryComponent } from './trainer-evaluation-history/trainer-evaluation-history.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RetrieveTrainerEvaluationHistoryService } from './trainer-evaluation-history/services/retrieve-trainer-evaluation-history.service';
+import { InstructorZoneTitleComponent } from './trainer-evaluation-history/instructor-zone-title/instructor-zone-title.component';
+import { SearchFormComponent } from './trainer-evaluation-history/search-form/search-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    TrainerEvaluationSummaryComponent,
+    TableComponentComponent,
+    CourseInfoComponent,
+    InstructorZoneTitleComponent,
+    SearchBoxComponent,
     CourseEvaluationComponent,
-    EvaluationTableComponent
+    EvaluationTableComponent,
+    TrainerEvaluationHistoryComponent,
+    InstructorZoneTitleComponent,
+    SearchFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    QaCommonModule
+    QaCommonModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    RetrieveTrainerEvaluationHistoryService,
+    SearchFormComponent
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
 
 @NgModule({})
 export class CourseFeedbackSharedModule {
