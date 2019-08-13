@@ -25,6 +25,7 @@
             ],
             "styles": [
               "projects/qa-common/src/styles.css"
+              
             ],
             "scripts": []
           },

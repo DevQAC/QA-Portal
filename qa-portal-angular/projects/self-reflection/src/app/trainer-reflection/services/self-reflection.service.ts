@@ -40,8 +40,8 @@ export class SelfReflectionService {
     return this.http.put<ReflectionModel>(`${REFLECTION_API}`, reflection);
   }
 
-  public getQuestionCategoriesByFormType(formType: string): Observable<QuestionModel[]> {
-    return this.http.get<QuestionModel[]>(`${QUESTION_CATEGORY_API}/${formType}`);
+  public getQuestionCategoriesByFormType(formType: string): Observable<any[]> {
+    return this.http.get<any[]>(`${QUESTION_CATEGORY_API}/${formType}`);
   }
 
   public getQuestionsByFormType(formType: string): Observable<QuestionModel[]> {

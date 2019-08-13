@@ -40,6 +40,7 @@ public class QuestionService {
     public List<QuestionDto> getQuestionsForFormType(@PathVariable("formName") String formName) {
         return getQuestionCategoriesForFormType(formName).stream()
                 .flatMap(qc -> qc.getQuestions().stream())
+                .sorted(questionComparator)
                 .collect(Collectors.toList());
 
     }

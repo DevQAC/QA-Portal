@@ -65,7 +65,7 @@ public class UpdateSelfReflectionOperationTest {
 				.thenReturn(Optional.of(reflectionEntityToUpdate));
 		when(reflectionDtoToUpdateFrom.getFormDate()).thenReturn(LocalDate.now());
 		when(reflectionDtoToUpdateFrom.getReflectionQuestions())
-				.thenReturn(Stream.of(reflectionQuestionDtoToUpdateFrom1, reflectionQuestionDtoToUpdateFrom2).collect(Collectors.toSet()));
+				.thenReturn(Stream.of(reflectionQuestionDtoToUpdateFrom1, reflectionQuestionDtoToUpdateFrom2).collect(Collectors.toList()));
 		when(reflectionEntityToUpdate.getReflectionQuestions())
 				.thenReturn(Stream.of(reflectionQuestionEntityToUpdate1, reflectionQuestionEntityToUpdate2).collect(Collectors.toSet()));
 		when(reflectionRepository.save(reflectionEntityToUpdate)).thenReturn(updatedReflectionEntity);

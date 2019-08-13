@@ -5,7 +5,7 @@ export class QuestionModel {
 
   selectionOptionsList: string[];
 
-  category: string;
+  questionCategoryName: string;
 
   body: string;
 }

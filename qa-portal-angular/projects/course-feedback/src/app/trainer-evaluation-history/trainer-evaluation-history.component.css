@@ -1,0 +1,49 @@
+.right-message {
+    text-align: right;
+    font-size: 0.7em;
+}
+
+.mat-card-content {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3em;
+}
+
+.right-mat-table {
+    margin-left: 58%;
+}
+
+.mat-card {
+    margin: 0em;
+}
+
+th {
+    width: 20em;
+}
+
+mat-cell{
+    font-size: 20px;
+}
+
+mat-cell.cdk-column-date{
+    position: relative;
+    left: 60%;
+    top:-32px;
+}
+
+.mat-row {
+    position: relative;
+}
+
+.mat-row-link{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.data-row:hover{
+    filter: brightness(95%);
+    cursor: pointer;
+}

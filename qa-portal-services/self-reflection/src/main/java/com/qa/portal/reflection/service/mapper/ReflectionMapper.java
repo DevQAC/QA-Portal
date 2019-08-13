@@ -1,6 +1,5 @@
 package com.qa.portal.reflection.service.mapper;
 
-import com.qa.portal.common.dto.QuestionDto;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.dto.TrainerDto;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
@@ -10,9 +9,9 @@ import com.qa.portal.reflection.dto.ReflectionQuestionDto;
 import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
 import org.dozer.DozerBeanMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -26,6 +25,8 @@ public class ReflectionMapper {
     private QaTraineeRepository traineeRepository;
 
     private ReflectionQuestionMapper reflectionQuestionMapper;
+
+    private Comparator<ReflectionQuestionDto> reflectionQuestionComparator = Comparator.comparingInt(rq -> rq.getQuestion().getId());
 
     public ReflectionMapper(DozerBeanMapper mapper,
                             QuestionRepository questionRepository,
@@ -43,7 +44,8 @@ public class ReflectionMapper {
                 reflectionEntity.getReflectionQuestions()
                         .stream()
                         .map(reflectionQuestionEntity -> createReflectionQuestionDto(reflectionQuestionEntity))
-                        .collect(Collectors.toSet()));
+                        .sorted(reflectionQuestionComparator)
+                        .collect(Collectors.toList()));
         Optional.ofNullable(reflectionEntity.getResponder())
                 .ifPresent(responder -> reflectionDto.setResponder(mapper.map(responder, TraineeDto.class)));
         Optional.ofNullable(reflectionEntity.getReviewer())

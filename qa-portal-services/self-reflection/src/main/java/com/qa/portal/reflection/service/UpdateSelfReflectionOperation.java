@@ -41,9 +41,7 @@ public class UpdateSelfReflectionOperation {
         reflectionDto.getReflectionQuestions().stream().forEach((rq) -> {
             reflectionToUpdate.getReflectionQuestions()
                     .stream()
-                    .filter((rqe) -> rqe
-                            .getId()
-                            .equals(rq.getId()))
+                    .filter((rqe) -> rqe.getId().equals(rq.getId()))
                     .findFirst()
                     .ifPresent((rqe) -> rqe.setResponse(rq.getResponse()));
         });
