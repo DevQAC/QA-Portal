@@ -17,4 +17,12 @@
             </converter>
         </custom-converters>
     </configuration>
+    
+   
 </mappings>
+    <mapping>
+        <class-a>com.qa.portal.feedback.dto.EvalQuestionCategoryResponseDto</class-a>
+        <class-b>com.qa.portal.feedback.persistence.entity.EvalQuestionCategoryResponseEntity</class-b>
+    </mapping>
+
+
