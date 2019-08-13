@@ -4,8 +4,6 @@ import {MenuService} from './_common/services/menu-service';
 import {Subscription} from 'rxjs';
 import {ApplicationSelectionService} from './_common/services/application-selection.service';
 import {Application} from './_common/models/application';
-import {MenuItem} from './_common/models/menu-item';
-import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -48,45 +46,48 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private setSelectedApplication(currUrl: string): void {
-    let appSelected = false;
-    this.portalApplications.forEach((pa) => {
+    let selectedApp = this.getApplicationForUrl(currUrl);
+    if (!selectedApp) {
+      selectedApp = this.getSelectedApplicationForParameterizedUrl(currUrl);
+    }
+
+    if (!selectedApp) {
+      this.launchLandingPage(currUrl);
+    } else {
+      this.applicationSelectionService.setSelectedApplication(selectedApp);
+    }
+  }
+
+  private getApplicationForUrl(currUrl: string): Application {
+    let selectedApp = null;
+    this.portalApplications.forEach(pa => {
       pa.applications.forEach(a => {
-        if (currUrl.startsWith(this.getAppBaseUrl(a.url)) &&
-          a.url !== '/qa/portal' &&
-          !appSelected) {
-          this.applicationSelectionService.setSelectedApplication(a);
-          console.log('app selected ' + a.url);
-          appSelected = true;
+        if (currUrl === a.url) {
+          selectedApp = a;
         }
+        a.menuItems.forEach(mi => {
+          if (mi.url === currUrl) {
+            selectedApp = a;
+          }
+        });
       });
     });
+    return selectedApp;
+  }
 
-    // If no application selected and we've completed the loading of the applications as part of application startup
-    // determine whether to navigate to home page or error page
-    if (!appSelected &&
-      this.portalApplications.length > 0 &&
+  private getSelectedApplicationForParameterizedUrl(currUrl: string): Application {
+    // Substring to last index of '/' character
+    const url = currUrl.substring(0, currUrl.lastIndexOf('/'));
+    return this.getApplicationForUrl(url);
+  }
+
+  private launchLandingPage(currUrl: string): void {
+    if (this.portalApplications.length > 0 &&
       !currUrl.startsWith('/qa/portal/error')) {
       this.applicationSelectionService.setSelectedApplication(this.portalApplications[0].applications[0]);
     } else if (currUrl.startsWith('/qa/portal/error')) {
       this.applicationSelectionService.setSelectedApplication(this.errorApp);
     }
-  }
-
-  private getAppBaseUrl(appUrl: string): string {
-    // Get index of 3rd / by substring of /qa/portal/
-    let appString = '/qa/portal/home';
-
-    const mainUrl = appUrl.substring('/qa/portal/'.length);
-    console.log('Main url ' + mainUrl);
-
-    const firstSeparator = mainUrl.indexOf('/');
-    console.log('First separator index ' + firstSeparator);
-
-    if (firstSeparator > -1) {
-      appString = appUrl.substring(0, '/qa/portal/'.length + firstSeparator);
-    }
-    console.log('App String ' + appString);
-    return appString;
   }
 
   private getErrorApplication(): Application {
