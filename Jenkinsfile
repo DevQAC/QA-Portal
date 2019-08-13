@@ -1,30 +1,20 @@
+
 pipeline {
     agent any
+
     stages {
         stage('Clone repo')
             steps{
-                git branch: 'ci-kube-dimi', url: 'https://github.com/bob-crutchley/QA-Portal.git'
+                git branch: 'ci-kube-build', url: 'https://github.com/bob-crutchley/QA-Portal.git'
             }
-        stage('Install gcloud')
-            steps{
-                sh label: '', script: 'echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list'
-                sh label: '', script: 'curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -'
-                sh label: '', script: 'sudo apt-get update && sudo apt-get install google-cloud-sdk'
-            }
-        stage('Build') {
+        stage('docker-compose build') {
             steps {
                 sh label: '', script: 'docker-compose build .'
             }
         }
-        stage('Test') {
+        stage('Push to GCR') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-                sh label: '', script: 'bash ./scripts/deployment.sh'
+                sh label: '', script: 'bash ./scripts/qa-portal-gcr.sh'
             }
         }
     }
