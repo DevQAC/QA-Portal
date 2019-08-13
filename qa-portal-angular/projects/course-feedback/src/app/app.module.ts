@@ -10,11 +10,17 @@ import {CourseInfoComponent} from './trainer-evaluation-summary/course-info/cour
 import {SearchBoxComponent} from './trainer-evaluation-summary/search-box/search-box.component';
 import {CourseEvaluationComponent} from './course-evaluation/course-evaluation.component';
 import {EvaluationTableComponent} from './evaluation-table/evaluation-table.component';
-import { TrainerEvaluationHistoryComponent } from './trainer-evaluation-history/trainer-evaluation-history.component';
-import { HttpClientModule } from '@angular/common/http';
-import { RetrieveTrainerEvaluationHistoryService } from './trainer-evaluation-history/services/retrieve-trainer-evaluation-history.service';
-import { InstructorZoneTitleComponent } from './trainer-evaluation-history/instructor-zone-title/instructor-zone-title.component';
-import { SearchFormComponent } from './trainer-evaluation-history/search-form/search-form.component';
+import {TrainerEvaluationHistoryComponent} from './trainer-evaluation-history/trainer-evaluation-history.component';
+import {HttpClientModule} from '@angular/common/http';
+import {RetrieveTrainerEvaluationHistoryService} from './trainer-evaluation-history/services/retrieve-trainer-evaluation-history.service';
+import {InstructorZoneTitleComponent} from './trainer-evaluation-history/instructor-zone-title/instructor-zone-title.component';
+import {SearchFormComponent} from './trainer-evaluation-history/search-form/search-form.component';
+import {FormTypeService} from './_common/services/form-type.service';
+import {FeedbackPageComponent} from './end-of-course-eval/feedback-page/feedback-page.component';
+import {QuestionCategoryComponent} from './end-of-course-eval/question-category/question-category.component';
+import {QuestionComponent} from './end-of-course-eval/question/question.component';
+import {ResponsesComponent} from './end-of-course-eval/responses/responses.component';
+import {SaveButtonComponent} from './end-of-course-eval/save-button/save-button.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,12 @@ import { SearchFormComponent } from './trainer-evaluation-history/search-form/se
     EvaluationTableComponent,
     TrainerEvaluationHistoryComponent,
     InstructorZoneTitleComponent,
-    SearchFormComponent
+    SearchFormComponent,
+    FeedbackPageComponent,
+    QuestionCategoryComponent,
+    QuestionComponent,
+    ResponsesComponent,
+    SaveButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +49,8 @@ import { SearchFormComponent } from './trainer-evaluation-history/search-form/se
   ],
   providers: [
     RetrieveTrainerEvaluationHistoryService,
-    SearchFormComponent
+    SearchFormComponent,
+    FormTypeService
   ],
   bootstrap: [AppComponent]
 })
