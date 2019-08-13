@@ -20,5 +20,8 @@ kubectl apply -f ../qa-portal-angular/deployment.yaml
 kubectl apply -f ../qa-portal-angular/service.yaml
 
 kubectl apply -f ../jenkins/persistent-volume-jenkins.yaml
+kubectl apply -f ../jenkins/servive-acccount.yaml
+kubectl apply -f ../jenkins/cluster-role.yaml
+kubectl apply -f ../jenkins/cluster-role-binding.yaml
 kubectl apply -f ../jenkins/pod-jenkins.yaml
 kubectl apply -f ../jenkins/service-jenkins.yaml
