@@ -17,6 +17,7 @@ export class TrainerFeedbackPageComponent implements OnInit {
   secondFormGroup : FormGroup;
   thirdFormGroup : FormGroup;
   fourthFormGroup : FormGroup;
+  fifthFormGroup : FormGroup;
 
   constructor(private formTypeService: FormTypeService, private _formBuilder : FormBuilder) { }
 
@@ -25,8 +26,10 @@ export class TrainerFeedbackPageComponent implements OnInit {
       this.formInfo = response;
       console.log(response);
     });
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
+    this.firstFormGroup = this._formBuilder.group({ });
+    this.secondFormGroup = this._formBuilder.group({ });
+    this.thirdFormGroup = this._formBuilder.group({ });
+    this.fourthFormGroup = this._formBuilder.group({ });
+    this.fifthFormGroup = this._formBuilder.group({ });
   }
 }

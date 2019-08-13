@@ -14,7 +14,7 @@ import { QuestionCategoryComponent } from './end-of-course-eval/question-categor
 import { QuestionComponent } from './end-of-course-eval/question/question.component';
 import { TrainerFeedbackPageComponent } from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
 import { FeedbackQuestionComponent } from './trainer-feedback/feedback-question/feedback-question.component';
-import { StepperComponent } from './trainer-feedback/stepper/stepper.component';
+import { ProblemReporterComponent } from './trainer-feedback/problem-reporter/problem-reporter.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { StepperComponent } from './trainer-feedback/stepper/stepper.component';
     QuestionComponent,
     TrainerFeedbackPageComponent,
     FeedbackQuestionComponent,
-    StepperComponent
+    ProblemReporterComponent
   ],
   imports: [
     BrowserModule,

@@ -2,11 +2,18 @@
   <mat-card-subtitle>
     {{value.body}}
   </mat-card-subtitle>
-  <mat-card-content> 
-    <div *ngIf="value.selectionOptionsJson[0]"> 
-      <div *ngFor="let option of value.selectionOptionsJson">
-        Heya
-      </div>         
+  <mat-card-content>
+    <div *ngIf="value.selectionOptionsJson[0]">
+      <table>
+        <tr>
+          <mat-radio-group>
+            <td *ngFor="let option of value.selectionOptionsList">
+              {{option}}
+              <mat-radio-button value={{option}}></mat-radio-button>
+            </td>
+          </mat-radio-group>
+        </tr>
+      </table>
     </div>
   </mat-card-content>
 </mat-card>

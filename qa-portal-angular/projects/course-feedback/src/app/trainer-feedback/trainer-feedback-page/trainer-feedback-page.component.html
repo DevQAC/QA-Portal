@@ -3,7 +3,8 @@
     <form [formGroup]="firstFormGroup">
       <div *ngIf="formInfo[0]">
         <ng-template matStepLabel>{{formInfo[0].categoryName}}</ng-template>
-          <h3>{{formInfo[0].categoryName}}</h3>
+        <h3>{{formInfo[0].categoryName}}</h3>
+        <h6>9 = Strongly Agree, 0 = Strongly Disagree</h6>
         <app-feedback-question *ngFor="let question of formInfo[0].questions" [value]="question">
         </app-feedback-question>
       </div>
@@ -12,6 +13,58 @@
       </div>
     </form>
   </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <div *ngIf="formInfo[1]">
+        <ng-template matStepLabel>{{formInfo[1].categoryName}}</ng-template>
+        <h3>{{formInfo[1].categoryName}}</h3>
+        <h6>9 = Strongly Agree, 0 = Strongly Disagree</h6>
+        <app-feedback-question *ngFor="let question of formInfo[1].questions" [value]="question">
+        </app-feedback-question>
+      </div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <div *ngIf="formInfo[2]">
+        <ng-template matStepLabel>{{formInfo[2].categoryName}}</ng-template>
+        <h3>{{formInfo[2].categoryName}}</h3>
+        <h6>9 = Strongly Agree, 0 = Strongly Disagree</h6>
+        <app-feedback-question *ngFor="let question of formInfo[2].questions" [value]="question">
+        </app-feedback-question>
+      </div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fourthFormGroup">
+    <form [formGroup]="fourthFormGroup">
+      <div *ngIf="formInfo[3]">
+        <ng-template matStepLabel>{{formInfo[3].categoryName}}</ng-template>
+        <h3>{{formInfo[3].categoryName}}</h3>
+        <app-problem-reporter *ngFor="let question of formInfo[3].questions" [question]="question"></app-problem-reporter>
+      </div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="fifthFormGroup">
+      <form [formGroup]="fifthFormGroup">
+        <div *ngIf="formInfo[4]">
+          <ng-template matStepLabel>{{formInfo[4].categoryName}}</ng-template>
+            <h3>{{formInfo[4].categoryName}}</h3>
+          <app-feedback-question *ngFor="let question of formInfo[4].questions" [value]="question"></app-feedback-question>
+        </div>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     You are now done.

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataModel } from '../../_common/models/data.model';
-import { QuestionModel } from '../../_common/Models/question.model';
 
 @Component({
   selector: 'app-question-category',

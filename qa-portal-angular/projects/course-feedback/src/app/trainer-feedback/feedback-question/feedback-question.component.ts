@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { QuestionModel } from '../../_common/Models/question.model';
+import { QuestionModel } from '../../_common/models/question.model';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-feedback-question',
@@ -10,10 +11,9 @@ export class FeedbackQuestionComponent implements OnInit {
 
   @Input() value : QuestionModel;
 
+
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.value);
-  }
-
+  ngOnInit() { }
+  
 }
