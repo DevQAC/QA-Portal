@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-subtitle>
+    {{value.body}}
+  </mat-card-subtitle>
+  <mat-card-content> 
+    <div *ngIf="value.selectionOptionsJson[0]"> 
+      <div *ngFor="let option of value.selectionOptionsJson">
+        Heya
+      </div>         
+    </div>
+  </mat-card-content>
+</mat-card>

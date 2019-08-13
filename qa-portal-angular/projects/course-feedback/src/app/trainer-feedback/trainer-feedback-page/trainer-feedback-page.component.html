@@ -1,3 +1,23 @@
-<p>
-  trainer-feedback-page works!
-</p>
+<mat-horizontal-stepper #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <div *ngIf="formInfo[0]">
+        <ng-template matStepLabel>{{formInfo[0].categoryName}}</ng-template>
+          <h3>{{formInfo[0].categoryName}}</h3>
+        <app-feedback-question *ngFor="let question of formInfo[0].questions" [value]="question">
+        </app-feedback-question>
+      </div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

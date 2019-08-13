@@ -13,6 +13,8 @@ import { FeedbackPageComponent } from './end-of-course-eval/feedback-page/feedba
 import { QuestionCategoryComponent } from './end-of-course-eval/question-category/question-category.component';
 import { QuestionComponent } from './end-of-course-eval/question/question.component';
 import { TrainerFeedbackPageComponent } from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
+import { FeedbackQuestionComponent } from './trainer-feedback/feedback-question/feedback-question.component';
+import { StepperComponent } from './trainer-feedback/stepper/stepper.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { TrainerFeedbackPageComponent } from './trainer-feedback/trainer-feedbac
     FeedbackPageComponent,
     QuestionCategoryComponent,
     QuestionComponent,
-    TrainerFeedbackPageComponent
+    TrainerFeedbackPageComponent,
+    FeedbackQuestionComponent,
+    StepperComponent
   ],
   imports: [
     BrowserModule,
