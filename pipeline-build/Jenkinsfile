@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('clone repo')
+        stage('clone repo') {
             steps{
                 git branch: ${env.GITHUB_BRANCH}, url: ${env.GITHUB_REPO}
             }
