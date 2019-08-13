@@ -212,6 +212,8 @@ export class TrainerReflectionComponent implements OnInit {
         // Get questions.
         this.reflectionService.getQuestionsByFormType('reflection_form')
           .subscribe(questions => {
+            console.log('Questions are');
+            console.log(questions);
             this.questions = questions.sort((a, b) => {
               const aVal = a.id;
               const bVal = b.id;
@@ -226,10 +228,11 @@ export class TrainerReflectionComponent implements OnInit {
 
             this.questions.forEach(question => {
               const categories = this.rowData.map(rowData => rowData.category);
-              if (!categories.includes(question.category)) {
+              if (!categories.includes(question.questionCategoryName)) {
+                console.log('pushing question,category' + question.questionCategoryName);
                 this.rowData.push(
                   {
-                    category: question.category,
+                    category: question.questionCategoryName,
                     questions: [],
                   }
                 );
@@ -241,7 +244,7 @@ export class TrainerReflectionComponent implements OnInit {
             });
 
             for (const question of this.questions) {
-              const category = this.rowData.find(rowData => rowData.category === question.category);
+              const category = this.rowData.find(rowData => rowData.category === question.questionCategoryName);
               if (category !== undefined) {
                 category.questions.push({id: question.id, body: question.body, reflectionQuestions: []});
               }
