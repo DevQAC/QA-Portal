@@ -41,6 +41,7 @@ public class ReflectionQuestionMapper {
 	public QuestionDto mapToQuestionDto(QuestionEntity rqe) {
 		QuestionDto questionDto = mapper.map(rqe, QuestionDto.class);
 		setOptionsListForQuestion(questionDto);
+		questionDto.setQuestionCategoryName(rqe.getCategory().getCategoryName());
 		return questionDto;
 	}
 

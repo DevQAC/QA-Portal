@@ -11,6 +11,8 @@ public class QuestionDto extends QaBaseDto {
 
     private String commentLabel;
 
+    private String questionCategoryName;
+
     private String selectionOptionsJson;
 
     private List<String> selectionOptionsList;
@@ -53,6 +55,14 @@ public class QuestionDto extends QaBaseDto {
 
     public void setSelectionOptionsJson(String selectionOptionsJson) {
         this.selectionOptionsJson = selectionOptionsJson;
+    }
+
+    public String getQuestionCategoryName() {
+        return questionCategoryName;
+    }
+
+    public void setQuestionCategoryName(String questionCategoryName) {
+        this.questionCategoryName = questionCategoryName;
     }
 
     public List<String> getSelectionOptionsList() {
