@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes,RouterModule} from '@angular/router';
+import {Routes, RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {CourseEvaluationComponent} from './course-evaluation/course-evaluation.component';
 import { TrainerEvaluationSummaryComponent} from '../app/trainer-evaluation-summary/trainer-evaluation-summary.component';
@@ -14,8 +14,8 @@ const routes: Routes = [
     component: CourseEvaluationComponent
   },
   {
-    path:'train',
-    component:TrainerEvaluationSummaryComponent
+    path: 'train',
+    component:  TrainerEvaluationSummaryComponent
   }
 ];
 
