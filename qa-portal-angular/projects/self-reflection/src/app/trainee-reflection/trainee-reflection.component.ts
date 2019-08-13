@@ -45,9 +45,13 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
   }
 
   private populateSelfReflectionForm(formId: string): void {
+    console.log('Populate self reflection form for id ' + formId);
     this.currentReflectionSubscription = this.selfReflectionFormService.getSelfReflectionForm(formId).subscribe(
       (response) => {
+        console.log('Got response ');
+        console.log(response);
         if (!!response.id) {
+          console.log('Setting form from response');
           this.selfReflectionViewModel.selfReflectionForm = response;
           this.loadingData = false;
         } else {

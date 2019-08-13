@@ -9,10 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(schema="training", name="question_category_response")
+@Table(schema = "training", name = "question_category_response")
 @DiscriminatorValue(value = "FEEDBACK")
-public class FeedbackQuestionCategoryResponseEntity extends QuestionCategoryResponseEntity 
-{
+public class FeedbackQuestionCategoryResponseEntity extends QuestionCategoryResponseEntity {
 
     @ManyToOne
     @JoinColumn(name = "cohort_course_feedback_id")

@@ -4,6 +4,8 @@ import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.dto.TrainerDto;
 
+import java.util.List;
+
 public class CohortCourseEvaluationDto {
     private Integer id;
 
@@ -12,6 +14,8 @@ public class CohortCourseEvaluationDto {
     private TrainerDto trainer;
 
     private CohortCourseDto cohortCourse;
+
+    private List<FeedbackQuestionCategoryResponseDto> categoryResponses;
 
     public Integer getId() {
         return id;
@@ -43,5 +47,13 @@ public class CohortCourseEvaluationDto {
 
     public void setCohortCourse(CohortCourseDto cohortCourse) {
         this.cohortCourse = cohortCourse;
+    }
+
+    public List<FeedbackQuestionCategoryResponseDto> getCategoryResponses() {
+        return categoryResponses;
+    }
+
+    public void setCategoryResponses(List<FeedbackQuestionCategoryResponseDto> categoryResponses) {
+        this.categoryResponses = categoryResponses;
     }
 }

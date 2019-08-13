@@ -37,7 +37,7 @@
     </div>
 
     <app-rated-question *ngFor="let sr of selfReflectionViewModel.selfReflectionForm.reflectionQuestions"
-                        [options]="getArrayFromOptionsString(sr.question.selectionOptionsJson).length"
+                        [options]="sr.question.selectionOptionsList"
                         [isDisabled]="disable()"
                         [questionText]="sr.question.body"
                         [selectedRating]="sr">
@@ -78,7 +78,5 @@
         {{isFormCompleted() ? 'Submit' : 'Save'}}</button>
     </div>
   </mat-card-actions>
-
-
 
 </mat-card>

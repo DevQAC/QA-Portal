@@ -1,6 +1,7 @@
 package com.qa.portal.question.rest;
 
 import com.qa.portal.common.dto.QuestionCategoryDto;
+import com.qa.portal.common.dto.QuestionDto;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.question.services.QuestionService;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,13 @@ public class QuestionController {
         this.qaSecurityContext = qaSecurityContext;
     }
 
+    @GetMapping("/question/category/formtype/{formName}")
+    public ResponseEntity<List<QuestionCategoryDto>> getQuestionCategoriesForFormType(@PathVariable("formName") String formName) {
+        return ResponseEntity.ok(this.service.getQuestionCategoriesForFormType(formName));
+    }
+
     @GetMapping("/question/formtype/{formName}")
-    public ResponseEntity<List<QuestionCategoryDto>> getQuestionsForFormType(@PathVariable("formName") String formName) {
+    public ResponseEntity<List<QuestionDto>> getQuestionsForFormType(@PathVariable("formName") String formName) {
         return ResponseEntity.ok(this.service.getQuestionsForFormType(formName));
     }
 }

@@ -10,8 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(schema="training", name="question_category_response")
 @DiscriminatorValue(value = "EVALUATION")
-public class EvalQuestionCategoryResponseEntity extends QuestionCategoryResponseEntity 
-{
+public class EvalQuestionCategoryResponseEntity extends QuestionCategoryResponseEntity {
 
     @ManyToOne
     @JoinColumn(name = "cohort_course_evaluation_id")
