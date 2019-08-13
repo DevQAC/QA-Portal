@@ -8,7 +8,7 @@ import {SelectedRatingModel} from './selected-rating.model';
 })
 export class RatedQuestionComponent implements OnInit {
 
-  @Input() options: number;
+  @Input() options: string[];
 
   @Input() questionText: string;
 
@@ -16,17 +16,21 @@ export class RatedQuestionComponent implements OnInit {
 
   @Input() isDisabled = false;
 
-  optionsArr = [];
-
   constructor() { }
 
   ngOnInit() {
-    for (let i = 0; i < this.options; i++) {
-      this.optionsArr.push(i + 1);
-    }
   }
 
-  setModel(rating: number) {
+  setModel(rating: string) {
     this.selectedRating.response = rating;
+  }
+
+  matchedValue(entry: string, responseVal: string): boolean {
+    console.log('Entry is ' + entry);
+    console.log('responseVal type ' + typeof responseVal);
+
+    const matched = !!responseVal && (entry === JSON.stringify(responseVal).trim());
+    console.log('Matched ' + matched);
+    return matched;
   }
 }

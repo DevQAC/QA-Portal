@@ -58,3 +58,32 @@ INSERT INTO training.question_category(
 VALUES (10, 'Evaluation Continued Professional Development', false, null, 2, 'CHECK_BOX', 'INLINE',
         current_timestamp, 'admin', 1);
 
+INSERT INTO training.question_category(
+    id, category_name, has_comment, comment_label, form_type_id, selection_type, display_direction,
+    last_updated_timestamp, last_updated_by, version)
+VALUES (11, 'Environment', true, 'Environment comments:', 3, 'RADIO_BUTTON', 'HORIZONTAL',
+        current_timestamp, 'admin', 1);
+
+INSERT INTO training.question_category(
+    id, category_name, has_comment, comment_label, form_type_id, selection_type, display_direction,
+    last_updated_timestamp, last_updated_by, version)
+VALUES (12, 'Delegates', true, 'Delegate comments:', 3, 'RADIO_BUTTON', 'HORIZONTAL',
+        current_timestamp, 'admin', 1);
+
+INSERT INTO training.question_category(
+    id, category_name, has_comment, comment_label, form_type_id, selection_type, display_direction,
+    last_updated_timestamp, last_updated_by, version)
+VALUES (13, 'Courseware', true, 'Courseware comments:', 3, 'RADIO_BUTTON', 'HORIZONTAL',
+        current_timestamp, 'admin', 1);
+
+INSERT INTO training.question_category(
+    id, category_name, has_comment, comment_label, form_type_id, selection_type, display_direction,
+    last_updated_timestamp, last_updated_by, version)
+VALUES (14, 'Problem Reporting', true, 'Courseware comments:', 3, 'RADIO_BUTTON', 'VERTICAL',
+        current_timestamp, 'admin', 1);
+
+INSERT INTO training.question_category(
+    id, category_name, has_comment, comment_label, form_type_id, selection_type, display_direction,
+    last_updated_timestamp, last_updated_by, version)
+VALUES (15, 'Overall Satisfaction', true, 'What could be done to improve the quality of this course:', 3, 'RADIO_BUTTON', 'VERTICAL',
+        current_timestamp, 'admin', 1);

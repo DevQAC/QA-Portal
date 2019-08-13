@@ -2,10 +2,10 @@ package com.qa.portal.feedback.persistence.entity;
 
 import com.qa.portal.common.persistence.entity.QuestionCategoryResponseEntity;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+@Entity
+@Table(schema = "training", name = "question_category_response")
 @DiscriminatorValue(value = "FEEDBACK")
 public class FeedbackQuestionCategoryResponseEntity extends QuestionCategoryResponseEntity {
 
