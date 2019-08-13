@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WhyWithQAComponent } from './why-with-qa.component';
+import { SaveButtonComponent } from './save-button.component';
 
-describe('WhyWithQAComponent', () => {
-  let component: WhyWithQAComponent;
-  let fixture: ComponentFixture<WhyWithQAComponent>;
+describe('SaveButtonComponent', () => {
+  let component: SaveButtonComponent;
+  let fixture: ComponentFixture<SaveButtonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WhyWithQAComponent ]
+      declarations: [ SaveButtonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WhyWithQAComponent);
+    fixture = TestBed.createComponent(SaveButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

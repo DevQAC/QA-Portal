@@ -11,13 +11,11 @@ export class QuestionComponent implements OnInit {
 
 
   @Input() value : QuestionModel;
-  @Input() selectionType : string;
+  @Input() selectionType : String;
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.value);
-    console.log("Selection + " + this.selectionType);
   }
 
 }

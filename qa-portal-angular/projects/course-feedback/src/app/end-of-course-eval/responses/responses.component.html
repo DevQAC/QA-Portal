@@ -1,23 +1,24 @@
-<div *ngIf="selectionType === 'RADIO_BUTTON'">
-  <mat-radio-group>
-      <mat-radio-button #matRadioButton color="primary" class="response-button"
-      *ngFor="let options of value.selectionOptionsList" (change)="setResponse(matRadioButton.value)" [value]="options">
-      {{options}}
-    </mat-radio-button>
-    <div><br></div>
-    <div *ngIf="value.hasComment">
-      <input matInput>
+
+    <div *ngIf="selectionType === 'RADIO_BUTTON'">
+      <mat-radio-group class="qa-radio-btn-grp">
+        <div class="qa-radio-btn-layout">
+
+            <mat-radio-button #matRadioButton color="primary" class="qa-response-button"
+              *ngFor="let options of value.selectionOptionsList" (change)="setResponse(matRadioButton.value)" style="padding-right : 10px;"
+              [value]="options">{{options}} </mat-radio-button>
+
+        </div>
+        <div><br></div>
+        <div *ngIf="value.hasComment">
+          <input matInput>
+        </div>
+      </mat-radio-group>
     </div>
-  </mat-radio-group>
-</div>
-<div *ngIf="selectionType === 'CHECK_BOX'">
-  <mat-card>
-    <mat-card-content>
-      <mat-checkbox class="checkbox-reponse" *ngFor="let options of value.selectionOptionsList"
-        [value]="options">{{options}}</mat-checkbox>
-    </mat-card-content>
-    <div *ngIf="value.hasComment">
-        <input matInput>
-      </div>
-  </mat-card>
-</div>
+    <div *ngIf="selectionType === 'CHECK_BOX'">
+        <mat-card-content>
+            <mat-checkbox class="checkbox-reponse" (change)="setResponse(matCheckBox.value)" *ngFor="let options of value.selectionOptionsList" [value]="options" style="padding-right : 10px;" >{{options}} </mat-checkbox>
+        </mat-card-content>
+        <div *ngIf="value.hasComment">
+          <input matInput>
+        </div>
+    </div>

@@ -4,19 +4,14 @@
   margin-bottom: 15px;
 }
 
-.qa-radio-btn-grp-label {
-  background-color: lightgrey;
-  color: black;
-  margin-bottom: 10px;
-}
 
-.qa-radio-btn-layout {
+.qa-response-radio-btn-layout {
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
 }
 
-.qa-radio-btn {
+.qa-reponse-button {
   margin-right: 25px;
   border-width: 1px;
   border-color: black;
