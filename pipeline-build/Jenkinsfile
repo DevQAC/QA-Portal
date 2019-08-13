@@ -2,10 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('clone repo')
+        stage('clone repo') {
             steps{
-                git branch: 'ci-kube', url: 'https://github.com/bob-crutchley/QA-Portal.git'
+                git branch: "${env.GITHUB_BRANCH}", url: "${env.GITHUB_REPO}"
             }
+        }
         stage('docker-compose build') {
             steps {
                 sh label: '', script: 'docker-compose build .'
