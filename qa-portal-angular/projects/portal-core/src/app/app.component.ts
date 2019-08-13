@@ -50,26 +50,35 @@ export class AppComponent implements OnInit, OnDestroy {
     if (!selectedApp) {
       selectedApp = this.getSelectedApplicationForParameterizedUrl(currUrl);
     }
+
     if (!selectedApp) {
       this.launchLandingPage(currUrl);
+    } else {
+      this.applicationSelectionService.setSelectedApplication(selectedApp);
     }
   }
 
   private getApplicationForUrl(currUrl: string): Application {
     let selectedApp = null;
-    this.portalApplications.forEach(a => {
-      if (currUrl === a.url) {
-        selectedApp = a;
-      }
+    this.portalApplications.forEach(pa => {
+      pa.applications.forEach(a => {
+        if (currUrl === a.url) {
+          selectedApp = a;
+        }
+        a.menuItems.forEach(mi => {
+          if (mi.url === currUrl) {
+            selectedApp = a;
+          }
+        });
+      });
     });
     return selectedApp;
   }
 
-
   private getSelectedApplicationForParameterizedUrl(currUrl: string): Application {
-    let selectedApp = null;
-
-    return selectedApp;
+    // Substring to last index of '/' character
+    const url = currUrl.substring(0, currUrl.lastIndexOf('/'));
+    return this.getApplicationForUrl(url);
   }
 
   private launchLandingPage(currUrl: string): void {
@@ -80,24 +89,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.applicationSelectionService.setSelectedApplication(this.errorApp);
     }
   }
-
-  //
-  // private getAppBaseUrl(appUrl: string): string {
-  //   // Get index of 3rd / by substring of /qa/portal/
-  //   let appString = '/qa/portal/home';
-  //
-  //   const mainUrl = appUrl.substring('/qa/portal/'.length);
-  //   console.log('Main url ' + mainUrl);
-  //
-  //   const firstSeparator = mainUrl.indexOf('/');
-  //   console.log('First separator index ' + firstSeparator);
-  //
-  //   if (firstSeparator > -1) {
-  //     appString = appUrl.substring(0, '/qa/portal/'.length + firstSeparator);
-  //   }
-  //   console.log('App String ' + appString);
-  //   return appString;
-  // }
 
   private getErrorApplication(): Application {
     const errorApp = new Application();
