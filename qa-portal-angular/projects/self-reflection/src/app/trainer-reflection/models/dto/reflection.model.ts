@@ -15,11 +15,12 @@ export class ReflectionModel extends BaseModel {
   weaknesses?: string;
   opportunities?: string;
   threats?: string;
+  status: string;
   // questions?: Question[];
 
   public static setReflectionQuestions(
     reflection: ReflectionModel, reflectionQuestions: ReflectionQuestionModel[], questionIds: number[]): void {
-    reflectionQuestions = reflectionQuestions.filter(rq => rq.question && rq.question.category);
+    reflectionQuestions = reflectionQuestions.filter(rq => rq.question && rq.question.questionCategoryName);
     for (const i of questionIds) {
       const questionIdEqualsI = (reflectionQuestion) => reflectionQuestion.question && reflectionQuestion.question.id === i;
       if (!reflectionQuestions.find(questionIdEqualsI)) {
@@ -27,7 +28,8 @@ export class ReflectionModel extends BaseModel {
           id: null,
           question: {
             id: i,
-            numOptions: null
+            numOptions: null,
+            questionCategoryName: null
           },
           response: null,
           trainerResponse: null
@@ -55,8 +57,8 @@ export class ReflectionModel extends BaseModel {
       }
     }
     reflectionQuestions.sort((a: ReflectionQuestionModel, b: ReflectionQuestionModel): number => {
-      const aCategory = a.question.category;
-      const bCategory = b.question.category;
+      const aCategory = a.question.questionCategoryName;
+      const bCategory = b.question.questionCategoryName;
       if (aCategory < bCategory) {
         return -1;
       } else if (aCategory > bCategory) {
@@ -66,6 +68,8 @@ export class ReflectionModel extends BaseModel {
       }
     });
 
+    console.log('Reflection questions are ');
+    console.log(reflectionQuestions);
     reflection.reflectionQuestions = reflectionQuestions;
   }
 }

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { SelfReflectionService } from './services/self-reflection.service';
-import { ReflectionModel } from './models/dto/reflection.model';
-import { TraineeModel } from './models/dto/trainee.model';
-import { QuestionModel } from './models/dto/question.model';
-import { ReflectionQuestionModel } from './models/dto/reflection-question.model';
-import { ActivatedRoute, ParamMap, RouteConfigLoadEnd } from '@angular/router';
-import { MatSnackBar, PageEvent } from '@angular/material';
-import { RowData } from './models/row-data';
-import { QaToastrService } from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
-import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
-import { Observable } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {SelfReflectionService} from './services/self-reflection.service';
+import {ReflectionModel} from './models/dto/reflection.model';
+import {TraineeModel} from './models/dto/trainee.model';
+import {ReflectionQuestionModel} from './models/dto/reflection-question.model';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {MatSnackBar, PageEvent} from '@angular/material';
+import {RowData} from './models/row-data';
+import {QaToastrService} from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
+import {QaErrorHandlerService} from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
+import {Observable} from 'rxjs';
+import {QuestionModel} from "../_common/models/question.model";
 
 enum PageState {
   LOADING = 'loading', NO_SELF_REFLECTIONS = 'no-self-reflections', READY = 'ready', ERROR = 'error'
@@ -44,7 +44,7 @@ export class TrainerReflectionComponent implements OnInit {
   public rowData: RowData[] = [];
   public disableInputs = false;
   public questionIds = [];
-  public authors = ['Self', 'Trainer'];
+  public authors = [['', 'Self'], ['Self', 'Trainer']];
   public pageState: PageState;
   public updateMessage = ' successfully updated.';
   public visibleReflections: ReflectionModel[] = [];
@@ -52,15 +52,19 @@ export class TrainerReflectionComponent implements OnInit {
   public entriesPerPage = 5;
 
   constructor(
-    private reflectionService: SelfReflectionService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar,
-    private toastrService: QaToastrService, private errorService: QaErrorHandlerService) {
+    private reflectionService: SelfReflectionService,
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private toastrService: QaToastrService,
+    private errorService: QaErrorHandlerService,
+    private router: Router) {
     this.pageState = PageState.LOADING;
   }
 
   private updateReflections() {
     this.reflections.sort((a, b): number => {
-      const aVal = new Date(a.lastUpdatedTimestamp);
-      const bVal = new Date(b.lastUpdatedTimestamp);
+      const aVal = new Date(a.formDate);
+      const bVal = new Date(b.formDate);
       if (aVal > bVal) {
         return -1;
       } else if (aVal < bVal) {
@@ -69,17 +73,20 @@ export class TrainerReflectionComponent implements OnInit {
         return 0;
       }
     });
+
+    let i = 0;
     for (const reflection of this.reflections) {
       if (reflection.reflectionQuestions.length < this.questions.length) {
         this.reflections.splice(this.reflections.indexOf(reflection), 1);
       } else {
-        if (!this.trainerFeedback && reflection.trainerFeedback) {
+        if (!this.trainerFeedback && reflection.trainerFeedback && i === 0) {
           this.trainerFeedback = reflection.trainerFeedback;
         }
-        if (!this.learningPathway && reflection.learningPathway) {
+        if (!this.learningPathway && reflection.learningPathway && i === 0) {
           this.learningPathway = reflection.learningPathway;
         }
       }
+      i++;
     }
     this.updateView();
     this.pageState = PageState.READY;
@@ -151,32 +158,47 @@ export class TrainerReflectionComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    console.log('Form completed ' + this.isFormCompleted());
     if (this.reflections.length > 0) {
       const newestReflection = this.reflections[0];
       newestReflection.learningPathway = this.learningPathway;
       newestReflection.trainerFeedback = this.trainerFeedback;
+      if (this.isFormCompleted()) {
+        newestReflection.status = 'Reviewed';
+      }
       this.reflectionService.updateReflection(newestReflection)
         .subscribe(updatedReflection => {
           if (updatedReflection.learningPathway !== this.learningPathway
             || updatedReflection.trainerFeedback !== this.trainerFeedback) {
             this.toastrService.showError('Unable to update reflection.');
           } else {
-            this.saveReflectionQuestions().subscribe(reflecionQuestions => {
+            this.saveReflectionQuestions().subscribe(reflectionQuestions => {
               this.toastrService.showSuccess(`Reflection form ${this.updateMessage}`);
               this.disableInputs = false;
+              this.router.navigateByUrl('/qa/portal/training/trainer/cohort/trainees');
             }, error => this.errorService.handleError(error));
           }
         }, error => this.errorService.handleError(error));
     }
   }
 
-  public showDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString();
-  }
-
   public onPagination(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.updateView();
+  }
+
+  isFormCompleted() {
+    return !!this.learningPathway &&
+      !!this.trainerFeedback &&
+      this.questionsCompleted();
+  }
+
+  private questionsCompleted(): boolean {
+    let questionsCompleted = true;
+    this.rowData.forEach((row) => {
+      questionsCompleted = questionsCompleted && !!row.questions[1].reflectionQuestions[0].trainerResponse;
+    });
+    return questionsCompleted;
   }
 
   ngOnInit() {
@@ -186,9 +208,12 @@ export class TrainerReflectionComponent implements OnInit {
       // Get trainee
       this.reflectionService.getTraineeById(traineeId).subscribe((trainee: TraineeModel): void => {
         this.trainee = trainee;
+
         // Get questions.
-        this.reflectionService.getQuestionsByCohortId(this.trainee.cohort.id)
+        this.reflectionService.getQuestionsByFormType('reflection_form')
           .subscribe(questions => {
+            console.log('Questions are');
+            console.log(questions);
             this.questions = questions.sort((a, b) => {
               const aVal = a.id;
               const bVal = b.id;
@@ -200,46 +225,64 @@ export class TrainerReflectionComponent implements OnInit {
                 return 0;
               }
             });
+
             this.questions.forEach(question => {
               const categories = this.rowData.map(rowData => rowData.category);
-              if (!categories.includes(question.category)) {
+              if (!categories.includes(question.questionCategoryName)) {
+                console.log('pushing question,category' + question.questionCategoryName);
                 this.rowData.push(
                   {
-                    category: question.category,
+                    category: question.questionCategoryName,
                     questions: [],
                   }
                 );
               }
+
               if (!this.questionIds.includes(question.id)) {
                 this.questionIds.push(question.id);
               }
             });
+
             for (const question of this.questions) {
-              const category = this.rowData.find(rowData => rowData.category === question.category);
+              const category = this.rowData.find(rowData => rowData.category === question.questionCategoryName);
               if (category !== undefined) {
-                category.questions.push({ id: question.id, body: question.body, reflectionQuestions: [] });
+                category.questions.push({id: question.id, body: question.body, reflectionQuestions: []});
               }
             }
+
+            console.log('Row Data is ');
+
+            console.log(this.rowData);
+
             // Get reflections for this user
             this.reflectionService.getReflectionsByTraineeId(traineeId)
-              .subscribe(reflections => {
+              .subscribe(
+                reflections => {
                 if (reflections && reflections.length > 0) {
                   let num = 0;
                   // TODO: Change to async
                   reflections.forEach((reflection: ReflectionModel, index): void => {
+                    console.log('Reflection has form date ' + reflection.formDate);
                     this.reflectionService.getReflectionQuestionsByReflectionId(reflection.id)
-                      .subscribe((reflectionQuestions: ReflectionQuestionModel[]): void => {
-                        if (reflectionQuestions.length >= questions.length) {
-                          ReflectionModel.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
-                          this.reflections.push(reflection);
-                        }
-                        if (num === reflections.length - 1) {
-                          this.updateReflections();
-                        } else {
-                          ++num;
-                        }
-                      });
-                  }, error => this.errorService.handleError(error));
+                      .subscribe(
+                        (reflectionQuestions: ReflectionQuestionModel[]): void => {
+                          console.log('Got reflection questions for reflection of date ' + reflection.formDate);
+                          console.log('Number of reflection questions is ' + reflectionQuestions.length);
+                          console.log('Number of questions is ' + questions.length);
+                          if (reflectionQuestions.length >= questions.length) {
+                            ReflectionModel.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
+                            this.reflections.push(reflection);
+                          }
+
+                          if (num === reflections.length - 1) {
+                            this.updateReflections();
+                          } else {
+                            ++num;
+                          }
+                        });
+                    },
+                    error => this.errorService.handleError(error)
+                  );
                 } else {
                   this.pageState = PageState.NO_SELF_REFLECTIONS;
                 }

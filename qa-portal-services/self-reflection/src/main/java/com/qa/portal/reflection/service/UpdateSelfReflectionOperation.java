@@ -37,12 +37,11 @@ public class UpdateSelfReflectionOperation {
         reflectionToUpdate.setWeaknesses(reflectionDto.getWeaknesses());
         reflectionToUpdate.setOpportunities(reflectionDto.getOpportunities());
         reflectionToUpdate.setThreats(reflectionDto.getThreats());
+        reflectionToUpdate.setStatus(reflectionDto.getStatus());
         reflectionDto.getReflectionQuestions().stream().forEach((rq) -> {
             reflectionToUpdate.getReflectionQuestions()
                     .stream()
-                    .filter((rqe) -> rqe
-                            .getId()
-                            .equals(rq.getId()))
+                    .filter((rqe) -> rqe.getId().equals(rq.getId()))
                     .findFirst()
                     .ifPresent((rqe) -> rqe.setResponse(rq.getResponse()));
         });

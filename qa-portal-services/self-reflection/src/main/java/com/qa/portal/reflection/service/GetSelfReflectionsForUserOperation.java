@@ -1,10 +1,10 @@
 package com.qa.portal.reflection.service;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +28,8 @@ public class GetSelfReflectionsForUserOperation {
 
 	private QaTrainerRepository trainerRepository;
 
+	private Comparator<ReflectionDto> reflectionComparator = (r1, r2) -> r1.getFormDate().isBefore(r2.getFormDate()) ? 1 : -1;
+
 	@Autowired
 	public GetSelfReflectionsForUserOperation(ReflectionMapper reflectionMapper,
 											  ReflectionRepository reflectionRepository,
@@ -39,12 +41,14 @@ public class GetSelfReflectionsForUserOperation {
 		this.trainerRepository = trainerRepository;
 	}
 
-	public Set<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
+	public List<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
 		TraineeEntity trainee = traineeRepository.findByUserName(userName)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
 		return reflectionRepository.findByResponderId(trainee.getId())
-				.stream().map(reflectionMapper::mapToReflectionDto)
-				.collect(Collectors.toSet());
+				.stream()
+				.map(reflectionMapper::mapToReflectionDto)
+				.sorted(reflectionComparator)
+				.collect(Collectors.toList());
 	}
 	
 	public Set<ReflectionDto> getSelfReflectionsForTrainer(String userName) {
