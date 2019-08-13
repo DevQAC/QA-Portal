@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Create the service account
-gcloud iam service-accounts create jenkins --display-name jenkins
+gcloud iam service-accounts create jenkins-service-account --display-name jenkins-service-account
 
 echo " Creating service account..."
 sleep 30
@@ -9,7 +9,7 @@ sleep 30
 #Store the service account email address and your 
 #current GCP project ID in environment variables for use in later commands:
 export SA_EMAIL=$(gcloud iam service-accounts list \
-    --filter="displayName:jenkins" --format='value(email)')
+    --filter="displayName:jenkins-service-account" --format='value(email)')
 export PROJECT=$(gcloud info --format='value(config.project)')
 
 #Bind the following roles to your service account
