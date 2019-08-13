@@ -21,7 +21,7 @@ spec:
       - name: GITHUB_REPO
         value: "https://github.com/bob-crutchley/QA-Portal.git"
       - name: GITHUB_BRANCH
-        value: "ci-kube"
+        value: "ci-kube-env"
       - name: PROJECT
         value: "qa-portal-249709"
       volumeMounts:
