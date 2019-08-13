@@ -12,7 +12,7 @@ public class CohortCourseFeedbackDto {
 
     private CohortCourseDto cohortCourse;
 
-    private List<EvalQuestionCategoryResponseDto> categoryResponses;
+    private List<FeedbackQuestionCategoryResponseDto> categoryResponses;
 
     public Integer getId() {
         return id;
@@ -38,11 +38,11 @@ public class CohortCourseFeedbackDto {
         this.cohortCourse = cohortCourse;
     }
 
-    public List<EvalQuestionCategoryResponseDto> getCategoryResponses() {
+    public List<FeedbackQuestionCategoryResponseDto> getCategoryResponses() {
         return categoryResponses;
     }
 
-    public void setCategoryResponses(List<EvalQuestionCategoryResponseDto> categoryResponses) {
+    public void setCategoryResponses(List<FeedbackQuestionCategoryResponseDto> categoryResponses) {
         this.categoryResponses = categoryResponses;
     }
 }
