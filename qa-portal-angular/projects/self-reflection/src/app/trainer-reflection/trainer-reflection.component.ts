@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {SelfReflectionService} from './services/self-reflection.service';
 import {ReflectionModel} from './models/dto/reflection.model';
 import {TraineeModel} from './models/dto/trainee.model';
-import {QuestionModel} from './models/dto/question.model';
 import {ReflectionQuestionModel} from './models/dto/reflection-question.model';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {MatSnackBar, PageEvent} from '@angular/material';
@@ -10,6 +9,7 @@ import {RowData} from './models/row-data';
 import {QaToastrService} from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
 import {QaErrorHandlerService} from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 import {Observable} from 'rxjs';
+import {QuestionModel} from "../_common/models/question.model";
 
 enum PageState {
   LOADING = 'loading', NO_SELF_REFLECTIONS = 'no-self-reflections', READY = 'ready', ERROR = 'error'
@@ -210,8 +210,10 @@ export class TrainerReflectionComponent implements OnInit {
         this.trainee = trainee;
 
         // Get questions.
-        this.reflectionService.getQuestionsByCohortId(this.trainee.cohort.id)
+        this.reflectionService.getQuestionsByFormType('reflection_form')
           .subscribe(questions => {
+            console.log('Questions are');
+            console.log(questions);
             this.questions = questions.sort((a, b) => {
               const aVal = a.id;
               const bVal = b.id;
@@ -226,10 +228,11 @@ export class TrainerReflectionComponent implements OnInit {
 
             this.questions.forEach(question => {
               const categories = this.rowData.map(rowData => rowData.category);
-              if (!categories.includes(question.category)) {
+              if (!categories.includes(question.questionCategoryName)) {
+                console.log('pushing question,category' + question.questionCategoryName);
                 this.rowData.push(
                   {
-                    category: question.category,
+                    category: question.questionCategoryName,
                     questions: [],
                   }
                 );
@@ -241,7 +244,7 @@ export class TrainerReflectionComponent implements OnInit {
             });
 
             for (const question of this.questions) {
-              const category = this.rowData.find(rowData => rowData.category === question.category);
+              const category = this.rowData.find(rowData => rowData.category === question.questionCategoryName);
               if (category !== undefined) {
                 category.questions.push({id: question.id, body: question.body, reflectionQuestions: []});
               }

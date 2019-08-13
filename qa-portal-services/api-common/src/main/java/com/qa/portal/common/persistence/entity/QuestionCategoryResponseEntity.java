@@ -1,6 +1,7 @@
 package com.qa.portal.common.persistence.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(schema = "training", name = "question_category_response")
@@ -15,9 +16,16 @@ public abstract class QuestionCategoryResponseEntity extends QaBaseEntity {
             allocationSize = 1)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "question_category_id")
+    private QuestionCategoryEntity questionCategory;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "comment_id")
     private CommentEntity comment;
+
+    @OneToMany(mappedBy = "categoryResponse", cascade = CascadeType.ALL)
+    private List<QuestionResponseEntity> questionResponses;
 
     public Integer getId() {
         return id;
@@ -25,6 +33,30 @@ public abstract class QuestionCategoryResponseEntity extends QaBaseEntity {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<QuestionResponseEntity> getQuestionCategories() {
+        return questionResponses;
+    }
+
+    public void setQuestionCategories(List<QuestionResponseEntity> questionResponses) {
+        this.questionResponses = questionResponses;
+    }
+
+    public QuestionCategoryEntity getQuestionCategory() {
+        return questionCategory;
+    }
+
+    public void setQuestionCategory(QuestionCategoryEntity questionCategory) {
+        this.questionCategory = questionCategory;
+    }
+
+    public List<QuestionResponseEntity> getQuestionResponses() {
+        return questionResponses;
+    }
+
+    public void setQuestionResponses(List<QuestionResponseEntity> questionResponses) {
+        this.questionResponses = questionResponses;
     }
 
     public CommentEntity getComment() {

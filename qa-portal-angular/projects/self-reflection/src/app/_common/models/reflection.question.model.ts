@@ -1,5 +1,5 @@
-import { QuestionModel } from './question.model';
 import { SelectedRatingModel } from '../../../../../qa-common/src/app/rated-question/selected-rating.model';
+import {QuestionModel} from './question.model';
 
 export class ReflectionQuestionModel implements SelectedRatingModel {
   selectedRating: number;
@@ -10,7 +10,7 @@ export class ReflectionQuestionModel implements SelectedRatingModel {
 
   question: QuestionModel;
 
-  response: number;
+  response: string;
 
   trainerResponse: number;
 }
