@@ -10,8 +10,10 @@ import com.qa.portal.feedback.dto.CohortCourseFeedbackDto;
 @Service
 public class CourseFeedbackService {
 	
-	public List<CohortCourseFeedbackDto> getCourseFeedbackForCourse(CohortCourseDto cohortCourse) {
-		
+	CreateFeedbackOperation feedbackOp;
+	
+	public List<CohortCourseFeedbackDto> getCourseFeedbackForCourse(CohortCourseFeedbackDto cohortCourseFeedbackDto) {
+		return this.feedbackOp.createFeedbackForm(cohortCourseFeedbackDto);
 	}
 
 }
