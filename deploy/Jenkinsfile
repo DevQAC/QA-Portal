@@ -3,13 +3,13 @@ pipeline {
     stages {
         stage('pull images' {
             steps {
-                sh label: '', script: 'bash ./scripts/pull-gcr.sh.sh'
+                sh label: '', script: 'bash ./deploy/pull-gcr.sh.sh'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh label: '', script: 'bash ./scripts/deployment.sh'
+                sh label: '', script: 'bash ./deploy/deployment.sh'
             }
         }
     }
