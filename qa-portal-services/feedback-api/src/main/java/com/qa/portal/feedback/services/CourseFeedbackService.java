@@ -1,10 +1,7 @@
 package com.qa.portal.feedback.services;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
-
-import com.qa.portal.common.dto.CohortCourseDto;
+import org.springframework.transaction.annotation.Transactional;
 import com.qa.portal.feedback.dto.CohortCourseFeedbackDto;
 
 @Service
@@ -12,7 +9,8 @@ public class CourseFeedbackService {
 	
 	CreateFeedbackOperation feedbackOp;
 	
-	public List<CohortCourseFeedbackDto> getCourseFeedbackForCourse(CohortCourseFeedbackDto cohortCourseFeedbackDto) {
+	@Transactional
+	public CohortCourseFeedbackDto createCourseFeedbackForCourse(CohortCourseFeedbackDto cohortCourseFeedbackDto) {
 		return this.feedbackOp.createFeedbackForm(cohortCourseFeedbackDto);
 	}
 
