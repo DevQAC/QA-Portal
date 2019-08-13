@@ -6,6 +6,7 @@ export class QuestionModel extends BaseModel {
   id?: number;
   body?: string;
   numOptions: number;
-  category?: string;
+  question?: string;
+  questionCategoryName: string;
   forms?: ReflectionQuestionModel[];
 }

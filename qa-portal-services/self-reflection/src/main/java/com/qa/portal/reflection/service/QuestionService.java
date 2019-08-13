@@ -3,15 +3,15 @@ package com.qa.portal.reflection.service;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.qa.portal.common.dto.QuestionDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
-import com.qa.portal.reflection.dto.QuestionDto;
-import com.qa.portal.reflection.persistence.entity.CohortQuestionEntity;
-import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
+import com.qa.portal.common.persistence.entity.CohortQuestionEntity;
+import com.qa.portal.common.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.service.mapper.QuestionMapper;
 
 @Service

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {
   CREATE_SELF_REFLECTION_API,
   GET_SELF_REFLECTION_API,
+  GET_SELF_REFLECTIONS_BY_STATUS_API,
   CREATE_SELF_REFLECTION_QUESTIONS_API,
   UPDATE_SELF_REFLECTION_API
 } from '../../_common/models/trainee-reflection-constants';
@@ -23,16 +24,23 @@ export class SelfReflectionFormService {
     return this.httpClient.get<SelfReflectionFormModel>(GET_SELF_REFLECTION_API + '/' + formId);
   }
 
-  public updateSelfReflectionForm(form:SelfReflectionFormModel):Observable<SelfReflectionFormModel> {
+  public getAllReflectionFormsForUser(): Observable<Set<SelfReflectionFormModel>> {
+    return this.httpClient.get<Set<SelfReflectionFormModel>>(GET_SELF_REFLECTION_API + '/trainee');
+  }
+
+  public getSelfReflectionFormByStatus(status: string): Observable<SelfReflectionFormModel> {
+    return this.httpClient.get<SelfReflectionFormModel>(GET_SELF_REFLECTIONS_BY_STATUS_API + '/' + status);
+  }
+
+  public updateSelfReflectionForm(form: SelfReflectionFormModel): Observable<SelfReflectionFormModel> {
     return this.httpClient.put<SelfReflectionFormModel>(UPDATE_SELF_REFLECTION_API, form);
   }
 
   public createSelfReflectionQuestions(reflectionQuestions: ReflectionQuestionModel[]): Observable<ReflectionQuestionModel[]> {
     return this.httpClient.post<ReflectionQuestionModel[]>(CREATE_SELF_REFLECTION_QUESTIONS_API, reflectionQuestions);
   }
-  
+
   public getCurrentSelfReflectionForm(): Observable<SelfReflectionFormModel> {
     return this.httpClient.get<SelfReflectionFormModel>(GET_SELF_REFLECTION_API);
   }
-  
 }
