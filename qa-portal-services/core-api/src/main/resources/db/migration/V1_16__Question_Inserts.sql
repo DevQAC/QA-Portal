@@ -160,7 +160,7 @@ INSERT INTO training.question (id, body, category_id,
                                has_comment, comment_label, selection_options)
                         VALUES (23, '4. The content of the course manual was appropriate to audience learning objectives:', '12',
                                 '2019-08-06 14:44:28.745289', 'admin', 1,
-                                false, '', '[''9'', ''8'', ''7'', ''6'', ''5'', ''4'', ''3'', ''2'', ''1'']');
+                                false, '', '["9", "8", "7", "6", "5", "4", "3", "2", "1"]');
 
 INSERT INTO training.question (id, body, category_id,
                                last_updated_timestamp, last_updated_by, version,
