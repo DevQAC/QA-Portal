@@ -9,6 +9,7 @@ pipeline {
         }
         stage('docker-compose build') {
             steps {
+                sh label: '', script: 'cd QA-Portal'
                 sh label: '', script: 'docker-compose build .'
             }
         }
