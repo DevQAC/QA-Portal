@@ -7,10 +7,6 @@ import { TrainerEvaluationHistoryComponent } from './trainer-evaluation-history/
 
 const routes: Routes = [
   {
-    path: 'feedback/home',
-    component: AppComponent
-  },
-  {
     path: 'course-evaluation',
     component: CourseEvaluationComponent
   },

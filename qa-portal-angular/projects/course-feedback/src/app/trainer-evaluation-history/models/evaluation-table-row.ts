@@ -1,7 +1,7 @@
 export class EvaluationTableRow {
     col1: string;
 
-    col2: Date;
+    col2: number;
 
     col3: Date;
 
