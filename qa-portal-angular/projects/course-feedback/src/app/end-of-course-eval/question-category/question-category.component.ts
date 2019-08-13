@@ -16,6 +16,7 @@ export class QuestionCategoryComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.value);
+    console.log("Question + " + this.value.selectionType);
   }
 
 }
