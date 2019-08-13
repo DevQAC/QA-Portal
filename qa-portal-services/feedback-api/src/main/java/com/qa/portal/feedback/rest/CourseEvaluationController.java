@@ -1,5 +1,6 @@
 package com.qa.portal.feedback.rest;
 
+import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.services.CourseEvaluationService;
@@ -29,7 +30,7 @@ public class CourseEvaluationController {
     }
     
     @GetMapping("/trainer")
-    public ResponseEntity<List<CohortCourseEvaluationDto>> getCourseEvaluationsForTrainer(String username) {
+    public ResponseEntity<List<CohortCourseDto>> getCourseEvaluationsForTrainer(String username) {
     	return ResponseEntity.ok(this.service.getCourseEvaluationsForTrainer(context.getUserName()));
     }
 }

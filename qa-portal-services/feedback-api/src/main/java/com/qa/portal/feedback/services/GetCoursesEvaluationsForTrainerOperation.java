@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.qa.portal.common.exception.QaPortalBusinessException;
-import com.qa.portal.common.persistence.entity.QuestionCategoryEntity;
 import com.qa.portal.common.persistence.entity.QuestionCategoryResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +18,6 @@ import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
-import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 
 public class GetCoursesEvaluationsForTrainerOperation {
