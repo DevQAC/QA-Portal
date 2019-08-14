@@ -11,6 +11,8 @@ import com.qa.portal.common.dto.CohortCourseDto;
 public class CourseEvaluationService {
 
     private GetEvaluationsForCourseOperation getEvaluationsForCourseOperation;
+	private GetCoursesEvaluationsForTrainerOperation eval;
+	private UpdateCourseEvaluationOperation update;
 
     public CourseEvaluationService(GetEvaluationsForCourseOperation getEvaluationsForCourseOperation) {
         this.getEvaluationsForCourseOperation = getEvaluationsForCourseOperation;
@@ -21,10 +23,15 @@ public class CourseEvaluationService {
         return getEvaluationsForCourseOperation.getEvaluationsForCourse(cohortCourseId);
     }
 
-	private GetCoursesEvaluationsForTrainerOperation eval;
+
 
 	@Transactional
 	public List<CohortCourseDto> getCourseEvaluationsForTrainer(String userName) {
 		return this.eval.getCourseEvaluationsForTrainer(userName);
+	}
+	
+	@Transactional
+	public CohortCourseEvaluationDto updateCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
+		return update.updateCourseEvaluation(courseEvaluation);
 	}
 }

@@ -24,6 +24,7 @@ public class CourseEvaluationController {
     private CourseEvaluationService service;
 
     private QaSecurityContext context;
+    
 
     public CourseEvaluationController(CourseEvaluationService service, QaSecurityContext qaSecurityContext) {
         this.service = service;
@@ -42,4 +43,9 @@ public class CourseEvaluationController {
         // Remove this once service call has been added
         return ResponseEntity.ok(Collections.emptyList());
     }
+    
+    public CohortCourseEvaluationDto updateCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
+    	return service.updateCourseEvaluation(courseEvaluation);
+    }
+    
 }
