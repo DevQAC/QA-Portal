@@ -5,6 +5,7 @@ pipeline {
         stage('clone repo') {
             steps{
                 git branch: "${env.GITHUB_BRANCH}", url: "${env.GITHUB_REPO}"
+                sh label: '', script: 'ls'
             }
         }
         stage('docker-compose build') {
