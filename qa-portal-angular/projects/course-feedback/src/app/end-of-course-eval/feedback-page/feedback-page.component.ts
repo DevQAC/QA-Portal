@@ -27,14 +27,12 @@ export class FeedbackPageComponent implements OnInit {
     ngOnInit() {
       this.formTypeService.getFormType(COURSE_EVAL_FORM).subscribe((response: DataModel[]) => {
         this.formInfo = response;
-        // Get trainee id from path
-      this.activatedRoute.paramMap.subscribe((pm: ParamMap): void => {
-        const traineeId = +pm.get('id');
-      // Get trainee
-      this.reflectionService.getTraineeById(traineeId).subscribe((trainee: TraineeModel): void => {
-        this.trainee = trainee;
+        this.activatedRoute.paramMap.subscribe((pm: ParamMap): void => {
+          const traineeId = +pm.get('id');
+          this.reflectionService.getTraineeById(traineeId).subscribe((trainee: TraineeModel): void => {
+            this.trainee = trainee;
       });
-      })
-      })
+      });
+      });
     }
 }
