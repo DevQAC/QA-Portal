@@ -46,7 +46,7 @@ public class GetSelfReflectionsForUserOperation {
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
 		return reflectionRepository.findByResponderId(trainee.getId())
 				.stream()
-				.map(reflectionMapper::mapToReflectionDto)
+				.map(r -> reflectionMapper.mapToReflectionDto(r))
 				.sorted(reflectionComparator)
 				.collect(Collectors.toList());
 	}

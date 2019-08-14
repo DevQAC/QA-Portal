@@ -16,7 +16,7 @@ import {QuestionModel} from '../_common/models/question.model';
 @Component({
   selector: 'app-trainee-new-reflection',
   templateUrl: '../_common/templates/trainee-reflection.component.html',
-  styleUrls: ['../_common/css/trainee-reflection.component.css']
+  styleUrls: ['../_common/css/trainee-reflection.component.css'] 
 })
 export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
