@@ -12,8 +12,7 @@ public class LocalDateSqlDateConverter extends DozerConverter<LocalDate, Date> {
         super(LocalDate.class, Date.class);
     }
 
-    @Override
-    public Date convertTo(LocalDate localDate, Date date) {
+    public Date convertTo(LocalDate localDate,Date date) {
         return Optional.ofNullable(localDate).map(i -> Date.valueOf(i)).orElseGet(() -> null);
     }
 

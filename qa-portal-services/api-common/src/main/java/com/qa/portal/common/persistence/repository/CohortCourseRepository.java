@@ -7,8 +7,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import java.sql.Date;
+import java.util.List;
+
 @Repository
 public interface CohortCourseRepository extends JpaRepository<CohortCourseEntity, Integer> {
-	
-	List<CohortCourseEntity> findByTrainer(TrainerEntity trainer);
+
+    List<CohortCourseEntity> findByTrainer(TrainerEntity trainer);
+
+    public List<CohortCourseEntity> findByEndDate(Date endDate);
 }
