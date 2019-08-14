@@ -5,7 +5,10 @@ import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import com.qa.portal.common.persistence.entity.QuestionEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,9 +18,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
-import com.qa.portal.reflection.persistence.entity.CohortQuestionEntity;
-import com.qa.portal.reflection.persistence.entity.QuestionEntity;
-import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
+import com.qa.portal.common.persistence.entity.CohortQuestionEntity;
+import com.qa.portal.common.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.service.mapper.QuestionMapper;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -62,7 +64,7 @@ public class QuestionServiceTest {
 	}
 
 	private void setPreConditions() {
-		cohortQuestions = Set.of(cohortQuestionEntity);
+		cohortQuestions = Stream.of(cohortQuestionEntity).collect(Collectors.toSet());
 		when(cohortRepo.findById(COHORT_ID)).thenReturn(Optional.of(qaCohortEntity));
 		when(cohortQuestionRepo.findByCohort(qaCohortEntity)).thenReturn(cohortQuestions);
 		when(cohortQuestionEntity.getQuestion()).thenReturn(questionEntity);

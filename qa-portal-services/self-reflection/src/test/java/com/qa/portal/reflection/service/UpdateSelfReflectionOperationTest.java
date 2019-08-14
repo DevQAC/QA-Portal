@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,9 +65,9 @@ public class UpdateSelfReflectionOperationTest {
 				.thenReturn(Optional.of(reflectionEntityToUpdate));
 		when(reflectionDtoToUpdateFrom.getFormDate()).thenReturn(LocalDate.now());
 		when(reflectionDtoToUpdateFrom.getReflectionQuestions())
-				.thenReturn(Set.of(reflectionQuestionDtoToUpdateFrom1, reflectionQuestionDtoToUpdateFrom2));
+				.thenReturn(Stream.of(reflectionQuestionDtoToUpdateFrom1, reflectionQuestionDtoToUpdateFrom2).collect(Collectors.toList()));
 		when(reflectionEntityToUpdate.getReflectionQuestions())
-				.thenReturn(Set.of(reflectionQuestionEntityToUpdate1, reflectionQuestionEntityToUpdate2));
+				.thenReturn(Stream.of(reflectionQuestionEntityToUpdate1, reflectionQuestionEntityToUpdate2).collect(Collectors.toSet()));
 		when(reflectionRepository.save(reflectionEntityToUpdate)).thenReturn(updatedReflectionEntity);
 	}
 

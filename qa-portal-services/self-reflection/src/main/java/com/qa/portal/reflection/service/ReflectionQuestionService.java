@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import com.qa.portal.common.dto.QuestionDto;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
-import com.qa.portal.reflection.dto.QuestionDto;
-import com.qa.portal.reflection.persistence.repository.CohortQuestionRepository;
+import com.qa.portal.common.persistence.repository.CohortQuestionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,17 +77,6 @@ public class ReflectionQuestionService {
                 .sorted(reflectionQuestionComparator)
                 .collect(Collectors.toList());
     }
-
-	@Transactional
-	public List<QuestionDto> getReflectionQuestionsByCohort(String cohortName){
-		LOGGER.info("Cohort name" + cohortName);
-		return this.cohortQuestionRepository.findByCohort(this.cohortRepository.findByName(cohortName).orElseThrow(
-				()-> new QaResourceNotFoundException("Cohort not found for supplied name")))
-				.stream()
-				.map((e) -> reflectionQuestionMapper.mapToQuestionDto(e.getQuestion()))
-                .sorted(questionComparator)
-				.collect(Collectors.toList());
-	}
 
 	@Transactional
 	public List<ReflectionQuestionDto> createReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {

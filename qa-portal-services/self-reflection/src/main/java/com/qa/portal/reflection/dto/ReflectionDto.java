@@ -1,6 +1,7 @@
 package com.qa.portal.reflection.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -32,7 +33,7 @@ public class ReflectionDto extends QaBaseDto {
 
     private String status;
 
-    private Set<ReflectionQuestionDto> reflectionQuestions;
+    private List<ReflectionQuestionDto> reflectionQuestions;
 
     public Integer getId() {
         return id;
@@ -114,11 +115,11 @@ public class ReflectionDto extends QaBaseDto {
         this.threats = threats;
     }
 
-    public Set<ReflectionQuestionDto> getReflectionQuestions() {
+    public List<ReflectionQuestionDto> getReflectionQuestions() {
         return reflectionQuestions;
     }
 
-    public void setReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
+    public void setReflectionQuestions(List<ReflectionQuestionDto> reflectionQuestions) {
         this.reflectionQuestions = reflectionQuestions;
     }
 

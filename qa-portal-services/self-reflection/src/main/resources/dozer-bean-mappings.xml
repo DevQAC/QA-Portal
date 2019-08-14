@@ -23,8 +23,8 @@
     </mapping>
 
     <mapping>
-        <class-a>com.qa.portal.reflection.dto.QuestionDto</class-a>
-        <class-b>com.qa.portal.reflection.persistence.entity.QuestionEntity</class-b>
+        <class-a>com.qa.portal.common.dto.QuestionDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.QuestionEntity</class-b>
     </mapping>
 
     <mapping>

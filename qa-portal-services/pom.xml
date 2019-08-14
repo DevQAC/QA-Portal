@@ -24,8 +24,11 @@
     <modules>
         <module>api-common</module>
         <module>core-api</module>
-        <module>self-reflection</module>
         <module>user-api</module>
+        <module>question-api</module>
+        <module>course-api</module>
+        <module>self-reflection</module>
+        <module>feedback-api</module>
     </modules>
 
 </project>
