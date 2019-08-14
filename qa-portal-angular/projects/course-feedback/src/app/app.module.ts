@@ -25,6 +25,8 @@ import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-
 import {FeedbackQuestionComponent} from './trainer-feedback/feedback-question/feedback-question.component';
 import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/problem-reporter.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

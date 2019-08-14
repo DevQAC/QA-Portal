@@ -3,7 +3,7 @@
     <div class="qa-radio-btn-layout">
 
       <mat-radio-button #matRadioButton color="primary" class="qa-response-button"
-                        *ngFor="let options of value.selectionOptionsList" (change)="setResponse(matRadioButton.value)"
+                        *ngFor="let options of value.selectionOptionsList" (change)="setRadioResponse(matRadioButton.value)"
                         style="padding-right : 10px;"
                         [value]="options">{{options}} </mat-radio-button>
 
@@ -17,9 +17,9 @@
 
 <div *ngIf="selectionType === 'CHECK_BOX'">
   <mat-card-content>
-    <mat-checkbox class="checkbox-reponse" (change)="setResponse(matCheckBox.value)"
+    <mat-checkbox #matCheckBox class="checkbox-reponse"
                   *ngFor="let options of value.selectionOptionsList" [value]="options"
-                  style="padding-right : 10px;">{{options}} </mat-checkbox>
+                  (change)="setCheckResponse(matCheckBox.value)"style="padding-right : 10px;">{{options}} </mat-checkbox>
   </mat-card-content>
   <div *ngIf="value.hasComment">
     <input matInput>

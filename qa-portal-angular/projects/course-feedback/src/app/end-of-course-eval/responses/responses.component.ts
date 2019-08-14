@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { QuestionModel } from '../../_common/models/question.model';
+import { CheckBoxResponseModel } from '../../_common/models/checkbox-response.model'
+import { SelectedRatingModel } from 'projects/qa-common/src/app/rated-question/selected-rating.model';
 
 
 
@@ -10,15 +12,25 @@ import { QuestionModel } from '../../_common/models/question.model';
 })
 export class ResponsesComponent implements OnInit {
 
+  
   @Input() value: QuestionModel;
   @Input() selectionType: String;
   @Input() radioButtons: Boolean;
+  @Input() selectedRating: SelectedRatingModel;
+  @Input() selectedResponse: CheckBoxResponseModel;
   @Input() checkBoxes: Boolean;
+  @Input() userResponse : String;
 
   constructor() {}
 
-  setResponse(response: string) {
+  setRadioResponse(response: string) {
     console.log(response)
+  }
+
+  setCheckResponse(response: string) {
+    console.log(response)
+    // this.selectedResponse.response.push(response);
+    console.log(this.selectedResponse.response.push(response))
   }
   ngOnInit() {
 
