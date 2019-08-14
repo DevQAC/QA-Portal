@@ -15,6 +15,7 @@ spec:
       image: yamileon/jenkins:latest
       ports:
       - containerPort: 8080
+      imagePullPolicy: Always
       env:
       - name: JENKINS_OPTS
         value: "--prefix=/jenkins"
