@@ -64,5 +64,4 @@ export class TrainerEvaluationHistoryComponent implements OnInit {
   showAll() {
     this.dataSource2 = new MatTableDataSource(this.viewModel2.tableRows);
   }
-
 }
