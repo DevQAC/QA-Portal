@@ -19,12 +19,18 @@ export class RatedQuestionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.options.forEach(o => {
-      console.log(o);
-    });
   }
 
   setModel(rating: string) {
     this.selectedRating.response = rating;
+  }
+
+  matchedValue(entry: string, responseVal: string): boolean {
+    console.log('Entry is ' + entry);
+    console.log('responseVal type ' + typeof responseVal);
+
+    const matched = !!responseVal && (entry === JSON.stringify(responseVal).trim());
+    console.log('Matched ' + matched);
+    return matched;
   }
 }

@@ -16,7 +16,7 @@ import {QuestionModel} from '../_common/models/question.model';
 @Component({
   selector: 'app-trainee-new-reflection',
   templateUrl: '../_common/templates/trainee-reflection.component.html',
-  styleUrls: ['../_common/css/trainee-reflection.component.css']
+  styleUrls: ['../_common/css/trainee-reflection.component.css'] 
 })
 export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
@@ -132,7 +132,7 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
     reflectionQuestion.question = new QuestionModel();
     reflectionQuestion.question.id = question.id;
     reflectionQuestion.question.body = question.body;
-    reflectionQuestion.question.category = question.category;
+    reflectionQuestion.question.questionCategoryName = question.questionCategoryName;
     reflectionQuestion.question.selectionOptionsList = question.selectionOptionsList;
     reflectionQuestion.question.selectionOptionsJson = question.selectionOptionsJson;
   }
