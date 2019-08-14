@@ -158,10 +158,13 @@ create table if not exists training.question_category_response
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
 	version integer default 1 not null,
-	discriminator varchar(255) not null
+	discriminator varchar(255) not null,
+	question_category_id integer not null
 );
 
 alter table training.question_category_response owner to postgres;
+
+
 
 
 

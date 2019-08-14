@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-subtitle>
+    {{question.body}}
+  </mat-card-subtitle>
+  <mat-card-content>
+    <div *ngIf="question.selectionOptionsJson[0]">
+      <table>
+        <tr>
+          <mat-radio-group>
+            <td *ngFor="let option of question.selectionOptionsList">
+              {{option}}
+              <mat-radio-button value="{{option}}"></mat-radio-button>
+            </td>
+          </mat-radio-group>
+        </tr>
+        {{value}}
+        <div *ngIf="value === 'Yes'">
+          <mat-form-field>
+            <textarea matInput placeholder="What's your problem?"></textarea>
+          </mat-form-field>
+        </div>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

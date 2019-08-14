@@ -5,6 +5,7 @@ import com.qa.portal.common.persistence.entity.QaBaseEntity;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(schema = "training", name = "cohort_course_evaluation")
@@ -26,6 +27,9 @@ public class CohortCourseEvaluationEntity extends QaBaseEntity {
     @JoinColumn(name = "cohort_course_id")
     private CohortCourseEntity cohortCourse;
 
+    @OneToMany(mappedBy = "courseEvaluation")
+    private List<EvalQuestionCategoryResponseEntity> categoryResponses;
+
     public Integer getId() {
         return id;
     }
@@ -40,6 +44,14 @@ public class CohortCourseEvaluationEntity extends QaBaseEntity {
 
     public void setTrainee(TraineeEntity trainee) {
         this.trainee = trainee;
+    }
+
+    public List<EvalQuestionCategoryResponseEntity> getCategoryResponses() {
+        return categoryResponses;
+    }
+
+    public void setCategoryResponses(List<EvalQuestionCategoryResponseEntity> categoryResponses) {
+        this.categoryResponses = categoryResponses;
     }
 
     public CohortCourseEntity getCohortCourse() {

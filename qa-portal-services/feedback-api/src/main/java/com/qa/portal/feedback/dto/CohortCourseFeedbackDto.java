@@ -3,12 +3,16 @@ package com.qa.portal.feedback.dto;
 import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.dto.TrainerDto;
 
+import java.util.List;
+
 public class CohortCourseFeedbackDto {
     private Integer id;
 
     private TrainerDto trainer;
 
     private CohortCourseDto cohortCourse;
+
+    private List<EvalQuestionCategoryResponseDto> categoryResponses;
 
     public Integer getId() {
         return id;
@@ -32,5 +36,13 @@ public class CohortCourseFeedbackDto {
 
     public void setCohortCourse(CohortCourseDto cohortCourse) {
         this.cohortCourse = cohortCourse;
+    }
+
+    public List<EvalQuestionCategoryResponseDto> getCategoryResponses() {
+        return categoryResponses;
+    }
+
+    public void setCategoryResponses(List<EvalQuestionCategoryResponseDto> categoryResponses) {
+        this.categoryResponses = categoryResponses;
     }
 }
