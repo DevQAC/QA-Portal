@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { QuestionModel } from '../../_common/models/question.model';
+import {Component, OnInit, Input} from '@angular/core';
+import {QuestionModel} from '../../_common/models/question.model';
+import {DataModel} from '../../_common/models/data.model';
 
 @Component({
   selector: 'app-question',
@@ -9,12 +10,12 @@ import { QuestionModel } from '../../_common/models/question.model';
 export class QuestionComponent implements OnInit {
 
 
-  @Input() value : QuestionModel;
+  @Input() value: QuestionModel;
+  @Input() selectionType: String;
 
-  constructor() { }
-
-  ngOnInit() {
-    console.log(this.value);
+  constructor() {
   }
 
+  ngOnInit() {
+  }
 }

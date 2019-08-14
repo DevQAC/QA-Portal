@@ -1,8 +1,0 @@
-<mat-radio-group class="why-with-qa-group">
-  <div id="why-with-qa">{{questionText}}</div>
-  <div class="why-qa-btn-layout">
-    <mat-radio-button #matRadioButton color="primary" class="why-with-qa-button" *ngFor="let options of question"
-      (change)="setResponse(matRadioButton.value)">
-      {{options}}</mat-radio-button>
-  </div>
-</mat-radio-group>

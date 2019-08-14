@@ -8,13 +8,13 @@ import { DataModel } from '../../_common/models/data.model';
 })
 export class QuestionCategoryComponent implements OnInit {
 
+
   @Input() value : DataModel;
 
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.value);
   }
 
 }
