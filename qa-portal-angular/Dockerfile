@@ -1,4 +1,4 @@
-FROM node as qa-portal-build
+FROM node:10 as qa-portal-build
 RUN NG_CLI_ANALYTICS=ci npm install -g @angular/cli
 WORKDIR /build
 COPY . .
