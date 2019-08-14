@@ -6,17 +6,16 @@
     <div *ngIf="question.selectionOptionsJson[0]">
       <table>
         <tr>
-          <mat-radio-group>
+          <mat-radio-group [(ngModel)]="selectedOption">
             <td *ngFor="let option of question.selectionOptionsList">
               {{option}}
               <mat-radio-button value="{{option}}"></mat-radio-button>
             </td>
           </mat-radio-group>
         </tr>
-        {{value}}
-        <div *ngIf="value === 'Yes'">
+        <div *ngIf="selectedOption === 'Yes'">
           <mat-form-field>
-            <textarea matInput placeholder="What's your problem?"></textarea>
+            <textarea matInput placeholder="What's your problem?" [(ngModel)]="problemReport"></textarea>
           </mat-form-field>
         </div>
       </table>

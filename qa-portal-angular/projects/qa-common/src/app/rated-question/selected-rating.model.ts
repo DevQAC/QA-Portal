@@ -1,3 +1,3 @@
 export interface SelectedRatingModel {
-  response: string;
+  response: string[];
 }

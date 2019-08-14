@@ -9,7 +9,7 @@ export class FormTypeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getFormType(formName: string): Observable<DataModel[]> {
-    return this.httpClient.get<DataModel[]>(GET_FORM_TYPE + formName);
+  getFormType(formName: string): Observable<DataModel> {
+    return this.httpClient.get<DataModel>(GET_FORM_TYPE + formName);
   }
 }

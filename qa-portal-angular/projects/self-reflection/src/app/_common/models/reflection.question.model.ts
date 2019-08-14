@@ -10,7 +10,7 @@ export class ReflectionQuestionModel implements SelectedRatingModel {
 
   question: QuestionModel;
 
-  response: string;
+  response: string[];
 
   trainerResponse: number;
 }

@@ -1,4 +1,4 @@
-import { QuestionModel } from './question.model';
+import { ReturnedQuestionModel } from "./returned-question.model";
 
 export class DataModel {
     id : number;
@@ -7,6 +7,6 @@ export class DataModel {
     commentLabel: string;
     selectionType: string;
     displayDirection: string;
-    questions: QuestionModel[] = [];
+    questions: ReturnedQuestionModel[] = [];
 
 }

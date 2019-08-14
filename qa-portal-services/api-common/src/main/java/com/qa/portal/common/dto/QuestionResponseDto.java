@@ -7,8 +7,7 @@ public class QuestionResponseDto {
 
     private CommentDto comment;
 
-    private String responseValues;
-
+    private List<String> responseValues; //TO DO (List of Strings)
     public Integer getId() {
         return id;
     }
@@ -36,8 +35,8 @@ public class QuestionResponseDto {
     public String getResponseValues() {
         return responseValues;
     }
-
-    public void setResponseValues(String responseValues) {
+    
+    public void setResponseValues(list<String> responseValues) {
         this.responseValues = responseValues;
     }
 }

@@ -12,24 +12,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class TrainerFeedbackPageComponent implements OnInit {
 
-  formInfo: DataModel[] = [];
-  firstFormGroup : FormGroup;
-  secondFormGroup : FormGroup;
-  thirdFormGroup : FormGroup;
-  fourthFormGroup : FormGroup;
-  fifthFormGroup : FormGroup;
+  dataModel = new DataModel();
 
-  constructor(private formTypeService: FormTypeService, private _formBuilder : FormBuilder) { }
+
+  constructor(private formTypeService: FormTypeService, ) { }
 
   ngOnInit() {
-    this.formTypeService.getFormType(TRAINER_FEEDBACK_FORM).subscribe((response: DataModel[]) => {
-      this.formInfo = response;
+    this.formTypeService.getFormType(TRAINER_FEEDBACK_FORM).subscribe((response: DataModel) => {
+      this.dataModel = response;
       console.log(response);
     });
-    this.firstFormGroup = this._formBuilder.group({ });
-    this.secondFormGroup = this._formBuilder.group({ });
-    this.thirdFormGroup = this._formBuilder.group({ });
-    this.fourthFormGroup = this._formBuilder.group({ });
-    this.fifthFormGroup = this._formBuilder.group({ });
   }
 }
