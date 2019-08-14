@@ -8,28 +8,39 @@ import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-
 
 const routes: Routes = [
   {
-    path: 'feedback/end-of-course-evaluation',
-    component: FeedbackPageComponent
-  },
-  {
-    path: 'course-evaluation',
-    component: CourseEvaluationComponent
-  },
-  {
-    path: 'train',
-    component: TrainerEvaluationSummaryComponent
-  },
-  {
-    path: 'trainer',
+    path: 'feedback',
     children: [
       {
-        path: 'evaluationhistory', component: TrainerEvaluationHistoryComponent
+        path: 'trainee',
+        children: [
+          {
+            path: 'evaluation/history',
+            component: CourseEvaluationComponent
+          },
+          {
+            path: 'evaluation',
+            component: FeedbackPageComponent
+          }
+        ]
+      },
+      {
+        path: 'trainer',
+        children: [
+          {
+            path: 'evaluation/history',
+            component: TrainerEvaluationHistoryComponent
+          },
+          {
+            path: 'evaluation/course/summary',
+            component: TrainerEvaluationSummaryComponent
+          },
+          {
+            path: 'current',
+            component: TrainerFeedbackPageComponent
+          }
+        ]
       }
     ]
-  },
-  {
-    path: 'feedback/trainer',
-    component: TrainerFeedbackPageComponent
   }
 ];
 
@@ -37,5 +48,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {
 }

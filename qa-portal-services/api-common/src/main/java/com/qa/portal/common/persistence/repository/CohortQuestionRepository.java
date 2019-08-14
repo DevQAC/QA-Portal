@@ -9,7 +9,8 @@ import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.entity.CohortQuestionEntity;
 
 @Repository
+@Deprecated
 public interface CohortQuestionRepository extends JpaRepository<CohortQuestionEntity, Integer> {
 
-    public Set<CohortQuestionEntity> findByCohort(QaCohortEntity cohort);
+    Set<CohortQuestionEntity> findByCohort(QaCohortEntity cohort);
 }

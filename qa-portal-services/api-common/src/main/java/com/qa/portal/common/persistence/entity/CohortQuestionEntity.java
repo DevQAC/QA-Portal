@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cohort_question", schema = "training")
+@Deprecated
 public class CohortQuestionEntity extends QaBaseEntity {
 
     @Id
