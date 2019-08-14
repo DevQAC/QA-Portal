@@ -11,9 +11,9 @@ import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.persistence.entity.CohortCourseEvaluationEntity;
 
 @Component
-public class CohortMapper extends BaseMapper {
+public class CohortCourseMapper extends BaseMapper {
 
-    public CohortMapper(DozerBeanMapper mapper) {
+    public CohortCourseMapper(DozerBeanMapper mapper) {
         super(mapper);
     }
 

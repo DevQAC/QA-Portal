@@ -2,13 +2,13 @@ package com.qa.portal.feedback.services;
 
 
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
-import com.qa.portal.feedback.mapper.CohortMapper;
+import com.qa.portal.feedback.mapper.CohortCourseMapper;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 
 
 public class CreateCourseEvaluationOperation {
 	
-	private CohortMapper cohortMapper;
+	private CohortCourseMapper cohortMapper;
 	
 	private CohortCourseEvaluationRepository cohortCourseEvaluationRepository;
 	
