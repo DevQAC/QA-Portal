@@ -2,8 +2,15 @@ package com.qa.portal.feedback.services;
 
 import java.util.List;
 
-public class GetEvaluationsForCourseOperation {
+import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 
-	List<CourseEvaluationDto> getEvaluationsForCourse(CourseDto)
+public class GetEvaluationsForCourseOperation {
+	
+	
+
+	public List<CohortCourseEvaluationDto> getEvaluationsForCourse(CohortCourseEvaluationDto cohortDto){
+		return null;
+		
+	}
 	
 }
