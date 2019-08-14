@@ -1,3 +1,3 @@
 export interface CheckBoxResponseModel {
-    response: string[];
+    responseCheck: string[];
   }

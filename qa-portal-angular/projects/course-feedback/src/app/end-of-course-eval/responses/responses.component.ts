@@ -1,9 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { QuestionModel } from '../../_common/models/question.model';
-import { CheckBoxResponseModel } from '../../_common/models/checkbox-response.model'
 import { SelectedRatingModel } from 'projects/qa-common/src/app/rated-question/selected-rating.model';
+import { CheckBoxResponseModel } from '../../_common/models/checkbox-response.model';
+import { MatCheckboxChange } from '@angular/material';
 
-
+interface IQuestionResponse {
+  value: string | string[]
+}
 
 @Component({
   selector: 'app-responses',
@@ -11,28 +14,32 @@ import { SelectedRatingModel } from 'projects/qa-common/src/app/rated-question/s
   styleUrls: ['./responses.component.css']
 })
 export class ResponsesComponent implements OnInit {
-
-  
   @Input() value: QuestionModel;
-  @Input() selectionType: String;
-  @Input() radioButtons: Boolean;
+  @Input() selectionType: string;
   @Input() selectedRating: SelectedRatingModel;
   @Input() selectedResponse: CheckBoxResponseModel;
-  @Input() checkBoxes: Boolean;
-  @Input() userResponse : String;
 
-  constructor() {}
+  @Output() change = new EventEmitter<IQuestionResponse>();
 
-  setRadioResponse(response: string) {
-    console.log(response)
+  ngOnInit(): void {
+    this.selectedResponse = {
+      responseCheck: [],
+      ...this.selectedResponse
+    };
   }
 
-  setCheckResponse(response: string) {
-    console.log(response)
-    // this.selectedResponse.response.push(response);
-    console.log(this.selectedResponse.response.push(response))
+  setRadioResponse(response: string): void {
+    this.selectedRating.response = response;
   }
-  ngOnInit() {
 
+  setCheckResponse({ checked, source: { value } }: MatCheckboxChange): void {
+    if (checked) {
+      this.selectedResponse.responseCheck.push(value);
+    } else {
+      this.selectedResponse.responseCheck = this.selectedResponse.responseCheck.filter(v => v !== value);
+    }
+
+    this.change.emit(null);
   }
+
 }

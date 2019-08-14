@@ -1,6 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {QuestionModel} from '../../_common/models/question.model';
-import {DataModel} from '../../_common/models/data.model';
 
 @Component({
   selector: 'app-question',
