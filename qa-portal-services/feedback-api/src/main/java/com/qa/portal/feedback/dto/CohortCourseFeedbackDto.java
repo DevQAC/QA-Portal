@@ -8,8 +8,6 @@ import java.util.List;
 public class CohortCourseFeedbackDto {
     private Integer id;
 
-    private TrainerDto trainer;
-
     private CohortCourseDto cohortCourse;
 
     private List<FeedbackQuestionCategoryResponseDto> categoryResponses;
@@ -20,14 +18,6 @@ public class CohortCourseFeedbackDto {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public TrainerDto getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(TrainerDto trainer) {
-        this.trainer = trainer;
     }
 
     public CohortCourseDto getCohortCourse() {
