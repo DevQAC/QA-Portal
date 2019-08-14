@@ -10,7 +10,7 @@ pipeline {
         }
         stage('docker-compose build') {
             steps {
-                sh label: '', script: 'docker-compose build .'
+                sh label: '', script: 'docker-compose build'
             }
         }
         stage('Push to GCR') {
