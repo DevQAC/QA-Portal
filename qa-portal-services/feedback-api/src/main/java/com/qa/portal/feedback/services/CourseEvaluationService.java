@@ -6,7 +6,6 @@ import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.qa.portal.common.dto.CohortCourseDto;
-;
 
 @Service
 public class CourseEvaluationService {
