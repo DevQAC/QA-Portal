@@ -21,6 +21,9 @@ import {QuestionCategoryComponent} from './end-of-course-eval/question-category/
 import {QuestionComponent} from './end-of-course-eval/question/question.component';
 import {ResponsesComponent} from './end-of-course-eval/responses/responses.component';
 import {SaveButtonComponent} from './end-of-course-eval/save-button/save-button.component';
+import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
+import {FeedbackQuestionComponent} from './trainer-feedback/feedback-question/feedback-question.component';
+import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/problem-reporter.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import {SaveButtonComponent} from './end-of-course-eval/save-button/save-button.
     QuestionCategoryComponent,
     QuestionComponent,
     ResponsesComponent,
-    SaveButtonComponent
+    SaveButtonComponent,
+    TrainerFeedbackPageComponent,
+    FeedbackQuestionComponent,
+    ProblemReporterComponent
   ],
   imports: [
     BrowserModule,
