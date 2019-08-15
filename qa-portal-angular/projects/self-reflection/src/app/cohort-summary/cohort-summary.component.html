@@ -1,4 +1,25 @@
-<h3>Cohort Summary Page</h3>
+<div class="qa-app-title">
+  Cohort Average Ratings Summary
+</div>
 
-<app-cohort-table>
-</app-cohort-table>
+<div style="display: flex; justify-content: center; margin-top: 20px">
+  <mat-spinner [diameter]="70" *ngIf="loadingData"></mat-spinner>
+</div>
+
+<mat-card *ngIf="!loadingData">
+  <mat-card-subtitle style="color: #0060B9;">
+    Ratings by Cohort Table
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <app-cohort-table [cohortSummaryData]="(cohortSummary$ | async)"></app-cohort-table>
+  </mat-card-content>
+
+  <mat-card-subtitle style="color: #0060B9; margin-top: 20px;">
+    Ratings by Cohort Chart
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <app-cohort-chart [cohortSummaryData]="(cohortSummary$ | async)"></app-cohort-chart>
+  </mat-card-content>
+</mat-card>

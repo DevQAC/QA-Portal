@@ -47,7 +47,6 @@ export class SelfReflectionHistoryComponent implements OnInit, OnDestroy {
         this.currentFormDateSource = new MatTableDataSource<SelfReflectionFormModel>(this.currentForm);
         this.currentFormDateSource.paginator = this.paginator;
         this.loadingData = false;
-        console.log(this.historyViewModel.selfReflections);
       },
       (error) => {
         this.loadingData = false;

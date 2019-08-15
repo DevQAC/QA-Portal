@@ -81,7 +81,7 @@ public class ReflectionService {
 
     @Transactional
     public List<CohortSummaryDto> getCohortSummaryDto() {
-        return this.getCohortSummaryOperation.getCohortSummary();
+        return this.getCohortSummaryOperation.getCohortSummaries();
     }
 
     @Transactional
