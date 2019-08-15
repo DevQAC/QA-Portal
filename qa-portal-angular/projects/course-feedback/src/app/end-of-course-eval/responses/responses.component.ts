@@ -18,7 +18,6 @@ export class ResponsesComponent implements OnInit {
   constructor() {}
 
   setResponse(response: string) {
-    console.log(response)
   }
   ngOnInit() {
 

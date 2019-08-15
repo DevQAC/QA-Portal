@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {ApplicationSelectionService} from '../_common/services/application-selection.service';
 import {Application} from '../_common/models/application';
 import {KeycloakService} from 'keycloak-angular';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-portal-header',
@@ -34,6 +35,6 @@ export class PortalHeaderComponent implements OnInit, OnDestroy {
     this.navMenuSubscription.unsubscribe();
   }
   logout() {
-    this.keycloak.logout();
+    this.keycloak.logout(environment.host + 'qa/portal/home');
   }
 }

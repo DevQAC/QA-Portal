@@ -24,7 +24,6 @@ export class TrainerFeedbackPageComponent implements OnInit {
   ngOnInit() {
     this.formTypeService.getFormType(TRAINER_FEEDBACK_FORM).subscribe((response: DataModel[]) => {
       this.formInfo = response;
-      console.log(response);
     });
     this.firstFormGroup = this._formBuilder.group({ });
     this.secondFormGroup = this._formBuilder.group({ });
