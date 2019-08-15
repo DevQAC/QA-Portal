@@ -24,7 +24,7 @@ export class FeedbackPageComponent implements OnInit {
   }
 
   onFeedbackSubmit() {
-    debugger;
+    this.formTypeService.sendEvalForm(this.formInfo);
   }
 
   onCategoryChange(event: DataModel, index: number): void {

@@ -8,7 +8,7 @@ import { QuestionModel } from '../../_common/models/question.model';
 })
 export class QuestionComponent {
   @Input() value: QuestionModel;
-  @Input() selectionType: String;
+  @Input() selectionType: string;
   @Output() change = new EventEmitter<QuestionModel>();
 
   onChange(event: QuestionModel): void {
