@@ -29,7 +29,16 @@ USER root
 #gcp install
 RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-258.0.0-linux-x86_64.tar.gz
 RUN tar zxvf google-cloud-sdk-258.0.0-linux-x86_64.tar.gz google-cloud-sdk
-RUN bash ./google-cloud-sdk/install.sh
 
-RUN ./google-cloud-sdk/bin/gcloud components install kubectl docker-credential-gcr
-RUN ./google-cloud-sdk/bin/gcloud auth configure-docker
+RUN  ./google-cloud-sdk/install.sh
+
+#RUN ./google-cloud-sdk/bin/gcloud components install kubectl docker-credential-gcr
+#RUN ./google-cloud-sdk/bin/gcloud auth configure-docker
+
+RUN chmod 777 /google-cloud-sdk/bin
+
+ENV PATH $PATH:/google-cloud-sdk/bin
+RUN gcloud components install kubectl docker-credential-gcr
+RUN gcloud auth configure-docker
+
+USER jenkins
