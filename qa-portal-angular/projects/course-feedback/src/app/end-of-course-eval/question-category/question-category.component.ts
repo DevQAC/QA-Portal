@@ -9,6 +9,11 @@ import { QuestionModel } from '../../_common/models/question.model';
 })
 export class QuestionCategoryComponent {
   @Input() value: DataModel;
+  /**
+   * This is used to send the value of each individual catagories back to the database, it is collated further up in feedback-page.component
+   * @property change
+   * @memberof QuestionCategoryComponent
+   */
   @Output() change = new EventEmitter<DataModel>();
   
   onQuestionChange(event: QuestionModel, index: number): void {

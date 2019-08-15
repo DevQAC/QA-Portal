@@ -11,7 +11,7 @@ import { DataModel } from '../../_common/models/data.model';
 export class FeedbackPageComponent implements OnInit {
 
   public formInfo: DataModel[] = [];
-  // public userResponse: UserResponseModel = new UserResponseModel();
+  
 
   constructor(
     private formTypeService: FormTypeService,
@@ -22,7 +22,11 @@ export class FeedbackPageComponent implements OnInit {
       this.formInfo = response;
     });
   }
-
+  /**
+   * This method will submit the current state of the form.
+   * @method onFeedbackSubmit
+   * @memberof FeedbackPageComponent
+   */
   onFeedbackSubmit() {
     this.formTypeService.sendEvalForm(this.formInfo);
   }
