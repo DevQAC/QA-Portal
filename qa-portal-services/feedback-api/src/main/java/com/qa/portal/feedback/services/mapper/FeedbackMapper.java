@@ -59,15 +59,11 @@ public class FeedbackMapper {
     
     private FeedbackQuestionCategoryResponseEntity createFeedbackQuestionCategoryResponseEntity(FeedbackQuestionCategoryResponseDto feedbackQuestionCategoryResponseDto) {
     	FeedbackQuestionCategoryResponseEntity fqcre = mapper.map(feedbackQuestionCategoryResponseDto, FeedbackQuestionCategoryResponseEntity.class);
-    	LOGGER.info("1" + feedbackQuestionCategoryResponseDto);
-    	LOGGER.info("2" + feedbackQuestionCategoryResponseDto.getQuestionCategory());
     	fqcre.setQuestionCategory(createQuestionCategoryEntity(feedbackQuestionCategoryResponseDto.getQuestionCategory()));
     	return fqcre;
     }
     
     private QuestionCategoryEntity createQuestionCategoryEntity(QuestionCategoryDto questionCategoryDto) {
-    	LOGGER.info("QACRepo" + questionCategoryRepo);
-    	LOGGER.info("" + questionCategoryDto);
     	return questionCategoryRepo.findById(questionCategoryDto.getId())
     			.orElseThrow(() -> new QaPortalBusinessException("No question category found for id" + questionCategoryDto.getId()));
     }
