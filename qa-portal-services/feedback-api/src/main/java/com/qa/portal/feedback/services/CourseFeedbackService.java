@@ -21,6 +21,7 @@ public class CourseFeedbackService {
 
 	@Transactional
 	public CohortCourseFeedbackDto createCourseFeedbackForCourse(CohortCourseFeedbackDto cohortCourseFeedbackDto) {
+		LOGGER.info("feedbackDto " + cohortCourseFeedbackDto.toString());
 		try {
 			return this.feedbackOp.createFeedbackForm(cohortCourseFeedbackDto);
 		}

@@ -43,4 +43,11 @@ public class QuestionCategoryResponseDto {
     public void setQuestionCategory(QuestionCategoryDto questionCategory) {
         this.questionCategory = questionCategory;
     }
+
+	@Override
+	public String toString() {
+		return "QuestionCategoryResponseDto [id=" + id + ", comment=" + comment + ", questionCategory="
+				+ questionCategory + ", questionResponses=" + questionResponses + "]";
+	}
+    
 }

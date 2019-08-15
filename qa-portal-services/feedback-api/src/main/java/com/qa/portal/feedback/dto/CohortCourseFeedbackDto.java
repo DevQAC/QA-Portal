@@ -35,4 +35,10 @@ public class CohortCourseFeedbackDto {
     public void setCategoryResponses(List<FeedbackQuestionCategoryResponseDto> categoryResponses) {
         this.categoryResponses = categoryResponses;
     }
+
+	@Override
+	public String toString() {
+		return "CohortCourseFeedbackDto [id=" + id + ", cohortCourse=" + cohortCourse + ", categoryResponses="
+				+ categoryResponses + "]";
+	}
 }

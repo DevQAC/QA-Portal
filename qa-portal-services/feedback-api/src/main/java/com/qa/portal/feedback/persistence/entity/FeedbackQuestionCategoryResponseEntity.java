@@ -2,6 +2,7 @@ package com.qa.portal.feedback.persistence.entity;
 
 import com.qa.portal.common.persistence.entity.QuestionCategoryResponseEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
