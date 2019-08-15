@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Push to GCR') {
             steps {
-                sh label: '', script: 'echo ./build/push-gcr.sh'
+                sh label: '', script: 'echo ./build/push-gcr.sh '
             }
         }
     }
