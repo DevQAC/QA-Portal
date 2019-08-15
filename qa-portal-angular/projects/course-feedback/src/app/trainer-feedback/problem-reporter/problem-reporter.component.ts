@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { QuestionModel } from '../../_common/models/question.model';
 import { MatRadioChange } from '@angular/material';
-import { ProblemFeedbackModel } from '../models/problem-feedback.model';
 
 @Component({
   selector: 'app-problem-reporter',
@@ -10,10 +9,11 @@ import { ProblemFeedbackModel } from '../models/problem-feedback.model';
 })
 export class ProblemReporterComponent implements OnInit {
 
-  @Input() question : QuestionModel;
-  problemReport : ProblemFeedbackModel;
-  selectedOption: string;
+  @Input() question: QuestionModel;
+
   @Output() change: EventEmitter<MatRadioChange>;
+
+  selectedOption: string;
 
   constructor() { }
 

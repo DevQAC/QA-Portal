@@ -5,6 +5,6 @@ export class  ReturnedQuestionModel implements SelectedRatingModel  {
     id: number;
     question: QuestionModel;
     comment: string;
-    response: string[];
+    response: string;
 
 }

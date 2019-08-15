@@ -28,7 +28,7 @@ public class QuestionEntity extends QaBaseEntity {
     private String commentLabel;
 
     @Column(name = "selection_options")
-    private String selectionOptionsJson;
+    private String selectionOptionsList;
 
     public Integer getId() {
         return id;
@@ -70,11 +70,11 @@ public class QuestionEntity extends QaBaseEntity {
         this.commentLabel = commentLabel;
     }
 
-    public String getSelectionOptionsJson() {
-        return selectionOptionsJson;
+    public String getSelectionOptionsList() {
+        return selectionOptionsList;
     }
 
-    public void setSelectionOptionsJson(String selectionOptionsJson) {
-        this.selectionOptionsJson = selectionOptionsJson;
+    public void setSelectionOptionsList(String selectionOptionsList) {
+        this.selectionOptionsList = selectionOptionsList;
     }
 }

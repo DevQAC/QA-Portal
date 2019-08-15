@@ -3,7 +3,6 @@ export class QuestionModel {
     body: string;
     hasComment: boolean;
     commentLabel: string;
-    selectionOptionsJson: string;
     selectionOptionsList: string[];
     selectionOptions_PLACEHOLDER: any;
 }

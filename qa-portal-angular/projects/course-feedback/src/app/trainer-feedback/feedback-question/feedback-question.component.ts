@@ -10,21 +10,18 @@ import { SelectedRatingModel } from '../../../../../qa-common/src/app/rated-ques
 })
 export class FeedbackQuestionComponent implements OnInit {
 
-  @Input() value : QuestionModel;
+  @Input() value: QuestionModel;
 
   @Input() selectedRating: SelectedRatingModel;
 
-
   constructor() { }
 
-  ngOnInit() { 
+  ngOnInit() {
     console.log(this.value);
   }
 
-  setModel(rating: string) {
-    this.selectedRating.response.push(rating);
-    
-    console.log("New Value = " + this.selectedRating.response);
+  setModel(selection: string) {
+    this.selectedRating.response = selection;
+    console.log('New Value = ' + this.selectedRating.response);
   }
-  
 }

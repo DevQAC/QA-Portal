@@ -13,8 +13,6 @@ public class QuestionDto extends QaBaseDto {
 
     private String questionCategoryName;
 
-    private String selectionOptionsJson;
-
     private List<String> selectionOptionsList;
 
     public Integer getId() {
@@ -47,14 +45,6 @@ public class QuestionDto extends QaBaseDto {
 
     public void setCommentLabel(String commentLabel) {
         this.commentLabel = commentLabel;
-    }
-
-    public String getSelectionOptionsJson() {
-        return selectionOptionsJson;
-    }
-
-    public void setSelectionOptionsJson(String selectionOptionsJson) {
-        this.selectionOptionsJson = selectionOptionsJson;
     }
 
     public String getQuestionCategoryName() {

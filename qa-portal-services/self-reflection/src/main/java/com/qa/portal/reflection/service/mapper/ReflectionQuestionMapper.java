@@ -40,19 +40,19 @@ public class ReflectionQuestionMapper {
 
 	public QuestionDto mapToQuestionDto(QuestionEntity rqe) {
 		QuestionDto questionDto = mapper.map(rqe, QuestionDto.class);
-		setOptionsListForQuestion(questionDto);
+//		setOptionsListForQuestion(questionDto);
 		questionDto.setQuestionCategoryName(rqe.getCategory().getCategoryName());
 		return questionDto;
 	}
 
-	private void setOptionsListForQuestion(QuestionDto question) {
-		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-			TypeFactory typeFactory = objectMapper.getTypeFactory();
-			question.setSelectionOptionsList(objectMapper.readValue(question.getSelectionOptionsJson(), typeFactory.constructCollectionType(List.class, String.class)));
-		}
-		catch (Exception e) {
-			throw new QaPortalBusinessException("Could not get options for form questions.");
-		}
-	}
+//	private void setOptionsListForQuestion(QuestionDto question) {
+//		try {
+//			ObjectMapper objectMapper = new ObjectMapper();
+//			TypeFactory typeFactory = objectMapper.getTypeFactory();
+//			question.setSelectionOptionsList(objectMapper.readValue(question.getSelectionOptionsJson(), typeFactory.constructCollectionType(List.class, String.class)));
+//		}
+//		catch (Exception e) {
+//			throw new QaPortalBusinessException("Could not get options for form questions.");
+//		}
+//	}
 }

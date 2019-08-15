@@ -16,17 +16,17 @@ export class RatedQuestionComponent implements OnInit {
 
   @Input() isDisabled = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
-  setModel(rating: string) {
-    this.selectedRating.response.push(rating);
+  setModel(selection: string) {
+    this.selectedRating.response = selection;
   }
 
-  matchedValue(entry: string, responseVal: string): boolean {
-    const matched = !!responseVal && (entry === JSON.stringify(responseVal).trim());
-    return matched;
+  matchedValue(entry: string): boolean {
+    return !!this.selectedRating.response && (entry === JSON.stringify(this.selectedRating.response).trim());
   }
 }

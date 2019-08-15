@@ -1,24 +1,30 @@
-<mat-horizontal-stepper #stepper>
-  <mat-step>
-      <div *ngIf="dataLoaded">
-        <ng-template matStepLabel>{{dataModel[0].categoryName}}</ng-template>
-        <h3>{{dataModel[0].categoryName}}</h3>
-        <h6>9 = Strongly Agree, 0 = Strongly Disagree</h6>
-        <app-feedback-question *ngFor="let q of dataModel[0].questions"
-                               [value]="q"
-                               [selectedRating]="q">
-        </app-feedback-question>
-      </div>
+<div style="display: flex; justify-content: center; margin-top: 20px">
+  <mat-spinner [diameter]="70" *ngIf="!dataLoaded"></mat-spinner>
+</div>
+
+<div *ngIf="dataLoaded">
+  <mat-horizontal-stepper #stepper>
+    <mat-step *ngFor="let category of dataModel">
+      <ng-template matStepLabel>{{category.categoryName}}</ng-template>
+      <h5>9 = Strongly Agree, 0 = Strongly Disagree</h5>
+      <app-rated-question *ngFor="let q of category.questions"
+                          [options]="q.selectionOptionsList"
+                          [isDisabled]="false"
+                          [questionText]="q.body"
+                          [selectedRating]="q">
+      </app-rated-question>
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

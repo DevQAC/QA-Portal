@@ -1,10 +1,10 @@
-#<mat-radio-group class="qa-radio-btn-group">
+<mat-radio-group class="qa-radio-btn-group">
   <div class="qa-radio-btn-grp-label">
     {{questionText}}
   </div>
   <div class="qa-radio-btn-layout">
     <mat-radio-button #matRadioButton color="primary" class="qa-radio-btn" labelPosition="before" *ngFor="let entry of options"
-                      value="{{entry}}" [disabled]="isDisabled" [checked]="matchedValue(entry, selectedRating.response)" (change)="setModel(matRadioButton.value)">
+                      value="{{entry}}" [disabled]="isDisabled" [checked]="matchedValue(entry)" (change)="setModel(matRadioButton.value)">
       {{entry}}
     </mat-radio-button>
   </div>
