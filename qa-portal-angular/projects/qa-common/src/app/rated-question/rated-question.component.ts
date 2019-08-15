@@ -26,11 +26,7 @@ export class RatedQuestionComponent implements OnInit {
   }
 
   matchedValue(entry: string, responseVal: string): boolean {
-    console.log('Entry is ' + entry);
-    console.log('responseVal type ' + typeof responseVal);
-
     const matched = !!responseVal && (entry === JSON.stringify(responseVal).trim());
-    console.log('Matched ' + matched);
     return matched;
   }
 }

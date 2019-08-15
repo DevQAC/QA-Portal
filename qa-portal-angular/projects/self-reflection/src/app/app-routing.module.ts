@@ -1,24 +1,44 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { TrainerReflectionComponent } from './trainer-reflection/trainer-reflection.component';
-import { CohortSummaryComponent } from './cohort-summary/cohort-summary.component';
-import { TraineeReflectionComponent } from './trainee-reflection/trainee-reflection.component';
-import { SelfReflectionHistoryComponent } from './self-reflection-history/self-reflection-history.component';
-import { CohortTraineesComponent } from './cohort-trainees/cohort-trainees.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {TrainerReflectionComponent} from './trainer-reflection/trainer-reflection.component';
+import {CohortSummaryComponent} from './cohort-summary/cohort-summary.component';
+import {TraineeReflectionComponent} from './trainee-reflection/trainee-reflection.component';
+import {SelfReflectionHistoryComponent} from './self-reflection-history/self-reflection-history.component';
+import {CohortTraineesComponent} from './cohort-trainees/cohort-trainees.component';
 import {TraineeNewReflectionComponent} from './trainee-new-reflection/trainee-new-reflection.component';
+import {TRAINEE_ROLE, TRAINER_ROLE, TRAINING_ADMIN_ROLE} from '../../../portal-core/src/app/_common/models/portal-constants';
+import {AppAuthGuard} from '../../../portal-core/src/app/_common/guards/app-auth-guard';
 
 const routes: Routes = [
   {
     path: 'trainee',
     children: [
       {
-        path: 'selfreflection', component: TraineeNewReflectionComponent
+        path: 'selfreflection', component: TraineeNewReflectionComponent,
+        canActivate: [AppAuthGuard],
+        data: {
+          roles: [
+            TRAINEE_ROLE
+          ]
+        }
       },
       {
-        path: 'selfreflection/:id', component: TraineeReflectionComponent
+        path: 'selfreflection/:id', component: TraineeReflectionComponent,
+        canActivate: [AppAuthGuard],
+        data: {
+          roles: [
+            TRAINEE_ROLE
+          ]
+        }
       } ,
       {
-        path: 'selfreflections', component: SelfReflectionHistoryComponent
+        path: 'selfreflections', component: SelfReflectionHistoryComponent,
+        canActivate: [AppAuthGuard],
+        data: {
+          roles: [
+            TRAINEE_ROLE
+          ]
+        }
       }
     ]
   },
@@ -26,10 +46,22 @@ const routes: Routes = [
     path: 'trainer',
     children: [
       {
-        path: 'cohort/trainees', component: CohortTraineesComponent
+        path: 'cohort/trainees', component: CohortTraineesComponent,
+        canActivate: [AppAuthGuard],
+        data: {
+          roles: [
+            TRAINER_ROLE
+          ]
+        }
       },
       {
-        path: 'selfreflection/:id', component: TrainerReflectionComponent
+        path: 'selfreflection/:id', component: TrainerReflectionComponent,
+        canActivate: [AppAuthGuard],
+        data: {
+          roles: [
+            TRAINER_ROLE
+          ]
+        }
       }
     ]
   },
@@ -37,7 +69,13 @@ const routes: Routes = [
     path: 'admin',
     children: [
       {
-        path: 'cohorts', component: CohortSummaryComponent
+        path: 'cohorts', component: CohortSummaryComponent,
+        canActivate: [AppAuthGuard],
+        data: {
+          roles: [
+            TRAINING_ADMIN_ROLE
+          ]
+        }
       }
     ]
   }

@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Event, NavigationStart, Router} from '@angular/router';
-import {MenuService} from './_common/services/menu-service';
+import {MenuService} from './_common/services/menu.service';
 import {Subscription} from 'rxjs';
 import {ApplicationSelectionService} from './_common/services/application-selection.service';
 import {Application} from './_common/models/application';

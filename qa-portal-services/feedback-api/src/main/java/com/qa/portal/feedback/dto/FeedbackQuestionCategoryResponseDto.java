@@ -4,7 +4,7 @@ import com.qa.portal.common.dto.QuestionCategoryResponseDto;
 
 public class FeedbackQuestionCategoryResponseDto extends QuestionCategoryResponseDto {
 
-    private CohortCourseFeedbackDto courseFeedback;
+	private CohortCourseFeedbackDto courseFeedback;
 
     public CohortCourseFeedbackDto getCourseFeedback() {
         return courseFeedback;

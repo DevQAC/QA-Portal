@@ -16,7 +16,7 @@ import {QuestionModel} from '../_common/models/question.model';
 @Component({
   selector: 'app-trainee-new-reflection',
   templateUrl: '../_common/templates/trainee-reflection.component.html',
-  styleUrls: ['../_common/css/trainee-reflection.component.css'] 
+  styleUrls: ['../_common/css/trainee-reflection.component.css']
 })
 export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
@@ -100,7 +100,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   setInitialFormDateFromCohortStartDate() {
     this.cohortTraineesService.getCohort().subscribe(
       (cohort) => {
-        console.log(cohort.startDate);
         this.setFormDate(new Date(cohort.startDate));
       },
       (error) => {
@@ -127,8 +126,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   }
 
   setReflectionQuestion(reflectionQuestion: ReflectionQuestionModel, question: QuestionModel) {
-    console.log('Setting self reflection question');
-    console.log(question.selectionOptionsList);
     reflectionQuestion.question = new QuestionModel();
     reflectionQuestion.question.id = question.id;
     reflectionQuestion.question.body = question.body;

@@ -66,4 +66,10 @@ public abstract class QuestionCategoryResponseEntity extends QaBaseEntity {
     public void setComment(CommentEntity comment) {
         this.comment = comment;
     }
+
+	@Override
+	public String toString() {
+		return "QuestionCategoryResponseEntity [id=" + id + ", questionCategory=" + questionCategory + ", comment="
+				+ comment + ", questionResponses=" + questionResponses + "]";
+	}
 }
