@@ -158,7 +158,6 @@ export class TrainerReflectionComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log('Form completed ' + this.isFormCompleted());
     if (this.reflections.length > 0) {
       const newestReflection = this.reflections[0];
       newestReflection.learningPathway = this.learningPathway;
@@ -212,8 +211,6 @@ export class TrainerReflectionComponent implements OnInit {
         // Get questions.
         this.reflectionService.getQuestionsByFormType('reflection_form')
           .subscribe(questions => {
-            console.log('Questions are');
-            console.log(questions);
             this.questions = questions.sort((a, b) => {
               const aVal = a.id;
               const bVal = b.id;
@@ -229,7 +226,6 @@ export class TrainerReflectionComponent implements OnInit {
             this.questions.forEach(question => {
               const categories = this.rowData.map(rowData => rowData.category);
               if (!categories.includes(question.questionCategoryName)) {
-                console.log('pushing question,category' + question.questionCategoryName);
                 this.rowData.push(
                   {
                     category: question.questionCategoryName,
@@ -250,10 +246,6 @@ export class TrainerReflectionComponent implements OnInit {
               }
             }
 
-            console.log('Row Data is ');
-
-            console.log(this.rowData);
-
             // Get reflections for this user
             this.reflectionService.getReflectionsByTraineeId(traineeId)
               .subscribe(
@@ -262,13 +254,9 @@ export class TrainerReflectionComponent implements OnInit {
                   let num = 0;
                   // TODO: Change to async
                   reflections.forEach((reflection: ReflectionModel, index): void => {
-                    console.log('Reflection has form date ' + reflection.formDate);
                     this.reflectionService.getReflectionQuestionsByReflectionId(reflection.id)
                       .subscribe(
                         (reflectionQuestions: ReflectionQuestionModel[]): void => {
-                          console.log('Got reflection questions for reflection of date ' + reflection.formDate);
-                          console.log('Number of reflection questions is ' + reflectionQuestions.length);
-                          console.log('Number of questions is ' + questions.length);
                           if (reflectionQuestions.length >= questions.length) {
                             ReflectionModel.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
                             this.reflections.push(reflection);

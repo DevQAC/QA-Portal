@@ -4,6 +4,7 @@ import { PortalHomeSharedModule } from '../../../portal-home/src/app/app.module'
 import { QaErrorSharedModule } from '../../../qa-error-app/src/app/app.module';
 import { CourseFeedbackSharedModule } from '../../../course-feedback/src/app/app.module';
 import { SelfReflectionSharedModule } from '../../../self-reflection/src/app/app.module';
+import {AppAuthGuard} from './_common/guards/app-auth-guard';
 
 const routes: Routes = [
   // Add routes for new application here
@@ -40,6 +41,7 @@ const routes: Routes = [
     PortalHomeSharedModule.forRoot(),
     SelfReflectionSharedModule.forRoot()
   ],
+  providers: [AppAuthGuard],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

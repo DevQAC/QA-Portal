@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Router, RouterStateSnapshot} from '@angular/router';
 import {KeycloakAuthGuard, KeycloakService} from 'keycloak-angular';
+import {QaToastrService} from '../services/qa-toastr.service';
 
 @Injectable()
 export class AppAuthGuard extends KeycloakAuthGuard {
-  constructor(protected router: Router, protected keycloakAngular: KeycloakService) {
+  constructor(protected router: Router,
+              protected keycloakAngular: KeycloakService,
+              private toasterService: QaToastrService) {
     super(router, keycloakAngular);
   }
 
@@ -29,6 +32,12 @@ export class AppAuthGuard extends KeycloakAuthGuard {
             break;
           }
         }
+
+        if (granted === false) {
+          this.router.navigate(['/qa/portal/home']);
+          this.toasterService.showError('User does not have permission to access requested page');
+        }
+
         resolve(granted);
       }
     });
