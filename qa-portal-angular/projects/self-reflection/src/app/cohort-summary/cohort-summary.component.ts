@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SummaryService} from './services/summary.service';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {CohortSummaryModel} from '../_common/models/cohort-summary.model';
 
 @Component({
@@ -8,7 +8,11 @@ import {CohortSummaryModel} from '../_common/models/cohort-summary.model';
   templateUrl: './cohort-summary.component.html',
   styleUrls: ['./cohort-summary.component.css']
 })
-export class CohortSummaryComponent implements OnInit {
+export class CohortSummaryComponent implements OnInit, OnDestroy {
+
+  loadingData = true;
+
+  summarySubscription: Subscription;
 
   cohortSummary$: Observable<CohortSummaryModel[]>;
 
@@ -16,5 +20,12 @@ export class CohortSummaryComponent implements OnInit {
 
   ngOnInit() {
     this.cohortSummary$ = this.summaryService.getSummary();
+    this.summarySubscription = this.cohortSummary$.subscribe((summary) => {
+      this.loadingData = false;
+    });
+  }
+
+  ngOnDestroy() {
+    this.summarySubscription.unsubscribe();
   }
 }
