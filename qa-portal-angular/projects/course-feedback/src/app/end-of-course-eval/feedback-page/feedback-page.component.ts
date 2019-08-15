@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { COURSE_EVAL_FORM } from '../../_common/models/question_url_constants';
 import { FormTypeService } from '../../_common/services/form-type.service';
 import { DataModel } from '../../_common/models/data.model';
-import { TraineeModel } from 'projects/self-reflection/src/app/trainer-reflection/models/dto/trainee.model';
-import { UserResponseModel } from '../../_common/models/user-response';
 
 @Component({
   selector: 'app-feedback-page',
@@ -13,8 +11,7 @@ import { UserResponseModel } from '../../_common/models/user-response';
 export class FeedbackPageComponent implements OnInit {
 
   public formInfo: DataModel[] = [];
-  public trainee: TraineeModel = new TraineeModel();
-  public userResponse: UserResponseModel = new UserResponseModel();
+  // public userResponse: UserResponseModel = new UserResponseModel();
 
   constructor(
     private formTypeService: FormTypeService,
@@ -24,5 +21,13 @@ export class FeedbackPageComponent implements OnInit {
     this.formTypeService.getFormType(COURSE_EVAL_FORM).subscribe((response: DataModel[]) => {
       this.formInfo = response;
     });
+  }
+
+  onFeedbackSubmit() {
+    debugger;
+  }
+
+  onCategoryChange(event: DataModel, index: number): void {
+    this.formInfo[index] = event;
   }
 }

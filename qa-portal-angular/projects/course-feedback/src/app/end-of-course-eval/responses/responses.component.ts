@@ -1,12 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { QuestionModel } from '../../_common/models/question.model';
-import { SelectedRatingModel } from 'projects/qa-common/src/app/rated-question/selected-rating.model';
-import { CheckBoxResponseModel } from '../../_common/models/checkbox-response.model';
 import { MatCheckboxChange } from '@angular/material';
 
-interface IQuestionResponse {
-  value: string | string[]
-}
 
 @Component({
   selector: 'app-responses',
@@ -15,31 +10,34 @@ interface IQuestionResponse {
 })
 export class ResponsesComponent implements OnInit {
   @Input() value: QuestionModel;
-  @Input() selectionType: string;
-  @Input() selectedRating: SelectedRatingModel;
-  @Input() selectedResponse: CheckBoxResponseModel;
+  @Input() selectionType: 'CHECK_BOX' | 'RADIO_BUTTON';
 
-  @Output() change = new EventEmitter<IQuestionResponse>();
+  @Output() change = new EventEmitter<QuestionModel>();
+
+
+  private _defaultOptsMap = {
+    'CHECK_BOX': [],
+    'RADIO_BUTTON': ''
+  };
 
   ngOnInit(): void {
-    this.selectedResponse = {
-      responseCheck: [],
-      ...this.selectedResponse
+    this.value = {
+      selectionOptions_PLACEHOLDER: this._defaultOptsMap[this.selectionType] || '',
+      ...this.value
     };
   }
 
   setRadioResponse(response: string): void {
-    this.selectedRating.response = response;
+    this.value.selectionOptions_PLACEHOLDER = response;
+    this.change.emit(this.value);
   }
 
   setCheckResponse({ checked, source: { value } }: MatCheckboxChange): void {
     if (checked) {
-      this.selectedResponse.responseCheck.push(value);
+      this.value.selectionOptions_PLACEHOLDER.push(value);
     } else {
-      this.selectedResponse.responseCheck = this.selectedResponse.responseCheck.filter(v => v !== value);
+      this.value.selectionOptions_PLACEHOLDER.filter(v => v !== value);
     }
-
-    this.change.emit(null);
+    this.change.emit(this.value);
   }
-
 }

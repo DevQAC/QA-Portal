@@ -1,4 +1,4 @@
 <mat-card>
   {{value.body}}
-    <app-responses [value]="value" [selectionType]="selectionType" [selectedRating]="value" [selectedResponse]="value"></app-responses>
+  <app-responses [value]="value" [selectionType]="selectionType" (change)="onChange($event)"></app-responses>
 </mat-card>

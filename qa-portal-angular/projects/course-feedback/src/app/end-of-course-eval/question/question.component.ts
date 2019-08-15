@@ -1,20 +1,17 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {QuestionModel} from '../../_common/models/question.model';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { QuestionModel } from '../../_common/models/question.model';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css']
 })
-export class QuestionComponent implements OnInit {
-
-
+export class QuestionComponent {
   @Input() value: QuestionModel;
   @Input() selectionType: String;
+  @Output() change = new EventEmitter<QuestionModel>();
 
-  constructor() {
-  }
-
-  ngOnInit() {
+  onChange(event: QuestionModel): void {
+    this.change.emit(event);
   }
 }
