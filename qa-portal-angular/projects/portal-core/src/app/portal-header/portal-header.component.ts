@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {MenuService} from '../_common/services/menu-service';
+import {MenuService} from '../_common/services/menu.service';
 import {Subscription} from 'rxjs';
 import {ApplicationSelectionService} from '../_common/services/application-selection.service';
 import {Application} from '../_common/models/application';
