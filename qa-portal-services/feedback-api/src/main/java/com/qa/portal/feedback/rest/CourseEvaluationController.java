@@ -13,11 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
+
 @RestController
 @RequestMapping("/course-evaluation")
 public class CourseEvaluationController {
 
-	private final Logger LOGGER = LoggerFactory.getLogger(CourseEvaluationController.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(CourseEvaluationController.class);
 
     private CourseEvaluationService service;
 
@@ -30,25 +31,24 @@ public class CourseEvaluationController {
 
     @GetMapping("/trainer")
     public ResponseEntity<List<CohortCourseDto>> getCourseEvaluationsForTrainer(String username) {
-    	return ResponseEntity.ok(this.service.getCourseEvaluationsForTrainer(context.getUserName()));
+        return ResponseEntity.ok(this.service.getCourseEvaluationsForTrainer(context.getUserName()));
     }
 
     @GetMapping("/trainee/evaluation/{cohort_course_id}")
     public ResponseEntity<List<CohortCourseEvaluationDto>> getEvaluationsForCourse(@PathVariable("cohort_course_id") int cohortCourseId) {
         // Call course evaluation service to get evaluations for course
-    	service.getEvaluationsForCourse(cohortCourseId);
+        service.getEvaluationsForCourse(cohortCourseId);
         // Remove this once service call has been added
         return ResponseEntity.ok(Collections.emptyList());
     }
 
-    @GetMapping("/course/evaluation/{id}")
+    @PostMapping("/course/evaluation/{id}")
     public CohortCourseEvaluationDto createCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
-		return service.createCourseEvaluation(courseEvaluation);
+        return service.createCourseEvaluation(courseEvaluation);
     }
 
     @PutMapping("/course/evaluation")
     public CohortCourseEvaluationDto updateCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
-    	return service.updateCourseEvaluation(courseEvaluation);
+        return service.updateCourseEvaluation(courseEvaluation);
     }
-
 }
