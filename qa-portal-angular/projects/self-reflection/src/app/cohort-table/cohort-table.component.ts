@@ -16,8 +16,6 @@ export class CohortTableComponent implements OnChanges {
   displayedColumns = ['cohortName', 'week1', 'week2', 'week3', 'week4', 'week5', 'week6', 'week7', 'week8', 'week9', 'week10', 'week11', 'week12'];
 
   ngOnChanges(): void {
-    console.log('On changes');
-    console.log(this.cohortSummaryData);
     this.dataSource = new MatTableDataSource<CohortSummaryModel>(this.cohortSummaryData);
   }
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -44,8 +45,9 @@ public class GetCohortSummaryOperation {
         this.reflectionQuestionMapper = reflectionQuestionMapper;
     }
 
-    public List<CohortSummaryDto> getCohortSummary() {
+    public List<CohortSummaryDto> getCohortSummaries() {
         return this.cohortRepository.findAll().stream()
+                .filter(cohort -> cohort.getStartDate().toLocalDate().isBefore(LocalDate.now().plusDays(7)))
                 .map(this::createCohortSummary)
                 .collect(Collectors.toList());
     }
