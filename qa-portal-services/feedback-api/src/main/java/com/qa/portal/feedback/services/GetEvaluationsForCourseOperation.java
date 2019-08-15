@@ -2,7 +2,6 @@ package com.qa.portal.feedback.services;
 
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
-import com.qa.portal.feedback.persistence.entity.CohortCourseEvaluationEntity;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 import org.springframework.stereotype.Component;
 
@@ -17,19 +16,15 @@ public class GetEvaluationsForCourseOperation {
     private BaseMapper baseMapper;
 
     public GetEvaluationsForCourseOperation(CohortCourseEvaluationRepository cohortCourseEvaluationRepository,
-    		BaseMapper baseMapper) {
-    	this.baseMapper = baseMapper;
+                                            BaseMapper baseMapper) {
+        this.baseMapper = baseMapper;
         this.cohortCourseEvaluationRepository = cohortCourseEvaluationRepository;
     }
 
     public List<CohortCourseEvaluationDto> getEvaluationsForCourse(int cohortCourseId) {
-    	List<CohortCourseEvaluationEntity> evals = this.cohortCourseEvaluationRepository.findAll();
-
-    	return evals.stream()
-    	.map(e -> baseMapper.mapObject(e, CohortCourseEvaluationDto.class))
-    	.collect(Collectors.toList());
-
-        // All DB access, mapping from Entity to DTO return the response to the service
-
-      }
+        return this.cohortCourseEvaluationRepository.findAll()
+                .stream()
+                .map(e -> baseMapper.mapObject(e, CohortCourseEvaluationDto.class))
+                .collect(Collectors.toList());
+    }
 }

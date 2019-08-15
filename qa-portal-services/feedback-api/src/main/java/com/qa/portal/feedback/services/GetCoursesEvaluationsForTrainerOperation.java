@@ -19,7 +19,9 @@ import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GetCoursesEvaluationsForTrainerOperation {
 
 	private BaseMapper mapper;

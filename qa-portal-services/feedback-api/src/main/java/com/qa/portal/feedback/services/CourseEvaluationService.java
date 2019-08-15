@@ -12,25 +12,39 @@ public class CourseEvaluationService {
 
     private GetEvaluationsForCourseOperation getEvaluationsForCourseOperation;
 
-    private GetCoursesEvaluationsForTrainerOperation eval;
+    private GetCoursesEvaluationsForTrainerOperation getCoursesEvaluationsForTrainerOperation;
 
-	public CreateCourseEvaluationOperation createCourseEvaluation = new CreateCourseEvaluationOperation();
+	private UpdateCourseEvaluationOperation updateCourseEvaluationOperation;
 
-    public CourseEvaluationService(GetEvaluationsForCourseOperation getEvaluationsForCourseOperation) {
-        this.getEvaluationsForCourseOperation = getEvaluationsForCourseOperation;
-    }
+	public CreateCourseEvaluationOperation createCourseEvaluation;
 
-    @Transactional
+	public CourseEvaluationService(GetEvaluationsForCourseOperation getEvaluationsForCourseOperation,
+								   GetCoursesEvaluationsForTrainerOperation getCoursesEvaluationsForTrainerOperation,
+								   UpdateCourseEvaluationOperation updateCourseEvaluationOperation,
+								   CreateCourseEvaluationOperation createCourseEvaluation) {
+		this.getEvaluationsForCourseOperation = getEvaluationsForCourseOperation;
+		this.getCoursesEvaluationsForTrainerOperation = getCoursesEvaluationsForTrainerOperation;
+		this.updateCourseEvaluationOperation = updateCourseEvaluationOperation;
+		this.createCourseEvaluation = createCourseEvaluation;
+	}
+
+	@Transactional
     public List<CohortCourseEvaluationDto> getEvaluationsForCourse(int cohortCourseId) {
         return getEvaluationsForCourseOperation.getEvaluationsForCourse(cohortCourseId);
     }
 
 	@Transactional
 	public List<CohortCourseDto> getCourseEvaluationsForTrainer(String userName) {
-		return this.eval.getCourseEvaluationsForTrainer(userName);
+		return this.getCoursesEvaluationsForTrainerOperation.getCourseEvaluationsForTrainer(userName);
 	}
 
+	@Transactional
 	public CohortCourseEvaluationDto createCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
 		return createCourseEvaluation.createCourseEvaluation(courseEvaluation);
+	}
+
+	@Transactional
+	public CohortCourseEvaluationDto updateCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
+		return updateCourseEvaluationOperation.updateCourseEvaluation(courseEvaluation);
 	}
 }
