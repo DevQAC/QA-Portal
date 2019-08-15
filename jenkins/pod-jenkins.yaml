@@ -30,6 +30,8 @@ spec:
           name: jenkins-home
         - mountPath: "/var/run/docker.sock"
           name: docker-socket
+      command: ["/bin/sh"]
+      args: ["-c", "sudo chmod 777 /usr/bin/docker && sudo chmod 777 /var/run/docker.sock"]
   volumes:
     - name: jenkins-home
       persistentVolumeClaim:
