@@ -1,4 +1,5 @@
-<h3>Cohort Summary Page</h3>
-
-<app-cohort-table>
-</app-cohort-table>
+<div class="qa-app-title">
+  Cohort Summary
+</div>
+<app-cohort-table [cohortSummaryData]="(cohortSummary$ | async)"></app-cohort-table>
+<app-cohort-chart [cohortSummaryData]="(cohortSummary$ | async)"></app-cohort-chart>
