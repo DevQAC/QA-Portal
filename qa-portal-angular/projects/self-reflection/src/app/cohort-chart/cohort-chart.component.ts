@@ -27,6 +27,15 @@ export class CohortChartComponent implements OnInit, OnChanges {
         datasets: this.chartDataSets
       },
       options: {
+        responsive: true,
+        // maintainAspectRatio: false,
+        animation: {
+          duration: 0
+        },
+        hover: {
+          animationDuration: 0
+        },
+        responsiveAnimationDuration: 0,
         legend: {
           display: false
         },
@@ -54,6 +63,10 @@ export class CohortChartComponent implements OnInit, OnChanges {
           lineTension: 0.2
         });
       });
+    }
+
+    if (!!this.chart) {
+      this.chart.update();
     }
   }
 
