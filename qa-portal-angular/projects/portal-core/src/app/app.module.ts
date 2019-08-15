@@ -4,7 +4,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {PortalHeaderComponent} from './portal-header/portal-header.component';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
-import {MenuService} from './_common/services/menu-service';
+import {MenuService} from './_common/services/menu.service';
 import {PortalSideMenuComponent} from './portal-side-menu/portal-side-menu.component';
 import {PortalSideMenuContentComponent} from './portal-side-menu/portal-side-menu-content/portal-side-menu-content.component';
 import {ApplicationSelectionService} from './_common/services/application-selection.service';

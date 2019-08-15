@@ -1,10 +1,12 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {FeedbackPageComponent} from './end-of-course-eval/feedback-page/feedback-page.component';
 import {CourseEvaluationComponent} from './course-evaluation/course-evaluation.component';
 import {TrainerEvaluationSummaryComponent} from '../app/trainer-evaluation-summary/trainer-evaluation-summary.component';
 import {TrainerEvaluationHistoryComponent} from './trainer-evaluation-history/trainer-evaluation-history.component';
 import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
+import {TRAINEE_ROLE, TRAINER_ROLE} from '../../../portal-core/src/app/_common/models/portal-constants';
+import {AppAuthGuard} from '../../../portal-core/src/app/_common/guards/app-auth-guard';
 
 const routes: Routes = [
   {
@@ -15,11 +17,23 @@ const routes: Routes = [
         children: [
           {
             path: 'evaluation/history',
-            component: CourseEvaluationComponent
+            component: CourseEvaluationComponent,
+            canActivate: [AppAuthGuard],
+            data: {
+              roles: [
+                TRAINEE_ROLE
+              ]
+            }
           },
           {
             path: 'evaluation',
-            component: FeedbackPageComponent
+            component: FeedbackPageComponent,
+            canActivate: [AppAuthGuard],
+            data: {
+              roles: [
+                TRAINEE_ROLE
+              ]
+            }
           }
         ]
       },
@@ -28,15 +42,33 @@ const routes: Routes = [
         children: [
           {
             path: 'evaluation/history',
-            component: TrainerEvaluationHistoryComponent
+            component: TrainerEvaluationHistoryComponent,
+            canActivate: [AppAuthGuard],
+            data: {
+              roles: [
+                TRAINER_ROLE
+              ]
+            }
           },
           {
             path: 'evaluation/course/summary',
-            component: TrainerEvaluationSummaryComponent
+            component: TrainerEvaluationSummaryComponent,
+            canActivate: [AppAuthGuard],
+            data: {
+              roles: [
+                TRAINER_ROLE
+              ]
+            }
           },
           {
             path: 'current',
-            component: TrainerFeedbackPageComponent
+            component: TrainerFeedbackPageComponent,
+            canActivate: [AppAuthGuard],
+            data: {
+              roles: [
+                TRAINER_ROLE
+              ]
+            }
           }
         ]
       }
