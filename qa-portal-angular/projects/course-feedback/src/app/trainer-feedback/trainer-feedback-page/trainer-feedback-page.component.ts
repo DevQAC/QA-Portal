@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { FormTypeService } from '../../_common/services/form-type.service';
-import { TRAINER_FEEDBACK_FORM } from '../../_common/models/question_url_constants';
-import { DataModel } from '../../_common/models/data.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {FormTypeService} from '../../_common/services/form-type.service';
+import {TRAINER_FEEDBACK_FORM} from '../../_common/models/question_url_constants';
+import {DataModel} from '../../_common/models/data.model';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-trainer-feedback-page',
@@ -13,19 +13,18 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class TrainerFeedbackPageComponent implements OnInit {
 
   dataLoaded = false;
-  dataModel : any[];
+  dataModel: any[];
 
 
-  constructor(private formTypeService: FormTypeService, ) { }
+  constructor(private formTypeService: FormTypeService,) {
+  }
 
   ngOnInit() {
     this.formTypeService.getFormType(TRAINER_FEEDBACK_FORM).subscribe((response: DataModel[]) => {
       this.dataModel = response;
-      console.log(response); 
+      console.log(response);
       console.log("dataModel = " + this.dataModel);
       this.dataLoaded = true;
     });
-
-
   }
 }

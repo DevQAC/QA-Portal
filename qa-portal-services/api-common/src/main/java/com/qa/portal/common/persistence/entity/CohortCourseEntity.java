@@ -81,4 +81,10 @@ public class CohortCourseEntity extends QaBaseEntity {
     public void setTrainer(TrainerEntity trainer) {
         this.trainer = trainer;
     }
+
+	@Override
+	public String toString() {
+		return "CohortCourseEntity [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", course="
+				+ course + ", cohort=" + cohort + ", trainer=" + trainer + "]";
+	}
 }

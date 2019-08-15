@@ -64,7 +64,7 @@ public class ReflectionServiceTest {
 		verify(getSelfReflectionOperation).getSelfReflectionByUserAndDate(anyString(), any(LocalDate.class));
 		verify(createSelfReflectionOperation).createSelfReflection(any(), anyString());
 		verify(updateSelfReflectionOperation).updateSelfReflection(any(), anyString());
-		verify(getCohortSummaryOperation).getCohortSummary();
+		verify(getCohortSummaryOperation).getCohortSummaries();
 	}
 
 }

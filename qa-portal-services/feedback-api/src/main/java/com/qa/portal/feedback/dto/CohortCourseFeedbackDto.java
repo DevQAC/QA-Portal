@@ -8,11 +8,9 @@ import java.util.List;
 public class CohortCourseFeedbackDto {
     private Integer id;
 
-    private TrainerDto trainer;
-
     private CohortCourseDto cohortCourse;
 
-    private List<EvalQuestionCategoryResponseDto> categoryResponses;
+    private List<FeedbackQuestionCategoryResponseDto> categoryResponses;
 
     public Integer getId() {
         return id;
@@ -20,14 +18,6 @@ public class CohortCourseFeedbackDto {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public TrainerDto getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(TrainerDto trainer) {
-        this.trainer = trainer;
     }
 
     public CohortCourseDto getCohortCourse() {
@@ -38,11 +28,17 @@ public class CohortCourseFeedbackDto {
         this.cohortCourse = cohortCourse;
     }
 
-    public List<EvalQuestionCategoryResponseDto> getCategoryResponses() {
+    public List<FeedbackQuestionCategoryResponseDto> getCategoryResponses() {
         return categoryResponses;
     }
 
-    public void setCategoryResponses(List<EvalQuestionCategoryResponseDto> categoryResponses) {
+    public void setCategoryResponses(List<FeedbackQuestionCategoryResponseDto> categoryResponses) {
         this.categoryResponses = categoryResponses;
     }
+
+	@Override
+	public String toString() {
+		return "CohortCourseFeedbackDto [id=" + id + ", cohortCourse=" + cohortCourse + ", categoryResponses="
+				+ categoryResponses + "]";
+	}
 }

@@ -19,15 +19,22 @@ import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GetCoursesEvaluationsForTrainerOperation {
 
-	private BaseMapper mapper;
-	private CohortCourseRepository cohortCourseRepo;
-	private CohortCourseEvaluationRepository cohortEvaluationRepo;
-	private QaTrainerRepository trainerRepo;
-	private Comparator<CohortCourseDto> cohortCourseComparator = (r1, r2) -> r1.getStartDate().isBefore(r2.getEndDate()) ? 1 : -1;
 	private static final String TRAINER_EVALUATION = "Evaluation Trainer";
+
+	private BaseMapper mapper;
+
+	private CohortCourseRepository cohortCourseRepo;
+
+	private CohortCourseEvaluationRepository cohortEvaluationRepo;
+
+	private QaTrainerRepository trainerRepo;
+
+	private Comparator<CohortCourseDto> cohortCourseComparator = (r1, r2) -> r1.getStartDate().isBefore(r2.getEndDate()) ? 1 : -1;
 
 	
 	@Autowired
