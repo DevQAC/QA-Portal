@@ -12,15 +12,20 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class TrainerFeedbackPageComponent implements OnInit {
 
-  dataModel = new DataModel();
+  dataLoaded = false;
+  dataModel : any[];
 
 
   constructor(private formTypeService: FormTypeService, ) { }
 
   ngOnInit() {
-    this.formTypeService.getFormType(TRAINER_FEEDBACK_FORM).subscribe((response: DataModel) => {
+    this.formTypeService.getFormType(TRAINER_FEEDBACK_FORM).subscribe((response: DataModel[]) => {
       this.dataModel = response;
-      console.log(response);
+      console.log(response); 
+      console.log("dataModel = " + this.dataModel);
+      this.dataLoaded = true;
     });
+
+
   }
 }

@@ -1,4 +1,5 @@
 import { ReturnedQuestionModel } from "./returned-question.model";
+import { QuestionModel } from './question.model';
 
 export class DataModel {
     id : number;

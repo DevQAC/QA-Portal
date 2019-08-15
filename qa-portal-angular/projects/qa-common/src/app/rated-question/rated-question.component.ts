@@ -22,7 +22,7 @@ export class RatedQuestionComponent implements OnInit {
   }
 
   setModel(rating: string) {
-    this.selectedRating.response = rating;
+    this.selectedRating.response.push(rating);
   }
 
   matchedValue(entry: string, responseVal: string): boolean {

@@ -17,10 +17,12 @@ export class FeedbackQuestionComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    console.log(this.value);
+  }
 
   setModel(rating: string) {
-    //this.selectedRating.response = rating;
+    this.selectedRating.response.push(rating);
     
     console.log("New Value = " + this.selectedRating.response);
   }

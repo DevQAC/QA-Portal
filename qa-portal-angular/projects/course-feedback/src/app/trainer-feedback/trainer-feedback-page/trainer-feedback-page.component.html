@@ -1,60 +1,18 @@
 <mat-horizontal-stepper #stepper>
   <mat-step>
-      <div *ngIf= "dataModel[0]">
+      <div *ngIf="dataLoaded">
         <ng-template matStepLabel>{{dataModel[0].categoryName}}</ng-template>
         <h3>{{dataModel[0].categoryName}}</h3>
         <h6>9 = Strongly Agree, 0 = Strongly Disagree</h6>
-        <app-feedback-question *ngFor="let question of dataModel[0].questions.question"
-                               [value]="question"
-                               [selectedRating]="question">
+        <app-feedback-question *ngFor="let q of dataModel[0].questions"
+                               [value]="q"
+                               [selectedRating]="q">
         </app-feedback-question>
       </div>
       <div>
         <button mat-button matStepperNext>Next</button>
       </div>
   </mat-step>
-  <mat-step>
-    <div *ngIf= "dataModel[1]">
-      <ng-template matStepLabel>{{dataModel[1].categoryName}}</ng-template>
-      <h3>{{dataModel[1].categoryName}}</h3>
-      <h6>9 = Strongly Agree, 0 = Strongly Disagree</h6>
-      <app-feedback-question *ngFor="let question of dataModel[1].questions.question"
-                             [value]="question"
-                             [selectedRating]="question">
-      </app-feedback-question>
-    </div>
-    <div>
-      <button mat-button matStepperNext>Next</button>
-    </div>
-</mat-step>
-<mat-step>
-  <div *ngIf= "dataModel[2]">
-    <ng-template matStepLabel>{{dataModel[2].categoryName}}</ng-template>
-    <h3>{{dataModel[2].categoryName}}</h3>
-    <h6>9 = Strongly Agree, 0 = Strongly Disagree</h6>
-    <app-feedback-question *ngFor="let question of dataModel[2].questions.question"
-                           [value]="question"
-                           [selectedRating]="question">
-    </app-feedback-question>
-  </div>
-  <div>
-    <button mat-button matStepperNext>Next</button>
-  </div>
-</mat-step>
-<mat-step>
-  <div *ngIf= "dataModel[3]">
-    <ng-template matStepLabel>{{dataModel[3].categoryName}}</ng-template>
-    <h3>{{dataModel[3].categoryName}}</h3>
-    <h6>9 = Strongly Agree, 0 = Strongly Disagree</h6>
-    <app-feedback-question *ngFor="let question of dataModel[3].questions.question"
-                           [value]="question.q"
-                           [selectedRating]="question">
-    </app-feedback-question>
-  </div>
-  <div>
-    <button mat-button matStepperNext>Next</button>
-  </div>
-</mat-step>
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     You are now done.
