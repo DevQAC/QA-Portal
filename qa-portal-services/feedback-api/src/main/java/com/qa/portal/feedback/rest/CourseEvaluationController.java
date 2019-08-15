@@ -4,17 +4,18 @@ import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.services.CourseEvaluationService;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
-import java.util.List;
-
 @RestController
 @RequestMapping("/course-evaluation")
 public class CourseEvaluationController {
@@ -41,5 +42,10 @@ public class CourseEvaluationController {
     	service.getEvaluationsForCourse(cohortCourseId);
         // Remove this once service call has been added
         return ResponseEntity.ok(Collections.emptyList());
+    }
+
+    @GetMapping("/course/evaluation/{id}")
+    public CohortCourseEvaluationDto createCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
+		return service.createCourseEvaluation(courseEvaluation);
     }
 }

@@ -12,6 +12,10 @@ public class CourseEvaluationService {
 
     private GetEvaluationsForCourseOperation getEvaluationsForCourseOperation;
 
+    private GetCoursesEvaluationsForTrainerOperation eval;
+
+	public CreateCourseEvaluationOperation createCourseEvaluation = new CreateCourseEvaluationOperation();
+
     public CourseEvaluationService(GetEvaluationsForCourseOperation getEvaluationsForCourseOperation) {
         this.getEvaluationsForCourseOperation = getEvaluationsForCourseOperation;
     }
@@ -21,10 +25,12 @@ public class CourseEvaluationService {
         return getEvaluationsForCourseOperation.getEvaluationsForCourse(cohortCourseId);
     }
 
-	private GetCoursesEvaluationsForTrainerOperation eval;
-
 	@Transactional
 	public List<CohortCourseDto> getCourseEvaluationsForTrainer(String userName) {
 		return this.eval.getCourseEvaluationsForTrainer(userName);
+	}
+
+	public CohortCourseEvaluationDto createCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
+		return createCourseEvaluation.createCourseEvaluation(courseEvaluation);
 	}
 }
