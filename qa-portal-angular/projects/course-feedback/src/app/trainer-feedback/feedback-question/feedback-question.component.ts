@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { QuestionModel } from '../../_common/models/question.model';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { SelectedRatingModel } from '../../../../../qa-common/src/app/rated-question/selected-rating.model';
+
 
 @Component({
   selector: 'app-feedback-question',
@@ -9,11 +10,18 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 })
 export class FeedbackQuestionComponent implements OnInit {
 
-  @Input() value : QuestionModel;
+  @Input() value: QuestionModel;
 
+  @Input() selectedRating: SelectedRatingModel;
 
   constructor() { }
 
-  ngOnInit() { }
-  
+  ngOnInit() {
+    console.log(this.value);
+  }
+
+  setModel(selection: string) {
+    this.selectedRating.response = selection;
+    console.log('New Value = ' + this.selectedRating.response);
+  }
 }

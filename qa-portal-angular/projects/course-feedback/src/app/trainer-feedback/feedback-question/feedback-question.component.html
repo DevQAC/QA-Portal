@@ -3,13 +3,13 @@
     {{value.body}}
   </mat-card-subtitle>
   <mat-card-content>
-    <div *ngIf="value.selectionOptionsJson[0]">
+    <div *ngIf="!!value.selectionOptionsList[0]">
       <table>
         <tr>
           <mat-radio-group>
             <td *ngFor="let option of value.selectionOptionsList">
               {{option}}
-              <mat-radio-button value={{option}}></mat-radio-button>
+              <mat-radio-button #matRadioButton color="primary" class="qa-radio-button" value={{option}} (change)="setModel(matRadioButton.value)"></mat-radio-button>
             </td>
           </mat-radio-group>
         </tr>

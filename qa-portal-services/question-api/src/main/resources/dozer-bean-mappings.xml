@@ -15,6 +15,11 @@
                 <class-a>java.time.LocalDate</class-a>
                 <class-b>java.sql.Date</class-b>
             </converter>
+
+            <converter type="com.qa.portal.common.util.mapper.converters.StringListConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>java.util.List</class-b>
+            </converter>
         </custom-converters>
     </configuration>
 
@@ -26,7 +31,6 @@
             <b>category</b>
         </field-exclude>
     </mapping>
-
 
     <mapping>
         <class-a>com.qa.portal.common.dto.QuestionCategoryDto</class-a>

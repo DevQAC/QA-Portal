@@ -3,18 +3,12 @@
     font-size: 0.7em;
 }
 
-.mat-card-content {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 3em;
-}
-
 .right-mat-table {
     margin-left: 58%;
 }
 
-.mat-card {
-    margin: 0em;
+mat-card {
+    margin-bottom: 30px;
 }
 
 th {
@@ -31,9 +25,9 @@ mat-cell.cdk-column-date{
     top:-32px;
 }
 
-.mat-row {
-    position: relative;
-}
+/*.mat-row {*/
+/*    position: relative;*/
+/*}*/
 
 .mat-row-link{
     position: absolute;
@@ -46,4 +40,8 @@ mat-cell.cdk-column-date{
 .data-row:hover{
     filter: brightness(95%);
     cursor: pointer;
+}
+
+.example-form {
+  margin-bottom: 15px;
 }

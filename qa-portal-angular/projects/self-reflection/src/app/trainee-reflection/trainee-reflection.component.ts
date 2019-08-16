@@ -6,8 +6,8 @@ import {SelfReflectionFormService} from './services/self-reflection-form.service
 import {Subscription} from 'rxjs';
 import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {SelfReflectionFormStateService} from "../_common/services/self-reflection-form-state.service";
-import {QaToastrService} from "../../../../portal-core/src/app/_common/services/qa-toastr.service";
+import {SelfReflectionFormStateService} from '../_common/services/self-reflection-form-state.service';
+import {QaToastrService} from '../../../../portal-core/src/app/_common/services/qa-toastr.service';
 
 @Component({
   selector: 'app-trainee-reflection',
@@ -49,6 +49,7 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
       (response) => {
         if (!!response.id) {
           this.selfReflectionViewModel.selfReflectionForm = response;
+          console.log(response);
           this.loadingData = false;
         } else {
           this.errorHandlerService.showError('No Form found for id ' + formId);

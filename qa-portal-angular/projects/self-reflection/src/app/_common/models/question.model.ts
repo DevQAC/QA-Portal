@@ -8,4 +8,8 @@ export class QuestionModel {
   questionCategoryName: string;
 
   body: string;
+
+  selectedRating: number;
+
+
 }

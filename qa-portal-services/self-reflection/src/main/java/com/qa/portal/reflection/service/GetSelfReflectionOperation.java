@@ -36,9 +36,6 @@ public class GetSelfReflectionOperation {
         this.traineeRepository = traineeRepository;
     }
 
-
-
-
     public ReflectionDto getSelfReflectionById(Integer id) {
         ReflectionEntity reflection = this.reflectionRepository.findById(id)
                 .orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));

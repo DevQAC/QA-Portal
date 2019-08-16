@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DataModel } from '../models/data.model';
-import { GET_FORM_TYPE, SEND_EVAL_RESPONSE } from '../models/question_url_constants';
+import { QuestionCategoryModel } from '../models/question-category.model';
+import { GET_FORM_TYPE, SEND_EVAL_RESPONSE } from '../models/question-url.constants';
 
 @Injectable()
 export class FormTypeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getFormType(formName: string): Observable<DataModel[]> {
-    return this.httpClient.get<DataModel[]>(GET_FORM_TYPE + formName);
+  getFormType(formName: string): Observable<QuestionCategoryModel[]> {
+    return this.httpClient.get<QuestionCategoryModel[]>(GET_FORM_TYPE + formName);
   }
 
   /**
@@ -18,10 +18,10 @@ export class FormTypeService {
    * though the sent body does not feature a completed property.
    * Also current SEND_EVAL_RESPONSE is set to " "
    *
-   * @param {DataModel[]} userResponse
+   * @param {QuestionCategoryModel[]} userResponse
    * @memberof FormTypeService
    */
-  sendEvalForm(userResponse: DataModel[]): void {
+  sendEvalForm(userResponse: QuestionCategoryModel[]): void {
     this.httpClient.post(SEND_EVAL_RESPONSE, userResponse);
   }
 }
