@@ -15,7 +15,7 @@ export class TrainerFeedbackPageComponent implements OnInit {
 
   dataModel: QuestionCategoryModel[];
 
-  constructor(private formTypeService: FormTypeService,) {
+  constructor(private formTypeService: FormTypeService) {
   }
 
   ngOnInit() {

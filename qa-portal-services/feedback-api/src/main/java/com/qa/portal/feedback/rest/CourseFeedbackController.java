@@ -6,10 +6,7 @@ import com.qa.portal.feedback.services.CourseFeedbackService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/feedback")
@@ -23,6 +20,11 @@ public class CourseFeedbackController {
     public CourseFeedbackController(CourseFeedbackService service, QaSecurityContext qaSecurityContext) {
         this.service = service;
         this.qaSecurityContext = qaSecurityContext;
+    }
+
+    @GetMapping("{cohort_course_id}")
+    public ResponseEntity<CohortCourseFeedbackDto> getCohortCourseFeedback(@PathVariable("cohort_course_id") Integer cohortCourseId) {
+        return ResponseEntity.ok(service.getCohortCourseFeedbackDto(cohortCourseId));
     }
     
     @PostMapping

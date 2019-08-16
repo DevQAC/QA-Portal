@@ -1,13 +1,10 @@
-package com.qa.portal.feedback.mapper;
+package com.qa.portal.feedback.services.mapper;
 
-import org.dozer.DozerBeanMapper;
-import org.springframework.stereotype.Component;
-
-import com.qa.portal.common.dto.QaCohortDto;
-import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.persistence.entity.CohortCourseEvaluationEntity;
+import org.dozer.DozerBeanMapper;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CohortCourseEvaluationMapper extends BaseMapper {
@@ -16,11 +13,11 @@ public class CohortCourseEvaluationMapper extends BaseMapper {
         super(mapper);
     }
 
-    public CohortCourseEvaluationDto mapToQaCohortDto(CohortCourseEvaluationEntity qaCohortEntity) {
+    public CohortCourseEvaluationDto mapToQaCohortCourseEvaluationDto(CohortCourseEvaluationEntity qaCohortEntity) {
         return this.getMapper().map(qaCohortEntity, CohortCourseEvaluationDto.class);
     }
     
-    public CohortCourseEvaluationEntity mapToQaCohortEntity(CohortCourseEvaluationDto qaCohortDto) {
+    public CohortCourseEvaluationEntity mapToQaCohortCourseEvaluationEntity(CohortCourseEvaluationDto qaCohortDto) {
         return this.getMapper().map(qaCohortDto, CohortCourseEvaluationEntity.class);
     }
 }

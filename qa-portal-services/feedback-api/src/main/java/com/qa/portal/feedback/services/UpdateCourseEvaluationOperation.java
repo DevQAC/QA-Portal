@@ -2,7 +2,7 @@
 
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
-import com.qa.portal.feedback.mapper.CohortCourseEvaluationMapper;
+import com.qa.portal.feedback.services.mapper.CohortCourseEvaluationMapper;
 import com.qa.portal.feedback.persistence.entity.CohortCourseEvaluationEntity;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 import org.springframework.stereotype.Component;
@@ -23,8 +23,8 @@ public class UpdateCourseEvaluationOperation {
 	 public CohortCourseEvaluationDto updateCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
 		 CohortCourseEvaluationEntity evalToUpdate = this.cohortRepository.findById(courseEvaluation.getId())
 	                .orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));
-		 CohortCourseEvaluationEntity entity = this.cohortCourseEvaluationMapper.mapToQaCohortEntity(courseEvaluation);
+		 CohortCourseEvaluationEntity entity = this.cohortCourseEvaluationMapper.mapToQaCohortCourseEvaluationEntity(courseEvaluation);
 		 evalToUpdate.setCategoryResponses(entity.getCategoryResponses());
-		 return this.cohortCourseEvaluationMapper.mapToQaCohortDto(this.cohortRepository.save(evalToUpdate));
+		 return this.cohortCourseEvaluationMapper.mapToQaCohortCourseEvaluationDto(this.cohortRepository.save(evalToUpdate));
 	}
 }

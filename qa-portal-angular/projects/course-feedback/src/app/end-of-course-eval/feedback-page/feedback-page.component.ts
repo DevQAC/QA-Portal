@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { COURSE_EVAL_FORM } from '../../_common/models/question-url.constants';
-import { FormTypeService } from '../../_common/services/form-type.service';
-import { QuestionCategoryModel } from '../../_common/models/question-category.model';
+import {Component, OnInit} from '@angular/core';
+import {COURSE_EVAL_FORM} from '../../_common/models/question-url.constants';
+import {FormTypeService} from '../../_common/services/form-type.service';
+import {QuestionCategoryModel} from '../../_common/models/question-category.model';
 
 @Component({
   selector: 'app-feedback-page',
@@ -13,15 +13,15 @@ export class FeedbackPageComponent implements OnInit {
   public formInfo: QuestionCategoryModel[] = [];
 
 
-  constructor(
-    private formTypeService: FormTypeService,
-  ) { }
+  constructor(private formTypeService: FormTypeService) {
+  }
 
   ngOnInit() {
     this.formTypeService.getFormType(COURSE_EVAL_FORM).subscribe((response: QuestionCategoryModel[]) => {
       this.formInfo = response;
     });
   }
+
   /**
    * This method will submit the current state of the form.
    * @method onFeedbackSubmit
