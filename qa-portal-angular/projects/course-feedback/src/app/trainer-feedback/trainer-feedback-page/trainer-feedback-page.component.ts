@@ -25,4 +25,8 @@ export class TrainerFeedbackPageComponent implements OnInit {
       this.dataLoaded = true;
     });
   }
+
+  saveFeedback() {
+    console.log('In save feedback');
+  }
 }
