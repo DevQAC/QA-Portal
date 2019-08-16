@@ -23,6 +23,7 @@ import {ResponsesComponent} from './end-of-course-eval/responses/responses.compo
 import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
 import {FeedbackQuestionComponent} from './trainer-feedback/feedback-question/feedback-question.component';
 import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/problem-reporter.component';
+import { QaFormsModule } from 'projects/qa-forms/src/app/app.module';
 
 
 
@@ -51,7 +52,8 @@ import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/prob
     BrowserModule,
     AppRoutingModule,
     QaCommonModule,
-    HttpClientModule
+    HttpClientModule,
+    QaFormsModule
   ],
   providers: [
     RetrieveTrainerEvaluationHistoryService,
