@@ -51,12 +51,12 @@ public class CohortCourseEvaluationController {
         return ResponseEntity.ok(service.getCohortCourseEvaluationsForCourse(id));
     }
 
-    @PostMapping("/course")
+    @PostMapping
     public CohortCourseEvaluationDto createCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
         return service.createCourseEvaluationForTrainee(courseEvaluation);
     }
 
-    @PutMapping("/course")
+    @PutMapping
     public CohortCourseEvaluationDto updateCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
         return service.updateCourseEvaluationForTrainee(courseEvaluation);
     }

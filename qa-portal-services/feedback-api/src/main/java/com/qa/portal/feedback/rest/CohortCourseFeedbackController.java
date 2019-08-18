@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/feedback")
 public class CohortCourseFeedbackController {
@@ -22,14 +24,29 @@ public class CohortCourseFeedbackController {
         this.qaSecurityContext = qaSecurityContext;
     }
 
-    @GetMapping("{cohort_course_id}")
-    public ResponseEntity<CohortCourseFeedbackDto> getCohortCourseFeedback(@PathVariable("cohort_course_id") Integer cohortCourseId) {
-        return ResponseEntity.ok(service.getCohortCourseFeedbackDto(cohortCourseId));
+    @GetMapping("/{id}")
+    public ResponseEntity<CohortCourseFeedbackDto> getCohortCourseFeedback(@PathVariable("id") Integer cohortCourseFeedbackId) {
+        return ResponseEntity.ok(service.getCohortCourseFeedback(cohortCourseFeedbackId));
+    }
+
+    @GetMapping("/trainer")
+    public ResponseEntity<List<CohortCourseFeedbackDto>> getCohortCourseFeedbacksForTrainer() {
+        return ResponseEntity.ok(service.getCohortCourseFeedbacksForTrainer(qaSecurityContext.getUserName()));
+    }
+
+    @GetMapping("/course/{id}")
+    public ResponseEntity<CohortCourseFeedbackDto> getCohortCourseFeedbackForCourse(@PathVariable("id") Integer cohortCourseId) {
+        return ResponseEntity.ok(service.getCohortCourseFeedbackForCourse(cohortCourseId));
     }
     
     @PostMapping
-    public ResponseEntity<CohortCourseFeedbackDto> createFeedbackDto(@RequestBody CohortCourseFeedbackDto feedbackDto) {
-    	return ResponseEntity.ok(this.service.createCourseFeedbackForCourse(feedbackDto));
+    public ResponseEntity<CohortCourseFeedbackDto> createCohortCourseFeedback(@RequestBody CohortCourseFeedbackDto feedbackDto) {
+    	return ResponseEntity.ok(this.service.createCohortCourseFeedback(feedbackDto));
+    }
+
+    @PutMapping
+    public ResponseEntity<CohortCourseFeedbackDto> updateCohortCourseFeedback(@RequestBody CohortCourseFeedbackDto feedbackDto) {
+        return ResponseEntity.ok(this.service.updateCohortCourseFeedback(feedbackDto));
     }
     
 }

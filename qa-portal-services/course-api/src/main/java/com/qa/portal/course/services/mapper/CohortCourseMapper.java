@@ -1,6 +1,8 @@
 package com.qa.portal.course.services.mapper;
 
+import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.dto.QuestionCategoryDto;
+import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QuestionCategoryEntity;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
@@ -14,7 +16,7 @@ public class CohortCourseMapper {
         this.baseMapper = baseMapper;
     }
 
-    public QuestionCategoryDto createQuestionCategoryDto(QuestionCategoryEntity questionCategoryEntity) {
-        return baseMapper.mapObject(questionCategoryEntity, QuestionCategoryDto.class);
+    public CohortCourseDto mapToCohortCourseDto(CohortCourseEntity cohortCourseEntity) {
+        return baseMapper.mapObject(cohortCourseEntity, CohortCourseDto.class);
     }
 }
