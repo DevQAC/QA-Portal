@@ -13,11 +13,11 @@ public class CohortCourseEvaluationMapper extends BaseMapper {
         super(mapper);
     }
 
-    public CohortCourseEvaluationDto mapToQaCohortCourseEvaluationDto(CohortCourseEvaluationEntity qaCohortEntity) {
-        return this.getMapper().map(qaCohortEntity, CohortCourseEvaluationDto.class);
+    public CohortCourseEvaluationDto mapToQaCohortCourseEvaluationDto(CohortCourseEvaluationEntity cohortCourseEvaluationEntity) {
+        return this.getMapper().map(cohortCourseEvaluationEntity, CohortCourseEvaluationDto.class);
     }
     
-    public CohortCourseEvaluationEntity mapToQaCohortCourseEvaluationEntity(CohortCourseEvaluationDto qaCohortDto) {
-        return this.getMapper().map(qaCohortDto, CohortCourseEvaluationEntity.class);
+    public CohortCourseEvaluationEntity mapToQaCohortCourseEvaluationEntity(CohortCourseEvaluationDto cohortCourseEvaluationDto) {
+        return this.getMapper().map(cohortCourseEvaluationDto, CohortCourseEvaluationEntity.class);
     }
 }

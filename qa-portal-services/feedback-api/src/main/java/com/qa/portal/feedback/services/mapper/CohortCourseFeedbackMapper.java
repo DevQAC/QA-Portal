@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CohortCourseEvaluationMapper {
+public class CohortCourseFeedbackMapper {
 	
 	private final Logger LOGGER = LoggerFactory.getLogger(CohortCourseEvaluationMapper.class);
 

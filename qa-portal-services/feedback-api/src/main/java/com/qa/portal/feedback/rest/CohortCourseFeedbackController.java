@@ -2,7 +2,7 @@ package com.qa.portal.feedback.rest;
 
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.feedback.dto.CohortCourseFeedbackDto;
-import com.qa.portal.feedback.services.CourseFeedbackService;
+import com.qa.portal.feedback.services.CohortCourseFeedbackService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/feedback")
-public class CourseFeedbackController {
+public class CohortCourseFeedbackController {
 
-    private CourseFeedbackService service;
+    private CohortCourseFeedbackService service;
 
     private QaSecurityContext qaSecurityContext;
 
     @Autowired
-    public CourseFeedbackController(CourseFeedbackService service, QaSecurityContext qaSecurityContext) {
+    public CohortCourseFeedbackController(CohortCourseFeedbackService service, QaSecurityContext qaSecurityContext) {
         this.service = service;
         this.qaSecurityContext = qaSecurityContext;
     }

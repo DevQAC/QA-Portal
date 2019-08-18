@@ -6,14 +6,14 @@ import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepos
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateCourseEvaluationOperation {
+public class CreateCohortCourseEvaluationOperation {
 	
 	private CohortCourseEvaluationMapper cohortCourseEvaluationMapper;
 	
 	private CohortCourseEvaluationRepository cohortCourseEvaluationRepository;
 
-	public CreateCourseEvaluationOperation(CohortCourseEvaluationMapper cohortCourseEvaluationMapper,
-										   CohortCourseEvaluationRepository cohortCourseEvaluationRepository) {
+	public CreateCohortCourseEvaluationOperation(CohortCourseEvaluationMapper cohortCourseEvaluationMapper,
+												 CohortCourseEvaluationRepository cohortCourseEvaluationRepository) {
 		this.cohortCourseEvaluationMapper = cohortCourseEvaluationMapper;
 		this.cohortCourseEvaluationRepository = cohortCourseEvaluationRepository;
 	}

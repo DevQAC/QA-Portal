@@ -11,6 +11,7 @@ import com.qa.portal.feedback.dto.CohortCourseFeedbackDto;
 import com.qa.portal.feedback.dto.FeedbackQuestionCategoryResponseDto;
 import com.qa.portal.feedback.persistence.repository.CohortCourseFeedbackRepository;
 import com.qa.portal.feedback.services.mapper.CohortCourseEvaluationMapper;
+import com.qa.portal.feedback.services.mapper.CohortCourseFeedbackMapper;
 import com.qa.portal.feedback.services.mapper.FeedbackQuestionCategoryResponseMapper;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,7 @@ public class GetCohortCourseFeedbackOperation {
 
     private FormTypeRepository formTypeRepository;
 
-    private CohortCourseEvaluationMapper cohortCourseFeedbackMapper;
+    private CohortCourseFeedbackMapper cohortCourseFeedbackMapper;
 
     private FeedbackQuestionCategoryResponseMapper feedbackCategoryQuestionResponseMapper;
 
@@ -36,7 +37,7 @@ public class GetCohortCourseFeedbackOperation {
     public GetCohortCourseFeedbackOperation(CohortCourseRepository cohortCourseRepository,
                                             CohortCourseFeedbackRepository cohortCourseFeedbackRepository,
                                             FormTypeRepository formTypeRepository,
-                                            CohortCourseEvaluationMapper cohortCourseFeedbackMapper,
+                                            CohortCourseFeedbackMapper cohortCourseFeedbackMapper,
                                             FeedbackQuestionCategoryResponseMapper feedbackCategoryQuestionResponseMapper,
                                             BaseMapper baseMapper) {
         this.cohortCourseRepository = cohortCourseRepository;

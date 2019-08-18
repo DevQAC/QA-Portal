@@ -22,7 +22,7 @@ import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepos
 import org.springframework.stereotype.Component;
 
 @Component
-public class GetCoursesEvaluationsForTrainerOperation {
+public class GetCohortCoursesForTrainerOperation {
 
 	private static final String TRAINER_EVALUATION = "Evaluation Trainer";
 
@@ -38,17 +38,17 @@ public class GetCoursesEvaluationsForTrainerOperation {
 
 	
 	@Autowired
-	public GetCoursesEvaluationsForTrainerOperation(BaseMapper mapper,
-			CohortCourseRepository repo,
-			QaTrainerRepository trainerRepo,
-			CohortCourseEvaluationRepository cohortEvaluationRepo) {
+	public GetCohortCoursesForTrainerOperation(BaseMapper mapper,
+											   CohortCourseRepository repo,
+											   QaTrainerRepository trainerRepo,
+											   CohortCourseEvaluationRepository cohortEvaluationRepo) {
 		this.mapper = mapper;
 		this.cohortCourseRepo = repo;
 		this.cohortEvaluationRepo = cohortEvaluationRepo;
 		this.trainerRepo = trainerRepo;
 	}
 
-	public List<CohortCourseDto> getCourseEvaluationsForTrainer(String userName) {
+	public List<CohortCourseDto> getCohortCoursesForTrainer(String userName) {
 		TrainerEntity trainer = trainerRepo.findByUserName(userName).
 				orElseThrow(() -> new QaResourceNotFoundException("Trainer does not exist"));
 		return cohortCourseRepo.findByTrainer(trainer)
