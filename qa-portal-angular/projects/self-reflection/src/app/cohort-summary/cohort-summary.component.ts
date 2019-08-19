@@ -21,7 +21,6 @@ export class CohortSummaryComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.cohortSummary$ = this.summaryService.getSummary();
     this.summarySubscription = this.cohortSummary$.subscribe((summaries) => {
-      console.log(summaries.length);
       this.loadingData = false;
     });
   }
