@@ -12,6 +12,7 @@ export class CheckBoxComponent extends GenericControlComponent<string[]> impleme
   ngOnInit(): void {
     this.question = {
       response: [],
+      comment: '',
       ...this.question
     };
   }
