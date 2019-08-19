@@ -20,7 +20,7 @@ import {FeedbackPageComponent} from './end-of-course-eval/feedback-page/feedback
 import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
 import {FeedbackQuestionComponent} from './trainer-feedback/feedback-question/feedback-question.component';
 import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/problem-reporter.component';
-import { QaFormsModule } from 'projects/qa-forms/src/app/app.module';
+import { QaFormsModule } from 'projects/qa-forms';
 
 
 

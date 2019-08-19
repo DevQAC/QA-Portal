@@ -25,6 +25,8 @@ export class FeedbackPageComponent implements OnInit {
    * @memberof FeedbackPageComponent
    */
   onFeedbackSubmit() {
-    this.formTypeService.sendEvalForm(this.formModel).pipe(take(1)).subscribe((...args) => console.log('OH BOY IT BROKE AGAIN', args));
+    this.formTypeService.sendEvalForm(this.formModel)
+    .pipe(take(1))
+    .subscribe((...args) => console.warn(`Warning - Submit handling logic not implemented!`, args));
   }
 }
