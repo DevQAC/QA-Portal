@@ -1,6 +1,7 @@
 package com.qa.portal.feedback.services;
 
 import com.qa.portal.common.dto.CohortCourseDto;
+import com.qa.portal.common.dto.QuestionCategoryResponseDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QuestionCategoryEntity;
@@ -8,12 +9,11 @@ import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.FormTypeRepository;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
+import com.qa.portal.common.service.mapper.QuestionCategoryResponseMapper;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
-import com.qa.portal.feedback.dto.EvalQuestionCategoryResponseDto;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 import com.qa.portal.feedback.services.mapper.CohortCourseEvaluationMapper;
-import com.qa.portal.feedback.services.mapper.EvaluationQuestionCategoryResponseMapper;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -26,7 +26,6 @@ import static com.qa.portal.feedback.FeedbackConstants.EVALUATION_FORM_NAME;
 
 @Component
 public class GetCurrentCohortCourseEvaluationForTraineeOperation {
-    private CohortCourseRepository cohortCourseRepository;
 
     private CohortCourseEvaluationRepository cohortCourseEvaluationRepository;
 
@@ -36,23 +35,21 @@ public class GetCurrentCohortCourseEvaluationForTraineeOperation {
 
     private CohortCourseEvaluationMapper cohortCourseEvaluationMapper;
 
-    private EvaluationQuestionCategoryResponseMapper evaluationQuestionCategoryResponseMapper;
+    private QuestionCategoryResponseMapper questionCategoryResponseMapper;
 
     private BaseMapper baseMapper;
 
-    public GetCurrentCohortCourseEvaluationForTraineeOperation(CohortCourseRepository cohortCourseRepository,
-                                                               CohortCourseEvaluationRepository cohortCourseEvaluationRepository,
+    public GetCurrentCohortCourseEvaluationForTraineeOperation(CohortCourseEvaluationRepository cohortCourseEvaluationRepository,
                                                                QaTraineeRepository traineeRepository,
                                                                FormTypeRepository formTypeRepository,
                                                                CohortCourseEvaluationMapper cohortCourseEvaluationMapper,
-                                                               EvaluationQuestionCategoryResponseMapper evaluationQuestionCategoryResponseMapper,
+                                                               QuestionCategoryResponseMapper questionCategoryResponseMapper,
                                                                BaseMapper baseMapper) {
-        this.cohortCourseRepository = cohortCourseRepository;
         this.cohortCourseEvaluationRepository = cohortCourseEvaluationRepository;
         this.traineeRepository = traineeRepository;
         this.formTypeRepository = formTypeRepository;
         this.cohortCourseEvaluationMapper = cohortCourseEvaluationMapper;
-        this.evaluationQuestionCategoryResponseMapper = evaluationQuestionCategoryResponseMapper;
+        this.questionCategoryResponseMapper = questionCategoryResponseMapper;
         this.baseMapper = baseMapper;
     }
 
@@ -97,7 +94,7 @@ public class GetCurrentCohortCourseEvaluationForTraineeOperation {
         return cohortCourseEvaluationRepository.findByCohortCourse(cohortCourseEntity)
                 .stream()
                 .filter(ccef -> ccef.getTrainee().getId().equals(traineeEntity.getId()))
-                .map(ccef -> cohortCourseEvaluationMapper.mapToQaCohortCourseEvaluationDto(ccef))
+                .map(ccef -> cohortCourseEvaluationMapper.mapToCohortCourseEvaluationDto(ccef))
                 .findFirst()
                 .orElseGet(() -> getNewCohortCourseEvaluationForm(cohortCourseEntity));
     }
@@ -109,15 +106,15 @@ public class GetCurrentCohortCourseEvaluationForTraineeOperation {
         return cohortCourseEvaluationDto;
     }
 
-    private List<EvalQuestionCategoryResponseDto> getQuestionCategoryResponsesForFormType() {
+    private List<QuestionCategoryResponseDto> getQuestionCategoryResponsesForFormType() {
         return formTypeRepository.findByFormName(EVALUATION_FORM_NAME)
                 .map(f -> getQuestionCategoryDtos(f.getQuestionCategories()))
                 .orElseThrow(() -> new QaPortalBusinessException("No Questions found for supplied form type " + EVALUATION_FORM_NAME));
     }
 
-    private List<EvalQuestionCategoryResponseDto> getQuestionCategoryDtos(List<QuestionCategoryEntity> questionCategoryEntities) {
+    private List<QuestionCategoryResponseDto> getQuestionCategoryDtos(List<QuestionCategoryEntity> questionCategoryEntities) {
         return questionCategoryEntities.stream()
-                .map(e -> evaluationQuestionCategoryResponseMapper.createFeedbackQuestionCategoryResponseDto(e))
+                .map(e -> questionCategoryResponseMapper.createQuestionCategoryResponseDto(e))
                 .collect(Collectors.toList());
     }
 }

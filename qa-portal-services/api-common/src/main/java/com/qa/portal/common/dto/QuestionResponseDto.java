@@ -1,7 +1,5 @@
 package com.qa.portal.common.dto;
 
-import java.util.List;
-
 public class QuestionResponseDto {
     private Integer id;
 
@@ -9,7 +7,7 @@ public class QuestionResponseDto {
 
     private CommentDto comment;
 
-    private List<String> responseValues;
+    private String responseValues;
 
     public Integer getId() {
         return id;
@@ -35,11 +33,11 @@ public class QuestionResponseDto {
         this.comment = comment;
     }
 
-    public List<String> getResponseValues() {
+    public String getResponseValues() {
         return responseValues;
     }
 
-    public void setResponseValues(List<String> responseValues) {
+    public void setResponseValues(String responseValues) {
         this.responseValues = responseValues;
     }
 }

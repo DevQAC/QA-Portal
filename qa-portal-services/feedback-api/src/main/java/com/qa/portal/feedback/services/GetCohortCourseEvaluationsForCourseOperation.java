@@ -23,7 +23,7 @@ public class GetCohortCourseEvaluationsForCourseOperation {
     public List<CohortCourseEvaluationDto> getEvaluationsForCourse(Integer cohortCourseId) {
         return this.cohortCourseEvaluationRepository.findAll()
                 .stream()
-                .map(e -> cohortCourseEvaluationMapper.mapToQaCohortCourseEvaluationDto(e))
+                .map(e -> cohortCourseEvaluationMapper.mapToCohortCourseEvaluationDto(e))
                 .collect(Collectors.toList());
     }
 }

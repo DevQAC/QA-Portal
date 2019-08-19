@@ -52,7 +52,7 @@ public class CohortCourseFeedbackService {
 
     @Transactional
     public CohortCourseFeedbackDto createCohortCourseFeedback(CohortCourseFeedbackDto cohortCourseFeedbackDto) {
-        return createCohortCourseFeedbackOperation.createFeedbackForm(cohortCourseFeedbackDto);
+        return createCohortCourseFeedbackOperation.createCohortCourseFeedback(cohortCourseFeedbackDto);
     }
 
     @Transactional

@@ -20,6 +20,6 @@ public class CreateCohortCourseEvaluationOperation {
 
 	public CohortCourseEvaluationDto createCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
 		return this.cohortCourseEvaluationMapper
-				.mapToQaCohortCourseEvaluationDto(this.cohortCourseEvaluationRepository.save(this.cohortCourseEvaluationMapper.mapToQaCohortCourseEvaluationEntity(courseEvaluation)));
+				.mapToCohortCourseEvaluationDto(this.cohortCourseEvaluationRepository.save(this.cohortCourseEvaluationMapper.createCohortCourseEvaluationEntity(courseEvaluation)));
 	}
 }

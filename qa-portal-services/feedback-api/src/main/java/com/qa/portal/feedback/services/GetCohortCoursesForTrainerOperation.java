@@ -1,25 +1,24 @@
 package com.qa.portal.feedback.services;
 
-import java.math.BigDecimal;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.qa.portal.common.exception.QaPortalBusinessException;
-import com.qa.portal.common.persistence.entity.QuestionCategoryResponseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.qa.portal.common.dto.CohortCourseDto;
+import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.feedback.persistence.entity.EvalQuestionCategoryResponseEntity;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class GetCohortCoursesForTrainerOperation {
@@ -71,7 +70,7 @@ public class GetCohortCoursesForTrainerOperation {
 		return cohortCourseDto;
 	}
 
-	private Integer getEvaluationResponseValue(QuestionCategoryResponseEntity questionCategoryResponseEntity) {
+	private Integer getEvaluationResponseValue(EvalQuestionCategoryResponseEntity questionCategoryResponseEntity) {
 		return questionCategoryResponseEntity.getQuestionResponses()
 				.stream()
 				.findFirst()

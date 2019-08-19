@@ -1,18 +1,17 @@
 package com.qa.portal.feedback.services;
 
 import com.qa.portal.common.dto.CohortCourseDto;
+import com.qa.portal.common.dto.QuestionCategoryResponseDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QuestionCategoryEntity;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.FormTypeRepository;
+import com.qa.portal.common.service.mapper.QuestionCategoryResponseMapper;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseFeedbackDto;
-import com.qa.portal.feedback.dto.FeedbackQuestionCategoryResponseDto;
 import com.qa.portal.feedback.persistence.repository.CohortCourseFeedbackRepository;
-import com.qa.portal.feedback.services.mapper.CohortCourseEvaluationMapper;
 import com.qa.portal.feedback.services.mapper.CohortCourseFeedbackMapper;
-import com.qa.portal.feedback.services.mapper.FeedbackQuestionCategoryResponseMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class GetCohortCourseFeedbackForCourseOperation {
 
     private CohortCourseFeedbackMapper cohortCourseFeedbackMapper;
 
-    private FeedbackQuestionCategoryResponseMapper feedbackCategoryQuestionResponseMapper;
+    private QuestionCategoryResponseMapper questionCategoryResponseMapper;
 
     private BaseMapper baseMapper;
 
@@ -39,13 +38,13 @@ public class GetCohortCourseFeedbackForCourseOperation {
                                                      CohortCourseFeedbackRepository cohortCourseFeedbackRepository,
                                                      FormTypeRepository formTypeRepository,
                                                      CohortCourseFeedbackMapper cohortCourseFeedbackMapper,
-                                                     FeedbackQuestionCategoryResponseMapper feedbackCategoryQuestionResponseMapper,
+                                                     QuestionCategoryResponseMapper questionCategoryResponseMapper,
                                                      BaseMapper baseMapper) {
         this.cohortCourseRepository = cohortCourseRepository;
         this.cohortCourseFeedbackRepository = cohortCourseFeedbackRepository;
         this.formTypeRepository = formTypeRepository;
         this.cohortCourseFeedbackMapper = cohortCourseFeedbackMapper;
-        this.feedbackCategoryQuestionResponseMapper = feedbackCategoryQuestionResponseMapper;
+        this.questionCategoryResponseMapper = questionCategoryResponseMapper;
         this.baseMapper = baseMapper;
     }
 
@@ -57,7 +56,7 @@ public class GetCohortCourseFeedbackForCourseOperation {
 
     private CohortCourseFeedbackDto getCohortCourseFeedbackForm(CohortCourseEntity cohortCourseEntity) {
         return cohortCourseFeedbackRepository.findByCohortCourse(cohortCourseEntity)
-                .map(ccfe -> cohortCourseFeedbackMapper.mapToFeedbackDto(ccfe))
+                .map(ccfe -> cohortCourseFeedbackMapper.mapToCohortCourseFeedbackDto(ccfe))
                 .orElseGet(() -> getNewCohortCourseFeedbackForm(cohortCourseEntity));
     }
 
@@ -68,15 +67,15 @@ public class GetCohortCourseFeedbackForCourseOperation {
         return cohortCourseFeedbackDto;
     }
 
-    private List<FeedbackQuestionCategoryResponseDto> getQuestionCategoryResponsesForFormType() {
+    private List<QuestionCategoryResponseDto> getQuestionCategoryResponsesForFormType() {
         return formTypeRepository.findByFormName(FEEDBACK_FORM_NAME)
                 .map(f -> getQuestionCategoryDtos(f.getQuestionCategories()))
                 .orElseThrow(() -> new QaPortalBusinessException("No Questions found for supplied form type " + FEEDBACK_FORM_NAME));
     }
 
-    private List<FeedbackQuestionCategoryResponseDto> getQuestionCategoryDtos(List<QuestionCategoryEntity> questionCategoryEntities) {
+    private List<QuestionCategoryResponseDto> getQuestionCategoryDtos(List<QuestionCategoryEntity> questionCategoryEntities) {
         return questionCategoryEntities.stream()
-                .map(e -> feedbackCategoryQuestionResponseMapper.createFeedbackQuestionCategoryResponseDto(e))
+                .map(e -> questionCategoryResponseMapper.createQuestionCategoryResponseDto(e))
                 .collect(Collectors.toList());
     }
 }

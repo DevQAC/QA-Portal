@@ -2,15 +2,12 @@ package com.qa.portal.feedback.persistence.entity;
 
 import com.qa.portal.common.persistence.entity.QuestionCategoryResponseEntity;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 @Entity
 @Table(schema="training", name="question_category_response")
 @DiscriminatorValue(value = "EVALUATION")
-public class EvalQuestionCategoryResponseEntity extends QuestionCategoryResponseEntity {
+public class EvalQuestionCategoryResponseEntity extends QuestionCategoryResponseEntity<CohortCourseEvaluationEntity> {
 
     @ManyToOne
     @JoinColumn(name = "cohort_course_evaluation_id")
@@ -22,5 +19,15 @@ public class EvalQuestionCategoryResponseEntity extends QuestionCategoryResponse
 
     public void setCourseEvaluation(CohortCourseEvaluationEntity courseEvaluation) {
         this.courseEvaluation = courseEvaluation;
+    }
+
+    @Override
+    public CohortCourseEvaluationEntity getParent() {
+        return courseEvaluation;
+    }
+
+    @Override
+    public void setParent(CohortCourseEvaluationEntity parent) {
+        courseEvaluation = parent;
     }
 }

@@ -1,6 +1,7 @@
 package com.qa.portal.feedback.dto;
 
 import com.qa.portal.common.dto.CohortCourseDto;
+import com.qa.portal.common.dto.QuestionCategoryResponseDto;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.dto.TrainerDto;
 
@@ -15,7 +16,7 @@ public class CohortCourseEvaluationDto {
 
     private CohortCourseDto cohortCourse;
 
-    private List<EvalQuestionCategoryResponseDto> categoryResponses;
+    private List<QuestionCategoryResponseDto> categoryResponses;
 
     public Integer getId() {
         return id;
@@ -49,11 +50,11 @@ public class CohortCourseEvaluationDto {
         this.cohortCourse = cohortCourse;
     }
 
-    public List<EvalQuestionCategoryResponseDto> getCategoryResponses() {
+    public List<QuestionCategoryResponseDto> getCategoryResponses() {
         return categoryResponses;
     }
 
-    public void setCategoryResponses(List<EvalQuestionCategoryResponseDto> categoryResponses) {
+    public void setCategoryResponses(List<QuestionCategoryResponseDto> categoryResponses) {
         this.categoryResponses = categoryResponses;
     }
 }

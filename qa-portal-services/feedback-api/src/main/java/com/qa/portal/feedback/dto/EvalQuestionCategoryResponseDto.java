@@ -2,6 +2,7 @@ package com.qa.portal.feedback.dto;
 
 import com.qa.portal.common.dto.QuestionCategoryResponseDto;
 
+@Deprecated
 public class EvalQuestionCategoryResponseDto extends QuestionCategoryResponseDto {
 
     private CohortCourseEvaluationDto courseEvaluation;

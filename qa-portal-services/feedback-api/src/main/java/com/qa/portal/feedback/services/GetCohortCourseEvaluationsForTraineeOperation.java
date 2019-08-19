@@ -37,7 +37,7 @@ public class GetCohortCourseEvaluationsForTraineeOperation {
         TraineeEntity traineeEntity = getTrainee(traineeUserName);
         return cohortCourseEvaluationRepository.findByTrainee(traineeEntity)
                 .stream()
-                .map(ccef -> cohortCourseEvaluationMapper.mapToQaCohortCourseEvaluationDto(ccef))
+                .map(ccef -> cohortCourseEvaluationMapper.mapToCohortCourseEvaluationDto(ccef))
                 .collect(Collectors.toList());
     }
 

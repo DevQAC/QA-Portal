@@ -12,8 +12,14 @@ public class UpdateCohortCourseFeedbackOperation {
 
     private CohortCourseFeedbackMapper cohortCourseFeedbackMapper;
 
+    public UpdateCohortCourseFeedbackOperation(CohortCourseFeedbackRepository cohortCourseFeedbackRepository,
+                                               CohortCourseFeedbackMapper cohortCourseFeedbackMapper) {
+        this.cohortCourseFeedbackRepository = cohortCourseFeedbackRepository;
+        this.cohortCourseFeedbackMapper = cohortCourseFeedbackMapper;
+    }
 
     public CohortCourseFeedbackDto updateCohortCourseFeedback(CohortCourseFeedbackDto cohortCourseFeedbackDto) {
-        return cohortCourseFeedbackDto;
+        return cohortCourseFeedbackMapper.mapToCohortCourseFeedbackDto(
+                cohortCourseFeedbackRepository.save(cohortCourseFeedbackMapper.updateCohortCourseFeedback(cohortCourseFeedbackDto)));
     }
 }

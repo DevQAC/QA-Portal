@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 @Table(schema = "training", name = "question_category_response")
 @DiscriminatorColumn(name = "discriminator")
-public abstract class QuestionCategoryResponseEntity extends QaBaseEntity {
+public abstract class QuestionCategoryResponseEntity<T> extends QaBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
@@ -35,28 +35,12 @@ public abstract class QuestionCategoryResponseEntity extends QaBaseEntity {
         this.id = id;
     }
 
-    public List<QuestionResponseEntity> getQuestionCategories() {
-        return questionResponses;
-    }
-
-    public void setQuestionCategories(List<QuestionResponseEntity> questionResponses) {
-        this.questionResponses = questionResponses;
-    }
-
     public QuestionCategoryEntity getQuestionCategory() {
         return questionCategory;
     }
 
     public void setQuestionCategory(QuestionCategoryEntity questionCategory) {
         this.questionCategory = questionCategory;
-    }
-
-    public List<QuestionResponseEntity> getQuestionResponses() {
-        return questionResponses;
-    }
-
-    public void setQuestionResponses(List<QuestionResponseEntity> questionResponses) {
-        this.questionResponses = questionResponses;
     }
 
     public CommentEntity getComment() {
@@ -67,7 +51,19 @@ public abstract class QuestionCategoryResponseEntity extends QaBaseEntity {
         this.comment = comment;
     }
 
-	@Override
+    public List<QuestionResponseEntity> getQuestionResponses() {
+        return questionResponses;
+    }
+
+    public void setQuestionResponses(List<QuestionResponseEntity> questionResponses) {
+        this.questionResponses = questionResponses;
+    }
+
+    public abstract T getParent();
+
+    public abstract void setParent(T parent);
+
+    @Override
 	public String toString() {
 		return "QuestionCategoryResponseEntity [id=" + id + ", questionCategory=" + questionCategory + ", comment="
 				+ comment + ", questionResponses=" + questionResponses + "]";

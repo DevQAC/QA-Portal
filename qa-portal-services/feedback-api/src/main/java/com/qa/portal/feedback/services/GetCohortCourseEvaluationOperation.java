@@ -21,7 +21,7 @@ public class GetCohortCourseEvaluationOperation {
 
     public CohortCourseEvaluationDto getCohortCourseEvaluation(Integer id) {
         return cohortCourseEvaluationRepository.findById(id)
-                .map(cce -> cohortCourseEvaluationMapper.mapToQaCohortCourseEvaluationDto(cce))
+                .map(cce -> cohortCourseEvaluationMapper.mapToCohortCourseEvaluationDto(cce))
                 .orElseThrow(() -> new QaPortalBusinessException("No cohort course evaluation found for the supplied id"));
     }
 }

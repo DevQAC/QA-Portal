@@ -20,8 +20,8 @@ public class CreateCohortCourseFeedbackOperation {
 		this.cohortCourseFeedbackRepository = cohortCourseFeedbackRepository;
 	}
 	
-	public CohortCourseFeedbackDto createFeedbackForm(CohortCourseFeedbackDto cohortCourseFeedbackDto) {
+	public CohortCourseFeedbackDto createCohortCourseFeedback(CohortCourseFeedbackDto cohortCourseFeedbackDto) {
 		return this.cohortCourseFeedbackMapper
-				.mapToFeedbackDto(this.cohortCourseFeedbackRepository.save(this.cohortCourseFeedbackMapper.mapToCohortCourseFeedbackEntity(cohortCourseFeedbackDto)));
+				.mapToCohortCourseFeedbackDto(this.cohortCourseFeedbackRepository.save(this.cohortCourseFeedbackMapper.createCohortCourseFeedbackEntity(cohortCourseFeedbackDto)));
 	}
 }

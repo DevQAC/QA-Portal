@@ -1,23 +1,65 @@
 package com.qa.portal.feedback.services.mapper;
 
+import com.qa.portal.common.exception.QaPortalBusinessException;
+import com.qa.portal.common.persistence.entity.TraineeEntity;
+import com.qa.portal.common.persistence.repository.QaTraineeRepository;
+import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.persistence.entity.CohortCourseEvaluationEntity;
-import org.dozer.DozerBeanMapper;
+import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CohortCourseEvaluationMapper extends BaseMapper {
+public class CohortCourseEvaluationMapper {
 
-    public CohortCourseEvaluationMapper(DozerBeanMapper mapper) {
-        super(mapper);
+    private final Logger LOGGER = LoggerFactory.getLogger(CohortCourseEvaluationMapper.class);
+
+    private BaseMapper baseMapper;
+
+    private QaTraineeRepository qaTraineeRepository;
+
+    private EvaluationQuestionCategoryResponseMapper evaluationQuestionCategoryResponseMapper;
+
+    private CohortCourseEvaluationRepository cohortCourseEvaluationRepository;
+
+    public CohortCourseEvaluationMapper(BaseMapper baseMapper,
+                                        QaTraineeRepository qaTraineeRepository,
+                                        EvaluationQuestionCategoryResponseMapper evaluationQuestionCategoryResponseMapper,
+                                        CohortCourseEvaluationRepository cohortCourseEvaluationRepository) {
+        this.baseMapper = baseMapper;
+        this.qaTraineeRepository = qaTraineeRepository;
+        this.evaluationQuestionCategoryResponseMapper = evaluationQuestionCategoryResponseMapper;
+        this.cohortCourseEvaluationRepository = cohortCourseEvaluationRepository;
     }
 
-    public CohortCourseEvaluationDto mapToQaCohortCourseEvaluationDto(CohortCourseEvaluationEntity cohortCourseEvaluationEntity) {
-        return this.getMapper().map(cohortCourseEvaluationEntity, CohortCourseEvaluationDto.class);
+    public CohortCourseEvaluationDto mapToCohortCourseEvaluationDto(CohortCourseEvaluationEntity cohortCourseEvaluationEntity) {
+        return baseMapper.mapObject(cohortCourseEvaluationEntity, CohortCourseEvaluationDto.class);
     }
     
-    public CohortCourseEvaluationEntity mapToQaCohortCourseEvaluationEntity(CohortCourseEvaluationDto cohortCourseEvaluationDto) {
-        return this.getMapper().map(cohortCourseEvaluationDto, CohortCourseEvaluationEntity.class);
+    public CohortCourseEvaluationEntity createCohortCourseEvaluationEntity(CohortCourseEvaluationDto cohortCourseEvaluationDto) {
+        CohortCourseEvaluationEntity cohortCourseEvaluationEntity = baseMapper.mapObject(cohortCourseEvaluationDto, CohortCourseEvaluationEntity.class);
+        cohortCourseEvaluationEntity.setCategoryResponses(
+                evaluationQuestionCategoryResponseMapper.createCategoryResponsesEntities(cohortCourseEvaluationDto.getCategoryResponses(), cohortCourseEvaluationEntity));
+        cohortCourseEvaluationEntity.setCohortCourse(evaluationQuestionCategoryResponseMapper.getCohortCourseEntity(cohortCourseEvaluationDto.getCohortCourse()));
+        cohortCourseEvaluationEntity.setTrainee(getTraineeEntity(cohortCourseEvaluationDto.getTrainee().getId()));
+        return cohortCourseEvaluationEntity;
+    }
+
+    public CohortCourseEvaluationEntity updateCohortCourseEvaluationEntity(CohortCourseEvaluationDto cohortCourseEvaluationDto) {
+        CohortCourseEvaluationEntity cohortCourseEvaluationEntity = getExistingCohortCourseEvaluationEntity(cohortCourseEvaluationDto.getId());
+        evaluationQuestionCategoryResponseMapper.setUpdatedCategoryResponses(cohortCourseEvaluationEntity.getCategoryResponses(),
+                cohortCourseEvaluationDto.getCategoryResponses());
+        return cohortCourseEvaluationEntity;
+    }
+
+    private CohortCourseEvaluationEntity getExistingCohortCourseEvaluationEntity(Integer id) {
+        return cohortCourseEvaluationRepository.findById(id).orElseThrow(() -> new QaPortalBusinessException("Cannot find course evaluation"));
+    }
+
+    private TraineeEntity getTraineeEntity(Integer traineeId) {
+        return qaTraineeRepository.findById(traineeId).orElseThrow(() -> new QaPortalBusinessException("Cannot find trainee for course evaluation"));
     }
 }
