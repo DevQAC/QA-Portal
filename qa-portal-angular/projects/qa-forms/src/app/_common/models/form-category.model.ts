@@ -1,8 +1,8 @@
 import { IGenericQuestion } from './generic-question.model';
-import { SelectionTypes } from '../types/selection.type';
+import { ControlTypes } from '../types/control.types';
 
 export interface ICategory {
     categoryName: string;
     questions: IGenericQuestion<any>[];
-    selectionType: SelectionTypes;
+    selectionType: ControlTypes;
 }

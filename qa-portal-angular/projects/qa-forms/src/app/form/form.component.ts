@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ICategory } from '../_common/models/form-category.model';
 
 @Component({
@@ -6,12 +6,17 @@ import { ICategory } from '../_common/models/form-category.model';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit {
-
+export class FormComponent {
   @Input() model: ICategory[];
-  @Output() change = new EventEmitter<ICategory[]>();
+  @Output() modelChange = new EventEmitter<ICategory[]>();
 
-  ngOnInit() {
+  onCategoryChange(category: ICategory, index: number): void {
+    this.model[index] = category;
+    this.modelChange.emit(this.model);
+    
+    console.info(`FormComponent::onCategoryChange`,
+      `\n\t model:`, this.model,
+      `\n\t category changed:`, category
+    );
   }
-
 }

@@ -16,4 +16,8 @@ export class CategoryComponent {
     this.change.emit(this.value);
   }
 
+  trackQuestion(_index: number, question: IGenericQuestion<any>) {
+    return question.id;
+  }
+
 }

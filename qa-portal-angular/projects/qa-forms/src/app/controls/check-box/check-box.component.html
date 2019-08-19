@@ -1,0 +1,11 @@
+<p>
+  {{question.body}}
+</p>
+<div>
+  <mat-checkbox #matCheckBox class="checkbox-reponse" *ngFor="let option of question.selectionOptionsList"
+    [value]="option" [checked]="question.response.includes(option)"
+    (change)="setCheckResponse($event)" style="padding-right : 10px;">{{option}}</mat-checkbox>
+</div>
+<div *ngIf="question.hasComment">
+  <input matInput>
+</div>
