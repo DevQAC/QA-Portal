@@ -7,5 +7,5 @@
     (change)="setCheckResponse($event)" style="padding-right : 10px;">{{option}}</mat-checkbox>
 </div>
 <div *ngIf="question.hasComment">
-  <input matInput>
+  <input matInput [value]="question?.comment" (change)="question.comment = $event">
 </div>

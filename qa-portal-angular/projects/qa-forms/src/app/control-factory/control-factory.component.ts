@@ -31,7 +31,7 @@ export class ControlFactoryComponent implements OnInit, OnDestroy {
   private loadControl(): void {
     console.debug('ControlFactoryComponent::loadControl - question:', this.question, 'type:', this.type);
     // Setup factory with correct control
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CONTROLS_MAP[this.type]);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CONTROLS_MAP[this.question.selectionType || this.type]);
     const viewContainerRef = this.controlHost.viewContainerRef;
 
     // Create control

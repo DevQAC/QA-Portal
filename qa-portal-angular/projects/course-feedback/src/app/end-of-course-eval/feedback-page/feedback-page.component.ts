@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { COURSE_EVAL_FORM } from '../../_common/models/question-url.constants';
 import { FormTypeService } from '../../_common/services/form-type.service';
-import { QuestionCategoryModel } from '../../_common/models/question-category.model';
+import { ICategory } from 'projects/qa-forms/src/app/_common/models/form-category.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-feedback-page',
@@ -9,29 +10,21 @@ import { QuestionCategoryModel } from '../../_common/models/question-category.mo
   styleUrls: ['./feedback-page.component.css']
 })
 export class FeedbackPageComponent implements OnInit {
+  public formModel: ICategory[] = [];
 
-  public formInfo: QuestionCategoryModel[] = [];
-
-
-  constructor(
-    private formTypeService: FormTypeService,
-  ) { }
+  constructor(private formTypeService: FormTypeService) { }
 
   ngOnInit() {
-    this.formTypeService.getFormType(COURSE_EVAL_FORM).subscribe((response: QuestionCategoryModel[]) => {
-      this.formInfo = response;
-    });
+    this.formTypeService.getFormType(COURSE_EVAL_FORM).subscribe(form => this.formModel = form);
   }
+
+
   /**
    * This method will submit the current state of the form.
    * @method onFeedbackSubmit
    * @memberof FeedbackPageComponent
    */
   onFeedbackSubmit() {
-    this.formTypeService.sendEvalForm(this.formInfo);
-  }
-
-  onCategoryChange(event: QuestionCategoryModel, index: number): void {
-    this.formInfo[index] = event;
+    this.formTypeService.sendEvalForm(this.formModel).pipe(take(1)).subscribe((...args) => console.log('OH BOY IT BROKE AGAIN', args));
   }
 }

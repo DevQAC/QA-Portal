@@ -1,3 +1,4 @@
+import { ControlTypes } from '../types/control.types';
 
 export interface IGenericQuestion<ResponseType> {
     /**
@@ -34,4 +35,12 @@ export interface IGenericQuestion<ResponseType> {
      * @memberof IGenericQuestion
      */
     comment: string;
+
+    /**
+     * The type of control to use for this question.
+     *
+     * @type {ControlTypes}
+     * @memberof IGenericQuestion
+     */
+    selectionType: ControlTypes;
 }
