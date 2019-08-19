@@ -12,7 +12,6 @@ export class FeedbackPageComponent implements OnInit {
 
   public formInfo: QuestionCategoryModel[] = [];
 
-
   constructor(private formTypeService: FormTypeService) {
   }
 

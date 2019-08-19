@@ -26,7 +26,7 @@ public class CohortCourseEntity extends QaBaseEntity {
     @JoinColumn(name = "course_id")
     private CourseEntity course;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cohort_id")
     private QaCohortEntity cohort;
 

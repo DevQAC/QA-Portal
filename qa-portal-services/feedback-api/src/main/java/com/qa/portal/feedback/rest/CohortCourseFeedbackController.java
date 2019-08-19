@@ -48,5 +48,4 @@ public class CohortCourseFeedbackController {
     public ResponseEntity<CohortCourseFeedbackDto> updateCohortCourseFeedback(@RequestBody CohortCourseFeedbackDto feedbackDto) {
         return ResponseEntity.ok(this.service.updateCohortCourseFeedback(feedbackDto));
     }
-    
 }
