@@ -27,7 +27,7 @@ export class CheckBoxComponent extends GenericControlComponent<string[]> impleme
     if (checked) {
       this.question.response.push(value);
     } else {
-      this.question.response.filter(v => v !== value);
+      this.question.response = this.question.response.filter(v => v !== value);
     }
     this.announceChange();
   }
