@@ -17,9 +17,6 @@ import {InstructorZoneTitleComponent} from './trainer-evaluation-history/instruc
 import {SearchFormComponent} from './trainer-evaluation-history/search-form/search-form.component';
 import {FormTypeService} from './_common/services/form-type.service';
 import {FeedbackPageComponent} from './end-of-course-eval/feedback-page/feedback-page.component';
-import {QuestionCategoryComponent} from './end-of-course-eval/question-category/question-category.component';
-import {QuestionComponent} from './end-of-course-eval/question/question.component';
-import {ResponsesComponent} from './end-of-course-eval/responses/responses.component';
 import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
 import {FeedbackQuestionComponent} from './trainer-feedback/feedback-question/feedback-question.component';
 import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/problem-reporter.component';
@@ -41,9 +38,6 @@ import { QaFormsModule } from 'projects/qa-forms/src/app/app.module';
     InstructorZoneTitleComponent,
     SearchFormComponent,
     FeedbackPageComponent,
-    QuestionCategoryComponent,
-    QuestionComponent,
-    ResponsesComponent,
     TrainerFeedbackPageComponent,
     FeedbackQuestionComponent,
     ProblemReporterComponent

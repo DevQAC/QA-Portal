@@ -1,7 +1,4 @@
 <h1>FEEDBACK PAGE</h1>
-<app-qa-form [model]="formInfo"></app-qa-form>
+<app-qa-form [model]="formInfo" (modelChange)="formInfo = $event"></app-qa-form>
 
-<app-question-category *ngFor="let entry of formInfo; let i = index" [value]="entry"
-    (change)="onCategoryChange($event, i)"></app-question-category>
-
-<button (click)="onFeedbackSubmit()">Submit (PLACEHOLDER)</button>
+<button mat-raised-button color="primary" (click)="onFeedbackSubmit()">Submit</button>
