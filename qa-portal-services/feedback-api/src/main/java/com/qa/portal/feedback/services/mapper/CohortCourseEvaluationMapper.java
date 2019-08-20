@@ -3,7 +3,6 @@ package com.qa.portal.feedback.services.mapper;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
-import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.persistence.entity.CohortCourseEvaluationEntity;
