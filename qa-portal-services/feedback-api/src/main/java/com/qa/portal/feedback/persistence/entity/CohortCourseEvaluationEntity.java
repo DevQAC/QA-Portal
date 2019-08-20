@@ -27,7 +27,7 @@ public class CohortCourseEvaluationEntity extends QaBaseEntity {
     @JoinColumn(name = "cohort_course_id")
     private CohortCourseEntity cohortCourse;
 
-    @OneToMany(mappedBy = "courseEvaluation")
+    @OneToMany(mappedBy = "courseEvaluation", cascade = CascadeType.ALL)
     private List<EvalQuestionCategoryResponseEntity> categoryResponses;
 
     public Integer getId() {

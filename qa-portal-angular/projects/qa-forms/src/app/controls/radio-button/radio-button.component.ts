@@ -7,16 +7,17 @@ import { GenericControlComponent } from '../generic-control/generic-control.comp
   styleUrls: ['./radio-button.component.css']
 })
 export class RadioButtonComponent extends GenericControlComponent<string> implements OnInit  {
-  
+
   ngOnInit(): void {
-    this.question = {
-      comment: '',
-      ...this.question
-    }
+    this.questionResponse.responseValues = this.questionResponse.responseValues || '';
+    this.questionResponse.comment = {
+      ...{content: ''},
+      ...this.questionResponse.comment
+    };
   }
 
   setRadioResponse(response: string): void {
-    this.question.response = response;
+    this.questionResponse.responseValues = response;
     this.announceChange();
   }
 

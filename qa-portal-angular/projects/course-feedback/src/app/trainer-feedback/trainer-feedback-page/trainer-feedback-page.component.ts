@@ -1,68 +1,63 @@
-import {Component, OnInit} from '@angular/core';
-
-import {FormTypeService} from '../../_common/services/form-type.service';
-import {TRAINER_FEEDBACK_FORM} from '../../_common/models/question-url.constants';
-import { ICategory } from 'projects/qa-forms/src/app/_common/models/form-category.model';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FeedbackService} from '../_common/services/feedback.service';
+import {QaErrorHandlerService} from '../../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import {FeedbackFormModel} from '../../_common/models/feedback-form.model';
+import {Subscription} from 'rxjs';
+import {ICategory} from '../../../../../qa-forms/src/app/_common/models/form-category.model';
 
 @Component({
   selector: 'app-trainer-feedback-page',
   templateUrl: './trainer-feedback-page.component.html',
   styleUrls: ['./trainer-feedback-page.component.css']
 })
-export class TrainerFeedbackPageComponent implements OnInit {
+export class TrainerFeedbackPageComponent implements OnInit, OnDestroy {
 
   dataLoaded = false;
 
-  dataModel: ICategory[];
+  getFeedbackSubscription: Subscription;
 
-  constructor(private formTypeService: FormTypeService) {
+  createFeedbackSubscription: Subscription;
+
+  updateFeedbackSubscription: Subscription;
+
+  viewModel: FeedbackFormModel;
+
+  constructor(private feedbackService: FeedbackService,
+              private errorHandlerService: QaErrorHandlerService) {
   }
 
   ngOnInit() {
-    this.formTypeService.getFormType(TRAINER_FEEDBACK_FORM).subscribe((response: ICategory[]) => {
-      this.dataModel = response;
-      // this.initialiseQuestionResponse();
-      this.dataLoaded = true;
-    });
+    this.getFeedbackSubscription = this.feedbackService.getFeedbackforCourse(1).subscribe((response: FeedbackFormModel) => {
+        this.viewModel = response;
+        this.dataLoaded = true;
+      },
+      (error) => {
+        console.log(error);
+        this.dataLoaded = true;
+        this.errorHandlerService.handleError(error);
+      });
+  }
+
+  modelChanged(event: ICategory) {
   }
 
   saveFeedback() {
-    console.log('In save feedback');
-    // this.populateQuestionResponseArray();
-    // Call service to save feedback form
-    console.warn(this.dataModel);
-
+    this.createFeedbackSubscription = this.feedbackService.createFeedbackForm(this.viewModel).subscribe((response) => {
+        // Navigate to the feedback history page for the trainer
+      },
+      (error) => {
+        this.errorHandlerService.handleError(error);
+      });
+    console.warn(this.viewModel);
   }
 
-  // /**
-  //  * Populates the response property of the QuestionResponseModel which is passed to the rated question common component
-  //  * This is a short term workaround due to change of DB schema to handle multiple values in a response (for checkboxes)
-  //  */
-  // private initialiseQuestionResponse() {
-  //   // TODO
-  //   // Quick and dirty way to populate the value that needs to be passed to the rated question common component -
-  //   // Need this to be changed when full refactor of this area is done
-  //   this.dataModel.forEach((category) => {
-  //     category.questions.forEach((question) => {
-  //       if (!!question.responseValues && question.responseValues.length === 1) {
-  //         question.response = question.responseValues[0];
-  //       }
-  //     });
-  //   });
-  // }
+  ngOnDestroy(): void {
+    if (!!this.getFeedbackSubscription) {
+      this.getFeedbackSubscription.unsubscribe();
+    }
 
-  /**
-   * Populates the response array property of the QuestionResponseModel which is send to the spring boot service. This
-   * is part of the short term workaround due to change of DB schema to handle multi value responses
-   */
-  // private populateQuestionResponseArray() {
-  //   this.dataModel.forEach((category) => {
-  //     category.questions.forEach((question) => {
-  //       if (!!question.response) {
-  //         question.responseValues = [];
-  //         question.responseValues.push(question.response);
-  //       }
-  //     });
-  //   });
-  // }
+    if (!!this.createFeedbackSubscription) {
+      this.createFeedbackSubscription.unsubscribe();
+    }
+  }
 }

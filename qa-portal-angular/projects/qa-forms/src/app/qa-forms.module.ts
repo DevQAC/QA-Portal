@@ -23,7 +23,8 @@ import { GenericControlComponent } from './controls/generic-control/generic-cont
     QaCommonModule
   ],
   exports: [
-    FormComponent
+    FormComponent,
+    CategoryComponent
   ],
   entryComponents: [
     ...CONTROLS

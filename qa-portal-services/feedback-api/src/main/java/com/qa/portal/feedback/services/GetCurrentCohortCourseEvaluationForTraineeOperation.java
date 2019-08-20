@@ -6,7 +6,6 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QuestionCategoryEntity;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
-import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.FormTypeRepository;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.service.mapper.QuestionCategoryResponseMapper;
@@ -14,6 +13,8 @@ import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 import com.qa.portal.feedback.services.mapper.CohortCourseEvaluationMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -26,6 +27,8 @@ import static com.qa.portal.feedback.FeedbackConstants.EVALUATION_FORM_NAME;
 
 @Component
 public class GetCurrentCohortCourseEvaluationForTraineeOperation {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(GetCurrentCohortCourseEvaluationForTraineeOperation.class);
 
     private CohortCourseEvaluationRepository cohortCourseEvaluationRepository;
 
@@ -69,6 +72,13 @@ public class GetCurrentCohortCourseEvaluationForTraineeOperation {
                 .findFirst();
         return nextCohortCourseStartDate
                 .map(sd -> getCohortCourseByStartDate(traineeEntity, nextCohortCourseStartDate))
+                .orElseGet(() -> getFirstCohortCourse(traineeEntity));
+    }
+
+    private CohortCourseEntity getFirstCohortCourse(TraineeEntity traineeEntity) {
+        return traineeEntity.getCohort().getCohortCourses().stream()
+                .sorted((cc1, cc2) -> cc1.getStartDate().toLocalDate().isBefore(cc2.getStartDate().toLocalDate()) ? -1 : 1)
+                .findFirst()
                 .orElseThrow(() -> new QaPortalBusinessException("No Cohort courses to evaluate for trainee"));
     }
 

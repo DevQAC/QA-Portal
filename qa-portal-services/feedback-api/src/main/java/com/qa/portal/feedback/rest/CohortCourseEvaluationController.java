@@ -37,6 +37,7 @@ public class CohortCourseEvaluationController {
     }
 
     @GetMapping("/trainer")
+    // TODO - Remove - this is provided by the course-api project
     public ResponseEntity<List<CohortCourseDto>> getCohortCoursesForTrainer() {
         return ResponseEntity.ok(this.service.getCohortCoursesForTrainer(qaSecurityContext.getUserName()));
     }
@@ -52,12 +53,12 @@ public class CohortCourseEvaluationController {
     }
 
     @PostMapping
-    public CohortCourseEvaluationDto createCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
-        return service.createCourseEvaluationForTrainee(courseEvaluation);
+    public CohortCourseEvaluationDto createCourseEvaluation(@RequestBody CohortCourseEvaluationDto courseEvaluation) {
+        return service.createCourseEvaluationForTrainee(courseEvaluation, qaSecurityContext.getUserName());
     }
 
     @PutMapping
-    public CohortCourseEvaluationDto updateCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
+    public CohortCourseEvaluationDto updateCourseEvaluation(@RequestBody CohortCourseEvaluationDto courseEvaluation) {
         return service.updateCourseEvaluationForTrainee(courseEvaluation);
     }
 }

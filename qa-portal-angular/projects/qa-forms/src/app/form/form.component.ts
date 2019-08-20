@@ -13,8 +13,8 @@ export class FormComponent {
   onCategoryChange(category: ICategory, index: number): void {
     this.model[index] = category;
     this.modelChange.emit(this.model);
-    
-    console.info(`FormComponent::onCategoryChange`,
+
+    console.log(`FormComponent::onCategoryChange`,
       `\n\t model:`, this.model,
       `\n\t category changed:`, category
     );

@@ -5,7 +5,6 @@ import com.qa.portal.common.persistence.entity.QuestionCategoryResponseEntity;
 import javax.persistence.*;
 
 @Entity
-@Table(schema="training", name="question_category_response")
 @DiscriminatorValue(value = "EVALUATION")
 public class EvalQuestionCategoryResponseEntity extends QuestionCategoryResponseEntity<CohortCourseEvaluationEntity> {
 

@@ -18,8 +18,9 @@ public class CreateCohortCourseEvaluationOperation {
 		this.cohortCourseEvaluationRepository = cohortCourseEvaluationRepository;
 	}
 
-	public CohortCourseEvaluationDto createCourseEvaluation(CohortCourseEvaluationDto courseEvaluation) {
+	public CohortCourseEvaluationDto createCourseEvaluation(CohortCourseEvaluationDto courseEvaluation,
+															String traineeUserName) {
 		return this.cohortCourseEvaluationMapper
-				.mapToCohortCourseEvaluationDto(this.cohortCourseEvaluationRepository.save(this.cohortCourseEvaluationMapper.createCohortCourseEvaluationEntity(courseEvaluation)));
+				.mapToCohortCourseEvaluationDto(this.cohortCourseEvaluationRepository.save(this.cohortCourseEvaluationMapper.createCohortCourseEvaluationEntity(courseEvaluation, traineeUserName)));
 	}
 }

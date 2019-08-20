@@ -6,6 +6,10 @@ export interface IGenericControl<ResponseType> {
   questionChange: EventEmitter<IGenericQuestion<ResponseType>>;
 }
 
+export interface IQuestionResponse<ResponseType> {
+
+}
+
 @Component({
   selector: 'app-generic-control',
   templateUrl: './generic-control.component.html',
@@ -14,10 +18,12 @@ export interface IGenericControl<ResponseType> {
 export class GenericControlComponent<ResponseType> implements IGenericControl<ResponseType> {
 
   @Input() question: IGenericQuestion<ResponseType>;
-  @Output() questionChange = new EventEmitter<IGenericQuestion<ResponseType>>();
+
+  @Input() questionResponse: IQuestionResponse<ResponseType>;
+  @Output() questionResponseChange = new EventEmitter<IQuestionResponse<ResponseType>>();
 
   protected announceChange(): void {
-    this.questionChange.emit(this.question);
+    this.questionResponseChange.emit(this.questionResponse);
   }
 
 }

@@ -3,9 +3,9 @@
 </p>
 <div>
   <mat-checkbox #matCheckBox class="checkbox-reponse" *ngFor="let option of question.selectionOptionsList"
-    [value]="option" [checked]="question.response.includes(option)"
+    [value]="option" [checked]="questionResponse.responseValues.includes(option)"
     (change)="setCheckResponse($event)" style="padding-right : 10px;">{{option}}</mat-checkbox>
 </div>
 <div *ngIf="question.hasComment">
-  <input matInput [value]="question?.comment" (change)="question.comment = $event">
+  <input matInput [value]="questionResponse.comment.content" (keyup)="setComment($event)">
 </div>

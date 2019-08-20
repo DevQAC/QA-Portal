@@ -12,8 +12,6 @@ public class CohortCourseEvaluationDto {
 
     private TraineeDto trainee;
 
-    private TrainerDto trainer;
-
     private CohortCourseDto cohortCourse;
 
     private List<QuestionCategoryResponseDto> categoryResponses;
@@ -32,14 +30,6 @@ public class CohortCourseEvaluationDto {
 
     public void setTrainee(TraineeDto trainee) {
         this.trainee = trainee;
-    }
-
-    public TrainerDto getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(TrainerDto trainer) {
-        this.trainer = trainer;
     }
 
     public CohortCourseDto getCohortCourse() {

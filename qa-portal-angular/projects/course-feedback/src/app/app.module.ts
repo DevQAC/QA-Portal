@@ -21,6 +21,8 @@ import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-
 import {FeedbackQuestionComponent} from './trainer-feedback/feedback-question/feedback-question.component';
 import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/problem-reporter.component';
 import { QaFormsModule } from 'projects/qa-forms';
+import {FeedbackService} from './trainer-feedback/_common/services/feedback.service';
+import {EvaluationService} from './_common/services/evaluation-service';
 
 
 
@@ -52,7 +54,9 @@ import { QaFormsModule } from 'projects/qa-forms';
   providers: [
     RetrieveTrainerEvaluationHistoryService,
     SearchFormComponent,
-    FormTypeService
+    FormTypeService,
+    FeedbackService,
+    EvaluationService
   ],
   bootstrap: [AppComponent]
 })

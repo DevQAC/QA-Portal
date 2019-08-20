@@ -4,7 +4,7 @@ import { ControlHostDirective } from './control-host.directive';
 import { CONTROLS_MAP } from '../_common/models/control.constants';
 import { ControlTypes } from '../_common/types/control.types';
 import { takeWhile } from 'rxjs/operators';
-import { IGenericControl } from '../controls/generic-control/generic-control.component';
+import {IGenericControl, IQuestionResponse} from '../controls/generic-control/generic-control.component';
 
 @Component({
   selector: 'app-control-factory',
@@ -16,6 +16,9 @@ export class ControlFactoryComponent implements OnInit, OnDestroy {
   @Input() question: IGenericQuestion<any>;
   @Input() type: ControlTypes;
   @Output() questionChange = new EventEmitter<IGenericQuestion<any>>();
+
+  @Input() questionResponse: IQuestionResponse<any>;
+  @Output() questionResponseChange = new EventEmitter<IQuestionResponse<any>>();
   private keepAlive = true;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
@@ -29,7 +32,7 @@ export class ControlFactoryComponent implements OnInit, OnDestroy {
   }
 
   private loadControl(): void {
-    console.debug('ControlFactoryComponent::loadControl - question:', this.question, 'type:', this.type);
+    console.debug('ControlFactoryComponent::loadControl - question:', this.question, 'type:', this.type, 'questionResponse:', this.questionResponse);
     // Setup factory with correct control
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(CONTROLS_MAP[this.question.selectionType || this.type]);
     const viewContainerRef = this.controlHost.viewContainerRef;
@@ -40,8 +43,12 @@ export class ControlFactoryComponent implements OnInit, OnDestroy {
 
     // Hook all the I/O together
     (componentRef.instance as IGenericControl<any>).question = this.question;
-    (componentRef.instance as IGenericControl<any>).questionChange
+
+    (componentRef.instance as IGenericControl<any>).questionResponse = this.questionResponse;
+    (componentRef.instance as IGenericControl<any>).questionResponseChange
       .pipe(takeWhile(() => this.keepAlive))
-      .subscribe(event => this.questionChange.emit(event));
+      .subscribe(event => {
+        this.questionResponseChange.emit(event);
+      });
   }
 }

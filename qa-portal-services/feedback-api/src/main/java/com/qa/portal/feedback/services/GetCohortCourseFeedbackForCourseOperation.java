@@ -69,11 +69,11 @@ public class GetCohortCourseFeedbackForCourseOperation {
 
     private List<QuestionCategoryResponseDto> getQuestionCategoryResponsesForFormType() {
         return formTypeRepository.findByFormName(FEEDBACK_FORM_NAME)
-                .map(f -> getQuestionCategoryDtos(f.getQuestionCategories()))
+                .map(f -> createQuestionCategoryDtos(f.getQuestionCategories()))
                 .orElseThrow(() -> new QaPortalBusinessException("No Questions found for supplied form type " + FEEDBACK_FORM_NAME));
     }
 
-    private List<QuestionCategoryResponseDto> getQuestionCategoryDtos(List<QuestionCategoryEntity> questionCategoryEntities) {
+    private List<QuestionCategoryResponseDto> createQuestionCategoryDtos(List<QuestionCategoryEntity> questionCategoryEntities) {
         return questionCategoryEntities.stream()
                 .map(e -> questionCategoryResponseMapper.createQuestionCategoryResponseDto(e))
                 .collect(Collectors.toList());

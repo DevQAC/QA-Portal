@@ -1,9 +1,6 @@
 package com.qa.portal.common.service.mapper;
 
-import com.qa.portal.common.dto.CohortCourseDto;
-import com.qa.portal.common.dto.QuestionCategoryDto;
-import com.qa.portal.common.dto.QuestionCategoryResponseDto;
-import com.qa.portal.common.dto.QuestionResponseDto;
+import com.qa.portal.common.dto.*;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.*;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
@@ -45,6 +42,7 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
         QuestionCategoryResponseDto questionCategoryResponseDto = new QuestionCategoryResponseDto();
         QuestionCategoryDto questionCategoryDto = baseMapper.mapObject(questionCategoryEntity, QuestionCategoryDto.class);
         questionCategoryResponseDto.setQuestionCategory(questionCategoryDto);
+        questionCategoryResponseDto.setQuestionResponses(createQuestionResponseDtos(questionCategoryEntity));
         return questionCategoryResponseDto;
     }
 
@@ -66,6 +64,18 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
 
     public CohortCourseEntity getCohortCourseEntity(CohortCourseDto cohortCourseDto) {
         return cohortCourseRepository.findById(cohortCourseDto.getId()).orElseThrow(() -> new QaPortalBusinessException("Cannot find cohort course for feedback"));
+    }
+
+    private List<QuestionResponseDto> createQuestionResponseDtos(QuestionCategoryEntity questionCategoryEntity) {
+        return questionCategoryEntity.getQuestions().stream()
+                .map(qe -> createQuestionResponseDto(qe))
+                .collect(Collectors.toList());
+    }
+
+    private QuestionResponseDto createQuestionResponseDto(QuestionEntity questionEntity) {
+        QuestionResponseDto questionResponseDto = new QuestionResponseDto();
+        questionResponseDto.setQuestion(baseMapper.mapObject(questionEntity, QuestionDto.class));
+        return questionResponseDto;
     }
 
     private void setUpdatedQuestionResponses(QuestionCategoryResponseEntity<T> questionCategoryResponseEntity,
@@ -98,24 +108,25 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
                 .getGenericSuperclass()).getActualTypeArguments()[0];
         S fqcre = baseMapper.mapObject(questionCategoryResponseDto, categoryResponseClass);
         fqcre.setQuestionCategory(getQuestionCategoryEntity(questionCategoryResponseDto.getQuestionCategory()));
+        fqcre.setQuestionResponses(createQuestionResponseEntities(questionCategoryResponseDto.getQuestionResponses(), fqcre));
         fqcre.setParent(categoryResponseParent);
         return fqcre;
     }
 
-    private List<S> createQuestionCategoryResponsesEntity(List<QuestionCategoryResponseDto> questionCategoryResponseDtos) {
-        Class<S> categoryResponseClass = (Class<S>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[0];
-        return questionCategoryResponseDtos.stream().map(fq -> baseMapper.mapObject(fq, categoryResponseClass))
-                .collect(Collectors.toList());
-    }
-
-    private S createFeedbackQuestionResponseCategory(QuestionCategoryResponseDto questionCategoryResponseDto,
-                                                     S questionCategoryResponseEntity) {
-        questionCategoryResponseEntity.setQuestionCategory(getQuestionCategoryEntity(questionCategoryResponseDto.getQuestionCategory()));
-        questionCategoryResponseEntity.setQuestionResponses(createQuestionResponseEntities(questionCategoryResponseDto.getQuestionResponses(),
-                questionCategoryResponseEntity));
-        return questionCategoryResponseEntity;
-    }
+//    private List<S> createQuestionCategoryResponsesEntity(List<QuestionCategoryResponseDto> questionCategoryResponseDtos) {
+//        Class<S> categoryResponseClass = (Class<S>) ((ParameterizedType) getClass()
+//                .getGenericSuperclass()).getActualTypeArguments()[0];
+//        return questionCategoryResponseDtos.stream().map(fq -> baseMapper.mapObject(fq, categoryResponseClass))
+//                .collect(Collectors.toList());
+//    }
+//
+//    private S createFeedbackQuestionResponseCategory(QuestionCategoryResponseDto questionCategoryResponseDto,
+//                                                     S questionCategoryResponseEntity) {
+//        questionCategoryResponseEntity.setQuestionCategory(getQuestionCategoryEntity(questionCategoryResponseDto.getQuestionCategory()));
+//        questionCategoryResponseEntity.setQuestionResponses(createQuestionResponseEntities(questionCategoryResponseDto.getQuestionResponses(),
+//                questionCategoryResponseEntity));
+//        return questionCategoryResponseEntity;
+//    }
 
     private QuestionCategoryEntity getQuestionCategoryEntity(QuestionCategoryDto questionCategoryDto) {
         return questionCategoryRepository.findById(questionCategoryDto.getId())

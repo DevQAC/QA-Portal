@@ -38,12 +38,13 @@ public class CohortCourseEvaluationMapper {
         return baseMapper.mapObject(cohortCourseEvaluationEntity, CohortCourseEvaluationDto.class);
     }
     
-    public CohortCourseEvaluationEntity createCohortCourseEvaluationEntity(CohortCourseEvaluationDto cohortCourseEvaluationDto) {
+    public CohortCourseEvaluationEntity createCohortCourseEvaluationEntity(CohortCourseEvaluationDto cohortCourseEvaluationDto,
+            String traineeUserName) {
         CohortCourseEvaluationEntity cohortCourseEvaluationEntity = baseMapper.mapObject(cohortCourseEvaluationDto, CohortCourseEvaluationEntity.class);
         cohortCourseEvaluationEntity.setCategoryResponses(
                 evaluationQuestionCategoryResponseMapper.createCategoryResponsesEntities(cohortCourseEvaluationDto.getCategoryResponses(), cohortCourseEvaluationEntity));
         cohortCourseEvaluationEntity.setCohortCourse(evaluationQuestionCategoryResponseMapper.getCohortCourseEntity(cohortCourseEvaluationDto.getCohortCourse()));
-        cohortCourseEvaluationEntity.setTrainee(getTraineeEntity(cohortCourseEvaluationDto.getTrainee().getId()));
+        cohortCourseEvaluationEntity.setTrainee(getTraineeEntity(traineeUserName));
         return cohortCourseEvaluationEntity;
     }
 
@@ -58,7 +59,8 @@ public class CohortCourseEvaluationMapper {
         return cohortCourseEvaluationRepository.findById(id).orElseThrow(() -> new QaPortalBusinessException("Cannot find course evaluation"));
     }
 
-    private TraineeEntity getTraineeEntity(Integer traineeId) {
-        return qaTraineeRepository.findById(traineeId).orElseThrow(() -> new QaPortalBusinessException("Cannot find trainee for course evaluation"));
+    private TraineeEntity getTraineeEntity(String traineeUserName) {
+        return qaTraineeRepository.findByUserName(traineeUserName)
+                .orElseThrow(() -> new QaPortalBusinessException("Cannot find trainee for course evaluation"));
     }
 }

@@ -10,10 +10,10 @@ import { MatCheckboxChange } from '@angular/material';
 export class CheckBoxComponent extends GenericControlComponent<string[]> implements OnInit {
 
   ngOnInit(): void {
-    this.question = {
-      response: [],
-      comment: '',
-      ...this.question
+    this.questionResponse.responseValues = this.questionResponse.responseValues || [];
+    this.questionResponse.comment = {
+      ...{content: ''},
+      ...this.questionResponse.comment
     };
   }
 
@@ -26,10 +26,17 @@ export class CheckBoxComponent extends GenericControlComponent<string[]> impleme
    */
   setCheckResponse({ checked, source: { value } }: MatCheckboxChange): void {
     if (checked) {
-      this.question.response.push(value);
+      this.questionResponse.responseValues.push(value);
     } else {
-      this.question.response = this.question.response.filter(v => v !== value);
+      this.questionResponse.responseValues = this.questionResponse.responseValues.filter(v => v !== value);
     }
+
     this.announceChange();
   }
+
+  setComment({target: {value}}) {
+  this.questionResponse.comment.content = value;
+  this.announceChange();
+  }
+
 }

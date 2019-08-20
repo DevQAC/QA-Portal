@@ -1,23 +1,61 @@
-import { Component, OnInit } from '@angular/core';
-import { COURSE_EVAL_FORM } from '../../_common/models/question-url.constants';
-import { FormTypeService } from '../../_common/services/form-type.service';
-import { ICategory } from 'projects/qa-forms/src/app/_common/models/form-category.model';
-import { take } from 'rxjs/operators';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {take} from 'rxjs/operators';
+import {EvaluationService} from '../../_common/services/evaluation-service';
+import {EvaluationFormModel} from '../../_common/models/evaluation-form.model';
+import {QaErrorHandlerService} from '../../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-feedback-page',
   templateUrl: './feedback-page.component.html',
   styleUrls: ['./feedback-page.component.css']
 })
-export class FeedbackPageComponent implements OnInit {
-  public formModel: ICategory[] = [];
+export class FeedbackPageComponent implements OnInit, OnDestroy {
 
-  constructor(private formTypeService: FormTypeService) { }
+  dataLoaded = false;
 
-  ngOnInit() {
-    this.formTypeService.getFormType(COURSE_EVAL_FORM).subscribe(form => this.formModel = form);
+  getCurrentEvaluationSubscription: Subscription;
+
+  createEvaluationSubscription: Subscription;
+
+  updateEvaluationSubscription: Subscription;
+
+  viewModel: EvaluationFormModel;
+
+  constructor(private evaluationService: EvaluationService,
+              private errorHandlerService: QaErrorHandlerService) {
   }
 
+  onFormModelChange(event) {
+    this.viewModel.categoryResponses = event;
+  }
+
+  ngOnInit() {
+    this.evaluationService.getCurrentTraineeEvaluation().subscribe(
+      (response) => {
+        this.viewModel = response;
+        this.dataLoaded = true;
+      },
+      (error) => {
+        this.dataLoaded = true;
+        this.errorHandlerService.handleError(error);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (!!this.getCurrentEvaluationSubscription) {
+      this.getCurrentEvaluationSubscription.unsubscribe();
+    }
+
+    if (!!this.createEvaluationSubscription) {
+      this.createEvaluationSubscription.unsubscribe();
+    }
+
+    if (!!this.updateEvaluationSubscription) {
+      this.updateEvaluationSubscription.unsubscribe();
+    }
+  }
 
   /**
    * This method will submit the current state of the form.
@@ -25,8 +63,16 @@ export class FeedbackPageComponent implements OnInit {
    * @memberof FeedbackPageComponent
    */
   onFeedbackSubmit() {
-    this.formTypeService.sendEvalForm(this.formModel)
-    .pipe(take(1))
-    .subscribe((...args) => console.warn(`Warning - Submit handling logic not implemented!`, args));
+    this.evaluationService.createEvaluationForm(this.viewModel)
+      .pipe(take(1))
+      .subscribe((response) => {
+          // Navigate to the Evaluation history page for trainee
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+          this.errorHandlerService.handleError(error);
+        }
+      );
   }
 }

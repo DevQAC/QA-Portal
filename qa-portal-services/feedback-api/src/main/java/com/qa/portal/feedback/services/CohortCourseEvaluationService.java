@@ -67,8 +67,9 @@ public class CohortCourseEvaluationService {
 	}
 
 	@Transactional
-	public CohortCourseEvaluationDto createCourseEvaluationForTrainee(CohortCourseEvaluationDto courseEvaluation) {
-		return createCourseEvaluation.createCourseEvaluation(courseEvaluation);
+	public CohortCourseEvaluationDto createCourseEvaluationForTrainee(CohortCourseEvaluationDto courseEvaluation,
+																	  String traineeUserName) {
+		return createCourseEvaluation.createCourseEvaluation(courseEvaluation, traineeUserName);
 	}
 
 	@Transactional

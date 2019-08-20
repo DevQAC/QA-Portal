@@ -1,4 +1,16 @@
-<h1>Feedback</h1>
-<app-qa-form [model]="formModel" (modelChange)="formModel = $event"></app-qa-form>
+<div class="qa-app-title">
+  Trainee - Course Evaluation
+</div>
 
-<button mat-raised-button color="primary" (click)="onFeedbackSubmit()">Submit</button>
+<div style="display: flex; justify-content: center; margin-top: 20px">
+  <mat-spinner [diameter]="70" *ngIf="!dataLoaded"></mat-spinner>
+</div>
+
+<div *ngIf="!!dataLoaded">
+    <app-qa-form [model]="viewModel.categoryResponses"
+                 (modelChange)="onFormModelChange($event)">
+    </app-qa-form>
+  <div style="display: flex; justify-content: center">
+    <button mat-raised-button color="primary" (click)="onFeedbackSubmit()">Submit</button>
+  </div>
+</div>

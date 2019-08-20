@@ -8,11 +8,11 @@ import { IGenericQuestion } from '../_common/models/generic-question.model';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent {
-  @Input() value: ICategory;
-  @Output() change = new EventEmitter<ICategory>();
+  @Input() value: any;
+  @Output() change = new EventEmitter<any>();
 
-  onQuestionChange(event: IGenericQuestion<any>, index: number): void {
-    this.value.questions[index] = event;
+  onQuestionResponseChange(event, i) {
+    this.value.questionResponses[i] = event;
     this.change.emit(this.value);
   }
 
