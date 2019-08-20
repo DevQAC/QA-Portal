@@ -251,7 +251,7 @@
               "projects/portal-core/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/portal-core/src/style/_main.scss",
               "projects/portal-core/src/styles.css"
             ],
             "scripts": []

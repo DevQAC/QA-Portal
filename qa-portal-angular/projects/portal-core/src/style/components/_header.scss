@@ -1,0 +1,57 @@
+app-portal-header {
+    .mat-toolbar-row {
+        position: relative;
+        padding: 0;
+    }
+
+    .icon-container {
+        position: absolute;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        .logo {
+            margin: auto;
+            color: mat-color($theme-primary);
+            transition: color 0.1s ease-in-out;
+
+            &:hover {
+                color: mat-color($theme-accent);
+            }
+
+            mat-icon {
+                height: 64px;
+                width: 64px;
+            }
+        }
+
+    }
+
+    .content-left {
+    margin-left: 1rem;
+        margin-right: auto;
+    }
+
+    .content-right {
+        height: 100%;
+        margin-left: auto;
+    }
+
+
+    .user-button {
+        height: 100%;
+        border-radius: 0;
+        font-weight: light;
+
+        .mat-icon {
+            margin-bottom: 0.25rem;
+            margin-left: 0.5rem;
+        }
+    }
+
+
+    .portal-buttons {
+        button {
+            margin-right: 1rem;
+        }
+    }
+}
