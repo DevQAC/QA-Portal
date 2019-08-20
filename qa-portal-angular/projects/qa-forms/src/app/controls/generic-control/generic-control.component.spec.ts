@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuestionCategoryComponent } from './question-category.component';
+import { GenericControlComponent } from './generic-control.component';
 
-describe('QuestionCategoryComponent', () => {
-  let component: QuestionCategoryComponent;
-  let fixture: ComponentFixture<QuestionCategoryComponent>;
+describe('GenericControlComponent', () => {
+  let component: GenericControlComponent;
+  let fixture: ComponentFixture<GenericControlComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuestionCategoryComponent ]
+      declarations: [ GenericControlComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QuestionCategoryComponent);
+    fixture = TestBed.createComponent(GenericControlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

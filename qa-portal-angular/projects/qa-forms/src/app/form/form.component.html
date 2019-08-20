@@ -1,0 +1,4 @@
+<div class="category-wrapper" *ngFor="let category of model; let i = index">
+    <app-category [value]="category" (change)="onCategoryChange($event, i)">
+        <ng-content *ngIf="i === model.length-1" select="[position=last]"></ng-content>
+    </app-category>

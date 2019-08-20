@@ -1,0 +1,15 @@
+<p>
+  {{question.body}}
+</p>
+
+<mat-radio-group class="qa-radio-btn-grp">
+  <div class="qa-radio-btn-layout">
+    <mat-radio-button #matRadioButton color="primary" class="qa-response-button"
+      *ngFor="let options of question.selectionOptionsList" (change)="setRadioResponse(matRadioButton.value)"
+      style="padding-right : 10px;" [value]="options">{{options}}</mat-radio-button>
+  </div>
+  <div><br></div>
+  <div *ngIf="question.hasComment">
+      <input matInput [value]="question?.comment" (change)="question.comment = $event">
+  </div>
+</mat-radio-group>

@@ -7,36 +7,26 @@
 </div>
 
 <div *ngIf="dataLoaded">
-  <mat-card style="margin-bottom: 20px;">
-    <mat-card-content>
-      <mat-horizontal-stepper #stepper style="margin-bottom: 20px;">
-        <mat-step *ngFor="let category of dataModel">
-          <ng-template matStepLabel>{{category.categoryName}}</ng-template>
-          <h4>9 = Strongly Agree, 0 = Strongly Disagree</h4>
-          <app-rated-question *ngFor="let q of category.questions"
-                              [options]="q.selectionOptionsList"
-                              [isDisabled]="false"
-                              [questionText]="q.body"
-                              [selectedRating]="q">
-          </app-rated-question>
-          <div style="display: flex; margin-top: 30px">
-            <div style="display: flex; justify-content: left; width: 30%">
-              <button style="margin-left: 15px" *ngIf="stepper.selectedIndex < dataModel.length - 1" mat-raised-button
-                      matStepperNext>Next
-              </button>
-              <button style="margin-left: 15px" *ngIf="stepper.selectedIndex > 0" mat-raised-button matStepperPrevious>
-                Back
-              </button>
-              <button style="margin-left: 15px" *ngIf="stepper.selectedIndex > 0" mat-raised-button
+  <mat-horizontal-stepper #stepper style="margin-bottom: 20px;">
+    <mat-step *ngFor="let category of dataModel; let i = index">
+      <ng-template matStepLabel>{{category.categoryName}}</ng-template>
+      <app-qa-form [model]="[category]" (modelChange)="this.dataModel[i] = $event[0]">
+        <div style="display: flex;" position="last">
+          <button style="margin-right: auto" [disabled]="!stepper.selectedIndex > 0" mat-raised-button
+            matStepperPrevious>
+            Back
+          </button>
+          <p style="margin: 0">9 = Strongly Agree, 0 = Strongly Disagree</p>
+          <button style="margin-left: auto" [disabled]="stepper.selectedIndex == dataModel.length-1" mat-raised-button
+            matStepperNext>Next
+          </button>
+          <!-- <button style="margin-left: 15px" *ngIf="stepper.selectedIndex > 0" mat-raised-button
                       (click)="stepper.reset()">First
-              </button>
-            </div>
-            <div style="width: 70%;"></div>
-          </div>
-        </mat-step>
-      </mat-horizontal-stepper>
-    </mat-card-content>
-  </mat-card>
+                    </button> -->
+        </div>
+      </app-qa-form>
+    </mat-step>
+  </mat-horizontal-stepper>
 
   <div class="qa-feedback-page-action-container">
     <button mat-raised-button (click)="saveFeedback()">Save</button>
