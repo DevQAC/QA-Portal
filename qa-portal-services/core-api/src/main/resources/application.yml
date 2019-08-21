@@ -20,7 +20,6 @@ spring:
             non_contextual_creation=true:logging: true
   level:
     org.springframework.web: DEBUG
-    com.swttech.bignash: DEBUG
 
 qa:
   keycloak:
