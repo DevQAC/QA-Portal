@@ -23,6 +23,7 @@ import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/prob
 import { QaFormsModule } from 'projects/qa-forms';
 import {FeedbackService} from './trainer-feedback/_common/services/feedback.service';
 import {EvaluationService} from './_common/services/evaluation-service';
+import { TraineeEvaluationSummaryComponent } from './trainee-evaluation-summary/trainee-evaluation-summary.component';
 
 
 
@@ -42,7 +43,8 @@ import {EvaluationService} from './_common/services/evaluation-service';
     FeedbackPageComponent,
     TrainerFeedbackPageComponent,
     FeedbackQuestionComponent,
-    ProblemReporterComponent
+    ProblemReporterComponent,
+    TraineeEvaluationSummaryComponent
   ],
   imports: [
     BrowserModule,

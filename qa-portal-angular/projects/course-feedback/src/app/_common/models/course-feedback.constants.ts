@@ -7,6 +7,8 @@ export const TRAINER_FEEDBACK_FORM = 'feedback_form';
 // TODO - END OF TO BE REMOVED
 
 // EVALUATION FORM URLS
+export const GET_TRAINEE_EVALUATION_SUMMARY_URL = 'feedback-api/evaluation/trainee/summary';
+
 export const GET_EVALUATION_FORMS_FOR_TRAINEE_URL = 'feedback-api/evaluation/trainee';
 
 export const GET_CURRENT_EVALUATION_FORM_FOR_TRAINEE_URL = 'feedback-api/evaluation/trainee/current';

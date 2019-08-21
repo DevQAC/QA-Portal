@@ -22,6 +22,9 @@ public class CohortCourseFeedbackEntity extends QaBaseEntity {
     @OneToMany(mappedBy = "courseFeedback", cascade = CascadeType.ALL)
     private List<FeedbackQuestionCategoryResponseEntity> categoryResponses;
 
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne
     @JoinColumn(name = "cohort_course_id")
     private CohortCourseEntity cohortCourse;
@@ -50,10 +53,21 @@ public class CohortCourseFeedbackEntity extends QaBaseEntity {
         this.cohortCourse = cohortCourse;
     }
 
-	@Override
-	public String toString() {
-		return "CohortCourseFeedbackEntity [id=" + id + ", categoryResponses=" + categoryResponses + ", cohortCourse="
-				+ cohortCourse + "]";
-	}
-    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "CohortCourseFeedbackEntity{" +
+                "id=" + id +
+                ", categoryResponses=" + categoryResponses +
+                ", status='" + status + '\'' +
+                ", cohortCourse=" + cohortCourse +
+                '}';
+    }
 }

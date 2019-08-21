@@ -170,9 +170,6 @@ alter table training.question_category_response owner to postgres;
 
 
 
-
-
-
 create table if not exists training.cohort_course_feedback
 (
 	id integer not null
@@ -181,10 +178,13 @@ create table if not exists training.cohort_course_feedback
 	cohort_course_id integer not null,
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
-	version integer default 1 not null
+	version integer default 1 not null,
+	status varchar(255)
 );
 
 alter table training.cohort_course_feedback owner to postgres;
+
+
 
 create table if not exists training.cohort_course_evaluation
 (
@@ -195,10 +195,13 @@ create table if not exists training.cohort_course_evaluation
 	cohort_course_id integer not null,
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
-	version integer default 1 not null
+	version integer default 1 not null,
+	status varchar(255)
 );
 
 alter table training.cohort_course_evaluation owner to postgres;
+
+
 
 
 

@@ -14,6 +14,8 @@ public class CohortCourseEvaluationDto {
 
     private CohortCourseDto cohortCourse;
 
+    private String status;
+
     private List<QuestionCategoryResponseDto> categoryResponses;
 
     public Integer getId() {
@@ -46,5 +48,13 @@ public class CohortCourseEvaluationDto {
 
     public void setCategoryResponses(List<QuestionCategoryResponseDto> categoryResponses) {
         this.categoryResponses = categoryResponses;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

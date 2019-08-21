@@ -27,6 +27,9 @@ public class CohortCourseEvaluationEntity extends QaBaseEntity {
     @JoinColumn(name = "cohort_course_id")
     private CohortCourseEntity cohortCourse;
 
+    @Column(name = "status")
+    private String status;
+
     @OneToMany(mappedBy = "courseEvaluation", cascade = CascadeType.ALL)
     private List<EvalQuestionCategoryResponseEntity> categoryResponses;
 
@@ -60,5 +63,13 @@ public class CohortCourseEvaluationEntity extends QaBaseEntity {
 
     public void setCohortCourse(CohortCourseEntity cohortCourse) {
         this.cohortCourse = cohortCourse;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -3,6 +3,8 @@ package com.qa.portal.feedback.rest;
 import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
+import com.qa.portal.feedback.dto.TraineeEvaluationSummaryDto;
+import com.qa.portal.feedback.dto.TraineeEvaluationSummaryRowDto;
 import com.qa.portal.feedback.services.CohortCourseEvaluationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,11 @@ public class CohortCourseEvaluationController {
     @GetMapping("/trainee/current")
     public ResponseEntity<CohortCourseEvaluationDto> getCurrentEvaluationForTrainee() {
         return ResponseEntity.ok(service.getCurrentEvaluationForTrainee(qaSecurityContext.getUserName()));
+    }
+
+    @GetMapping("/trainee/summary")
+    public ResponseEntity<TraineeEvaluationSummaryDto> getTraineeEvaluationSummary() {
+        return ResponseEntity.ok(service.getTraineeEvaluationSummary(qaSecurityContext.getUserName()));
     }
 
     @GetMapping("/trainer")

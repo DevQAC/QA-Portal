@@ -2,6 +2,8 @@ package com.qa.portal.feedback.services;
 
 import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
+import com.qa.portal.feedback.dto.TraineeEvaluationSummaryDto;
+import com.qa.portal.feedback.dto.TraineeEvaluationSummaryRowDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,6 +11,8 @@ import java.util.List;
 
 @Service
 public class CohortCourseEvaluationService {
+
+	private GetTraineeEvauationSummaryOperation getTraineeEvauationSummaryOperation;
 
 	private GetCohortCourseEvaluationsForTraineeOperation getCohortCourseEvaluationsForTraineeOperation;
 
@@ -24,13 +28,15 @@ public class CohortCourseEvaluationService {
 
 	public CreateCohortCourseEvaluationOperation createCourseEvaluation;
 
-	public CohortCourseEvaluationService(GetCohortCourseEvaluationsForTraineeOperation getCohortCourseEvaluationsForTraineeOperation,
+	public CohortCourseEvaluationService(GetTraineeEvauationSummaryOperation getTraineeEvauationSummaryOperation,
+										 GetCohortCourseEvaluationsForTraineeOperation getCohortCourseEvaluationsForTraineeOperation,
 										 GetCohortCourseEvaluationsForCourseOperation getCohortCourseEvaluationsForCourseOperation,
 										 GetCohortCoursesForTrainerOperation getCohortCoursesForTrainerOperation,
 										 GetCurrentCohortCourseEvaluationForTraineeOperation getCurrentCohortCourseEvaluationForTraineeOperation,
 										 GetCohortCourseEvaluationOperation getCohortCourseEvaluationOperation,
 										 UpdateCohortCourseEvaluationOperation updateCohortCourseEvaluationOperation,
 										 CreateCohortCourseEvaluationOperation createCourseEvaluation) {
+		this.getTraineeEvauationSummaryOperation = getTraineeEvauationSummaryOperation;
 		this.getCohortCourseEvaluationsForTraineeOperation = getCohortCourseEvaluationsForTraineeOperation;
 		this.getCohortCourseEvaluationsForCourseOperation = getCohortCourseEvaluationsForCourseOperation;
 		this.getCohortCoursesForTrainerOperation = getCohortCoursesForTrainerOperation;
@@ -40,6 +46,10 @@ public class CohortCourseEvaluationService {
 		this.createCourseEvaluation = createCourseEvaluation;
 	}
 
+	@Transactional
+	public TraineeEvaluationSummaryDto getTraineeEvaluationSummary(String traineeUserName) {
+		return getTraineeEvauationSummaryOperation.getTraineeEvaluationSummary(traineeUserName);
+	}
 
 	@Transactional
 	public List<CohortCourseEvaluationDto> getCohortCourseEvaluationsForTrainee(String traineeUserName) {
