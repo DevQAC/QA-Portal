@@ -7,22 +7,22 @@ import {
   UPDATE_FEEDBACK_FORM_URL
 } from '../../../_common/models/course-feedback.constants';
 import {Injectable} from '@angular/core';
-import {FeedbackFormModel} from '../../../_common/models/feedback-form.model';
+import { IFormModel } from 'projects/qa-forms/src/app/_common/models';
 
 @Injectable()
 export class FeedbackService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public getFeedbackforCourse(courseId: number): Observable<FeedbackFormModel> {
-    return this.httpClient.get<FeedbackFormModel>(GET_FEEDBACK_FOR_COURSE_URL + courseId);
+  public getFeedbackforCourse(courseId: number): Observable<IFormModel> {
+    return this.httpClient.get<IFormModel>(GET_FEEDBACK_FOR_COURSE_URL + courseId);
   }
 
-  public createFeedbackForm(feedbackForm: FeedbackFormModel): Observable<FeedbackFormModel> {
-    return this.httpClient.post<FeedbackFormModel>(CREATE_FEEDBACK_FORM_URL, feedbackForm);
+  public createFeedbackForm(feedbackForm: IFormModel): Observable<IFormModel> {
+    return this.httpClient.post<IFormModel>(CREATE_FEEDBACK_FORM_URL, feedbackForm);
   }
 
-  public updateFeedbackForm(feedbackForm: FeedbackFormModel): Observable<FeedbackFormModel> {
-    return this.httpClient.put<FeedbackFormModel>(UPDATE_FEEDBACK_FORM_URL, feedbackForm);
+  public updateFeedbackForm(feedbackForm: IFormModel): Observable<IFormModel> {
+    return this.httpClient.put<IFormModel>(UPDATE_FEEDBACK_FORM_URL, feedbackForm);
   }
 }

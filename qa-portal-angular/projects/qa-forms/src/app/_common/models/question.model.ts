@@ -1,6 +1,6 @@
 import { ControlTypes } from '../types/control.types';
 
-export interface IGenericQuestion<ResponseType> {
+export interface IQuestion {
     /**
      * Unique ID for this control
      * @type {number}
@@ -21,13 +21,6 @@ export interface IGenericQuestion<ResponseType> {
      * @memberof IGenericQuestion
      */
     hasComment: boolean;
-
-    /**
-     * User input value for the question
-     * @type {ResponseType}
-     * @memberof IGenericQuestion
-     */
-    response: ResponseType;
 
     /**
      * Additional user comment

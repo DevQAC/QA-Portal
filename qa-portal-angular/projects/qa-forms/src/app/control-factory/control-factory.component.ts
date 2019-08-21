@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { IGenericQuestion } from '../_common/models/generic-question.model';
 import { ControlHostDirective } from './control-host.directive';
 import { CONTROLS_MAP } from '../_common/models/control.constants';
 import { ControlTypes } from '../_common/types/control.types';
 import { takeWhile } from 'rxjs/operators';
-import {IGenericControl, IQuestionResponse} from '../controls/generic-control/generic-control.component';
+import { IQuestionResponse, IQuestion } from '../_common/models';
+import { IGenericControl } from '../controls/generic-control/generic-control.component';
 
 @Component({
   selector: 'app-control-factory',
@@ -13,12 +13,11 @@ import {IGenericControl, IQuestionResponse} from '../controls/generic-control/ge
 })
 export class ControlFactoryComponent implements OnInit, OnDestroy {
   @ViewChild(ControlHostDirective, { static: true }) controlHost: ControlHostDirective;
-  @Input() question: IGenericQuestion<any>;
+  @Input() question: IQuestion;
   @Input() type: ControlTypes;
-  @Output() questionChange = new EventEmitter<IGenericQuestion<any>>();
 
-  @Input() questionResponse: IQuestionResponse<any>;
-  @Output() questionResponseChange = new EventEmitter<IQuestionResponse<any>>();
+  @Input() questionResponse: IQuestionResponse;
+  @Output() questionResponseChange = new EventEmitter<IQuestionResponse>();
   private keepAlive = true;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
@@ -42,10 +41,10 @@ export class ControlFactoryComponent implements OnInit, OnDestroy {
     const componentRef = viewContainerRef.createComponent(componentFactory);
 
     // Hook all the I/O together
-    (componentRef.instance as IGenericControl<any>).question = this.question;
+    (componentRef.instance as IGenericControl).question = this.question;
 
-    (componentRef.instance as IGenericControl<any>).questionResponse = this.questionResponse;
-    (componentRef.instance as IGenericControl<any>).questionResponseChange
+    (componentRef.instance as IGenericControl).questionResponse = this.questionResponse;
+    (componentRef.instance as IGenericControl).questionResponseChange
       .pipe(takeWhile(() => this.keepAlive))
       .subscribe(event => {
         this.questionResponseChange.emit(event);

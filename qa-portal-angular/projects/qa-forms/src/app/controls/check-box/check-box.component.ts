@@ -34,9 +34,4 @@ export class CheckBoxComponent extends GenericControlComponent<string[]> impleme
     this.announceChange();
   }
 
-  setComment({target: {value}}) {
-  this.questionResponse.comment.content = value;
-  this.announceChange();
-  }
-
 }

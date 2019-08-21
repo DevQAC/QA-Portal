@@ -1,22 +1,23 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ICategory } from '../_common/models/form-category.model';
-import { IGenericQuestion } from '../_common/models/generic-question.model';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { IQuestion, ICategoryResponse } from '../_common/models';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
-export class CategoryComponent {
-  @Input() value: any;
-  @Output() change = new EventEmitter<any>();
+export class CategoryComponent implements OnInit {
+  @Input() categoryResponse: ICategoryResponse;
+  @Output() categoryResponseChange = new EventEmitter<ICategoryResponse>();
 
+  ngOnInit(): void {
+  }
   onQuestionResponseChange(event, i) {
-    this.value.questionResponses[i] = event;
-    this.change.emit(this.value);
+    this.categoryResponse.questionResponses[i] = event;
+    this.categoryResponseChange.emit(this.categoryResponse);
   }
 
-  trackQuestion(_index: number, question: IGenericQuestion<any>) {
+  trackQuestion(_index: number, question: IQuestion) {
     return question.id;
   }
 

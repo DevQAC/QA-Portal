@@ -1,9 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FeedbackService} from '../_common/services/feedback.service';
-import {QaErrorHandlerService} from '../../../../../portal-core/src/app/_common/services/qa-error-handler.service';
-import {FeedbackFormModel} from '../../_common/models/feedback-form.model';
-import {Subscription} from 'rxjs';
-import {ICategory} from '../../../../../qa-forms/src/app/_common/models/form-category.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FeedbackService } from '../_common/services/feedback.service';
+import { QaErrorHandlerService } from '../../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import { Subscription } from 'rxjs';
+import { IFormModel } from 'projects/qa-forms/src/app/_common/models';
 
 @Component({
   selector: 'app-trainer-feedback-page',
@@ -15,22 +14,20 @@ export class TrainerFeedbackPageComponent implements OnInit, OnDestroy {
   dataLoaded = false;
 
   getFeedbackSubscription: Subscription;
-
   createFeedbackSubscription: Subscription;
-
   updateFeedbackSubscription: Subscription;
 
-  viewModel: FeedbackFormModel;
+  viewModel: IFormModel;
 
   constructor(private feedbackService: FeedbackService,
-              private errorHandlerService: QaErrorHandlerService) {
+    private errorHandlerService: QaErrorHandlerService) {
   }
 
   ngOnInit() {
-    this.getFeedbackSubscription = this.feedbackService.getFeedbackforCourse(1).subscribe((response: FeedbackFormModel) => {
-        this.viewModel = response;
-        this.dataLoaded = true;
-      },
+    this.getFeedbackSubscription = this.feedbackService.getFeedbackforCourse(1).subscribe(response => {
+      this.viewModel = response;
+      this.dataLoaded = true;
+    },
       (error) => {
         console.log(error);
         this.dataLoaded = true;
@@ -38,17 +35,13 @@ export class TrainerFeedbackPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  modelChanged(event: ICategory) {
-  }
-
   saveFeedback() {
-    this.createFeedbackSubscription = this.feedbackService.createFeedbackForm(this.viewModel).subscribe((response) => {
-        // Navigate to the feedback history page for the trainer
-      },
+    this.createFeedbackSubscription = this.feedbackService.createFeedbackForm(this.viewModel).subscribe(response => {
+      // Navigate to the feedback history page for the trainer
+    },
       (error) => {
         this.errorHandlerService.handleError(error);
       });
-    console.warn(this.viewModel);
   }
 
   ngOnDestroy(): void {

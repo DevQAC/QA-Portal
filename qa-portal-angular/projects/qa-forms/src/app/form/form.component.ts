@@ -1,22 +1,25 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ICategory } from '../_common/models/form-category.model';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { IFormModel, ICategoryResponse } from '../_common/models';
 
 @Component({
   selector: 'app-qa-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent {
-  @Input() model: ICategory[];
-  @Output() modelChange = new EventEmitter<ICategory[]>();
+export class FormComponent implements OnInit {
+  @Input() model: IFormModel;
+  @Output() modelChange = new EventEmitter<IFormModel>();
 
-  onCategoryChange(category: ICategory, index: number): void {
-    this.model[index] = category;
+  ngOnInit() {
+  }
+
+  onCategoryChange(categoryResponse: ICategoryResponse, index: number): void {
+    this.model.categoryResponses[index] = categoryResponse;
     this.modelChange.emit(this.model);
 
     console.log(`FormComponent::onCategoryChange`,
       `\n\t model:`, this.model,
-      `\n\t category changed:`, category
+      `\n\t category response changed:`, categoryResponse
     );
   }
 }

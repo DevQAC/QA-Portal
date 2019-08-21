@@ -7,8 +7,8 @@
 </div>
 
 <div *ngIf="!!dataLoaded">
-    <app-qa-form [model]="viewModel.categoryResponses"
-                 (modelChange)="onFormModelChange($event)">
+    <app-qa-form [model]="viewModel"
+                 (modelChange)="this.viewModel = $event">
     </app-qa-form>
   <div style="display: flex; justify-content: center">
     <button mat-raised-button color="primary" (click)="onFeedbackSubmit()">Submit</button>
