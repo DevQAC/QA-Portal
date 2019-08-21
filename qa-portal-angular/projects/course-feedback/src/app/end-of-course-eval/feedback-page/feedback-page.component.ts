@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {take} from 'rxjs/operators';
 import {EvaluationService} from '../../_common/services/evaluation-service';
-import {EvaluationFormModel} from '../../_common/models/evaluation-form.model';
 import {QaErrorHandlerService} from '../../../../../portal-core/src/app/_common/services/qa-error-handler.service';
 import {Subscription} from 'rxjs';
+import { IFormModel } from 'projects/qa-forms/src/app/_common/models';
 
 @Component({
   selector: 'app-feedback-page',
@@ -15,19 +15,13 @@ export class FeedbackPageComponent implements OnInit, OnDestroy {
   dataLoaded = false;
 
   getCurrentEvaluationSubscription: Subscription;
-
   createEvaluationSubscription: Subscription;
-
   updateEvaluationSubscription: Subscription;
 
-  viewModel: EvaluationFormModel;
+  viewModel: IFormModel;
 
   constructor(private evaluationService: EvaluationService,
               private errorHandlerService: QaErrorHandlerService) {
-  }
-
-  onFormModelChange(event) {
-    this.viewModel.categoryResponses = event;
   }
 
   ngOnInit() {
