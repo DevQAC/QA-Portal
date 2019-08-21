@@ -1,21 +1,23 @@
-<mat-toolbar class="mat-elevation-z2">
+<mat-toolbar>
   <mat-toolbar-row>
-
+    
     <!-- ICON -->
     <div class="icon-container">
-      <a class="logo" [routerLink]="['/qa/portal/home']">
+      <a class="logo" [routerLink]="['/qa/portal/home']" matRipple>
         <mat-icon svgIcon="qa-logo"></mat-icon>
       </a>
     </div>
-
+    
     <!-- LEFT ALIGN-->
     <div class="content-left">
-      <mat-icon>menu</mat-icon>
+      <a class="menu-button" (click)="sideMenuService.toggleOpen()">
+        <mat-icon>menu</mat-icon>
+      </a>
     </div>
 
     <!-- RIGHT ALIGN -->
     <div class="content-right">
-
+      
       <!-- TODO: MOVE THIS! -->
       <span class="portal-buttons" *ngFor="let deptApps of portalApplications">
         <button mat-flat-button [mat-menu-trigger-for]="sub_menu">

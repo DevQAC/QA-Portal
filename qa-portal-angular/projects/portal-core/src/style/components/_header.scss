@@ -1,7 +1,10 @@
 app-portal-header {
     .mat-toolbar-row {
+        // @include mat-elevation(4);
         position: relative;
         padding: 0;
+
+        z-index: 10;
     }
 
     .icon-container {
@@ -9,10 +12,13 @@ app-portal-header {
         display: flex;
         height: 100%;
         width: 100%;
+        pointer-events: none;
+
         .logo {
             margin: auto;
             color: mat-color($theme-primary);
             transition: color 0.1s ease-in-out;
+            pointer-events: all;
 
             &:hover {
                 color: mat-color($theme-accent);
@@ -23,11 +29,10 @@ app-portal-header {
                 width: 64px;
             }
         }
-
     }
 
     .content-left {
-    margin-left: 1rem;
+        margin-left: 1rem;
         margin-right: auto;
     }
 
@@ -35,7 +40,6 @@ app-portal-header {
         height: 100%;
         margin-left: auto;
     }
-
 
     .user-button {
         height: 100%;
@@ -48,6 +52,9 @@ app-portal-header {
         }
     }
 
+    .menu-button {
+        cursor: pointer;
+    }
 
     .portal-buttons {
         button {

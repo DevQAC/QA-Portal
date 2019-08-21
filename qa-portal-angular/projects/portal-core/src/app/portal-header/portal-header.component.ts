@@ -5,6 +5,7 @@ import { ApplicationSelectionService } from '../_common/services/application-sel
 import { Application } from '../_common/models/application';
 import { KeycloakService } from 'keycloak-angular';
 import { environment } from '../../environments/environment';
+import { SideMenuService } from '../_common/services/side-menu.service';
 
 @Component({
   selector: 'app-portal-header',
@@ -21,7 +22,8 @@ export class PortalHeaderComponent implements OnInit, OnDestroy {
 
   constructor(private menuService: MenuService,
     private applicationSelectionService: ApplicationSelectionService,
-    private keycloak: KeycloakService) {
+    private keycloak: KeycloakService,
+    public sideMenuService: SideMenuService) {
   }
 
   ngOnInit() {

@@ -1,4 +1,7 @@
 @import './theme/qa-app-theme.scss';
 @import './theme/overrides.scss';
 
+// Components
 @import './components/header';
+@import './components/side-menu';
+@import './components/side-menu-content';

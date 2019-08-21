@@ -15,7 +15,8 @@ $qa-brand: (
   "info": #141422,
   "success": #3e9052,
   "warning": #d48907,
-  "danger": #f44336
+  "danger": #f44336,
+  "bright": #FBFBFB
 );
 
 
@@ -94,7 +95,7 @@ $mat-dark-theme-foreground: (
 
 // Background config
 // Light bg
-$light-background:    #ececec;
+$light-background:    #FBFBFB;
 $light-bg-darker-5:   darken($light-background, 5%);
 $light-bg-darker-10:  darken($light-background, 10%);
 $light-bg-darker-20:  darken($light-background, 20%);
@@ -176,7 +177,7 @@ $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
 body {
   --accent-color: #06eab5;
-  --accent-lighter-color: #d7d7d7;
+  --accent-lighter-color: #06eab5;
   --accent-darker-color: #5c5c5c;
   --text-accent-color: $light-primary-text;
   --text-accent-lighter-color: $dark-primary-text;
@@ -185,7 +186,7 @@ body {
 
 $mat-accent: (
   main: #06eab5,
-  lighter: #d7d7d7,
+  lighter: #06eab5,
   darker: #5c5c5c,
   200: #06eab5, // For slide toggle,
   contrast : (
