@@ -1,18 +1,24 @@
-package com.qa.portal.feedback.services.mapper;
+package com.qa.portal.feedback.services;
 
 import com.qa.portal.common.dto.CohortCourseDto;
+import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
+import com.qa.portal.common.persistence.entity.QaCohortEntity;
+import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.feedback.dto.TraineeEvaluationSummaryDto;
 import com.qa.portal.feedback.dto.TraineeEvaluationSummaryRowDto;
 import com.qa.portal.feedback.persistence.entity.CohortCourseEvaluationEntity;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
-public class TraineeEvaluationSummaryMapper {
+public class GetTraineeEvaluationSummaryOperation {
 
     private static final String AWAITING_EVALUATION = "Awaiting";
 
@@ -22,14 +28,34 @@ public class TraineeEvaluationSummaryMapper {
 
     private BaseMapper baseMapper;
 
-    public TraineeEvaluationSummaryMapper(CohortCourseEvaluationRepository cohortCourseEvaluationRepository,
-                                          BaseMapper baseMapper) {
+    private QaTraineeRepository qaTraineeRepository;
+
+    public GetTraineeEvaluationSummaryOperation(CohortCourseEvaluationRepository cohortCourseEvaluationRepository,
+                                                BaseMapper baseMapper,
+                                                QaTraineeRepository qaTraineeRepository) {
         this.cohortCourseEvaluationRepository = cohortCourseEvaluationRepository;
         this.baseMapper = baseMapper;
+        this.qaTraineeRepository = qaTraineeRepository;
     }
 
-    public TraineeEvaluationSummaryRowDto mapToEvaluationSummary(CohortCourseEntity cohortCourseEntity,
-                                                                 String traineeUserName) {
+    public TraineeEvaluationSummaryDto getTraineeEvaluationSummary(String traineeUserName) {
+        TraineeEvaluationSummaryDto traineeEvaluationSummaryDto = new TraineeEvaluationSummaryDto();
+        traineeEvaluationSummaryDto.setEvaluationSummaryRows(
+                qaTraineeRepository.findByUserName(traineeUserName)
+                        .map(te -> getTraineeEvaluationSummary(te.getCohort(), traineeUserName))
+                        .orElseThrow(() -> new QaPortalBusinessException("Error creating trainee evaluation summary")));
+        return traineeEvaluationSummaryDto;
+    }
+
+    private List<TraineeEvaluationSummaryRowDto> getTraineeEvaluationSummary(QaCohortEntity qaCohortEntity, String traineeUserName) {
+        return qaCohortEntity.getCohortCourses().stream()
+                .map(cce -> createEvaluationSummary(cce, traineeUserName))
+                .collect(Collectors.toList());
+    }
+
+
+    private TraineeEvaluationSummaryRowDto createEvaluationSummary(CohortCourseEntity cohortCourseEntity,
+                                                                   String traineeUserName) {
         TraineeEvaluationSummaryRowDto traineeEvaluationSummaryRowDto = new TraineeEvaluationSummaryRowDto();
         traineeEvaluationSummaryRowDto.setCohortCourseDto(baseMapper.mapObject(cohortCourseEntity, CohortCourseDto.class));
         traineeEvaluationSummaryRowDto.setEvaluationStatus(getCohortCourseEvaluationStatus(cohortCourseEntity));
