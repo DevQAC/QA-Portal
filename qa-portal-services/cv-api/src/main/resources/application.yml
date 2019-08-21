@@ -1,0 +1,34 @@
+server:
+  port: 8087
+  servlet:
+    context-path: /cv-api
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: MongoDB
+      password:
+      database: qa-portal-cv
+
+  level:
+    org.springframework.web: DEBUG
+
+
+qa:
+  keycloak:
+    config:
+      file: keycloak.json
+
+
+---
+spring:
+  profiles: test
+
+  level:
+    org.springframework.web: DEBUG
+    com.qa.portal: DEBUG
