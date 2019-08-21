@@ -24,6 +24,8 @@ import { QaFormsModule } from 'projects/qa-forms';
 import {FeedbackService} from './trainer-feedback/_common/services/feedback.service';
 import {EvaluationService} from './_common/services/evaluation-service';
 import { TraineeEvaluationSummaryComponent } from './trainee-evaluation-summary/trainee-evaluation-summary.component';
+import {QaErrorHandlerService} from '../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import {TraineeEvaluationSummaryService} from './trainee-evaluation-summary/services/trainee-evaluation-summary.service';
 
 
 
@@ -55,6 +57,7 @@ import { TraineeEvaluationSummaryComponent } from './trainee-evaluation-summary/
   ],
   providers: [
     RetrieveTrainerEvaluationHistoryService,
+    TraineeEvaluationSummaryService,
     SearchFormComponent,
     FormTypeService,
     FeedbackService,

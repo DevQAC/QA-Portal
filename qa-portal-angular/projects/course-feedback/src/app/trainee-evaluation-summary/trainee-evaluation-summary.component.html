@@ -6,8 +6,8 @@
   <mat-spinner [diameter]="70" *ngIf="dataLoading"></mat-spinner>
 </div>
 
-<div *ngIf="!dataLoading">
-  <mat-card>
+<div *ngIf="!dataLoading" style="width: 100%;">
+  <mat-card style="width: 100%;">
     <mat-card-content style="width: 100%;">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
