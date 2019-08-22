@@ -1,0 +1,10 @@
+
+
+
+
+<li class="pulsate-bck" *ngFor="let qualis of cv-qualis">
+  <a routerLink="/detail/{{hero.id}}">
+    <span class="badge">{{hero.id}}</span> {{hero.name}}
+  </a>
+  <button class="delete" title="delete hero" (click)="delete(hero)">x</button>
+</li>
