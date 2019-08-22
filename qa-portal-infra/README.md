@@ -81,3 +81,18 @@ Once downloaded, run the installer, supplying admin user and password (postgres 
 Open pgadmin and from the browser right click on Databases and select Create --> Database. Enter the database name as qa-portal and Save
 
 The schema and tables will be created when the core-api project in the qa-portal-services folder is run (This is done by a library called Flyway)
+
+
+MongoDB
+---
+
+**Step1 - Install MongoDb**
+
+Go to the MongoDb download page (https://docs.mongodb.com/manual/administration/install-community/) and select the download 
+appropriate for your platform
+
+Once downloaded, run the installer, supplying admin user and password (mongo / mongo)
+
+**Step2 - Create qa-portal-cv database**
+
+Open MongoDB Compass Community (or mongo shell) create database called qa-portal-cv and create a collection called cv-version
