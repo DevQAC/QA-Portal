@@ -14,7 +14,7 @@ import { SideMenuService } from '../_common/services/side-menu.service';
 export class PortalHeaderComponent implements OnInit, OnDestroy {
   portalApplications: any[] = [];
 
-  displayName = 'EXAMPLE USER';
+  displayName = '';
 
   navMenuSubscription: Subscription;
 
@@ -32,6 +32,8 @@ export class PortalHeaderComponent implements OnInit, OnDestroy {
         this.portalApplications = response;
       }
       );
+
+      this.displayName = this.keycloak.getUsername().toLocaleUpperCase();
   }
 
   ngOnDestroy(): void {

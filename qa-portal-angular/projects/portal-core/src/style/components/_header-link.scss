@@ -1,0 +1,14 @@
+app-header-link {
+    .mat-button {
+        border-radius: 0;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        height: 100%;
+
+
+        &.link-active {
+            border-bottom: 2px solid mat-color($theme-primary);
+            
+        }
+    }
+}   

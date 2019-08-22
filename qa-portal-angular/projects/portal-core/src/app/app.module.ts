@@ -17,6 +17,7 @@ import {CourseFeedbackSharedModule} from '../../../course-feedback/src/app/app.m
 import {SelfReflectionSharedModule} from '../../../self-reflection/src/app/app.module';
 import {initializer} from '../../../../app-init';
 import {QaToastrService} from './_common/services/qa-toastr.service';
+import { HeaderLinkComponent } from './header-link/header-link.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {QaToastrService} from './_common/services/qa-toastr.service';
     PortalSideMenuComponent,
     PortalSideMenuContentComponent,
     PortalFooterComponent,
+    HeaderLinkComponent,
   ],
   imports: [
     QaCommonModule,

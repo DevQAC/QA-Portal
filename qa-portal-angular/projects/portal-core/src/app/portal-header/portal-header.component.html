@@ -2,17 +2,23 @@
   <mat-toolbar-row>
     
     <!-- ICON -->
-    <div class="icon-container">
+    <!-- <div class="icon-container">
       <a class="logo" [routerLink]="['/qa/portal/home']" matRipple>
         <mat-icon svgIcon="qa-logo"></mat-icon>
       </a>
-    </div>
+    </div> -->
     
     <!-- LEFT ALIGN-->
     <div class="content-left">
-      <a class="menu-button" (click)="sideMenuService.toggleOpen()">
+      <!-- <a class="menu-button" (click)="sideMenuService.toggleOpen()">
         <mat-icon>menu</mat-icon>
+      </a> -->
+      <a class="logo" [routerLink]="['/qa/portal/home']" matRipple>
+        <mat-icon svgIcon="qa-logo"></mat-icon>
       </a>
+      <div class="header-links">
+          <app-header-link *ngFor="let deptApps of portalApplications">{{deptApps?.department?.name || 'Unknown Department'}}</app-header-link>
+        </div>
     </div>
 
     <!-- RIGHT ALIGN -->

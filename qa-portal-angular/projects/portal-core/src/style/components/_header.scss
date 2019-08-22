@@ -7,31 +7,27 @@ app-portal-header {
         z-index: 10;
     }
 
-    .icon-container {
-        position: absolute;
-        display: flex;
-        height: 100%;
-        width: 100%;
-        pointer-events: none;
+    .logo {
+        margin: auto;
+        color: mat-color($theme-primary);
+        transition: color 0.1s ease-in-out;
+        pointer-events: all;
+        margin-right: 1rem;
 
-        .logo {
-            margin: auto;
-            color: mat-color($theme-primary);
-            transition: color 0.1s ease-in-out;
-            pointer-events: all;
+        &:hover {
+            color: mat-color($theme-accent);
+        }
 
-            &:hover {
-                color: mat-color($theme-accent);
-            }
-
-            mat-icon {
-                height: 64px;
-                width: 64px;
-            }
+        mat-icon {
+            height: 64px;
+            width: 64px;
         }
     }
 
     .content-left {
+        display: inline-flex;
+        height: 100%;
+
         margin-left: 1rem;
         margin-right: auto;
     }
@@ -54,11 +50,16 @@ app-portal-header {
 
     .menu-button {
         cursor: pointer;
+        margin: auto 0;
     }
 
     .portal-buttons {
         button {
             margin-right: 1rem;
         }
+    }
+
+    .header-links {
+        display: inline-flex;
     }
 }
