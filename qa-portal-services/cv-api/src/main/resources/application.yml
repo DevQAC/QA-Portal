@@ -24,6 +24,8 @@ qa:
     config:
       file: keycloak.json
 
+onedrive:
+  filelocation: /onedrive
 
 ---
 spring:
