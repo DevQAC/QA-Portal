@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "cv_version")
 public class CvVersion {
-
+ 
     @Id
     private String id;
     private Integer versionNumber;
