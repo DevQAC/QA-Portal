@@ -1,5 +1,7 @@
 package com.qa.portal.cv.rest;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,11 @@ public class CvManagementController {
 	@PostMapping("/cv")
 	public String createCv(@RequestBody CvVersion newCv) {
 		return this.service.createCv(newCv);
+	}
+	
+	@PostMapping("/getAll")
+	public List<CvVersion> getAll() {
+		return service.getAll();
 	}
 
 }
