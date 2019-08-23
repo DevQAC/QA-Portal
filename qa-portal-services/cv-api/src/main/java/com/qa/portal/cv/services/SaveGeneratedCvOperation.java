@@ -1,13 +1,13 @@
 package com.qa.portal.cv.services;
 
-import java.io.InputStream;
-
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.qa.portal.common.util.QaFileManager;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.util.CvPdfGenerator;
 
+@Component
 public class SaveGeneratedCvOperation {
 
 	private CvPdfGenerator pdfGenerator;
@@ -21,8 +21,8 @@ public class SaveGeneratedCvOperation {
 	}
 
 	public void saveGeneratedCv(CvVersion cvVersion) {
-		InputStream is = pdfGenerator.generateCv(cvVersion);
+		byte[] cvByteArray = pdfGenerator.generateCv(cvVersion);
 		//add folder name & CV filename to fileLocation parameter.
-		fileManager.storeFile(fileLocation, is);
+		//fileManager.storeFile(fileLocation, cvByteArray);
 	}
 }

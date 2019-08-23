@@ -3,7 +3,6 @@ package com.qa.portal.common.util;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.springframework.stereotype.Component;
 
@@ -11,18 +10,10 @@ import org.springframework.stereotype.Component;
 public class QaOneDriveManger implements QaFileManager {
 
 	@Override
-	public void storeFile(String filePath, InputStream is) {
+	public void storeFile(String filePath, byte[] cvByteArray) {
 		try {
 			//move existing CV to archive
 			archiveFile(filePath);
-
-			//get new CV data
-			int estSize = is.available();
-			byte[] data = new byte[estSize];
-			int bytesRead = is.read(data);
-			if(estSize != bytesRead) {
-				//some error (potentially haven't read whole file)
-			}
 
 			//create folder(s) to user folder if they are a new user
 			File directory = new File(filePath).getParentFile();
@@ -30,7 +21,7 @@ public class QaOneDriveManger implements QaFileManager {
 			
 			//save new CV
 			FileOutputStream fos = new FileOutputStream(filePath);
-			fos.write(data);
+			fos.write(cvByteArray);
 			fos.flush();
 			fos.close();
 			
