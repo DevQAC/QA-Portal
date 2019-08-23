@@ -3,18 +3,21 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { QaCommonModule } from 'projects/qa-common/src/app/app.module';
 import { CvRoutingModule } from './cv-routing.module';
 import { ViewCvComponent } from './view-cv/view-cv.component';
+import { CvSearchComponent } from './cv-search/cv-search.component';
+import {CVSearchHistoryService} from './cv-search/services/cv-search-history.service';
 
 
 @NgModule({
   declarations: [
-    ViewCvComponent
+    ViewCvComponent,
+    CvSearchComponent
   ],
   imports: [
     BrowserModule,
     CvRoutingModule,
     QaCommonModule
   ],
-  providers: []
+  providers: [CVSearchHistoryService]
 })
 export class QaCvModule { }
 
