@@ -12,19 +12,8 @@ public class QaSharepointManager implements QaFileManager {
 	private RestTemplate restTemplate;
 	
 	@Override
-	public void storeFile(String filePath, InputStream is) {
+	public void storeFile(String filePath, byte[] data) {
 		//get new CV data
-		byte[] data = null;
-		try {
-			int estSize = is.available();
-			data = new byte[estSize];
-			int bytesRead = is.read(data);
-			if(estSize != bytesRead) {
-				//TODO: some error (potentially haven't read whole file)
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		if(data != null) postCV(filePath, data);
 	}
