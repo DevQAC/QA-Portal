@@ -2,6 +2,7 @@ package com.qa.portal.cv.domain;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -11,11 +12,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "cv_version")
 public class CvVersion {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+   
+   // @GeneratedValue(strategy = GenerationType.SEQUENCE)
+	
     private Integer versionNumber;
     private String status;
+	@Id
     private String userName;
     private String firstName;
     private String surname;
@@ -37,9 +39,10 @@ public class CvVersion {
 			String fullName, String cohort, Profile profile, List<Skills> allSkills,
 			List<Qualification> allQualifications, List<WorkExperience> allWorkExperience, Hobbies hobbies) {
 		super();
-		this.id = id;
+		//this.id = id;
 		this.versionNumber = versionNumber;
 		this.status = status;
+	
 		this.userName = userName;
 		this.firstName = firstName;
 		this.surname = surname;
@@ -52,13 +55,13 @@ public class CvVersion {
 		this.hobbies = hobbies;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+//	public Integer getId() {
+//		return id;
+//	}
+//
+//	public void setId(Integer id) {
+//		this.id = id;
+//	}
 
 	public Integer getVersionNumber() {
 		return versionNumber;

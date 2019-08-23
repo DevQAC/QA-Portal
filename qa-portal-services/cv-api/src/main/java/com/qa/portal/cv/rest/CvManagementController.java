@@ -1,5 +1,8 @@
 package com.qa.portal.cv.rest;
 
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +23,13 @@ public class CvManagementController {
 	}
 	
 	@PostMapping("/create")
-	public String createCv(@RequestBody CvVersion newCv) {
-		return this.service.createCv(newCv);
+	public ResponseEntity<String> createCv(@RequestBody CvVersion newCv) {
+		
+		return ResponseEntity.ok(service.createCv(newCv));
 	}
 
+	@GetMapping("/abc")
+	public ResponseEntity<String> Boom() {
+		return ResponseEntity.ok("hello");
+	}
 }
