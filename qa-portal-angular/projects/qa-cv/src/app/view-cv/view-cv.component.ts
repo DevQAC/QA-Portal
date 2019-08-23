@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ICvModel } from '../_common/models/qac-cv-db.model';
-import { ViewCvService } from '../_common/services/view-cv-service.service';
+import { ViewCvService } from '../_common/services/view-cv.service';
 
 @Component({
   selector: 'app-view-cv',

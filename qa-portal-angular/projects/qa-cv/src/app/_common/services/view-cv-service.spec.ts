@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ViewCvServiceService } from './view-cv-service.service';
+import { ViewCvServiceService } from './view-cv.service';
 
 describe('ViewCvServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
