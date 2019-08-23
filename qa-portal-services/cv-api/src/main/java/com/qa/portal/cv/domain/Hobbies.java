@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Hobbies {
 
-	
 	private String hobbies;
 	private List<Feedback> hobbiesFeedback;
 	
