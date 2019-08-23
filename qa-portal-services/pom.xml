@@ -29,6 +29,7 @@
         <module>course-api</module>
         <module>self-reflection</module>
         <module>feedback-api</module>
+        <module>cv-api</module>
     </modules>
 
 </project>
