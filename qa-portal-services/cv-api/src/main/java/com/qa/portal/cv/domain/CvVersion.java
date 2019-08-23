@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CvVersion {
 
     @Id
-    private Integer id;
+    private String id;
     private Integer versionNumber;
     private String status;
     private String userName;
@@ -32,7 +32,7 @@ public class CvVersion {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CvVersion(Integer id, Integer versionNumber, String status, String userName, String firstName, String surname,
+	public CvVersion(String id, Integer versionNumber, String status, String userName, String firstName, String surname,
 			String fullName, String cohort, Profile profile, List<Skills> allSkills,
 			List<Qualification> allQualifications, List<WorkExperience> allWorkExperience, Hobbies hobbies) {
 		super();
@@ -51,11 +51,11 @@ public class CvVersion {
 		this.hobbies = hobbies;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
