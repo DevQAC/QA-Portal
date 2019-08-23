@@ -1,3 +1,11 @@
-<p>
-  cv-qualis-wrapper works!
-</p>
+
+<mat-card>
+    <mat-card-content>
+        <button mat-fab (click)="onNewQualiClick()"><mat-icon>add</mat-icon></button>
+        <div *ngFor="let quali of qualifications; index as i">
+        
+            <app-cv-qualis [qualifications1]="quali" (qualifications1Change)="quali = $event" (deleteQualification)="onDeleteQualiEvent(i)"></app-cv-qualis>
+        
+        </div>
+    </mat-card-content>
+</mat-card>
