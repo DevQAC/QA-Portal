@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IProfile } from '../_common/models/profile.model';
 
 
 @Component({
@@ -7,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cv-profile.component.css']
 })
 export class CvProfileComponent implements OnInit {
+  @Input() profile: IProfile;
+  @Output() profileChange = new EventEmitter<IProfile>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onInputChange(data) {
+    this.profile.p_detail = data;
+    this.profileChange.emit(this.profile);
   }
 
 }
