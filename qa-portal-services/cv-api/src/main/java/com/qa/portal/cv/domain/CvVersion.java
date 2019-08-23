@@ -19,7 +19,7 @@ public class CvVersion {
     private String userName;
     private String firstName;
     private String surname;
-    private String fullName = firstName + surname;
+    private String fullName;
     private String jobTitle;
 
     private Profile profile;
@@ -101,11 +101,11 @@ public class CvVersion {
 	}
 
 	public String getFullName() {
-		return fullName;
+		return this.fullName;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setFullName() {
+		this.fullName = this.firstName + " " + this.surname;
 	}
 
 	public String getJobTitle() {
