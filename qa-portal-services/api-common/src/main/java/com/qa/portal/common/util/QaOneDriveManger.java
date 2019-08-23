@@ -21,7 +21,7 @@ public class QaOneDriveManger implements QaFileManager {
 			byte[] data = new byte[estSize];
 			int bytesRead = is.read(data);
 			if(estSize != bytesRead) {
-				//some error (potentially haven't read whole file)
+				//TODO: some error (potentially haven't read whole file)
 			}
 
 			//create folder(s) to user folder if they are a new user
@@ -41,7 +41,7 @@ public class QaOneDriveManger implements QaFileManager {
 	}
 
 	//errors if files in archive aren't like "<ANYTHING>version<VERSION-NUMBER>.<EXTENSION>"
-	private static void archiveFile(String filePath) {
+	private void archiveFile(String filePath) {
 		File file = new File(filePath);
 		if(file.exists()) {
 			//make archive folder if it doesn't already exist
@@ -56,7 +56,7 @@ public class QaOneDriveManger implements QaFileManager {
 		}
 	}
 
-	private static int getCurrentVersion(File userDir) {
+	private int getCurrentVersion(File userDir) {
 		int version = 0;
 		if(userDir.isDirectory()) {
 			for(String fileName : userDir.list()) {
