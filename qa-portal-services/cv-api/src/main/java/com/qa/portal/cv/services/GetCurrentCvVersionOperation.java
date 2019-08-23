@@ -35,7 +35,7 @@ public class GetCurrentCvVersionOperation {
 		}
 	}
 	
-	public List<CvVersion> findCurrentCvVersion(Integer versionNumber) {
+	public Integer findByVersionNumber(Integer versionNumber) {
 		List<CvVersion> a = repo.findByVersionNumber(versionNumber);
 		if (a.isEmpty()) {
 			return null; //!IMPORTANT - needs an exception handler here!

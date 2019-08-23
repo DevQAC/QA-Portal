@@ -32,6 +32,8 @@ public class CvManagementService {
     	return this.getCvService.getAll();
     }
     
-    
+    public Integer findByVersionNumber(Integer versionNumber) {
+    	return this.getCvService.findByVersionNumber(versionNumber);
+    }
     
 }
