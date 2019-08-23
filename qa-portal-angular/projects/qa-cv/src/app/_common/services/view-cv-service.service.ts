@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ICvModel } from '../models/qac-cv-db.model';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
@@ -19,12 +19,72 @@ export class ViewCvService {
     private messageService: MessageService) { }
 
   /** GET cvs from the server */
-  getAllCvs(): Observable<ICvModel[]> {
-    return this.http.get<ICvModel[]>(this.getUrl)
-      .pipe(
-        tap(_ => this.log('fetched cvs')),
-        catchError(this.handleError<ICvModel[]>('getICvModeles', []))
-      );
+  getAllCvs() {
+    return <ICvModel>{
+      full_name: 'Ian Owen',
+      work_experience: [{
+        job: "hacker",
+        start_date: "2019-01-01",
+        end_date: "2019-01-02",
+        detail: "i hacked the pentagon",
+        feedback: []
+      }],
+      profile: {
+        p_detail: 'test p_detail',
+        feedback: [
+          {
+            who: 'me',
+            date: '2000-01-01',
+            comment: 'test comment'
+          }
+        ]
+      },
+      hobbies: {
+        h_detail: "test h_detail",
+        feedback: [
+          {
+            who: 'me',
+            date: '2000-01-01',
+            comment: 'test comment'
+          }
+        ]
+      },
+      qualifications: [{
+        q_detail: "qual test1",
+        feedback: [
+          {
+            who: 'me',
+            date: '2000-01-01',
+            comment: 'test comment'
+          }
+        ]
+      }, {
+        q_detail: "qual test2",
+        feedback: [
+          {
+            who: 'me',
+            date: '2000-01-01',
+            comment: 'test comment'
+          }
+        ]
+      }, {
+        q_detail: "qual test3",
+        feedback: [
+          {
+            who: 'me',
+            date: '2000-01-01',
+            comment: 'test comment'
+          }
+        ]
+      }]
+
+    }
+    // remember to declare type when uncommenting this!!! ==>> Observable<ICvModel[]>
+    // return this.http.get<ICvModel[]>(this.getUrl)
+    //   .pipe(
+    //     tap(_ => this.log('fetched cvs')),
+    //     catchError(this.handleError<ICvModel[]>('getICvModeles', []))
+    //   );
   }
 
   /** GET cv by id. Return `undefined` when id not found */

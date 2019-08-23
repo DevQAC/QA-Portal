@@ -18,67 +18,6 @@ export class ViewCvComponent implements OnInit {
 
   ngOnInit() {
     this.getAllCvs();
-
-
-    this.cvData = <ICvModel>{
-      full_name: 'Ian Owen',
-      work_experience: [{
-        job: "hacker",
-        start_date: "2019-01-01",
-        end_date: "2019-01-02",
-        detail: "i hacked the pentagon",
-        feedback: []
-      }],
-      profile: {
-        p_detail: 'test p_detail',
-        feedback: [
-          {
-            who: 'me',
-            date: '2000-01-01',
-            comment: 'test comment'
-          }
-        ]
-      },
-      hobbies: {
-        h_detail: "test h_detail",
-        feedback: [
-          {
-            who: 'me',
-            date: '2000-01-01',
-            comment: 'test comment'
-          }
-        ]
-      },
-      qualifications: [{
-        q_detail: "qual test1",
-        feedback: [
-          {
-            who: 'me',
-            date: '2000-01-01',
-            comment: 'test comment'
-          }
-        ]
-      }, {
-        q_detail: "qual test2",
-        feedback: [
-          {
-            who: 'me',
-            date: '2000-01-01',
-            comment: 'test comment'
-          }
-        ]
-      }, {
-        q_detail: "qual test3",
-        feedback: [
-          {
-            who: 'me',
-            date: '2000-01-01',
-            comment: 'test comment'
-          }
-        ]
-      }]
-
-    }
   }
 
   onSave(): void {
@@ -86,8 +25,8 @@ export class ViewCvComponent implements OnInit {
   }
 
   getAllCvs(): void {
-    this.cvService.getAllCvs()
-      .subscribe(cvs => this.cvs = cvs);
+    this.cvData = this.cvService.getAllCvs()
+    //.subscribe(cvs => this.cvs = cvs);
   }
 
 }
