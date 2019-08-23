@@ -1,1 +1,10 @@
-<input [ngModel]="hobbies.h_detail" (ngModelChange)="onInputChange($event)">
+
+
+<mat-card>
+        <mat-card-content>
+<p> Hobbies </p>
+<mat-form-field class="example-full-width">
+        <textarea matInput  [ngModel]="hobbies.h_detail" (ngModelChange)="onInputChange($event)"></textarea>
+</mat-form-field>
+</mat-card-content>
+</mat-card>

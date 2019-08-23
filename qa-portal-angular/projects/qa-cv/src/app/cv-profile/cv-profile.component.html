@@ -1,2 +1,10 @@
 
-  <input [ngModel]="profile.p_detail" (ngModelChange)="onInputChange($event)">
+<mat-card>
+    <mat-card-content>
+<p> Profile </p>
+
+<mat-form-field class="example-full-width">
+    <textarea matInput  [ngModel]="profile.p_detail" (ngModelChange)="onInputChange($event)"></textarea>
+</mat-form-field>
+  </mat-card-content>
+  </mat-card>

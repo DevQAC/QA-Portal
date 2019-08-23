@@ -1,6 +1,9 @@
+
+<mat-card>
+        <mat-card-content>
+
 <h1>{{cvData?.full_name}}</h1>
 <app-cv-profile [profile]="cvData.profile" (profileChange)="cvData.profile = $event"></app-cv-profile>
-<br>
 <br>
 <app-cv-hobbies [hobbies]="cvData.hobbies"  (hobbiesChange)="cvData.hobbies = $event"> </app-cv-hobbies>  
 <br>
@@ -13,3 +16,5 @@
 
  <button (click)="onSave()">Save</button>
 
+</mat-card-content>
+</mat-card>
