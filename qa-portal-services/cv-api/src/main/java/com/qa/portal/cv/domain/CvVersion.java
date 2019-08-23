@@ -20,7 +20,7 @@ public class CvVersion {
     private String firstName;
     private String surname;
     private String fullName;
-    private String jobTitle;
+    private String cohort;
 
     private Profile profile;
     private List<Skills> allSkills;
@@ -34,7 +34,7 @@ public class CvVersion {
 	}
 
 	public CvVersion(Integer id, String versionNumber, String status, String userName, String firstName, String surname,
-			String fullName, String jobTitle, Profile profile, List<Skills> allSkills,
+			String fullName, String cohort, Profile profile, List<Skills> allSkills,
 			List<Qualification> allQualifications, List<WorkExperience> allWorkExperience, Hobbies hobbies) {
 		super();
 		this.id = id;
@@ -44,7 +44,7 @@ public class CvVersion {
 		this.firstName = firstName;
 		this.surname = surname;
 		this.fullName = fullName;
-		this.jobTitle = jobTitle;
+		this.cohort = cohort;
 		this.profile = profile;
 		this.allSkills = allSkills;
 		this.allQualifications = allQualifications;
@@ -108,12 +108,12 @@ public class CvVersion {
 		this.fullName = this.firstName + " " + this.surname;
 	}
 
-	public String getJobTitle() {
-		return jobTitle;
+	public String getCohort() {
+		return cohort;
 	}
-
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
+	
+	public void setCohort(String cohort) {
+		this.cohort = cohort;
 	}
 
 	public Profile getProfile() {
@@ -155,5 +155,6 @@ public class CvVersion {
 	public void setHobbies(Hobbies hobbies) {
 		this.hobbies = hobbies;
 	}
+
 
 }
