@@ -1,5 +1,7 @@
 package com.qa.portal.cv.rest;
 
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,5 +21,10 @@ public class CvManagementController {
 	@PostMapping("cv")
 	public void saveGeneratedCV(@RequestBody CvVersion cvVersion) {
 		service.saveGeneratedCv(cvVersion);
+	}
+
+	@PostMapping(value="cv/pdf", produces={MediaType.APPLICATION_PDF_VALUE})
+	public ResponseEntity<byte[]> getCvAsPdf() {
+		return ResponseEntity.ok(service.getGeneratedCv(new CvVersion()));
 	}
 }
