@@ -3,7 +3,7 @@
     <mat-icon>add</mat-icon>
   </button>
 </h2>
-<div *ngFor="let experience of experiences; index as i">
+<mat-accordion *ngFor="let experience of experiences; index as i">
   <app-cv-work-exp [experience]="experience" (experienceChange)="onInputChange($event, i)"
     (experienceDelete)="delExp(i)"></app-cv-work-exp>
-</div>
+</mat-accordion>
