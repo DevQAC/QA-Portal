@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IWorkExperience } from '../../_common/models/work-experience.model';
 
 @Component({
   selector: 'app-cv-work-exp',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cv-work-exp.component.css']
 })
 export class CvWorkExpComponent implements OnInit {
+  @Input() experience: IWorkExperience;
+  @Output() experienceChange = new EventEmitter<IWorkExperience>();
 
   constructor() { }
 
   ngOnInit() {
+
   }
 
+  onSave(data) {
+    this.experience = data;
+    this.experienceChange.emit(this.experience);
+    debugger;
+  }
 }

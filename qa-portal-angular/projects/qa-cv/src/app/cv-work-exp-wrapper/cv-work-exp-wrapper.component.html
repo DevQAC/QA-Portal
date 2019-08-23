@@ -1,3 +1,4 @@
-<p>
-  cv-work-exp-wrapper works!
-</p>
+<div *ngFor="let experience of experiences">
+  <app-cv-work-exp [experience]="experience" (ngModelChange)="onInputChange($event)"></app-cv-work-exp>
+</div>
+<button mat-button>Add Work Experience</button>

@@ -1,6 +1,7 @@
-<h1 value="getCvName()"></h1>
+<h1>{{cvData.full_name}}</h1>
 <app-cv-profile></app-cv-profile>
 <app-cv-skills></app-cv-skills>
 <app-cv-hobbies></app-cv-hobbies>
 <app-cv-qualis-wrapper></app-cv-qualis-wrapper>
-<app-cv-work-exp-wrapper></app-cv-work-exp-wrapper>
+<app-cv-work-exp-wrapper [experiences]="cvData.work_experience" (experiencesChange)="cvData.work_experience = $event">
+</app-cv-work-exp-wrapper>

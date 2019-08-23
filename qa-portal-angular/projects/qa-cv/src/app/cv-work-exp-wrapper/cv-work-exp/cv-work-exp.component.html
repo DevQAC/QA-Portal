@@ -1,3 +1,20 @@
-<p>
-  cv-work-exp works!
-</p>
+<mat-form-field>
+  <input matInput [ngModel]="experience.job">
+</mat-form-field><br>
+<mat-form-field>
+  <input matInput [matDatepicker]="picker1" placeholder="Start Date" [ngModel]="experience.start_date">
+  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1></mat-datepicker>
+</mat-form-field><br>
+<mat-form-field>
+  <input matInput [matDatepicker]="picker2" placeholder="End Date" [ngModel]="experience.end_date">
+  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+  <mat-datepicker #picker2></mat-datepicker>
+</mat-form-field><br>
+<mat-form-field>
+  <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+    [ngModel]="experience.detail"></textarea>
+</mat-form-field>
+
+<button mat-button (click)="onSave()">Save Changes</button>
+<button mat-button>Remove this Expereience</button>
