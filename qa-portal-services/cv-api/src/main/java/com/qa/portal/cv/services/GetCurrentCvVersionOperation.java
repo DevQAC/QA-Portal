@@ -15,17 +15,33 @@ public class GetCurrentCvVersionOperation {
 
 	private CvVersionRepository repo;
 	
-	public GetCurrentCvVersionOperation() {
-		
+	
+	public GetCurrentCvVersionOperation(CvVersionRepository repo) {
+		super();
+		this.repo = repo;
 	}
 	
-	public String findVersion(Integer versionNumber) {
+	public List<CvVersion> getAll() {
+		List<CvVersion> records = repo.findAll();
+		return records;
+	}
+	
+	public List<CvVersion> findFullName(String fullName) {
+		List<CvVersion> n = repo.findByFullName(fullName);
+		if(n == null) {
+			return null; //!IMPORTANT - needs an exception handler here!
+		} else {
+			return n;			
+		}
+	}
+	
+	public Integer findByVersionNumber(Integer versionNumber) {
 		List<CvVersion> a = repo.findByVersionNumber(versionNumber);
 		if (a.isEmpty()) {
-			return "Cannot find this CV.";
+			return null; //!IMPORTANT - needs an exception handler here!
 		} else {
 			CvVersion cv = a.get(versionNumber);
-			return "Record found: " + cv.getVersionNumber();
+			return cv.getVersionNumber();
 		}
 	}
 
