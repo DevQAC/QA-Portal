@@ -14,7 +14,7 @@ public class CvVersion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
-    private String versionNumber;
+    private Integer versionNumber;
     private String status;
     private String userName;
     private String firstName;
@@ -33,7 +33,7 @@ public class CvVersion {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CvVersion(Integer id, String versionNumber, String status, String userName, String firstName, String surname,
+	public CvVersion(Integer id, Integer versionNumber, String status, String userName, String firstName, String surname,
 			String fullName, String cohort, Profile profile, List<Skills> allSkills,
 			List<Qualification> allQualifications, List<WorkExperience> allWorkExperience, Hobbies hobbies) {
 		super();
@@ -60,11 +60,11 @@ public class CvVersion {
 		this.id = id;
 	}
 
-	public String getVersionNumber() {
+	public Integer getVersionNumber() {
 		return versionNumber;
 	}
 
-	public void setVersionNumber(String versionNumber) {
+	public void setVersionNumber(Integer versionNumber) {
 		this.versionNumber = versionNumber;
 	}
 
