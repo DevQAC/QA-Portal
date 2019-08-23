@@ -15,7 +15,7 @@ public class CreateCvOperation {
 		this.repo = repo;
 	}
 	
-	public String addCv(CvVersion newCv) {
+	public String createCv(CvVersion newCv) {
 		
 		newCv.setFullName();
 		
