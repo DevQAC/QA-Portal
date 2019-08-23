@@ -2,6 +2,7 @@ package com.qa.portal.cv.rest;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +22,8 @@ public class CvManagementController {
 	}
 	
 	@PostMapping("/cv")
-	public String createCv(@RequestBody CvVersion newCv) {
-		return this.service.createCv(newCv);
+	public ResponseEntity<String> createCv(@RequestBody CvVersion newCv) {
+		return ResponseEntity.ok(this.service.createCv(newCv));
 	}
 	
 	@GetMapping("/getAll")

@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CvVersion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private Integer versionNumber;
     private String status;
