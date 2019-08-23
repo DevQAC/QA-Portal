@@ -1,0 +1,96 @@
+{
+  "version_number": " ",
+  "status": " ",
+  "id": 0, //auto_increment
+  "user_name": " ",
+  "first_name": " ",
+  "surname": " ",
+  "full_name": " ", //Derived from first and last, (to make searching easier)
+  "job_title": " ",
+  "profile": {
+    "p_detail": " ",
+    "feedback": [
+      {
+        "who": " ",
+        "date": " ",
+        "comment": " "
+      }
+    ]
+  },
+  "skills": [
+    {
+      "programming_languages": [
+        " ",
+        " ",
+        " "
+      ],
+      "IDEs": [
+        " ",
+        " ",
+        " "
+      ],
+      "operating_systems": [
+        " ",
+        " ",
+        " "
+      ],
+      "devops": [
+        " ",
+        " ",
+        " "
+      ],
+      "databases": [
+        " ",
+        " ",
+        " "
+      ],
+      "platforms": [
+        " ",
+        " ",
+        " "
+      ],
+      "other": [
+        " ",
+        " ",
+        " "
+      ]
+    }
+  ],
+  "qualifications": [
+    {
+      "q_detail": " ",
+      "feedback": [
+        {
+          "who": " ",
+          "date": " ",
+          "comment": " "
+        }
+      ]
+    }
+  ],
+  "work_experience": [
+    {
+      "job": " ",
+      "start_date": " ",
+      "end_date": " ",
+      "detail": " ",
+      "feedback": [
+        {
+          "who": " ",
+          "date": " ",
+          "comment": " "
+        }
+      ]
+    }
+  ],
+  "hobbies": {
+    "h_detail": " ",
+    "feedback": [
+      {
+        "who": " ",
+        "date": " ",
+        "comment": " "
+      }
+    ]
+  }
+}
