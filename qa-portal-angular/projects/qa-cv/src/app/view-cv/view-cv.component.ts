@@ -18,6 +18,13 @@ export class ViewCvComponent implements OnInit {
 
     this.cvData = <ICvModel>{
       full_name: 'Ian Owen',
+      work_experience: [{
+        job: "hacker",
+        start_date: "2019-01-01",
+        end_date: "2019-01-02",
+        detail: "i hacked the pentagon",
+        feedback: []
+      }],
       profile: {
         p_detail: 'test p_detail',
         feedback: [
@@ -47,7 +54,7 @@ export class ViewCvComponent implements OnInit {
             comment: 'test comment'
           }
         ]
-      },{
+      }, {
         q_detail: "qual test2",
         feedback: [
           {
@@ -56,7 +63,7 @@ export class ViewCvComponent implements OnInit {
             comment: 'test comment'
           }
         ]
-      },{
+      }, {
         q_detail: "qual test3",
         feedback: [
           {

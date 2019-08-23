@@ -1,20 +1,22 @@
-
 <mat-card>
         <mat-card-content>
 
-<h1>{{cvData?.full_name}}</h1>
-<app-cv-profile [profile]="cvData.profile" (profileChange)="cvData.profile = $event"></app-cv-profile>
-<br>
-<app-cv-hobbies [hobbies]="cvData.hobbies"  (hobbiesChange)="cvData.hobbies = $event"> </app-cv-hobbies>  
-<br>
-<app-cv-qualis-wrapper [qualifications]="cvData.qualifications"  (qualificationsChange)="cvData.qualifications = $event"></app-cv-qualis-wrapper>
+                <h1>{{cvData?.full_name}}</h1>
+                <app-cv-profile [profile]="cvData.profile" (profileChange)="cvData.profile = $event"></app-cv-profile>
+                <br>
+                <app-cv-hobbies [hobbies]="cvData.hobbies" (hobbiesChange)="cvData.hobbies = $event"> </app-cv-hobbies>
+                <br>
+                <app-cv-qualis-wrapper [qualifications]="cvData.qualifications"
+                        (qualificationsChange)="cvData.qualifications = $event"></app-cv-qualis-wrapper>
+                <app-cv-work-exp-wrapper [experiences]="cvData.work_experience"
+                        (experiencesChange)="cvData.work_experience = $event">
+                </app-cv-work-exp-wrapper>
 
-
-<!-- <app-cv-qualis></app-cv-qualis>
+                <!-- <app-cv-qualis></app-cv-qualis>
 <app-cv-work-exp-wrapper></app-cv-work-exp-wrapper>
- --> 
+ -->
 
- <button (click)="onSave()">Save</button>
+                <button (click)="onSave()">Save</button>
 
-</mat-card-content>
+        </mat-card-content>
 </mat-card>

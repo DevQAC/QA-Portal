@@ -1,3 +1,9 @@
-<p>
-  cv-work-exp-wrapper works!
-</p>
+<h2>Work Experience
+  <button mat-mini-fab style="float: right" (click)="addExp()">
+    <mat-icon>add</mat-icon>
+  </button>
+</h2>
+<div *ngFor="let experience of experiences; index as i">
+  <app-cv-work-exp [experience]="experience" (experienceChange)="onInputChange($event, i)"
+    (experienceDelete)="delExp(i)"></app-cv-work-exp>
+</div>

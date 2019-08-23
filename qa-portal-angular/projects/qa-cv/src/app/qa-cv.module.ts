@@ -10,6 +10,7 @@ import { CvQualisWrapperComponent } from './cv-qualis-wrapper/cv-qualis-wrapper.
 import { CvSkillsComponent } from './cv-skills/cv-skills.component';
 import { CvWorkExpComponent } from './cv-work-exp-wrapper/cv-work-exp/cv-work-exp.component';
 import { CvQualisComponent } from './cv-qualis-wrapper/cv-qualis/cv-qualis.component';
+import { MatNativeDateModule } from '@angular/material';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CvQualisComponent } from './cv-qualis-wrapper/cv-qualis/cv-qualis.compo
   imports: [
     BrowserModule,
     CvRoutingModule,
-    QaCommonModule
+    QaCommonModule,
+    MatNativeDateModule
   ],
   providers: []
 })
