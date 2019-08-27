@@ -12,8 +12,8 @@ export class CvQualisWrapperComponent {
 
   onNewQualiClick(): void {
     this.qualifications = [{
-      q_detail: '<<NEW QUALI DEFAULT>>',
-      feedback: []
+      qualificationDetails: '<<NEW QUALI DEFAULT>>',
+      qualificationFeedback: []
     }, ...this.qualifications];
     this.qualificationsChange.emit(this.qualifications);
   }

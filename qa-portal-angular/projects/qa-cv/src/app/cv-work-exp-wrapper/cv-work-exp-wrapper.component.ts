@@ -24,11 +24,11 @@ export class CvWorkExpWrapperComponent implements OnInit {
 
   addExp(): void {
     this.experiences = [{
-      job: "",
-      start_date: "",
-      end_date: "",
-      detail: "",
-      feedback: []
+      jobTitle: "",
+      start: "",
+      end: "",
+      workExperienceDetails: "",
+      workExperienceFeedback: []
     }, ...this.experiences]
     this.experiencesChange.emit(this.experiences)
   }

@@ -47,7 +47,18 @@ export class ViewCvService {
                       "comment": "everyone has that quali"
                   }
               ]
-          }
+          }  
+          ,
+          {
+            "qualificationDetails": "qual test2",
+            "qualificationFeedback": [
+                {
+                    "reviewer": "me2",
+                    "date": "2019-01-03",
+                    "comment": "everyone has that quali2"
+                }
+            ]
+        }
       ],
       "allWorkExperience": [
           {

@@ -29,7 +29,7 @@ export class CvQualisComponent implements OnInit {
   }
 
   onInputChange(data) {
-    this.qualifications1.q_detail = data;
+    this.qualifications1.qualificationDetails = data;
     this.qualificationsChange.emit(this.qualifications1);
   }
 

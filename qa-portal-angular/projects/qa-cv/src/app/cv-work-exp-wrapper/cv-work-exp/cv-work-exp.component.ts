@@ -18,22 +18,22 @@ export class CvWorkExpComponent implements OnInit {
   }
 
   onTitleChange(input) {
-    this.experience.job = input;
+    this.experience.jobTitle = input;
     this.announceChange();
   }
 
   onStartDateChange(input) {
-    this.experience.start_date = input;
+    this.experience.start = input;
     this.announceChange();
   }
 
   onEndDateChange(input) {
-    this.experience.end_date = input;
+    this.experience.end = input;
     this.announceChange();
   }
 
   onDetailChange(input) {
-    this.experience.detail = input;
+    this.experience.workExperienceDetails = input;
     this.announceChange();
   }
 
