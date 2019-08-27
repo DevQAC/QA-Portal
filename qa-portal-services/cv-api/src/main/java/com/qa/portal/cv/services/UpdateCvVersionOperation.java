@@ -19,7 +19,7 @@ public class UpdateCvVersionOperation {
 		
 		repo.save(updatedCv);
 		
-		return "placeholder";
+		return "CV Updated";
 	}
 	
 }
