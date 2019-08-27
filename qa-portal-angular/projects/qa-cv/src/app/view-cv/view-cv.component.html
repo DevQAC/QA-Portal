@@ -1,3 +1,18 @@
-<p>
-  view-cv works!
-</p>
+<h1>{{cvData.full_name}}</h1>
+<app-cv-skills></app-cv-skills>
+<app-cv-work-exp-wrapper [experiences]="cvData.work_experience" (experiencesChange)="cvData.work_experience = $event">
+</app-cv-work-exp-wrapper>
+<app-cv-profile [profile]="cvData.profile" (profileChange)="cvData.profile = $event"></app-cv-profile>
+<br>
+<br>
+<app-cv-hobbies [hobbies]="cvData.hobbies" (hobbiesChange)="cvData.hobbies = $event"> </app-cv-hobbies>
+<br>
+<app-cv-qualis [qualifications]="cvData.qualifications" (qualificationsChange)="cvData.qualifications = $event">
+</app-cv-qualis>
+
+
+<!-- <app-cv-qualis></app-cv-qualis>
+<app-cv-work-exp-wrapper></app-cv-work-exp-wrapper>
+ -->
+
+<button (click)="onSave()">Save</button>
