@@ -1,6 +1,7 @@
 package com.qa.portal.common.persistence.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(schema = "training", name = "course")
@@ -19,6 +20,9 @@ public class CourseEntity extends QaBaseEntity {
 
     @Column(name = "course_code")
     private String courseCode;
+
+    @OneToMany(mappedBy = "courseId", fetch = FetchType.LAZY)
+    private List<CourseTechnologyEntity> technologies;
 
     public Integer getId() {
         return id;
