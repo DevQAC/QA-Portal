@@ -796,6 +796,117 @@
           }
         }
       }
+    },
+    "qa-cv": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/qa-cv",
+      "sourceRoot": "projects/qa-cv/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/qa-cv",
+            "polyfills": "projects/qa-cv/src/polyfills.ts",
+            "tsConfig": "projects/qa-cv/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/qa-cv/src/favicon.ico",
+              "projects/qa-cv/src/assets"
+            ],
+            "styles": [
+              "projects/qa-cv/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/qa-cv/src/environments/environment.ts",
+                  "with": "projects/qa-cv/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "qa-cv:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "qa-cv:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "qa-cv:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/qa-cv/src/test.ts",
+            "polyfills": "projects/qa-cv/src/polyfills.ts",
+            "tsConfig": "projects/qa-cv/tsconfig.spec.json",
+            "karmaConfig": "projects/qa-cv/karma.conf.js",
+            "assets": [
+              "projects/qa-cv/src/favicon.ico",
+              "projects/qa-cv/src/assets"
+            ],
+            "styles": [
+              "projects/qa-cv/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/qa-cv/tsconfig.app.json",
+              "projects/qa-cv/tsconfig.spec.json",
+              "projects/qa-cv/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/qa-cv/e2e/protractor.conf.js",
+            "devServerTarget": "qa-cv:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "qa-cv:serve:production"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "portal-core"

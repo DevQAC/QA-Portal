@@ -11,8 +11,9 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      username: MongoDB
-      password:
+#     !IMPORTANT - don't leave this empty for final build.
+#     username: MongoDB
+#     password:
       database: qa-portal-cv
 
   level:
