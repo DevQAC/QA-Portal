@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { IFeedback } from '../_common/models/feedback.model';
 
 import * as moment from 'moment';
@@ -13,6 +13,8 @@ export class CvCardBaseComponent implements OnInit {
   @Input() title: string;
   @Input() feedback: IFeedback[];
   @Output() feedbackChange = new EventEmitter<IFeedback[]>();
+
+  @ViewChild('bottomScrollTarget', { static: true }) bottomScrollTarget: ElementRef;
 
   public commentInput = new FormControl('');
 
@@ -39,5 +41,10 @@ export class CvCardBaseComponent implements OnInit {
     };
     this.feedback.push(fb);
     this.feedbackChange.emit(this.feedback);
+
+    setTimeout(() => {
+      this.bottomScrollTarget.nativeElement.scrollIntoView({ behavior: 'smooth' });
+      this.commentInput.reset();
+    }, 0);
   }
 }
