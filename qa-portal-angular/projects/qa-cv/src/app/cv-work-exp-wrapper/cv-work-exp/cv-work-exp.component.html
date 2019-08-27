@@ -1,37 +1,37 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title>
-      {{experience.job}}
+      {{experience.jobTitle}}
     </mat-panel-title>
     <mat-panel-description>
-      until {{experience.end_date}}
+      until {{experience.end}}
     </mat-panel-description>
   </mat-expansion-panel-header>
 
   <mat-form-field class="wide">
-    <input matInput [ngModel]="experience.job" (ngModelChange)="onTitleChange($event)" placeholder="Job Title">
+    <input matInput [ngModel]="experience.jobTitle" (ngModelChange)="onTitleChange($event)" placeholder="Job Title">
   </mat-form-field><br>
   <div>
     <mat-form-field class="date-left">
-      <input matInput [matDatepicker]="picker1" placeholder="Start Date" [ngModel]="experience.start_date"
+      <input matInput [matDatepicker]="picker1" placeholder="Start Date" [ngModel]="experience.start"
         (ngModelChange)="onStartDateChange($event)">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="date-right">
-      <input matInput [matDatepicker]="picker2" placeholder="End Date" [ngModel]="experience.end_date"
+      <input matInput [matDatepicker]="picker2" placeholder="End Date" [ngModel]="experience.end"
         (ngModelChange)="onEndDateChange($event)">
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field><br>
     <mat-form-field class="wide">
       <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-        cdkAutosizeMaxRows="5" [ngModel]="experience.detail" (ngModelChange)="onDetailChange($event)"
+        cdkAutosizeMaxRows="5" [ngModel]="experience.workExperienceDetails" (ngModelChange)="onDetailChange($event)"
         placeholder="Details"></textarea>
     </mat-form-field>
   </div>
-  <app-cv-feedback [feedback] = "experience.feedback[0]" (feedbackChange)="experience.feedback[0] = $event"></app-cv-feedback>
+  <app-cv-feedback [feedback] = "experience.workExperienceFeedback[0]" (feedbackChange)="experience.workExperienceFeedback[0] = $event"></app-cv-feedback>
   <mat-action-row>
     <button mat-button color="warn" (click)="deleteExp()">Remove this Expereience</button>
   </mat-action-row>

@@ -1,7 +1,7 @@
 
 <mat-card>
   <mat-card-content>
-<p> Feedback By {{feedback.who}} on {{feedback.date}} </p>
+<p> Feedback By {{feedback.reviewer}} on {{feedback.date}} </p>
 
 <mat-form-field class="example-full-width">
   <textarea matInput  [ngModel]="feedback.comment" (ngModelChange)="onInputChange($event)" readonly></textarea>

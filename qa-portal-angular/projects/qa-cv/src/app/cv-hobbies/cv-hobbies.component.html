@@ -4,8 +4,8 @@
         <mat-card-content>
 <p> Hobbies </p>
 <mat-form-field class="example-full-width">
-        <textarea matInput  [ngModel]="hobbies.h_detail" (ngModelChange)="onInputChange($event)"></textarea>
+        <textarea matInput  [ngModel]="hobbies.hobbiesDetails" (ngModelChange)="onInputChange($event)"></textarea>
 </mat-form-field>
-<app-cv-feedback [feedback] = "hobbies.feedback[0]" (feedbackChange)="hobbies.feedback[0] = $event"></app-cv-feedback>
+<app-cv-feedback [feedback] = "hobbies.hobbiesFeedback[0]" (feedbackChange)="hobbies.hobbiesFeedback[0] = $event"></app-cv-feedback>
 </mat-card-content>
 </mat-card>
