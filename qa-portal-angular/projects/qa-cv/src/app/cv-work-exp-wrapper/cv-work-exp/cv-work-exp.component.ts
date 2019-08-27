@@ -47,8 +47,7 @@ export class CvWorkExpComponent implements OnInit {
     this.experienceDelete.emit(this.experience);
   }
 
-  onFeedbackClick(event): void {
-    event.preventDefault();
+  onFeedbackClick(): void {
     this.feedbackClick.emit(this.experience);
   }
 }

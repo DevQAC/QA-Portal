@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { FormControl } from '@angular/forms';
 
 import { MatDrawer } from '@angular/material/sidenav';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-cv-card-base',
@@ -17,11 +18,11 @@ export class CvCardBaseComponent implements OnInit {
   @Output() feedbackChange = new EventEmitter<IFeedback[]>();
   @Input() showOpenButton: boolean = true;
   @ViewChild('bottomScrollTarget', { static: true }) bottomScrollTarget: ElementRef;
-  @ViewChild('drawer', {static: true}) public drawer: MatDrawer;
+  @ViewChild('drawer', { static: true }) public drawer: MatDrawer;
 
   public commentInput = new FormControl('');
 
-  constructor() { }
+  constructor(private keycloak: KeycloakService) { }
 
   ngOnInit() {
   }
@@ -39,7 +40,7 @@ export class CvCardBaseComponent implements OnInit {
     const fb: IFeedback = {
       comment: this.commentInput.value,
       date: moment().format(),
-      reviewer: 'ME'
+      reviewer: this.keycloak.getUsername()
     };
     this.feedback.push(fb);
     this.feedbackChange.emit(this.feedback);
