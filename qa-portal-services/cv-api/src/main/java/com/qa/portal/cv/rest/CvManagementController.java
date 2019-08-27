@@ -33,9 +33,9 @@ public class CvManagementController {
 		return service.getAll();
 	}
 	
-	@GetMapping("/cv/version/{versionNumber}")
-	public Integer findByVersionNumber(@PathVariable("versionNumber") Integer versionNumber) {
-		return service.findByVersionNumber(versionNumber);
+	@GetMapping("/cv/version")
+	public CvVersion getCurrent(Integer versionNumber) {
+		return service.getCurrent(versionNumber);
 	}
 	
 	@PostMapping("cv/file")

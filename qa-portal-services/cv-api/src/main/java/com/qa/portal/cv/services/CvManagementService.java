@@ -45,7 +45,7 @@ public class CvManagementService {
     	return this.getCvService.getAll();
     }
     
-    public List<CvVersion> getCurrent(Integer versionNumber) {
+    public CvVersion getCurrent(Integer versionNumber) {
     	return this.getCvService.getCurrent(versionNumber);
     }
 }

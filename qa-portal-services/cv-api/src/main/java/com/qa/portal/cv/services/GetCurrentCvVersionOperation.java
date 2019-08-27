@@ -35,8 +35,8 @@ public class GetCurrentCvVersionOperation {
 		}
 	}
 	
-	public List<CvVersion> getCurrent(Integer versionNumber) {
-		List<CvVersion> cv = repo.getCurrent(versionNumber);
+	public CvVersion getCurrent(Integer versionNumber) {
+		CvVersion cv = repo.getCurrent(versionNumber);
 		return cv;
 	}
 	
