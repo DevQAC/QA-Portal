@@ -2,6 +2,7 @@ package com.qa.portal.cv.rest;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,7 @@ import com.qa.portal.cv.services.CvManagementService;
 
 @RestController
 public class CvManagementController {
-	
+
 	private CvManagementService service;
 	
 	public CvManagementController(CvManagementService service) {
@@ -36,5 +37,14 @@ public class CvManagementController {
 	public Integer findByVersionNumber(@PathVariable("versionNumber") Integer versionNumber) {
 		return service.findByVersionNumber(versionNumber);
 	}
+	
+	@PostMapping("cv")
+	public void saveGeneratedCV(@RequestBody CvVersion cvVersion) {
+		service.saveGeneratedCv(cvVersion);
+	}
 
+	@PostMapping(value="cv/pdf", produces={MediaType.APPLICATION_PDF_VALUE})
+	public ResponseEntity<byte[]> getCvAsPdf() {
+		return ResponseEntity.ok(service.getGeneratedCv(new CvVersion()));
+	}
 }
