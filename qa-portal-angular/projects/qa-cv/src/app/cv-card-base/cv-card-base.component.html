@@ -29,11 +29,12 @@
             </div>
           </div>
 
+          <div #bottomScrollTarget name="bottom-scroll-target" aria-hidden="true"></div>
+
 
         </div>
         <div class="bottom">
           <form (ngSubmit)="addFeedbackItem()">
-
             <mat-form-field class="comment-field">
               <input [formControl]="commentInput" type="text" matInput placeholder="Comment">
               <mat-icon matSuffix>send

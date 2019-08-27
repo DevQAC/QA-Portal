@@ -32,6 +32,7 @@
     }
     .middle {
         height: 100%;
+        overflow-y: auto;
     }
     .bottom {
 
@@ -55,6 +56,10 @@
     border-radius: 0.25rem;
     margin: 0.5rem;
     padding: 0.25rem 1rem;
+
+    .comment-body {
+        overflow-wrap: break-word;
+    }
 
     .comment-details {
         display: flex;
