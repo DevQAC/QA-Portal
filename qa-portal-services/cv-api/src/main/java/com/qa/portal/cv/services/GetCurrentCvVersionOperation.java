@@ -1,5 +1,7 @@
 package com.qa.portal.cv.services;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -15,6 +17,9 @@ public class GetCurrentCvVersionOperation {
 
 	private CvVersionRepository repo;
 	
+	private Comparator<CvVersion> cvComparator = 
+			(cv1, cv2) -> cv1.getVersionNumber() - cv2.getVersionNumber();
+	
 	
 	public GetCurrentCvVersionOperation(CvVersionRepository repo) {
 		super();
@@ -28,11 +33,13 @@ public class GetCurrentCvVersionOperation {
 	
 	public List<CvVersion> findFullName(String fullName) {		
 		List<CvVersion> n = repo.findByFullName(fullName);
+		Collections.sort(n, cvComparator);
 		if(n == null) {
 			return null; //!IMPORTANT - needs an exception handler here!
 		} else {
 			return n;			
 		}
+	
 	}
 	
 	public CvVersion getCurrent(Integer versionNumber) {

@@ -13,6 +13,6 @@ public interface CvVersionRepository extends MongoRepository<CvVersion, Integer>
 
 	public List<CvVersion> findByVersionNumber(Integer versionNumber);
 	
-	@Query("{ $last : versionNumber }")
+//	@Query("{ $last : versionNumber }")
 	public CvVersion getCurrent(Integer versionNumber);
 }
