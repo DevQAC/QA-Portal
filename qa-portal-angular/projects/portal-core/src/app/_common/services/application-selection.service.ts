@@ -26,6 +26,5 @@ export class ApplicationSelectionService {
 
   public setSelectedDepartment(dep: DepartmentApplications) {
     this.selectedDepartment.next(dep);
-    console.log('DEP', dep);
   }
 }

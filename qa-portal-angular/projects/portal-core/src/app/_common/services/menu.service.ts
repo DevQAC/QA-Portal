@@ -11,6 +11,6 @@ export class MenuService {
   }
 
     getPortalMenu(): Observable<any[]> {
-    return this.httpClient.get<any[]>(PORTAL_APPLICATIONS_API).pipe(tap((...args) => console.warn('PORTAL MENU', args)));
+    return this.httpClient.get<any[]>(PORTAL_APPLICATIONS_API);
   }
 }
