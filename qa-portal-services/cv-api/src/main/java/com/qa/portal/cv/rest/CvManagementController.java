@@ -22,7 +22,7 @@ public class CvManagementController {
 		this.service = service;
 	}
 	
-	@PostMapping("/cv")
+	@PostMapping("/create")
 	public ResponseEntity<String> createCv(@RequestBody CvVersion newCv) {
 		return ResponseEntity.ok(this.service.createCv(newCv));
 	}

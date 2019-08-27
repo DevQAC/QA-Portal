@@ -4,25 +4,25 @@ import java.util.List;
 
 public class Profile {
 
-	private String details;
+	private String profileDetails;
 	private List<Feedback> profileFeedback;
 	
 	public Profile() {
 		super();
 	}
 
-	public Profile(String details, List<Feedback> profileFeedback) {
+	public Profile(String profileDetails, List<Feedback> profileFeedback) {
 		super();
-		this.details = details;
+		this.profileDetails = profileDetails;
 		this.profileFeedback = profileFeedback;
 	}
 
-	public String getDetails() {
-		return details;
+	public String getProfileDetails() {
+		return profileDetails;
 	}
 
-	public void setDetails(String details) {
-		this.details = details;
+	public void setProfileDetails(String profileDetails) {
+		this.profileDetails = profileDetails;
 	}
 
 	public List<Feedback> getProfileFeedback() {

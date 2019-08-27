@@ -2,15 +2,11 @@ package com.qa.portal.cv.services;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Service;
-
+import org.springframework.stereotype.Component;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 
-@Service
-@Transactional
+@Component
 public class GetCurrentCvVersionOperation {
 
 	private CvVersionRepository repo;
@@ -33,6 +29,17 @@ public class GetCurrentCvVersionOperation {
 		} else {
 			return n;			
 		}
+	}
+	
+	public List<CvVersion> GetCurrentCvVersion(Integer id, Integer versionNumber) {
+		return null;
+//		List<CvVersion> r = repo.(id)
+//		List<CvVersion> r = repo.findByVersionNumber(versionNumber);
+//		if(r == null) {
+//			return null; //!IMPORTANT - needs an exception handler here!
+//		} else {
+//			return r;			
+//		}
 	}
 	
 	public Integer findByVersionNumber(Integer versionNumber) {
