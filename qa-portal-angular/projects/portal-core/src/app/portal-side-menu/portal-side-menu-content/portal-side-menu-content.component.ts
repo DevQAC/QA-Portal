@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {ApplicationSelectionService} from '../../_common/services/application-selection.service';
-import {Subscription} from 'rxjs';
-import {Application} from '../../_common/models/application';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ApplicationSelectionService } from '../../_common/services/application-selection.service';
+import { Subscription, Observable } from 'rxjs';
+import { Application } from '../../_common/models/application';
+import { DepartmentApplications } from '../../_common/models/department-applications';
 
 @Component({
   selector: 'app-portal-side-menu-content',
@@ -11,6 +12,8 @@ import {Application} from '../../_common/models/application';
 export class PortalSideMenuContentComponent implements OnInit, OnDestroy {
 
   private applicationSelectionSubscription: Subscription;
+
+  public departmentApplications$: Observable<DepartmentApplications>;
 
   selectedApplication: Application = new Application();
 
@@ -23,9 +26,12 @@ export class PortalSideMenuContentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.applicationSelectionSubscription
       = this.applicationSelectionService.getSelectedApplication$()
-                                                  .subscribe(app => {
-                                                    this.selectedApplication = app;
-                                                  });
+        .subscribe(app => {
+          this.selectedApplication = app;
+        });
+    
+        this.departmentApplications$ = this.applicationSelectionService.getSelectedDepartment$();
+    
   }
 
   ngOnDestroy(): void {

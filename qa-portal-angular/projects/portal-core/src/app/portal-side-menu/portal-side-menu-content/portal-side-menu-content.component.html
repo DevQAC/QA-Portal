@@ -1,17 +1,39 @@
-<div style="display: flex; justify-content: flex-end; margin-top: 10px; margin-bottom: 10px">
+<!-- <div style="display: flex; justify-content: flex-end; margin-top: 10px; margin-bottom: 10px">
   <button type="button" mat-icon-button (click)="toggleDrawer()">
     <mat-icon style="color: #0060B9; margin-right: 10px">close</mat-icon>
   </button>
-</div>
+</div> -->
 
-<div class="side-menu-panel" >
-  <div class="side-menu-title" *ngIf="!errorApp()">
+<div class="side-menu-panel" style="width: 300px; overflow-x: hidden;" >
+  <!-- <div class="side-menu-title" *ngIf="!errorApp()">
     {{selectedApplication.name}}
   </div>
   <br>
   <div style="margin: 0px; padding: 0px;">
     <div class="side-menu-item"*ngFor="let item of selectedApplication.menuItems">
       <a routerLink="{{item.url}}" mat-menu-item class="menu-item-text"> {{item.name}}</a>
+    </div>
+  </div> -->
+
+  <div class="section" *ngFor="let application of (departmentApplications$ | async)?.applications">
+    <div class="section-title">
+      {{ application.name }}
+    </div>
+
+    <div class="section-body">
+      <button mat-button *ngFor="let menuItem of application.menuItems" [routerLink]="menuItem.url" routerLinkActive="mat-accent" class="menu-item">
+        
+        <div class="menu-item-content">
+          <div class="menu-item-icon">
+            <mat-icon >{{menuItem.icon || 'stars'}}</mat-icon>
+          </div>
+          <div style="width: 100%; text-overflow:ellipsis; overflow: hidden; text-align: left; margin: auto 0;">
+            <span>
+              {{menuItem.name}}
+            </span>
+          </div>
+        </div>
+      </button>
     </div>
   </div>
 </div>

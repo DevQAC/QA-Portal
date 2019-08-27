@@ -1,30 +1,86 @@
 app-portal-side-menu {
-    mat-drawer-container {
-        /* display: flex; */
-        /* flex-direction: row; */
-        /* width: 100%; */
-        height: 100%;
-    }
+  mat-drawer-container {
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* width: 100%; */
+    height: 100%;
+  }
 
+  .mat-drawer-inner-container {
+    overflow-x: hidden;
+  }
+
+  .side-menu-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .side-menu-body {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .side-menu-fixed-bottom {
+
+    }
+  }
+
+  .mat-drawer {
+    display: flex;
+    flex: 1;
+    width: 56px;
+    // https://github.com/angular/components/issues/9837
+    // transition: all 0.2s ease-in-out;
+    background-color: mat-color($theme-primary);
+    color: $light-primary-text;
+  }
+  
+  .drawer-toggle {
+    border-top: 1px;
+    border-top-style: solid;
+    border-color: $light-dividers !important;
+    mat-icon {
+      transition: transform 0.2s ease-in-out;
+      transform: rotate(0deg);
+    }
+  }
+
+  .expanded {
     .mat-drawer {
-        display: flex;
-        flex: 1;
-        width: 300px;
-        background-color: mat-color($theme-primary);
-        color: $light-primary-text;
+      width: 300px;
+      .section-title {
+        padding: 0.25rem 0 !important;
+        height: 24px !important;
+        border-color: $light-dividers !important;
+  
+      }
+      .drawer-toggle {
+        mat-icon {
+          transform: rotate(180deg);
+        }
+      }
+
     }
 
-    /*
-      
+    // .mat-drawer-content {
+    //   margin-left: 300px !important;
+    // }
+
+  }
+
+
+
+  /*
+
       mat-drawer-content {
         display: flex;
         flex: 8;
       }
       */
-    main {
-        display: flex;
-        flex-direction: row;
-        /* height: 100%; */
-        overflow-y: hidden;
-    }
+  main {
+    display: flex;
+    flex-direction: row;
+    /* height: 100%; */
+    overflow-y: hidden;
+  }
 }

@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <mat-toolbar-row>
+  <mat-toolbar-row class="mat-elevation-z2">
     
     <!-- ICON -->
     <!-- <div class="icon-container">
@@ -17,7 +17,7 @@
         <mat-icon svgIcon="qa-logo"></mat-icon>
       </a>
       <div class="header-links">
-          <app-header-link *ngFor="let deptApps of portalApplications">{{deptApps?.department?.name || 'Unknown Department'}}</app-header-link>
+          <app-header-link *ngFor="let deptApps of portalApplications" [department]="deptApps">{{deptApps?.department?.name || 'Unknown Department'}}</app-header-link>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
     <div class="content-right">
       
       <!-- TODO: MOVE THIS! -->
-      <span class="portal-buttons" *ngFor="let deptApps of portalApplications">
+      <!-- <span class="portal-buttons" *ngFor="let deptApps of portalApplications">
         <button mat-flat-button [mat-menu-trigger-for]="sub_menu">
           {{deptApps.department.name}}
         </button>
@@ -34,7 +34,7 @@
             <a routerLink="{{appl.url}}" mat-menu-item> {{appl.name}} </a>
           </ng-container>
         </mat-menu>
-      </span>
+      </span> -->
       <!-- TODO END -->
       
       <button isIconButton="true" class="user-button" mat-flat-button color="primary"

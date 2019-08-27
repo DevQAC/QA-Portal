@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DepartmentApplications } from '../_common/models/department-applications';
 
 @Component({
   selector: 'app-header-link',
@@ -6,10 +7,12 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./header-link.component.css']
 })
 export class HeaderLinkComponent implements OnInit {
+  @Input() department: DepartmentApplications;
 
   constructor() { }
 
   ngOnInit() {
+    console.warn(this.department);
   }
 
 }
