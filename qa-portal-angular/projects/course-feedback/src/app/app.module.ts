@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -20,13 +20,11 @@ import {FeedbackPageComponent} from './end-of-course-eval/feedback-page/feedback
 import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
 import {FeedbackQuestionComponent} from './trainer-feedback/feedback-question/feedback-question.component';
 import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/problem-reporter.component';
-import { QaFormsModule } from 'projects/qa-forms';
+import {QaFormsModule} from 'projects/qa-forms';
 import {FeedbackService} from './trainer-feedback/_common/services/feedback.service';
 import {EvaluationService} from './_common/services/evaluation-service';
-import { TraineeEvaluationSummaryComponent } from './trainee-evaluation-summary/trainee-evaluation-summary.component';
-import {QaErrorHandlerService} from '../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import {TraineeEvaluationSummaryComponent} from './trainee-evaluation-summary/trainee-evaluation-summary.component';
 import {TraineeEvaluationSummaryService} from './trainee-evaluation-summary/services/trainee-evaluation-summary.service';
-
 
 
 @NgModule({

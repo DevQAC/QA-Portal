@@ -4,7 +4,6 @@ import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.dto.TraineeEvaluationSummaryDto;
-import com.qa.portal.feedback.dto.TraineeEvaluationSummaryRowDto;
 import com.qa.portal.feedback.services.CohortCourseEvaluationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +35,11 @@ public class CohortCourseEvaluationController {
     @GetMapping("/trainee/current")
     public ResponseEntity<CohortCourseEvaluationDto> getCurrentEvaluationForTrainee() {
         return ResponseEntity.ok(service.getCurrentEvaluationForTrainee(qaSecurityContext.getUserName()));
+    }
+
+    @GetMapping("/trainee/course/{id}")
+    public ResponseEntity<CohortCourseEvaluationDto> getEvaluationForTraineeAndCourse(@PathVariable("id") Integer cohortCourseId) {
+        return ResponseEntity.ok(service.getEvaluationForTraineeAndCourse(qaSecurityContext.getUserName(), cohortCourseId));
     }
 
     @GetMapping("/trainee/summary")

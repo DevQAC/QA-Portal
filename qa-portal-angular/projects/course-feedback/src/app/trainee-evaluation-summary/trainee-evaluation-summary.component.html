@@ -6,9 +6,14 @@
   <mat-spinner [diameter]="70" *ngIf="dataLoading"></mat-spinner>
 </div>
 
-<div *ngIf="!dataLoading" style="width: 100%;">
-  <mat-card style="width: 100%;">
-    <mat-card-content style="width: 100%;">
+<mat-card *ngIf="!dataLoading">
+  <mat-card-title style="text-align: center; background-color: lightgray; color: #0060B9;">
+    Course Evaluation Summary
+  </mat-card-title>
+
+  <mat-card-content>
+    <div style="display: flex; justify-content: center">
+
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Course Column -->
@@ -42,9 +47,10 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="getEvaluationUrl(row.cohortCourse.id)">
       </table>
-    </mat-card-content>
+    </div>
+  </mat-card-content>
 
-  </mat-card>
-</div>
+</mat-card>
+

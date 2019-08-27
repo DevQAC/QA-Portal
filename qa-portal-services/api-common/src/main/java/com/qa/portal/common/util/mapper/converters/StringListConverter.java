@@ -4,11 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.dozer.DozerConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StringListConverter extends DozerConverter<String, List> {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(StringListConverter.class);
 
     public StringListConverter() {
         super(String.class, List.class);
@@ -16,32 +20,38 @@ public class StringListConverter extends DozerConverter<String, List> {
 
     @Override
     public List<String> convertTo(String s, List list) {
+        LOGGER.info("In convertTo String to List " + s);
         try {
-            if (s == null) {
+            if (s == null || s.length() == 0) {
+                LOGGER.info("Blank Array list ");
                 return new ArrayList<>();
             }
             else {
                 ObjectMapper objectMapper = new ObjectMapper();
                 TypeFactory typeFactory = objectMapper.getTypeFactory();
+                LOGGER.info("Creating list from string " + s);
                 return objectMapper.readValue(s, typeFactory.constructCollectionType(List.class, String.class));
             }
         }
         catch (Exception e) {
-            throw new QaPortalBusinessException("Object mapping failure");
+            throw new QaPortalBusinessException("Object mapping failure " + e.getMessage());
         }
     }
 
     @Override
     public String convertFrom(List list, String s) {
+        LOGGER.info("In convertFrom List to String " + s);
         try {
             if (list == null) {
+                LOGGER.info("List is empty ");
                 list = new ArrayList();
             }
             ObjectMapper objectMapper = new ObjectMapper();
+            LOGGER.info("Mapping list to string");
             return objectMapper.writeValueAsString(list);
         }
         catch (Exception e) {
-            throw new QaPortalBusinessException("Object mapping failure");
+            throw new QaPortalBusinessException("Object mapping failure " + e.getMessage());
         }
     }
 }

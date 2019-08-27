@@ -11,6 +11,8 @@
                  (modelChange)="this.viewModel = $event">
     </app-qa-form>
   <div style="display: flex; justify-content: center">
-    <button mat-raised-button color="primary" (click)="onFeedbackSubmit()">Submit</button>
+    <button mat-raised-button color="primary" (click)="onFeedbackSubmit()">
+      {{allCategoryQuestionsAnswered() ? 'Submit' : 'Save'}}
+    </button>
   </div>
 </div>

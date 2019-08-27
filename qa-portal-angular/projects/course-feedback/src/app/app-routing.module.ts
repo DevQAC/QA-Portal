@@ -26,7 +26,7 @@ const routes: Routes = [
             }
           },
           {
-            path: 'evaluation',
+            path: 'evaluation/:id',
             component: FeedbackPageComponent,
             canActivate: [AppAuthGuard],
             data: {

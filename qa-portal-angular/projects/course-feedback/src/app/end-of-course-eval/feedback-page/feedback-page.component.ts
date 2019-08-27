@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {take} from 'rxjs/operators';
 import {EvaluationService} from '../../_common/services/evaluation-service';
 import {QaErrorHandlerService} from '../../../../../portal-core/src/app/_common/services/qa-error-handler.service';
 import {Subscription} from 'rxjs';
-import { IFormModel } from 'projects/qa-forms/src/app/_common/models';
+import {ICategoryResponse, IFormModel} from 'projects/qa-forms/src/app/_common/models';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
   selector: 'app-feedback-page',
@@ -15,24 +15,24 @@ export class FeedbackPageComponent implements OnInit, OnDestroy {
   dataLoaded = false;
 
   getCurrentEvaluationSubscription: Subscription;
+
   createEvaluationSubscription: Subscription;
+
   updateEvaluationSubscription: Subscription;
 
   viewModel: IFormModel;
 
   constructor(private evaluationService: EvaluationService,
-              private errorHandlerService: QaErrorHandlerService) {
+              private errorHandlerService: QaErrorHandlerService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.evaluationService.getCurrentTraineeEvaluation().subscribe(
-      (response) => {
-        this.viewModel = response;
-        this.dataLoaded = true;
-      },
-      (error) => {
-        this.dataLoaded = true;
-        this.errorHandlerService.handleError(error);
+    // Get trainee course evaluation for the supplied cohort course id
+    this.route.paramMap.subscribe(
+      (params: ParamMap) => {
+        this.getEvaluationForCohortCourse(params.get('id'));
       }
     );
   }
@@ -57,16 +57,73 @@ export class FeedbackPageComponent implements OnInit, OnDestroy {
    * @memberof FeedbackPageComponent
    */
   onFeedbackSubmit() {
-    this.evaluationService.createEvaluationForm(this.viewModel)
-      .pipe(take(1))
+    this.setEvaluationStatus();
+    if (this.isNewEvaluation()) {
+      this.createEvaluationForm();
+    } else {
+      this.updateEvaluationForm();
+    }
+  }
+
+  private createEvaluationForm(): void {
+    this.createEvaluationSubscription = this.evaluationService.createEvaluationForm(this.viewModel)
       .subscribe((response) => {
           // Navigate to the Evaluation history page for trainee
-          console.log(response);
+          this.navigateToEvaluationSummary();
         },
         (error) => {
-          console.log(error);
           this.errorHandlerService.handleError(error);
         }
       );
+  }
+
+  private updateEvaluationForm(): void {
+    this.updateEvaluationSubscription = this.evaluationService.updateEvaluationForm(this.viewModel)
+      .subscribe((response) => {
+          // Navigate to the Evaluation history page for trainee
+          this.navigateToEvaluationSummary();
+        },
+        (error) => {
+          this.errorHandlerService.handleError(error);
+        }
+      );
+  }
+
+  private getEvaluationForCohortCourse(cohortCourseId: string) {
+    this.getCurrentEvaluationSubscription = this.evaluationService.getEvaluationForTraineeAndCohortCourse(cohortCourseId).subscribe(
+      (response) => {
+        this.viewModel = response;
+        this.dataLoaded = true;
+      },
+      (error) => {
+        this.dataLoaded = true;
+        this.errorHandlerService.handleError(error);
+      }
+    );
+  }
+
+  private setEvaluationStatus(): void {
+    this.viewModel.status = 'Saved';
+  }
+
+  private isNewEvaluation(): boolean {
+    return !this.viewModel.id;
+  }
+
+  private allCategoryQuestionsAnswered(): boolean {
+    const incompleteQuestionCategory = this.viewModel.categoryResponses
+      .find(cr => !this.questionsAnswered(cr));
+    return !incompleteQuestionCategory;
+  }
+
+  private questionsAnswered(categoryResponse: ICategoryResponse): boolean {
+    const questionResponse = categoryResponse.questionResponses.find(qr => {
+      return !qr.responseValues || qr.responseValues.length === 0;
+    })
+    return !questionResponse;
+  }
+
+  private navigateToEvaluationSummary(): void {
+    this.router.navigateByUrl('qa/portal/training/feedback/trainee/evaluation/history');
   }
 }

@@ -3,7 +3,6 @@ package com.qa.portal.feedback.dto;
 import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.dto.QuestionCategoryResponseDto;
 import com.qa.portal.common.dto.TraineeDto;
-import com.qa.portal.common.dto.TrainerDto;
 
 import java.util.List;
 

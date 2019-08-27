@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Component
 public class GetTraineeEvaluationSummaryOperation {
 
-    private static final String AWAITING_EVALUATION = "Awaiting";
+    private static final String AWAITING_EVALUATION = "Awaiting Evaluation";
 
     private static final String NOT_READY_FOR_EVALUATION = "Locked";
 
@@ -57,7 +57,7 @@ public class GetTraineeEvaluationSummaryOperation {
     private TraineeEvaluationSummaryRowDto createEvaluationSummary(CohortCourseEntity cohortCourseEntity,
                                                                    String traineeUserName) {
         TraineeEvaluationSummaryRowDto traineeEvaluationSummaryRowDto = new TraineeEvaluationSummaryRowDto();
-        traineeEvaluationSummaryRowDto.setCohortCourseDto(baseMapper.mapObject(cohortCourseEntity, CohortCourseDto.class));
+        traineeEvaluationSummaryRowDto.setCohortCourse(baseMapper.mapObject(cohortCourseEntity, CohortCourseDto.class));
         traineeEvaluationSummaryRowDto.setEvaluationStatus(getCohortCourseEvaluationStatus(cohortCourseEntity));
         getCohortCourseEvaluationForTrainee(cohortCourseEntity, traineeUserName)
                 .ifPresent(ccee -> setTraineeEvaluationSummary(ccee, traineeEvaluationSummaryRowDto));

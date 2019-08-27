@@ -1,8 +1,9 @@
 import { IQuestionCategory } from './question-category.model';
 import { IQuestionResponse } from './question-response.model';
+import {IComment} from './comment.model';
 
 export interface ICategoryResponse {
-    comment: string;
+    comment: IComment;
     id: number;
     parentId: number;
     questionCategory: IQuestionCategory;

@@ -11,9 +11,10 @@ export const GET_TRAINEE_EVALUATION_SUMMARY_URL = 'feedback-api/evaluation/train
 
 export const GET_EVALUATION_FORMS_FOR_TRAINEE_URL = 'feedback-api/evaluation/trainee';
 
-export const GET_CURRENT_EVALUATION_FORM_FOR_TRAINEE_URL = 'feedback-api/evaluation/trainee/current';
+// Add cohort course id to the end of the url
+export const GET_EVALUATION_FOR_TRAINEE_AND_COURSE_URL = 'feedback-api/evaluation/trainee/course/';
 
-// Add the Cohort Course Evaluation id to the end f the url
+// Add the Cohort Course Evaluation id to the end of the url
 export const GET_EVALUATION_FORM_FOR_ID_URL = 'feedback-api/evaluation/';
 
 // Add the Cohort Course Id to the end of the url

@@ -12,6 +12,7 @@ export class CheckBoxComponent extends GenericControlComponent<string[]> impleme
   ngOnInit(): void {
     this.questionResponse.responseValues = this.questionResponse.responseValues || [];
     this.questionResponse.comment = {
+      id: null,
       ...{content: ''},
       ...this.questionResponse.comment
     };

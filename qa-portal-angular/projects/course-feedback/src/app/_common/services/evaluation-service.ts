@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   CREATE_EVALUATION_FORM_URL,
-  GET_CURRENT_EVALUATION_FORM_FOR_TRAINEE_URL,
+  GET_EVALUATION_FOR_TRAINEE_AND_COURSE_URL,
   UPDATE_EVALUATION_FORM_URL
 } from '../models/course-feedback.constants';
 import { IFormModel } from 'projects/qa-forms/src/app/_common/models';
@@ -13,8 +13,8 @@ export class EvaluationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getCurrentTraineeEvaluation(): Observable<IFormModel> {
-    return this.httpClient.get<IFormModel>(GET_CURRENT_EVALUATION_FORM_FOR_TRAINEE_URL);
+  public getEvaluationForTraineeAndCohortCourse(cohortCourseId: string): Observable<IFormModel> {
+    return this.httpClient.get<IFormModel>(GET_EVALUATION_FOR_TRAINEE_AND_COURSE_URL + cohortCourseId);
   }
 
   public createEvaluationForm(formModel: IFormModel): Observable<IFormModel> {

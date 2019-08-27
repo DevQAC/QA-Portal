@@ -29,6 +29,7 @@ export class TraineeEvaluationSummaryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.traineeEvaluationSummaryService.getTraineeEvaluationSummary().subscribe((response) => {
+        console.log('Evaluation summary rows ' + response.evaluationSummaryRows.length);
         this.viewModel = response;
         this.dataSource = new MatTableDataSource<TraineeEvaluationSummaryRowModel>(this.viewModel.evaluationSummaryRows);
         this.dataLoading = false;
@@ -43,5 +44,9 @@ export class TraineeEvaluationSummaryComponent implements OnInit, OnDestroy {
     if (!!this.getEvaluationSummarySubscription) {
       this.getEvaluationSummarySubscription.unsubscribe();
     }
+  }
+
+  getEvaluationUrl(cohortCourseId: string): string {
+    return '/qa/portal/training/feedback/trainee/evaluation/' + cohortCourseId;
   }
 }

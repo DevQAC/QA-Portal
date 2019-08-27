@@ -11,6 +11,8 @@ import java.util.List;
 @Service
 public class CohortCourseEvaluationService {
 
+	private GetEvaluationForTraineeAndCourseOperation getEvaluationForTraineeAndCourseOperation;
+
 	private GetTraineeEvaluationSummaryOperation getTraineeEvaluationSummaryOperation;
 
 	private GetCohortCourseEvaluationsForTraineeOperation getCohortCourseEvaluationsForTraineeOperation;
@@ -27,14 +29,16 @@ public class CohortCourseEvaluationService {
 
 	public CreateCohortCourseEvaluationOperation createCourseEvaluation;
 
-	public CohortCourseEvaluationService(GetTraineeEvaluationSummaryOperation getTraineeEvaluationSummaryOperation,
-                                         GetCohortCourseEvaluationsForTraineeOperation getCohortCourseEvaluationsForTraineeOperation,
-                                         GetCohortCourseEvaluationsForCourseOperation getCohortCourseEvaluationsForCourseOperation,
-                                         GetCohortCoursesForTrainerOperation getCohortCoursesForTrainerOperation,
-                                         GetCurrentCohortCourseEvaluationForTraineeOperation getCurrentCohortCourseEvaluationForTraineeOperation,
-                                         GetCohortCourseEvaluationOperation getCohortCourseEvaluationOperation,
-                                         UpdateCohortCourseEvaluationOperation updateCohortCourseEvaluationOperation,
-                                         CreateCohortCourseEvaluationOperation createCourseEvaluation) {
+	public CohortCourseEvaluationService(GetEvaluationForTraineeAndCourseOperation getEvaluationForTraineeAndCourseOperation,
+										 GetTraineeEvaluationSummaryOperation getTraineeEvaluationSummaryOperation,
+										 GetCohortCourseEvaluationsForTraineeOperation getCohortCourseEvaluationsForTraineeOperation,
+										 GetCohortCourseEvaluationsForCourseOperation getCohortCourseEvaluationsForCourseOperation,
+										 GetCohortCoursesForTrainerOperation getCohortCoursesForTrainerOperation,
+										 GetCurrentCohortCourseEvaluationForTraineeOperation getCurrentCohortCourseEvaluationForTraineeOperation,
+										 GetCohortCourseEvaluationOperation getCohortCourseEvaluationOperation,
+										 UpdateCohortCourseEvaluationOperation updateCohortCourseEvaluationOperation,
+										 CreateCohortCourseEvaluationOperation createCourseEvaluation) {
+		this.getEvaluationForTraineeAndCourseOperation = getEvaluationForTraineeAndCourseOperation;
 		this.getTraineeEvaluationSummaryOperation = getTraineeEvaluationSummaryOperation;
 		this.getCohortCourseEvaluationsForTraineeOperation = getCohortCourseEvaluationsForTraineeOperation;
 		this.getCohortCourseEvaluationsForCourseOperation = getCohortCourseEvaluationsForCourseOperation;
@@ -43,6 +47,11 @@ public class CohortCourseEvaluationService {
 		this.getCohortCourseEvaluationOperation = getCohortCourseEvaluationOperation;
 		this.updateCohortCourseEvaluationOperation = updateCohortCourseEvaluationOperation;
 		this.createCourseEvaluation = createCourseEvaluation;
+	}
+
+	@Transactional
+	public CohortCourseEvaluationDto getEvaluationForTraineeAndCourse(String traineeUserName, Integer cohortCourseId) {
+		return getEvaluationForTraineeAndCourseOperation.getEvaluationForTraineeAndCourse(traineeUserName, cohortCourseId);
 	}
 
 	@Transactional

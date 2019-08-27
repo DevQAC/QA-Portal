@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -58,12 +59,25 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
                 .filter(qcrDto -> qcrDto.getId().equals(questionCategoryResponseEntity.getId()))
                 .findFirst()
                 .orElseThrow(() -> new QaPortalBusinessException("Category response not found for feedback"));
-        questionCategoryResponseEntity.getComment().setContent(questionCategoryResponseDto.getComment().getContent());
+        updateCategoryResponseComment(questionCategoryResponseEntity, questionCategoryResponseDto);
         setUpdatedQuestionResponses(questionCategoryResponseEntity, questionCategoryResponseDto);
     }
 
     public CohortCourseEntity getCohortCourseEntity(CohortCourseDto cohortCourseDto) {
         return cohortCourseRepository.findById(cohortCourseDto.getId()).orElseThrow(() -> new QaPortalBusinessException("Cannot find cohort course for feedback"));
+    }
+
+    private void updateCategoryResponseComment(QuestionCategoryResponseEntity questionCategoryResponseEntity,
+                                               QuestionCategoryResponseDto questionCategoryResponseDto) {
+        Optional.ofNullable(questionCategoryResponseDto.getComment())
+                .ifPresent(comment -> setCommentOnCategoryResponseEntity(comment.getContent(), questionCategoryResponseEntity));
+    }
+
+    private void setCommentOnCategoryResponseEntity(String content, QuestionCategoryResponseEntity questionCategoryResponseEntity) {
+        CommentEntity commentEntity = Optional.ofNullable(questionCategoryResponseEntity.getComment())
+                .orElseGet(() -> new CommentEntity());
+        commentEntity.setContent(content);
+        questionCategoryResponseEntity.setComment(commentEntity);
     }
 
     private List<QuestionResponseDto> createQuestionResponseDtos(QuestionCategoryEntity questionCategoryEntity) {
@@ -90,8 +104,21 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
                 .filter(qrDto -> qrDto.getQuestion().getId().equals(questionResponseEntity.getQuestion().getId()))
                 .findFirst()
                 .orElseThrow(() -> new QaPortalBusinessException("Cannot find question in question response of feedback"));
-        questionResponseEntity.setResponseValues(questionResponseDto.getResponseValues());
-        questionResponseEntity.getComment().setContent(questionResponseDto.getComment().getContent());
+        questionResponseEntity.setResponseValues(getQuestionResponseValue(questionResponseDto));
+        updateQuestionResponseComment(questionResponseEntity, questionResponseDto);
+    }
+
+    private void updateQuestionResponseComment(QuestionResponseEntity questionResponseEntity,
+                                               QuestionResponseDto questionResponseDto) {
+        Optional.ofNullable(questionResponseDto.getComment())
+                .ifPresent(comment -> setCommentOnCategoryResponseEntity(comment.getContent(), questionResponseEntity));
+    }
+
+    private void setCommentOnCategoryResponseEntity(String content, QuestionResponseEntity questionResponseEntity) {
+        CommentEntity commentEntity = Optional.ofNullable(questionResponseEntity.getComment())
+                .orElseGet(() -> new CommentEntity());
+        commentEntity.setContent(content);
+        questionResponseEntity.setComment(commentEntity);
     }
 
     public List<S> createCategoryResponsesEntities(List<QuestionCategoryResponseDto> questionCategoryResponseDtos,
@@ -113,21 +140,6 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
         return fqcre;
     }
 
-//    private List<S> createQuestionCategoryResponsesEntity(List<QuestionCategoryResponseDto> questionCategoryResponseDtos) {
-//        Class<S> categoryResponseClass = (Class<S>) ((ParameterizedType) getClass()
-//                .getGenericSuperclass()).getActualTypeArguments()[0];
-//        return questionCategoryResponseDtos.stream().map(fq -> baseMapper.mapObject(fq, categoryResponseClass))
-//                .collect(Collectors.toList());
-//    }
-//
-//    private S createFeedbackQuestionResponseCategory(QuestionCategoryResponseDto questionCategoryResponseDto,
-//                                                     S questionCategoryResponseEntity) {
-//        questionCategoryResponseEntity.setQuestionCategory(getQuestionCategoryEntity(questionCategoryResponseDto.getQuestionCategory()));
-//        questionCategoryResponseEntity.setQuestionResponses(createQuestionResponseEntities(questionCategoryResponseDto.getQuestionResponses(),
-//                questionCategoryResponseEntity));
-//        return questionCategoryResponseEntity;
-//    }
-
     private QuestionCategoryEntity getQuestionCategoryEntity(QuestionCategoryDto questionCategoryDto) {
         return questionCategoryRepository.findById(questionCategoryDto.getId())
                 .orElseThrow(() -> new QaPortalBusinessException("No question category found for id" + questionCategoryDto.getId()));
@@ -143,8 +155,13 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
         QuestionResponseEntity questionResponseEntity = new QuestionResponseEntity();
         questionResponseEntity.setCategoryResponse(questionCategoryResponseEntity);
         questionResponseEntity.setQuestion(getQuestionEntity(questionResponseDto.getQuestion().getId()));
-        questionResponseEntity.setResponseValues(questionResponseDto.getResponseValues());
+        questionResponseEntity.setResponseValues(getQuestionResponseValue(questionResponseDto));
         return questionResponseEntity;
+    }
+
+    private String getQuestionResponseValue(QuestionResponseDto questionResponseDto) {
+        // Converts the List<String> response Value in Dto to String value to store on the entity
+        return baseMapper.mapObject(questionResponseDto, QuestionResponseEntity.class).getResponseValues();
     }
 
     private QuestionEntity getQuestionEntity(Integer questionId) {

@@ -4,18 +4,18 @@ import com.qa.portal.common.dto.CohortCourseDto;
 
 public class TraineeEvaluationSummaryRowDto {
 
-    private CohortCourseDto cohortCourseDto;
+    private CohortCourseDto cohortCourse;
 
     private String evaluationStatus;
 
     private Integer evaluationId;
 
-    public CohortCourseDto getCohortCourseDto() {
-        return cohortCourseDto;
+    public CohortCourseDto getCohortCourse() {
+        return cohortCourse;
     }
 
-    public void setCohortCourseDto(CohortCourseDto cohortCourseDto) {
-        this.cohortCourseDto = cohortCourseDto;
+    public void setCohortCourse(CohortCourseDto cohortCourse) {
+        this.cohortCourse = cohortCourse;
     }
 
     public String getEvaluationStatus() {
