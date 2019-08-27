@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IFeedback } from '../_common/models/feedback.model';
 
 import * as moment from 'moment';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-cv-card-base',
@@ -13,6 +14,8 @@ export class CvCardBaseComponent implements OnInit {
   @Input() feedback: IFeedback[];
   @Output() feedbackChange = new EventEmitter<IFeedback[]>();
 
+  public commentInput = new FormControl('');
+
 
   constructor() { }
 
@@ -20,7 +23,7 @@ export class CvCardBaseComponent implements OnInit {
   }
 
   getFormattedDate(date: string): string {
-    return moment(date).calendar();
+    return moment(date).fromNow();
   }
 
   getFullDate(date: string): string {
@@ -28,4 +31,13 @@ export class CvCardBaseComponent implements OnInit {
   }
 
 
+  addFeedbackItem() {
+    const fb: IFeedback = {
+      comment: this.commentInput.value,
+      date: moment().format(),
+      reviewer: 'ME'
+    };
+    this.feedback.push(fb);
+    this.feedbackChange.emit(this.feedback);
+  }
 }

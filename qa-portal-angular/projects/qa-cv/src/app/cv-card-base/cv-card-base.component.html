@@ -32,11 +32,14 @@
 
         </div>
         <div class="bottom">
-          <mat-form-field class="comment-field">
-            <input type="text" matInput placeholder="Comment">
-            <mat-icon matSuffix>send
-            </mat-icon>
-          </mat-form-field>
+          <form (ngSubmit)="addFeedbackItem()">
+
+            <mat-form-field class="comment-field">
+              <input [formControl]="commentInput" type="text" matInput placeholder="Comment">
+              <mat-icon matSuffix>send
+              </mat-icon>
+            </mat-form-field>
+          </form>
         </div>
       </div>
     </mat-drawer>
