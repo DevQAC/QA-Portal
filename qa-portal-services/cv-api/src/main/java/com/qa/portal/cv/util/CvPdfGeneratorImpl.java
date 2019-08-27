@@ -160,7 +160,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             frame.setPaddingTop(5);
             document.add(frame);
 
-            final OutputStream outputStream = new FileOutputStream("generatedCv.pdf");
+            final OutputStream outputStream = new FileOutputStream("src/main/resources/generatedCv.pdf");
             document.save(outputStream);
 
             return IOUtils.toByteArray(res.getInputStream());
