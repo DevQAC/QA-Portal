@@ -31,10 +31,10 @@
         placeholder="Details"></textarea>
     </mat-form-field>
   </div>
-
+  <app-cv-feedback [feedback] = "experience.feedback[0]" (feedbackChange)="experience.feedback[0] = $event"></app-cv-feedback>
   <mat-action-row>
     <button mat-button color="warn" (click)="deleteExp()">Remove this Expereience</button>
   </mat-action-row>
 
-
+  
 </mat-expansion-panel>
