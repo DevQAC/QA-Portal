@@ -12,6 +12,8 @@ export class CvWorkExpComponent implements OnInit {
 
   @Output() experienceDelete = new EventEmitter<IWorkExperience>();
 
+  @Output() feedbackClick = new EventEmitter<IWorkExperience>();
+
   constructor() { }
 
   ngOnInit() {
@@ -43,5 +45,10 @@ export class CvWorkExpComponent implements OnInit {
 
   deleteExp(): void {
     this.experienceDelete.emit(this.experience);
+  }
+
+  onFeedbackClick(event): void {
+    event.preventDefault();
+    this.feedbackClick.emit(this.experience);
   }
 }

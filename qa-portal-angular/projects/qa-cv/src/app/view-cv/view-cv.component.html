@@ -1,10 +1,11 @@
 <h1>{{cvData?.fullName}}</h1>
 <div class="cv-content-wrapper">
         <section>
-        
-                        <app-cv-card-base title="Personal Profile"  [feedback]="cvData.profile.profileFeedback">
-                                        <app-cv-profile [profile]="cvData.profile" (profileChange)="cvData.profile = $event"></app-cv-profile>
-                                </app-cv-card-base>        
+
+                <app-cv-card-base title="Personal Profile" [feedback]="cvData.profile.profileFeedback">
+                        <app-cv-profile [profile]="cvData.profile" (profileChange)="cvData.profile = $event">
+                        </app-cv-profile>
+                </app-cv-card-base>
         </section>
 
 
@@ -12,29 +13,32 @@
 
 
         <section>
-                        <app-cv-card-base title="Hobbies and Interests"  [feedback]="cvData.hobbies.hobbiesFeedback">
-                                        <app-cv-hobbies [hobbies]="cvData.hobbies" (hobbiesChange)="cvData.hobbies = $event"></app-cv-hobbies>
-                                </app-cv-card-base>
-                        
+                <app-cv-card-base title="Hobbies and Interests" [feedback]="cvData.hobbies.hobbiesFeedback">
+                        <app-cv-hobbies [hobbies]="cvData.hobbies" (hobbiesChange)="cvData.hobbies = $event">
+                        </app-cv-hobbies>
+                </app-cv-card-base>
+
         </section>
         <section>
 
-                        <app-cv-card-base title="Qualifications"  >
-                                        <app-cv-qualis-wrapper  [qualifications]="cvData.allQualifications"
-                                        (qualificationsChange)="cvData.allQualifications = $event">
-                                </app-cv-qualis-wrapper>
-                                </app-cv-card-base>
-                        
-               
+                <app-cv-card-base title="Qualifications" [feedback]="cvData.allQualifications">
+                        <app-cv-qualis-wrapper [qualifications]="cvData.allQualifications"
+                                (qualificationsChange)="cvData.allQualifications = $event">
+                        </app-cv-qualis-wrapper>
+                </app-cv-card-base>
+
+
         </section>
         <section>
 
-                        <app-cv-card-base title="Work Experience"  [feedback]="cvData.allWorkExperience[0].workExperienceFeedback">
-                                        <app-cv-work-exp-wrapper [experiences]="cvData.allWorkExperience"
-                                        (experiencesChange)="cvData.allWorkExperience = $event">
-                                </app-cv-work-exp-wrapper>
-                                </app-cv-card-base>
-              
+                <app-cv-card-base #cardBase title="Work Experience" [feedback]="workExpFeedback" (feedbackChange)="onWorkExpFeedbackChange($event)"
+                        [showOpenButton]="false">
+                        <app-cv-work-exp-wrapper [experiences]="cvData.allWorkExperience"
+                                (experiencesChange)="cvData.allWorkExperience = $event"
+                                (feedbackClick)="onWorkExpFeedbackClick($event, cardBase)">
+                        </app-cv-work-exp-wrapper>
+                </app-cv-card-base>
+
         </section>
 
 

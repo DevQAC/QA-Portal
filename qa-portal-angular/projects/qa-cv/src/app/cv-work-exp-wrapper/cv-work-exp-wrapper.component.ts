@@ -10,6 +10,8 @@ export class CvWorkExpWrapperComponent implements OnInit {
   @Input() experiences: IWorkExperience[];
   @Output() experiencesChange = new EventEmitter<IWorkExperience[]>();
 
+  @Output() feedbackClick = new EventEmitter<{index: number, experience: IWorkExperience}>();
+
   constructor() { }
 
   ngOnInit() {
@@ -37,5 +39,9 @@ export class CvWorkExpWrapperComponent implements OnInit {
     this.experiences.splice(index, 1);
     this.experiencesChange.emit(this.experiences);
     console.info(this.experiences, index);
+  }
+
+  onFeedbackClick(index: number, experience: IWorkExperience): void {
+    this.feedbackClick.emit({index, experience});
   }
 }

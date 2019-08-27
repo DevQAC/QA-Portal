@@ -5,7 +5,13 @@
     </mat-panel-title>
     <mat-panel-description>
       until {{experience.end}}
+
     </mat-panel-description>
+    <div class="mat-panel-feedback-button">
+      <button mat-button (click)="onFeedbackClick($event)">
+        <mat-icon>feedback</mat-icon>
+      </button>
+    </div>
   </mat-expansion-panel-header>
 
   <mat-form-field class="wide">
@@ -35,5 +41,5 @@
     <button mat-button color="warn" (click)="deleteExp()">Remove this Expereience</button>
   </mat-action-row>
 
-  
+
 </mat-expansion-panel>

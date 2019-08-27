@@ -4,6 +4,8 @@ import { IFeedback } from '../_common/models/feedback.model';
 import * as moment from 'moment';
 import { FormControl } from '@angular/forms';
 
+import { MatDrawer } from '@angular/material/sidenav';
+
 @Component({
   selector: 'app-cv-card-base',
   templateUrl: './cv-card-base.component.html',
@@ -13,11 +15,11 @@ export class CvCardBaseComponent implements OnInit {
   @Input() title: string;
   @Input() feedback: IFeedback[];
   @Output() feedbackChange = new EventEmitter<IFeedback[]>();
-
+  @Input() showOpenButton: boolean = true;
   @ViewChild('bottomScrollTarget', { static: true }) bottomScrollTarget: ElementRef;
+  @ViewChild('drawer', {static: true}) public drawer: MatDrawer;
 
   public commentInput = new FormControl('');
-
 
   constructor() { }
 
@@ -41,10 +43,10 @@ export class CvCardBaseComponent implements OnInit {
     };
     this.feedback.push(fb);
     this.feedbackChange.emit(this.feedback);
+    this.commentInput.reset();
 
     setTimeout(() => {
-      this.bottomScrollTarget.nativeElement.scrollIntoView({ behavior: 'smooth' });
-      this.commentInput.reset();
+      // this.bottomScrollTarget.nativeElement.scrollIntoView({ behavior: 'smooth' });
     }, 0);
   }
 }
