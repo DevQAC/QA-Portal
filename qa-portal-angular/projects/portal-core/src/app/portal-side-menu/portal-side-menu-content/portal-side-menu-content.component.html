@@ -4,7 +4,7 @@
   </button>
 </div> -->
 
-<div class="side-menu-panel" style="width: 300px; overflow-x: hidden;" >
+<div class="side-menu-panel" style="width: 300px; overflow-x: hidden;">
   <!-- <div class="side-menu-title" *ngIf="!errorApp()">
     {{selectedApplication.name}}
   </div>
@@ -21,11 +21,12 @@
     </div>
 
     <div class="section-body">
-      <button mat-button *ngFor="let menuItem of application.menuItems" [routerLink]="menuItem.url" routerLinkActive="mat-accent" class="menu-item">
-        
+      <button mat-button *ngFor="let menuItem of application.menuItems" [routerLink]="menuItem.url"
+        routerLinkActive="mat-accent" class="menu-item" [matTooltip]="!sideMenuService.sideMenuOpen ? menuItem.name : ''" matTooltipPosition="after" matTooltipClass="menu-item-tooltip">
+
         <div class="menu-item-content">
           <div class="menu-item-icon">
-            <mat-icon >{{menuItem.icon || 'stars'}}</mat-icon>
+            <mat-icon>{{menuItem.icon || 'stars'}}</mat-icon>
           </div>
           <div style="width: 100%; text-overflow:ellipsis; overflow: hidden; text-align: left; margin: auto 0;">
             <span>
@@ -37,4 +38,3 @@
     </div>
   </div>
 </div>
-

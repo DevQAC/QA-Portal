@@ -42,3 +42,9 @@
         }
     }
 }
+
+.menu-item-tooltip {
+    @extend .mat-body;
+    margin-left: -230px !important;
+    margin-right: 230px !important;
+}

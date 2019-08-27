@@ -3,6 +3,7 @@ import { ApplicationSelectionService } from '../../_common/services/application-
 import { Subscription, Observable } from 'rxjs';
 import { Application } from '../../_common/models/application';
 import { DepartmentApplications } from '../../_common/models/department-applications';
+import { SideMenuService } from '../../_common/services/side-menu.service';
 
 @Component({
   selector: 'app-portal-side-menu-content',
@@ -21,7 +22,9 @@ export class PortalSideMenuContentComponent implements OnInit, OnDestroy {
 
   @Input() opened: boolean;
 
-  constructor(private applicationSelectionService: ApplicationSelectionService) { }
+  constructor(
+    private applicationSelectionService: ApplicationSelectionService,
+    public sideMenuService: SideMenuService) { }
 
   ngOnInit() {
     this.applicationSelectionSubscription
@@ -29,9 +32,9 @@ export class PortalSideMenuContentComponent implements OnInit, OnDestroy {
         .subscribe(app => {
           this.selectedApplication = app;
         });
-    
-        this.departmentApplications$ = this.applicationSelectionService.getSelectedDepartment$();
-    
+
+    this.departmentApplications$ = this.applicationSelectionService.getSelectedDepartment$();
+
   }
 
   ngOnDestroy(): void {
