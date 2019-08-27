@@ -17,6 +17,8 @@ public class UpdateCvVersionOperation {
 
 	public String updateCv(CvVersion updatedCv) {
 		
+		updatedCv.setFullName();
+		
 		repo.save(updatedCv);
 		
 		return "CV Updated";
