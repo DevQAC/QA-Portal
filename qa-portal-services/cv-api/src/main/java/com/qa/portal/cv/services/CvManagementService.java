@@ -2,9 +2,6 @@ package com.qa.portal.cv.services;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-import javax.transaction.Transactional.TxType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -48,7 +45,7 @@ public class CvManagementService {
     	return this.getCvService.getAll();
     }
     
-    public Integer findByVersionNumber(Integer versionNumber) {
-    	return this.getCvService.findByVersionNumber(versionNumber);
+    public List<CvVersion> getCurrent(Integer versionNumber) {
+    	return this.getCvService.getCurrent(versionNumber);
     }
 }

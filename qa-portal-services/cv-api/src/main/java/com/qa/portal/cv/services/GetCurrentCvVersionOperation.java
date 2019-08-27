@@ -6,6 +6,10 @@ import org.springframework.stereotype.Component;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+
 @Component
 public class GetCurrentCvVersionOperation {
 
@@ -22,7 +26,7 @@ public class GetCurrentCvVersionOperation {
 		return records;
 	}
 	
-	public List<CvVersion> findFullName(String fullName) {
+	public List<CvVersion> findFullName(String fullName) {		
 		List<CvVersion> n = repo.findByFullName(fullName);
 		if(n == null) {
 			return null; //!IMPORTANT - needs an exception handler here!
@@ -31,25 +35,19 @@ public class GetCurrentCvVersionOperation {
 		}
 	}
 	
-	public List<CvVersion> GetCurrentCvVersion(Integer id, Integer versionNumber) {
-		return null;
-//		List<CvVersion> r = repo.(id)
-//		List<CvVersion> r = repo.findByVersionNumber(versionNumber);
-//		if(r == null) {
-//			return null; //!IMPORTANT - needs an exception handler here!
-//		} else {
-//			return r;			
-//		}
+	public List<CvVersion> getCurrent(Integer versionNumber) {
+		List<CvVersion> cv = repo.getCurrent(versionNumber);
+		return cv;
 	}
 	
-	public Integer findByVersionNumber(Integer versionNumber) {
-		List<CvVersion> a = repo.findByVersionNumber(versionNumber);
-		if (a.isEmpty()) {
-			return null; //!IMPORTANT - needs an exception handler here!
-		} else {
-			CvVersion cv = a.get(versionNumber);
-			return cv.getVersionNumber();
-		}
-	}
+//	public Integer findByVersionNumber(Integer versionNumber) {
+//		List<CvVersion> a = repo.findByVersionNumber(versionNumber);
+//		if (a.isEmpty()) {
+//			return null; //!IMPORTANT - needs an exception handler here!
+//		} else {
+//			CvVersion cv = a.get(versionNumber);
+//			return cv.getVersionNumber();
+//		}
+//	}
 
 }
