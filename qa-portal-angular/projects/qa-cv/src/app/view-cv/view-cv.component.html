@@ -1,6 +1,6 @@
 <h1>{{cvData?.fullName}}</h1>
 <div class="cv-content-wrapper">
-        <section>
+        <!-- <section>
                 <app-cv-profile [profile]="cvData.profile" (profileChange)="cvData.profile = $event"></app-cv-profile>
         </section>
         <section>
@@ -15,7 +15,12 @@
                 <app-cv-work-exp-wrapper [experiences]="cvData.allWorkExperience"
                         (experiencesChange)="cvData.allWorkExperience = $event">
                 </app-cv-work-exp-wrapper>
-        </section>
+        </section> -->
+
+
+        <app-cv-card-base title="Hobbies and Interests"  [feedback]="cvData.hobbies.hobbiesFeedback">
+                <app-cv-hobbies [hobbies]="cvData.hobbies"></app-cv-hobbies>
+        </app-cv-card-base>
 
         <!-- <app-cv-qualis></app-cv-qualis>
         <app-cv-work-exp-wrapper></app-cv-work-exp-wrapper>

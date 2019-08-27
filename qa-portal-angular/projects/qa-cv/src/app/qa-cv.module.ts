@@ -12,6 +12,7 @@ import { CvWorkExpComponent } from './cv-work-exp-wrapper/cv-work-exp/cv-work-ex
 import { CvQualisComponent } from './cv-qualis-wrapper/cv-qualis/cv-qualis.component';
 import { MatNativeDateModule } from '@angular/material';
 import { CvFeedbackComponent } from './cv-feedback/cv-feedback.component';
+import { CvCardBaseComponent } from './cv-card-base/cv-card-base.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { CvFeedbackComponent } from './cv-feedback/cv-feedback.component';
     CvSkillsComponent,
     CvWorkExpComponent,
     CvQualisComponent,
-    CvFeedbackComponent
+    CvFeedbackComponent,
+    CvCardBaseComponent
   ],
   imports: [
     BrowserModule,
