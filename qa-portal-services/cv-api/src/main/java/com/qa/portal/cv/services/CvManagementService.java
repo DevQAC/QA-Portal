@@ -55,7 +55,7 @@ public class CvManagementService {
     	return this.getCvService.getAll();
     }
     
-    public CvVersion getCurrent(Integer versionNumber) {
-    	return this.getCvService.getCurrent(versionNumber);
-    }
+//    public CvVersion getCurrent(Integer versionNumber) {
+//    	return this.getCvService.getCurrent(versionNumber);
+//    }
 }

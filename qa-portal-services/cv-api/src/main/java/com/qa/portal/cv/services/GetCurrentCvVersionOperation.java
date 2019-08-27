@@ -42,10 +42,10 @@ public class GetCurrentCvVersionOperation {
 	
 	}
 	
-	public CvVersion getCurrent(Integer versionNumber) {
-		CvVersion cv = repo.getCurrent(versionNumber);
-		return cv;
-	}
+//	public CvVersion getCurrent(Integer versionNumber) {
+//		CvVersion cv = repo.getCurrent(versionNumber);
+//		return cv;
+//	}
 	
 //	public Integer findByVersionNumber(Integer versionNumber) {
 //		List<CvVersion> a = repo.findByVersionNumber(versionNumber);

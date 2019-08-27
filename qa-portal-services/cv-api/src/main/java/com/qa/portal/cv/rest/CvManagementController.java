@@ -39,10 +39,10 @@ public class CvManagementController {
 		return service.getAll();
 	}
 	
-	@GetMapping("/cv/version")
-	public CvVersion getCurrent(Integer versionNumber) {
-		return service.getCurrent(versionNumber);
-	}
+//	@GetMapping("/cv/version")
+//	public CvVersion getCurrent(Integer versionNumber) {
+//		return service.getCurrent(versionNumber);
+//	}
 	
 	@PostMapping("cv/file")
 	public void saveGeneratedCV(@RequestBody CvVersion cvVersion) {
