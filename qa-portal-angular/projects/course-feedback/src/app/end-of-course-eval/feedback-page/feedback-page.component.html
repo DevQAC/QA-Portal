@@ -8,11 +8,11 @@
 
 <div *ngIf="!!dataLoaded">
     <app-qa-form [model]="viewModel"
-                 (modelChange)="this.viewModel = $event">
+                 (modelChange)="updatedModel($event)">
     </app-qa-form>
   <div style="display: flex; justify-content: center">
     <button mat-raised-button color="primary" (click)="onFeedbackSubmit()">
-      {{allCategoryQuestionsAnswered() ? 'Submit' : 'Save'}}
+      {{ allCategoryQuestionsAnswered() ? 'Submit' : 'Save' }}
     </button>
   </div>
 </div>

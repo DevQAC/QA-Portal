@@ -1,9 +1,10 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { IQuestion, IQuestionResponse } from '../../_common/models';
-export interface IGenericControl<ResponseType = any> {
+
+export interface IGenericControl {
   question: IQuestion;
-  questionResponse: IQuestionResponse<ResponseType>;
-  questionResponseChange: EventEmitter<IQuestionResponse<ResponseType>>
+  questionResponse: IQuestionResponse;
+  questionResponseChange: EventEmitter<IQuestionResponse>;
 }
 
 @Component({
@@ -11,16 +12,16 @@ export interface IGenericControl<ResponseType = any> {
   templateUrl: './generic-control.component.html',
   styleUrls: ['./generic-control.component.css']
 })
-export class GenericControlComponent<ResponseType> implements IGenericControl<ResponseType> {
+export class GenericControlComponent implements IGenericControl {
 
   @Input() question: IQuestion;
 
-  @Input() questionResponse: IQuestionResponse<ResponseType>;
+  @Input() questionResponse: IQuestionResponse;
 
-  @Output() questionResponseChange = new EventEmitter<IQuestionResponse<ResponseType>>();
+  @Output() questionResponseChange = new EventEmitter<IQuestionResponse>();
 
   announceChange(): void {
-    this.questionResponseChange.emit(this.questionResponse);
+    // this.questionResponseChange.emit(this.questionResponse);
   }
 
   setComment(comment: string): void {
@@ -38,7 +39,7 @@ export class GenericControlComponent<ResponseType> implements IGenericControl<Re
     }
   }
 
-  setResponseValues(value: ResponseType): void {
+  setResponseValues(value: string[]): void {
     this.questionResponse.responseValues = value;
     this.announceChange();
   }

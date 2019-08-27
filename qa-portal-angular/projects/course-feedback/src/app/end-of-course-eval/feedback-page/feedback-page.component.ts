@@ -28,6 +28,10 @@ export class FeedbackPageComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) {
   }
 
+  updatedModel(event: IFormModel) {
+    // this.viewModel = event;
+  }
+
   ngOnInit() {
     // Get trainee course evaluation for the supplied cohort course id
     this.route.paramMap.subscribe(
@@ -103,7 +107,7 @@ export class FeedbackPageComponent implements OnInit, OnDestroy {
   }
 
   private setEvaluationStatus(): void {
-    this.viewModel.status = 'Saved';
+    this.viewModel.status = this.allCategoryQuestionsAnswered() ? 'Submitted' : 'Saved';
   }
 
   private isNewEvaluation(): boolean {
@@ -112,14 +116,19 @@ export class FeedbackPageComponent implements OnInit, OnDestroy {
 
   private allCategoryQuestionsAnswered(): boolean {
     const incompleteQuestionCategory = this.viewModel.categoryResponses
-      .find(cr => !this.questionsAnswered(cr));
+      .find(cr => {
+        console.log('SCOTT-FORM Category is ' + cr.questionCategory.categoryName);
+        return !this.questionsAnswered(cr);
+      });
     return !incompleteQuestionCategory;
   }
 
   private questionsAnswered(categoryResponse: ICategoryResponse): boolean {
     const questionResponse = categoryResponse.questionResponses.find(qr => {
+      console.log('SCOTT-FORM Question ' + qr.question.body);
+      console.log('SCOTT-FORM Question response ' + JSON.stringify(qr.responseValues));
       return !qr.responseValues || qr.responseValues.length === 0;
-    })
+    });
     return !questionResponse;
   }
 

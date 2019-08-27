@@ -1,5 +1,8 @@
 package com.qa.portal.feedback.services;
 
+import com.qa.portal.common.exception.QaPortalBusinessException;
+import com.qa.portal.common.persistence.entity.CohortCourseEntity;
+import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 import com.qa.portal.feedback.services.mapper.CohortCourseEvaluationMapper;
@@ -15,13 +18,24 @@ public class GetCohortCourseEvaluationsForCourseOperation {
 
     private CohortCourseEvaluationMapper cohortCourseEvaluationMapper;
 
-    public GetCohortCourseEvaluationsForCourseOperation(CohortCourseEvaluationRepository cohortCourseEvaluationRepository, CohortCourseEvaluationMapper cohortCourseEvaluationMapper) {
+    private CohortCourseRepository cohortCourseRepository;
+
+    public GetCohortCourseEvaluationsForCourseOperation(CohortCourseEvaluationRepository cohortCourseEvaluationRepository,
+                                                        CohortCourseEvaluationMapper cohortCourseEvaluationMapper,
+                                                        CohortCourseRepository cohortCourseRepository) {
         this.cohortCourseEvaluationRepository = cohortCourseEvaluationRepository;
         this.cohortCourseEvaluationMapper = cohortCourseEvaluationMapper;
+        this.cohortCourseRepository = cohortCourseRepository;
     }
 
     public List<CohortCourseEvaluationDto> getEvaluationsForCourse(Integer cohortCourseId) {
-        return this.cohortCourseEvaluationRepository.findAll()
+        return cohortCourseRepository.findById(cohortCourseId)
+                .map(cce -> getEvaluationsForCourse(cce))
+                .orElseThrow(() -> new QaPortalBusinessException("Cohort course not found"));
+    }
+
+    private List<CohortCourseEvaluationDto> getEvaluationsForCourse(CohortCourseEntity cohortCourseEntity) {
+        return this.cohortCourseEvaluationRepository.findByCohortCourse(cohortCourseEntity)
                 .stream()
                 .map(e -> cohortCourseEvaluationMapper.mapToCohortCourseEvaluationDto(e))
                 .collect(Collectors.toList());

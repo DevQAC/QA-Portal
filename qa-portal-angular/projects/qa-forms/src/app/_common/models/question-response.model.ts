@@ -1,9 +1,9 @@
 import { IComment } from './comment.model';
 import { IQuestion } from './question.model';
 
-export interface IQuestionResponse<ResponseType = any> {
+export interface IQuestionResponse {
     id: number;
     comment: IComment;
     question: IQuestion;
-    responseValues: ResponseType;
+    responseValues: string[];
 }

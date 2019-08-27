@@ -3,7 +3,7 @@
 </p>
 <div>
   <mat-checkbox #matCheckBox class="checkbox-reponse" *ngFor="let option of question.selectionOptionsList"
-    [value]="option" [checked]="questionResponse.responseValues.includes(option)"
+    [value]="option" [checked]="matchesValue(option, questionResponse.responseValues)"
     (change)="setCheckResponse($event)" style="padding-right : 10px;">{{option}}</mat-checkbox>
 </div>
 <div *ngIf="question.hasComment">

@@ -7,7 +7,6 @@ import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QuestionCategoryEntity;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.FormTypeRepository;
-import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.service.mapper.QuestionCategoryResponseMapper;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;

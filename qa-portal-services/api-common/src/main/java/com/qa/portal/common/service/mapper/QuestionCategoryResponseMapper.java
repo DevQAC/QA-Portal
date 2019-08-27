@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -89,6 +90,7 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
     private QuestionResponseDto createQuestionResponseDto(QuestionEntity questionEntity) {
         QuestionResponseDto questionResponseDto = new QuestionResponseDto();
         questionResponseDto.setQuestion(baseMapper.mapObject(questionEntity, QuestionDto.class));
+        questionResponseDto.setResponseValues(new ArrayList<>());
         return questionResponseDto;
     }
 

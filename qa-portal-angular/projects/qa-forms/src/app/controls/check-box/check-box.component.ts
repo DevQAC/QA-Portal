@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { GenericControlComponent } from '../generic-control/generic-control.component';
-import { MatCheckboxChange } from '@angular/material';
+import {Component, OnInit} from '@angular/core';
+import {GenericControlComponent} from '../generic-control/generic-control.component';
+import {MatCheckboxChange} from '@angular/material';
 
 @Component({
   selector: 'app-check-box',
   templateUrl: './check-box.component.html',
   styleUrls: ['./check-box.component.css']
 })
-export class CheckBoxComponent extends GenericControlComponent<string[]> implements OnInit {
+export class CheckBoxComponent extends GenericControlComponent implements OnInit {
 
   ngOnInit(): void {
-    this.questionResponse.responseValues = this.questionResponse.responseValues || [];
+    this.questionResponse.responseValues = this.questionResponse.responseValues;
     this.questionResponse.comment = {
       id: null,
       ...{content: ''},
@@ -25,14 +25,16 @@ export class CheckBoxComponent extends GenericControlComponent<string[]> impleme
    * @param {MatCheckboxChange} { checked, source: { value } }
    * @memberof ResponsesComponent
    */
-  setCheckResponse({ checked, source: { value } }: MatCheckboxChange): void {
+  setCheckResponse({checked, source: {value}}: MatCheckboxChange): void {
     if (checked) {
       this.questionResponse.responseValues.push(value);
     } else {
       this.questionResponse.responseValues = this.questionResponse.responseValues.filter(v => v !== value);
     }
-
     this.announceChange();
   }
 
+  matchesValue(option: string, responseValues: string[]): boolean {
+    return responseValues.includes(option);
+  }
 }

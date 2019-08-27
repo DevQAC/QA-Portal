@@ -6,7 +6,7 @@ import { GenericControlComponent } from '../generic-control/generic-control.comp
   templateUrl: './radio-button.component.html',
   styleUrls: ['./radio-button.component.css']
 })
-export class RadioButtonComponent extends GenericControlComponent<string[]> implements OnInit  {
+export class RadioButtonComponent extends GenericControlComponent implements OnInit  {
 
   ngOnInit(): void {
     this.questionResponse.responseValues = this.questionResponse.responseValues;

@@ -47,7 +47,7 @@ export class ControlFactoryComponent implements OnInit, OnDestroy {
     (componentRef.instance as IGenericControl).questionResponseChange
       .pipe(takeWhile(() => this.keepAlive))
       .subscribe(event => {
-        this.questionResponseChange.emit(event);
+        // this.questionResponseChange.emit(event);
       });
   }
 }
