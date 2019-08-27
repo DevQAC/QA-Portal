@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +27,11 @@ public class CvManagementController {
 	@PostMapping("/cv")
 	public ResponseEntity<String> createCv(@RequestBody CvVersion newCv) {
 		return ResponseEntity.ok(this.service.createCv(newCv));
+	}
+	
+	@PutMapping("/cv")
+	public ResponseEntity<String> updateCv(@RequestBody CvVersion updatedCv) {
+		return ResponseEntity.ok(this.service.updateCv(updatedCv));
 	}
 	
 	@GetMapping("/cvs")

@@ -19,16 +19,22 @@ public class CvManagementService {
     private SaveGeneratedCvOperation saveCvOperation;
     private CvPdfGenerator cvPdfGenerator;
     private CreateCvOperation createCvService;
+    private UpdateCvVersionOperation updateCvService;
     private GetCurrentCvVersionOperation getCvService;
     
-    public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator, CreateCvOperation createCvService, GetCurrentCvVersionOperation getCvService) {
+    public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator, 
+    		CreateCvOperation createCvService, GetCurrentCvVersionOperation getCvService, 
+    		UpdateCvVersionOperation updateCvService) {
+    	
         this.saveCvOperation = saveCvOperation;
         this.cvPdfGenerator = cvPdfGenerator;
         this.createCvService = createCvService;
-    	  this.getCvService = getCvService;
+    	this.getCvService = getCvService;
+    	this.updateCvService = updateCvService;
     }
     
-    @Transactional(value = TxType.REQUIRED)
+//    Nick I commented this out to get rid of the error.
+//    @Transactional(value = TxType.REQUIRED)
     public void saveGeneratedCv(CvVersion cvVersion) {
     	saveCvOperation.saveGeneratedCv(cvVersion);
     }
@@ -39,6 +45,10 @@ public class CvManagementService {
   
     public String createCv(CvVersion newCv) {
     	return this.createCvService.createCv(newCv);
+    }
+    
+    public String updateCv(CvVersion updatedCv) {
+    	return this.updateCvService.updateCv(updatedCv);
     }
     
     public List<CvVersion> getAll() {
