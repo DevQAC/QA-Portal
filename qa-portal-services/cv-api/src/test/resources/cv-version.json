@@ -1,0 +1,94 @@
+{
+    "status": "Passed",
+    "userName": "BrotherCrayon",
+    "firstName": "Chad",
+    "surname": "Thunder",
+    "fullName": "Chad Thunder",
+    "cohort": "June 2019",
+    "profile": {
+        "details": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'.",
+        "profileFeedback": [
+            {
+                "reviewer": "Dan isn't Pure",
+                "date": "YYYY-MM-DD",
+                "comment": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'."
+            }
+        ]
+    },
+    "allSkills": [
+        {
+            "programmingLanguages": [
+                "Java",
+                "Python",
+                "HTML"
+            ],
+            "ides": [
+                "VS Code",
+                "Eclipse",
+                "Notepad++"
+            ],
+            "operatingSystems": [
+                "Windows",
+                "Linux",
+                "DOS"
+            ],
+            "devops": [
+                "Jenkins",
+                "Alfred",
+                "Jeeves"
+            ],
+            "databases": [
+                "Mongo",
+                "MySQL",
+                "MS Excel"
+            ],
+            "platforms": [
+                "Concrete",
+                "Glass",
+                "Wood"
+            ],
+            "other": [
+                "Heat Vision",
+                "Super Speed",
+                "I'm running out of ideas"
+            ]
+        }
+    ],
+    "allQualifications": [
+        {
+            "qualificationDetails": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'.",
+            "qualificationFeedback": [
+                {
+                    "reviewer": "Pierre of Jesus",
+                    "date": "YYYY-MM-DD",
+                    "comment": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'."
+                }
+            ]
+        }
+    ],
+    "allWorkExperience": [
+        {
+            "jobTitle": "Numberwang Presenter",
+            "start": "YYYY-MM-DD",
+            "end": "YYYY-MM-DD",
+            "workExperienceDetails": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'.",
+            "workExperienceFeedback": [
+                {
+                    "reviewer": "Bobby Eight",
+                    "date": "YYYY-MM-DD",
+                    "comment": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'."
+                }
+            ]
+        }
+    ],
+    "hobbies": {
+        "hobbies": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'.",
+        "hobbiesFeedback": [
+            {
+                "reviewer": "Bernie the Bern",
+                "date": "YYYY-MM-DD",
+                "comment": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'."
+            }
+        ]
+    }
+}

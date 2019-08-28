@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +18,7 @@ import com.qa.portal.cv.domain.CvVersion;
 
 import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
 import org.springframework.core.io.ClassPathResource;
@@ -32,7 +36,7 @@ import rst.pdfbox.layout.text.Position;
 @Component
 public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
-    String firstname = "firstname";
+    String firstname = "firstnameuhuhuhu";
 	String lastname = "lastname";
 	String jobTitle = "jobTitle";
 	String profile = "profile";
@@ -50,7 +54,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 	
 
 	Document document = new Document();
-	PDDocument pdDoc = new PDDocument();
 
 	String QABlue = "#004050";
 	String QAPurple = "#7F007D";
@@ -75,12 +78,13 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     PDFont montserratBold;
     PDFont kranaFatB;
 
-    @PostConstruct
+    @SuppressWarnings("deprecation")
+	@PostConstruct
     public void loadfonts(){
         try{
-            this.montserrat = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("src/main/resources/Montserrat-Regular.ttf"));
-            this.montserratBold = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("src/main/resources/Montserrat-SemiBold.ttf"));
-            this.kranaFatB = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("src/main/resources/Krana-Fat-B.ttf"));
+            this.montserrat = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("target/classes/Montserrat-Regular.ttf"));
+            this.montserratBold = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("target/classes/Montserrat-SemiBold.ttf"));
+            this.kranaFatB = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("target/classes/Krana-Fat-B.ttf"));
         } catch (IOException e){
             e.printStackTrace();
             throw new QaPortalBusinessException("Cannot load in CvPdfGeneratorImpl fonts");
@@ -91,13 +95,14 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 	public byte[] generateCv(CvVersion cvVersion) {
         
         //Resource res = new ClassPathResource("generatedCv-versiondate-"+LocalDateTime.now()+".pdf");
-        Resource res = new ClassPathResource("generatedCv.pdf");
+//    	Resource res = new ClassPathResource("generatedCv.pdf");
+        
 
         try{
             // column 1 box 1
             paragraph = new Paragraph();
-            paragraph.addMarkup("{color:#FFFFFF}*" + firstname + "\n" + lastname + "*", 20, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
-            paragraph.addMarkup("{color:" + QAPurple + "} \n*" + jobTitle + "*", 20, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+            paragraph.addMarkup("{color:#FFFFFF}*" + firstname + "\n" + lastname + "*\n", 20, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+            paragraph.addMarkup("{color:" + QAPurple + "}*" + jobTitle + "*", 20, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
             frame = new Frame(paragraph, widthCol1, heightSideBox1);
             frame.setBackgroundColor(Color.decode(QARed));
             frame.setAbsolutePosition(new Position(0, document.getPageHeight()));
@@ -105,7 +110,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             document.add(frame);
 
             // column 1 box 1 image
-            ImageElement image = new ImageElement("src/main/resources/Arrow.png");
+            ImageElement image = new ImageElement("target/classes/Arrow.png");
             image.setWidth(image.getWidth()/35);
             image.setHeight(image.getHeight()/35);
             image.setAbsolutePosition(new Position(pd, document.getPageHeight() - heightSideBox1 + pd + 20));
@@ -151,7 +156,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             document.add(frame);
             
             // column 2 header image
-            ImageElement logo = new ImageElement("src/main/resources/QA_Logo.png");
+            ImageElement logo = new ImageElement("target/classes/QA_Logo.png");
             logo.setWidth(logo.getWidth() / 37f);
             logo.setHeight(logo.getHeight() / 37f);
             logo.setAbsolutePosition(new Position(widthCol1 + widthCol2 - logo.getWidth() - pd, heightFooter + heightBody + logo.getHeight() + 4));
@@ -202,11 +207,27 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             frame = new Frame(paragraph, widthCol2 - pd * 2, 0.5f);
             divider(frame, heightHeader);
             document.add(frame);
+            
+//            File tmpDir = new File("target/classes/generatedCv.pdf");
+//            System.out.println("Going to delete");
+//            if (!tmpDir.exists()) {
+//            	tmpDir.delete();
+//            	System.out.println("Deleted");
+//            }
 
             //returns
-            final OutputStream outputStream = new FileOutputStream("src/main/resources/generatedCv.pdf");
-            document.save(outputStream);
-            return IOUtils.toByteArray(res.getInputStream());
+//            final OutputStream outputStream = new FileOutputStream("target/classes/generatedCv.pdf");
+//            document.save(outputStream);
+//            document.toString();
+            PDDocument pdDoc = document.render();
+            pdDoc.save("target/classes/pdDoc.pdf");
+            PDStream stream = new PDStream(pdDoc);
+            return stream.toByteArray();
+            
+//            return new PDStream(pdDoc).toByteArray();
+            
+//            Path pdfPath = Paths.get("target/classes/generatedCv.pdf");
+//            return Files.readAllBytes(pdfPath);
 
         } catch (IOException e){
 
