@@ -51,24 +51,29 @@ public class ReferenceDataManager {
     public Map<String, List<String>> getReferenceDataForCategories(List<String> refDataCategories) {
         Map<String, List<String>> map = new HashMap();
 
-        List cohorts = this.cohortRepo.findAll().stream()
-                .map(temp -> {
-                   return temp.getName();
-                }).collect(Collectors.toList());
-        map.put("cohort",cohorts);
+        if (refDataCategories.contains("cohort")) {
+            List cohorts = this.cohortRepo.findAll().stream()
+                    .map(temp -> {
+                        return temp.getName();
+                    }).collect(Collectors.toList());
+            map.put("cohort", cohorts);
+        }
 
-       //
-        List statuses = this.statusRepo.findAll().stream()
-                .map(temp -> {
-                    return temp.getStatusName();
-                }).collect(Collectors.toList());
-        map.put("cvStatus",statuses);
+        if (refDataCategories.contains("cvStatus")) {
+            List statuses = this.statusRepo.findAll().stream()
+                    .map(temp -> {
+                        return temp.getStatusName();
+                    }).collect(Collectors.toList());
+            map.put("cvStatus", statuses);
+        }
 
-        List techs = this.techRepo.findAll().stream()
-                .map(temp -> {
-                    return temp.getTechnologyName();
-                }).collect(Collectors.toList());
-        map.put("technology",techs);
+        if (refDataCategories.contains("technology")) {
+            List techs = this.techRepo.findAll().stream()
+                    .map(temp -> {
+                        return temp.getTechnologyName();
+                    }).collect(Collectors.toList());
+            map.put("technology", techs);
+        }
 
         return map;
     }
