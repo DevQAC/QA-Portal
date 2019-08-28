@@ -12,7 +12,7 @@
 
   <div><br></div>
 
-  <div *ngIf="question.hasComment">
+  <div class="qa-radio-btn-layout" *ngIf="question.hasComment">
       <input matInput [ngModel]="question?.comment?.content" (ngModelChange)="setComment($event)">
   </div>
 </mat-radio-group>
