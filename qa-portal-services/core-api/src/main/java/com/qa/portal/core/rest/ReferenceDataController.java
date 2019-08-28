@@ -17,7 +17,6 @@ import java.util.logging.Level;
 
 
 @RestController
-///@RequestMapping("/xxx")
 public class ReferenceDataController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(com.qa.portal.core.rest.ReferenceDataController.class);
@@ -31,15 +30,6 @@ public class ReferenceDataController {
         this.service = service;
         this.context = context;
     }
-
-    /*@GetMapping("/")
-    public String handle() {
-        LOGGER.debug("Here");
-        return "Here";
-    }*/
-
-
-
 
     @GetMapping("/referencedata")
     public ResponseEntity<Map<String, List<String>>> getReferenceDataForCategories() {
