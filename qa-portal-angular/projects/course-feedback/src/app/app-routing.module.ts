@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {FeedbackPageComponent} from './end-of-course-eval/feedback-page/feedback-page.component';
+import {TraineeCourseEvaluationComponent} from './trainee-course-evaluation/trainee-course-evaluation.component';
 import {TrainerEvaluationSummaryComponent} from '../app/trainer-evaluation-summary/trainer-evaluation-summary.component';
 import {TrainerEvaluationHistoryComponent} from './trainer-evaluation-history/trainer-evaluation-history.component';
 import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
@@ -27,7 +27,7 @@ const routes: Routes = [
           },
           {
             path: 'evaluation/:id',
-            component: FeedbackPageComponent,
+            component: TraineeCourseEvaluationComponent,
             canActivate: [AppAuthGuard],
             data: {
               roles: [

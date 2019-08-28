@@ -16,7 +16,7 @@ import {RetrieveTrainerEvaluationHistoryService} from './trainer-evaluation-hist
 import {InstructorZoneTitleComponent} from './trainer-evaluation-history/instructor-zone-title/instructor-zone-title.component';
 import {SearchFormComponent} from './trainer-evaluation-history/search-form/search-form.component';
 import {FormTypeService} from './_common/services/form-type.service';
-import {FeedbackPageComponent} from './end-of-course-eval/feedback-page/feedback-page.component';
+import {TraineeCourseEvaluationComponent} from './trainee-course-evaluation/trainee-course-evaluation.component';
 import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
 import {FeedbackQuestionComponent} from './trainer-feedback/feedback-question/feedback-question.component';
 import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/problem-reporter.component';
@@ -40,7 +40,7 @@ import {TraineeEvaluationSummaryService} from './trainee-evaluation-summary/serv
     TrainerEvaluationHistoryComponent,
     InstructorZoneTitleComponent,
     SearchFormComponent,
-    FeedbackPageComponent,
+    TraineeCourseEvaluationComponent,
     TrainerFeedbackPageComponent,
     FeedbackQuestionComponent,
     ProblemReporterComponent,

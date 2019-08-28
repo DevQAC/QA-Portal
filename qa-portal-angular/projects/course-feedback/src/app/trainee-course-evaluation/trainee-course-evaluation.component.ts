@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {EvaluationService} from '../../_common/services/evaluation-service';
-import {QaErrorHandlerService} from '../../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import {EvaluationService} from '../_common/services/evaluation-service';
+import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
 import {Subscription} from 'rxjs';
 import {ICategoryResponse, IFormModel} from 'projects/qa-forms/src/app/_common/models';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-feedback-page',
-  templateUrl: './feedback-page.component.html',
-  styleUrls: ['./feedback-page.component.css']
+  selector: 'app-trainee-course-evaluation',
+  templateUrl: './trainee-course-evaluation.component.html',
+  styleUrls: ['./trainee-course-evaluation.component.css']
 })
-export class FeedbackPageComponent implements OnInit, OnDestroy {
+export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
 
   dataLoaded = false;
 
@@ -58,7 +58,7 @@ export class FeedbackPageComponent implements OnInit, OnDestroy {
   /**
    * This method will submit the current state of the form.
    * @method onFeedbackSubmit
-   * @memberof FeedbackPageComponent
+   * @memberof TraineeCourseEvaluationComponent
    */
   onFeedbackSubmit() {
     console.log('Submitting evaluation form');

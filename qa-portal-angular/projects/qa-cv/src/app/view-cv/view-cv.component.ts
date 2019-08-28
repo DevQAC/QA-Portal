@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ICvModel } from '../_common/models/qac-cv-db.model';
+import {Component, OnInit} from '@angular/core';
+import {ICvModel} from '../_common/models/qac-cv-db.model';
 
 @Component({
   selector: 'app-view-cv',
@@ -10,17 +10,18 @@ export class ViewCvComponent implements OnInit {
 
   public cvData: ICvModel;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     // Fetch data from API
-    this.cvData = <ICvModel>{
-      full_name: "Sterling Archer",
+    this.cvData = {
+      full_name: 'Sterling Archer',
       work_experience: [{
-        job: "hacker",
-        start_date: "1970-01-01",
-        end_date: "1970-01-02",
-        detail: "none",
+        job: 'hacker',
+        start_date: '1970-01-01',
+        end_date: '1970-01-02',
+        detail: 'none',
       }],
       profile: {
         p_detail: 'test p_detail',
@@ -33,7 +34,7 @@ export class ViewCvComponent implements OnInit {
         ]
       },
       hobbies: {
-        h_detail: "test h_detail",
+        h_detail: 'test h_detail',
         feedback: [
           {
             who: 'me',
@@ -43,7 +44,7 @@ export class ViewCvComponent implements OnInit {
         ]
       },
       qualifications: [{
-        q_detail: "qual test1",
+        q_detail: 'qual test1',
         feedback: [
           {
             who: 'me',
@@ -52,7 +53,7 @@ export class ViewCvComponent implements OnInit {
           }
         ]
       }, {
-        q_detail: "qual test2",
+        q_detail: 'qual test2',
         feedback: [
           {
             who: 'me',
@@ -61,7 +62,7 @@ export class ViewCvComponent implements OnInit {
           }
         ]
       }, {
-        q_detail: "qual test3",
+        q_detail: 'qual test3',
         feedback: [
           {
             who: 'me',
@@ -70,16 +71,9 @@ export class ViewCvComponent implements OnInit {
           }
         ]
       }]
-<<<<<<< HEAD
-    }
-=======
-
-    }
+    } as ICvModel;
   }
 
   onSave(): void {
-    debugger;
->>>>>>> 2f240a3db10aff4bdff73eb93926ff4cfbaa998c
   }
-
 }
