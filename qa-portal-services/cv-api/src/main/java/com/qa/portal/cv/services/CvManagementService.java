@@ -57,6 +57,10 @@ public class CvManagementService {
     	return this.getCvService.findByFullNameIgnoreCase(fullName);
     }
     
+    public List<CvVersion> findByUserNameIgnoreCase(String userName) {
+    	return this.getCvService.findByUserNameIgnoreCase(userName);
+    }
+    
     public CvVersion findByVersionNumber(Integer versionNumber) {
     	return this.getCvService.findByVersionNumber(versionNumber);
     }

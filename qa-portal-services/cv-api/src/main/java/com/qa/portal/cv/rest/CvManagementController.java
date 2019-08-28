@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,10 +47,15 @@ public class CvManagementController {
 		return service.findByVersionNumber(versionNumber);
 	}
 	
-	@GetMapping("/cv/trainee/current")
-	public ResponseEntity<List<CvVersion>> findByFullNameIgnoreCase(){
-		String fullName = qaSecurityContext.getFirstName() + " " + qaSecurityContext.getSurname();
-		return ResponseEntity.ok(this.service.findByFullNameIgnoreCase(fullName));
+//	@GetMapping("/cv/trainee/current")
+//	public ResponseEntity<List<CvVersion>> findByFullNameIgnoreCase(){
+//		String fullName = qaSecurityContext.getFirstName() + " " + qaSecurityContext.getSurname();
+//		return ResponseEntity.ok(this.service.findByFullNameIgnoreCase(fullName));
+//	}
+	
+	@GetMapping("/cv/trainee/current/{userName}")
+	public ResponseEntity<List<CvVersion>> findByuserNameIgnoreCase(@PathVariable("userName") String userName){
+		return ResponseEntity.ok(this.service.findByUserNameIgnoreCase(userName));
 	}
 	
 	@PostMapping("cv/file")

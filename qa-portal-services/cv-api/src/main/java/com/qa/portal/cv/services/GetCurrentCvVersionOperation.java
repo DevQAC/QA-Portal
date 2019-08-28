@@ -36,8 +36,15 @@ public class GetCurrentCvVersionOperation {
             return mongoOperations.find(query, CvVersion.class);
         } catch(PatternSyntaxException e) {
             return Collections.emptyList();
-        }
-		
+        }	
+	}
+	
+	public List<CvVersion> findByUserNameIgnoreCase(String userName) {		
+		try{
+			return repo.findByUserNameIgnoreCase(userName);
+        } catch(PatternSyntaxException e) {
+            return Collections.emptyList();
+        }	
 	}
 	
 	private String toLikeRegex(String source) {
