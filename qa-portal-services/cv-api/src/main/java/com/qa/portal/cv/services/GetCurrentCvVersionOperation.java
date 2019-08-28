@@ -34,7 +34,6 @@ public class GetCurrentCvVersionOperation {
 	}
 	
 	public List<CvVersion> findFullNameIgnoreCase(String like) {		
-//		List<CvVersion> n = repo.findByFullNameIgnoreCase(fullName);
 //		Collections.sort(n, cvComparator);
 		try{
             Query query = new Query();
@@ -48,20 +47,10 @@ public class GetCurrentCvVersionOperation {
 	private String toLikeRegex(String source) {
         return source.replaceAll("\\*", ".*");
     }
-	
-//	public CvVersion getCurrent(Integer versionNumber) {
-//		CvVersion cv = repo.getCurrent(versionNumber);
-//		return cv;
-//	}
-	
-//	public Integer findByVersionNumber(Integer versionNumber) {
-//		List<CvVersion> a = repo.findByVersionNumber(versionNumber);
-//		if (a.isEmpty()) {
-//			return null; //!IMPORTANT - needs an exception handler here!
-//		} else {
-//			CvVersion cv = a.get(versionNumber);
-//			return cv.getVersionNumber();
-//		}
-//	}
 
+	public CvVersion findByVersionNumber(Integer versionNumber) {
+		CvVersion a = repo.findByVersionNumber(versionNumber);
+		return a;
+	}
+	
 }

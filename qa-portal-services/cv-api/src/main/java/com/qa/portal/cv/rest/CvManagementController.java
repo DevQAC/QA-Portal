@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.services.CvManagementService;
 
@@ -18,10 +19,12 @@ import com.qa.portal.cv.services.CvManagementService;
 public class CvManagementController {
 
 	private CvManagementService service;
+	private QaSecurityContext qaSecurityContext;
 	
-	public CvManagementController(CvManagementService service) {
+	public CvManagementController(CvManagementService service, QaSecurityContext qaSecurityContext) {
 		super();
 		this.service = service;
+		this.qaSecurityContext = qaSecurityContext;
 	}
 	
 	@PostMapping("/cv")
@@ -39,12 +42,17 @@ public class CvManagementController {
 		return service.getAll();
 	}
 	
-//	@GetMapping("/cv/version")
-//	public CvVersion getCurrent(Integer versionNumber) {
-//		return service.getCurrent(versionNumber);
+	@GetMapping("/cv/version")
+	public CvVersion findByVersionNumber(Integer versionNumber) {
+		return service.findByVersionNumber(versionNumber);
+	}
+	
+//	@GetMapping ("cv/findByFullName/{fullName}")
+//	public List<CvVersion> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName){
+//		return service.findByFullNameIgnoreCase(fullName);
 //	}
 	
-	@GetMapping ("cv/findByFullName/{fullName}")
+	@GetMapping("/cv/trainee/current/{fullName}")
 	public List<CvVersion> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName){
 		return service.findByFullNameIgnoreCase(fullName);
 	}

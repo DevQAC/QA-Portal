@@ -59,7 +59,7 @@ public class CvManagementService {
     	return this.getCvService.findFullNameIgnoreCase(fullName);
     }
     
-//    public CvVersion getCurrent(Integer versionNumber) {
-//    	return this.getCvService.getCurrent(versionNumber);
-//    }
-}
+    public CvVersion findByVersionNumber(Integer versionNumber) {
+    	return this.getCvService.findByVersionNumber(versionNumber);
+    }
+} 

@@ -11,8 +11,6 @@ public interface CvVersionRepository extends MongoRepository<CvVersion, Integer>
 
 	public List<CvVersion> findByFullNameIgnoreCase(String fullName);
 
-	public List<CvVersion> findByVersionNumber(Integer versionNumber);
+	public CvVersion findByVersionNumber(Integer versionNumber);
 	
-//	@Query("{ $last : versionNumber }")
-//	public CvVersion getCurrent(Integer versionNumber);
 }
