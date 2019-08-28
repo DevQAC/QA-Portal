@@ -1,5 +1,5 @@
 export interface IFeedback {
-    who: string;
+    reviewer: string;
     date: string;
     comment: string;
 }

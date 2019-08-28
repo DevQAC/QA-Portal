@@ -1,3 +1,10 @@
-<p>
-  cv-qualis-wrapper works!
-</p>
+<h2> Qualifications
+    <button mat-mini-fab style="float: right" (click)="onNewQualiClick()">
+        <mat-icon>add</mat-icon>
+    </button>
+</h2>
+<mat-accordion *ngFor="let quali of qualifications; index as i">
+    <app-cv-qualis [qualifications1]="quali" (qualifications1Change)="quali = $event"
+        (deleteQualification)="onDeleteQualiEvent(i)" (feedbackClick)="onFeedbackClick(i, qualifications)">
+    </app-cv-qualis>
+</mat-accordion>

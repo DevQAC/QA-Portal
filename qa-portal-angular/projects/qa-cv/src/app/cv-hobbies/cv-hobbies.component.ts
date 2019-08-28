@@ -17,7 +17,7 @@ export class CvHobbiesComponent implements OnInit {
   }
 
   onInputChange(data) {
-    this.hobbies.h_detail = data;
+    this.hobbies.hobbiesDetails = data;
     this.hobbiesChange.emit(this.hobbies);
   }
 
