@@ -32,7 +32,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.errorApp = this.getErrorApplication();
-
     this.navMenuSubscription = this.menuService.getPortalMenu()
       .subscribe((response) => {
           this.portalApplications = response;

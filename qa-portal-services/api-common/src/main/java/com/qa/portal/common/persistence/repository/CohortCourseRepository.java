@@ -1,6 +1,7 @@
 package com.qa.portal.common.persistence.repository;
 
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
+import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

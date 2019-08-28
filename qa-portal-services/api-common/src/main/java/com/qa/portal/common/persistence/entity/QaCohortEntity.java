@@ -2,6 +2,7 @@ package com.qa.portal.common.persistence.entity;
 
 import java.sql.Date;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -26,6 +27,9 @@ public class QaCohortEntity extends QaBaseEntity {
 
     @OneToMany(mappedBy = "cohort", fetch = FetchType.LAZY)
     private Set<TraineeEntity> trainees;
+
+    @OneToMany(mappedBy = "cohort", fetch = FetchType.LAZY)
+    private List<CohortCourseEntity> cohortCourses;
 
     @ManyToOne
     @JoinColumn(name = "trainer_id")
@@ -61,6 +65,14 @@ public class QaCohortEntity extends QaBaseEntity {
 
     public void setTrainer(TrainerEntity trainer) {
         this.trainer = trainer;
+    }
+
+    public List<CohortCourseEntity> getCohortCourses() {
+        return cohortCourses;
+    }
+
+    public void setCohortCourses(List<CohortCourseEntity> cohortCourses) {
+        this.cohortCourses = cohortCourses;
     }
 
     public Date getStartDate() {
