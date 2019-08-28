@@ -1,7 +1,6 @@
 package com.qa.portal.cv.services;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
@@ -9,6 +8,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
+
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 
