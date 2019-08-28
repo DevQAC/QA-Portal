@@ -6,11 +6,12 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Component;
 
+import com.qa.portal.cv.domain.CvVersion;
+
 @Component
-public class QaOneDriveManger implements QaFileManager {
+public class QaLocalManger implements QaFileManager {
 
 	
-	@Override
 	public void storeFile(String filePath, byte[] cvByteArray) {
 		FileOutputStream fos = null;
 		try {
@@ -64,5 +65,35 @@ public class QaOneDriveManger implements QaFileManager {
 			}
 		}
 		return version;
+	}
+
+	@Override
+	public void storeFile(CvVersion cvVersion, byte[] cvByteArray) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createFolder(String locationId, String folderName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean checkItemExists(String pathToItem) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getNextCvVersion(String archiveId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void moveItem(String newName, String destinationFolder, String itemId) {
+		// TODO Auto-generated method stub
+		
 	}
 }

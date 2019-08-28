@@ -7,11 +7,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
+import com.qa.portal.cv.domain.CvVersion;
+
 public class QaSharepointManager implements QaFileManager {
 
 	private RestTemplate restTemplate;
 	
-	@Override
 	public void storeFile(String filePath, byte[] data) {
 		if(data != null) postCV(filePath, data);
 	}
@@ -33,6 +34,36 @@ public class QaSharepointManager implements QaFileManager {
 	//API call path: "{0}/_api/web/getfolderbyserverrelativeurl('{1}')/files" + "/add(overwrite=true, url='{2}')"
 	private String createURL(String uri) { 
 		return "URL/for/sharepoint:<PORT?>" + uri; 
+	}
+
+	@Override
+	public void storeFile(CvVersion cvVersion, byte[] cvByteArray) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createFolder(String locationId, String folderName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean checkItemExists(String pathToItem) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getNextCvVersion(String archiveId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void moveItem(String newName, String destinationFolder, String itemId) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
