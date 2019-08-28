@@ -17,7 +17,7 @@ import java.util.logging.Level;
 
 
 @RestController
-@RequestMapping("/xxx")
+///@RequestMapping("/xxx")
 public class ReferenceDataController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(com.qa.portal.core.rest.ReferenceDataController.class);
@@ -32,34 +32,20 @@ public class ReferenceDataController {
         this.context = context;
     }
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public String handle() {
         LOGGER.debug("Here");
         return "Here";
-    }
+    }*/
 
 
-        /*@GetMapping("/referencedata")
-      /*  public ResponseEntity<String> sendTest(){
-            LOGGER.debug("Here");
-            return ResponseEntity.ok("ZZZ");
-        }*/
-   /* @GetMapping("/ref")
-       public ResponseEntity<Map<String, List<String>>> getReferenceDataForCategories() {
-            List<String> list = new ArrayList<>();
-            list.add("cohorts");
-            list.add("status");
-            Map<String, List<String>> m = new HashMap() ;
-            m.put("a", list);
-            return ResponseEntity.ok(m ); //this.service.getReferenceDataForCategories(c));
 
-        }*/
 
     @GetMapping("/referencedata")
     public ResponseEntity<Map<String, List<String>>> getReferenceDataForCategories() {
         List<String> list = new ArrayList<>();
-        list.add("cohorts");
-        list.add("status");
+        list.add("cohort");
+        list.add("cvStatus");
         list.add("technology");
         return ResponseEntity.ok(this.service.getReferenceDataForCategories(list));
 
