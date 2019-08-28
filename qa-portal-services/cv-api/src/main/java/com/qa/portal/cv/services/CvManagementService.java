@@ -45,6 +45,10 @@ public class CvManagementService {
     	return this.createCvService.createCv(newCv);
     }
     
+    public CvVersion findByUserNameAndVersionNumberTest(String userName, int versionNumber) {
+    	return this.createCvService.findByUserNameAndVersionNumberTest(userName, versionNumber);
+    }
+    
     public CvVersion updateCv(CvVersion updatedCv) {
     	return this.updateCvService.updateCv(updatedCv);
     }

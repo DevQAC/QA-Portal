@@ -1,5 +1,7 @@
 package com.qa.portal.cv.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.qa.portal.cv.domain.CvVersion;
@@ -22,6 +24,10 @@ public class CreateCvOperation {
 		repo.save(newCv);
 		
 		return newCv;
+	}
+	
+	public CvVersion findByUserNameAndVersionNumberTest(String userName, int versionNumber) {
+		return this.repo.findByUserNameAndVersionNumberAllIgnoreCase(userName, versionNumber);
 	}
 	
 }

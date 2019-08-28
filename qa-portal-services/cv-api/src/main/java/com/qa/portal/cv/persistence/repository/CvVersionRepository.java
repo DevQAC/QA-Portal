@@ -14,4 +14,6 @@ public interface CvVersionRepository extends MongoRepository<CvVersion, Integer>
 
 	public CvVersion findByVersionNumber(Integer versionNumber);
 	
+	public CvVersion findByUserNameAndVersionNumberAllIgnoreCase(String userName, Integer versionNumber);
+	
 }
