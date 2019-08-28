@@ -9,6 +9,7 @@ import { IQualification } from '../_common/models/qualification.model';
 export class CvQualisWrapperComponent {
   @Input() qualifications: IQualification[];
   @Output() qualificationsChange = new EventEmitter<IQualification[]>();
+  @Output() feedbackClick = new EventEmitter<{index: number, qualifications: IQualification}>();
 
   onNewQualiClick(): void {
     this.qualifications = [{
@@ -21,6 +22,10 @@ export class CvQualisWrapperComponent {
   onDeleteQualiEvent(index: number): void {
     this.qualifications.splice(index, 1);
     this.qualificationsChange.emit(this.qualifications);
+  }
+
+  onFeedbackClick(index: number, qualifications: IQualification): void {
+    this.feedbackClick.emit({index, qualifications});
   }
 
 }

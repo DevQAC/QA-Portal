@@ -12,7 +12,8 @@ export class CvQualisComponent implements OnInit {
   @Output() qualificationsChange = new EventEmitter<IQualification>();
 
   @Output() deleteQualification = new EventEmitter<IQualification>();
-
+  
+  @Output() feedbackClick = new EventEmitter<IQualification>();
   
  
 
@@ -33,4 +34,9 @@ export class CvQualisComponent implements OnInit {
     this.qualificationsChange.emit(this.qualifications1);
   }
 
+  onFeedbackClick(): void {
+    this.feedbackClick.emit(this.qualifications1);
+  }
 }
+
+

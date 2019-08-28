@@ -73,7 +73,20 @@ export class ViewCvService {
                       "comment": "good"
                   }
               ]
-          }
+          },
+          {
+            "jobTitle": "hacker2",
+            "start": "2019-01-01",
+            "end": "2019-01-03",
+            "workExperienceDetails": "i hacked the pentagon ",
+            "workExperienceFeedback": [
+                {
+                    "reviewer": "me",
+                    "date": "2019-01-03",
+                    "comment": "good2"
+                }
+            ]
+        }
       ],
       "hobbies": {
           "hobbiesDetails": "test h_detail",

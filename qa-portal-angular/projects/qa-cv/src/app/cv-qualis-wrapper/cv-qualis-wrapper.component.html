@@ -1,15 +1,11 @@
-
-<mat-card>
-    <mat-card-content>
-        
-<p> Qualifications </p>
-
-        <button mat-raised-button (click)="onNewQualiClick()"><mat-icon>add</mat-icon></button>
-        <br>
-        <div *ngFor="let quali of qualifications; index as i">
-        
-            <app-cv-qualis [qualifications1]="quali" (qualifications1Change)="quali = $event" (deleteQualification)="onDeleteQualiEvent(i)"></app-cv-qualis>
-        
-        </div>
-    </mat-card-content>
-</mat-card>
+     
+<h2> Qualifications
+    <button mat-mini-fab style="float: right" (click)="onNewQualiClick()">
+        <mat-icon>add</mat-icon>
+    </button>
+    </h2>
+    <mat-accordion *ngFor="let quali of qualifications; index as i">
+            <app-cv-qualis [qualifications1]="quali" (qualifications1Change)="quali = $event" 
+            (deleteQualification)="onDeleteQualiEvent(i)" 
+            (feedbackClick)="onFeedbackClick(i, qualifications)"></app-cv-qualis>
+        </mat-accordion>

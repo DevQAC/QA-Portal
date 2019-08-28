@@ -19,6 +19,10 @@ export class ViewCvComponent implements OnInit {
   workExpFeedbackIndex: number;
   public workExpDrawerOpen = false;
 
+  public qualFeedback = [];
+  qualFeedbackIndex: number;
+  public qualDrawerOpen = false;
+
   constructor(
     private cvService: ViewCvService
   ) { }
@@ -44,6 +48,16 @@ export class ViewCvComponent implements OnInit {
 
   onWorkExpFeedbackChange(feedback: IFeedback[], ): void {
     this.cvData.allWorkExperience[this.workExpFeedbackIndex].workExperienceFeedback = feedback;
+  }
+
+  onQualFeedbackClick({index}: {index: number}, cardBase: CvCardBaseComponent): void {
+    this.qualFeedbackIndex = index;
+    this.qualFeedback = this.cvData.allQualifications[index].qualificationFeedback;
+    cardBase.drawer.open();
+  }
+
+  onQualFeedbackChange(feedback: IFeedback[], ): void {
+    this.cvData.allQualifications[this.qualFeedbackIndex].qualificationFeedback = feedback;
   }
 
 }

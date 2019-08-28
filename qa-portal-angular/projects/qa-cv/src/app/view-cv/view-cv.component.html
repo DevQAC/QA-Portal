@@ -13,12 +13,13 @@
                 </app-cv-card-base>
         </section>
         <section>
-
-                <app-cv-card-base title="Qualifications" [feedback]="cvData.allQualifications">
-                        <app-cv-qualis-wrapper [qualifications]="cvData.allQualifications"
-                                (qualificationsChange)="cvData.allQualifications = $event">
-                        </app-cv-qualis-wrapper>
-                </app-cv-card-base>
+                <app-cv-card-base #cardBase  title="Qualifications" [feedback]="qualFeedback" (feedbackChange)="onQualFeedbackChange($event)"
+                [showOpenButton]="false">
+                <app-cv-qualis-wrapper [qualifications]="cvData.allQualifications"
+                (qualificationsChange)="cvData.allQualifications = $event"
+                (feedbackClick)="onQualFeedbackClick($event, cardBase)">
+                </app-cv-qualis-wrapper>
+        </app-cv-card-base>
         </section>
         <section>
                 <app-cv-card-base #cardBase title="Work Experience" [feedback]="workExpFeedback" (feedbackChange)="onWorkExpFeedbackChange($event)"
