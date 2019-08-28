@@ -8,10 +8,6 @@ import org.springframework.stereotype.Component;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
-
 @Component
 public class GetCurrentCvVersionOperation {
 
@@ -31,9 +27,9 @@ public class GetCurrentCvVersionOperation {
 		return records;
 	}
 	
-	public List<CvVersion> findFullName(String fullName) {		
-		List<CvVersion> n = repo.findByFullName(fullName);
-		Collections.sort(n, cvComparator);
+	public List<CvVersion> findFullNameIgnoreCase(String fullName) {		
+		List<CvVersion> n = repo.findByFullNameIgnoreCase(fullName);
+//		Collections.sort(n, cvComparator);
 		if(n == null) {
 			return null; //!IMPORTANT - needs an exception handler here!
 		} else {

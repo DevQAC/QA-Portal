@@ -44,6 +44,11 @@ public class CvManagementController {
 //		return service.getCurrent(versionNumber);
 //	}
 	
+	@GetMapping ("cv/findByFullName/{fullName}")
+	public List<CvVersion> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName){
+		return service.findByFullNameIgnoreCase(fullName);
+	}
+	
 	@PostMapping("cv/file")
 	public void saveGeneratedCV(@RequestBody CvVersion cvVersion) {
 		service.saveGeneratedCv(cvVersion);
