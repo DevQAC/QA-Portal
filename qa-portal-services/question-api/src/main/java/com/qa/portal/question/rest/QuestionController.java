@@ -1,7 +1,9 @@
 package com.qa.portal.question.rest;
 
 import com.qa.portal.common.dto.QuestionCategoryDto;
+import com.qa.portal.common.dto.QuestionCategoryResponseDto;
 import com.qa.portal.common.dto.QuestionDto;
+import com.qa.portal.common.dto.QuestionResponseDto;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.question.services.QuestionService;
 import org.springframework.http.ResponseEntity;

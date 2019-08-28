@@ -3,7 +3,7 @@ package com.qa.portal.common.persistence.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(schema = "training", name = "question_category_response")
+@Table(schema = "training", name = "question_response")
 public class QuestionResponseEntity extends QaBaseEntity {
 
     @Id

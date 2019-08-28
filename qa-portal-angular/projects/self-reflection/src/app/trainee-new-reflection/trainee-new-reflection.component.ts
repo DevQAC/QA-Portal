@@ -28,6 +28,8 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
   listOfFormDates;
 
+  MILLIS_IN_A_DAY = 24 * 60 * 60 * 1000;
+
   constructor(private selfReflectionService: SelfReflectionService,
               private selfReflectionFormService: SelfReflectionFormService,
               private questionsService: QuestionsServiceService,
@@ -60,8 +62,8 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   }
 
   addDays(date: Date, days: number) {
-    const result = new Date(date);
-    result.setDate(result.getDate() + days);
+    let result = new Date(date);
+    result = new Date(result.getTime() + days * this.MILLIS_IN_A_DAY);
     return result;
   }
 

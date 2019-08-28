@@ -1,4 +1,0 @@
-<h4>{{value.categoryName}}</h4>
-<app-question *ngFor="let question of value.questions; let i = index" [value]="question"
-    [selectionType]="value.selectionType" (change)="onQuestionChange($event, i)"></app-question>
-<mat-divider></mat-divider>
