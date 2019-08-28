@@ -15,7 +15,7 @@ export interface ICvModel {
     fullName: string;
     cohort: string;
     profile: IProfile;
-    allSkills: ISkills;
+    allSkills: ISkills[];
     allQualifications: IQualification[];
     allWorkExperience: IWorkExperience[];
     hobbies: IHobbies;
