@@ -7,7 +7,8 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    .mat-card-title  {
+
+    .mat-card-title {
         margin-right: auto;
     }
 }
@@ -21,27 +22,34 @@
 
     .top {
         display: flex;
+
         .drawer-title {
+            display: flex;
             margin-right: auto;
 
-            h5 {
-                margin: 0;
+            >* {
+
+                margin: auto 0.5em;
             }
         }
 
     }
+
     .middle {
         height: 100%;
         overflow-y: auto;
+        background: #ececec;
     }
-    .bottom {
 
+    .bottom {
+        overflow: hidden;
     }
 
 }
 
 .comment-field {
     width: 100%;
+
     input {
         width: 100%;
     }
@@ -52,7 +60,9 @@
 }
 
 .comment-bubble {
-    background: #eeeeee; /* placeholder colour */;
+    background: #ffffff;
+    /* placeholder colour */
+    ;
     border-radius: 0.25rem;
     margin: 0.5rem;
     padding: 0.25rem 1rem;
@@ -66,17 +76,31 @@
         font-size: 0.8rem;
         line-height: 1;
         font-style: italic;
+
         .reviewer {
             margin-right: auto;
         }
-        .date {
 
-        }
+        .date {}
     }
 }
 
 
 mat-icon {
     height: unset;
-    width: unset; /* override base style, reset to default */
+    width: unset;
+    /* override base style, reset to default */
+}
+
+.comment-form {
+    display: flex;
+}
+
+.mat-form-field.comment-field {
+    margin: 0 0.5em -0.5em 0.5em;
+
+    .mat-input-element {
+        padding-bottom: 0.4em;
+    }
+
 }

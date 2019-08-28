@@ -30,9 +30,11 @@
           <div #bottomScrollTarget name="bottom-scroll-target" aria-hidden="true"></div>
         </div>
         <div class="bottom" *ngIf="canComment">
-          <form (ngSubmit)="addFeedbackItem()">
-            <mat-form-field class="comment-field" [hideRequiredMarker]="options.value.hideRequired">
-              <input [formControl]="commentInput" type="text" matInput placeholder="Comment">
+          <mat-divider></mat-divider>
+          <form class="comment-form" (ngSubmit)="addFeedbackItem()">
+            <mat-form-field class="comment-form-field" class="comment-field"
+              [hideRequiredMarker]="options.value.hideRequired" floatLabel="never">
+              <input [formControl]="commentInput" type="text" matInput placeholder="Write a comment">
               <mat-icon matSuffix>send
               </mat-icon>
             </mat-form-field>
