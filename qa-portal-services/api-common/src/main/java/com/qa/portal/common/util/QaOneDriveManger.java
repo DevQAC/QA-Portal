@@ -9,25 +9,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class QaOneDriveManger implements QaFileManager {
 
+	
 	@Override
 	public void storeFile(String filePath, byte[] cvByteArray) {
+		FileOutputStream fos = null;
 		try {
 			//move existing CV to archive
 			archiveFile(filePath);
 
 			//create folder(s) to user folder if they are a new user
 			File directory = new File(filePath).getParentFile();
-			directory.mkdirs();
+			if(!directory.exists()) directory.mkdirs();
 			
 			//save new CV
-			FileOutputStream fos = new FileOutputStream(filePath);
+			fos = new FileOutputStream(filePath);
 			fos.write(cvByteArray);
 			fos.flush();
-			fos.close();
-			
-			//is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -37,7 +42,7 @@ public class QaOneDriveManger implements QaFileManager {
 		if(file.exists()) {
 			//make archive folder if it doesn't already exist
 			File userDir = new File(file.getParent() + "/archive");
-			userDir.mkdirs(); 
+			if(!userDir.exists()) userDir.mkdirs(); 
 			
 			int newVersion = getCurrentVersion(userDir) + 1;
 			

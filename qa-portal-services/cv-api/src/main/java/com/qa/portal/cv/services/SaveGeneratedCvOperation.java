@@ -22,7 +22,10 @@ public class SaveGeneratedCvOperation {
 
 	public void saveGeneratedCv(CvVersion cvVersion) {
 		byte[] cvByteArray = pdfGenerator.generateCv(cvVersion);
-		//add folder name & CV filename to fileLocation parameter.
-		//fileManager.storeFile(fileLocation, cvByteArray);
+		
+		//folder = cvVersion.userName, fileName = cvVersion.userName + ".pdf" ????
+		final String folder = "/test";
+		final String fileName = "/test.pdf";
+		fileManager.storeFile(fileLocation + folder + fileName, cvByteArray);
 	}
 }

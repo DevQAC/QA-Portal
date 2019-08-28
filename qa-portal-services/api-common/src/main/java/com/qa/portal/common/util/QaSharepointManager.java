@@ -13,8 +13,6 @@ public class QaSharepointManager implements QaFileManager {
 	
 	@Override
 	public void storeFile(String filePath, byte[] data) {
-		//get new CV data
-
 		if(data != null) postCV(filePath, data);
 	}
 	
