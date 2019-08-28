@@ -23,17 +23,6 @@ import java.util.stream.Stream;
 
 public class ReferenceDataManager {
 	
-	
-	
-	
-	
-//	public Map<String, List<String>> getReferenceDataForCategories(List<String> refDataCategories) {
-//		List<TechnologyEntity> p = repo.findAll();
-//		return p;
-//	}
-
-	       
-
     private QaCohortRepository cohortRepo;
 
     private CvStatusRepository statusRepo;
@@ -48,38 +37,34 @@ public class ReferenceDataManager {
         this.techRepo = techRepo;
     }
 
-    public Map<String, List<String>> getReferenceDataForCategories(List<String> refDataCategories) {
+    public Map<String, List<String>> getReferenceDataForCategories() {
         Map<String, List<String>> map = new HashMap();
 
-        if (refDataCategories.contains("cohort")) {
             List cohorts = this.cohortRepo.findAll().stream()
                     .map(temp -> {
                         return temp.getName();
                     }).collect(Collectors.toList());
             map.put("cohort", cohorts);
-        }
 
-        if (refDataCategories.contains("cvStatus")) {
+
+
             List statuses = this.statusRepo.findAll().stream()
                     .map(temp -> {
                         return temp.getStatusName();
                     }).collect(Collectors.toList());
             map.put("cvStatus", statuses);
-        }
 
-        if (refDataCategories.contains("technology")) {
+
+
             List techs = this.techRepo.findAll().stream()
                     .map(temp -> {
                         return temp.getTechnologyName();
                     }).collect(Collectors.toList());
             map.put("technology", techs);
-        }
 
         return map;
     }
 
     }
-       /* return mapper.mapToQaCohortDto(this.traineeRepo.findByUserName(name)
-                .orElseThrow(() -> new QaResourceNotFoundException("Cohort with that name does not exist")).getCohort());
-    }*/
+
 

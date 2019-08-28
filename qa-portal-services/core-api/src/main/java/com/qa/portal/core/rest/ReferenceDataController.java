@@ -33,11 +33,8 @@ public class ReferenceDataController {
 
     @GetMapping("/referencedata")
     public ResponseEntity<Map<String, List<String>>> getReferenceDataForCategories() {
-        List<String> list = new ArrayList<>();
-        list.add("cohort");
-        list.add("cvStatus");
-        list.add("technology");
-        return ResponseEntity.ok(this.service.getReferenceDataForCategories(list));
+
+        return ResponseEntity.ok(this.service.getReferenceDataForCategories());
 
     }
 }
