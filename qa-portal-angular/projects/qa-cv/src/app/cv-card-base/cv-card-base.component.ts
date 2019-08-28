@@ -18,7 +18,7 @@ export class CvCardBaseComponent implements OnInit {
   @Input() feedback: IFeedback[];
   @Output() feedbackChange = new EventEmitter<IFeedback[]>();
   @Input() showOpenButton: boolean = true;
-  @ViewChild('bottomScrollTarget', { static: true }) bottomScrollTarget: ElementRef;
+  @ViewChild('commentContainer', { static: true }) commentContainer: ElementRef;
   @ViewChild('drawer', { static: true }) public drawer: MatDrawer;
 
   public commentInput = new FormControl('', Validators.required);
@@ -41,6 +41,10 @@ export class CvCardBaseComponent implements OnInit {
     return moment(date).format('dddd, MMMM Do YYYY, h:mm:ss a');
   }
 
+  scrollCommentsToBottom() {
+    this.commentContainer.nativeElement.scrollTop = this.commentContainer.nativeElement.scrollHeight;
+  }
+
 
   addFeedbackItem() {
     if (this.commentInput.valid) {
@@ -55,7 +59,7 @@ export class CvCardBaseComponent implements OnInit {
       this.commentInput.markAsUntouched();
 
       setTimeout(() => {
-        this.bottomScrollTarget.nativeElement.scrollIntoView(false);
+        this.scrollCommentsToBottom();
       }, 0);
     }
 
