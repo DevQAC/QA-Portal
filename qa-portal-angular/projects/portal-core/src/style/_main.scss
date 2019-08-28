@@ -1,8 +1,19 @@
+// Theme
 @import './theme/qa-app-theme.scss';
 @import './theme/overrides.scss';
 
-// Components
+// Core styles
 @import './components/header';
 @import './components/side-menu';
 @import './components/side-menu-content';
 @import './components/header-link';
+
+
+// Project Overrides
+@import '../../../course-feedback/src/styles.scss';
+@import '../../../portal-home/src/styles.scss';
+@import '../../../qa-common/src/styles.scss';
+@import '../../../qa-cv/src/styles.scss';
+@import '../../../qa-error-app/src/styles.scss';
+@import '../../../qa-forms/src/styles.scss';
+@import '../../../self-reflection/src/styles.scss';
