@@ -8,7 +8,7 @@ public class TechnologyDto {
 
     private String technologyName ;
 
-    private Integer technologyCategoryId ;
+    private TechnologyCategoryDto technologyCategory;
 
     private String searchString;
 
@@ -34,13 +34,11 @@ public class TechnologyDto {
         this.technologyName = technologyName;
     }
 
-    public Integer getTechnologyCategoryId() {
-        return technologyCategoryId;
+    public TechnologyCategoryDto getTechnologyCategory() {
+        return technologyCategory;
     }
 
-    public void setTechnologyCategoryId(Integer technologyCategoryId) {
-        this.technologyCategoryId = technologyCategoryId;
-    }
+
 
     public String getSearchString() {
         return searchString;
@@ -66,18 +64,7 @@ public class TechnologyDto {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
-    @java.lang.Override
-    public java.lang.String toString() {
-        return "TechnologyDto{" +
-                "id=" + id +
-                ", technologyName='" + technologyName + '\'' +
-                ", technologyCategoryId=" + technologyCategoryId +
-                ", searchString='" + searchString + '\'' +
-                ", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
-                ", lastUpdatedBy=" + lastUpdatedBy +
-                ", version=" + version +
-                '}';
-    }
+
 
     public Integer getVersion() {
         return version;

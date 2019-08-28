@@ -5,23 +5,12 @@ import java.sql.Timestamp;
 public class CourseTechnologyDto {
 
     private Integer id;
-    private Integer courseId ;
-    private Integer technologyId;
+    private CourseDto course;
+    private TechnologyDto technology;
     private Timestamp lastUpdatedTimestamp ;
     private String lastUpdatedBy;
     private Integer version;
 
-    @Override
-    public String toString() {
-        return "CourseTechnologyDto{" +
-                "id=" + id +
-                ", courseId=" + courseId +
-                ", technologyId=" + technologyId +
-                ", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
-                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-                ", version=" + version +
-                '}';
-    }
 
     public Integer getId() {
         return id;
@@ -31,16 +20,12 @@ public class CourseTechnologyDto {
         this.id = id;
     }
 
-    public Integer getCourseId() {
-        return courseId;
+    public CourseDto getCourse() {
+        return course;
     }
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
-    }
-
-    public Integer getTechnologyId() {
-        return technologyId;
+   public TechnologyDto getTechnology() {
+        return technology;
     }
 
     public void setTechnologyId(Integer technologyId) {

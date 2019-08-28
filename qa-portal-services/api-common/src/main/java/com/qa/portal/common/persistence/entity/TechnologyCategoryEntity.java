@@ -32,7 +32,7 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
     @Column(name = "last_updated_by")
     private String lastUpdatedBy;
 
-	@OneToMany(mappedBy = "technologyId", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "technology", fetch = FetchType.LAZY)
 	private List<TechnologyEntity> technologies;
 
     private Integer version;
