@@ -29,7 +29,6 @@ export class TrainerFeedbackPageComponent implements OnInit, OnDestroy {
       this.dataLoaded = true;
     },
       (error) => {
-        console.log(error);
         this.dataLoaded = true;
         this.errorHandlerService.handleError(error);
       });

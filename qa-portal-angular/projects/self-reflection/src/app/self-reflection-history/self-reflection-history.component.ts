@@ -49,7 +49,6 @@ export class SelfReflectionHistoryComponent implements OnInit, OnDestroy {
       },
       (error) => {
         this.loadingData = false;
-        console.log(error.error);
         this.errorHandlerService.handleError(error);
       }
     );

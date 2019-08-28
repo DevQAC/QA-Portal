@@ -61,7 +61,6 @@ export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
    * @memberof TraineeCourseEvaluationComponent
    */
   onFeedbackSubmit() {
-    console.log('Submitting evaluation form');
     this.setEvaluationStatus();
     if (this.isNewEvaluation()) {
       this.createEvaluationForm();
@@ -109,8 +108,6 @@ export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
 
   private setEvaluationStatus(): void {
     this.viewModel.status = this.allCategoryQuestionsAnswered() ? 'Submitted' : 'Saved';
-    console.log('All category questions answered ' + this.allCategoryQuestionsAnswered());
-    console.log('View model status ' + this.viewModel.status);
   }
 
   private isNewEvaluation(): boolean {
@@ -120,7 +117,6 @@ export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
   private allCategoryQuestionsAnswered(): boolean {
     const incompleteQuestionCategory = this.viewModel.categoryResponses
       .find(cr => {
-        console.log('SCOTT-FORM Category is ' + cr.questionCategory.categoryName);
         return !this.questionsAnswered(cr);
       });
     return !incompleteQuestionCategory;
@@ -128,9 +124,7 @@ export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
 
   private questionsAnswered(categoryResponse: ICategoryResponse): boolean {
     const questionResponse = categoryResponse.questionResponses.find(qr => {
-      console.log('SCOTT-FORM Question ' + qr.question.body);
-      console.log('SCOTT-FORM Question response ' + JSON.stringify(qr.responseValues));
-      return !qr.responseValues || qr.responseValues.length === 0;
+       return !qr.responseValues || qr.responseValues.length === 0;
     });
     return !questionResponse;
   }

@@ -17,7 +17,6 @@ export class CategoryComponent implements OnInit {
   }
 
   onQuestionResponseChange(event, i) {
-    console.log('SCOTT-Category index is ' + i);
     this.categoryResponse.questionResponses[i] = event;
     // this.categoryResponseChange.emit(this.categoryResponse);
   }
