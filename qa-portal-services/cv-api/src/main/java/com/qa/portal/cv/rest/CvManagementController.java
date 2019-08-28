@@ -38,8 +38,8 @@ public class CvManagementController {
 	}
 	
 	@GetMapping("/cvs")
-	public List<CvVersion> getAll() {
-		return service.getAll();
+	public ResponseEntity<List<CvVersion>> getAll() {
+		return ResponseEntity.ok(this.service.getAll());
 	}
 	
 	@GetMapping("/cv/version")
@@ -52,9 +52,9 @@ public class CvManagementController {
 //		return service.findByFullNameIgnoreCase(fullName);
 //	}
 	
-	@GetMapping("/cv/trainee/current/{fullName}")
-	public List<CvVersion> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName){
-		return service.findByFullNameIgnoreCase(fullName);
+	@GetMapping("/cv/trainee/current")
+	public ResponseEntity<List<CvVersion>> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName){
+		return null;
 	}
 	
 	@PostMapping("cv/file")
