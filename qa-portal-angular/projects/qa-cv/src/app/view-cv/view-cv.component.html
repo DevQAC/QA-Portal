@@ -32,8 +32,8 @@
         </section>
         <section>
                 <app-cv-card-base [showOpenButton]="false" title="Skills">
-                        <app-cv-hobbies [hobbies]="cvData.Skills" (hobbiesChange)="cvData.Skills = $event">
-                        </app-cv-hobbies>
+                        <app-cv-skills [skills]="cvData.allSkills[0]" (skillsChange)="cvData.allSkills[0] = $event">
+                        </app-cv-skills>
                 </app-cv-card-base>
         </section>
         <button mat-flat-button color="primary" (click)="onSave()" title="Save all Changes">Save</button>

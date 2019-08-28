@@ -31,7 +31,7 @@ export class ViewCvComponent implements OnInit {
   }
 
   onSave(): void {
-    // debugger;
+    debugger;
   }
 
   getAllCvs(): void {

@@ -37,6 +37,45 @@ export class ViewCvService {
             }
           ]
         },
+        "allSkills": [
+          {
+            "programmingLanguages": [
+              "Java",
+              "Python",
+              "HTML"
+            ],
+            "ides": [
+              "VS Code",
+              "Eclipse",
+              "Notepad++"
+            ],
+            "operatingSystems": [
+              "Windows",
+              "Linux",
+              "DOS"
+            ],
+            "devops": [
+              "Jenkins",
+              "Alfred",
+              "Jeeves"
+            ],
+            "databases": [
+              "Mongo",
+              "MySQL",
+              "MS Excel"
+            ],
+            "platforms": [
+              "Concrete",
+              "Glass",
+              "Wood"
+            ],
+            "other": [
+              "Heat Vision",
+              "Super Speed",
+              "I'm running out of ideas"
+            ]
+          }
+        ],
         "allQualifications": [
           {
             "qualificationDetails": "qual test1",
