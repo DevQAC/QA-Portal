@@ -55,14 +55,14 @@ public class ReferenceDataManager {
                 .map(temp -> {
                    return temp.getName();
                 }).collect(Collectors.toList());
-        map.put("cohorts",cohorts);
+        map.put("cohort",cohorts);
 
        //
         List statuses = this.statusRepo.findAll().stream()
                 .map(temp -> {
                     return temp.getStatusName();
                 }).collect(Collectors.toList());
-        map.put("status",statuses);
+        map.put("cvStatus",statuses);
 
         List techs = this.techRepo.findAll().stream()
                 .map(temp -> {
