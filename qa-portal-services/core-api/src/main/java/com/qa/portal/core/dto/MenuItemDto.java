@@ -14,6 +14,8 @@ public class MenuItemDto {
 
     private Integer level;
 
+    private Boolean displayOnMenu;
+
     public Integer getId() {
         return id;
     }
@@ -54,6 +56,14 @@ public class MenuItemDto {
         this.level = level;
     }
 
+    public Boolean getDisplayOnMenu() {
+        return displayOnMenu;
+    }
+
+    public void setDisplayOnMenu(Boolean displayOnMenu) {
+        this.displayOnMenu = displayOnMenu;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,11 +73,12 @@ public class MenuItemDto {
                 Objects.equals(name, that.name) &&
                 Objects.equals(url, that.url) &&
                 Objects.equals(tooltip, that.tooltip) &&
-                Objects.equals(level, that.level);
+                Objects.equals(level, that.level) &&
+                Objects.equals(displayOnMenu, that.displayOnMenu);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, url, tooltip, level);
+        return Objects.hash(id, name, url, tooltip, level, displayOnMenu);
     }
 }

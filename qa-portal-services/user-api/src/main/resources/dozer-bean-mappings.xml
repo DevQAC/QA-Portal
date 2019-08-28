@@ -17,4 +17,17 @@
             </converter>
         </custom-converters>
     </configuration>
+
+    <mapping>
+        <class-a>com.qa.portal.common.dto.CohortCourseDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.CohortCourseEntity</class-b>
+        <field-exclude>
+            <a>cohort</a>
+            <b>cohort</b>
+        </field-exclude>
+        <field-exclude>
+            <a>trainer</a>
+            <b>trainer</b>
+        </field-exclude>
+    </mapping>
 </mappings>

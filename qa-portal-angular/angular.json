@@ -25,7 +25,7 @@
             ],
             "styles": [
               "projects/qa-common/src/styles.css"
-              
+
             ],
             "scripts": []
           },
@@ -792,6 +792,119 @@
           "configurations": {
             "production": {
               "devServerTarget": "course-evaluation:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "qa-forms": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/qa-forms",
+      "sourceRoot": "projects/qa-forms/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/qa-forms",
+            "index": "projects/qa-forms/src/index.html",
+            "main": "projects/qa-forms/src/main.ts",
+            "polyfills": "projects/qa-forms/src/polyfills.ts",
+            "tsConfig": "projects/qa-forms/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/qa-forms/src/favicon.ico",
+              "projects/qa-forms/src/assets"
+            ],
+            "styles": [
+              "projects/qa-forms/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/qa-forms/src/environments/environment.ts",
+                  "with": "projects/qa-forms/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "qa-forms:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "qa-forms:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "qa-forms:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/qa-forms/src/test.ts",
+            "polyfills": "projects/qa-forms/src/polyfills.ts",
+            "tsConfig": "projects/qa-forms/tsconfig.spec.json",
+            "karmaConfig": "projects/qa-forms/karma.conf.js",
+            "assets": [
+              "projects/qa-forms/src/favicon.ico",
+              "projects/qa-forms/src/assets"
+            ],
+            "styles": [
+              "projects/qa-forms/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/qa-forms/tsconfig.app.json",
+              "projects/qa-forms/tsconfig.spec.json",
+              "projects/qa-forms/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/qa-forms/e2e/protractor.conf.js",
+            "devServerTarget": "qa-forms:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "qa-forms:serve:production"
             }
           }
         }

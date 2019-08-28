@@ -4,6 +4,7 @@ import com.qa.portal.common.dto.CourseDto;
 import com.qa.portal.common.persistence.repository.CourseRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,9 +21,9 @@ public class CourseService {
         this.baseMapper = baseMapper;
     }
 
+    @Transactional
     public List<CourseDto> getCourses() {
         return courseRepository.findAll().stream()
                 .map(ce -> baseMapper.mapObject(ce, CourseDto.class)).collect(Collectors.toList());
     }
-
 }
