@@ -28,7 +28,7 @@ import { CvCardBaseComponent } from './cv-card-base/cv-card-base.component';
     CvSkillsComponent,
     CvWorkExpComponent,
     CvQualisComponent,
-    CvSearchComponent
+    CvSearchComponent,
     CvFeedbackComponent,
     CvCardBaseComponent
   ],
