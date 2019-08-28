@@ -32,7 +32,7 @@
         <div class="bottom" *ngIf="canComment">
           <form (ngSubmit)="addFeedbackItem()">
             <mat-form-field class="comment-field" [hideRequiredMarker]="options.value.hideRequired">
-              <input [formControl]="commentInput" type="text" matInput placeholder="Comment" required>
+              <input [formControl]="commentInput" type="text" matInput placeholder="Comment">
               <mat-icon matSuffix>send
               </mat-icon>
             </mat-form-field>

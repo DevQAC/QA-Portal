@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 import { IFeedback } from '../_common/models/feedback.model';
 
 import * as moment from 'moment';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatDrawer } from '@angular/material/sidenav';
 import { KeycloakService } from 'keycloak-angular';
@@ -21,7 +21,7 @@ export class CvCardBaseComponent implements OnInit {
   @ViewChild('bottomScrollTarget', { static: true }) bottomScrollTarget: ElementRef;
   @ViewChild('drawer', { static: true }) public drawer: MatDrawer;
 
-  public commentInput = new FormControl('');
+  public commentInput = new FormControl('', Validators.required);
   options: FormGroup;
 
   constructor(private keycloak: KeycloakService, fb: FormBuilder) {
@@ -43,17 +43,21 @@ export class CvCardBaseComponent implements OnInit {
 
 
   addFeedbackItem() {
-    const fb: IFeedback = {
-      comment: this.commentInput.value,
-      date: moment().format(),
-      reviewer: this.keycloak.getUsername()
-    };
-    this.feedback.push(fb);
-    this.feedbackChange.emit(this.feedback);
-    this.commentInput.reset();
+    if (this.commentInput.valid) {
+      const fb: IFeedback = {
+        comment: this.commentInput.value,
+        date: moment().format(),
+        reviewer: this.keycloak.getUsername()
+      };
+      this.feedback.push(fb);
+      this.feedbackChange.emit(this.feedback);
+      this.commentInput.reset();
+      this.commentInput.markAsUntouched();
 
-    setTimeout(() => {
-      this.bottomScrollTarget.nativeElement.scrollIntoView(false);
-    }, 0);
+      setTimeout(() => {
+        this.bottomScrollTarget.nativeElement.scrollIntoView(false);
+      }, 0);
+    }
+
   }
 }
