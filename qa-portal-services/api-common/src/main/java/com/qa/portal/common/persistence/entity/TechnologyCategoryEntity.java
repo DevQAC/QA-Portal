@@ -31,21 +31,56 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
 
     private Integer version;
 
-    public Integer getId() {
-        return this.id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getCategoryName() {
-        return this.categoryName;
-    }
+	public String getCategoryName() {
+		return categoryName;
+	}
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getSearchString() {
+		return searchString;
+	}
+
+	public void setSearchString(String searchString) {
+		this.searchString = searchString;
+	}
+
+	public Timestamp getLastUpdatedTimestamp() {
+		return lastUpdatedTimestamp;
+	}
+
+	public void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp) {
+		this.lastUpdatedTimestamp = lastUpdatedTimestamp;
+	}
+
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
+	}
+
+	public void setLastUpdatedBy(String lastUpdatedBy) {
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+
+
     
     // todo other gets and sets
 

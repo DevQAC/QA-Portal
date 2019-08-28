@@ -36,22 +36,62 @@ public class TechnologyEntity extends QaBaseEntity {
 
     private Integer version;
 
-    public Integer getId() {
-        return this.id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getTechnologyName() {
-        return this.technologyName;
-    }
+	public String getTechnologyName() {
+		return technologyName;
+	}
 
-    public void setTechnologyName(String techName) {
-        this.technologyName = techName;
-    }
-    
-    // todo other gets and sets
+	public void setTechnologyName(String technologyName) {
+		this.technologyName = technologyName;
+	}
+
+	public Integer getTechnologyCategoryID() {
+		return TechnologyCategoryID;
+	}
+
+	public void setTechnologyCategoryID(Integer technologyCategoryID) {
+		TechnologyCategoryID = technologyCategoryID;
+	}
+
+	public String getSearchString() {
+		return searchString;
+	}
+
+	public void setSearchString(String searchString) {
+		this.searchString = searchString;
+	}
+
+	public Timestamp getLastUpdatedTimestamp() {
+		return lastUpdatedTimestamp;
+	}
+
+	public void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp) {
+		this.lastUpdatedTimestamp = lastUpdatedTimestamp;
+	}
+
+	public String getLastUpdatedBy() {
+		return lastUpdatedBy;
+	}
+
+	public void setLastUpdatedBy(String lastUpdatedBy) {
+		this.lastUpdatedBy = lastUpdatedBy;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+
 
 }
