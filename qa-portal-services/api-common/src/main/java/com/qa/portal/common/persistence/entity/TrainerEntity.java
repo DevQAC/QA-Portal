@@ -20,6 +20,4 @@ public class TrainerEntity extends QaUserEntity {
     public void setCohorts(Set<QaCohortEntity> cohorts) {
         this.cohorts = cohorts;
     }
-
-
 }

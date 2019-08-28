@@ -5,11 +5,14 @@
 <mat-radio-group class="qa-radio-btn-grp">
   <div class="qa-radio-btn-layout">
     <mat-radio-button #matRadioButton color="primary" class="qa-response-button"
-      *ngFor="let options of question.selectionOptionsList" (change)="setRadioResponse(matRadioButton.value)"
+      *ngFor="let options of question.selectionOptionsList"  (change)="setRadioResponse(matRadioButton.value)"
+                      [disabled]="isDisabled" [checked]="matchesValue(options)"
       style="padding-right : 10px;" [value]="options">{{options}}</mat-radio-button>
   </div>
+
   <div><br></div>
+
   <div *ngIf="question.hasComment">
-      <input matInput [value]="question?.comment" (change)="question.comment = $event">
+      <input matInput [ngModel]="question?.comment?.content" (ngModelChange)="setComment($event)">
   </div>
 </mat-radio-group>

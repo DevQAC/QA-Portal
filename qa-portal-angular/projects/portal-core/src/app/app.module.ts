@@ -18,6 +18,7 @@ import {SelfReflectionSharedModule} from '../../../self-reflection/src/app/app.m
 import {initializer} from '../../../../app-init';
 import {QaToastrService} from './_common/services/qa-toastr.service';
 import { HeaderLinkComponent } from './header-link/header-link.component';
+import { QaCvModule } from 'projects/qa-cv/src/app/qa-cv.module';
 
 @NgModule({
   declarations: [

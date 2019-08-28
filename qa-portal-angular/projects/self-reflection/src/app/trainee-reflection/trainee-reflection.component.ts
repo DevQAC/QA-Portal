@@ -49,7 +49,6 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
       (response) => {
         if (!!response.id) {
           this.selfReflectionViewModel.selfReflectionForm = response;
-          console.log(response);
           this.loadingData = false;
         } else {
           this.errorHandlerService.showError('No Form found for id ' + formId);

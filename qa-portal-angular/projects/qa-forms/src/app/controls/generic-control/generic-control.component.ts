@@ -1,9 +1,11 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { IGenericQuestion } from '../../_common/models/generic-question.model';
+import { IQuestion, IQuestionResponse } from '../../_common/models';
 
-export interface IGenericControl<ResponseType> {
-  question: IGenericQuestion<ResponseType>;
-  questionChange: EventEmitter<IGenericQuestion<ResponseType>>;
+export interface IGenericControl {
+  question: IQuestion;
+  questionResponse: IQuestionResponse;
+  questionResponseChange: EventEmitter<IQuestionResponse>;
+  isDisabled: boolean;
 }
 
 @Component({
@@ -11,13 +13,38 @@ export interface IGenericControl<ResponseType> {
   templateUrl: './generic-control.component.html',
   styleUrls: ['./generic-control.component.css']
 })
-export class GenericControlComponent<ResponseType> implements IGenericControl<ResponseType> {
+export class GenericControlComponent implements IGenericControl {
 
-  @Input() question: IGenericQuestion<ResponseType>;
-  @Output() questionChange = new EventEmitter<IGenericQuestion<ResponseType>>();
+  @Input() question: IQuestion;
 
-  protected announceChange(): void {
-    this.questionChange.emit(this.question);
+  @Input() questionResponse: IQuestionResponse;
+
+  @Input() isDisabled: boolean
+
+  @Output() questionResponseChange = new EventEmitter<IQuestionResponse>();
+
+  announceChange(): void {
+    // this.questionResponseChange.emit(this.questionResponse);
+  }
+
+  setComment(comment: string): void {
+    if (!!comment) {
+      if (!this.questionResponse.comment) {
+        this.questionResponse.comment = {id: null, content: comment};
+      }
+      this.questionResponse.comment.content = comment;
+      this.announceChange();
+    }
+
+    if (!comment && !!this.questionResponse.comment) {
+      this.questionResponse.comment.content = comment;
+      this.announceChange();
+    }
+  }
+
+  setResponseValues(value: string[]): void {
+    this.questionResponse.responseValues = value;
+    this.announceChange();
   }
 
 }

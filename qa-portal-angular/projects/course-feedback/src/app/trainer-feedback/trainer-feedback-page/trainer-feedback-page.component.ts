@@ -1,68 +1,55 @@
-import {Component, OnInit} from '@angular/core';
-
-import {FormTypeService} from '../../_common/services/form-type.service';
-import {TRAINER_FEEDBACK_FORM} from '../../_common/models/question-url.constants';
-import { ICategory } from 'projects/qa-forms/src/app/_common/models/form-category.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FeedbackService } from '../_common/services/feedback.service';
+import { QaErrorHandlerService } from '../../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import { Subscription } from 'rxjs';
+import { IFormModel } from 'projects/qa-forms/src/app/_common/models';
 
 @Component({
   selector: 'app-trainer-feedback-page',
   templateUrl: './trainer-feedback-page.component.html',
   styleUrls: ['./trainer-feedback-page.component.css']
 })
-export class TrainerFeedbackPageComponent implements OnInit {
+export class TrainerFeedbackPageComponent implements OnInit, OnDestroy {
 
   dataLoaded = false;
 
-  dataModel: ICategory[];
+  getFeedbackSubscription: Subscription;
+  createFeedbackSubscription: Subscription;
+  updateFeedbackSubscription: Subscription;
 
-  constructor(private formTypeService: FormTypeService,) {
+  viewModel: IFormModel;
+
+  constructor(private feedbackService: FeedbackService,
+    private errorHandlerService: QaErrorHandlerService) {
   }
 
   ngOnInit() {
-    this.formTypeService.getFormType(TRAINER_FEEDBACK_FORM).subscribe((response: ICategory[]) => {
-      this.dataModel = response;
-      // this.initialiseQuestionResponse();
+    this.getFeedbackSubscription = this.feedbackService.getFeedbackforCourse(1).subscribe(response => {
+      this.viewModel = response;
       this.dataLoaded = true;
-    });
+    },
+      (error) => {
+        this.dataLoaded = true;
+        this.errorHandlerService.handleError(error);
+      });
   }
 
   saveFeedback() {
-    console.log('In save feedback');
-    // this.populateQuestionResponseArray();
-    // Call service to save feedback form
-    console.warn(this.dataModel);
-
+    this.createFeedbackSubscription = this.feedbackService.createFeedbackForm(this.viewModel).subscribe(response => {
+      // Navigate to the feedback history page for the trainer
+    },
+      (error) => {
+        this.errorHandlerService.handleError(error);
+      });
   }
 
-  // /**
-  //  * Populates the response property of the QuestionResponseModel which is passed to the rated question common component
-  //  * This is a short term workaround due to change of DB schema to handle multiple values in a response (for checkboxes)
-  //  */
-  // private initialiseQuestionResponse() {
-  //   // TODO
-  //   // Quick and dirty way to populate the value that needs to be passed to the rated question common component -
-  //   // Need this to be changed when full refactor of this area is done
-  //   this.dataModel.forEach((category) => {
-  //     category.questions.forEach((question) => {
-  //       if (!!question.responseValues && question.responseValues.length === 1) {
-  //         question.response = question.responseValues[0];
-  //       }
-  //     });
-  //   });
-  // }
+  ngOnDestroy(): void {
+    if (!!this.getFeedbackSubscription) {
+      this.getFeedbackSubscription.unsubscribe();
+    }
 
-  /**
-   * Populates the response array property of the QuestionResponseModel which is send to the spring boot service. This
-   * is part of the short term workaround due to change of DB schema to handle multi value responses
-   */
-  // private populateQuestionResponseArray() {
-  //   this.dataModel.forEach((category) => {
-  //     category.questions.forEach((question) => {
-  //       if (!!question.response) {
-  //         question.responseValues = [];
-  //         question.responseValues.push(question.response);
-  //       }
-  //     });
-  //   });
-  // }
+    if (!!this.createFeedbackSubscription) {
+      this.createFeedbackSubscription.unsubscribe();
+    }
+  }
 }

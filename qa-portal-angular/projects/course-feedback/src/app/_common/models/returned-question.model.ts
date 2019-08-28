@@ -9,8 +9,6 @@ export class ReturnedQuestionModel<ResponseType = string> implements IGenericQue
   response: ResponseType;
 }
 
-
-
 export interface IGenericQuestionResponse<ResponseType> {
   response: ResponseType;
 }

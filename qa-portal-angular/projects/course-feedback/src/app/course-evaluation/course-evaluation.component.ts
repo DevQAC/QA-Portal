@@ -12,11 +12,5 @@ export class CourseEvaluationComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    DisplayName();
-
-    function DisplayName(){
-      var name = document.getElementById('user-name');
-      name.innerHTML = "Allan Charles";
-    }
   }
 }

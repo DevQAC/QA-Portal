@@ -4,11 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.dozer.DozerConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class StringListConverter extends DozerConverter<String, List> {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(StringListConverter.class);
 
     public StringListConverter() {
         super(String.class, List.class);
@@ -17,7 +21,7 @@ public class StringListConverter extends DozerConverter<String, List> {
     @Override
     public List<String> convertTo(String s, List list) {
         try {
-            if (s == null) {
+            if (s == null || s.length() == 0) {
                 return new ArrayList<>();
             }
             else {
