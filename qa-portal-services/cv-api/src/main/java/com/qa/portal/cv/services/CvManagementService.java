@@ -43,11 +43,11 @@ public class CvManagementService {
         return cvPdfGenerator.generateCv(cvVersion);
     }
   
-    public String createCv(CvVersion newCv) {
+    public CvVersion createCv(CvVersion newCv) {
     	return this.createCvService.createCv(newCv);
     }
     
-    public String updateCv(CvVersion updatedCv) {
+    public CvVersion updateCv(CvVersion updatedCv) {
     	return this.updateCvService.updateCv(updatedCv);
     }
     

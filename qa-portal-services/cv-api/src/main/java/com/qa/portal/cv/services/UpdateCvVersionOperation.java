@@ -15,13 +15,13 @@ public class UpdateCvVersionOperation {
 		this.repo = repo;
 	}
 
-	public String updateCv(CvVersion updatedCv) {
+	public CvVersion updateCv(CvVersion updatedCv) {
 		
 		updatedCv.setFullName();
 		
 		repo.save(updatedCv);
 		
-		return "CV Updated";
+		return updatedCv;
 	}
 	
 }

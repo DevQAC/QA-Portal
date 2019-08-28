@@ -28,12 +28,12 @@ public class CvManagementController {
 	}
 	
 	@PostMapping("/cv")
-	public ResponseEntity<String> createCv(@RequestBody CvVersion newCv) {
+	public ResponseEntity<CvVersion> createCv(@RequestBody CvVersion newCv) {
 		return ResponseEntity.ok(this.service.createCv(newCv));
 	}
 	
 	@PutMapping("/cv")
-	public ResponseEntity<String> updateCv(@RequestBody CvVersion updatedCv) {
+	public ResponseEntity<CvVersion> updateCv(@RequestBody CvVersion updatedCv) {
 		return ResponseEntity.ok(this.service.updateCv(updatedCv));
 	}
 	
