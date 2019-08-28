@@ -1,7 +1,7 @@
 <mat-card [attr.name]="'category_' + categoryResponse?.id || 'UNKNOWN'" class="form-category-card">
     <h4>{{categoryResponse.questionCategory.categoryName}}</h4>
     <app-control-factory *ngFor="let question of categoryResponse.questionCategory.questions; let i = index; trackBy: trackQuestion"
-        [question]="question" [type]="categoryResponse.questionCategory.selectionType"
+        [question]="question" [type]="categoryResponse.questionCategory.selectionType" [isDisabled]="isDisabled"
         [questionResponse]="categoryResponse.questionResponses[i]" (questionResponseChange)="onQuestionResponseChange($event, i)">
     </app-control-factory>
     <ng-content></ng-content>

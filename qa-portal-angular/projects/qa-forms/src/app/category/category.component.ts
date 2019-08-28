@@ -9,6 +9,8 @@ import { IQuestion, ICategoryResponse } from '../_common/models';
 export class CategoryComponent implements OnInit {
   @Input() categoryResponse: ICategoryResponse;
 
+  @Input() isDisabled: boolean
+
   @Output() categoryResponseChange = new EventEmitter<ICategoryResponse>();
 
   ngOnInit(): void {

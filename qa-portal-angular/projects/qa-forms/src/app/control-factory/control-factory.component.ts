@@ -13,11 +13,17 @@ import { IGenericControl } from '../controls/generic-control/generic-control.com
 })
 export class ControlFactoryComponent implements OnInit, OnDestroy {
   @ViewChild(ControlHostDirective, { static: true }) controlHost: ControlHostDirective;
+
   @Input() question: IQuestion;
+
+  @Input() isDisabled: boolean;
+
   @Input() type: ControlTypes;
 
   @Input() questionResponse: IQuestionResponse;
+
   @Output() questionResponseChange = new EventEmitter<IQuestionResponse>();
+
   private keepAlive = true;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
@@ -42,7 +48,7 @@ export class ControlFactoryComponent implements OnInit, OnDestroy {
 
     // Hook all the I/O together
     (componentRef.instance as IGenericControl).question = this.question;
-
+    (componentRef.instance as IGenericControl).isDisabled = this.isDisabled;
     (componentRef.instance as IGenericControl).questionResponse = this.questionResponse;
     (componentRef.instance as IGenericControl).questionResponseChange
       .pipe(takeWhile(() => this.keepAlive))

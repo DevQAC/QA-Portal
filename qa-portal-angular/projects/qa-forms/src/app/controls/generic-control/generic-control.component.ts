@@ -5,6 +5,7 @@ export interface IGenericControl {
   question: IQuestion;
   questionResponse: IQuestionResponse;
   questionResponseChange: EventEmitter<IQuestionResponse>;
+  isDisabled: boolean;
 }
 
 @Component({
@@ -17,6 +18,8 @@ export class GenericControlComponent implements IGenericControl {
   @Input() question: IQuestion;
 
   @Input() questionResponse: IQuestionResponse;
+
+  @Input() isDisabled: boolean
 
   @Output() questionResponseChange = new EventEmitter<IQuestionResponse>();
 

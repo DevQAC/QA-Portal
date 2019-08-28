@@ -10,7 +10,7 @@
     <app-qa-form [model]="viewModel"
                  (modelChange)="updatedModel($event)">
     </app-qa-form>
-  <div style="display: flex; justify-content: center">
+  <div *ngIf="viewModel.status !== 'Submitted'" style="display: flex; justify-content: center">
     <button mat-raised-button color="primary" (click)="onFeedbackSubmit()">
       {{ allCategoryQuestionsAnswered() ? 'Submit' : 'Save' }}
     </button>

@@ -61,6 +61,7 @@ export class FeedbackPageComponent implements OnInit, OnDestroy {
    * @memberof FeedbackPageComponent
    */
   onFeedbackSubmit() {
+    console.log('Submitting evaluation form');
     this.setEvaluationStatus();
     if (this.isNewEvaluation()) {
       this.createEvaluationForm();
@@ -108,6 +109,8 @@ export class FeedbackPageComponent implements OnInit, OnDestroy {
 
   private setEvaluationStatus(): void {
     this.viewModel.status = this.allCategoryQuestionsAnswered() ? 'Submitted' : 'Saved';
+    console.log('All category questions answered ' + this.allCategoryQuestionsAnswered());
+    console.log('View model status ' + this.viewModel.status);
   }
 
   private isNewEvaluation(): boolean {

@@ -52,6 +52,7 @@ public class CohortCourseEvaluationMapper {
         CohortCourseEvaluationEntity cohortCourseEvaluationEntity = getExistingCohortCourseEvaluationEntity(cohortCourseEvaluationDto.getId());
         evaluationQuestionCategoryResponseMapper.setUpdatedCategoryResponses(cohortCourseEvaluationEntity.getCategoryResponses(),
                 cohortCourseEvaluationDto.getCategoryResponses());
+        cohortCourseEvaluationEntity.setStatus(cohortCourseEvaluationDto.getStatus());
         return cohortCourseEvaluationEntity;
     }
 

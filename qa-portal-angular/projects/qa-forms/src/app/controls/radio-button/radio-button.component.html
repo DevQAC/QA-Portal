@@ -5,7 +5,8 @@
 <mat-radio-group class="qa-radio-btn-grp">
   <div class="qa-radio-btn-layout">
     <mat-radio-button #matRadioButton color="primary" class="qa-response-button"
-      *ngFor="let options of question.selectionOptionsList"  (change)="setRadioResponse(matRadioButton.value)" [checked]="matchesValue(options)"
+      *ngFor="let options of question.selectionOptionsList"  (change)="setRadioResponse(matRadioButton.value)"
+                      [disabled]="isDisabled" [checked]="matchesValue(options)"
       style="padding-right : 10px;" [value]="options">{{options}}</mat-radio-button>
   </div>
 
