@@ -19,7 +19,6 @@ public class ReflectionQuestionDto extends QaBaseDto {
 
 	private Integer trainerResponse;
 
-
 	public Integer getId() {
 		return id;
 	}
@@ -74,7 +73,6 @@ public class ReflectionQuestionDto extends QaBaseDto {
         if (o == null || getClass() != o.getClass()) return false;
         ReflectionQuestionDto that = (ReflectionQuestionDto) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(reflection, that.reflection) &&
                 Objects.equals(question, that.question) &&
                 Objects.equals(response, that.response) &&
                 Objects.equals(trainerResponse, that.trainerResponse);

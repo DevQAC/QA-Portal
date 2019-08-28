@@ -12,6 +12,8 @@ public class QuestionCategoryResponseDto {
 
     private List<QuestionResponseDto> questionResponses;
 
+    private Integer parentId;
+
     public Integer getId() {
         return id;
     }
@@ -44,10 +46,22 @@ public class QuestionCategoryResponseDto {
         this.questionCategory = questionCategory;
     }
 
-	@Override
-	public String toString() {
-		return "QuestionCategoryResponseDto [id=" + id + ", comment=" + comment + ", questionCategory="
-				+ questionCategory + ", questionResponses=" + questionResponses + "]";
-	}
-    
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionCategoryResponseDto{" +
+                "id=" + id +
+                ", comment=" + comment +
+                ", questionCategory=" + questionCategory +
+                ", questionResponses=" + questionResponses +
+                ", parentId=" + parentId +
+                '}';
+    }
 }

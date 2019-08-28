@@ -31,6 +31,9 @@ public class MenuItemEntity {
     @OneToMany(mappedBy = "menuItem")
     private List<DeptRoleMenuItem> deptRoleMenuItems;
 
+    @Column(name = "display_on_menu")
+    private Boolean displayOnMenu;
+
 
     public Integer getId() {
         return id;
@@ -80,6 +83,27 @@ public class MenuItemEntity {
         this.deptRoleMenuItems = deptRoleMenuItems;
     }
 
+    public Boolean getDisplayOnMenu() {
+        return displayOnMenu;
+    }
+
+    public void setDisplayOnMenu(Boolean displayOnMenu) {
+        this.displayOnMenu = displayOnMenu;
+    }
+
+    @Override
+    public String toString() {
+        return "MenuItemEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", tooltip='" + tooltip + '\'' +
+                ", application=" + application +
+                ", deptRoleMenuItems=" + deptRoleMenuItems +
+                ", displayOnMenu=" + displayOnMenu +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,22 +114,12 @@ public class MenuItemEntity {
                 Objects.equals(url, that.url) &&
                 Objects.equals(tooltip, that.tooltip) &&
                 Objects.equals(application, that.application) &&
-                Objects.equals(deptRoleMenuItems, that.deptRoleMenuItems);
+                Objects.equals(deptRoleMenuItems, that.deptRoleMenuItems) &&
+                Objects.equals(displayOnMenu, that.displayOnMenu);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, url, tooltip, application, deptRoleMenuItems);
-    }
-
-    @Override
-    public String toString() {
-        return "MenuItemEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", tooltip='" + tooltip + '\'' +
-                ", deptRoleMenuItems=" + deptRoleMenuItems +
-                '}';
+        return Objects.hash(id, name, url, tooltip, application, deptRoleMenuItems, displayOnMenu);
     }
 }
