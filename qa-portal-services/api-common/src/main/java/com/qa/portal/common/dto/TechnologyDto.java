@@ -14,6 +14,8 @@ public class TechnologyDto {
 
     private Timestamp lastUpdatedTimestamp;
 
+
+
     private String lastUpdatedBy;
 
     private Integer version;
@@ -36,6 +38,10 @@ public class TechnologyDto {
 
     public TechnologyCategoryDto getTechnologyCategory() {
         return technologyCategory;
+    }
+
+    public void setTechnologyCategory(TechnologyCategoryDto technologyCategory) {
+        this.technologyCategory = technologyCategory;
     }
 
 

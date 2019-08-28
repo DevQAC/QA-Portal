@@ -5,12 +5,8 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue(value = "TECHNOLOGYCATEGORY")
 @Table(schema = "training", name = "technology_category")
-
-
 public class TechnologyCategoryEntity extends QaBaseEntity {
-
    
     @Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,
@@ -32,7 +28,7 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
     @Column(name = "last_updated_by")
     private String lastUpdatedBy;
 
-	@OneToMany(mappedBy = "technology", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "technologyCategory", fetch = FetchType.LAZY)
 	private List<TechnologyEntity> technologies;
 
     private Integer version;
@@ -87,7 +83,6 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
 
 
 
-    
-    // todo other gets and sets
+
 
 }

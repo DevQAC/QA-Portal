@@ -8,12 +8,9 @@ import javax.persistence.*;
 
 
 @Entity
-@DiscriminatorValue(value = "TECHNOLOGY")
 @Table(schema = "training", name = "technology")
 
-
 public class TechnologyEntity extends QaBaseEntity {
-
    
     @Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,
@@ -34,11 +31,6 @@ public class TechnologyEntity extends QaBaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "course_id")
 	private CourseTechnologyEntity courseTechnology;
-
-// for reference
-//	@ManyToOne
-//	@JoinColumn(name = "course_id")
-//	private CourseEntity course;
 
     @Column(name = "search_string")  
     private String searchString;
@@ -67,15 +59,7 @@ public class TechnologyEntity extends QaBaseEntity {
 		this.technologyName = technologyName;
 	}
 
-	public Integer getTechnologyCategoryID() {
-		return TechnologyCategoryID;
-	}
-
-	public void setTechnologyCategoryID(Integer technologyCategoryID) {
-		TechnologyCategoryID = technologyCategoryID;
-	}
-
-	public String getSearchString() {
+		public String getSearchString() {
 		return searchString;
 	}
 
@@ -107,6 +91,19 @@ public class TechnologyEntity extends QaBaseEntity {
 		this.version = version;
 	}
 
+	public TechnologyCategoryEntity getTechnologyCategory() {
+		return technologyCategory;
+	}
 
+	public void setTechnologyCategory(TechnologyCategoryEntity technologyCategory) {
+		this.technologyCategory = technologyCategory;
+	}
 
+	public CourseTechnologyEntity getCourseTechnology() {
+		return courseTechnology;
+	}
+
+	public void setCourseTechnology(CourseTechnologyEntity courseTechnology) {
+		this.courseTechnology = courseTechnology;
+	}
 }

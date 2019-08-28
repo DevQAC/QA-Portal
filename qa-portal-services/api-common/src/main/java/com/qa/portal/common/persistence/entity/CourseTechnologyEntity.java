@@ -5,13 +5,9 @@ import javax.persistence.*;
 
 
 @Entity
-@DiscriminatorValue(value = "COURSETECHNOLOGY")
 @Table(schema = "training", name = "course_technology")
-
-
 public class CourseTechnologyEntity extends QaBaseEntity {
 
-   
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "course_technology_sequence")
@@ -49,22 +45,51 @@ public class CourseTechnologyEntity extends QaBaseEntity {
         this.id = id;
     }
 
-    public Integer getCourseId() {
-        return this.courseId;
+
+
+    public CourseEntity getCourse() {
+        return course;
     }
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+    public void setCourse(CourseEntity course) {
+        this.course = course;
     }
 
-    public Integer getTechnologyId() {
-        return this.technologyId;
+    public TechnologyEntity getTechnology() {
+        return technology;
     }
 
-    public void setTechnologyId(Integer techId) {
-        this.technologyId = techId;
+    public void setTechnology(TechnologyEntity technology) {
+        this.technology = technology;
     }
-    
-    // todo other gets and sets
 
+    @Override
+    public Timestamp getLastUpdatedTimestamp() {
+        return lastUpdatedTimestamp;
+    }
+
+    @Override
+    public void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp) {
+        this.lastUpdatedTimestamp = lastUpdatedTimestamp;
+    }
+
+    @Override
+    public String getLastUpdatedBy() {
+        return lastUpdatedBy;
+    }
+
+    @Override
+    public void setLastUpdatedBy(String lastUpdatedBy) {
+        this.lastUpdatedBy = lastUpdatedBy;
+    }
+
+    @Override
+    public Integer getVersion() {
+        return version;
+    }
+
+    @Override
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 }

@@ -28,8 +28,8 @@ public class CourseTechnologyDto {
         return technology;
     }
 
-    public void setTechnologyId(Integer technologyId) {
-        this.technologyId = technologyId;
+    public void setTechnology(TechnologyDto technology) {
+        this.technology = technology;
     }
 
     public Timestamp getLastUpdatedTimestamp() {

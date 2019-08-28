@@ -6,12 +6,8 @@ import javax.persistence.*;
 
 
 @Entity
-@DiscriminatorValue(value = "CVSTATUS")
 @Table(schema = "training", name = "cv_status")
-
-
 public class CvStatusEntity extends QaBaseEntity {
-
    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
@@ -47,7 +43,34 @@ public class CvStatusEntity extends QaBaseEntity {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
-    
-    // todo other gets and sets
 
+    @Override
+    public Timestamp getLastUpdatedTimestamp() {
+        return lastUpdatedTimestamp;
+    }
+
+    @Override
+    public void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp) {
+        this.lastUpdatedTimestamp = lastUpdatedTimestamp;
+    }
+
+    @Override
+    public String getLastUpdatedBy() {
+        return lastUpdatedBy;
+    }
+
+    @Override
+    public void setLastUpdatedBy(String lastUpdatedBy) {
+        this.lastUpdatedBy = lastUpdatedBy;
+    }
+
+    @Override
+    public Integer getVersion() {
+        return version;
+    }
+
+    @Override
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 }
