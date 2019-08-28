@@ -13,9 +13,12 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
 
    
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator = "technology_category_sequence")
+	@SequenceGenerator(name = "technology_category_sequence",
+			sequenceName = "training.technology_category_sequence",
+			allocationSize = 1)
+	private Integer id;
     
     @Column(name = "category_name")    
     private String categoryName;

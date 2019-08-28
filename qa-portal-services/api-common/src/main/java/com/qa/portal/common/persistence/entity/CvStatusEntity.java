@@ -14,8 +14,11 @@ public class CvStatusEntity extends QaBaseEntity {
 
    
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "cv_status_sequence")
+    @SequenceGenerator(name = "cv_status_sequence",
+            sequenceName = "training.cv_status_sequence",
+            allocationSize = 1)
     private Integer id;
     
     @Column(name = "status_name")    

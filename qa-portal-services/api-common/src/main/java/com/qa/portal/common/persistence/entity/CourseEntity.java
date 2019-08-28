@@ -21,8 +21,15 @@ public class CourseEntity extends QaBaseEntity {
     @Column(name = "course_code")
     private String courseCode;
 
-    @OneToMany(mappedBy = "courseId", fetch = FetchType.LAZY)
-    private List<CourseTechnologyEntity> technologies;
+
+	@ManyToOne
+	@JoinColumn(name = "course_id")
+	private CourseTechnologyEntity technology;
+
+   /* @OneToMany(mappedBy = "courseId", fetch = FetchType.LAZY)
+    private List<CourseTechnologyEntity> technologies;*/
+
+
 
     public Integer getId() {
         return id;

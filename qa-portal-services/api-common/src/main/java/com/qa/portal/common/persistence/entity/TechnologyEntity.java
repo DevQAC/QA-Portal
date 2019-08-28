@@ -2,6 +2,7 @@ package com.qa.portal.common.persistence.entity;
 
 //import java.util.Set;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -15,15 +16,25 @@ public class TechnologyEntity extends QaBaseEntity {
 
    
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+			generator = "technology_sequence")
+	@SequenceGenerator(name = "technology_sequence",
+			sequenceName = "training.technology_sequence",
+			allocationSize = 1)
 
     private Integer id;
     
     @Column(name = "technology_name")    
     private String technologyName;
 
-    @Column(name = "technology_category_id")   
-    private Integer TechnologyCategoryID;
+	@ManyToOne // many tecnologies maps to a tech category
+    @JoinColumn(name = "technology_category_id")
+    private TechnologyCategoryEntity technologyCategory;
+
+// for reference
+//	@ManyToOne
+//	@JoinColumn(name = "course_id")
+//	private CourseEntity course;
 
     @Column(name = "search_string")  
     private String searchString;

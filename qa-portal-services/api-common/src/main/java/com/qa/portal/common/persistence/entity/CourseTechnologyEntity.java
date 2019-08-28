@@ -13,15 +13,25 @@ public class CourseTechnologyEntity extends QaBaseEntity {
 
    
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "course_technology_sequence")
+    @SequenceGenerator(name = "course_technology_sequence",
+            sequenceName = "training.course_technology_sequence",
+            allocationSize = 1)
     private Integer id;
-    
-    @Column(name = "course_id")    
-    private Integer courseId;
 
-    @Column(name = "technology_id")   
-    private Integer technologyId;
+    @ManyToOne
+	@JoinColumn(name = "course_id")
+	private CourseEntity course;
+
+    // for reference
+//	@ManyToOne
+//	@JoinColumn(name = "course_id")
+//	private CourseEntity course;
+
+    @ManyToOne
+    @JoinColumn(name = "technology_id")
+    private TechnologyEntity technology;
 
     @Column(name = "last_updated_timestamp")
     private Timestamp lastUpdatedTimestamp;
