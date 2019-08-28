@@ -31,6 +31,10 @@ public class TechnologyEntity extends QaBaseEntity {
     @JoinColumn(name = "technology_category_id")
     private TechnologyCategoryEntity technologyCategory;
 
+	@ManyToOne
+	@JoinColumn(name = "course_id")
+	private CourseTechnologyEntity courseTechnology;
+
 // for reference
 //	@ManyToOne
 //	@JoinColumn(name = "course_id")
