@@ -11,7 +11,7 @@ import com.qa.portal.cv.domain.CvVersion;
 @Component
 public class QaLocalManger implements QaFileManager {
 
-	
+
 	public void storeFile(String filePath, byte[] cvByteArray) {
 		FileOutputStream fos = null;
 		try {
