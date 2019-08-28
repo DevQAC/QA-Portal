@@ -6,13 +6,13 @@ export const CVS: CVSearchModel[] = [
 
         name: "Dr Nice",
 
-        intake: 'June',
+        intake: "CI Intake 1",
 
-        tech: 'DevOps',
+        tech: 'Java',
 
         clients: ["IBM", "Cognizm"],
 
-        status: "Review"
+        status: "For Review"
 
     },
 
@@ -21,13 +21,13 @@ export const CVS: CVSearchModel[] = [
 
         name: "Dr Narco",
 
-        intake: 'July',
+        intake: "CI Intake 2",
 
-        tech: 'DevOps',
+        tech: "Scala",
 
         clients: ["Disney", "Cognizm"],
 
-        status: "Incomplete"
+        status: "In Progress"
 
     },
 

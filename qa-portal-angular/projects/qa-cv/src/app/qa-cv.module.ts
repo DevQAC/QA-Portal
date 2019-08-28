@@ -5,6 +5,7 @@ import { CvRoutingModule } from './cv-routing.module';
 import { ViewCvComponent } from './view-cv/view-cv.component';
 import { CvSearchComponent } from './cv-search/cv-search.component';
 import {CVSearchHistoryService} from './cv-search/services/cv-search-history.service';
+import { CVSearchFilterService } from './cv-search/services/cv-search-filter.service';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import {CVSearchHistoryService} from './cv-search/services/cv-search-history.ser
     CvRoutingModule,
     QaCommonModule
   ],
-  providers: [CVSearchHistoryService]
+  providers: [CVSearchHistoryService,CVSearchFilterService ]
 })
 export class QaCvModule { }
 
