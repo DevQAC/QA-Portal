@@ -1,6 +1,7 @@
 package com.qa.portal.common.persistence.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.*;
 
