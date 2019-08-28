@@ -1,11 +1,10 @@
 package com.qa.portal.cv.persistence.repository;
 
-import com.qa.portal.cv.domain.CvVersion;
-
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+
+import com.qa.portal.cv.domain.CvVersion;
 
 public interface CvVersionRepository extends MongoRepository<CvVersion, Integer> {
 

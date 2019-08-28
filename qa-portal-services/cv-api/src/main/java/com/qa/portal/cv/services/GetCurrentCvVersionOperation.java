@@ -29,7 +29,7 @@ public class GetCurrentCvVersionOperation {
 		return records;
 	}
 	
-	public List<CvVersion> findFullNameIgnoreCase(String like) {		
+	public List<CvVersion> findByFullNameIgnoreCase(String like) {		
 		try{
             Query query = new Query();
             query.addCriteria(Criteria.where("fullName").regex(toLikeRegex(like), "i"));
@@ -39,6 +39,7 @@ public class GetCurrentCvVersionOperation {
         }
 		
 	}
+	
 	private String toLikeRegex(String source) {
         return source.replaceAll("\\*", ".*");
     }
