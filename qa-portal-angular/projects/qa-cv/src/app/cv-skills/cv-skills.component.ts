@@ -12,6 +12,33 @@ export class CvSkillsComponent implements OnInit {
   @Input() skills: ISkills;
   @Output() skillsChange = new EventEmitter<ISkills>();
 
+  public chippy = [
+    {
+      key: 'programmingLanguages',
+      label: 'Programming Languages'
+    },
+    {
+      key: 'ides',
+      label: 'IDEs'
+    },
+    {
+      key: 'devops',
+      label: 'Devops'
+    },
+    {
+      key: 'databases',
+      label: 'Databases'
+    },
+    {
+      key: 'platforms',
+      label: 'Platforms'
+    },
+    {
+      key: 'operatingSystems',
+      label: 'Operating Systems'
+    }
+  ]
+
 
   visible = true;
   selectable = true;

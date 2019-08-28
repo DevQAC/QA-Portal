@@ -54,7 +54,10 @@ export class ViewCvService {
             "operatingSystems": [
               "Windows",
               "Linux",
-              "DOS"
+              "DOS",
+              "CPM",
+              "OS/2",
+              "QNX"
             ],
             "devops": [
               "Jenkins",
