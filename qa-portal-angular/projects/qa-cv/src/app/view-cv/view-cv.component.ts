@@ -32,7 +32,7 @@ export class ViewCvComponent implements OnInit {
   }
 
   onSave(): void {
-    debugger;
+    // debugger;
   }
 
   getAllCvs(): void {
@@ -40,20 +40,20 @@ export class ViewCvComponent implements OnInit {
     //.subscribe(cvs => this.cvs = cvs);
   }
 
-  onWorkExpFeedbackClick({index}: {index: number}, cardBase: CvCardBaseComponent): void {
+  onWorkExpFeedbackClick({ index }: { index: number }, expCard: CvCardBaseComponent): void {
     this.workExpFeedbackIndex = index;
     this.workExpFeedback = this.cvData.allWorkExperience[index].workExperienceFeedback;
-    cardBase.drawer.open();
+    expCard.drawer.open();
   }
 
   onWorkExpFeedbackChange(feedback: IFeedback[], ): void {
     this.cvData.allWorkExperience[this.workExpFeedbackIndex].workExperienceFeedback = feedback;
   }
 
-  onQualFeedbackClick({index}: {index: number}, cardBase: CvCardBaseComponent): void {
+  onQualFeedbackClick({ index }: { index: number }, qualCard: CvCardBaseComponent): void {
     this.qualFeedbackIndex = index;
     this.qualFeedback = this.cvData.allQualifications[index].qualificationFeedback;
-    cardBase.drawer.open();
+    qualCard.drawer.open();
   }
 
   onQualFeedbackChange(feedback: IFeedback[], ): void {

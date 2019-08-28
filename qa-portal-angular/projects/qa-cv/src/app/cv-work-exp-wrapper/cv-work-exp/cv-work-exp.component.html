@@ -8,10 +8,10 @@
 
     </mat-panel-description>
     <div class="mat-panel-feedback-button">
-      <button mat-button (click)="onFeedbackClick($event)">
+      <button mat-button (click)="onFeedbackClick($event)" title="Show Feedback">
         <mat-icon>feedback</mat-icon>
       </button>
-     
+
     </div>
   </mat-expansion-panel-header>
 
@@ -39,7 +39,7 @@
     </mat-form-field>
   </div>
   <mat-action-row>
-    <button mat-button color="warn" (click)="deleteExp()">Remove this Expereience</button>
+    <button mat-button color="warn" (click)="deleteExp()" title="Remove this Experience">Remove</button>
   </mat-action-row>
 
 

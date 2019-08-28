@@ -13,30 +13,23 @@
                 </app-cv-card-base>
         </section>
         <section>
-                <app-cv-card-base #cardBase  title="Qualifications" [feedback]="qualFeedback" (feedbackChange)="onQualFeedbackChange($event)"
-                [showOpenButton]="false">
-                <app-cv-qualis-wrapper [qualifications]="cvData.allQualifications"
-                (qualificationsChange)="cvData.allQualifications = $event"
-                (feedbackClick)="onQualFeedbackClick($event, cardBase)">
-                </app-cv-qualis-wrapper>
-        </app-cv-card-base>
+                <app-cv-card-base #qualCard [feedback]="qualFeedback" (feedbackChange)="onQualFeedbackChange($event)"
+                        [showOpenButton]="false">
+                        <app-cv-qualis-wrapper [qualifications]="cvData.allQualifications"
+                                (qualificationsChange)="cvData.allQualifications = $event"
+                                (feedbackClick)="onQualFeedbackClick($event, qualCard)">
+                        </app-cv-qualis-wrapper>
+                </app-cv-card-base>
         </section>
         <section>
-                <app-cv-card-base #cardBase title="Work Experience" [feedback]="workExpFeedback" (feedbackChange)="onWorkExpFeedbackChange($event)"
-                        [showOpenButton]="false">
+                <app-cv-card-base #expCard [feedback]="workExpFeedback"
+                        (feedbackChange)="onWorkExpFeedbackChange($event)" [showOpenButton]="false">
                         <app-cv-work-exp-wrapper [experiences]="cvData.allWorkExperience"
                                 (experiencesChange)="cvData.allWorkExperience = $event"
-                                (feedbackClick)="onWorkExpFeedbackClick($event, cardBase)">
+                                (feedbackClick)="onWorkExpFeedbackClick($event, expCard)">
                         </app-cv-work-exp-wrapper>
                 </app-cv-card-base>
         </section>
-
-
-
-        <!-- <app-cv-qualis></app-cv-qualis>
-        <app-cv-work-exp-wrapper></app-cv-work-exp-wrapper>
-         -->
-
-        <button (click)="onSave()">Save</button>
+        <button mat-flat-button color="primary" (click)="onSave()" title="Save all Changes">Save</button>
 
 </div>

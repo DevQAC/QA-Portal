@@ -21,58 +21,58 @@ export class ViewCvService {
   /** GET cvs from the server */
   getAllCvs() {
     return <ICvModel>
-    {
-      "userName": "xx42069xx",
-      "firstName": "Ian",
-      "surname": "Owen",
-      "fullName": "Ian Owen",
-      "cohort": "2",
-      "profile": {
+      {
+        "userName": "xx42069xx",
+        "firstName": "Ian",
+        "surname": "Owen",
+        "fullName": "Ian Owen",
+        "cohort": "2",
+        "profile": {
           "profileDetails": "test p_detail",
           "profileFeedback": [
-              {
-                  "reviewer": "me",
-                  "date": "2019-01-03",
-                  "comment": "hmmmm"
-              }
+            {
+              "reviewer": "me",
+              "date": "2019-01-03",
+              "comment": "hmmmm"
+            }
           ]
-      },
-      "allQualifications": [
+        },
+        "allQualifications": [
           {
-              "qualificationDetails": "qual test1",
-              "qualificationFeedback": [
-                  {
-                      "reviewer": "me",
-                      "date": "2019-01-03",
-                      "comment": "everyone has that quali"
-                  }
-              ]
-          }  
+            "qualificationDetails": "qual test1",
+            "qualificationFeedback": [
+              {
+                "reviewer": "me",
+                "date": "2019-01-03",
+                "comment": "everyone has that quali"
+              }
+            ]
+          }
           ,
           {
             "qualificationDetails": "qual test2",
             "qualificationFeedback": [
-                {
-                    "reviewer": "me2",
-                    "date": "2019-01-03",
-                    "comment": "everyone has that quali2"
-                }
+              {
+                "reviewer": "me2",
+                "date": "2019-01-03",
+                "comment": "everyone has that quali2"
+              }
             ]
-        }
-      ],
-      "allWorkExperience": [
+          }
+        ],
+        "allWorkExperience": [
           {
-              "jobTitle": "hacker",
-              "start": "2019-01-01",
-              "end": "2019-01-03",
-              "workExperienceDetails": "i hacked the pentagon ",
-              "workExperienceFeedback": [
-                  {
-                      "reviewer": "me",
-                      "date": "2019-01-03",
-                      "comment": "good"
-                  }
-              ]
+            "jobTitle": "hacker",
+            "start": "2019-01-01",
+            "end": "2019-01-03",
+            "workExperienceDetails": "i hacked the pentagon ",
+            "workExperienceFeedback": [
+              {
+                "reviewer": "me",
+                "date": "2019-01-03",
+                "comment": "good"
+              }
+            ]
           },
           {
             "jobTitle": "hacker2",
@@ -80,94 +80,94 @@ export class ViewCvService {
             "end": "2019-01-03",
             "workExperienceDetails": "i hacked the pentagon ",
             "workExperienceFeedback": [
-                {
-                    "reviewer": "me",
-                    "date": "2019-01-03",
-                    "comment": "good2"
-                }
+              {
+                "reviewer": "me",
+                "date": "2019-01-03",
+                "comment": "good2"
+              }
             ]
-        }
-      ],
-      "hobbies": {
+          }
+        ],
+        "hobbies": {
           "hobbiesDetails": "test h_detail",
           "hobbiesFeedback": [
-              {
-                  "reviewer": "ne",
-                  "date": "2019-01-03",
-                  "comment": "noice"
-              }
+            {
+              "reviewer": "ne",
+              "date": "2019-01-03",
+              "comment": "noice"
+            }
           ]
+        }
       }
   }
-}
-    
-    
-    // {
-    //   full_name: 'Ian Owen',
-    //   work_experience: [{
-    //     job: "hacker",
-    //     start_date: "2019-01-01",
-    //     end_date: "2019-01-02",
-    //     detail: "i hacked the pentagon",
-    //     feedback: []
-    //   }],
-    //   profile: {
-    //     p_detail: 'test p_detail',
-    //     feedback: [
-    //       {
-    //         who: 'me',
-    //         date: '2000-01-01',
-    //         comment: 'test comment'
-    //       }
-    //     ]
-    //   },
-    //   hobbies: {
-    //     h_detail: "test h_detail",
-    //     feedback: [
-    //       {
-    //         who: 'me',
-    //         date: '2000-01-01',
-    //         comment: 'test comment'
-    //       }
-    //     ]
-    //   },
-    //   qualifications: [{
-    //     q_detail: "qual test1",
-    //     feedback: [
-    //       {
-    //         who: 'me',
-    //         date: '2000-01-01',
-    //         comment: 'test comment'
-    //       }
-    //     ]
-    //   }, {
-    //     q_detail: "qual test2",
-    //     feedback: [
-    //       {
-    //         who: 'me',
-    //         date: '2000-01-01',
-    //         comment: 'test comment'
-    //       }
-    //     ]
-    //   }, {
-    //     q_detail: "qual test3",
-    //     feedback: [
-    //       {
-    //         who: 'me',
-    //         date: '2000-01-01',
-    //         comment: 'test comment'
-    //       }
-    //     ]
-    //   }]
 
-    // }
-    // remember to declare type when uncommenting this!!! ==>> Observable<ICvModel[]>
-    // return this.http.get<ICvModel[]>(this.getUrl)
-    //   .pipe(
-    //     tap(_ => this.log('fetched cvs')),
-    //     catchError(this.handleError<ICvModel[]>('getICvModeles', []))
-    //   );
-  
+
+  // {
+  //   full_name: 'Ian Owen',
+  //   work_experience: [{
+  //     job: "hacker",
+  //     start_date: "2019-01-01",
+  //     end_date: "2019-01-02",
+  //     detail: "i hacked the pentagon",
+  //     feedback: []
+  //   }],
+  //   profile: {
+  //     p_detail: 'test p_detail',
+  //     feedback: [
+  //       {
+  //         who: 'me',
+  //         date: '2000-01-01',
+  //         comment: 'test comment'
+  //       }
+  //     ]
+  //   },
+  //   hobbies: {
+  //     h_detail: "test h_detail",
+  //     feedback: [
+  //       {
+  //         who: 'me',
+  //         date: '2000-01-01',
+  //         comment: 'test comment'
+  //       }
+  //     ]
+  //   },
+  //   qualifications: [{
+  //     q_detail: "qual test1",
+  //     feedback: [
+  //       {
+  //         who: 'me',
+  //         date: '2000-01-01',
+  //         comment: 'test comment'
+  //       }
+  //     ]
+  //   }, {
+  //     q_detail: "qual test2",
+  //     feedback: [
+  //       {
+  //         who: 'me',
+  //         date: '2000-01-01',
+  //         comment: 'test comment'
+  //       }
+  //     ]
+  //   }, {
+  //     q_detail: "qual test3",
+  //     feedback: [
+  //       {
+  //         who: 'me',
+  //         date: '2000-01-01',
+  //         comment: 'test comment'
+  //       }
+  //     ]
+  //   }]
+
+  // }
+  // remember to declare type when uncommenting this!!! ==>> Observable<ICvModel[]>
+  // return this.http.get<ICvModel[]>(this.getUrl)
+  //   .pipe(
+  //     tap(_ => this.log('fetched cvs')),
+  //     catchError(this.handleError<ICvModel[]>('getICvModeles', []))
+  //   );
+
 
   /** GET cv by id. Return `undefined` when id not found */
   getICvModelNo404<Data>(id: number): Observable<ICvModel> {

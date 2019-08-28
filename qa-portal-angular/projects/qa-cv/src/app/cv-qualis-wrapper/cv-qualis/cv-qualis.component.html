@@ -1,16 +1,14 @@
-<mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Qualifications
-          </mat-panel-title>
-      <div class="mat-panel-feedback-button">
-        <button mat-button (click)="onFeedbackClick($event)">
-          <mat-icon>feedback</mat-icon>
-        </button>
-      </div>
-    </mat-expansion-panel-header>
-<mat-form-field class="example-full-width">
-    <textarea matInput   [ngModel]="qualifications1.qualificationDetails" (ngModelChange)="onInputChange($event)"></textarea>
-</mat-form-field>
-<button (click)="deleteQuali()">DELETE</button>
-</mat-expansion-panel>
+<mat-card>
+  <div class="input-div">
+    <mat-form-field class="example-full-width">
+      <textarea matInput [ngModel]="qualifications1.qualificationDetails"
+        (ngModelChange)="onInputChange($event)"></textarea>
+    </mat-form-field>
+    <button class="feedback-button" mat-button (click)="onFeedbackClick($event)" title="Show Feedback">
+      <mat-icon>feedback</mat-icon>
+    </button>
+  </div>
+  <mat-card-actions>
+    <button mat-button color="warn" (click)="deleteQuali()" title="Remove this Qualification">Remove</button>
+  </mat-card-actions>
+</mat-card>

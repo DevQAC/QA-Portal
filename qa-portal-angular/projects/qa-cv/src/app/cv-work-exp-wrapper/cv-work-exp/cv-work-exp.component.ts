@@ -57,10 +57,8 @@ export class CvWorkExpComponent implements OnInit {
   }
 
   checkButtonState(): void {
-    if (!this.buttonClickedState){
+    if (!this.buttonClickedState) {
       this.panelOpenState = !this.panelOpenState;
-
     }
-
   }
 }

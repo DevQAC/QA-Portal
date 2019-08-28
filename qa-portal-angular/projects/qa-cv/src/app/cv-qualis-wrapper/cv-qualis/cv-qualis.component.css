@@ -7,3 +7,19 @@
   .example-full-width {
     width: 100%;
   }
+
+  .mat-card-actions .mat-button.mat-warn {
+  margin-left: auto;
+  }
+
+  .mat-card-actions {
+    display: flex;
+  }
+
+  .input-div {
+    display: flex;
+  }
+
+  .feedback-button{
+    margin-left: auto;
+  }
