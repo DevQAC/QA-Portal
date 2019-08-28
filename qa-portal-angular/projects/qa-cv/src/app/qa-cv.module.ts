@@ -11,6 +11,11 @@ import { CvSkillsComponent } from './cv-skills/cv-skills.component';
 import { CvWorkExpComponent } from './cv-work-exp-wrapper/cv-work-exp/cv-work-exp.component';
 import { CvQualisComponent } from './cv-qualis-wrapper/cv-qualis/cv-qualis.component';
 import { MatNativeDateModule } from '@angular/material';
+import { CVSearchFilterService } from './cv-search/services/cv-search-filter.service';
+import { CVSearchHistoryService } from './cv-search/services/cv-search-history.service';
+import { CvSearchComponent } from './cv-search/cv-search.component';
+import { CvFeedbackComponent } from './cv-feedback/cv-feedback.component';
+import { CvCardBaseComponent } from './cv-card-base/cv-card-base.component';
 
 
 @NgModule({
@@ -22,7 +27,10 @@ import { MatNativeDateModule } from '@angular/material';
     CvQualisWrapperComponent,
     CvSkillsComponent,
     CvWorkExpComponent,
-    CvQualisComponent
+    CvQualisComponent,
+    CvSearchComponent,
+    CvFeedbackComponent,
+    CvCardBaseComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +38,7 @@ import { MatNativeDateModule } from '@angular/material';
     QaCommonModule,
     MatNativeDateModule
   ],
-  providers: []
+  providers: [CVSearchHistoryService,CVSearchFilterService ]
 })
 export class QaCvModule { }
 

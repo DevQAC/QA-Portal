@@ -1,7 +1,7 @@
 export interface ISkills {
-    programming_languages: string[];
-    IDEs: string[];
-    operating_systems: string[];
+    programmingLanguages: string[];
+    ides: string[];
+    operatingSystems: string[];
     devops: string[];
     databases: string[];
     platforms: string[];

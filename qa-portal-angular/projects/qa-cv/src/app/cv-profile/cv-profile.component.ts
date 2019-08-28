@@ -17,7 +17,7 @@ export class CvProfileComponent implements OnInit {
   }
 
   onInputChange(data) {
-    this.profile.p_detail = data;
+    this.profile.profileDetails = data;
     this.profileChange.emit(this.profile);
   }
 

@@ -6,17 +6,17 @@ import { ISkills } from './skills.model'
 
 
 export interface ICvModel {
-    version_number: string;
+
     status: string;
     id: number;
-    user_name: string;
-    first_name: string;
+    userName: string;
+    firstName: string;
     surname: string;
-    full_name: string;
-    job_title: string;
+    fullName: string;
+    cohort: string;
     profile: IProfile;
-    skills: ISkills;
-    qualifications: IQualification[];
-    work_experience: IWorkExperience[];
+    allSkills: ISkills;
+    allQualifications: IQualification[];
+    allWorkExperience: IWorkExperience[];
     hobbies: IHobbies;
 }

@@ -1,0 +1,14 @@
+.date-right{
+    float: right;
+    width: 45%;
+}
+
+.date-left{
+    float: left;
+    width: 45%;
+
+}
+
+.wide {
+    width: 100%;
+}

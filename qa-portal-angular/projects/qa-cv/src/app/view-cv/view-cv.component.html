@@ -1,18 +1,36 @@
-<h1>{{cvData.full_name}}</h1>
-<app-cv-skills></app-cv-skills>
-<app-cv-work-exp-wrapper [experiences]="cvData.work_experience" (experiencesChange)="cvData.work_experience = $event">
-</app-cv-work-exp-wrapper>
-<app-cv-profile [profile]="cvData.profile" (profileChange)="cvData.profile = $event"></app-cv-profile>
-<br>
-<br>
-<app-cv-hobbies [hobbies]="cvData.hobbies" (hobbiesChange)="cvData.hobbies = $event"> </app-cv-hobbies>
-<br>
-<app-cv-qualis [qualifications]="cvData.qualifications" (qualificationsChange)="cvData.qualifications = $event">
-</app-cv-qualis>
 
+<h1>{{cvData?.fullName}}</h1>
+<div class="cv-content-wrapper">
+        <section>
+                <app-cv-card-base title="Personal Profile" [feedback]="cvData.profile.profileFeedback">
+                        <app-cv-profile [profile]="cvData.profile" (profileChange)="cvData.profile = $event">
+                        </app-cv-profile>
+                </app-cv-card-base>
+        </section>
+        <section>
+                <app-cv-card-base title="Hobbies and Interests" [feedback]="cvData.hobbies.hobbiesFeedback">
+                        <app-cv-hobbies [hobbies]="cvData.hobbies" (hobbiesChange)="cvData.hobbies = $event">
+                        </app-cv-hobbies>
+                </app-cv-card-base>
+        </section>
+        <section>
+                <app-cv-card-base #qualCard [feedback]="qualFeedback" (feedbackChange)="onQualFeedbackChange($event)"
+                        [showOpenButton]="false">
+                        <app-cv-qualis-wrapper [qualifications]="cvData.allQualifications"
+                                (qualificationsChange)="cvData.allQualifications = $event"
+                                (feedbackClick)="onQualFeedbackClick($event, qualCard)">
+                        </app-cv-qualis-wrapper>
+                </app-cv-card-base>
+        </section>
+        <section>
+                <app-cv-card-base #expCard [feedback]="workExpFeedback"
+                        (feedbackChange)="onWorkExpFeedbackChange($event)" [showOpenButton]="false">
+                        <app-cv-work-exp-wrapper [experiences]="cvData.allWorkExperience"
+                                (experiencesChange)="cvData.allWorkExperience = $event"
+                                (feedbackClick)="onWorkExpFeedbackClick($event, expCard)">
+                        </app-cv-work-exp-wrapper>
+                </app-cv-card-base>
+        </section>
+        <button mat-flat-button color="primary" (click)="onSave()" title="Save all Changes">Save</button>
 
-<!-- <app-cv-qualis></app-cv-qualis>
-<app-cv-work-exp-wrapper></app-cv-work-exp-wrapper>
- -->
-
-<button (click)="onSave()">Save</button>
+</div>
