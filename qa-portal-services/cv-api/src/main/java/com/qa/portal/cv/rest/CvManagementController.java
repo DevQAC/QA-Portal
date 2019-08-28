@@ -47,14 +47,10 @@ public class CvManagementController {
 		return service.findByVersionNumber(versionNumber);
 	}
 	
-//	@GetMapping ("cv/findByFullName/{fullName}")
-//	public List<CvVersion> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName){
-//		return service.findByFullNameIgnoreCase(fullName);
-//	}
-	
 	@GetMapping("/cv/trainee/current")
-	public ResponseEntity<List<CvVersion>> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName){
-		return null;
+	public ResponseEntity<List<CvVersion>> findByFullNameIgnoreCase(){
+		String fullName = qaSecurityContext.getFirstName() + " " + qaSecurityContext.getSurname();
+		return ResponseEntity.ok(this.service.findByFullNameIgnoreCase(fullName));
 	}
 	
 	@PostMapping("cv/file")

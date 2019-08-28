@@ -33,8 +33,6 @@ public class CvManagementService {
     	this.updateCvService = updateCvService;
     }
     
-//    Nick I commented this out to get rid of the error.
-//    @Transactional(value = TxType.REQUIRED)
     public void saveGeneratedCv(CvVersion cvVersion) {
     	saveCvOperation.saveGeneratedCv(cvVersion);
     }

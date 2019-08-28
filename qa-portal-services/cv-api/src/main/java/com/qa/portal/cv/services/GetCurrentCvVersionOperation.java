@@ -16,11 +16,7 @@ import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 public class GetCurrentCvVersionOperation {
 
 	private MongoOperations mongoOperations;
-	private CvVersionRepository repo;
-	
-	private Comparator<CvVersion> cvComparator = 
-			(cv1, cv2) -> cv1.getVersionNumber() - cv2.getVersionNumber();
-	
+	private CvVersionRepository repo;	
 	
 	public GetCurrentCvVersionOperation(CvVersionRepository repo, MongoOperations mongoOperations) {
 		super();
@@ -34,7 +30,6 @@ public class GetCurrentCvVersionOperation {
 	}
 	
 	public List<CvVersion> findFullNameIgnoreCase(String like) {		
-//		Collections.sort(n, cvComparator);
 		try{
             Query query = new Query();
             query.addCriteria(Criteria.where("fullName").regex(toLikeRegex(like), "i"));
