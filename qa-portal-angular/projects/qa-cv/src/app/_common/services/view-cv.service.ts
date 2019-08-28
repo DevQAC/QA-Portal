@@ -22,6 +22,8 @@ export class ViewCvService {
   getAllCvs() {
     return <ICvModel>
       {
+        "status": "Passed",
+        "id": 123,
         "userName": "xx42069xx",
         "firstName": "Ian",
         "surname": "Owen",
