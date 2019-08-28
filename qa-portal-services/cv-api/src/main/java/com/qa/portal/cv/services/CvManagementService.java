@@ -1,5 +1,6 @@
 package com.qa.portal.cv.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.qa.portal.cv.domain.CvVersion;
@@ -25,14 +26,14 @@ public class CvManagementService {
         this.saveCvOperation = saveCvOperation;
         this.cvPdfGenerator = cvPdfGenerator;
         this.createCvService = createCvService;
-    	  this.getCvService = getCvService;
+    	this.getCvService = getCvService;
     }
-    
-    public void saveGeneratedCv(CvVersion cvVersion) {
+
+    public void saveGeneratedCv(CvVersion cvVersion) throws IOException {
     	saveCvOperation.saveGeneratedCv(cvVersion);
     }
 
-    public byte[] getGeneratedCv(CvVersion cvVersion) {
+    public byte[] getGeneratedCv(CvVersion cvVersion) throws IOException {
         return cvPdfGenerator.generateCv(cvVersion);
     }
   

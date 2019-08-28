@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 
+import javax.annotation.PostConstruct;
+
+import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.exception.QaPortalSevereException;
 import com.qa.portal.cv.domain.CvVersion;
 
@@ -29,21 +32,21 @@ import rst.pdfbox.layout.text.Position;
 @Component
 public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
-    String firstname;
-	String lastname;
-	String jobTitle;
-	String profile;
-	String[] programmingLanguages;
-	String[] IDEs;
-	String[] operatingSystems;
-	String[] devOpsTech;
-	String[] databaseTech;
-	String[] projectFrameWorks;
-	String[] other;
-	String[] qualifications;
-	String[] job;
-	String[] detail;
-	String hobbies;
+    String firstname = "firstname";
+	String lastname = "lastname";
+	String jobTitle = "jobTitle";
+	String profile = "profile";
+	String[] programmingLanguages = {"a", "b", "c"};
+	String[] IDEs = {"a", "b", "c"};
+	String[] operatingSystems = {"a", "b", "c"};
+	String[] devOpsTech = {"a", "b", "c"};
+	String[] databaseTech = {"a", "b", "c"};
+	String[] projectFrameWorks = {"a", "b", "c"};
+	String[] other = {"a", "b", "c"};
+	String[] qualifications = {"a", "b", "c"};
+	String[] job = {"a", "b", "c"};
+	String[] detail = {"a", "b", "c"};
+	String hobbies = "hobbies";
 	
 
 	Document document = new Document();
@@ -70,16 +73,18 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
     PDFont montserrat;
     PDFont montserratBold;
-    PDFont montserratItalic;
-    PDFont montserratBoldItalic;
     PDFont kranaFatB;
 
-    public CvPdfGeneratorImpl(PDFont montserrat, PDFont montserratBold, PDFont montserratItalic, PDFont montserratBoldItalic, PDFont kranaFatB) {
-            this.montserrat = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("resources/Montserrat-Regular.ttf"));
-            this.montserratBold = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("resources/Montserrat-SemiBold.ttf"));
-            this.montserratItalic = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("resources/Montserrat-Italic.ttf"));
-            this.montserratBoldItalic = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("resources/Montserrat-BoldItalic.ttf"));
-            this.kranaFatB = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("resources/Krana-Fat-B.ttf"));
+    @PostConstruct
+    public void loadfonts(){
+        try{
+            this.montserrat = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("src/main/resources/Montserrat-Regular.ttf"));
+            this.montserratBold = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("src/main/resources/Montserrat-SemiBold.ttf"));
+            this.kranaFatB = PDTrueTypeFont.loadTTF(document.getPDDocument(), new File("src/main/resources/Krana-Fat-B.ttf"));
+        } catch (IOException e){
+            e.printStackTrace();
+            throw new QaPortalBusinessException("Cannot load in CvPdfGeneratorImpl fonts");
+        }
     }
 
     @Override
@@ -109,7 +114,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             // column 1 box 2
             paragraph = new Paragraph();
             box1_2(paragraph, "Programming Languages", programmingLanguages);
-            box1_2(paragraph, "IDE's", IDEs);
+            box1_2(paragraph, "IDEs", IDEs);
             box1_2(paragraph, "Operating Systems", operatingSystems);
             box1_2(paragraph, "DevOps Technologies", devOpsTech);
             box1_2(paragraph, "Database Technologies", databaseTech);
@@ -124,9 +129,9 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
             // column 1 box 3
             paragraph = new Paragraph();
-            paragraph.addMarkup("{color:#FFFFFF}*Qualification*", 10, montserrat, montserratBold, montserratItalic, montserratBoldItalic);
+            paragraph.addMarkup("{color:#FFFFFF}*Qualification*", 10, montserrat, montserratBold, montserrat, montserrat);
             for (String i : qualifications) {
-                paragraph.addMarkup("\n\n{color:#FFFFFF}" + i, 10, montserrat, montserratBold, montserratItalic, montserratBoldItalic);
+                paragraph.addMarkup("\n\n{color:#FFFFFF}" + i, 10, montserrat, montserratBold, montserrat, montserrat);
             }
             frame = new Frame(paragraph, widthCol1, heightSideBox3);
             frame.setBackgroundColor(Color.decode(QABlue));
@@ -137,7 +142,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
             // column 2 Header
             paragraph = new Paragraph();
-            paragraph.addMarkup("{color:#89898b}Consultant Profile", 8.8f, montserrat, montserratBold, montserratItalic, montserratBoldItalic);
+            paragraph.addMarkup("{color:#89898b}Consultant Profile", 8.8f, montserrat, montserratBold, montserrat, montserrat);
             paragraph.setAlignment(Alignment.Left);
             frame = new Frame(paragraph, widthCol2 - pd * 2, heightHeader);
             frame.setAbsolutePosition(new Position(widthCol1, heightFooter + heightBody + paragraph.getHeight() + 10));
@@ -157,18 +162,18 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             paragraph.addMarkup("{color:" + QAPurple + "}*PROFILE*\n", 12, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
             paragraph.addMarkup("\n", 5, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
             // Profile
-            paragraph.addMarkup("{color:"+QAGrey +"}" + profile + "\n\n\n", 9, montserrat, montserratBold, montserratItalic, montserratBoldItalic);
+            paragraph.addMarkup("{color:"+QAGrey +"}" + profile + "\n\n\n", 9, montserrat, montserratBold, montserrat, montserrat);
             // Work Experience
             paragraph.addMarkup("{color:" + QAPurple + "}*WORK EXPERIANCE - QA*\n", 12, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
             paragraph.addMarkup("\n", 5, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
             for(int i =0; i< job.length; i++) {
-                paragraph.addMarkup("{color:" + QABlue + "}*"+ job[i] + "*\n", 9, montserrat, montserratBold, montserratItalic, montserratBoldItalic);	
-                paragraph.addMarkup("\n", 4, montserrat, montserratBold, montserratItalic, montserratBoldItalic);
-                paragraph.addMarkup("{color:" + QAGrey + "}"+ detail[i] + "\n\n", 9, montserrat, montserratBold, montserratItalic,	montserratBoldItalic);	
+                paragraph.addMarkup("{color:" + QABlue + "}*"+ job[i] + "*\n", 9, montserrat, montserratBold, montserrat, montserrat);	
+                paragraph.addMarkup("\n", 4, montserrat, montserratBold, montserrat, montserrat);
+                paragraph.addMarkup("{color:" + QAGrey + "}"+ detail[i] + "\n\n", 9, montserrat, montserratBold, montserrat,	montserrat);	
             }
             // Hobbies and Interests
             paragraph.addMarkup("{color:" + QAPurple + "}*HOBBIES/INTERESTS*\n", 12, kranaFatB, kranaFatB, kranaFatB, kranaFatB);		
-            paragraph.addMarkup("{color:" + QAGrey + "}"+ hobbies + "\n\n", 9, montserrat, montserratBold, montserratItalic, montserratBoldItalic);
+            paragraph.addMarkup("{color:" + QAGrey + "}"+ hobbies + "\n\n", 9, montserrat, montserratBold, montserrat, montserrat);
             frame = new Frame(paragraph, widthCol2, heightBody);
             frame.setAbsolutePosition(new Position(widthCol1, document.getPageHeight() - heightHeader));
             paragraph.setMaxWidth(frame.getWidth() - (pd * 2));
@@ -177,7 +182,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
             // column 2 Footer
             paragraph = new Paragraph();
-            paragraph.addMarkup("{color:#89898b}+44 1273 022670 / qa.com", 8, montserrat, montserratBold, montserratItalic, montserratBoldItalic);
+            paragraph.addMarkup("{color:#89898b}+44 1273 022670 / qa.com", 8, montserrat, montserratBold, montserrat, montserrat);
             paragraph.setAlignment(Alignment.Right);
             frame = new Frame(paragraph, widthCol2 - pd * 2, heightHeader);
             frame.setAbsolutePosition(new Position(widthCol1, heightHeader));
@@ -201,13 +206,12 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             //returns
             final OutputStream outputStream = new FileOutputStream("src/main/resources/generatedCv.pdf");
             document.save(outputStream);
-
             return IOUtils.toByteArray(res.getInputStream());
 
         } catch (IOException e){
 
             e.printStackTrace();
-            throw new QaPortalSevereException("Cannot load file");
+            throw new QaPortalSevereException("Cannot generate pdf");
 
         }
     }
@@ -220,17 +224,17 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 	}
 
 	public void box1_2(Paragraph paragraph, String title, String[] list) throws IOException {
-    	paragraph.addMarkup("{color:#FFFFFF}*" + title + "*\n", 10, montserrat, montserratBold, montserratItalic,
-				montserratBoldItalic);
-		paragraph.addMarkup("\n", 4,  montserrat, montserratBold, montserratItalic,
-				montserratBoldItalic);
+    	paragraph.addMarkup("{color:#FFFFFF}*" + title + "*\n", 10, montserrat, montserratBold, montserrat,
+        montserrat);
+		paragraph.addMarkup("\n", 4,  montserrat, montserratBold, montserrat,
+        montserrat);
 		for (int i = 0; i < list.length; i++) {
 			if (i < list.length - 1) {
 				paragraph.addMarkup("{color:#FFFFFF}" + list[i] + ", ", 10, montserrat, montserratBold,
-						montserratItalic, montserratBoldItalic);
+                montserrat, montserrat);
 			} else {
 				paragraph.addMarkup("{color:#FFFFFF}" + list[i] + "\n\n", 10, montserrat, montserratBold,
-						montserratItalic, montserratBoldItalic);
+                montserrat, montserrat);
 			}
 		}
 	}
