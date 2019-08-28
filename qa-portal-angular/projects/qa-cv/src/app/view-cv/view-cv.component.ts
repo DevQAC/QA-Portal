@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ICvModel } from '../_common/models/qac-cv-db.model';
 import { ViewCvService } from '../_common/services/view-cv.service';
 import { CvCardBaseComponent } from '../cv-card-base/cv-card-base.component';
 import { IFeedback } from '../_common/models/feedback.model';
+import { ActivatedRoute } from '@angular/router';
+import { TRAINING_ADMIN_ROLE } from '../../../../portal-core/src/app/_common/models/portal-constants';
+
 
 @Component({
   selector: 'app-view-cv',
@@ -10,6 +13,7 @@ import { IFeedback } from '../_common/models/feedback.model';
   styleUrls: ['./view-cv.component.scss']
 })
 export class ViewCvComponent implements OnInit {
+  @Output() public canComment: boolean;
   cvs: ICvModel[] = [];
   openThis = false;
 
@@ -23,10 +27,12 @@ export class ViewCvComponent implements OnInit {
   public qualDrawerOpen = false;
 
   constructor(
-    private cvService: ViewCvService
+    private cvService: ViewCvService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.canComment = this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
     this.getAllCvs();
   }
 
@@ -45,7 +51,7 @@ export class ViewCvComponent implements OnInit {
     expCard.drawer.open();
   }
 
-  onWorkExpFeedbackChange(feedback: IFeedback[], ): void {
+  onWorkExpFeedbackChange(feedback: IFeedback[]): void {
     this.cvData.allWorkExperience[this.workExpFeedbackIndex].workExperienceFeedback = feedback;
   }
 
@@ -55,7 +61,7 @@ export class ViewCvComponent implements OnInit {
     qualCard.drawer.open();
   }
 
-  onQualFeedbackChange(feedback: IFeedback[], ): void {
+  onQualFeedbackChange(feedback: IFeedback[]): void {
     this.cvData.allQualifications[this.qualFeedbackIndex].qualificationFeedback = feedback;
   }
 }

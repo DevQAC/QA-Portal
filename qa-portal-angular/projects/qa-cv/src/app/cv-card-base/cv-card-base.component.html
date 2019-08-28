@@ -29,10 +29,10 @@
           </div>
           <div #bottomScrollTarget name="bottom-scroll-target" aria-hidden="true"></div>
         </div>
-        <div class="bottom">
+        <div class="bottom" *ngIf="canComment">
           <form (ngSubmit)="addFeedbackItem()">
-            <mat-form-field class="comment-field">
-              <input [formControl]="commentInput" type="text" matInput placeholder="Comment">
+            <mat-form-field class="comment-field" [hideRequiredMarker]="options.value.hideRequired">
+              <input [formControl]="commentInput" type="text" matInput placeholder="Comment" required>
               <mat-icon matSuffix>send
               </mat-icon>
             </mat-form-field>
