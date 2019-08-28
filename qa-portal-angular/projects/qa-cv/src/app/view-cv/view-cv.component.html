@@ -1,4 +1,3 @@
-
 <h1>{{cvData?.fullName}}</h1>
 <div class="cv-content-wrapper">
         <section>
@@ -29,6 +28,12 @@
                                 (experiencesChange)="cvData.allWorkExperience = $event"
                                 (feedbackClick)="onWorkExpFeedbackClick($event, expCard)">
                         </app-cv-work-exp-wrapper>
+                </app-cv-card-base>
+        </section>
+        <section>
+                <app-cv-card-base [showOpenButton]="false" title="Skills">
+                        <app-cv-hobbies [hobbies]="cvData.Skills" (hobbiesChange)="cvData.Skills = $event">
+                        </app-cv-hobbies>
                 </app-cv-card-base>
         </section>
         <button mat-flat-button color="primary" (click)="onSave()" title="Save all Changes">Save</button>

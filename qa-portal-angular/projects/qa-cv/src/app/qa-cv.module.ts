@@ -14,6 +14,8 @@ import { MatNativeDateModule } from '@angular/material';
 
 import { CvFeedbackComponent } from './cv-feedback/cv-feedback.component';
 import { CvCardBaseComponent } from './cv-card-base/cv-card-base.component';
+import { CVSearchHistoryService } from './cv-search/services/cv-search-history.service';
+import { CVSearchFilterService } from './cv-search/services/cv-search-filter.service';
 
 
 
@@ -36,7 +38,10 @@ import { CvCardBaseComponent } from './cv-card-base/cv-card-base.component';
     QaCommonModule,
     MatNativeDateModule
   ],
-  providers: [CVSearchHistoryService,CVSearchFilterService ]
+  providers: [
+    CVSearchHistoryService,
+    CVSearchFilterService
+  ]
 })
 export class QaCvModule { }
 
