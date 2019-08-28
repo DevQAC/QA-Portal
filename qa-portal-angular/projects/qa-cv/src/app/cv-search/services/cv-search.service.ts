@@ -45,7 +45,7 @@ export class CVSearchHistoryService {
 
 
     /* GET heroes whose name contains search term */
-    searchCVs(term: string): Observable<CVSearchModel[]> {
+    searchCVs(term: string, tech: string ="", cvS): Observable<CVSearchModel[]> {
         if (!term.trim()) {
             // if not search term, return empty CV array.
             return of([]);
