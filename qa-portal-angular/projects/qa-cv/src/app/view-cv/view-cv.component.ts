@@ -14,7 +14,6 @@ export class ViewCvComponent implements OnInit {
   openThis = false;
 
   public cvData: ICvModel;
-
   public workExpFeedback = [];
   workExpFeedbackIndex: number;
   public workExpDrawerOpen = false;
@@ -59,5 +58,4 @@ export class ViewCvComponent implements OnInit {
   onQualFeedbackChange(feedback: IFeedback[], ): void {
     this.cvData.allQualifications[this.qualFeedbackIndex].qualificationFeedback = feedback;
   }
-
 }

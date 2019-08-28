@@ -17,11 +17,9 @@ export class FeedbackQuestionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.value);
   }
 
   setModel(selection: string) {
     this.selectedRating.response = selection;
-    console.log('New Value = ' + this.selectedRating.response);
   }
 }

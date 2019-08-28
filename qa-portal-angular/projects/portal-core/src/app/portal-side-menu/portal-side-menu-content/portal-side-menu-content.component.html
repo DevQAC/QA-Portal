@@ -11,7 +11,7 @@
   <br>
   <div style="margin: 0px; padding: 0px;">
     <div class="side-menu-item"*ngFor="let item of selectedApplication.menuItems">
-      <a routerLink="{{item.url}}" mat-menu-item class="menu-item-text"> {{item.name}}</a>
+      <a *ngIf="item.displayOnMenu" routerLink="{{item.url}}" mat-menu-item class="menu-item-text"> {{item.name}}</a>
     </div>
   </div>
 </div>

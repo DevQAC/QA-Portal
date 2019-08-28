@@ -1,4 +1,6 @@
+
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+
 import { IWorkExperience } from '../_common/models/work-experience.model';
 
 @Component({
@@ -11,6 +13,8 @@ export class CvWorkExpWrapperComponent implements OnInit {
   @Output() experiencesChange = new EventEmitter<IWorkExperience[]>();
 
   @Output() feedbackClick = new EventEmitter<{index: number, experience: IWorkExperience}>();
+
+
 
   constructor() { }
 
@@ -43,5 +47,7 @@ export class CvWorkExpWrapperComponent implements OnInit {
 
   onFeedbackClick(index: number, experience: IWorkExperience): void {
     this.feedbackClick.emit({index, experience});
+
+   
   }
 }

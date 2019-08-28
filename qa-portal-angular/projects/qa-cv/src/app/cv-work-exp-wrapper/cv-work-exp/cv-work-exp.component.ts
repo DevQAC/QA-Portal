@@ -17,9 +17,11 @@ export class CvWorkExpComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
   panelOpenState: boolean = false;
   buttonClickedState: boolean = false;
+
 
   onTitleChange(input) {
     this.experience.jobTitle = input;
@@ -60,5 +62,7 @@ export class CvWorkExpComponent implements OnInit {
     if (!this.buttonClickedState) {
       this.panelOpenState = !this.panelOpenState;
     }
+
+
   }
 }

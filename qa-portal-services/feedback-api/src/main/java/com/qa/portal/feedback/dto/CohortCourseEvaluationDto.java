@@ -1,8 +1,8 @@
 package com.qa.portal.feedback.dto;
 
 import com.qa.portal.common.dto.CohortCourseDto;
+import com.qa.portal.common.dto.QuestionCategoryResponseDto;
 import com.qa.portal.common.dto.TraineeDto;
-import com.qa.portal.common.dto.TrainerDto;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ public class CohortCourseEvaluationDto {
 
     private TraineeDto trainee;
 
-    private TrainerDto trainer;
-
     private CohortCourseDto cohortCourse;
 
-    private List<FeedbackQuestionCategoryResponseDto> categoryResponses;
+    private String status;
+
+    private List<QuestionCategoryResponseDto> categoryResponses;
 
     public Integer getId() {
         return id;
@@ -33,14 +33,6 @@ public class CohortCourseEvaluationDto {
         this.trainee = trainee;
     }
 
-    public TrainerDto getTrainer() {
-        return trainer;
-    }
-
-    public void setTrainer(TrainerDto trainer) {
-        this.trainer = trainer;
-    }
-
     public CohortCourseDto getCohortCourse() {
         return cohortCourse;
     }
@@ -49,11 +41,19 @@ public class CohortCourseEvaluationDto {
         this.cohortCourse = cohortCourse;
     }
 
-    public List<FeedbackQuestionCategoryResponseDto> getCategoryResponses() {
+    public List<QuestionCategoryResponseDto> getCategoryResponses() {
         return categoryResponses;
     }
 
-    public void setCategoryResponses(List<FeedbackQuestionCategoryResponseDto> categoryResponses) {
+    public void setCategoryResponses(List<QuestionCategoryResponseDto> categoryResponses) {
         this.categoryResponses = categoryResponses;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
