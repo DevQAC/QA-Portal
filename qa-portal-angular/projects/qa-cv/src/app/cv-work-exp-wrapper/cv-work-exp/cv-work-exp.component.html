@@ -1,5 +1,5 @@
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
+<mat-expansion-panel [expanded]="panelOpenState">
+  <mat-expansion-panel-header (click)="checkButtonState()">
     <mat-panel-title>
       {{experience.jobTitle}}
     </mat-panel-title>
@@ -11,6 +11,7 @@
       <button mat-button (click)="onFeedbackClick($event)">
         <mat-icon>feedback</mat-icon>
       </button>
+     
     </div>
   </mat-expansion-panel-header>
 
