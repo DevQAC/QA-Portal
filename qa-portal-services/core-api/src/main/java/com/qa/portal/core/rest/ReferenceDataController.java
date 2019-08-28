@@ -21,17 +21,11 @@ public class ReferenceDataController {
 
 	    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationsController.class);
 
-	    private ReferenceDataService ReferenceDataService;
-
-	    @Autowired
-	    public void ReferenceDataController(List<String> refDataCategories) {
-	        this.applicationService = applicationService;
-	        this.securityContext = securityContext;
-	    }
+	    private ReferenceDataService referenceDataService;
 
 	    @GetMapping()
-	    public ResponseEntity<List<DepartmentApplicationsDto>> getReferenceDataForCategories() {
-	        return ResponseEntity.ok(applicationService.getApplicationsByDepartment(securityContext.getRoles()));
+	    public ResponseEntity<List<Technology>> getReferenceDataForCategories() {
+	        return ResponseEntity.ok(referenceDataService.getApplicationsByDepartment(securityContext.getRoles()));
     }
 }
 
