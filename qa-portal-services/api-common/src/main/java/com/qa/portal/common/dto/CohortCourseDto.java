@@ -17,9 +17,9 @@ public class CohortCourseDto {
 
     private TrainerDto trainer;
     
-	private BigDecimal averageKnowledgeRating;
+	private String averageKnowledgeRating;
     
-    private BigDecimal tqi;
+    private String tqi;
 
     public Integer getId() {
         return id;
@@ -69,19 +69,19 @@ public class CohortCourseDto {
         this.trainer = trainer;
     }
     
-    public BigDecimal getAverageKnowledgeRating() {
+    public String getAverageKnowledgeRating() {
 		return averageKnowledgeRating;
 	}
 
-	public void setAverageKnowledgeRating(BigDecimal averageKnowledgeRating) {
+	public void setAverageKnowledgeRating(String averageKnowledgeRating) {
 		this.averageKnowledgeRating = averageKnowledgeRating;
 	}
 
-	public BigDecimal getTqi() {
+	public String getTqi() {
 		return tqi;
 	}
 
-	public void setTqi(BigDecimal tqi) {
+	public void setTqi(String tqi) {
 		this.tqi = tqi;
 	}
 

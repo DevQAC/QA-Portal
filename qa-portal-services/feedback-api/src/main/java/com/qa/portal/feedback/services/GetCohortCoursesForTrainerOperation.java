@@ -12,16 +12,22 @@ import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.feedback.persistence.entity.EvalQuestionCategoryResponseEntity;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 @Component
 public class GetCohortCoursesForTrainerOperation {
+
+	private final Logger LOGGER = LoggerFactory.getLogger(GetCohortCoursesForTrainerOperation.class);
 
 	private static final String TRAINER_EVALUATION = "Evaluation Trainer";
 
@@ -59,31 +65,37 @@ public class GetCohortCoursesForTrainerOperation {
 	
 	private CohortCourseDto getCohortCourseDto(CohortCourseEntity cohortCourseEntity) {
 		CohortCourseDto cohortCourseDto = mapper.mapObject(cohortCourseEntity, CohortCourseDto.class);
-		Double evaluation = cohortEvaluationRepo.findByCohortCourse(cohortCourseEntity)
+		OptionalDouble evaluation = cohortEvaluationRepo.findByCohortCourse(cohortCourseEntity)
 								.stream()
 								.flatMap(e -> e.getCategoryResponses().stream())
 								.filter(cr -> cr.getQuestionCategory().getCategoryName().equals(TRAINER_EVALUATION))
-								.mapToInt(cr -> getEvaluationResponseValue(cr))
-								.average()
-								.orElseThrow(() -> new QaPortalBusinessException("Error calculating Trainer evaluation"));
-		cohortCourseDto.setAverageKnowledgeRating(new BigDecimal(evaluation));
+								.map(cr -> getEvaluationResponseValue(cr))
+								.filter(s -> !s.equals("N/A"))
+								.mapToInt(s -> Integer.valueOf(s))
+								.average();
+		cohortCourseDto.setAverageKnowledgeRating("N/A");
+		evaluation.ifPresent(e -> cohortCourseDto.setAverageKnowledgeRating(new BigDecimal(e).toString()));
 		return cohortCourseDto;
 	}
 
-	private Integer getEvaluationResponseValue(EvalQuestionCategoryResponseEntity questionCategoryResponseEntity) {
+	private String getEvaluationResponseValue(EvalQuestionCategoryResponseEntity questionCategoryResponseEntity) {
 		return questionCategoryResponseEntity.getQuestionResponses()
 				.stream()
 				.findFirst()
-				.map(qr -> convertResponseValueToInt(qr.getResponseValues()))
+				.map(qr -> convertResponseValueToIntString(qr.getResponseValues()))
 				.orElseThrow(()  -> new QaPortalBusinessException("Error calculating Trainer evaluation"));
 	}
 
-	private Integer convertResponseValueToInt(String responseValues) {
+	private String convertResponseValueToIntString(String responseValues) {
 		try {
+			LOGGER.info("Response Values " + responseValues);
 			ObjectMapper om = new ObjectMapper();
 			TypeFactory typeFactory = om.getTypeFactory();
 			List<Integer> values = om.readValue(responseValues, typeFactory.constructCollectionType(List.class, Integer.class));
-			return values.get(0);
+			if (values.size() > 0) {
+				return values.get(0).toString();
+			}
+			return "N/A";
 		}
 		catch(Exception e) {
 			throw new QaPortalBusinessException("Error calculating Trainer evaluation");
