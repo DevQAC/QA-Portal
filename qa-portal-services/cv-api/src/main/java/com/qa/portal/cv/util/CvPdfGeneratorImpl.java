@@ -23,8 +23,10 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Component;
 
 import rst.pdfbox.layout.elements.Document;
@@ -65,16 +67,20 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 	PDFont montserratBold;
 	PDFont kranaFatB;
 
-	@SuppressWarnings("deprecation")
 	@PostConstruct
 	public void loadfonts() {
 		try {
-			this.montserrat = PDTrueTypeFont.loadTTF(document.getPDDocument(),
-					new File("target/classes/Montserrat-Regular.ttf"));
-			this.montserratBold = PDTrueTypeFont.loadTTF(document.getPDDocument(),
-					new File("target/classes/Montserrat-SemiBold.ttf"));
-			this.kranaFatB = PDTrueTypeFont.loadTTF(document.getPDDocument(),
-					new File("target/classes/Krana-Fat-B.ttf"));
+			Resource montRegResource = new ClassPathResource("Montserrat-Regular.ttf");
+			Resource montBoldResource = new ClassPathResource("Montserrat-SemiBold.ttf");
+			Resource kranaResource = new ClassPathResource("Krana-Fat-B.ttf");
+		
+
+			this.montserrat = PDType0Font.load(document.getPDDocument(),
+					montRegResource.getInputStream());
+			this.montserratBold = PDType0Font.load(document.getPDDocument(),
+					montBoldResource.getInputStream());
+			this.kranaFatB = PDType0Font.load(document.getPDDocument(),
+					kranaResource.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new QaPortalBusinessException("Cannot load in CvPdfGeneratorImpl fonts");
