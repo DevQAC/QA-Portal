@@ -6,7 +6,8 @@ import { IFeedback } from '../_common/models/feedback.model';
 import { ActivatedRoute } from '@angular/router';
 import { TRAINING_ADMIN_ROLE } from '../../../../portal-core/src/app/_common/models/portal-constants';
 import { Observable, Subscription } from 'rxjs';
-import { MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_DATE_LOCALE, MatDialog } from '@angular/material';
+import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-confirm-dialog.component';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   constructor(
     private cvService: ViewCvService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -48,7 +50,11 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = { ...DEFAULT_CV, ...cv });
   }
 
-
+  openDialog(): void {
+    this.dialog.open(SubmitConfirmDialogComponent, {
+      width: '250px'
+    });
+  }
 
   ngOnDestroy(): void {
     this.cvDataSubscription$.unsubscribe();

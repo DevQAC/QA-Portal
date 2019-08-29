@@ -16,6 +16,7 @@ import { CvFeedbackComponent } from './cv-feedback/cv-feedback.component';
 import { CvCardBaseComponent } from './cv-card-base/cv-card-base.component';
 import { CVSearchHistoryService } from './cv-search/services/cv-search-history.service';
 import { CVSearchFilterService } from './cv-search/services/cv-search-filter.service';
+import { SubmitConfirmDialogComponent } from './view-cv/submit-confirm-dialog/submit-confirm-dialog.component';
 
 
 
@@ -30,7 +31,8 @@ import { CVSearchFilterService } from './cv-search/services/cv-search-filter.ser
     CvWorkExpComponent,
     CvQualisComponent,
     CvFeedbackComponent,
-    CvCardBaseComponent
+    CvCardBaseComponent,
+    SubmitConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,9 @@ import { CVSearchFilterService } from './cv-search/services/cv-search-filter.ser
   providers: [
     CVSearchHistoryService,
     CVSearchFilterService
+  ],
+  entryComponents: [
+    SubmitConfirmDialogComponent
   ]
 })
 export class QaCvModule { }
