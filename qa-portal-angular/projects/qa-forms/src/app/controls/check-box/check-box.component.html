@@ -1,13 +1,13 @@
 <div style="display: flex; flex-direction: column;">
 
   <div style="display: flex; flex-direction: row">
-    <div class="qa-checkbox-grp-label" style="width: 50%;">
+    <div class="qa-checkbox-grp-label" style="width: 65%;">
       {{question.body}}
     </div>
 
     <div style="width: 5%"></div>
 
-    <div style="display: flex; width: 45%">
+    <div style="display: flex; width:35%">
       <div style="display: flex; flex-direction: column;">
         <mat-checkbox #matCheckBox class="checkbox-response" *ngFor="let option of question.selectionOptionsList"
                       [value]="option" [disabled]="isDisabled"
