@@ -42,7 +42,8 @@
                 <button mat-flat-button color="prmary" (click)="onSave()" title="Save all Changes"
                         [disabled]="!cvData || cvData.status==='Submitted For Review'">Save</button>
                 <button mat-flat-button color="warn" (click)="openDialog()" title="Submit for Review"
-                        [disabled]="!cvData || cvData.status==='Submitted For Review'">Submit</button>
+                        [disabled]="!cvData || cvData.status==='Submitted For Review'"
+                        (doSubmit)="onSubmit()">Submit</button>
                 Current Status: {{cvData.status}}
         </div>
 </div>

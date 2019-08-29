@@ -37,7 +37,6 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   private cvDataSubscription$: Subscription;
 
-
   constructor(
     private cvService: ViewCvService,
     private activatedRoute: ActivatedRoute,
@@ -45,8 +44,8 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.canComment = this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
-
+    if (SubmitConfirmDialogComponent)
+      this.canComment = this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
     this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = { ...DEFAULT_CV, ...cv });
   }
 
@@ -55,6 +54,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
       width: '250px'
     });
   }
+
 
   ngOnDestroy(): void {
     this.cvDataSubscription$.unsubscribe();
