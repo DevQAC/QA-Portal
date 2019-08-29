@@ -24,7 +24,7 @@
               "projects/qa-common/src/assets"
             ],
             "styles": [
-              "projects/qa-common/src/styles.css"
+              "projects/qa-common/src/styles.scss"
 
             ],
             "scripts": []
@@ -85,7 +85,7 @@
               "projects/qa-common/src/assets"
             ],
             "styles": [
-              "projects/qa-common/src/styles.css"
+              "projects/qa-common/src/styles.scss"
             ],
             "scripts": []
           }
@@ -138,7 +138,7 @@
               "projects/portal-home/src/assets"
             ],
             "styles": [
-              "projects/portal-home/src/styles.css"
+              "projects/portal-home/src/styles.scss"
             ],
             "scripts": []
           },
@@ -198,7 +198,7 @@
               "projects/portal-home/src/assets"
             ],
             "styles": [
-              "projects/portal-home/src/styles.css"
+              "projects/portal-home/src/styles.scss"
             ],
             "scripts": []
           }
@@ -251,8 +251,8 @@
               "projects/portal-core/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "projects/portal-core/src/styles.css"
+              "projects/portal-core/src/style/_main.scss",
+              "projects/portal-core/src/styles.scss"
             ],
             "scripts": []
           },
@@ -313,7 +313,7 @@
               "projects/portal-core/src/assets"
             ],
             "styles": [
-              "projects/portal-core/src/styles.css"
+              "projects/portal-core/src/styles.scss"
             ],
             "scripts": []
           }
@@ -366,7 +366,7 @@
               "projects/qa-error-app/src/assets"
             ],
             "styles": [
-              "projects/qa-error-app/src/styles.css"
+              "projects/qa-error-app/src/styles.scss"
             ],
             "scripts": []
           },
@@ -426,7 +426,7 @@
               "projects/qa-error-app/src/assets"
             ],
             "styles": [
-              "projects/qa-error-app/src/styles.css"
+              "projects/qa-error-app/src/styles.scss"
             ],
             "scripts": []
           }
@@ -479,7 +479,7 @@
               "projects/self-reflection/src/assets"
             ],
             "styles": [
-              "projects/self-reflection/src/styles.css"
+              "projects/self-reflection/src/styles.scss"
             ],
             "scripts": []
           },
@@ -539,7 +539,7 @@
               "projects/self-reflection/src/assets"
             ],
             "styles": [
-              "projects/self-reflection/src/styles.css"
+              "projects/self-reflection/src/styles.scss"
             ],
             "scripts": []
           }
@@ -592,7 +592,7 @@
               "projects/course-feedback/src/assets"
             ],
             "styles": [
-              "projects/course-feedback/src/styles.css"
+              "projects/course-feedback/src/styles.scss"
             ],
             "scripts": []
           },
@@ -652,7 +652,7 @@
               "projects/course-feedback/src/assets"
             ],
             "styles": [
-              "projects/course-feedback/src/styles.css"
+              "projects/course-feedback/src/styles.scss"
             ],
             "scripts": []
           }
@@ -705,7 +705,7 @@
               "projects/course-evaluation/src/assets"
             ],
             "styles": [
-              "projects/course-evaluation/src/styles.css"
+              "projects/course-evaluation/src/styles.scss"
             ],
             "scripts": []
           },
@@ -765,7 +765,7 @@
               "projects/course-evaluation/src/assets"
             ],
             "styles": [
-              "projects/course-evaluation/src/styles.css"
+              "projects/course-evaluation/src/styles.scss"
             ],
             "scripts": []
           }
@@ -818,7 +818,7 @@
               "projects/qa-forms/src/assets"
             ],
             "styles": [
-              "projects/qa-forms/src/styles.css"
+              "projects/qa-forms/src/styles.scss"
             ],
             "scripts": []
           },
@@ -878,7 +878,7 @@
               "projects/qa-forms/src/assets"
             ],
             "styles": [
-              "projects/qa-forms/src/styles.css"
+              "projects/qa-forms/src/styles.scss"
             ],
             "scripts": []
           }
@@ -929,7 +929,7 @@
               "projects/qa-cv/src/assets"
             ],
             "styles": [
-              "projects/qa-cv/src/styles.css"
+              "projects/qa-cv/src/styles.scss"
             ],
             "scripts": []
           },
@@ -989,7 +989,7 @@
               "projects/qa-cv/src/assets"
             ],
             "styles": [
-              "projects/qa-cv/src/styles.css"
+              "projects/qa-cv/src/styles.scss"
             ],
             "scripts": []
           }

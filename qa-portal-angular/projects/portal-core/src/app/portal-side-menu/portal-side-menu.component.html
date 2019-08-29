@@ -1,15 +1,34 @@
-<mat-drawer-container class="portal-drawer-container">
-  <mat-drawer #drawer mode="side" [(opened)]="openedDrawer">
-    <app-portal-side-menu-content [opened]="openedDrawer" (openedDrawerEmmiter)="setOpened($event)">
-    </app-portal-side-menu-content>
+<mat-drawer-container class="portal-drawer-container" [class.expanded]="sideMenuService.sideMenuOpen" autosize>
+  <mat-drawer #drawer class="portal-drawer mat-elevation-z2" mode="side" [opened]="true">
+    <div class="side-menu-content-wrapper">
+      <div data-simplebar class="side-menu-body">
+        <app-portal-side-menu-content></app-portal-side-menu-content>
+      </div>
+      <div class="side-menu-fixed-bottom">
+        <button mat-button (click)="sideMenuService.toggleOpen()" class="menu-item drawer-toggle">
+          <div class="menu-item-content">
+            <div class="menu-item-icon">
+              <mat-icon>chevron_right</mat-icon>
+            </div>
+            <div style="width: 100%; text-overflow:ellipsis; overflow: hidden; text-align: left; margin: auto 0;">
+              <span>
+                Collapse sidebar
+              </span>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+
   </mat-drawer>
   <mat-drawer-content>
     <main>
-      <div *ngIf="!openedDrawer">
+      <!-- <div *ngIf="!openedDrawer">
         <button style="color: #0060B9; margin-top: 10px;" type="button" mat-icon-button (click)="setOpened(true)">
           <mat-icon>menu</mat-icon>
         </button>
-      </div>
+      </div> -->
       <div style="margin: 15px; width: 100%;">
         <router-outlet></router-outlet>
       </div>
