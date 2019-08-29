@@ -21,7 +21,6 @@
     </div>
   </div>
 
-
   <div *ngIf="displayDirection === 'HORIZONTAL'" class="horizontal-radio-button">
     <div class="qa-radio-btn-grp-label">
       {{question.body}}
@@ -38,6 +37,8 @@
       </div>
     </mat-radio-group>
   </div>
+
+  <div></div>
 
   <div style="display: flex; flex-direction: row; margin-bottom: 10px; margin-top: 10px;" *ngIf="question.hasComment">
     <div class="qa-radiobutton-filler"></div>
