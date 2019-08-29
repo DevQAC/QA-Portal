@@ -1,6 +1,7 @@
 package com.qa.portal.common.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class TechnologyDto {
 
@@ -10,11 +11,11 @@ public class TechnologyDto {
 
     private TechnologyCategoryDto technologyCategory;
 
+    private List<CourseTechnologyDto> courseTechnologies;
+
     private String searchString;
 
     private Timestamp lastUpdatedTimestamp;
-
-
 
     private String lastUpdatedBy;
 
@@ -44,7 +45,13 @@ public class TechnologyDto {
         this.technologyCategory = technologyCategory;
     }
 
+    public List<CourseTechnologyDto> getCourseTechnologies() {
+        return courseTechnologies;
+    }
 
+    public void setCourseTechnologies(List<CourseTechnologyDto> courseTechnologies) {
+        this.courseTechnologies = courseTechnologies;
+    }
 
     public String getSearchString() {
         return searchString;
@@ -69,7 +76,6 @@ public class TechnologyDto {
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
-
 
 
     public Integer getVersion() {
