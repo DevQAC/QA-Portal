@@ -1,6 +1,7 @@
 package com.qa.portal.cv.persistence.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -14,6 +15,6 @@ public interface CvVersionRepository extends MongoRepository<CvVersion, Integer>
 
 	public CvVersion findByVersionNumber(Integer versionNumber);
 	
-	public CvVersion findByUserNameAndVersionNumberAllIgnoreCase(String userName, Integer versionNumber);
+	public Optional<CvVersion> findByUserNameAndVersionNumberAllIgnoreCase(String userName, Integer versionNumber);
 	
 }
