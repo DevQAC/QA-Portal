@@ -6,14 +6,11 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
 import * as _ from 'lodash';
+import { GET_ALL_CVS, POST_CV_DATA } from '../models/cv.constants';
 
 @Injectable({ providedIn: 'root' })
 export class ViewCvService {
 
-
-  private getUrl = '/cv/trainee/current';  // URL to web api
-
-  private postUrl = 'cv-api/cv';  // URL to web api
 
 
   httpOptions = {
@@ -179,8 +176,7 @@ export class ViewCvService {
   }
 
   private getAllCvsForCurrentUser(): Observable<ICvModel[]> {
-    const url = `${this.getUrl}`;
-    return this.http.get<ICvModel[]>(url, this.httpOptions).pipe(
+    return this.http.get<ICvModel[]>(GET_ALL_CVS, this.httpOptions).pipe(
       catchError(this.handleError<ICvModel[]>(`getICvModel for current user`))
     );
 
@@ -188,17 +184,17 @@ export class ViewCvService {
 
   //////// Save methods //////////
 
-  /** POST: add a new cv to the server */
-  addCv(cv: ICvModel): Observable<ICvModel> {
-    return this.http.post<ICvModel>(this.postUrl, cv, this.httpOptions).pipe(
-      tap((newICvModel: ICvModel) => this.log(`added cv w/ id=${newICvModel.id}`)),
-      catchError(this.handleError<ICvModel>('addICvModel'))
-    );
-  }
+  // /** POST: add a new cv to the server */
+  // addCv(cv: ICvModel): Observable<ICvModel> {
+  //   return this.http.post<ICvModel>(POST_CV_DATA, cv, this.httpOptions).pipe(
+  //     tap((newICvModel: ICvModel) => this.log(`added cv w/ id=${newICvModel.id}`)),
+  //     catchError(this.handleError<ICvModel>('addICvModel'))
+  //   );
+  // }
 
   /** PUT: update the cv on the server */
-  updateCv(cv: ICvModel): Observable<any> {
-    return this.http.put(this.postUrl, cv, this.httpOptions).pipe(
+  updateCv(cv: ICvModel): Observable<ICvModel> {
+    return this.http.put(POST_CV_DATA, cv, this.httpOptions).pipe(
       tap(_ => this.log(`updated cv id=${cv.id}`)),
       catchError(this.handleError<any>('updateICvModel'))
     );

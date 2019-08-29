@@ -6,12 +6,16 @@ import { IFeedback } from '../_common/models/feedback.model';
 import { ActivatedRoute } from '@angular/router';
 import { TRAINING_ADMIN_ROLE } from '../../../../portal-core/src/app/_common/models/portal-constants';
 import { Observable, Subscription } from 'rxjs';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 
 @Component({
   selector: 'app-view-cv',
   templateUrl: './view-cv.component.html',
-  styleUrls: ['./view-cv.component.scss']
+  styleUrls: ['./view-cv.component.scss'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  ]
 })
 export class ViewCvComponent implements OnInit, OnDestroy {
   @Output() public canComment: boolean;
@@ -35,7 +39,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.canComment = this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
+    this.canComment = true // this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
 
     this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = cv);
   }
@@ -45,14 +49,8 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
   onSave(): void {
-    try {
-      this.cvData.versionNumber = 1;
-      this.cvService.addCv(this.cvData);
-    } catch (exception) {
-      this.cvData.versionNumber++;
-      this.cvService.updateCv(this.cvData);
-    }
-    debugger;
+    this.cvData.versionNumber = this.cvData.versionNumber ? this.cvData.versionNumber + 1 : 1;
+    this.cvService.updateCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
 
   onWorkExpFeedbackClick({ index }: { index: number }, expCard: CvCardBaseComponent): void {

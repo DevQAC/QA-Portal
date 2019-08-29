@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IWorkExperience } from '../../_common/models/work-experience.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-cv-work-exp',
@@ -13,6 +14,10 @@ export class CvWorkExpComponent implements OnInit {
   @Output() experienceDelete = new EventEmitter<IWorkExperience>();
 
   @Output() feedbackClick = new EventEmitter<IWorkExperience>();
+
+  public get formattedEndDate(): string {
+    return moment(this.experience.end || 'Unknown').format('DD/MM/YYYY');
+  }
 
   constructor() { }
 
