@@ -1,9 +1,22 @@
-.checkbox-reponse{
-    display: flex;
-    margin-left: 100px;
-    margin-bottom: 10px; 
-    
-    
-    
+.qa-checkbox-grp-label {
+  background-color: lightgrey;
+  color: black;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
 
+.checkbox-response {
+  display: flex;
+  justify-content: left;
+  width: 60%;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.checkbox-filler {
+  width: 20%;
+}
+
+.checkbox-comment {
+  width: 60%;
 }

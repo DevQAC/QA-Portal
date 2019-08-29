@@ -1,24 +1,51 @@
 .qa-radio-btn-grp {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-  }
-  
-  .qa-radio-btn-grp-label {
-    background-color: lightgrey;
-    color: black;
-    margin-bottom: 10px;
-  }
-  
-  .qa-radio-btn-layout {
-    display: flex;
-    margin-left: 100px;
-    margin-bottom: 15px;
-  }
-  
-  .qa-response-button {
-    margin-right: 25px;
-    border-width: 1px;
-    border-color: black;
-    color: #0060B9;
-  }
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.qa-radio-btn-grp-label {
+  background-color: lightgrey;
+  color: black;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.qa-radio-btn-layout-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.qa-radio-btn-layout-vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.qa-response-button {
+  margin-right: 25px;
+  border-width: 1px;
+  border-color: black;
+  color: #0060B9;
+}
+
+.qa-radiobutton-filler {
+  width: 20%;
+}
+
+.qa-radiobutton-comment {
+  width: 60%;
+}
+
+.vertical-radio-btn {
+  display: flex;
+  flex-direction: row;
+}
+
+.horizontal-radio-btn {
+  display: flex;
+  flex-direction: column;
+}

@@ -20,6 +20,8 @@ export class ControlFactoryComponent implements OnInit, OnDestroy {
 
   @Input() type: ControlTypes;
 
+  @Input() displayDirection: string;
+
   @Input() questionResponse: IQuestionResponse;
 
   @Output() questionResponseChange = new EventEmitter<IQuestionResponse>();
@@ -51,6 +53,7 @@ export class ControlFactoryComponent implements OnInit, OnDestroy {
     (componentRef.instance as IGenericControl).question = this.question;
     (componentRef.instance as IGenericControl).isDisabled = this.isDisabled;
     (componentRef.instance as IGenericControl).questionResponse = this.questionResponse;
+    (componentRef.instance as IGenericControl).displayDirection = this.displayDirection;
     (componentRef.instance as IGenericControl).questionResponseChange
       .pipe(takeWhile(() => this.keepAlive))
       .subscribe(event => {
