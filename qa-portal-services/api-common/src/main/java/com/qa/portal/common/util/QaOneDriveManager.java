@@ -27,32 +27,38 @@ public class QaOneDriveManager implements QaFileManager {
 
 	public QaOneDriveManager(String authToken) {
 		this.authToken = authToken;
+		System.out.println("GET FOLDER: CVs");
 		cvFolderId = getItemId("CVs");
 	}
 	
-	@Override
 	public void storeFile(CvVersion cvVersion, byte[] cvByteArray) {
 		String username = cvVersion.getUserName();
-		String userFolderId = getItemId(username);
+		System.out.println("GET FOLDER: " + username);
+		String userFolderId = getItemId("CVs/" + username);
 		String currentCvId = null;
 		String archiveId = null;
 
 		if (userFolderId == null) {
+			System.out.println("CREATE FOLDER: " + username);
 			userFolderId = createFolder(cvFolderId, username);
 		} else {
-			currentCvId = getItemId(username + "/" + username + ".pdf");
+			System.out.println("GET FILE: " + username + "/" + username + ".pdf");
+			currentCvId = getItemId("CVs/" + username + "/" + username + ".pdf");
 			if (currentCvId != null) {
-				archiveId = getItemId(username + "/archive");
+				System.out.println("GET FOLDER: archive");
+				archiveId = getItemId("CVs/" + username + "/archive");
 				if (archiveId == null) {
+					System.out.println("CREATE FOLDER: archive");
 					archiveId = createFolder(userFolderId, "archive");
 				}
+				System.out.println("MOVE FILE: " + username + ".pdf to " + "archive/" +  username + "-version" + getNextCvVersion(archiveId) + ".pdf");
 				moveItem(username + "-version" + getNextCvVersion(archiveId) + ".pdf", archiveId, currentCvId);
 			}
 		}
-		uploadFile(username + ".pdf", archiveId, cvByteArray);
+		System.out.println("UPLOAD FILE:" + username + ".pdf to /" + username);
+		uploadFile(username + ".pdf", userFolderId, cvByteArray);
 	}
 
-	@Override
 	public String createFolder(String locationId, String folderName) {
 		HttpURLConnection connection = null;
 		URL url;
@@ -62,17 +68,20 @@ public class QaOneDriveManager implements QaFileManager {
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("Content-Type", "application/json");
 			connection.setRequestProperty("Accept", "application/json");
-			connection.setRequestProperty("Authorization", authToken);
-			
-			connection.setUseCaches(false);
+			connection.setRequestProperty("Authorization", "Bearer " + authToken);
 			connection.setDoOutput(true);
-			String jsonBody = "{\"name\": \"" + folderName + "\",\"folder\": {}}";
-			OutputStream outputStream = connection.getOutputStream();
+			
+			String jsonBody = "{\"name\": \"" + folderName + "\",\"folder\": { } }";
+			OutputStream os = connection.getOutputStream();
 			
 			byte[] jsonBodyAsArray = jsonBody.getBytes("utf-8");
-			outputStream.write(jsonBodyAsArray, 0, jsonBodyAsArray.length);
-			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
-			String response = br.readLine();
+			os.write(jsonBodyAsArray);
+			os.flush();
+			os.close();
+			
+			String response = getResponse(connection);
+			System.out.println("Code: " + connection.getResponseCode());
+			System.out.println(response);
 			
 			JSONObject jsonObject = new JSONObject(response);
 			return jsonObject.getString("id");
@@ -94,7 +103,6 @@ public class QaOneDriveManager implements QaFileManager {
 		return null;
 	}
 
-	@Override
 	public String getItemId(String pathToItem) {
 		HttpURLConnection connection = null;
 		try {
@@ -102,33 +110,16 @@ public class QaOneDriveManager implements QaFileManager {
 			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/root:/" + pathToItem);
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Content-Type", "application/json");
 			connection.setRequestProperty("Accept", "application/json");
 			connection.setRequestProperty("Authorization", "Bearer " + authToken);
 
 			connection.connect();
 
-			// get response
-			int responseCode = connection.getResponseCode();
-			InputStream is = null;
-			if (responseCode >= 400) {
-				is = connection.getErrorStream();
-			} else {
-				is = connection.getInputStream();
-			}
-
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			int c = -1;
-			while ((c = is.read()) != -1) {
-				buffer.write((byte) c);
-			}
-			is.close();
-
-			String response = buffer.toString();
-			System.out.println("Code: " + responseCode);
+			String response = getResponse(connection);
+			if(connection.getResponseCode() != 200) return null;
+			System.out.println("Code: " + connection.getResponseCode());
 			System.out.println(response);
-
-			buffer.close();
-			connection.disconnect();
 
 			JSONObject jsonObject = new JSONObject(response);
 			return jsonObject.getString("id");
@@ -140,42 +131,23 @@ public class QaOneDriveManager implements QaFileManager {
 		return null;
 	}
 
-	@Override
 	public int getNextCvVersion(String archiveId) {
-		HttpURLConnection connection = null;
 		try {
 			// send request
 			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + archiveId + "/children");
-			connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("GET");
-			connection.setRequestProperty("Accept", "application/json");
-			connection.setRequestProperty("Authorization", "Bearer " + authToken);
+			HttpURLConnection connection = createConnection(url, "GET");
+//			connection = (HttpURLConnection) url.openConnection();
+//			connection.setRequestMethod("GET");
+//			connection.setRequestProperty("Content-Type", "application/json");
+//			connection.setRequestProperty("Accept", "application/json");
+//			connection.setRequestProperty("Authorization", "Bearer " + authToken);
 
 			connection.connect();
 
-			// get response
-			int responseCode = connection.getResponseCode();
-			InputStream is = null;
-			if (responseCode >= 400) {
-				is = connection.getErrorStream();
-			} else {
-				is = connection.getInputStream();
-			}
-
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			int c = -1;
-			while ((c = is.read()) != -1) {
-				buffer.write((byte) c);
-			}
-			is.close();
-
-			String response = buffer.toString();
-			System.out.println("Code: " + responseCode);
-			System.out.println(response);
-
-			buffer.close();
-			connection.disconnect();
+			String response = getResponse(connection);
 			
+			System.out.println("Code: " + connection.getResponseCode());
+			System.out.println(response);
 			JSONObject jsonObject = new JSONObject(response);
 			JSONArray files = jsonObject.getJSONArray("value");
 			
@@ -183,7 +155,7 @@ public class QaOneDriveManager implements QaFileManager {
 			for(int i = 0; i < files.length(); i++) {
 				JSONObject file = files.getJSONObject(i);
 				String filename = file.getString("name");
-				int currentVersion = Integer.parseInt(filename.substring(filename.indexOf("version") + 7, filename.indexOf('.')));
+				int currentVersion = Integer.parseInt(filename.substring(filename.lastIndexOf("version") + 7, filename.indexOf('.')));
 				if(currentVersion > maxVersion) maxVersion = currentVersion;
 			}
 			return maxVersion + 1;
@@ -195,51 +167,29 @@ public class QaOneDriveManager implements QaFileManager {
 		return 0;
 	}
 
-	@Override
 	public void moveItem(String newName, String destinationFolderId, String itemId) {
 		byte[] fileData = downloadFile(itemId);
 		deleteFile(itemId);
 		uploadFile(newName, destinationFolderId, fileData);
 	}
 
-	@Override
 	public void uploadFile(String fileName, String destinationFolderId, byte[] fileData) {
-		HttpURLConnection connection = null;
 		try {
 			//send request
 			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + destinationFolderId + ":/" + fileName + ":/content");
-			connection = (HttpURLConnection) url.openConnection();
-			connection.setDoOutput(true);
-			connection.setRequestMethod("PUT");
-			connection.setRequestProperty("Accept", "application/json");
-			connection.setRequestProperty("Authorization", "Bearer " + authToken);
+			HttpURLConnection connection = createConnection(url, "PUT");
+			connection.connect();
 
 			OutputStream os = connection.getOutputStream();
 			os.write(fileData);
 			os.flush();
 			os.close();
-			connection.connect();
 			
-			//get response
-			int responseCode = connection.getResponseCode();
-			InputStream is = null;
-			if(responseCode >= 400) {
-				is = connection.getErrorStream();
-			} else {
-				is = connection.getInputStream();
-			}
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			int c = -1;
-			while((c = is.read()) != -1) {
-				buffer.write((byte) c);
-			}
-			is.close();
 			
-			String response = buffer.toString();
-			System.out.println("Code: " + responseCode);
+			String response = getResponse(connection);
+			System.out.println("Code: " + connection.getResponseCode());
 			System.out.println(response);
 			
-			buffer.close();
 			connection.disconnect();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -249,39 +199,16 @@ public class QaOneDriveManager implements QaFileManager {
 	}
 
 	private void deleteFile(String itemId) {
-		HttpURLConnection connection = null;
 		try {
 			//send request
 			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + itemId);
-			connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("DELETE");
-//			connection.setRequestProperty("Content-Type", "application/json");
-			connection.setRequestProperty("Accept", "application/json");
-			connection.setRequestProperty("Authorization", "Bearer " + authToken);
-			
+			HttpURLConnection connection = createConnection(url, "DELETE");
 			connection.connect();
 			
 			//get response
-			int responseCode = connection.getResponseCode();
-			InputStream is = null;
-			if(responseCode >= 400) {
-				is = connection.getErrorStream();
-			} else {
-				is = connection.getInputStream();
-			}
-		
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			int c = -1;
-			while((c = is.read()) != -1) {
-				buffer.write((byte) c);
-			}
-			is.close();
-			
-			String response = buffer.toString();
-			System.out.println("Code: " + responseCode);
+			String response = getResponse(connection);
+			System.out.println("Code: " + connection.getResponseCode());
 			System.out.println(response);
-			
-			buffer.close();
 			connection.disconnect();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -291,16 +218,12 @@ public class QaOneDriveManager implements QaFileManager {
 	}
 
 	private byte[] downloadFile(String itemId) {
-		HttpURLConnection connection = null;
 		try {
 			//send request
 			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + itemId + "/content");
-			connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("GET");
-//			connection.setRequestProperty("Content-Type", "application/json");
-//			connection.setRequestProperty("Accept", "application/json");
-			connection.setRequestProperty("Authorization", "Bearer " + authToken);
-
+			HttpURLConnection connection = createConnection(url, "GET");
+			connection.connect();
+			
 			//get response
 			int responseCode = connection.getResponseCode();
 			InputStream is = null;
@@ -334,5 +257,39 @@ public class QaOneDriveManager implements QaFileManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private String getResponse(HttpURLConnection connection) throws IOException {
+		int responseCode = connection.getResponseCode();
+		InputStream is = null;
+		if(responseCode >= 400) {
+			is = connection.getErrorStream();
+		} else {
+			is = connection.getInputStream();
+		}
+	
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		int c = -1;
+		while((c = is.read()) != -1) {
+			buffer.write((byte) c);
+		}
+		buffer.close();
+		connection.disconnect();
+		
+		return buffer.toString();
+	}
+	
+	private HttpURLConnection createConnection(URL url, String requestMethod) throws IOException {
+		HttpURLConnection connection;
+		connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestMethod(requestMethod);
+		connection.setRequestProperty("Accept", "application/json");
+		connection.setRequestProperty("Content-Type", "application/json");
+		connection.setRequestProperty("Authorization", "Bearer " + authToken);
+		
+		if(requestMethod.equals("POST") || requestMethod.equals("PUT")) 
+			connection.setDoOutput(true);
+		
+		return connection;
 	}
 }
