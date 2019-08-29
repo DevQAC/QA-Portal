@@ -1,9 +1,12 @@
 package com.qa.portal.cv.util;
 
 import java.awt.Color;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -220,9 +223,18 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 //            document.save(outputStream);
 //            document.toString();
             PDDocument pdDoc = document.render();
-            pdDoc.save("target/classes/pdDoc.pdf");
+            pdDoc.save("pdDoc.pdf");
             PDStream stream = new PDStream(pdDoc);
-            return stream.toByteArray();
+//            byte[] byteArray = stream.toByteArray();
+//            System.out.println(byteArray.length + "byte array length");
+//            return byteArray;
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            document.save(out);
+            byte[] data = out.toByteArray();
+            InputStream in = new ByteArrayInputStream(data);
+            byte[] byteArray =  IOUtils.toByteArray(in);
+            System.out.println(byteArray.length);
+            return byteArray;
             
 //            return new PDStream(pdDoc).toByteArray();
             
