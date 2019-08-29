@@ -43,15 +43,15 @@ public class QaSharepointManager implements QaFileManager {
 	}
 
 	@Override
-	public void createFolder(String locationId, String folderName) {
+	public String createFolder(String locationId, String folderName) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public boolean checkItemExists(String pathToItem) {
+	public String getItemId(String pathToItem) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -62,6 +62,12 @@ public class QaSharepointManager implements QaFileManager {
 
 	@Override
 	public void moveItem(String newName, String destinationFolder, String itemId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void uploadFile(String fileName, String destinationFolder, byte[] fileData) {
 		// TODO Auto-generated method stub
 		
 	}

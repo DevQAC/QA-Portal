@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.qa.portal.cv.domain.CvVersion;
 
-@Component
 public class QaLocalManger implements QaFileManager {
-
 
 	public void storeFile(String filePath, byte[] cvByteArray) {
 		FileOutputStream fos = null;
@@ -74,15 +72,15 @@ public class QaLocalManger implements QaFileManager {
 	}
 
 	@Override
-	public void createFolder(String locationId, String folderName) {
+	public String createFolder(String locationId, String folderName) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public boolean checkItemExists(String pathToItem) {
+	public String getItemId(String pathToItem) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -93,6 +91,12 @@ public class QaLocalManger implements QaFileManager {
 
 	@Override
 	public void moveItem(String newName, String destinationFolder, String itemId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void uploadFile(String fileName, String destinationFolder, byte[] fileData) {
 		// TODO Auto-generated method stub
 		
 	}

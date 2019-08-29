@@ -6,11 +6,13 @@ public interface QaFileManager {
 	
 	public void storeFile(CvVersion cvVersion, byte[] cvByteArray);
 	
-	void createFolder(String locationId, String folderName);
+	String createFolder(String locationId, String folderName);
 	
-	boolean checkItemExists(String pathToItem);
+	String getItemId(String pathToItem);
 
 	int getNextCvVersion(String archiveId);
 	
-	void moveItem(String newName, String destinationFolder, String itemId);
+	void moveItem(String newName, String destinationFolderId, String itemId);
+	
+	void uploadFile(String fileName, String destinationFolderId, byte[] fileData);
 }
