@@ -166,7 +166,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 			paragraph.addMarkup("{color:" + QAPurple + "}*PROFILE*\n", 12, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
 			paragraph.addMarkup("\n", 5, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
 			// Profile
-			paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getProfile().getDetails() + "\n\n\n", 9,
+			paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n", 9,
 					montserrat, montserratBold, montserrat, montserrat);
 			// Work Experience
 			paragraph.addMarkup("{color:" + QAPurple + "}*WORK EXPERIANCE - QA*\n", 12, kranaFatB, kranaFatB, kranaFatB,
@@ -187,7 +187,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 			// Hobbies and Interests
 			paragraph.addMarkup("{color:" + QAPurple + "}*HOBBIES/INTERESTS*\n", 12, kranaFatB, kranaFatB, kranaFatB,
 					kranaFatB);
-			paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getHobbies().getHobbies() + "\n\n", 9, montserrat,
+			paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getHobbies().getHobbiesDetails() + "\n\n", 9, montserrat,
 					montserratBold, montserrat, montserrat);
 			frame = new Frame(paragraph, widthCol2, heightBody);
 			frame.setAbsolutePosition(new Position(widthCol1, document.getPageHeight() - heightHeader));

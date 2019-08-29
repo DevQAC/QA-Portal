@@ -6,7 +6,7 @@
     "fullName": "Chad Thunder",
     "cohort": "June 2019",
     "profile": {
-        "details": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'.",
+        "profileDetails": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'.",
         "profileFeedback": [
             {
                 "reviewer": "Dan isn't Pure",
@@ -82,7 +82,7 @@
         }
     ],
     "hobbies": {
-        "hobbies": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'.",
+        "hobbiesDetails": "Phat gangster that's the shizzle, shizznit volutpat, dope fo shizzle mah nizzle fo rizzle, mah home g-dizzle, gravida vizzle, shizzlin dizzle. Boom shackalack gizzle pimpin'.",
         "hobbiesFeedback": [
             {
                 "reviewer": "Bernie the Bern",
