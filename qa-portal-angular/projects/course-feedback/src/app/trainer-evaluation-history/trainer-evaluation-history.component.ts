@@ -23,6 +23,9 @@ export class TrainerEvaluationHistoryComponent implements OnInit {
 
   viewModel3: TrainerEvaluationViewModel2 = new TrainerEvaluationViewModel2();
 
+  public trainerEvalHistory: any[] = [];
+  public trainerRow: any=[];
+
   dataSource: MatTableDataSource<EvaluationTableRow>;
 
   dataSource2: MatTableDataSource<EvaluationTableRow>
@@ -42,15 +45,16 @@ export class TrainerEvaluationHistoryComponent implements OnInit {
     // need to call RetrieveTrainerEvaluationHistoryService
     this.retrieveTrainerEvalHistory.getEvalHistory().subscribe( 
       (response) => {
-          console.log(JSON.stringify(response));
-          //populate MatTableDataSource for your tables on the page
+        console.log(response[0]);
+        this.trainerEvalHistory = response;
+        
       },
       (error) => {
         this.errorHandler.handleError(error);
       }
     );
     this.viewModel2.tableRows = [{
-      col1: "hello", col2: new Date("2019-08-08").getMonth()+1, col3: new Date("2019-08-09"), col4: "1623", col5: "confi"
+      
   }];
 
     this.dataSource2 = new MatTableDataSource(this.viewModel2.tableRows);
