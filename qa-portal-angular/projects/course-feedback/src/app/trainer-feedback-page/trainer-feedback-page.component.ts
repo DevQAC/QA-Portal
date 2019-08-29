@@ -3,6 +3,7 @@ import { QaErrorHandlerService } from '../../../../portal-core/src/app/_common/s
 import { Subscription } from 'rxjs';
 import { IFormModel } from 'projects/qa-forms/src/app/_common/models';
 import {FeedbackService} from './_common/services/feedback.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-trainer-feedback-page',
@@ -18,7 +19,8 @@ export class TrainerFeedbackPageComponent implements OnInit, OnDestroy {
   viewModel: IFormModel;
 
   constructor(private feedbackService: FeedbackService,
-              private errorHandlerService: QaErrorHandlerService) {
+              private errorHandlerService: QaErrorHandlerService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -33,8 +35,10 @@ export class TrainerFeedbackPageComponent implements OnInit, OnDestroy {
   }
 
   saveFeedback() {
+    this.viewModel.status = 'Submitted';
     this.createFeedbackSubscription = this.feedbackService.createFeedbackForm(this.viewModel).subscribe(response => {
       // Navigate to the feedback history page for the trainer
+      this.router.navigateByUrl('qa/portal/training/feedback/trainer/history');
     },
       (error) => {
         this.errorHandlerService.handleError(error);

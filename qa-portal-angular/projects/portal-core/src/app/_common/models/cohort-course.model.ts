@@ -15,6 +15,8 @@ export class CohortCourseModel {
 
   trainer: TrainerModel;
 
+  feedbackStatus: string;
+
   averageKnowledgeRating: number;
 
   tqi: number;

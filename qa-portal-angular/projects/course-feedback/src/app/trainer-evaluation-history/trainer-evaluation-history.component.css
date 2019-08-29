@@ -1,16 +1,7 @@
-.right-message {
-    text-align: right;
-    font-size: 0.7em;
-}
 
-.right-mat-table {
-    margin-left: 58%;
+.bottom-table{
+  width: 50pc;
 }
-
-mat-card {
-    margin-bottom: 30px;
-}
-
 th {
     width: 20em;
 }
@@ -24,10 +15,6 @@ mat-cell.cdk-column-date{
     left: 60%;
     top:-32px;
 }
-
-/*.mat-row {*/
-/*    position: relative;*/
-/*}*/
 
 .mat-row-link{
     position: absolute;
@@ -45,3 +32,38 @@ mat-cell.cdk-column-date{
 .example-form {
   margin-bottom: 15px;
 }
+
+table {
+    width: 100%;
+}
+
+
+mat-cell{
+    font-size: 20px;
+}
+
+
+mat-cell.cdk-column-date{
+    position: relative;
+    left: 60%;
+    top:-32px;
+}
+
+
+.mat-row{
+  position: relative;
+}
+
+/* 
+.mat-row-link{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.data-row:hover{
+  filter: brightness(95%);
+  cursor: pointer;
+} */

@@ -7,6 +7,7 @@ import {TrainerFeedbackPageComponent} from './trainer-feedback-page/trainer-feed
 import {TRAINEE_ROLE, TRAINER_ROLE} from '../../../portal-core/src/app/_common/models/portal-constants';
 import {AppAuthGuard} from '../../../portal-core/src/app/_common/guards/app-auth-guard';
 import {TraineeEvaluationSummaryComponent} from './trainee-evaluation-summary/trainee-evaluation-summary.component';
+import {TrainerFeedbackHistoryComponent} from './trainer-feedback-history/trainer-feedback-history.component';
 
 const routes: Routes = [
   {
@@ -61,7 +62,17 @@ const routes: Routes = [
             }
           },
           {
-            path: 'current',
+            path: 'history',
+            component: TrainerFeedbackHistoryComponent,
+            canActivate: [AppAuthGuard],
+            data: {
+              roles: [
+                TRAINER_ROLE
+              ]
+            }
+          },
+          {
+            path: 'course/:id',
             component: TrainerFeedbackPageComponent,
             canActivate: [AppAuthGuard],
             data: {
