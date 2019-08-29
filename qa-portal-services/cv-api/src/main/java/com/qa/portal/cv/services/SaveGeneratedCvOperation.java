@@ -23,9 +23,6 @@ public class SaveGeneratedCvOperation {
 	public void saveGeneratedCv(CvVersion cvVersion) {
 		byte[] cvByteArray = pdfGenerator.generateCv(cvVersion);
 		
-		//folder = cvVersion.userName, fileName = cvVersion.userName + ".pdf" ????
-		final String folder = "/test";
-		final String fileName = "/test.pdf";
-		fileManager.storeFile(fileLocation + folder + fileName, cvByteArray);
+		fileManager.storeFile(cvVersion, cvByteArray);
 	}
 }
