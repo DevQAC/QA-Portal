@@ -19,6 +19,9 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 })
 export class ViewCvComponent implements OnInit, OnDestroy {
   @Output() public canComment: boolean;
+
+  enableButtons: boolean;
+
   cvs: ICvModel[] = [];
   openThis = false;
 
@@ -33,6 +36,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   private cvDataSubscription$: Subscription;
 
+
   constructor(
     private cvService: ViewCvService,
     private activatedRoute: ActivatedRoute
@@ -44,13 +48,25 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = { ...DEFAULT_CV, ...cv });
   }
 
+
+
   ngOnDestroy(): void {
     this.cvDataSubscription$.unsubscribe();
   }
 
   onSave(): void {
+    this.cvData.status = "Saved";
+    this.updateCv();
+  }
+
+  updateCv(): void {
     this.cvData.versionNumber = this.cvData.versionNumber ? this.cvData.versionNumber + 1 : 1;
     this.cvService.updateCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
+  }
+
+  onSubmit(): void {
+    this.cvData.status = "Submitted For Review";
+    this.updateCv();
   }
 
   onWorkExpFeedbackClick({ index }: { index: number }, expCard: CvCardBaseComponent): void {

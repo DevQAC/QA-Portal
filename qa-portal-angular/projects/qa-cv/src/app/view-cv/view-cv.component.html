@@ -1,5 +1,5 @@
 <h1>{{cvData?.fullName}}</h1>
-<div *ngIf="cvData" class="cv-content-wrapper">
+<div class="cv-content-wrapper">
         <section>
                 <app-cv-card-base title="Personal Profile" [canComment]="canComment"
                         [feedback]="cvData.profile.profileFeedback">
@@ -38,6 +38,11 @@
                         </app-cv-skills>
                 </app-cv-card-base>
         </section>
-        <button mat-flat-button color="primary" (click)="onSave()" title="Save all Changes">Save</button>
-
+        <div class="button-row">
+                <button mat-flat-button color="prmary" (click)="onSave()" title="Save all Changes"
+                        [disabled]="!cvData || cvData.status==='Submitted For Review'">Save</button>
+                <button mat-flat-button color="warn" (click)="onSubmit()" title="Submit for Review"
+                        [disabled]="!cvData || cvData.status==='Submitted For Review'">Submit</button>
+                {{cvData.status}}
+        </div>
 </div>
