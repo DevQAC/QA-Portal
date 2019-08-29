@@ -61,6 +61,7 @@ public class CohortCourseFeedbackMapper {
 				.orElseThrow(() -> new QaPortalBusinessException("Cannot find feedback to update"));
     	feedbackQuestionCategoryResponseMapper.setUpdatedCategoryResponses(cohortCourseFeedbackEntity.getCategoryResponses(),
 				cohortCourseFeedbackDto.getCategoryResponses());
+    	cohortCourseFeedbackEntity.setStatus(cohortCourseFeedbackDto.getStatus());
     	return cohortCourseFeedbackEntity;
 	}
 }

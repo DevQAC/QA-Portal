@@ -14,7 +14,7 @@ export class FeedbackService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getFeedbackforCourse(courseId: number): Observable<IFormModel> {
+  public getFeedbackforCourse(courseId: string): Observable<IFormModel> {
     return this.httpClient.get<IFormModel>(GET_FEEDBACK_FOR_COURSE_URL + courseId);
   }
 

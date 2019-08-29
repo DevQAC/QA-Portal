@@ -12,13 +12,15 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 })
 export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
 
+  summaryUrl = 'qa/portal/training/feedback/trainee/evaluation/history';
+
   dataLoaded = false;
 
-  getCurrentEvaluationSubscription: Subscription;
+  getFormSubscription: Subscription;
 
-  createEvaluationSubscription: Subscription;
+  createFormSubscription: Subscription;
 
-  updateEvaluationSubscription: Subscription;
+  updateFormSubscription: Subscription;
 
   viewModel: IFormModel;
 
@@ -26,10 +28,6 @@ export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
               private errorHandlerService: QaErrorHandlerService,
               private router: Router,
               private route: ActivatedRoute) {
-  }
-
-  updatedModel(event: IFormModel) {
-    // this.viewModel = event;
   }
 
   ngOnInit() {
@@ -42,38 +40,25 @@ export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (!!this.getCurrentEvaluationSubscription) {
-      this.getCurrentEvaluationSubscription.unsubscribe();
-    }
-
-    if (!!this.createEvaluationSubscription) {
-      this.createEvaluationSubscription.unsubscribe();
-    }
-
-    if (!!this.updateEvaluationSubscription) {
-      this.updateEvaluationSubscription.unsubscribe();
-    }
+    this.unsubscribe(this.getFormSubscription);
+    this.unsubscribe(this.createFormSubscription);
+    this.unsubscribe(this.updateFormSubscription);
   }
 
-  /**
-   * This method will submit the current state of the form.
-   * @method onFeedbackSubmit
-   * @memberof TraineeCourseEvaluationComponent
-   */
-  onFeedbackSubmit() {
-    this.setEvaluationStatus();
-    if (this.isNewEvaluation()) {
-      this.createEvaluationForm();
+  onSubmit() {
+    this.setFormStatus();
+    if (this.isNewForm()) {
+      this.createForm();
     } else {
-      this.updateEvaluationForm();
+      this.updateForm();
     }
   }
 
-  private createEvaluationForm(): void {
-    this.createEvaluationSubscription = this.evaluationService.createEvaluationForm(this.viewModel)
+  private createForm(): void {
+    this.createFormSubscription = this.evaluationService.createEvaluationForm(this.viewModel)
       .subscribe((response) => {
           // Navigate to the Evaluation history page for trainee
-          this.navigateToEvaluationSummary();
+          this.navigateToSummary(this.summaryUrl);
         },
         (error) => {
           this.errorHandlerService.handleError(error);
@@ -81,11 +66,11 @@ export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
       );
   }
 
-  private updateEvaluationForm(): void {
-    this.updateEvaluationSubscription = this.evaluationService.updateEvaluationForm(this.viewModel)
+  private updateForm(): void {
+    this.updateFormSubscription = this.evaluationService.updateEvaluationForm(this.viewModel)
       .subscribe((response) => {
           // Navigate to the Evaluation history page for trainee
-          this.navigateToEvaluationSummary();
+          this.navigateToSummary(this.summaryUrl);
         },
         (error) => {
           this.errorHandlerService.handleError(error);
@@ -94,7 +79,7 @@ export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
   }
 
   private getEvaluationForCohortCourse(cohortCourseId: string) {
-    this.getCurrentEvaluationSubscription = this.evaluationService.getEvaluationForTraineeAndCohortCourse(cohortCourseId).subscribe(
+    this.getFormSubscription = this.evaluationService.getEvaluationForTraineeAndCohortCourse(cohortCourseId).subscribe(
       (response) => {
         this.viewModel = response;
         this.dataLoaded = true;
@@ -106,15 +91,15 @@ export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
     );
   }
 
-  private setEvaluationStatus(): void {
-    this.viewModel.status = this.allCategoryQuestionsAnswered() ? 'Submitted' : 'Saved';
+  private setFormStatus(): void {
+    this.viewModel.status = this.formCompleted() ? 'Submitted' : 'Saved';
   }
 
-  private isNewEvaluation(): boolean {
+  private isNewForm(): boolean {
     return !this.viewModel.id;
   }
 
-  private allCategoryQuestionsAnswered(): boolean {
+  private formCompleted(): boolean {
     const incompleteQuestionCategory = this.viewModel.categoryResponses
       .find(cr => {
         return !this.questionsAnswered(cr);
@@ -129,7 +114,13 @@ export class TraineeCourseEvaluationComponent implements OnInit, OnDestroy {
     return !questionResponse;
   }
 
-  private navigateToEvaluationSummary(): void {
-    this.router.navigateByUrl('qa/portal/training/feedback/trainee/evaluation/history');
+  private navigateToSummary(url: string): void {
+    this.router.navigateByUrl(url);
+  }
+
+  private unsubscribe(subscription: Subscription) {
+    if (!!subscription) {
+      subscription.unsubscribe();
+    }
   }
 }
