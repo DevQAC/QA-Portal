@@ -9,6 +9,7 @@
     width: 100%;
 
     .mat-card-title {
+        margin-top: 12px; // match default bottom
         margin-right: auto;
     }
 }
@@ -55,6 +56,10 @@
     }
 }
 
+.mat-card-content {
+    margin: 0;
+}
+
 .card-base-content-wrapper {
     padding: 16px;
 }
@@ -88,6 +93,7 @@
 .no-comments-text {
     text-align: center;
     color: gray;
+    margin-top: 1rem;
 }
 
 

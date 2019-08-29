@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+app-cv-card-base {
+    .mat-drawer-container {
+        background: transparent;
+    }
+}
+
+app-view-cv {
+    .page-title {
+        @extend .mat-display-2;
+        margin-bottom: 1rem;
+    }
+}
