@@ -1,24 +1,27 @@
 package com.qa.portal.cv.services;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Service;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
 
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 
-@Service
-@Transactional
+@Component
 public class GetCurrentCvVersionOperation {
 
-	private CvVersionRepository repo;
+	private MongoOperations mongoOperations;
+	private CvVersionRepository repo;	
 	
-	
-	public GetCurrentCvVersionOperation(CvVersionRepository repo) {
+	public GetCurrentCvVersionOperation(CvVersionRepository repo, MongoOperations mongoOperations) {
 		super();
 		this.repo = repo;
+		this.mongoOperations = mongoOperations;
 	}
 	
 	public List<CvVersion> getAll() {
@@ -26,23 +29,31 @@ public class GetCurrentCvVersionOperation {
 		return records;
 	}
 	
-	public List<CvVersion> findFullName(String fullName) {
-		List<CvVersion> n = repo.findByFullName(fullName);
-		if(n == null) {
-			return null; //!IMPORTANT - needs an exception handler here!
-		} else {
-			return n;			
-		}
+	public List<CvVersion> findByFullNameIgnoreCase(String like) {		
+		try{
+            Query query = new Query();
+            query.addCriteria(Criteria.where("fullName").regex(toLikeRegex(like), "i"));
+            return mongoOperations.find(query, CvVersion.class);
+        } catch(PatternSyntaxException e) {
+            return Collections.emptyList();
+        }	
 	}
 	
-	public Integer findByVersionNumber(Integer versionNumber) {
-		List<CvVersion> a = repo.findByVersionNumber(versionNumber);
-		if (a.isEmpty()) {
-			return null; //!IMPORTANT - needs an exception handler here!
-		} else {
-			CvVersion cv = a.get(versionNumber);
-			return cv.getVersionNumber();
-		}
+	public List<CvVersion> findByUserNameIgnoreCase(String userName) {		
+		try{
+			return repo.findByUserNameIgnoreCase(userName);
+        } catch(PatternSyntaxException e) {
+            return Collections.emptyList();
+        }	
 	}
+	
+	private String toLikeRegex(String source) {
+        return source.replaceAll("\\*", ".*");
+    }
 
+	public CvVersion findByVersionNumber(Integer versionNumber) {
+		CvVersion a = repo.findByVersionNumber(versionNumber);
+		return a;
+	}
+	
 }

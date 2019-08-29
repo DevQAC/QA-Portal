@@ -4,4 +4,5 @@ export class MenuItem {
   url: string;
   tooltip: string;
   level: number;
+  displayOnMenu: boolean;
 }

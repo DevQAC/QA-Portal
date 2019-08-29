@@ -3,13 +3,13 @@ package com.qa.portal.cv.services;
 import java.io.IOException;
 import java.util.List;
 
-import com.qa.portal.cv.domain.CvVersion;
-import com.qa.portal.cv.util.CvPdfGenerator;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.qa.portal.cv.domain.CvVersion;
+import com.qa.portal.cv.util.CvPdfGenerator;
 
 @Service
 @Transactional
@@ -20,15 +20,20 @@ public class CvManagementService {
     private SaveGeneratedCvOperation saveCvOperation;
     private CvPdfGenerator cvPdfGenerator;
     private CreateCvOperation createCvService;
+    private UpdateCvVersionOperation updateCvService;
     private GetCurrentCvVersionOperation getCvService;
     
-    public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator, CreateCvOperation createCvService, GetCurrentCvVersionOperation getCvService) {
+    public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator, 
+    		CreateCvOperation createCvService, GetCurrentCvVersionOperation getCvService, 
+    		UpdateCvVersionOperation updateCvService) {
+    	
         this.saveCvOperation = saveCvOperation;
         this.cvPdfGenerator = cvPdfGenerator;
         this.createCvService = createCvService;
     	this.getCvService = getCvService;
+    	this.updateCvService = updateCvService;
     }
-
+    
     public void saveGeneratedCv(CvVersion cvVersion) throws IOException {
     	saveCvOperation.saveGeneratedCv(cvVersion);
     }
@@ -36,16 +41,32 @@ public class CvManagementService {
     public byte[] getGeneratedCv(CvVersion cvVersion) throws IOException {
         return cvPdfGenerator.generateCv(cvVersion);
     }
-  
-    public String createCv(CvVersion newCv) {
+    
+//	Create Service
+    public CvVersion createCv(CvVersion newCv) {
     	return this.createCvService.createCv(newCv);
     }
+    
+//	Update Service
+    public CvVersion updateCv(CvVersion updatedCv) {
+    	return this.updateCvService.updateCv(updatedCv);
+    }
+    
+    
     
     public List<CvVersion> getAll() {
     	return this.getCvService.getAll();
     }
     
-    public Integer findByVersionNumber(Integer versionNumber) {
+    public List<CvVersion> findByFullNameIgnoreCase(String fullName) {
+    	return this.getCvService.findByFullNameIgnoreCase(fullName);
+    }
+    
+    public List<CvVersion> findByUserNameIgnoreCase(String userName) {
+    	return this.getCvService.findByUserNameIgnoreCase(userName);
+    }
+    
+    public CvVersion findByVersionNumber(Integer versionNumber) {
     	return this.getCvService.findByVersionNumber(versionNumber);
     }
-}
+} 

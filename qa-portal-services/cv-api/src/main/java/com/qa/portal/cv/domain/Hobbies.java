@@ -4,25 +4,25 @@ import java.util.List;
 
 public class Hobbies {
 
-	private String hobbies;
+	private String hobbiesDetails;
 	private List<Feedback> hobbiesFeedback;
 	
 	public Hobbies() {
 		super();
 	}	
 	
-	public Hobbies(String hobbies, List<Feedback> hobbiesFeedback) {
+	public Hobbies(String hobbiesDetails, List<Feedback> hobbiesFeedback) {
 		super();
-		this.hobbies = hobbies;
+		this.hobbiesDetails = hobbiesDetails;
 		this.hobbiesFeedback = hobbiesFeedback;
 	}
 
-	public String getHobbies() {
-		return hobbies;
+	public String getHobbiesDetails() {
+		return hobbiesDetails;
 	}
 
-	public void setHobbies(String hobbies) {
-		this.hobbies = hobbies;
+	public void setHobbiesDetails(String hobbiesDetails) {
+		this.hobbiesDetails = hobbiesDetails;
 	}
 
 	public List<Feedback> getHobbiesFeedback() {

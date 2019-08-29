@@ -49,7 +49,7 @@ export class TrainerReflectionComponent implements OnInit {
   public updateMessage = ' successfully updated.';
   public visibleReflections: ReflectionModel[] = [];
   private pageIndex = 0;
-  public entriesPerPage = 5;
+  public entriesPerPage = 100;
 
   constructor(
     private reflectionService: SelfReflectionService,
