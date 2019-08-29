@@ -61,18 +61,8 @@ export class CVSearchHistoryService {
                 }
             }
             return outcome;
-
         }));
-
     }
-
-
-    // public getCVSearches(term:string): Observable<CVSearchModel[]> {
-
-
-    //     return of(CVS)
-    // }
-
 
     /* GET heroes whose name contains search term */
     searchCVs(term: string, intakeChoice: string = "", techChoice: string = "", statusChoice: string = ""): Observable<CVSearchModel[]> {
