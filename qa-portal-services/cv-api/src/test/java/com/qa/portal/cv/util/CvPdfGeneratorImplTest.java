@@ -2,7 +2,10 @@ package com.qa.portal.cv.util;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +26,9 @@ public class CvPdfGeneratorImplTest {
 		try {
 		byte[] pdfBytes = pdfGen.generateCv(getCvVersion()); 
 		// Create File from byte[] and save to file system /output/filename.pdf
+		OutputStream os = new FileOutputStream("test.pdf");
+		os.write(pdfBytes);
+		os.close();
 		}
 		catch(Exception e) {
 			System.out.println("Error: " + e.getMessage());
