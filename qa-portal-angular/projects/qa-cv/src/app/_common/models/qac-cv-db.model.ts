@@ -21,3 +21,27 @@ export interface ICvModel {
     allWorkExperience: IWorkExperience[];
     hobbies: IHobbies;
 }
+
+
+export const DEFAULT_CV: Partial<ICvModel> = {
+    versionNumber: 1,
+    profile: {
+        profileDetails: '',
+        profileFeedback: []
+    },
+    allSkills: [{
+        programmingLanguages: [],
+        ides: [],
+        operatingSystems: [],
+        devops: [],
+        databases: [],
+        platforms: [],
+        other: []
+    }],
+    allQualifications: [],
+    allWorkExperience: [],
+    hobbies: {
+        hobbiesDetails: '',
+        hobbiesFeedback: []
+    }
+};

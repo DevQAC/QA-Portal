@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, OnDestroy } from '@angular/core';
-import { ICvModel } from '../_common/models/qac-cv-db.model';
+import { ICvModel, DEFAULT_CV } from '../_common/models/qac-cv-db.model';
 import { ViewCvService } from '../_common/services/view-cv.service';
 import { CvCardBaseComponent } from '../cv-card-base/cv-card-base.component';
 import { IFeedback } from '../_common/models/feedback.model';
@@ -39,9 +39,9 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.canComment = true // this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
+    this.canComment = this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
 
-    this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = cv);
+    this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = { ...DEFAULT_CV, ...cv });
   }
 
   ngOnDestroy(): void {
