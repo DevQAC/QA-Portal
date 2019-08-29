@@ -28,16 +28,34 @@ public class CvManagementController {
 		this.qaSecurityContext = qaSecurityContext;
 	}
 	
+//	Create
 	@PostMapping("/cv")
 	public ResponseEntity<CvVersion> createCv(@RequestBody CvVersion newCv) {
 		return ResponseEntity.ok(this.service.createCv(newCv));
 	}
 	
+//  Update
 	@PutMapping("/cv")
 	public ResponseEntity<CvVersion> updateCv(@RequestBody CvVersion updatedCv) {
 		return ResponseEntity.ok(this.service.updateCv(updatedCv));
 	}
 	
+	@PutMapping("/cv/submit")
+	public ResponseEntity<CvVersion> submitCv(@RequestBody CvVersion submittedCv) {
+		return ResponseEntity.ok(this.service.submitCv(submittedCv));
+	}
+	
+	@PutMapping("/cv/approve")
+	public ResponseEntity<CvVersion> approveCv(@RequestBody CvVersion submittedCv) {
+		return ResponseEntity.ok(this.service.approveCv(submittedCv));
+	}
+	
+	@PutMapping("/cv/fail")
+	public ResponseEntity<CvVersion> failCv(@RequestBody CvVersion submittedCv) {
+		return ResponseEntity.ok(this.service.failCv(submittedCv));
+	}
+	
+//	Get
 	@GetMapping("/cvs")
 	public ResponseEntity<List<CvVersion>> getAll() {
 		return ResponseEntity.ok(this.service.getAll());
@@ -58,6 +76,7 @@ public class CvManagementController {
 		return ResponseEntity.ok(this.service.findByUserNameIgnoreCase(qaSecurityContext.getUserName()));
 	}
 	
+//	PDF
 	@PostMapping("cv/file")
 	public void saveGeneratedCV(@RequestBody CvVersion cvVersion) throws IOException {
 		service.saveGeneratedCv(cvVersion);
