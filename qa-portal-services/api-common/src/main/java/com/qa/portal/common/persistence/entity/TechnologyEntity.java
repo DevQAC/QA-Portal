@@ -2,6 +2,7 @@ package com.qa.portal.common.persistence.entity;
 
 //import java.util.Set;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -28,9 +29,8 @@ public class TechnologyEntity extends QaBaseEntity {
     @JoinColumn(name = "technology_category_id")
     private TechnologyCategoryEntity technologyCategory;
 
-	@ManyToOne
-	@JoinColumn(name = "course_id")
-	private CourseTechnologyEntity courseTechnology;
+	@OneToMany(mappedBy = "technology")
+	private List<CourseTechnologyEntity> courseTechnology;
 
     @Column(name = "search_string")  
     private String searchString;
@@ -99,11 +99,11 @@ public class TechnologyEntity extends QaBaseEntity {
 		this.technologyCategory = technologyCategory;
 	}
 
-	public CourseTechnologyEntity getCourseTechnology() {
+	public List<CourseTechnologyEntity> getCourseTechnology() {
 		return courseTechnology;
 	}
 
-	public void setCourseTechnology(CourseTechnologyEntity courseTechnology) {
+	public void setCourseTechnology(List<CourseTechnologyEntity> courseTechnology) {
 		this.courseTechnology = courseTechnology;
 	}
 }
