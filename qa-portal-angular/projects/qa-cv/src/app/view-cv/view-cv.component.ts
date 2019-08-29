@@ -1,10 +1,11 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, OnDestroy } from '@angular/core';
 import { ICvModel } from '../_common/models/qac-cv-db.model';
 import { ViewCvService } from '../_common/services/view-cv.service';
 import { CvCardBaseComponent } from '../cv-card-base/cv-card-base.component';
 import { IFeedback } from '../_common/models/feedback.model';
 import { ActivatedRoute } from '@angular/router';
 import { TRAINING_ADMIN_ROLE } from '../../../../portal-core/src/app/_common/models/portal-constants';
+import { Observable, Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { TRAINING_ADMIN_ROLE } from '../../../../portal-core/src/app/_common/mod
   templateUrl: './view-cv.component.html',
   styleUrls: ['./view-cv.component.scss']
 })
-export class ViewCvComponent implements OnInit {
+export class ViewCvComponent implements OnInit, OnDestroy {
   @Output() public canComment: boolean;
   cvs: ICvModel[] = [];
   openThis = false;
@@ -26,6 +27,8 @@ export class ViewCvComponent implements OnInit {
   qualFeedbackIndex: number;
   public qualDrawerOpen = false;
 
+  private cvDataSubscription$: Subscription;
+
   constructor(
     private cvService: ViewCvService,
     private activatedRoute: ActivatedRoute
@@ -33,16 +36,23 @@ export class ViewCvComponent implements OnInit {
 
   ngOnInit() {
     this.canComment = this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
-    this.getAllCvs();
+
+    this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = cv);
+  }
+
+  ngOnDestroy(): void {
+    this.cvDataSubscription$.unsubscribe();
   }
 
   onSave(): void {
+    try {
+      this.cvData.versionNumber = 1;
+      this.cvService.addCv(this.cvData);
+    } catch (exception) {
+      this.cvData.versionNumber++;
+      this.cvService.updateCv(this.cvData);
+    }
     debugger;
-  }
-
-  getAllCvs(): void {
-    this.cvData = this.cvService.getAllCvs()
-    //.subscribe(cvs => this.cvs = cvs);
   }
 
   onWorkExpFeedbackClick({ index }: { index: number }, expCard: CvCardBaseComponent): void {

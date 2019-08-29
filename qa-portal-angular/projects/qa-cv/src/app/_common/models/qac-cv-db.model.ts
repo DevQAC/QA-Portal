@@ -8,7 +8,8 @@ import { ISkills } from './skills.model'
 export interface ICvModel {
 
     status: string;
-    id: number;
+    id: string;
+    versionNumber: number;
     userName: string;
     firstName: string;
     surname: string;
