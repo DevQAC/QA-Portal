@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FeedbackService } from '../_common/services/feedback.service';
-import { QaErrorHandlerService } from '../../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import { QaErrorHandlerService } from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
 import { Subscription } from 'rxjs';
 import { IFormModel } from 'projects/qa-forms/src/app/_common/models';
+import {FeedbackService} from './_common/services/feedback.service';
 
 @Component({
   selector: 'app-trainer-feedback-page',
@@ -10,9 +10,7 @@ import { IFormModel } from 'projects/qa-forms/src/app/_common/models';
   styleUrls: ['./trainer-feedback-page.component.css']
 })
 export class TrainerFeedbackPageComponent implements OnInit, OnDestroy {
-
   dataLoaded = false;
-
   getFeedbackSubscription: Subscription;
   createFeedbackSubscription: Subscription;
   updateFeedbackSubscription: Subscription;
@@ -20,7 +18,7 @@ export class TrainerFeedbackPageComponent implements OnInit, OnDestroy {
   viewModel: IFormModel;
 
   constructor(private feedbackService: FeedbackService,
-    private errorHandlerService: QaErrorHandlerService) {
+              private errorHandlerService: QaErrorHandlerService) {
   }
 
   ngOnInit() {

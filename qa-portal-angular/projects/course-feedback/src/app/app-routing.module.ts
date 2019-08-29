@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {TraineeCourseEvaluationComponent} from './trainee-course-evaluation/trainee-course-evaluation.component';
 import {TrainerEvaluationSummaryComponent} from '../app/trainer-evaluation-summary/trainer-evaluation-summary.component';
 import {TrainerEvaluationHistoryComponent} from './trainer-evaluation-history/trainer-evaluation-history.component';
-import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
+import {TrainerFeedbackPageComponent} from './trainer-feedback-page/trainer-feedback-page.component';
 import {TRAINEE_ROLE, TRAINER_ROLE} from '../../../portal-core/src/app/_common/models/portal-constants';
 import {AppAuthGuard} from '../../../portal-core/src/app/_common/guards/app-auth-guard';
 import {TraineeEvaluationSummaryComponent} from './trainee-evaluation-summary/trainee-evaluation-summary.component';
