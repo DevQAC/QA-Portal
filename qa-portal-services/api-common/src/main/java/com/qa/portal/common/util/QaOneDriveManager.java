@@ -60,12 +60,10 @@ public class QaOneDriveManager implements QaFileManager {
 			connection = createConnection(url, "POST");
 			
 			String jsonBody = "{\"name\": \"" + folderName + "\",\"folder\": { } }";
-			OutputStream os = connection.getOutputStream();
-			
+
 			byte[] jsonBodyAsArray = jsonBody.getBytes("utf-8");
-			os.write(jsonBodyAsArray);
-			os.flush();
-			os.close();
+			
+			postData(connection, jsonBodyAsArray);
 			
 			String response = getResponse(connection);
 			System.out.println("Code: " + connection.getResponseCode());
@@ -141,10 +139,7 @@ public class QaOneDriveManager implements QaFileManager {
 			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + destinationFolderId + ":/" + fileName + ":/content");
 			HttpURLConnection connection = createConnection(url, "PUT");
 
-			OutputStream os = connection.getOutputStream();
-			os.write(fileData);
-			os.flush();
-			os.close();
+			postData(connection, fileData);
 			
 			String response = getResponse(connection);
 			System.out.println("Code: " + connection.getResponseCode());
@@ -227,9 +222,17 @@ public class QaOneDriveManager implements QaFileManager {
 		
 		if(requestMethod.equals("POST") || requestMethod.equals("PUT")) 
 			connection.setDoOutput(true);
+			
 		
 		connection.connect();
 		
 		return connection;
+	}
+	
+	private void postData(HttpURLConnection connection, byte[] data) throws IOException {
+		OutputStream os = connection.getOutputStream();
+		os.write(data);
+		os.flush();
+		os.close();
 	}
 }
