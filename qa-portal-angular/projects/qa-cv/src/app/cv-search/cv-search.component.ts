@@ -19,12 +19,12 @@ export class CvSearchComponent implements OnInit, OnDestroy {
 
   // historyViewModel = new CVSearchHistoryModel();
   displayedColumns: string[] = ['name', 'intake', 'tech', 'status', 'clients'];
-  technology: string[];
+  technology: string[] = [""];
   intake: string[];
   status: string[];
-  selectedIntake : string;
-  selectedTech : string;
-  selectedStatus : string;
+  selectedIntake : string = "";
+  selectedTech : string = "";
+  selectedStatus : string = "";
   dataSource: MatTableDataSource<CVSearchModel>;
   currentFormDateSource: MatTableDataSource<CVSearchModel>;
   currentForm: CVSearchModel[] = [];
@@ -50,15 +50,15 @@ export class CvSearchComponent implements OnInit, OnDestroy {
   // }
   ngOnInit() {
 
-    this.filterSubscription = this.cvSearchFilterService.getFiltersSearches().subscribe(
+    this.filterSubscription = this.cvSearchFilterService.getFilters().subscribe(
       (response) => {
         this.technology = response.technology;
         this.intake = response.cohort;
         this.status = response.cvStatus;
 
         this.loadingData = false;
-        // this.dataSource = new MatTableDataSource<CVSearchModel>(this.historyViewModel.cvSearches);
-        // this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
+        this.dataSource.paginator = this.paginator;
 
         // To filter by just name 
         // this.currentFormDateSource.filterPredicate = (data: CVSearchModel, filter: string) => {
@@ -79,9 +79,12 @@ export class CvSearchComponent implements OnInit, OnDestroy {
     );
   }
 
-  getSearch(term: string, intake:string = "", tech:string = "", status:string = "" ) {
+  getSearch(term: string, intakeChoice:string = "", techChoice:string = "", statusChoice:string = "" ) {
     console.log(term);
-    this.cvSearchSubscription = this.cvSearchHistoryService.getCVSearches(term).subscribe(
+    intakeChoice = this.selectedIntake;
+    techChoice = this.selectedTech;
+    statusChoice = this.selectedStatus;
+    this.cvSearchSubscription = this.cvSearchHistoryService.getCVSearches(term, intakeChoice, techChoice, statusChoice).subscribe(
       (response) => {
         this.currentForm = [];
         response.forEach((search) => {
