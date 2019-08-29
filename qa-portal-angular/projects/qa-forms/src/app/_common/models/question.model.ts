@@ -27,7 +27,7 @@ export interface IQuestion {
      * @type {string}
      * @memberof IGenericQuestion
      */
-    comment: string;
+    commentLabel: string;
 
     /**
      * The type of control to use for this question.
