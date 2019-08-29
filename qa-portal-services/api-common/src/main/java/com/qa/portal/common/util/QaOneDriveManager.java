@@ -10,46 +10,39 @@ import java.net.URL;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import com.qa.portal.cv.domain.CvVersion;
 
-//@Component
+@Component
 public class QaOneDriveManager implements QaFileManager {
+	
 	private String authToken;
-	//base folder (where user folders are created)
 	private String cvFolderId;
 
 	public QaOneDriveManager(String authToken) {
 		this.authToken = authToken;
-		System.out.println("GET FOLDER: CVs");
 		cvFolderId = getItemId("CVs");
 	}
 	
 	public void storeFile(CvVersion cvVersion, byte[] cvByteArray) {
 		String username = cvVersion.getUserName();
-		System.out.println("GET FOLDER: " + username);
 		String userFolderId = getItemId("CVs/" + username);
 		String currentCvId = null;
 		String archiveId = null;
 
 		if (userFolderId == null) {
-			System.out.println("CREATE FOLDER: " + username);
 			userFolderId = createFolder(cvFolderId, username);
 		} else {
-			System.out.println("GET FILE: " + username + "/" + username + ".pdf");
 			currentCvId = getItemId("CVs/" + username + "/" + username + ".pdf");
 			if (currentCvId != null) {
-				System.out.println("GET FOLDER: archive");
 				archiveId = getItemId("CVs/" + username + "/archive");
 				if (archiveId == null) {
-					System.out.println("CREATE FOLDER: archive");
 					archiveId = createFolder(userFolderId, "archive");
 				}
-				System.out.println("MOVE FILE: " + username + ".pdf to " + "archive/" +  username + "-version" + getNextCvVersion(archiveId) + ".pdf");
 				moveItem(username + "-version" + getNextCvVersion(archiveId) + ".pdf", archiveId, currentCvId);
 			}
 		}
-		System.out.println("UPLOAD FILE:" + username + ".pdf to /" + username);
 		uploadFile(username + ".pdf", userFolderId, cvByteArray);
 	}
 
@@ -60,14 +53,10 @@ public class QaOneDriveManager implements QaFileManager {
 			connection = createConnection(url, "POST");
 			
 			String jsonBody = "{\"name\": \"" + folderName + "\",\"folder\": { } }";
-
 			byte[] jsonBodyAsArray = jsonBody.getBytes("utf-8");
-			
 			postData(connection, jsonBodyAsArray);
 			
 			String response = getResponse(connection);
-			System.out.println("Code: " + connection.getResponseCode());
-			System.out.println(response);
 			
 			JSONObject jsonObject = new JSONObject(response);
 			return jsonObject.getString("id");
@@ -79,14 +68,11 @@ public class QaOneDriveManager implements QaFileManager {
 
 	public String getItemId(String pathToItem) {
 		try {
-			// send request
 			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/root:/" + pathToItem);
 			HttpURLConnection connection = createConnection(url, "GET");
 
 			String response = getResponse(connection);
 			if(connection.getResponseCode() != 200) return null;
-			System.out.println("Code: " + connection.getResponseCode());
-			System.out.println(response);
 
 			JSONObject jsonObject = new JSONObject(response);
 			return jsonObject.getString("id");
@@ -100,14 +86,11 @@ public class QaOneDriveManager implements QaFileManager {
 
 	public int getNextCvVersion(String archiveId) {
 		try {
-			// send request
 			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + archiveId + "/children");
 			HttpURLConnection connection = createConnection(url, "GET");
 
 			String response = getResponse(connection);
 			
-			System.out.println("Code: " + connection.getResponseCode());
-			System.out.println(response);
 			JSONObject jsonObject = new JSONObject(response);
 			JSONArray files = jsonObject.getJSONArray("value");
 			
@@ -142,9 +125,6 @@ public class QaOneDriveManager implements QaFileManager {
 			postData(connection, fileData);
 			
 			String response = getResponse(connection);
-			System.out.println("Code: " + connection.getResponseCode());
-			System.out.println(response);
-			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -154,14 +134,10 @@ public class QaOneDriveManager implements QaFileManager {
 
 	private void deleteFile(String itemId) {
 		try {
-			//send request
 			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + itemId);
 			HttpURLConnection connection = createConnection(url, "DELETE");
 			
-			//get response
 			String response = getResponse(connection);
-			System.out.println("Code: " + connection.getResponseCode());
-			System.out.println(response);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -171,11 +147,9 @@ public class QaOneDriveManager implements QaFileManager {
 
 	private byte[] downloadFile(String itemId) {
 		try {
-			//send request
 			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + itemId + "/content");
 			HttpURLConnection connection = createConnection(url, "GET");
 			
-			//get response
 			String response = getResponse(connection);
 			int responseCode = connection.getResponseCode();
 			if(responseCode == 200) {
@@ -194,9 +168,14 @@ public class QaOneDriveManager implements QaFileManager {
 	private String getResponse(HttpURLConnection connection) throws IOException {
 		int responseCode = connection.getResponseCode();
 		InputStream is = null;
-		if(responseCode >= 400) {
+		if(responseCode < 200 || responseCode >= 300) {
 			is = connection.getErrorStream();
 		} else {
+//			if(responseCode == 401) {
+//				refreshToken();
+//				HttpURLConnection newConnection = createConnection(connection.getURL(), connection.getRequestMethod());
+//				return getResponse(newConnection);
+//			}
 			is = connection.getInputStream();
 		}
 	
@@ -205,6 +184,7 @@ public class QaOneDriveManager implements QaFileManager {
 		while((c = is.read()) != -1) {
 			buffer.write((byte) c);
 		}
+		
 		is.close();
 		buffer.close();
 		connection.disconnect();
@@ -222,10 +202,8 @@ public class QaOneDriveManager implements QaFileManager {
 		
 		if(requestMethod.equals("POST") || requestMethod.equals("PUT")) 
 			connection.setDoOutput(true);
-			
 		
 		connection.connect();
-		
 		return connection;
 	}
 	
