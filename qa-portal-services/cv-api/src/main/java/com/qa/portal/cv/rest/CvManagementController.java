@@ -32,12 +32,6 @@ public class CvManagementController {
 		return ResponseEntity.ok(this.service.createCv(newCv));
 	}
 	
-	@GetMapping("/cv/test/{userName}/{versionNumber}")
-	public ResponseEntity<CvVersion> findByUserNameAndVersionNumberTest(@PathVariable("userName") String userName,
-			@PathVariable("versionNumber") int versionNumber) {
-		return ResponseEntity.ok(this.service.findByUserNameAndVersionNumberTest(userName, versionNumber));
-	}
-	
 	@PutMapping("/cv")
 	public ResponseEntity<CvVersion> updateCv(@RequestBody CvVersion updatedCv) {
 		return ResponseEntity.ok(this.service.updateCv(updatedCv));
