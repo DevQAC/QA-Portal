@@ -3,12 +3,8 @@ package com.qa.portal.cv.util;
 import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -20,13 +16,10 @@ import com.qa.portal.cv.domain.Qualification;
 
 import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDTrueTypeFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Component;
 
 import rst.pdfbox.layout.elements.Document;
@@ -89,8 +82,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
 	@Override
 	public byte[] generateCv(CvVersion cvVersion) {
-
-		Resource res = new ClassPathResource("generatedCv.pdf");
 		try {
 			// column 1 box 1
 			paragraph = new Paragraph();

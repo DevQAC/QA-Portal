@@ -40,5 +40,9 @@ public class Feedback {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Feedback [comment=" + comment + ", date=" + date + ", reviewer=" + reviewer + "]";
+	}
 }

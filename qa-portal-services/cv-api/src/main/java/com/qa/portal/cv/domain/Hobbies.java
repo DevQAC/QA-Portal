@@ -33,5 +33,8 @@ public class Hobbies {
 		this.hobbiesFeedback = hobbiesFeedback;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Hobbies [hobbiesDetails=" + hobbiesDetails + ", hobbiesFeedback=" + hobbiesFeedback + "]";
+	}
 }

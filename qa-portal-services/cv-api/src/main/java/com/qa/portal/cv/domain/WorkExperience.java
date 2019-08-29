@@ -10,6 +10,10 @@ public class WorkExperience {
 	private String workExperienceDetails;
 	private List<Feedback> workExperienceFeedback;
 
+	public WorkExperience() {
+		super();
+	}
+
 	public WorkExperience(String jobTitle, String start, String end, String workExperienceDetails,
 			List<Feedback> workExperienceFeedback) {
 		super();
@@ -18,11 +22,6 @@ public class WorkExperience {
 		this.end = end;
 		this.workExperienceDetails = workExperienceDetails;
 		this.workExperienceFeedback = workExperienceFeedback;
-	}
-	
-
-	public WorkExperience() {
-		super();
 	}
 	
 	public String getJobTitle() {
@@ -70,5 +69,11 @@ public class WorkExperience {
 	
 	public void setWorkExperienceFeedback(List<Feedback> workExperienceFeedback) {
 		this.workExperienceFeedback = workExperienceFeedback;
+	}
+
+	@Override
+	public String toString() {
+		return "WorkExperience [end=" + end + ", jobTitle=" + jobTitle + ", start=" + start + ", workExperienceDetails="
+				+ workExperienceDetails + ", workExperienceFeedback=" + workExperienceFeedback + "]";
 	}
 }

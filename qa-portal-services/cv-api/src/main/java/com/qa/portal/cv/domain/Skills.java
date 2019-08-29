@@ -4,7 +4,22 @@ import java.util.List;
 
 public class Skills {
 
-	
+	public Skills() {
+		super();
+		}
+
+	public Skills(List<String> programmingLanguages, List<String> ides, List<String> operatingSystems,
+	List<String> devops, List<String> databases, List<String> platforms, List<String> other) {
+		super();
+		this.programmingLanguages = programmingLanguages;
+		this.ides = ides;
+		this.operatingSystems = operatingSystems;
+		this.devops = devops;
+		this.databases = databases;
+		this.platforms = platforms;
+		this.other = other;
+	}
+
 	private List<String> programmingLanguages;
 	private List<String> ides;
 	private List<String> operatingSystems;
@@ -12,6 +27,7 @@ public class Skills {
 	private List<String> databases;
 	private List<String> platforms;
 	private List<String> other;
+
 	public List<String> getProgrammingLanguages() {
 		return programmingLanguages;
 	}
@@ -54,22 +70,11 @@ public class Skills {
 	public void setOther(List<String> other) {
 		this.other = other;
 	}
-	public Skills(List<String> programmingLanguages, List<String> ides, List<String> operatingSystems,
-			List<String> devops, List<String> databases, List<String> platforms, List<String> other) {
-		super();
-		this.programmingLanguages = programmingLanguages;
-		this.ides = ides;
-		this.operatingSystems = operatingSystems;
-		this.devops = devops;
-		this.databases = databases;
-		this.platforms = platforms;
-		this.other = other;
-	}
-	public Skills() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	
-
+	@Override
+	public String toString() {
+		return "Skills [databases=" + databases + ", devops=" + devops + ", ides=" + ides + ", operatingSystems="
+				+ operatingSystems + ", other=" + other + ", platforms=" + platforms + ", programmingLanguages="
+				+ programmingLanguages + "]";
+	}
 }

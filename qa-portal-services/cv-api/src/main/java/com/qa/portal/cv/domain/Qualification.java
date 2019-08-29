@@ -32,5 +32,10 @@ public class Qualification {
 	public void setQualificationFeedback(List<Feedback> qualificationFeedback) {
 		this.qualificationFeedback = qualificationFeedback;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Qualification [qualificationDetails=" + qualificationDetails + ", qualificationFeedback="
+				+ qualificationFeedback + "]";
+	}
 }

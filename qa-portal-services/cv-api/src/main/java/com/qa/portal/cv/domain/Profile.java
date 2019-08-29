@@ -32,4 +32,9 @@ public class Profile {
 	public void setProfileFeedback(List<Feedback> profileFeedback) {
 		this.profileFeedback = profileFeedback;
 	}
+
+	@Override
+	public String toString() {
+		return "Profile [profileDetails=" + profileDetails + ", profileFeedback=" + profileFeedback + "]";
+	}
 }

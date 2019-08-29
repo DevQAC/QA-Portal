@@ -1,20 +1,17 @@
 package com.qa.portal.cv.util;
 
-import static org.junit.Assert.*;
-
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qa.portal.cv.domain.CvVersion;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.portal.cv.domain.CvVersion;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CvPdfGeneratorImplTest {
@@ -41,6 +38,5 @@ public class CvPdfGeneratorImplTest {
 		CvVersion cvVersion = om.readValue(res.getInputStream(), CvVersion.class);
 		return cvVersion;
 	}
-
 }
 

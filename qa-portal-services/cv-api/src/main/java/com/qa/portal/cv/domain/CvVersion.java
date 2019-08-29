@@ -26,7 +26,6 @@ public class CvVersion {
     
 	public CvVersion() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CvVersion(String id, Integer versionNumber, String status, String userName, String firstName, String surname,
@@ -150,6 +149,14 @@ public class CvVersion {
 
 	public void setHobbies(Hobbies hobbies) {
 		this.hobbies = hobbies;
+	}
+
+	@Override
+	public String toString() {
+		return "CvVersion [allQualifications=" + allQualifications + ", allSkills=" + allSkills + ", allWorkExperience="
+				+ allWorkExperience + ", cohort=" + cohort + ", firstName=" + firstName + ", fullName=" + fullName
+				+ ", hobbies=" + hobbies + ", id=" + id + ", profile=" + profile + ", status=" + status + ", surname="
+				+ surname + ", userName=" + userName + ", versionNumber=" + versionNumber + "]";
 	}
 
 
