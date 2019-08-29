@@ -50,7 +50,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
   // }
   ngOnInit() {
 
-    this.filterSubscription = this.cvSearchFilterService.getFiltersSearches().subscribe(
+    this.filterSubscription = this.cvSearchFilterService.getFilters().subscribe(
       (response) => {
         this.technology = response.technology;
         this.intake = response.cohort;
