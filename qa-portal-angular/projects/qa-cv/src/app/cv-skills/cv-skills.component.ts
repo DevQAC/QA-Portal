@@ -12,7 +12,7 @@ export class CvSkillsComponent implements OnInit {
   @Input() skills: ISkills;
   @Output() skillsChange = new EventEmitter<ISkills>();
 
-  public chippy = [
+  public skillCategories = [
     {
       key: 'programmingLanguages',
       label: 'Programming Languages'

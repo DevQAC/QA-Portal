@@ -1,14 +1,14 @@
-<mat-form-field class="example-chip-list" *ngFor="let fish of chippy">
-  <mat-chip-list #chipList [attr.aria-label]="fish.label">
-    <mat-chip color="primary" *ngFor="let chip of skills[fish.key]">
-      {{chip}}
+<mat-form-field class="skills-chip-list" *ngFor="let skillCat of skillCategories">
+  <mat-chip-list #chipList [attr.aria-label]="skillCat.label">
+    <mat-chip color="primary" *ngFor="let skill of skills[skillCat.key]">
+      {{skill}}
     </mat-chip>
-    <input [placeholder]="fish.label" [matChipInputFor]="chipList" readonly>
+    <input [placeholder]="skillCat.label" [matChipInputFor]="chipList" readonly>
   </mat-chip-list>
 </mat-form-field>
 
-<mat-form-field class="example-chip-list">
-  <mat-chip-list #chipList aria-label="Other SKills">
+<mat-form-field class="skills-chip-list">
+  <mat-chip-list #chipList aria-label="Other Skills">
     <mat-chip color="primary" selected *ngFor="let others of skills.other" [selectable]="selectable"
       [removable]="removable" (removed)="remove(others)">
       {{others}}
