@@ -16,7 +16,9 @@ public class CohortCourseDto {
     private QaCohortDto cohort;
 
     private TrainerDto trainer;
-    
+
+    private String feedbackStatus;
+
 	private String averageKnowledgeRating;
     
     private String tqi;
@@ -85,4 +87,11 @@ public class CohortCourseDto {
 		this.tqi = tqi;
 	}
 
+    public String getFeedbackStatus() {
+        return feedbackStatus;
+    }
+
+    public void setFeedbackStatus(String feedbackStatus) {
+        this.feedbackStatus = feedbackStatus;
+    }
 }

@@ -22,6 +22,7 @@ import {EvaluationService} from './_common/services/evaluation-service';
 import {TraineeEvaluationSummaryComponent} from './trainee-evaluation-summary/trainee-evaluation-summary.component';
 import {TraineeEvaluationSummaryService} from './trainee-evaluation-summary/services/trainee-evaluation-summary.service';
 import {FeedbackService} from './trainer-feedback-page/_common/services/feedback.service';
+import { TrainerFeedbackHistoryComponent } from './trainer-feedback-history/trainer-feedback-history.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {FeedbackService} from './trainer-feedback-page/_common/services/feedback
     SearchFormComponent,
     TraineeCourseEvaluationComponent,
     TrainerFeedbackPageComponent,
-    TraineeEvaluationSummaryComponent
+    TraineeEvaluationSummaryComponent,
+    TrainerFeedbackHistoryComponent
   ],
   imports: [
     BrowserModule,
