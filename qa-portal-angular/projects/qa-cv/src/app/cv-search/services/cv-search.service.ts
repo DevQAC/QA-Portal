@@ -9,7 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class CVSearchHistoryService {
 
     constructor(private http: HttpClient) { }
-    
+
     private searchUrl = 'api/filter';  // URL to web api
 
     /**
@@ -28,53 +28,42 @@ export class CVSearchHistoryService {
             return of(result as T);
         };
     }
-    public getCVSearches(term:string, intakeChoice:string = "", techChoice:string = "", statusChoice:string = "" ): Observable<CVSearchModel[]> {
-
-        return of( CVS.filter((cv)=> {
-
+    public getCVSearches(term: string, intakeChoice: string = "", techChoice: string = "", statusChoice: string = ""): Observable<CVSearchModel[]> {
+        return of(CVS.filter((cv) => {
             let outcome = false;
-            if (cv.name == term){
-                if (intakeChoice != ""){ 
-                    if( intakeChoice == cv.intake ){
-                    outcome = true;
+            if (cv.name == term) {
+                if (intakeChoice != "") {
+                    if (intakeChoice == cv.intake) {
+                        outcome = true;
                     }
-                    
-                    else{
-                        return false;
-                    }
-
-                }
-           
-                if (techChoice != "" ){
-                    if( techChoice == cv.tech ){
-                    outcome = true;
-                    }
-                    else{
+                    else {
                         return false;
                     }
                 }
-                
-                if (statusChoice != "" ){ 
-                    if( statusChoice == cv.status ){
-                    outcome = true;
+                if (techChoice != "") {
+                    if (techChoice == cv.tech) {
+                        outcome = true;
                     }
-                    else{
+                    else {
                         return false;
                     }
-
                 }
-                if (intakeChoice == "" && techChoice == "" && statusChoice == "" ){
-                  outcome = true;  
+                if (statusChoice != "") {
+                    if (statusChoice == cv.status) {
+                        outcome = true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
-                
+                if (intakeChoice == "" && techChoice == "" && statusChoice == "") {
+                    outcome = true;
+                }
             }
-            
-            
-            
             return outcome;
-            
+
         }));
-       
+
     }
 
 
@@ -86,12 +75,12 @@ export class CVSearchHistoryService {
 
 
     /* GET heroes whose name contains search term */
-    searchCVs(term: string, tech: string ="", cvS): Observable<CVSearchModel[]> {
+    searchCVs(term: string, intakeChoice: string = "", techChoice: string = "", statusChoice: string = ""): Observable<CVSearchModel[]> {
         if (!term.trim()) {
             // if not search term, return empty CV array.
             return of([]);
         }
-        return this.http.get<CVSearchModel[]>(`${this.searchUrl}/?name=${term}`).pipe(
+        return this.http.get<CVSearchModel[]>(`${this.searchUrl}/?name=${term}/?cohort=${intakeChoice}/?technology=${techChoice}/?cvStatus=${statusChoice}`).pipe(
             catchError(this.handleError<CVSearchModel[]>('searchCVs', []))
         );
     }
