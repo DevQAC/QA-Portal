@@ -7,14 +7,9 @@ import { IProfile } from '../_common/models/profile.model';
   templateUrl: './cv-profile.component.html',
   styleUrls: ['./cv-profile.component.css']
 })
-export class CvProfileComponent implements OnInit {
+export class CvProfileComponent {
   @Input() profile: IProfile;
   @Output() profileChange = new EventEmitter<IProfile>();
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
   onInputChange(data) {
     this.profile.profileDetails = data;
