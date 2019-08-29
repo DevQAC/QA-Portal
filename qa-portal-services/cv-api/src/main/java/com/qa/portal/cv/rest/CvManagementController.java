@@ -1,5 +1,6 @@
 package com.qa.portal.cv.rest;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.MediaType;
@@ -58,12 +59,12 @@ public class CvManagementController {
 	}
 	
 	@PostMapping("cv/file")
-	public void saveGeneratedCV(@RequestBody CvVersion cvVersion) {
+	public void saveGeneratedCV(@RequestBody CvVersion cvVersion) throws IOException {
 		service.saveGeneratedCv(cvVersion);
 	}
 
 	@PostMapping(value="cv/generated", produces={MediaType.APPLICATION_PDF_VALUE})
-	public ResponseEntity<byte[]> getCvAsPdf() {
+	public ResponseEntity<byte[]> getCvAsPdf() throws IOException {
 		return ResponseEntity.ok(service.getGeneratedCv(new CvVersion()));
 	}
 }

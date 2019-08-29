@@ -1,5 +1,6 @@
 package com.qa.portal.cv.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -33,11 +34,11 @@ public class CvManagementService {
     	this.updateCvService = updateCvService;
     }
     
-    public void saveGeneratedCv(CvVersion cvVersion) {
+    public void saveGeneratedCv(CvVersion cvVersion) throws IOException {
     	saveCvOperation.saveGeneratedCv(cvVersion);
     }
 
-    public byte[] getGeneratedCv(CvVersion cvVersion){
+    public byte[] getGeneratedCv(CvVersion cvVersion) throws IOException {
         return cvPdfGenerator.generateCv(cvVersion);
     }
     
