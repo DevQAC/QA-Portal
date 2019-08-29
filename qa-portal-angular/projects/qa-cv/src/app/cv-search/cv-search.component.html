@@ -31,18 +31,21 @@
     <div class="filterBox">
 
       <mat-select [(ngModel)]="selectedIntake" placeholder="Intake">
+        <mat-option [value] = "Hello" ></mat-option>
         <mat-option *ngFor="let ike of intake" [value]="ike" (click)="applyFilter1(ike)">
           {{ike}}
         </mat-option>
       </mat-select>
 
       <mat-select [(ngModel)]="selectedTech" placeholder="Technology">
+          <mat-option [value] = "Hello" ></mat-option>
         <mat-option *ngFor="let tech of technology" [value]="tech" (click)="applyFilter1(tech)">
           {{tech}}
         </mat-option>
       </mat-select>
 
       <mat-select [(ngModel)]="selectedStatus" placeholder="Status">
+          <mat-option [value] = "Hello" ></mat-option>
         <mat-option *ngFor="let stat of status" [value]="stat" (click)="applyFilter1(stat)">
           {{stat}}
         </mat-option>

@@ -28,10 +28,51 @@ export class CVSearchHistoryService {
             return of(result as T);
         };
     }
-    public getCVSearches(term:string): Observable<CVSearchModel[]> {
+    public getCVSearches(term:string, intakeChoice:string = "", techChoice:string = "", statusChoice:string = "" ): Observable<CVSearchModel[]> {
 
         return of( CVS.filter((cv)=> {
-            return cv.name == term;
+
+            let outcome = false;
+            if (cv.name == term){
+                if (intakeChoice != ""){ 
+                    if( intakeChoice == cv.intake ){
+                    outcome = true;
+                    }
+                    
+                    else{
+                        return false;
+                    }
+
+                }
+           
+                if (techChoice != "" ){
+                    if( techChoice == cv.tech ){
+                    outcome = true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                
+                if (statusChoice != "" ){ 
+                    if( statusChoice == cv.status ){
+                    outcome = true;
+                    }
+                    else{
+                        return false;
+                    }
+
+                }
+                if (intakeChoice == "" && techChoice == "" && statusChoice == "" ){
+                  outcome = true;  
+                }
+                
+            }
+            
+            
+            
+            return outcome;
+            
         }));
        
     }
