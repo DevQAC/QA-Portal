@@ -22,7 +22,9 @@ public class QaOneDriveManager implements QaFileManager {
 
 	public QaOneDriveManager(String authToken) {
 		this.authToken = authToken;
-		cvFolderId = getItemId("CVs");
+		this.cvFolderId = getItemId("CVs");
+		if(cvFolderId == null)
+			this.cvFolderId = createFolder("root", "CVs");
 	}
 	
 	public void storeFile(CvVersion cvVersion, byte[] cvByteArray) {
