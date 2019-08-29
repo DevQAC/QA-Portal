@@ -51,8 +51,6 @@ public class CvManagementService {
     	return this.updateCvService.updateCv(updatedCv);
     }
     
-    
-    
     public List<CvVersion> getAll() {
     	return this.getCvService.getAll();
     }
