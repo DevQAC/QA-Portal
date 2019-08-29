@@ -43,6 +43,12 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 	String QAGrey = "#565759";
 
 	int pd = 20;
+	int sideBarHeaderFontSize = 20;
+	int sideBarTitleFontSize = 11;
+	int sideBarListsFontSize = 10;
+	int titleParagraphSpacing = 4;
+	int bodyParagraphFontSize = 9;
+	int bodyHeadingsFontSize = 12;
 
 	float heightSideBox1 = document.getPageHeight() / 6 + 4;
 	float heightSideBox2 = (float) 2.5 * document.getPageHeight() / 6 + 7;
@@ -85,9 +91,9 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 		try {
 			// column 1 box 1
 			paragraph = new Paragraph();
-			paragraph.addMarkup("{color:#FFFFFF}*" + cvVersion.getFirstName() + "\n" + cvVersion.getSurname() + "*", 20,
+			paragraph.addMarkup("{color:#FFFFFF}*" + cvVersion.getFirstName() + "\n" + cvVersion.getSurname() + "*", sideBarHeaderFontSize,
 					kranaFatB, kranaFatB, kranaFatB, kranaFatB);
-			paragraph.addMarkup("{color:" + QAPurple + "} \n*" + cvVersion.getCohort() + "*", 20, kranaFatB, kranaFatB,
+			paragraph.addMarkup("{color:" + QAPurple + "} \n*Consultant*", sideBarHeaderFontSize, kranaFatB, kranaFatB,
 					kranaFatB, kranaFatB);
 			frame = new Frame(paragraph, widthCol1, heightSideBox1);
 			frame.setBackgroundColor(Color.decode(QARed));
@@ -120,10 +126,10 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
 			// column 1 box 3
 			paragraph = new Paragraph();
-			paragraph.addMarkup("{color:#FFFFFF}*Qualification*", 20, montserrat, montserratBold, montserrat,
-					montserrat);
+			paragraph.addMarkup("{color:#FFFFFF}*Qualification*\n", sideBarTitleFontSize, montserrat, montserratBold, montserrat, montserrat);
+			paragraph.addMarkup("\n", titleParagraphSpacing, montserrat, montserratBold, montserrat, montserrat);
 			for (Qualification i : cvVersion.getAllQualifications()) {
-				paragraph.addMarkup("\n\n{color:#FFFFFF}" + i.getQualificationDetails(), 10, montserrat, montserratBold,
+				paragraph.addMarkup("{color:#FFFFFF}" + i.getQualificationDetails(), sideBarListsFontSize, montserrat, montserratBold,
 						montserrat, montserrat);
 			}
 			frame = new Frame(paragraph, widthCol1, heightSideBox3);
@@ -154,31 +160,24 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
 			// column 2 Body
 			paragraph = new Paragraph();
-			paragraph.addMarkup("{color:" + QAPurple + "}*PROFILE*\n", 12, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+			paragraph.addMarkup("{color:" + QAPurple + "}*PROFILE*\n", bodyHeadingsFontSize, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
 			paragraph.addMarkup("\n", 5, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
 			// Profile
-			paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n", 9,
-					montserrat, montserratBold, montserrat, montserrat);
+			paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
 			// Work Experience
-			paragraph.addMarkup("{color:" + QAPurple + "}*WORK EXPERIANCE - QA*\n", 12, kranaFatB, kranaFatB, kranaFatB,
-					kranaFatB);
+			paragraph.addMarkup("{color:" + QAPurple + "}*WORK EXPERIANCE - QA*\n", bodyHeadingsFontSize, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
 			paragraph.addMarkup("\n", 5, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
 			for (int i = 0; i < cvVersion.getAllWorkExperience().size(); i++) {
-				paragraph.addMarkup(
-						"{color:" + QABlue + "}*" + cvVersion.getAllWorkExperience().get(i).getJobTitle() + "*\n", 9,
-						montserrat, montserratBold, montserrat, montserrat);
+				paragraph.addMarkup("{color:" + QABlue + "}*" + cvVersion.getAllWorkExperience().get(i).getJobTitle() + "*\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
 				paragraph.addMarkup("\n", 4, montserrat, montserratBold, montserrat, montserrat);
-				paragraph
-						.addMarkup(
-								"{color:" + QAGrey + "}"
-										+ cvVersion.getAllWorkExperience().get(i).getWorkExperienceDetails() + "\n\n",
-								9, montserrat, montserratBold, montserrat, montserrat);
+				paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getAllWorkExperience().get(i).getWorkExperienceDetails() 
+						+ "\n\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
 			}
 			
 			// Hobbies and Interests
-			paragraph.addMarkup("{color:" + QAPurple + "}*HOBBIES/INTERESTS*\n", 12, kranaFatB, kranaFatB, kranaFatB,
+			paragraph.addMarkup("{color:" + QAPurple + "}*HOBBIES/INTERESTS*\n", bodyHeadingsFontSize, kranaFatB, kranaFatB, kranaFatB,
 					kranaFatB);
-			paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getHobbies().getHobbiesDetails() + "\n\n", 9, montserrat,
+			paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getHobbies().getHobbiesDetails() + "\n\n", bodyParagraphFontSize, montserrat,
 					montserratBold, montserrat, montserrat);
 			frame = new Frame(paragraph, widthCol2, heightBody);
 			frame.setAbsolutePosition(new Position(widthCol1, document.getPageHeight() - heightHeader));
@@ -232,14 +231,14 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 	}
 
 	public void box1_2(Paragraph paragraph, String title, List<String> list) throws IOException {
-		paragraph.addMarkup("{color:#FFFFFF}*" + title + "*\n", 10, montserrat, montserratBold, montserrat, montserrat);
-		paragraph.addMarkup("\n", 4, montserrat, montserratBold, montserrat, montserrat);
+		paragraph.addMarkup("{color:#FFFFFF}*" + title + "*\n", sideBarTitleFontSize, montserrat, montserratBold, montserrat, montserrat);
+		paragraph.addMarkup("\n", titleParagraphSpacing, montserrat, montserratBold, montserrat, montserrat);
 		for (int i = 0; i < list.size(); i++) {
 			if (i < list.size() - 1) {
-				paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + ", ", 10, montserrat, montserratBold, montserrat,
+				paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + ", ", sideBarListsFontSize, montserrat, montserratBold, montserrat,
 						montserrat);
 			} else {
-				paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + "\n\n", 10, montserrat, montserratBold,
+				paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + "\n\n", sideBarListsFontSize, montserrat, montserratBold,
 						montserrat, montserrat);
 			}
 		}
