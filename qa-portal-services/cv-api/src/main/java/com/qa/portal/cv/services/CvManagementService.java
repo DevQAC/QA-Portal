@@ -40,14 +40,18 @@ public class CvManagementService {
     public byte[] getGeneratedCv(CvVersion cvVersion){
         return cvPdfGenerator.generateCv(cvVersion);
     }
-  
+    
+//	Create Service
     public CvVersion createCv(CvVersion newCv) {
     	return this.createCvService.createCv(newCv);
     }
     
+//	Update Service
     public CvVersion updateCv(CvVersion updatedCv) {
     	return this.updateCvService.updateCv(updatedCv);
     }
+    
+    
     
     public List<CvVersion> getAll() {
     	return this.getCvService.getAll();
