@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +30,9 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
     private QuestionCategoryRepository questionCategoryRepository;
 
     private QuestionRepository questionRepository;
+
+    private Comparator<QuestionCategoryResponseEntity> categoryResponseComparator =
+            Comparator.comparingInt(cr -> cr.getQuestionCategory().getId());
 
     public QuestionCategoryResponseMapper(BaseMapper baseMapper,
                                           CohortCourseRepository cohortCourseRepository,
@@ -55,7 +59,7 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
     }
 
     public void setUpdatedCategoryResponse(QuestionCategoryResponseEntity questionCategoryResponseEntity,
-                                            List<QuestionCategoryResponseDto> questionCategoryResponseDtos) {
+                                           List<QuestionCategoryResponseDto> questionCategoryResponseDtos) {
         QuestionCategoryResponseDto questionCategoryResponseDto = questionCategoryResponseDtos.stream()
                 .filter(qcrDto -> qcrDto.getId().equals(questionCategoryResponseEntity.getId()))
                 .findFirst()
@@ -124,10 +128,11 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
     }
 
     public List<S> createCategoryResponsesEntities(List<QuestionCategoryResponseDto> questionCategoryResponseDtos,
-                                                    T categoryResponseParent) {
+                                                   T categoryResponseParent) {
         return questionCategoryResponseDtos
                 .stream()
                 .map(fq -> createFeedbackQuestionCategoryResponseEntity(fq, categoryResponseParent))
+                .sorted(categoryResponseComparator)
                 .collect(Collectors.toList());
     }
 

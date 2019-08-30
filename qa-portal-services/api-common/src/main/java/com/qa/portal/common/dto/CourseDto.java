@@ -1,5 +1,7 @@
 package com.qa.portal.common.dto;
 
+import java.util.List;
+
 public class CourseDto {
 
     private Integer id;
@@ -7,6 +9,8 @@ public class CourseDto {
     private String courseName;
 
     private String courseCode;
+
+    private List<CourseTechnologyDto> technologies;
 
     public Integer getId() {
         return id;
@@ -31,4 +35,13 @@ public class CourseDto {
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
     }
+
+    public List<CourseTechnologyDto> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(List<CourseTechnologyDto> technologies) {
+        this.technologies = technologies;
+    }
+
 }

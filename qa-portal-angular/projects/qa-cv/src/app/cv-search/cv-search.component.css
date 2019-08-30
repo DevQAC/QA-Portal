@@ -35,12 +35,16 @@ html,
 body {
   font-size: 12px;
 } */
+/* .searchBox{
+  align-items: center;
+} */
 .example-header {
   display: block;
   font-family: sans-serif;
   align-items: center;
   border: 1px solid #ccc;
   margin: 10px auto;
+  
 }
 input {
   border: 1px solid #ccc;
@@ -48,7 +52,8 @@ input {
   height: 30px;
   padding: 4px 8px;
   position: relative;
-  width: 70%;
+  width: 100%;
+  align-items: center;
   box-sizing: border-box;
 }
 input:focus {
@@ -74,6 +79,7 @@ button.btn-search, button.btn-reset {
 .filterBox {
   
   display: flex;
+  
 }
 
 mat-select{
@@ -83,3 +89,15 @@ mat-select{
 ::ng-deep .mat-select-content{
   display: contents;  
 } */
+
+.searchBoxWrapper {
+  display: flex;
+}
+.searchBox {
+  display: flex;
+  margin: 0 auto;
+
+  width: 60%;
+  max-width: 500px;
+}
+

@@ -1,14 +1,12 @@
-import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { CVSearchHistoryService } from './services/cv-search-history.service';
-import { CVSearchFilterService } from './services/cv-search-filter.service';
-import { CVSearchHistoryModel } from './models/cv-search-history-model';
-import { CVSearchModel } from './models/cv-search-model';
-import { Subscription } from 'rxjs';
-import { QaErrorHandlerService } from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
-import { ViewChild } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {CVSearchHistoryService} from './services/cv-search.service';
+import {CVSearchFilterService} from './services/cv-search-filter.service';
+import {CVSearchModel} from './models/cv-search-model';
+import {Subscription} from 'rxjs';
+import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-cv-search',
@@ -17,17 +15,18 @@ import { FormControl } from '@angular/forms'
 })
 export class CvSearchComponent implements OnInit, OnDestroy {
 
-  historyViewModel = new CVSearchHistoryModel();
+  // historyViewModel = new CVSearchHistoryModel();
   displayedColumns: string[] = ['name', 'intake', 'tech', 'status', 'clients'];
-  technology: string[];
+  technology: string[] = [""];
   intake: string[];
   status: string[];
-
+  selectedIntake : string = "";
+  selectedTech : string = "";
+  selectedStatus : string = "";
   dataSource: MatTableDataSource<CVSearchModel>;
   currentFormDateSource: MatTableDataSource<CVSearchModel>;
   currentForm: CVSearchModel[] = [];
-  today = new Date().getDay();
-  upcomingFriday = new Date();
+
   loadingData = true;
   cvSearchSubscription: Subscription;
   filterSubscription: Subscription;
@@ -49,17 +48,17 @@ export class CvSearchComponent implements OnInit, OnDestroy {
   // }
   ngOnInit() {
 
-    this.filterSubscription = this.cvSearchFilterService.getFiltersSearches().subscribe(
+    this.filterSubscription = this.cvSearchFilterService.getFilters().subscribe(
       (response) => {
         this.technology = response.technology;
         this.intake = response.cohort;
         this.status = response.cvStatus;
 
         this.loadingData = false;
-        this.dataSource = new MatTableDataSource<CVSearchModel>(this.historyViewModel.cvSearches);
+        this.dataSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
         this.dataSource.paginator = this.paginator;
 
-        // To filter by just name 
+        // To filter by just name
         // this.currentFormDateSource.filterPredicate = (data: CVSearchModel, filter: string) => {
         //   return data.name == filter;
         //  };
@@ -78,9 +77,12 @@ export class CvSearchComponent implements OnInit, OnDestroy {
     );
   }
 
-  getSearch(term: string) {
+  getSearch(term: string, intakeChoice:string = "", techChoice:string = "", statusChoice:string = "" ) {
     console.log(term);
-    this.cvSearchSubscription = this.cvSearchHistoryService.getCVSearches(term).subscribe(
+    intakeChoice = this.selectedIntake;
+    techChoice = this.selectedTech;
+    statusChoice = this.selectedStatus;
+    this.cvSearchSubscription = this.cvSearchHistoryService.getCVSearches(term, intakeChoice, techChoice, statusChoice).subscribe(
       (response) => {
         this.currentForm = [];
         response.forEach((search) => {
@@ -88,14 +90,14 @@ export class CvSearchComponent implements OnInit, OnDestroy {
 
           this.currentForm.push(search);
           // } else {
-          this.historyViewModel.cvSearches.push(search);
+          // this.historyViewModel.cvSearches.push(search);
           // }
         });
         this.loadingData = false;
         this.dataSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
         this.dataSource.paginator = this.paginator;
 
-        // To filter by just name 
+        // To filter by just name
         // this.currentFormDateSource.filterPredicate = (data: CVSearchModel, filter: string) => {
         //   return data.name == filter;
         //  };
