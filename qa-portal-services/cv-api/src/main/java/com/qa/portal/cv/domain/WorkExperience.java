@@ -4,71 +4,67 @@ import java.util.List;
 
 public class WorkExperience {
 
-	private String jobTitle;
-	private String start;
-	private String end;
-	private String workExperienceDetails;
-	private List<Feedback> workExperienceFeedback;
+    private String jobTitle;
 
-	public WorkExperience(String jobTitle, String start, String end, String workExperienceDetails,
-			List<Feedback> workExperienceFeedback) {
-		super();
-		this.jobTitle = jobTitle;
-		this.start = start;
-		this.end = end;
-		this.workExperienceDetails = workExperienceDetails;
-		this.workExperienceFeedback = workExperienceFeedback;
-	}
-	
+    private String start;
 
-	public WorkExperience() {
-		super();
-	}
-	
-	public String getJobTitle() {
-		return jobTitle;
-	}
+    private String end;
 
+    private String workExperienceDetails;
 
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
-	}
+    private List<Feedback> workExperienceFeedback;
 
+    public WorkExperience() {
+        super();
+    }
 
-	public String getStart() {
-		return start;
-	}
+    public WorkExperience(String jobTitle, String start, String end, String workExperienceDetails,
+                          List<Feedback> workExperienceFeedback) {
+        super();
+        this.jobTitle = jobTitle;
+        this.start = start;
+        this.end = end;
+        this.workExperienceDetails = workExperienceDetails;
+        this.workExperienceFeedback = workExperienceFeedback;
+    }
 
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-	public void setStart(String start) {
-		this.start = start;
-	}
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
+    public String getStart() {
+        return start;
+    }
 
-	public String getEnd() {
-		return end;
-	}
+    public void setStart(String start) {
+        this.start = start;
+    }
 
+    public String getEnd() {
+        return end;
+    }
 
-	public void setEnd(String end) {
-		this.end = end;
-	}
+    public void setEnd(String end) {
+        this.end = end;
+    }
 
+    public String getWorkExperienceDetails() {
+        return workExperienceDetails;
+    }
 
-	public String getWorkExperienceDetails() {
-		return workExperienceDetails;
-	}
+    public void setWorkExperienceDetails(String workExperienceDetails) {
+        this.workExperienceDetails = workExperienceDetails;
+    }
 
+    public List<Feedback> getWorkExperienceFeedback() {
+        return workExperienceFeedback;
+    }
 
-	public void setWorkExperienceDetails(String workExperienceDetails) {
-		this.workExperienceDetails = workExperienceDetails;
-	}
-
-	public List<Feedback> getWorkExperienceFeedback() {
-		return workExperienceFeedback;
-	}
-	
-	public void setWorkExperienceFeedback(List<Feedback> workExperienceFeedback) {
-		this.workExperienceFeedback = workExperienceFeedback;
-	}
+    public void setWorkExperienceFeedback(List<Feedback> workExperienceFeedback) {
+        this.workExperienceFeedback = workExperienceFeedback;
+    }
 }

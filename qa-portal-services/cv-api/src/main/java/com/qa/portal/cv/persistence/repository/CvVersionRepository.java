@@ -9,13 +9,13 @@ import com.qa.portal.cv.domain.CvVersion;
 
 public interface CvVersionRepository extends MongoRepository<CvVersion, Integer> {
 
-	public List<CvVersion> findByFullNameIgnoreCase(String fullName);
+	List<CvVersion> findByFullNameIgnoreCase(String fullName);
 	
-	public List<CvVersion> findByUserNameIgnoreCase(String userName);
+	List<CvVersion> findByUserNameIgnoreCase(String userName);
 
-	public CvVersion findByVersionNumber(Integer versionNumber);
+	CvVersion findByVersionNumber(Integer versionNumber);
 	
-	public Optional<CvVersion> findByUserNameAndVersionNumberAllIgnoreCase(String userName, Integer versionNumber);
+	Optional<CvVersion> findByUserNameAndVersionNumberAllIgnoreCase(String userName, Integer versionNumber);
 	
-	public List<CvVersion> findByUserNameAllIgnoreCaseOrderByVersionNumberAsc(String userName);
+	List<CvVersion> findByUserNameAllIgnoreCaseOrderByVersionNumberAsc(String userName);
 }

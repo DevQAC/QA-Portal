@@ -18,9 +18,13 @@ public class CvManagementService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CvManagementService.class);
    
     private SaveGeneratedCvOperation saveCvOperation;
+
     private CvPdfGenerator cvPdfGenerator;
+
     private CreateCvOperation createCvService;
+
     private UpdateCvVersionOperation updateCvService;
+
     private GetCurrentCvVersionOperation getCvService;
     
     public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator, 

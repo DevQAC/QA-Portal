@@ -1,44 +1,46 @@
 package com.qa.portal.cv.domain;
 
 public class Feedback {
-	
-	private String reviewer;
-	private String date;
-	private String comment;
-	
-	public Feedback() {
-		super();
-	}
 
-	public Feedback(String reviewer, String date, String comment) {
-		super();
-		this.reviewer = reviewer;
-		this.date = date;
-		this.comment = comment;
-	}
+    private String reviewer;
 
-	public String getReviewer() {
-		return reviewer;
-	}
+    private String date;
 
-	public void setReviewer(String reviewer) {
-		this.reviewer = reviewer;
-	}
+    private String comment;
 
-	public String getDate() {
-		return date;
-	}
+    public Feedback() {
+        super();
+    }
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+    public Feedback(String reviewer, String date, String comment) {
+        super();
+        this.reviewer = reviewer;
+        this.date = date;
+        this.comment = comment;
+    }
 
-	public String getComment() {
-		return comment;
-	}
+    public String getReviewer() {
+        return reviewer;
+    }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-	
+    public void setReviewer(String reviewer) {
+        this.reviewer = reviewer;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
 }

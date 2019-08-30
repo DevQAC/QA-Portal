@@ -16,6 +16,7 @@ import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 public class GetCurrentCvVersionOperation {
 
 	private MongoOperations mongoOperations;
+
 	private CvVersionRepository repo;	
 	
 	public GetCurrentCvVersionOperation(CvVersionRepository repo, MongoOperations mongoOperations) {

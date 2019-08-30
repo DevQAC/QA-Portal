@@ -5,6 +5,7 @@ import java.util.List;
 public class Qualification {
 	
 	private String qualificationDetails;
+
 	private List<Feedback> qualificationFeedback;
 	
 	public Qualification() {

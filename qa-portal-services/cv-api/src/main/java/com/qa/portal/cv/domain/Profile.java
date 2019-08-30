@@ -5,6 +5,7 @@ import java.util.List;
 public class Profile {
 
 	private String profileDetails;
+
 	private List<Feedback> profileFeedback;
 	
 	public Profile() {

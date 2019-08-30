@@ -24,7 +24,7 @@ public class SaveGeneratedCvOperation {
 
 	public void saveGeneratedCv(CvVersion cvVersion) throws IOException {
 		byte[] cvByteArray = pdfGenerator.generateCv(cvVersion);
-		//add folder name & CV filename to fileLocation parameter.
+		// TODO - add folder name & CV filename to fileLocation parameter.
 		//fileManager.storeFile(fileLocation, cvByteArray);
 	}
 }
