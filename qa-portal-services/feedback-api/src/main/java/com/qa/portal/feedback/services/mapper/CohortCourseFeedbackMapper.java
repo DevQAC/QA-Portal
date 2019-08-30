@@ -12,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
 @Component
 public class CohortCourseFeedbackMapper {
 	
@@ -45,6 +48,9 @@ public class CohortCourseFeedbackMapper {
 
 	public CohortCourseFeedbackDto mapToCohortCourseFeedbackDto(CohortCourseFeedbackEntity feedbackEntity) {
 		CohortCourseFeedbackDto feedbackDto = baseMapper.mapObject(feedbackEntity, CohortCourseFeedbackDto.class);
+		feedbackDto.setCategoryResponses(feedbackDto.getCategoryResponses().stream()
+				.sorted(Comparator.comparingInt(cr -> cr.getQuestionCategory().getId()))
+				.collect(Collectors.toList()));
 		return feedbackDto;
 	}
 
