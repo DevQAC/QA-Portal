@@ -82,9 +82,9 @@ public class CvVersion {
         this.status = status;
     }
 
-    public String getUserName() {
-        return userName;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -138,29 +138,29 @@ public class CvVersion {
         this.allSkills = allSkills;
     }
 
-    public List<Qualification> getAllQualifications() {
-        return allQualifications;
-    }
+	public List<Qualification> getAllQualifications() {
+		return allQualifications;
+	}
 
-    public void setAllQualifications(List<Qualification> allQualifications) {
-        this.allQualifications = allQualifications;
-    }
+	public void setAllQualifications(List<Qualification> allQualifications) {
+		this.allQualifications = allQualifications;
+	}
 
-    public List<WorkExperience> getAllWorkExperience() {
-        return allWorkExperience;
-    }
+	public List<WorkExperience> getAllWorkExperience() {
+		return allWorkExperience;
+	}
 
-    public void setAllWorkExperience(List<WorkExperience> allWorkExperience) {
-        this.allWorkExperience = allWorkExperience;
-    }
+	public void setAllWorkExperience(List<WorkExperience> allWorkExperience) {
+		this.allWorkExperience = allWorkExperience;
+	}
 
-    public Hobbies getHobbies() {
-        return hobbies;
-    }
+	public Hobbies getHobbies() {
+		return hobbies;
+	}
 
-    public void setHobbies(Hobbies hobbies) {
-        this.hobbies = hobbies;
-    }
+	public void setHobbies(Hobbies hobbies) {
+		this.hobbies = hobbies;
+	}
 
 
 }
