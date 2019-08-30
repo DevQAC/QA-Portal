@@ -4,21 +4,21 @@
       <div class="card-base-drawer-content">
         <div class="top">
           <div class="drawer-title">
-            <h5>
+            <h4>
               Comments
-            </h5>
+            </h4>
           </div>
           <button mat-icon-button (click)="drawer.close()">
             <mat-icon>chevron_right</mat-icon>
           </button>
         </div>
-        <div #commentContainer class="middle">
+        <div #commentContainer class="middle" data-simplebar>
           <div class="comment-bubble" *ngFor="let comment of feedback">
 
             <div class="comment-body">
               {{comment.comment}}
             </div>
-            <div class="comment-details">
+            <div class="comment-details mat-caption">
               <div class="reviewer">
                 {{comment.reviewer}}
               </div>
@@ -28,17 +28,16 @@
             </div>
           </div>
 
-          <div class="no-comments-text">
+          <div *ngIf="!feedback || feedback.length == 0" class="no-comments-text">
             No comments yet
           </div>
         </div>
         <div class="bottom" *ngIf="canComment">
-          <mat-divider></mat-divider>
           <form class="comment-form" (ngSubmit)="addFeedbackItem()">
             <mat-form-field class="comment-form-field" class="comment-field"
               [hideRequiredMarker]="options.value.hideRequired" floatLabel="never">
-              <input [formControl]="commentInput" type="text" matInput placeholder="Write a comment">
-              <mat-icon matSuffix>send
+              <input [formControl]="commentInput" type="text" matInput placeholder="Write a comment" autocomplete="off">
+              <mat-icon matSuffix (click)="addFeedbackItem()">send
               </mat-icon>
             </mat-form-field>
           </form>

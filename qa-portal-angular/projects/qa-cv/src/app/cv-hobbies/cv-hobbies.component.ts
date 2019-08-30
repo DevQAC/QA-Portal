@@ -10,7 +10,7 @@ export class CvHobbiesComponent {
   @Input() hobbies: IHobbies;
   @Output() hobbiesChange = new EventEmitter<IHobbies>();
 
-  onInputChange(data) {
+  onInputChange(data: string): void {
     this.hobbies.hobbiesDetails = data;
     this.hobbiesChange.emit(this.hobbies);
   }

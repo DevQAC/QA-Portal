@@ -45,7 +45,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (SubmitConfirmDialogComponent)
-      this.canComment = this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
+      this.canComment = true;
     this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = { ...DEFAULT_CV, ...cv });
   }
 
