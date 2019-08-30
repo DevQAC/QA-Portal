@@ -43,16 +43,36 @@ public class ReferenceDataManagerTests {
 
 
    @Test
-    public void testGetReferenceDataForCategories() {
-        Map<String, List<String>> refData;
-        refData = rdm.getReferenceDataForCategories();
-        System.out.println(refData);
-        // should contain cohort
-        assertTrue(refData.containsKey("cohort"));
-        // should not contain cohorts
-        assertFalse(refData.containsKey("cohorts"));
-        // should have called 'findAll' method on techRepo
-        verify(techRepo).findAll();     
-        
+    public void testGetReferenceDataForCategories_callsFindAll() {
+        Map<String, List<String>> refData;        
+        refData = rdm.getReferenceDataForCategories();        
+       
+        // getReferenceDataForCategories should have called 'findAll' method on all three repositories
+        verify(techRepo).findAll();   
+        verify(statusRepo).findAll();    
+        verify(cohortRepo).findAll();            
     }
+   
+   @Test
+   public void testGetReferenceDataForCategories_includeskeys() {
+       Map<String, List<String>> refData;        
+       refData = rdm.getReferenceDataForCategories();
+       
+      // System.out.println(refData);
+       
+       // should contain cohort
+       assertTrue(refData.containsKey("cohort"));     
+         
+       
+   }
+   
+   @Test
+   public void testGetReferenceDataForCategories_wrongkeys() {
+       Map<String, List<String>> refData;        
+       refData = rdm.getReferenceDataForCategories();  
+       
+       // should not contain cohorts
+       assertFalse(refData.containsKey("cohorts"));      
+   
+   }
 }
