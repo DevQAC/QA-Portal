@@ -13,7 +13,8 @@ public class GetCohortCourseFeedbackOperation {
 
     private CohortCourseFeedbackMapper cohortCourseFeedbackMapper;
 
-    public GetCohortCourseFeedbackOperation(CohortCourseFeedbackRepository cohortCourseFeedbackRepository, CohortCourseFeedbackMapper cohortCourseFeedbackMapper) {
+    public GetCohortCourseFeedbackOperation(CohortCourseFeedbackRepository cohortCourseFeedbackRepository,
+                                            CohortCourseFeedbackMapper cohortCourseFeedbackMapper) {
         this.cohortCourseFeedbackRepository = cohortCourseFeedbackRepository;
         this.cohortCourseFeedbackMapper = cohortCourseFeedbackMapper;
     }

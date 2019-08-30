@@ -17,30 +17,35 @@
   <!-- <mat-card-subtitle style="color: #0060B9;">
     Current Form
   </mat-card-subtitle> -->
-  <div class="example-header">
-    <div class="searchBox">
-      <input #searchBox matInput [ngModel]="globalFilter" placeholder="Search" />
-      <button  class="btn btn-search" ng-click= "getSearch()" (click)= "getSearch(searchBox.value)" >
-        <i class="fa fa-search"></i>
-      </button>
+  <div class="example-header ">
+    <div class="searchBoxWrapper">
+      <div class="searchBox">
+        <input #searchBox matInput [ngModel]="globalFilter" placeholder="Search" />
+        <button class="btn btn-search" ng-click="getSearch()" (click)="getSearch(searchBox.value)">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
     </div>
-    <p>Filter by:</p> 
+    <p>Filter by:</p>
     
     <div class="filterBox">
 
-      <mat-select [(value)]="selectedSource" placeholder="Intake">
+      <mat-select [(ngModel)]="selectedIntake" placeholder="Intake">
+        <mat-option [value] = "Hello" ></mat-option>
         <mat-option *ngFor="let ike of intake" [value]="ike" (click)="applyFilter1(ike)">
           {{ike}}
         </mat-option>
       </mat-select>
 
-      <mat-select [(value)]="selectedSource" placeholder="Technology">
+      <mat-select [(ngModel)]="selectedTech" placeholder="Technology">
+          <mat-option [value] = "Hello" ></mat-option>
         <mat-option *ngFor="let tech of technology" [value]="tech" (click)="applyFilter1(tech)">
           {{tech}}
         </mat-option>
       </mat-select>
 
-      <mat-select [(value)]="selectedSource" placeholder="Status">
+      <mat-select [(ngModel)]="selectedStatus" placeholder="Status">
+          <mat-option [value] = "Hello" ></mat-option>
         <mat-option *ngFor="let stat of status" [value]="stat" (click)="applyFilter1(stat)">
           {{stat}}
         </mat-option>
@@ -48,7 +53,7 @@
 
     </div>
   </div>
-<br>
+  <br>
   <mat-card-content>
     <div style="display: flex; justify-content: center">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-width">
@@ -85,5 +90,5 @@
     </div>
   </mat-card-content>
 
-<mat-paginator [pageSizeOptions] = "[5,10,20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
 </mat-card>

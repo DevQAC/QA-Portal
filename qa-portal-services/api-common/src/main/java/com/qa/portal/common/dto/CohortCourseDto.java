@@ -16,10 +16,12 @@ public class CohortCourseDto {
     private QaCohortDto cohort;
 
     private TrainerDto trainer;
+
+    private String feedbackStatus;
+
+	private String averageKnowledgeRating;
     
-	private BigDecimal averageKnowledgeRating;
-    
-    private BigDecimal tqi;
+    private String tqi;
 
     public Integer getId() {
         return id;
@@ -69,20 +71,27 @@ public class CohortCourseDto {
         this.trainer = trainer;
     }
     
-    public BigDecimal getAverageKnowledgeRating() {
+    public String getAverageKnowledgeRating() {
 		return averageKnowledgeRating;
 	}
 
-	public void setAverageKnowledgeRating(BigDecimal averageKnowledgeRating) {
+	public void setAverageKnowledgeRating(String averageKnowledgeRating) {
 		this.averageKnowledgeRating = averageKnowledgeRating;
 	}
 
-	public BigDecimal getTqi() {
+	public String getTqi() {
 		return tqi;
 	}
 
-	public void setTqi(BigDecimal tqi) {
+	public void setTqi(String tqi) {
 		this.tqi = tqi;
 	}
 
+    public String getFeedbackStatus() {
+        return feedbackStatus;
+    }
+
+    public void setFeedbackStatus(String feedbackStatus) {
+        this.feedbackStatus = feedbackStatus;
+    }
 }
