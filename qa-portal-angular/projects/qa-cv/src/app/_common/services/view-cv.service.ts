@@ -5,10 +5,13 @@ import { ICvModel } from '../models/qac-cv-db.model';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
+import * as _ from 'lodash';
+import { GET_ALL_CVS, POST_CV_DATA } from '../models/cv.constants';
+
 @Injectable({ providedIn: 'root' })
 export class ViewCvService {
 
-  private getUrl = 'api/cvs';  // URL to web api
+
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,234 +21,180 @@ export class ViewCvService {
     private http: HttpClient,
     private messageService: MessageService) { }
 
-  /** GET cvs from the server */
-  getAllCvs() {
-    return <ICvModel>
-      {
-        "status": "Passed",
-        "id": 123,
-        "userName": "xx42069xx",
-        "firstName": "Ian",
-        "surname": "Owen",
-        "fullName": "Ian Owen",
-        "cohort": "2",
-        "profile": {
-          "profileDetails": "test p_detail",
-          "profileFeedback": [
-            {
-              "reviewer": "me",
-              "date": "2019-01-03",
-              "comment": "hmmmm"
-            }
-          ]
-        },
-        "allSkills": [
-          {
-            "programmingLanguages": [
-              "Java",
-              "Python",
-              "HTML"
-            ],
-            "ides": [
-              "VS Code",
-              "Eclipse",
-              "Notepad++"
-            ],
-            "operatingSystems": [
-              "Windows",
-              "Linux",
-              "DOS"
-            ],
-            "devops": [
-              "Jenkins",
-              "Alfred",
-              "Jeeves"
-            ],
-            "databases": [
-              "Mongo",
-              "MySQL",
-              "MS Excel"
-            ],
-            "platforms": [
-              "Concrete",
-              "Glass",
-              "Wood"
-            ],
-            "other": [
-              "Heat Vision",
-              "Super Speed",
-              "I'm running out of ideas"
-            ]
-          }
-        ],
-        "allQualifications": [
-          {
-            "qualificationDetails": "qual test1",
-            "qualificationFeedback": [
-              {
-                "reviewer": "me",
-                "date": "2019-01-03",
-                "comment": "everyone has that quali"
-              }
-            ]
-          }
-          ,
-          {
-            "qualificationDetails": "qual test2",
-            "qualificationFeedback": [
-              {
-                "reviewer": "me2",
-                "date": "2019-01-03",
-                "comment": "everyone has that quali2"
-              }
-            ]
-          }
-        ],
-        "allWorkExperience": [
-          {
-            "jobTitle": "hacker",
-            "start": "2019-01-01",
-            "end": "2019-01-03",
-            "workExperienceDetails": "i hacked the pentagon ",
-            "workExperienceFeedback": [
-              {
-                "reviewer": "me",
-                "date": "2019-01-03",
-                "comment": "good"
-              }
-            ]
-          },
-          {
-            "jobTitle": "hacker2",
-            "start": "2019-01-01",
-            "end": "2019-01-03",
-            "workExperienceDetails": "i hacked the pentagon ",
-            "workExperienceFeedback": [
-              {
-                "reviewer": "me",
-                "date": "2019-01-03",
-                "comment": "good2"
-              }
-            ]
-          }
-        ],
-        "hobbies": {
-          "hobbiesDetails": "test h_detail",
-          "hobbiesFeedback": [
-            {
-              "reviewer": "ne",
-              "date": "2019-01-03",
-              "comment": "noice"
-            }
-          ]
-        }
-      }
-  }
 
-
-  // {
-  //   full_name: 'Ian Owen',
-  //   work_experience: [{
-  //     job: "hacker",
-  //     start_date: "2019-01-01",
-  //     end_date: "2019-01-02",
-  //     detail: "i hacked the pentagon",
-  //     feedback: []
-  //   }],
-  //   profile: {
-  //     p_detail: 'test p_detail',
-  //     feedback: [
-  //       {
-  //         who: 'me',
-  //         date: '2000-01-01',
-  //         comment: 'test comment'
+  //   return <ICvModel>
+  //     {
+  //       "status": "Passed",
+  //       "id": 123,
+  //       "userName": "xx42069xx",
+  //       "firstName": "Ian",
+  //       "surname": "Owen",
+  //       "fullName": "Ian Owen",
+  //       "cohort": "2",
+  //       "profile": {
+  //         "profileDetails": "test p_detail",
+  //         "profileFeedback": [
+  //           {
+  //             "reviewer": "me",
+  //             "date": "2019-01-03",
+  //             "comment": "hmmmm"
+  //           }
+  //         ]
+  //       },
+  //       "allSkills": [
+  //         {
+  //           "programmingLanguages": [
+  //             "Java",
+  //             "Python",
+  //             "HTML"
+  //           ],
+  //           "ides": [
+  //             "VS Code",
+  //             "Eclipse",
+  //             "Notepad++"
+  //           ],
+  //           "operatingSystems": [
+  //             "Windows",
+  //             "Linux",
+  //             "DOS",
+  //             "CPM",
+  //             "OS/2",
+  //             "QNX"
+  //           ],
+  //           "devops": [
+  //             "Jenkins",
+  //             "Alfred",
+  //             "Jeeves"
+  //           ],
+  //           "databases": [
+  //             "Mongo",
+  //             "MySQL",
+  //             "MS Excel"
+  //           ],
+  //           "platforms": [
+  //             "Concrete",
+  //             "Glass",
+  //             "Wood"
+  //           ],
+  //           "other": [
+  //             "Heat Vision",
+  //             "Super Speed",
+  //             "I'm running out of ideas"
+  //           ]
+  //         }
+  //       ],
+  //       "allQualifications": [
+  //         {
+  //           "qualificationDetails": "qual test1",
+  //           "qualificationFeedback": [
+  //             {
+  //               "reviewer": "me",
+  //               "date": "2019-01-03",
+  //               "comment": "everyone has that quali"
+  //             }
+  //           ]
+  //         }
+  //         ,
+  //         {
+  //           "qualificationDetails": "qual test2",
+  //           "qualificationFeedback": [
+  //             {
+  //               "reviewer": "me2",
+  //               "date": "2019-01-03",
+  //               "comment": "everyone has that quali2"
+  //             }
+  //           ]
+  //         }
+  //       ],
+  //       "allWorkExperience": [
+  //         {
+  //           "jobTitle": "hacker",
+  //           "start": "2019-01-01",
+  //           "end": "2019-01-03",
+  //           "workExperienceDetails": "i hacked the pentagon ",
+  //           "workExperienceFeedback": [
+  //             {
+  //               "reviewer": "me",
+  //               "date": "2019-01-03",
+  //               "comment": "good"
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           "jobTitle": "hacker2",
+  //           "start": "2019-01-01",
+  //           "end": "2019-01-03",
+  //           "workExperienceDetails": "i hacked the pentagon ",
+  //           "workExperienceFeedback": [
+  //             {
+  //               "reviewer": "me",
+  //               "date": "2019-01-03",
+  //               "comment": "good2"
+  //             }
+  //           ]
+  //         }
+  //       ],
+  //       "hobbies": {
+  //         "hobbiesDetails": "test h_detail",
+  //         "hobbiesFeedback": [
+  //           {
+  //             "reviewer": "ne",
+  //             "date": "2019-01-03",
+  //             "comment": "noice"
+  //           }
+  //         ]
   //       }
-  //     ]
-  //   },
-  //   hobbies: {
-  //     h_detail: "test h_detail",
-  //     feedback: [
-  //       {
-  //         who: 'me',
-  //         date: '2000-01-01',
-  //         comment: 'test comment'
-  //       }
-  //     ]
-  //   },
-  //   qualifications: [{
-  //     q_detail: "qual test1",
-  //     feedback: [
-  //       {
-  //         who: 'me',
-  //         date: '2000-01-01',
-  //         comment: 'test comment'
-  //       }
-  //     ]
-  //   }, {
-  //     q_detail: "qual test2",
-  //     feedback: [
-  //       {
-  //         who: 'me',
-  //         date: '2000-01-01',
-  //         comment: 'test comment'
-  //       }
-  //     ]
-  //   }, {
-  //     q_detail: "qual test3",
-  //     feedback: [
-  //       {
-  //         who: 'me',
-  //         date: '2000-01-01',
-  //         comment: 'test comment'
-  //       }
-  //     ]
-  //   }]
-
+  //     }
   // }
-  // remember to declare type when uncommenting this!!! ==>> Observable<ICvModel[]>
-  // return this.http.get<ICvModel[]>(this.getUrl)
-  //   .pipe(
-  //     tap(_ => this.log('fetched cvs')),
-  //     catchError(this.handleError<ICvModel[]>('getICvModeles', []))
-  //   );
 
 
-  /** GET cv by id. Return `undefined` when id not found */
-  getICvModelNo404<Data>(id: number): Observable<ICvModel> {
-    const url = `${this.getUrl}/?id=${id}`;
-    return this.http.get<ICvModel[]>(url)
-      .pipe(
-        map(cvs => cvs[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? `fetched` : `did not find`;
-          this.log(`${outcome} cv id=${id}`);
-        }),
-        catchError(this.handleError<ICvModel>(`getICvModel id=${id}`))
-      );
-  }
+
+  // // }
+
+
+
+
+  // /** GET cv by id. Return `undefined` when id not found */
+  // getICvModelNo404<Data>(id: number): Observable<ICvModel> {
+  //   const url = `${this.getUrl}/?id=${id}`;
+  //   return this.http.get<ICvModel[]>(url)
+  //     .pipe(
+  //       map(cvs => cvs[0]), // returns a {0|1} element array
+  //       tap(h => {
+  //         const outcome = h ? `fetched` : `did not find`;
+  //         this.log(`${outcome} cv id=${id}`);
+  //       }),
+  //       catchError(this.handleError<ICvModel>(`getICvModel id=${id}`))
+  //     );
+  // }
 
   /** GET cv by id. Will 404 if id not found */
-  getCvById(id: number): Observable<ICvModel> {
-    const url = `${this.getUrl}/${id}`;
-    return this.http.get<ICvModel>(url).pipe(
-      tap(_ => this.log(`fetched cv id=${id}`)),
-      catchError(this.handleError<ICvModel>(`getICvModel id=${id}`))
+  getLatestCvForCurrentUser(): Observable<ICvModel> {
+    return this.getAllCvsForCurrentUser().pipe(
+      map(allCvs => _.head(_.orderBy(allCvs, ['versionNumber'], ['desc'])))
     );
+  }
+
+  private getAllCvsForCurrentUser(): Observable<ICvModel[]> {
+    return this.http.get<ICvModel[]>(GET_ALL_CVS, this.httpOptions).pipe(
+      catchError(this.handleError<ICvModel[]>(`getICvModel for current user`))
+    );
+
   }
 
   //////// Save methods //////////
 
-  /** POST: add a new cv to the server */
-  addCv(cv: ICvModel): Observable<ICvModel> {
-    return this.http.post<ICvModel>(this.getUrl, cv, this.httpOptions).pipe(
-      tap((newICvModel: ICvModel) => this.log(`added cv w/ id=${newICvModel.id}`)),
-      catchError(this.handleError<ICvModel>('addICvModel'))
-    );
-  }
+  // /** POST: add a new cv to the server */
+  // addCv(cv: ICvModel): Observable<ICvModel> {
+  //   return this.http.post<ICvModel>(POST_CV_DATA, cv, this.httpOptions).pipe(
+  //     tap((newICvModel: ICvModel) => this.log(`added cv w/ id=${newICvModel.id}`)),
+  //     catchError(this.handleError<ICvModel>('addICvModel'))
+  //   );
+  // }
 
   /** PUT: update the cv on the server */
-  updateCv(cv: ICvModel): Observable<any> {
-    return this.http.put(this.getUrl, cv, this.httpOptions).pipe(
+  updateCv(cv: ICvModel): Observable<ICvModel> {
+    return this.http.put(POST_CV_DATA, cv, this.httpOptions).pipe(
       tap(_ => this.log(`updated cv id=${cv.id}`)),
       catchError(this.handleError<any>('updateICvModel'))
     );

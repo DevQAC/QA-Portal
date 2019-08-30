@@ -6,10 +6,10 @@
       {{experience.jobTitle}}
     </mat-panel-title>
     <mat-panel-description>
-      until {{experience.end}}
+      until {{formattedEndDate}}
 
     </mat-panel-description>
-    <div class="mat-panel-feedback-button">
+    <div class="mat-panel-feedback-button"> 
       <button mat-button (click)="onFeedbackClick($event)" title="Show Feedback">
         <mat-icon>feedback</mat-icon>
       </button>

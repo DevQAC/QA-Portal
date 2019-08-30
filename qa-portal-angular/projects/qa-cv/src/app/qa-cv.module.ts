@@ -16,6 +16,9 @@ import {CvSearchComponent} from './cv-search/cv-search.component';
 import {CvFeedbackComponent} from './cv-feedback/cv-feedback.component';
 import {CvCardBaseComponent} from './cv-card-base/cv-card-base.component';
 import {CVSearchHistoryService} from './cv-search/services/cv-search.service';
+import { SubmitConfirmDialogComponent } from './view-cv/submit-confirm-dialog/submit-confirm-dialog.component';
+
+
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import {CVSearchHistoryService} from './cv-search/services/cv-search.service';
     CvQualisComponent,
     CvSearchComponent,
     CvFeedbackComponent,
-    CvCardBaseComponent
+    CvCardBaseComponent,
+    SubmitConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,9 @@ import {CVSearchHistoryService} from './cv-search/services/cv-search.service';
   providers: [
     CVSearchHistoryService,
     CVSearchFilterService
+  ],
+  entryComponents: [
+    SubmitConfirmDialogComponent
   ]
 })
 export class QaCvModule { }

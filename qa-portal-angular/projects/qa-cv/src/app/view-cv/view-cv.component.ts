@@ -1,19 +1,28 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { ICvModel } from '../_common/models/qac-cv-db.model';
+import { Component, OnInit, Output, OnDestroy } from '@angular/core';
+import { ICvModel, DEFAULT_CV } from '../_common/models/qac-cv-db.model';
 import { ViewCvService } from '../_common/services/view-cv.service';
 import { CvCardBaseComponent } from '../cv-card-base/cv-card-base.component';
 import { IFeedback } from '../_common/models/feedback.model';
 import { ActivatedRoute } from '@angular/router';
 import { TRAINING_ADMIN_ROLE } from '../../../../portal-core/src/app/_common/models/portal-constants';
+import { Observable, Subscription } from 'rxjs';
+import { MAT_DATE_LOCALE, MatDialog } from '@angular/material';
+import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-confirm-dialog.component';
 
 
 @Component({
   selector: 'app-view-cv',
   templateUrl: './view-cv.component.html',
-  styleUrls: ['./view-cv.component.scss']
+  styleUrls: ['./view-cv.component.scss'],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  ]
 })
-export class ViewCvComponent implements OnInit {
+export class ViewCvComponent implements OnInit, OnDestroy {
   @Output() public canComment: boolean;
+
+  enableButtons: boolean;
+
   cvs: ICvModel[] = [];
   openThis = false;
 
@@ -26,23 +35,44 @@ export class ViewCvComponent implements OnInit {
   qualFeedbackIndex: number;
   public qualDrawerOpen = false;
 
+  private cvDataSubscription$: Subscription;
+
   constructor(
     private cvService: ViewCvService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.canComment = this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
-    this.getAllCvs();
+    if (SubmitConfirmDialogComponent)
+      this.canComment = this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
+    this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = { ...DEFAULT_CV, ...cv });
+  }
+
+  openDialog(): void {
+    this.dialog.open(SubmitConfirmDialogComponent, {
+      width: '250px'
+    });
+  }
+
+
+  ngOnDestroy(): void {
+    this.cvDataSubscription$.unsubscribe();
   }
 
   onSave(): void {
-    debugger;
+    this.cvData.status = "Saved";
+    this.updateCv();
   }
 
-  getAllCvs(): void {
-    this.cvData = this.cvService.getAllCvs()
-    //.subscribe(cvs => this.cvs = cvs);
+  updateCv(): void {
+    this.cvData.versionNumber = this.cvData.versionNumber ? this.cvData.versionNumber + 1 : 1;
+    this.cvService.updateCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
+  }
+
+  onSubmit(): void {
+    this.cvData.status = "Submitted For Review";
+    this.updateCv();
   }
 
   onWorkExpFeedbackClick({ index }: { index: number }, expCard: CvCardBaseComponent): void {

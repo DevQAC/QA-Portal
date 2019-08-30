@@ -8,7 +8,8 @@ import { ISkills } from './skills.model'
 export interface ICvModel {
 
     status: string;
-    id: number;
+    id: string;
+    versionNumber: number;
     userName: string;
     firstName: string;
     surname: string;
@@ -20,3 +21,27 @@ export interface ICvModel {
     allWorkExperience: IWorkExperience[];
     hobbies: IHobbies;
 }
+
+
+export const DEFAULT_CV: Partial<ICvModel> = {
+    versionNumber: 1,
+    profile: {
+        profileDetails: '',
+        profileFeedback: []
+    },
+    allSkills: [{
+        programmingLanguages: [],
+        ides: [],
+        operatingSystems: [],
+        devops: [],
+        databases: [],
+        platforms: [],
+        other: []
+    }],
+    allQualifications: [],
+    allWorkExperience: [],
+    hobbies: {
+        hobbiesDetails: '',
+        hobbiesFeedback: []
+    }
+};
