@@ -10,8 +10,10 @@ import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.feedback.persistence.entity.CohortCourseFeedbackEntity;
 import com.qa.portal.feedback.persistence.entity.EvalQuestionCategoryResponseEntity;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
+import com.qa.portal.feedback.persistence.repository.CohortCourseFeedbackRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,19 +39,21 @@ public class GetCohortCoursesForTrainerOperation {
 
 	private CohortCourseEvaluationRepository cohortEvaluationRepo;
 
+	private CohortCourseFeedbackRepository cohortCourseFeedbackRepository;
+
 	private QaTrainerRepository trainerRepo;
 
 	private Comparator<CohortCourseDto> cohortCourseComparator = (r1, r2) -> r1.getStartDate().isBefore(r2.getEndDate()) ? 1 : -1;
 
-	
-	@Autowired
 	public GetCohortCoursesForTrainerOperation(BaseMapper mapper,
-											   CohortCourseRepository repo,
-											   QaTrainerRepository trainerRepo,
-											   CohortCourseEvaluationRepository cohortEvaluationRepo) {
+											   CohortCourseRepository cohortCourseRepo,
+											   CohortCourseEvaluationRepository cohortEvaluationRepo,
+											   CohortCourseFeedbackRepository cohortCourseFeedbackRepository,
+											   QaTrainerRepository trainerRepo) {
 		this.mapper = mapper;
-		this.cohortCourseRepo = repo;
+		this.cohortCourseRepo = cohortCourseRepo;
 		this.cohortEvaluationRepo = cohortEvaluationRepo;
+		this.cohortCourseFeedbackRepository = cohortCourseFeedbackRepository;
 		this.trainerRepo = trainerRepo;
 	}
 
@@ -65,6 +69,9 @@ public class GetCohortCoursesForTrainerOperation {
 	
 	private CohortCourseDto getCohortCourseDto(CohortCourseEntity cohortCourseEntity) {
 		CohortCourseDto cohortCourseDto = mapper.mapObject(cohortCourseEntity, CohortCourseDto.class);
+		cohortCourseDto.setFeedbackStatus("Awaiting Feedback");
+		cohortCourseFeedbackRepository.findByCohortCourse(cohortCourseEntity)
+				.ifPresent(ccfe -> cohortCourseDto.setFeedbackStatus(ccfe.getStatus()));
 		OptionalDouble evaluation = cohortEvaluationRepo.findByCohortCourse(cohortCourseEntity)
 								.stream()
 								.flatMap(e -> e.getCategoryResponses().stream())
