@@ -17,12 +17,12 @@ export class CvSearchComponent implements OnInit, OnDestroy {
 
   // historyViewModel = new CVSearchHistoryModel();
   displayedColumns: string[] = ['name', 'intake', 'tech', 'status', 'clients'];
-  technology: string[] = [""];
+  technology: string[] = [''];
   intake: string[];
   status: string[];
-  selectedIntake : string = "";
-  selectedTech : string = "";
-  selectedStatus : string = "";
+  selectedIntake: string = '';
+  selectedTech: string = '';
+  selectedStatus: string = '';
   dataSource: MatTableDataSource<CVSearchModel>;
   currentFormDateSource: MatTableDataSource<CVSearchModel>;
   currentForm: CVSearchModel[] = [];
@@ -32,17 +32,18 @@ export class CvSearchComponent implements OnInit, OnDestroy {
   filterSubscription: Subscription;
   searchText: string = '';
   previous: string;
-  filteredData: CVSearchModel = { id: 0, name: '', intake: '', tech: '', clients: [], status: '' };
+  filteredData: CVSearchModel = {id: 0, name: '', intake: '', tech: '', clients: [], status: ''};
   globalFIlter = '';
   techFilter = new FormControl();
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
     private cvSearchFilterService: CVSearchFilterService,
     private cvSearchHistoryService: CVSearchHistoryService,
     private errorHandlerService: QaErrorHandlerService) {
   }
+
   // @HostListener('input') oninput() {
   //   this.searchItems();
   // }
@@ -77,7 +78,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
     );
   }
 
-  getSearch(term: string, intakeChoice:string = "", techChoice:string = "", statusChoice:string = "" ) {
+  getSearch(term: string, intakeChoice: string = '', techChoice: string = '', statusChoice: string = '') {
     console.log(term);
     intakeChoice = this.selectedIntake;
     techChoice = this.selectedTech;
@@ -132,7 +133,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
 
   applyFilter1(filter) {
     this.globalFIlter = filter;
-    this.dataSource.filter = JSON.stringify(this.filteredData)
+    this.dataSource.filter = JSON.stringify(this.filteredData);
   }
 
   customFilterPredicate() {
@@ -145,19 +146,13 @@ export class CvSearchComponent implements OnInit, OnDestroy {
       if (this.technology.includes(this.globalFIlter)) {
         // search tech text fields
         globalMatch = data.tech.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
-      }
-
-      else if (this.intake.includes(this.globalFIlter)) {
+      } else if (this.intake.includes(this.globalFIlter)) {
         // search tech text fields
         globalMatch = data.intake.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
-      }
-
-      else if (this.status.includes(this.globalFIlter)) {
+      } else if (this.status.includes(this.globalFIlter)) {
         // search tech text fields
         globalMatch = data.status.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
-      }
-
-      else {
+      } else {
         // search name text fields
         globalMatch = data.name.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
       }
@@ -171,30 +166,27 @@ export class CvSearchComponent implements OnInit, OnDestroy {
         let searchString = JSON.parse(filter);
         console.log(searchString);
         return data.tech.toString().trim().indexOf(searchString.tech) !== -1;
-      }
-
-      else if (this.intake.includes(this.globalFIlter)) {
+      } else if (this.intake.includes(this.globalFIlter)) {
         let searchString = JSON.parse(filter);
         console.log(searchString);
         return data.intake.toString().trim().indexOf(searchString.intake) !== -1;
-      }
-
-      else if (this.status.includes(this.globalFIlter)) {
+      } else if (this.status.includes(this.globalFIlter)) {
         let searchString = JSON.parse(filter);
         console.log(searchString);
         return data.status.toString().trim().indexOf(searchString.status) !== -1;
-      }
-      else  {
+      } else {
         let searchString = JSON.parse(filter);
         console.log(searchString);
         return data.name.toString().trim().indexOf(searchString.name) !== -1;
       }
-    }
+    };
     return myFilterPredicate;
   }
 
   ngOnDestroy() {
-    this.cvSearchSubscription.unsubscribe();
+    if (!!this.cvSearchSubscription) {
+      this.cvSearchSubscription.unsubscribe();
+    }
   }
 
   getCVSearchUrl(searchId: string) {
