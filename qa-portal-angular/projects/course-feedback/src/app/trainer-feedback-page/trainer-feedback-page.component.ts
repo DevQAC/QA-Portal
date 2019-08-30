@@ -1,9 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
-import {Subscription} from 'rxjs';
-import {ICategoryResponse, IFormModel} from 'projects/qa-forms/src/app/_common/models';
 import {FeedbackService} from './_common/services/feedback.service';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormPage} from '../_common/form-page';
 
 @Component({

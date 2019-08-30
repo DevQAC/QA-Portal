@@ -1,5 +1,13 @@
 package com.qa.portal.common.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qa.portal.common.exception.QaPortalBusinessException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,212 +15,176 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.stereotype.Component;
-
-import com.qa.portal.cv.domain.CvVersion;
+import java.util.Optional;
 
 @Component
 public class QaOneDriveManager implements QaFileManager {
-	
-	private String authToken;
-	private String cvFolderId;
 
-	public QaOneDriveManager(String authToken) {
-		this.authToken = authToken;
-		this.cvFolderId = getItemId("CVs");
-		if(cvFolderId == null)
-			this.cvFolderId = createFolder("root", "CVs");
-	}
-	
-	public void storeFile(CvVersion cvVersion, byte[] cvByteArray) {
-		String username = cvVersion.getUserName();
-		String userFolderId = getItemId("CVs/" + username);
-		String currentCvId = null;
-		String archiveId = null;
+    private final Logger LOGGER = LoggerFactory.getLogger(QaOneDriveManager.class);
 
-		if (userFolderId == null) {
-			userFolderId = createFolder(cvFolderId, username);
-		} else {
-			currentCvId = getItemId("CVs/" + username + "/" + username + ".pdf");
-			if (currentCvId != null) {
-				archiveId = getItemId("CVs/" + username + "/archive");
-				if (archiveId == null) {
-					archiveId = createFolder(userFolderId, "archive");
-				}
-				moveItem(username + "-version" + getNextCvVersion(archiveId) + ".pdf", archiveId, currentCvId);
-			}
-		}
-		uploadFile(username + ".pdf", userFolderId, cvByteArray);
-	}
+    @Value("${onedrive.clientId}")
+    private String clientId;
 
-	public String createFolder(String locationId, String folderName) {
-		HttpURLConnection connection = null;
-		try {
-			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + locationId + "/children");
-			connection = createConnection(url, "POST");
-			
-			String jsonBody = "{\"name\": \"" + folderName + "\",\"folder\": { } }";
-			byte[] jsonBodyAsArray = jsonBody.getBytes("utf-8");
-			postData(connection, jsonBodyAsArray);
-			
-			String response = getResponse(connection);
-			
-			JSONObject jsonObject = new JSONObject(response);
-			return jsonObject.getString("id");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+    @Value("${onedrive.clientSecret}")
+    private String clientSecret;
 
-	public String getItemId(String pathToItem) {
-		try {
-			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/root:/" + pathToItem);
-			HttpURLConnection connection = createConnection(url, "GET");
+    @Value("${onedrive.baseFolder}")
+    private String baseFolderPath;
 
-			String response = getResponse(connection);
-			if(connection.getResponseCode() != 200) return null;
+    @Value("${onedrive.url}")
+    private String oneDriveUrl;
 
-			JSONObject jsonObject = new JSONObject(response);
-			return jsonObject.getString("id");
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+    private ObjectMapper objectMapper;
 
-	public int getNextCvVersion(String archiveId) {
-		try {
-			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + archiveId + "/children");
-			HttpURLConnection connection = createConnection(url, "GET");
+    private String authToken;
 
-			String response = getResponse(connection);
-			
-			JSONObject jsonObject = new JSONObject(response);
-			JSONArray files = jsonObject.getJSONArray("value");
-			
-			int maxVersion = 0;
-			for(int i = 0; i < files.length(); i++) {
-				JSONObject file = files.getJSONObject(i);
-				String filename = file.getString("name");
-				int currentVersion = Integer.parseInt(filename.substring(filename.lastIndexOf("version") + 7, filename.indexOf('.')));
-				if(currentVersion > maxVersion) maxVersion = currentVersion;
-			}
-			return maxVersion + 1;
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
+    private AuthenticationManager authenticationManager;
 
-	public void moveItem(String newName, String destinationFolderId, String itemId) {
-		byte[] fileData = downloadFile(itemId);
-		deleteFile(itemId);
-		uploadFile(newName, destinationFolderId, fileData);
-	}
+    private JsonPropertyUtil jsonPropertyUtil;
 
-	public void uploadFile(String fileName, String destinationFolderId, byte[] fileData) {
-		try {
-			//send request
-			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + destinationFolderId + ":/" + fileName + ":/content");
-			HttpURLConnection connection = createConnection(url, "PUT");
+    public QaOneDriveManager(AuthenticationManager authenticationManager, JsonPropertyUtil jsonPropertyUtil) {
+        this.authenticationManager = authenticationManager;
+        this.jsonPropertyUtil = jsonPropertyUtil;
+    }
 
-			postData(connection, fileData);
-			
-			String response = getResponse(connection);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    @PostConstruct
+    public void init() {
+        authToken = authenticationManager.getAuthentication(clientId, clientSecret);
+        objectMapper = new ObjectMapper();
+    }
 
-	private void deleteFile(String itemId) {
-		try {
-			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + itemId);
-			HttpURLConnection connection = createConnection(url, "DELETE");
-			
-			String response = getResponse(connection);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public void storeFile(String folderName, String fileName, String fileVersion, byte[] cvByteArray) {
+        // Delete current File
+        deleteFile(folderName, fileName);
 
-	private byte[] downloadFile(String itemId) {
-		try {
-			URL url = new URL("https://graph.microsoft.com/v1.0/me/drive/items/" + itemId + "/content");
-			HttpURLConnection connection = createConnection(url, "GET");
-			
-			String response = getResponse(connection);
-			int responseCode = connection.getResponseCode();
-			if(responseCode == 200) {
-				return response.getBytes();
-			} else {
-				return null;
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	private String getResponse(HttpURLConnection connection) throws IOException {
-		int responseCode = connection.getResponseCode();
-		InputStream is = null;
-		if(responseCode < 200 || responseCode >= 300) {
-			is = connection.getErrorStream();
-		} else {
-//			if(responseCode == 401) {
-//				refreshToken();
-//				HttpURLConnection newConnection = createConnection(connection.getURL(), connection.getRequestMethod());
-//				return getResponse(newConnection);
-//			}
-			is = connection.getInputStream();
-		}
-	
-		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		int c = -1;
-		while((c = is.read()) != -1) {
-			buffer.write((byte) c);
-		}
-		
-		is.close();
-		buffer.close();
-		connection.disconnect();
-		
-		return buffer.toString();
-	}
-	
-	private HttpURLConnection createConnection(URL url, String requestMethod) throws IOException {
-		HttpURLConnection connection;
-		connection = (HttpURLConnection) url.openConnection();
-		connection.setRequestMethod(requestMethod);
-		connection.setRequestProperty("Accept", "application/json");
-		connection.setRequestProperty("Content-Type", "application/json");
-		connection.setRequestProperty("Authorization", "Bearer " + authToken);
-		
-		if(requestMethod.equals("POST") || requestMethod.equals("PUT")) 
-			connection.setDoOutput(true);
-		
-		connection.connect();
-		return connection;
-	}
-	
-	private void postData(HttpURLConnection connection, byte[] data) throws IOException {
-		OutputStream os = connection.getOutputStream();
-		os.write(data);
-		os.flush();
-		os.close();
-	}
+        // Store new File (store it as filename)
+        saveFile(getFolderId(folderName), fileName, cvByteArray);
+
+        // Store archive file
+        saveFile(getArchiveFolderId(getFolderId(folderName), folderName,"archive"), fileVersion + "-" + fileName, cvByteArray);
+    }
+
+    private void deleteFile(String folderName, String fileName) {
+        Optional<String> currentCvId = Optional.ofNullable(getItemId(folderName + "/" + fileName));
+        currentCvId.ifPresent(id -> deleteFile(id));
+    }
+
+    private void saveFile(String folderId, String fileName, byte[] fileContents) {
+        uploadFile(fileName, folderId, fileContents);
+    }
+
+    private String getArchiveFolderId(String userFolderId, String parentFolderName, String folderName) {
+        String archiveFolderId = getItemId(parentFolderName + "/" + folderName);
+        if (archiveFolderId == null) {
+            archiveFolderId = createFolder(userFolderId, folderName);
+        }
+        return archiveFolderId;
+    }
+
+    public String createFolder(String locationId, String folderName) {
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(oneDriveUrl + "items/" + locationId + "/children");
+            connection = createConnection(url, "POST");
+            String jsonBody = "{\"name\": \"" + folderName + "\",\"folder\": { } }";
+            byte[] jsonBodyAsArray = jsonBody.getBytes("utf-8");
+            postData(connection, jsonBodyAsArray);
+            String response = getResponse(connection);
+            return jsonPropertyUtil.getJsonContentForProperty( "id", response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getItemId(String pathToItem) {
+        try {
+            URL url = new URL(oneDriveUrl + "root:/" + pathToItem);
+            HttpURLConnection connection = createConnection(url, "GET");
+            String response = getResponse(connection);
+            if (connection.getResponseCode() != 200) {
+                throw new QaPortalBusinessException("Item not found on onedrive");
+            }
+            return jsonPropertyUtil.getJsonContentForProperty("id", response);
+        } catch (Exception e) {
+            throw new QaPortalBusinessException("Item not found on onedrive");
+        }
+    }
+
+    public void uploadFile(String fileName, String destinationFolderId, byte[] fileData) {
+        try {
+            //send request
+            URL url = new URL(oneDriveUrl + "items/" + destinationFolderId + ":/" + fileName + ":/content");
+            HttpURLConnection connection = createConnection(url, "PUT");
+            postData(connection, fileData);
+            String response = getResponse(connection);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getFolderId(String folderPath) {
+        String folderId = getItemId(folderPath);
+        if (folderId == null) {
+            folderId = createFolder(baseFolderPath, folderPath);
+        }
+        return folderId;
+    }
+
+    private void deleteFile(String itemId) {
+        try {
+            URL url = new URL(oneDriveUrl + "/items/" + itemId);
+            HttpURLConnection connection = createConnection(url, "DELETE");
+            String response = getResponse(connection);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getResponse(HttpURLConnection connection) throws IOException {
+        int responseCode = connection.getResponseCode();
+        InputStream is = null;
+        if (responseCode < 200 || responseCode >= 300) {
+            is = connection.getErrorStream();
+            throw new QaPortalBusinessException("Failed to save file to onedrive");
+        } else {
+            is = connection.getInputStream();
+        }
+
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int c = -1;
+        while ((c = is.read()) != -1) {
+            buffer.write((byte) c);
+        }
+
+        is.close();
+        buffer.close();
+        connection.disconnect();
+        return buffer.toString();
+    }
+
+    private HttpURLConnection createConnection(URL url, String requestMethod) throws IOException {
+        HttpURLConnection connection;
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod(requestMethod);
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Authorization", "Bearer " + authToken);
+
+        if (requestMethod.equals("POST") || requestMethod.equals("PUT"))
+            connection.setDoOutput(true);
+        connection.connect();
+        return connection;
+    }
+
+    private void postData(HttpURLConnection connection, byte[] data) throws IOException {
+        OutputStream os = connection.getOutputStream();
+        os.write(data);
+        os.flush();
+        os.close();
+    }
 }
