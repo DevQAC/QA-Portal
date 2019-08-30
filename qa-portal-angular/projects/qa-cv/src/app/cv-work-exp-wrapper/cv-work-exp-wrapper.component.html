@@ -4,8 +4,8 @@
     <mat-icon>add</mat-icon>
   </button>
 </h2>
-<mat-accordion *ngFor="let experience of experiences; index as i">
-  <app-cv-work-exp [experience]="experience" (experienceChange)="onInputChange($event, i)" (feedbackClick)="onFeedbackClick(i, experience)"
+<mat-accordion>
+  <app-cv-work-exp *ngFor="let experience of experiences; index as i" [experience]="experience" (experienceChange)="onInputChange($event, i)" (feedbackClick)="onFeedbackClick(i, experience)"
     (experienceDelete)="delExp(i)"></app-cv-work-exp>
 </mat-accordion>
 

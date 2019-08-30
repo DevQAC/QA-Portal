@@ -9,71 +9,71 @@ app-cv-card-base {
     .card-base {
         padding: 0;
     }
-    
-    
+
+
     .card-header-wrapper {
         display: flex;
         flex-direction: row;
         width: 100%;
-    
+
         .mat-card-title {
             margin-top: 12px; // match default bottom
             margin-right: auto;
         }
     }
-    
-    
+
+
     .card-base-drawer-content {
         display: flex;
         flex-direction: column;
         height: 100%;
         width: 400px;
-    
+
         .top {
             display: flex;
             border-bottom: 1px solid $dark-dividers;
-    
+
             .drawer-title {
                 display: flex;
                 margin-right: auto;
-    
+
                 >* {
-    
+
                     margin: auto 0.5em;
                 }
             }
-    
+
         }
-    
+
         .middle {
             height: 100%;
             overflow-y: auto;
             background: #ececec;
         }
-    
+
         .bottom {
             overflow: hidden;
             border-top: 1px solid $dark-dividers;
         }
-    
+
     }
-    
+
     .comment-field {
         width: 100%;
-    
+
         input {
             width: 100%;
         }
     }
-    
+
     .mat-card-content {
         margin: 0;
     }
-    
+
     .card-base-content-wrapper {
         padding: 16px;
     }
-    
+
     .comment-bubble {
         background: #ffffff;
         /* placeholder colour */
@@ -81,48 +81,48 @@ app-cv-card-base {
         border-radius: 0.25rem;
         margin: 0.5rem;
         padding: 0.25rem 1rem;
-    
+
         .comment-body {
             overflow-wrap: break-word;
         }
-    
+
         .comment-details {
             display: flex;
             font-size: 11px;
             color: $dark-accent-text;
-    
+
             .reviewer {
                 margin-right: auto;
             }
-    
+
             .date {}
         }
     }
-    
+
     .no-comments-text {
         text-align: center;
         color: $dark-disabled-text;
         margin-top: 1rem;
     }
-    
-    
+
+
     mat-icon {
         height: unset;
         width: unset;
         /* override base style, reset to default */
     }
-    
+
     .comment-form {
         display: flex;
     }
-    
+
     .mat-form-field.comment-field {
         margin: 0 0 -0.5em 0;
 
         .mat-form-field-flex {
             padding: 0 0.5em;
         }
-        
+
         .mat-input-element {
             padding-bottom: 0.4em;
         }
@@ -130,7 +130,7 @@ app-cv-card-base {
         .mat-form-field-suffix {
             cursor: pointer;
         }
-    
+
     }
 }
 
@@ -142,3 +142,20 @@ app-view-cv {
 }
 
 
+app-cv-work-exp-wrapper {
+    .mat-accordion app-cv-work-exp {
+        .mat-expansion-panel:not(.mat-expanded) {
+            border-radius: 0;
+        }
+
+        &:first-of-type .mat-expansion-panel:not(.mat-expanded) {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        &:last-of-type .mat-expansion-panel:not(.mat-expanded) {
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+    }
+}
