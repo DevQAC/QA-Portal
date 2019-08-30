@@ -6,28 +6,32 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Component;
 
-@Component
-public class QaOneDriveManger implements QaFileManager {
+import com.qa.portal.cv.domain.CvVersion;
 
-	@Override
+public class QaLocalManger implements QaFileManager {
+
 	public void storeFile(String filePath, byte[] cvByteArray) {
+		FileOutputStream fos = null;
 		try {
 			//move existing CV to archive
 			archiveFile(filePath);
 
 			//create folder(s) to user folder if they are a new user
 			File directory = new File(filePath).getParentFile();
-			directory.mkdirs();
+			if(!directory.exists()) directory.mkdirs();
 			
 			//save new CV
-			FileOutputStream fos = new FileOutputStream(filePath);
+			fos = new FileOutputStream(filePath);
 			fos.write(cvByteArray);
 			fos.flush();
-			fos.close();
-			
-			//is.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -37,7 +41,7 @@ public class QaOneDriveManger implements QaFileManager {
 		if(file.exists()) {
 			//make archive folder if it doesn't already exist
 			File userDir = new File(file.getParent() + "/archive");
-			userDir.mkdirs(); 
+			if(!userDir.exists()) userDir.mkdirs(); 
 			
 			int newVersion = getCurrentVersion(userDir) + 1;
 			
@@ -59,5 +63,41 @@ public class QaOneDriveManger implements QaFileManager {
 			}
 		}
 		return version;
+	}
+
+	@Override
+	public void storeFile(CvVersion cvVersion, byte[] cvByteArray) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String createFolder(String locationId, String folderName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getItemId(String pathToItem) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getNextCvVersion(String archiveId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void moveItem(String newName, String destinationFolder, String itemId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void uploadFile(String fileName, String destinationFolder, byte[] fileData) {
+		// TODO Auto-generated method stub
+		
 	}
 }
