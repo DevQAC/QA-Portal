@@ -13,7 +13,6 @@ import {CvQualisComponent} from './cv-qualis-wrapper/cv-qualis/cv-qualis.compone
 import {MatNativeDateModule} from '@angular/material';
 import {CVSearchFilterService} from './cv-search/services/cv-search-filter.service';
 import {CvSearchComponent} from './cv-search/cv-search.component';
-import {CvFeedbackComponent} from './cv-feedback/cv-feedback.component';
 import {CvCardBaseComponent} from './cv-card-base/cv-card-base.component';
 import {CVSearchHistoryService} from './cv-search/services/cv-search.service';
 import { SubmitConfirmDialogComponent } from './view-cv/submit-confirm-dialog/submit-confirm-dialog.component';
@@ -31,7 +30,6 @@ import { SubmitConfirmDialogComponent } from './view-cv/submit-confirm-dialog/su
     CvWorkExpComponent,
     CvQualisComponent,
     CvSearchComponent,
-    CvFeedbackComponent,
     CvCardBaseComponent,
     SubmitConfirmDialogComponent
   ],
