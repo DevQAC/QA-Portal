@@ -5,6 +5,7 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -22,17 +23,15 @@ public class QaOneDriveManager implements QaFileManager {
 
     private final Logger LOGGER = LoggerFactory.getLogger(QaOneDriveManager.class);
 
-    @Value("${onedrive.clientId}")
     private String clientId;
 
-    @Value("${onedrive.clientSecret}")
     private String clientSecret;
 
-    @Value("${onedrive.baseFolder}")
     private String baseFolderPath;
 
-    @Value("${onedrive.url}")
     private String oneDriveUrl;
+
+    private String oneDriveActive;
 
     private ObjectMapper objectMapper;
 
@@ -42,15 +41,24 @@ public class QaOneDriveManager implements QaFileManager {
 
     private JsonPropertyUtil jsonPropertyUtil;
 
-    public QaOneDriveManager(AuthenticationManager authenticationManager, JsonPropertyUtil jsonPropertyUtil) {
+    private Environment environment;
+
+    public QaOneDriveManager(AuthenticationManager authenticationManager,
+                             JsonPropertyUtil jsonPropertyUtil,
+                             Environment environment) {
         this.authenticationManager = authenticationManager;
         this.jsonPropertyUtil = jsonPropertyUtil;
+        this.environment = environment;
     }
 
     @PostConstruct
     public void init() {
-        authToken = authenticationManager.getAuthentication(clientId, clientSecret);
-        objectMapper = new ObjectMapper();
+        oneDriveActive = environment.getProperty("onedrive.isactive");
+        if (oneDriveActive != null && oneDriveActive.equals("true")) {
+            setOneDriveProperties();
+            authToken = authenticationManager.getAuthentication(clientId, clientSecret);
+            objectMapper = new ObjectMapper();
+        }
     }
 
     public void storeFile(String folderName, String fileName, String fileVersion, byte[] cvByteArray) {
@@ -61,7 +69,7 @@ public class QaOneDriveManager implements QaFileManager {
         saveFile(getFolderId(folderName), fileName, cvByteArray);
 
         // Store archive file
-        saveFile(getArchiveFolderId(getFolderId(folderName), folderName,"archive"), fileVersion + "-" + fileName, cvByteArray);
+        saveFile(getArchiveFolderId(getFolderId(folderName), folderName, "archive"), fileVersion + "-" + fileName, cvByteArray);
     }
 
     private void deleteFile(String folderName, String fileName) {
@@ -90,7 +98,7 @@ public class QaOneDriveManager implements QaFileManager {
             byte[] jsonBodyAsArray = jsonBody.getBytes("utf-8");
             postData(connection, jsonBodyAsArray);
             String response = getResponse(connection);
-            return jsonPropertyUtil.getJsonContentForProperty( "id", response);
+            return jsonPropertyUtil.getJsonContentForProperty("id", response);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -186,5 +194,12 @@ public class QaOneDriveManager implements QaFileManager {
         os.write(data);
         os.flush();
         os.close();
+    }
+
+    private void setOneDriveProperties() {
+        clientId = environment.getProperty("onedrive.clientId");
+        clientSecret = environment.getProperty("onedrive.clientSecret");
+        oneDriveUrl = environment.getProperty("onedrive.url");
+        baseFolderPath = environment.getProperty("onedrive.baseFolder");
     }
 }

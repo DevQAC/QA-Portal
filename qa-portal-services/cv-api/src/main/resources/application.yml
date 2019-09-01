@@ -37,6 +37,7 @@ qa:
       file: keycloak.json
 
 onedrive:
+  isactive: true
   baseFolder: root/CVs
   clientId: 08478ba0-3a48-4179-9622-9b2d420a0846
   clientSecret: d48AYcXReGDfD8rNwkVu=BaD9Fh+ju./
