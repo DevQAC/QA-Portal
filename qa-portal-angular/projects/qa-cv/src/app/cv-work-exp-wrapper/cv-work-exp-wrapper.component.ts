@@ -6,7 +6,7 @@ import { IWorkExperience } from '../_common/models/work-experience.model';
 @Component({
   selector: 'app-cv-work-exp-wrapper',
   templateUrl: './cv-work-exp-wrapper.component.html',
-  styleUrls: ['./cv-work-exp-wrapper.component.css']
+  styleUrls: ['./cv-work-exp-wrapper.component.scss']
 })
 export class CvWorkExpWrapperComponent implements OnInit {
   @Input() experiences: IWorkExperience[];
