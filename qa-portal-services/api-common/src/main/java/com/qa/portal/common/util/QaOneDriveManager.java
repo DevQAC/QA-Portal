@@ -53,7 +53,8 @@ public class QaOneDriveManager implements QaFileManager {
 
     @PostConstruct
     public void init() {
-        oneDriveActive = environment.getProperty("onedrive.isactive");
+        oneDriveActive = environment.getProperty("onedrive.isActive");
+        LOGGER.info("One drive active " + oneDriveActive);
         if (oneDriveActive != null && oneDriveActive.equals("true")) {
             setOneDriveProperties();
             authToken = authenticationManager.getAuthentication(clientId, clientSecret);
@@ -201,5 +202,10 @@ public class QaOneDriveManager implements QaFileManager {
         clientSecret = environment.getProperty("onedrive.clientSecret");
         oneDriveUrl = environment.getProperty("onedrive.url");
         baseFolderPath = environment.getProperty("onedrive.baseFolder");
+
+        LOGGER.info("Client id " + clientId);
+        LOGGER.info("Client secret " + clientSecret);
+        LOGGER.info("Url " + oneDriveUrl);
+        LOGGER.info("Base Folder " + baseFolderPath);
     }
 }
