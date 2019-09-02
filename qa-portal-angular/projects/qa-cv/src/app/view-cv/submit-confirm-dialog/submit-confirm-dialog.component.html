@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Are you Sure?</h1>
+<div mat-dialog-content>
+  You won't be able to make any changes while your trainer is reviewing your CV.
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" (click)="onNoClick()" cdkFocusInitial>Cancel</button>
+  <button mat-button color="warn" (click)="onSubmit()">Submit</button>
+</div>

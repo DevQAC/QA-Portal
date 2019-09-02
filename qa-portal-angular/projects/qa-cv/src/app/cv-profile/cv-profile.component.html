@@ -1,8 +1,3 @@
-<mat-form-field>
-  <mat-label>Profile</mat-label>
-  <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"></textarea>
-</mat-form-field>
 <mat-form-field class="example-full-width">
-                <textarea matInput rows="20" [ngModel]="profile.profileDetails" (ngModelChange)="onInputChange($event)"></textarea>
-        </mat-form-field>
+  <textarea matInput rows="20" [ngModel]="profile?.profileDetails" (ngModelChange)="onInputChange($event)"></textarea>
+</mat-form-field>

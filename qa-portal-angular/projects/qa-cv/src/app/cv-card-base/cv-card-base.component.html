@@ -12,7 +12,7 @@
             <mat-icon>chevron_right</mat-icon>
           </button>
         </div>
-        <div class="middle">
+        <div #commentContainer class="middle">
           <div class="comment-bubble" *ngFor="let comment of feedback">
 
             <div class="comment-body">
@@ -27,12 +27,17 @@
               </div>
             </div>
           </div>
-          <div #bottomScrollTarget name="bottom-scroll-target" aria-hidden="true"></div>
+
+          <div class="no-comments-text">
+            No comments yet
+          </div>
         </div>
-        <div class="bottom">
-          <form (ngSubmit)="addFeedbackItem()">
-            <mat-form-field class="comment-field">
-              <input [formControl]="commentInput" type="text" matInput placeholder="Comment">
+        <div class="bottom" *ngIf="canComment">
+          <mat-divider></mat-divider>
+          <form class="comment-form" (ngSubmit)="addFeedbackItem()">
+            <mat-form-field class="comment-form-field" class="comment-field"
+              [hideRequiredMarker]="options.value.hideRequired" floatLabel="never">
+              <input [formControl]="commentInput" type="text" matInput placeholder="Write a comment">
               <mat-icon matSuffix>send
               </mat-icon>
             </mat-form-field>

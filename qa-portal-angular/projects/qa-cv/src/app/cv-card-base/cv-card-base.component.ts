@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 import { IFeedback } from '../_common/models/feedback.model';
 
 import * as moment from 'moment';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { MatDrawer } from '@angular/material/sidenav';
 import { KeycloakService } from 'keycloak-angular';
@@ -14,15 +14,21 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class CvCardBaseComponent implements OnInit {
   @Input() title: string;
+  @Input() canComment: boolean;
   @Input() feedback: IFeedback[];
   @Output() feedbackChange = new EventEmitter<IFeedback[]>();
   @Input() showOpenButton: boolean = true;
-  @ViewChild('bottomScrollTarget', { static: true }) bottomScrollTarget: ElementRef;
+  @ViewChild('commentContainer', { static: true }) commentContainer: ElementRef;
   @ViewChild('drawer', { static: true }) public drawer: MatDrawer;
 
-  public commentInput = new FormControl('');
+  public commentInput = new FormControl('', Validators.required);
+  options: FormGroup;
 
-  constructor(private keycloak: KeycloakService) { }
+  constructor(private keycloak: KeycloakService, fb: FormBuilder) {
+    this.options = fb.group({
+      hideRequired: true,
+    });
+  }
 
   ngOnInit() {
   }
@@ -35,19 +41,27 @@ export class CvCardBaseComponent implements OnInit {
     return moment(date).format('dddd, MMMM Do YYYY, h:mm:ss a');
   }
 
+  scrollCommentsToBottom() {
+    this.commentContainer.nativeElement.scrollTop = this.commentContainer.nativeElement.scrollHeight;
+  }
+
 
   addFeedbackItem() {
-    const fb: IFeedback = {
-      comment: this.commentInput.value,
-      date: moment().format(),
-      reviewer: this.keycloak.getUsername()
-    };
-    this.feedback.push(fb);
-    this.feedbackChange.emit(this.feedback);
-    this.commentInput.reset();
+    if (this.commentInput.valid) {
+      const fb: IFeedback = {
+        comment: this.commentInput.value,
+        date: moment().format(),
+        reviewer: this.keycloak.getUsername()
+      };
+      this.feedback.push(fb);
+      this.feedbackChange.emit(this.feedback);
+      this.commentInput.reset();
+      this.commentInput.markAsUntouched();
 
-    setTimeout(() => {
-      // this.bottomScrollTarget.nativeElement.scrollIntoView({ behavior: 'smooth' });
-    }, 0);
+      setTimeout(() => {
+        this.scrollCommentsToBottom();
+      }, 0);
+    }
+
   }
 }
