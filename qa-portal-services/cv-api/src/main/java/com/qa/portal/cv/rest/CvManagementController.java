@@ -32,7 +32,7 @@ public class CvManagementController {
     //	Create
     @PostMapping("/cv")
     public ResponseEntity<CvVersion> createCv(@RequestBody CvVersion newCv) {
-        return ResponseEntity.ok(this.service.createCv(newCv));
+        return ResponseEntity.ok(this.service.createCv(newCv, qaSecurityContext.getUserName()));
     }
 
     //  Update
