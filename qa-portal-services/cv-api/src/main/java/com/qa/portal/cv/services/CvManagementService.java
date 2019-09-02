@@ -47,8 +47,8 @@ public class CvManagementService {
     }
     
 //	Create Service
-    public CvVersion createCv(CvVersion newCv) {
-    	return this.createCvService.createCv(newCv);
+    public CvVersion createCv(CvVersion newCv, String userName) {
+    	return this.createCvService.createCv(newCv, userName);
     }
     
 //	Update Service
