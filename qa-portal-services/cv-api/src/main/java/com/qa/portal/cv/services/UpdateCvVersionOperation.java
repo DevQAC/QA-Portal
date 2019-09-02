@@ -1,5 +1,7 @@
 package com.qa.portal.cv.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.qa.portal.cv.domain.CvVersion;
@@ -16,31 +18,34 @@ public class UpdateCvVersionOperation {
 	}
 
 	public CvVersion updateCv(CvVersion updatedCv) {
+
 		updatedCv.setFullName();
-		updatedCv.setStatus("In Progress");
+		
+		if(updatedCv.getStatus().equals("Approved")) {
+			
+			// The approved CV is stored.
+			
+			repo.save(updatedCv);
+			
+			// The following steps generate a new version to be worked on.
+			
+			updatedCv.setId(null);
+			
+			// The status is set to "In Progress" as edit permissions are dependent on the status.
+			
+			updatedCv.setStatus("In Progress");
+			
+			List<CvVersion> allVersions = repo.findByUserNameAllIgnoreCaseOrderByVersionNumberAsc(updatedCv.getUserName());
+			
+			int newVersionNumber = (allVersions.get(allVersions.size() - 1).getVersionNumber()) + 1;
+			updatedCv.setVersionNumber(newVersionNumber);
+			
+			repo.save(updatedCv);
+			return updatedCv;
+		}
+		
 		repo.save(updatedCv);
 		return updatedCv;
 	}
 	
-	public CvVersion submitCv(CvVersion submittedCv) {
-		submittedCv.setFullName();
-		submittedCv.setStatus("For Review");
-		repo.save(submittedCv);
-		return submittedCv;
-	}
-	
-	public CvVersion approveCv(CvVersion submittedCv) {
-		//ID should be set to null so a new entry is created and version number should be incremented.
-		submittedCv.setFullName();
-		submittedCv.setStatus("Approved");
-		repo.save(submittedCv);
-		return submittedCv;
-	}
-	
-	public CvVersion failCv(CvVersion submittedCv) {
-		submittedCv.setFullName();
-		submittedCv.setStatus("Failed Review");
-		repo.save(submittedCv);
-		return submittedCv;
-	}
 }

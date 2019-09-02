@@ -41,21 +41,6 @@ public class CvManagementController {
         return ResponseEntity.ok(this.service.updateCv(updatedCv));
     }
 
-    @PutMapping("/cv/submit")
-    public ResponseEntity<CvVersion> submitCv(@RequestBody CvVersion submittedCv) {
-        return ResponseEntity.ok(this.service.submitCv(submittedCv));
-    }
-
-    @PutMapping("/cv/approve")
-    public ResponseEntity<CvVersion> approveCv(@RequestBody CvVersion submittedCv) {
-        return ResponseEntity.ok(this.service.approveCv(submittedCv));
-    }
-
-    @PutMapping("/cv/fail")
-    public ResponseEntity<CvVersion> failCv(@RequestBody CvVersion submittedCv) {
-        return ResponseEntity.ok(this.service.failCv(submittedCv));
-    }
-
     //	Get
     @GetMapping("/cvs")
     public ResponseEntity<List<CvVersion>> getAll() {
