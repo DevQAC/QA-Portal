@@ -31,7 +31,7 @@ public class UpdateCvVersionOperation {
 			
 			updatedCv.setId(null);
 			
-			// The status is set to "In Progress" as edit permissions are dependent on the status.
+			// The status is set to "In Progress" as CV edit permissions, on the front-end, are dependent on the status.
 			
 			updatedCv.setStatus("In Progress");
 			
