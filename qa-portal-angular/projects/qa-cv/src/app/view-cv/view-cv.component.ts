@@ -65,7 +65,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   }
 
-  getPDF() {
+  getPDFService() {
     this.cvService.getPDF(this.cvData).subscribe((response) => {
 
       let file = new Blob([response], { type: 'application/pdf' });
