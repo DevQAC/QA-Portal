@@ -56,18 +56,6 @@ public class CvManagementService {
     	return this.updateCvService.updateCv(updatedCv);
     }
     
-    public CvVersion submitCv(CvVersion submittedCv) {
-    	return this.updateCvService.submitCv(submittedCv);
-    }
-    
-    public CvVersion approveCv(CvVersion submittedCv) {
-    	return this.updateCvService.approveCv(submittedCv);
-    }
-    
-    public CvVersion failCv(CvVersion submittedCv) {
-    	return this.updateCvService.failCv(submittedCv);
-    }
-    
 //	Get Service
     public List<CvVersion> getAll() {
     	return this.getCvService.getAll();

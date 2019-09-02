@@ -17,7 +17,11 @@ public class CreateCvOperation {
 	
 	public CvVersion createCv(CvVersion newCv) {
 		
+		newCv.setVersionNumber(1);
+		
 		newCv.setFullName();
+		
+		newCv.setStatus("In Progress");
 		
 		repo.save(newCv);
 		
