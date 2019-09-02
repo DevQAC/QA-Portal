@@ -13,6 +13,9 @@
           </button>
         </div>
         <div #commentContainer class="middle">
+          <div *ngIf="!feedback" class="no-comments-text">
+            No comments yet
+          </div>
           <div class="comment-bubble" *ngFor="let comment of feedback">
 
             <div class="comment-body">
@@ -26,10 +29,6 @@
                 {{getFormattedDate(comment.date)}}
               </div>
             </div>
-          </div>
-
-          <div class="no-comments-text">
-            No comments yet
           </div>
         </div>
         <div class="bottom" *ngIf="canComment">
