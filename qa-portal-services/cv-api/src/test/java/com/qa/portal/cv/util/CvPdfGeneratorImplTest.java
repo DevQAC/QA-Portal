@@ -1,42 +1,37 @@
 package com.qa.portal.cv.util;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.File;
+import java.nio.file.Files;
+import java.security.MessageDigest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.portal.cv.domain.CvVersion;
+import javax.xml.bind.DatatypeConverter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CvPdfGeneratorImplTest {
 
 	@Test
-	public void test() {
-		CvPdfGeneratorImpl pdfGen = new CvPdfGeneratorImpl();
-		pdfGen.loadfonts();
-		try {
-		byte[] pdfBytes = pdfGen.generateCv(getCvVersion()); 
-		// Create File from byte[] and save to file system /output/filename.pdf
-		OutputStream os = new FileOutputStream("test.pdf");
-		os.write(pdfBytes);
-		os.close();
+	public void generateCvTest(){
+		CvPdfGeneratorImpl pdfGenerator = new CvPdfGeneratorImpl();
+		pdfGenerator.loadFonts();
+		try{
+			Resource generatedPdfResource = new FileSystemResource("test.pdf");
+			File generatedPdfFile = new File(generatedPdfResource.getFile().getPath());
+
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(Files.readAllBytes(generatedPdfFile.toPath()));
+			byte[] loadedPdfBytes = md.digest();
+			String pdfChecksum = DatatypeConverter.printHexBinary(loadedPdfBytes);
+			System.out.println(pdfChecksum);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("Error: " + ex.getMessage());
 		}
-		catch(Exception e) {
-			System.out.println("Error: " + e.getMessage());
-		}
-	}
-	
-	private CvVersion getCvVersion() throws IOException {
-		Resource res =  new ClassPathResource("cv-version.json");
-		ObjectMapper om = new ObjectMapper();
-		CvVersion cvVersion = om.readValue(res.getInputStream(), CvVersion.class);
-		return cvVersion;
 	}
 }
-

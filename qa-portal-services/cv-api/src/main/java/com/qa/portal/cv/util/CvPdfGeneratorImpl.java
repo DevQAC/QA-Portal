@@ -67,7 +67,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     PDFont kranaFatB;
 
     @PostConstruct
-    public void loadfonts() {
+    public void loadFonts() {
         try {
             Resource montRegResource = new ClassPathResource("Montserrat-Regular.ttf");
             Resource montBoldResource = new ClassPathResource("Montserrat-SemiBold.ttf");
