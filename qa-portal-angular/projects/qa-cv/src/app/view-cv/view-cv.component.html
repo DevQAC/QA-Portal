@@ -1,4 +1,6 @@
 <h1>{{cvData?.fullName}}</h1>
+<button mat-flat-button color="primary" (click)="getPDF()" title="Open PDF"
+[disabled]="!cvData || cvData.status==='Submitted For Review'">PDF of CV</button>
 <div class="cv-content-wrapper" (onSubmit)="onSubmit($event)">
         <section>
                 <app-cv-card-base title="Personal Profile" [canComment]="canComment"

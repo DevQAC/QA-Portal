@@ -22,151 +22,10 @@ export class ViewCvService {
     private messageService: MessageService) { }
 
 
-  //   return <ICvModel>
-  //     {
-  //       "status": "Passed",
-  //       "id": 123,
-  //       "userName": "xx42069xx",
-  //       "firstName": "Ian",
-  //       "surname": "Owen",
-  //       "fullName": "Ian Owen",
-  //       "cohort": "2",
-  //       "profile": {
-  //         "profileDetails": "test p_detail",
-  //         "profileFeedback": [
-  //           {
-  //             "reviewer": "me",
-  //             "date": "2019-01-03",
-  //             "comment": "hmmmm"
-  //           }
-  //         ]
-  //       },
-  //       "allSkills": [
-  //         {
-  //           "programmingLanguages": [
-  //             "Java",
-  //             "Python",
-  //             "HTML"
-  //           ],
-  //           "ides": [
-  //             "VS Code",
-  //             "Eclipse",
-  //             "Notepad++"
-  //           ],
-  //           "operatingSystems": [
-  //             "Windows",
-  //             "Linux",
-  //             "DOS",
-  //             "CPM",
-  //             "OS/2",
-  //             "QNX"
-  //           ],
-  //           "devops": [
-  //             "Jenkins",
-  //             "Alfred",
-  //             "Jeeves"
-  //           ],
-  //           "databases": [
-  //             "Mongo",
-  //             "MySQL",
-  //             "MS Excel"
-  //           ],
-  //           "platforms": [
-  //             "Concrete",
-  //             "Glass",
-  //             "Wood"
-  //           ],
-  //           "other": [
-  //             "Heat Vision",
-  //             "Super Speed",
-  //             "I'm running out of ideas"
-  //           ]
-  //         }
-  //       ],
-  //       "allQualifications": [
-  //         {
-  //           "qualificationDetails": "qual test1",
-  //           "qualificationFeedback": [
-  //             {
-  //               "reviewer": "me",
-  //               "date": "2019-01-03",
-  //               "comment": "everyone has that quali"
-  //             }
-  //           ]
-  //         }
-  //         ,
-  //         {
-  //           "qualificationDetails": "qual test2",
-  //           "qualificationFeedback": [
-  //             {
-  //               "reviewer": "me2",
-  //               "date": "2019-01-03",
-  //               "comment": "everyone has that quali2"
-  //             }
-  //           ]
-  //         }
-  //       ],
-  //       "allWorkExperience": [
-  //         {
-  //           "jobTitle": "hacker",
-  //           "start": "2019-01-01",
-  //           "end": "2019-01-03",
-  //           "workExperienceDetails": "i hacked the pentagon ",
-  //           "workExperienceFeedback": [
-  //             {
-  //               "reviewer": "me",
-  //               "date": "2019-01-03",
-  //               "comment": "good"
-  //             }
-  //           ]
-  //         },
-  //         {
-  //           "jobTitle": "hacker2",
-  //           "start": "2019-01-01",
-  //           "end": "2019-01-03",
-  //           "workExperienceDetails": "i hacked the pentagon ",
-  //           "workExperienceFeedback": [
-  //             {
-  //               "reviewer": "me",
-  //               "date": "2019-01-03",
-  //               "comment": "good2"
-  //             }
-  //           ]
-  //         }
-  //       ],
-  //       "hobbies": {
-  //         "hobbiesDetails": "test h_detail",
-  //         "hobbiesFeedback": [
-  //           {
-  //             "reviewer": "ne",
-  //             "date": "2019-01-03",
-  //             "comment": "noice"
-  //           }
-  //         ]
-  //       }
-  //     }
-  // }
 
 
 
-  // // }
-
-
-
-
-  // /** GET cv by id. Return `undefined` when id not found */
-  // getICvModelNo404<Data>(id: number): Observable<ICvModel> {
-  //   const url = `${this.getUrl}/?id=${id}`;
-  //   return this.http.get<ICvModel[]>(url)
-  //     .pipe(
-  //       map(cvs => cvs[0]), // returns a {0|1} element array
-  //       tap(h => {
-  //         const outcome = h ? `fetched` : `did not find`;
-  //         this.log(`${outcome} cv id=${id}`);
-  //       }),
-  //       catchError(this.handleError<ICvModel>(`getICvModel id=${id}`))
-  //     );
-  // }
+ 
 
   /** GET cv by id. Will 404 if id not found */
   getLatestCvForCurrentUser(): Observable<ICvModel> {
@@ -181,6 +40,18 @@ export class ViewCvService {
     );
 
   }
+
+  getPDF(cv: ICvModel){
+    const url = `cv-api/cv/generated`;
+    
+    const httpOptions = {
+      'responseType'  : 'arraybuffer' as 'json'
+       //'responseType'  : 'blob' as 'json'        //This also worked
+    };
+    
+    return this.http.post<any>(url,cv ,httpOptions);
+    
+    }
 
   //////// Save methods //////////
 
