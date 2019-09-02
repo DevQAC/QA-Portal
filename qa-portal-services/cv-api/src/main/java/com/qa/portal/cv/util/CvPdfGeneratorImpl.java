@@ -59,6 +59,9 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 	float heightFooter = document.getPageHeight() / 30;
 	float heightBody = document.getPageHeight() - heightHeader - heightFooter;
 
+	String arrowPath = "target/classes/Arrow.png";
+	String logoPath = "target/classes/QA_Logo.png";
+
 	Frame frame;
 	Paragraph paragraph;
 
@@ -87,22 +90,18 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 		try {
 			paragraph = new Paragraph();
 
-			loadHeader();
-
-
-			box1_1(cvVersion);
-			
-			loadImages();
+			// column 1 box 1
+			generateConsultantNameBox(cvVersion);
 
 			// column 1 box 2
 			paragraph = new Paragraph();
-			box1_2(paragraph, "Programming Languages", cvVersion.getAllSkills().get(0).getDatabases());
-			box1_2(paragraph, "IDEs", cvVersion.getAllSkills().get(0).getIdes());
-			box1_2(paragraph, "Operating Systems", cvVersion.getAllSkills().get(0).getOperatingSystems());
-			box1_2(paragraph, "DevOps Technologies", cvVersion.getAllSkills().get(0).getDevops());
-			box1_2(paragraph, "Database Technologies", cvVersion.getAllSkills().get(0).getDatabases());
-			box1_2(paragraph, "Project Frameworks", cvVersion.getAllSkills().get(0).getPlatforms());
-			box1_2(paragraph, "Other", cvVersion.getAllSkills().get(0).getOther());
+			generateSkillsBox(paragraph, "Programming Languages", cvVersion.getAllSkills().get(0).getDatabases());
+			generateSkillsBox(paragraph, "IDEs", cvVersion.getAllSkills().get(0).getIdes());
+			generateSkillsBox(paragraph, "Operating Systems", cvVersion.getAllSkills().get(0).getOperatingSystems());
+			generateSkillsBox(paragraph, "DevOps Technologies", cvVersion.getAllSkills().get(0).getDevops());
+			generateSkillsBox(paragraph, "Database Technologies", cvVersion.getAllSkills().get(0).getDatabases());
+			generateSkillsBox(paragraph, "Project Frameworks", cvVersion.getAllSkills().get(0).getPlatforms());
+			generateSkillsBox(paragraph, "Other", cvVersion.getAllSkills().get(0).getOther());
 			frame = new Frame(paragraph, widthCol1, heightSideBox2);
 			frame.setBackgroundColor(Color.decode(QAPurple));
 			frame.setAbsolutePosition(new Position(0, document.getPageHeight() - heightSideBox1));
@@ -110,7 +109,8 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 			frame.setPadding(padding, padding, padding, padding);
 			document.add(frame);
 
-			box1_3(cvVersion);
+			// create column 1 box 3
+			generateQualificationBox(cvVersion);
 
 			// column 2 divider 1
 			paragraph = new Paragraph();
@@ -118,14 +118,17 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 			divider(frame, document.getPageHeight() - heightHeader);
 			document.add(frame);
 
-			box2_2(cvVersion);
-
-			// column 2 divider 2
+			// column 2 body
+			generateBodyBox(cvVersion);
+			generateWorkExperianceBox(cvVersion);
+			generateHobbiesBox(cvVersion);
 			paragraph = new Paragraph();
 			frame = new Frame(paragraph, widthCol2 - padding * 2, 0.5f);
 			divider(frame, heightHeader);
 			document.add(frame);
 
+			loadHeader();
+			loadImages(arrowPath, logoPath);
 			loadFooter();
 
 			// returns
@@ -149,11 +152,11 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 		frame.setPaddingTop(5);
 	}
 
-	public boolean loadImages() {
+	public String loadImages(String arrowPath, String logoPath) {
 		// column 1 box 1 image
 		ImageElement image;
 		try {
-			image = new ImageElement("target/classes/Arrow.png");
+			image = new ImageElement(arrowPath);
 			image.setWidth(image.getWidth() / 35);
 			image.setHeight(image.getHeight() / 35);
 			image.setAbsolutePosition(new Position(padding, document.getPageHeight() - heightSideBox1 + padding + 20));
@@ -176,7 +179,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 			e.printStackTrace();
 			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl image_logo");
 		}
-		return true;
+		return "Passed";
 	}
 
 	public void loadHeader() {
@@ -197,7 +200,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 		}
 	}
 
-	public void box1_1(CvVersion cvVersion) {
+	public void generateConsultantNameBox(CvVersion cvVersion) {
 		// column 1 box 1
 		paragraph = new Paragraph();
 		try {
@@ -212,11 +215,11 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 			document.add(frame);
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl box1_1");
+			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl generateConsultantNameBox");
 		}
 	}
 
-	public Paragraph box1_2(Paragraph paragraph, String title, List<String> list) {
+	public Paragraph generateSkillsBox(Paragraph paragraph, String title, List<String> list) {
 		try {
 			paragraph.addMarkup("{color:#FFFFFF}*" + title + "*\n", sideBarTitleFontSize, montserrat, montserratBold,
 					montserrat, montserrat);
@@ -232,12 +235,12 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl box1_2");
+			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl generateSkillsBox");
 		}
 		return paragraph;
 	}
 
-	public void box1_3(CvVersion cvVersion) {
+	public void generateQualificationBox(CvVersion cvVersion) {
 		// column 1 box 3
 		paragraph = new Paragraph();
 		try {
@@ -256,11 +259,11 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 			document.add(frame);
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl box1_3");
+			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl generateQualificationBox");
 		}
 	}
 
-	public void box2_2(CvVersion cvVersion) {
+	public void generateBodyBox(CvVersion cvVersion) {
 		// column 2 Body
 		paragraph = new Paragraph();
 
@@ -273,9 +276,11 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 					bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl box2_2 Profile");
+			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl generateBodyBox Profile");
 		}
+	}
 
+	public void generateWorkExperianceBox(CvVersion cvVersion) {
 		// Work Experience
 		try {
 			paragraph.addMarkup("{color:" + QAPurple + "}*WORK EXPERIANCE - QA*\n", bodyHeadingsFontSize, kranaFatB,
@@ -294,9 +299,11 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl box2_2 Work Experiance");
+			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl generateBodyBox Work Experiance");
 		}
+	}
 
+	public void generateHobbiesBox(CvVersion cvVersion) {
 		// Hobbies and Interests
 		try {
 			paragraph.addMarkup("{color:" + QAPurple + "}*HOBBIES/INTERESTS*\n", bodyHeadingsFontSize, kranaFatB,
@@ -310,7 +317,8 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 			document.add(frame);
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl box2_2 Hobbies and Interests");
+			throw new QaPortalSevereException(
+					"Cannot load in CvPdfGeneratorImpl generateBodyBox Hobbies and Interests");
 		}
 	}
 
