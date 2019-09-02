@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TRAINING_ADMIN_ROLE } from '../../../../portal-core/src/app/_common/models/portal-constants';
 import { Observable, Subscription } from 'rxjs';
 import { MAT_DATE_LOCALE, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-confirm-dialog.component';
 
 
@@ -50,9 +51,18 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
-    this.dialog.open(SubmitConfirmDialogComponent, {
+    let dialogRef = this.dialog.open(SubmitConfirmDialogComponent, {
       width: '250px'
     });
+    dialogRef.componentInstance.canSubmit = false;
+    dialogRef.componentInstance.doSubmit.subscribe(() => {
+      if (dialogRef.componentInstance.canSubmit === true) {
+        this.onSubmit();
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => {
+    });
+
   }
 
 
