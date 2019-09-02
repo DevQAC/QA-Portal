@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class CreateCvOperationTest {
+public class FindCvOperationTest {
 
     @InjectMocks
     private GetCurrentCvVersionOperation gccvo;
