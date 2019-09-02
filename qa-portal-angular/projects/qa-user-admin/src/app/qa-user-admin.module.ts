@@ -3,10 +3,12 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import { UserManagementConsoleComponent } from './user-management-console/user-management-console.component';
 import { QaCommonModule } from 'projects/qa-common/src/app/app.module';
+import { RoleChipsComponent } from './role-chips/role-chips.component';
 
 @NgModule({
   declarations: [
-    UserManagementConsoleComponent
+    UserManagementConsoleComponent,
+    RoleChipsComponent
   ],
   imports: [
     BrowserModule,
