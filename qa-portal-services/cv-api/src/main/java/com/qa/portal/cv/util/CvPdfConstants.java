@@ -1,8 +1,10 @@
 package com.qa.portal.cv.util;
 
 public enum CvPdfConstants {
-	QA_BLUE("#0000"),
-	QA_RED("#0001");
+	QA_BLUE("#004050"),
+	QA_PURPLE("#7F007D"),
+	QA_RED("#FF004C"),
+	QA_GREY("#565759");
 	
 	public final String value;
 	

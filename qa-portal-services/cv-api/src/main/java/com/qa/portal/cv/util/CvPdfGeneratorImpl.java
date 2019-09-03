@@ -45,10 +45,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     PDFont kranaFatB;
     
     // QA Colour Scheme
-    String QABlue = "#004050";
-    String QAPurple = "#7F007D";
-    String QARed = "#FF004C";
-    String QAGrey = "#565759";
 
     // Font Sizes and Spacing
     int pd = 20;
@@ -93,8 +89,8 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             paragraph = consultantNameBox.getParagraph();
             frame = consultantNameBox.getFrame();
             paragraph.addMarkup("{color:#FFFFFF}*" + cvVersion.getFirstName() + "\n" + cvVersion.getSurname() + "*", sideBarHeaderFontSize, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
-            paragraph.addMarkup("{color:" + QAPurple + "} \n*Consultant*", sideBarHeaderFontSize, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
-            frame.setBackgroundColor(Color.decode(CvPdfConstants.QA_BLUE.toString()));
+            paragraph.addMarkup("{color:" + CvPdfConstants.QA_PURPLE.value + "} \n*Consultant*", sideBarHeaderFontSize, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+            frame.setBackgroundColor(Color.decode(CvPdfConstants.QA_RED.value));
             document.add(frame);
             
             ImageElement arrow = loadImages("target/classes/Arrow.png", 35);
@@ -110,7 +106,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             generateSkillsBox(paragraph, "Database Technologies", cvVersion.getAllSkills().get(0).getDatabases());
             generateSkillsBox(paragraph, "Project Frameworks", cvVersion.getAllSkills().get(0).getPlatforms());
             generateSkillsBox(paragraph, "Other", cvVersion.getAllSkills().get(0).getOther());
-            frame.setBackgroundColor(Color.decode(QAPurple));
+            frame.setBackgroundColor(Color.decode(CvPdfConstants.QA_PURPLE.value));
             document.add(frame);
 
             CvPdfElement qualificationBox = new CvPdfElement(widthCol1, heightSideBox3, 0, heightSideBox3, pd);
@@ -122,7 +118,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
                 paragraph.addMarkup("{color:#FFFFFF}" + i.getQualificationDetails(), sideBarListsFontSize, montserrat, montserratBold,
                         montserrat, montserrat);
             }
-            frame.setBackgroundColor(Color.decode(QABlue));
+            frame.setBackgroundColor(Color.decode(CvPdfConstants.QA_BLUE.value));
             document.add(frame);
 
             CvPdfElement header = new CvPdfElement(widthCol2, heightHeader, widthCol1, document.getPageHeight(), pd);
@@ -138,16 +134,16 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             paragraph = body.getParagraph();
             frame = body.getFrame();
             bodyTitle(paragraph, "PROFILE");
-            paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
+            paragraph.addMarkup("{color:" + CvPdfConstants.QA_GREY.value + "}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
             bodyTitle(paragraph, "WORK EXPERIENCE");
             for (int i = 0; i < cvVersion.getAllWorkExperience().size(); i++) {
-                paragraph.addMarkup("{color:" + QABlue + "}*" + cvVersion.getAllWorkExperience().get(i).getJobTitle() + "*\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
+                paragraph.addMarkup("{color:" + CvPdfConstants.QA_BLUE.value + "}*" + cvVersion.getAllWorkExperience().get(i).getJobTitle() + "*\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
                 paragraph.addMarkup("\n", 4, montserrat, montserratBold, montserrat, montserrat);
-                paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getAllWorkExperience().get(i).getWorkExperienceDetails() + "\n\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
+                paragraph.addMarkup("{color:" + CvPdfConstants.QA_GREY.value + "}" + cvVersion.getAllWorkExperience().get(i).getWorkExperienceDetails() + "\n\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
             }
             paragraph.addMarkup("\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
             bodyTitle(paragraph, "HOBBIES/INTERESTS");
-            paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getHobbies().getHobbiesDetails() + "\n\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
+            paragraph.addMarkup("{color:" + CvPdfConstants.QA_GREY.value + "}" + cvVersion.getHobbies().getHobbiesDetails() + "\n\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
             document.add(frame);
             
             CvPdfElement footer = new CvPdfElement(widthCol2, heightFooter, widthCol1, heightFooter, pd);
@@ -186,7 +182,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     }
 
     public void bodyTitle(Paragraph paragraph, String title) throws IOException {
-        paragraph.addMarkup("{color:" + QAPurple + "}*" +title+ "*\n", bodyHeadingsFontSize, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+        paragraph.addMarkup("{color:" + CvPdfConstants.QA_PURPLE.value + "}*" +title+ "*\n", bodyHeadingsFontSize, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
         paragraph.addMarkup("\n", 5, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
     }
     
