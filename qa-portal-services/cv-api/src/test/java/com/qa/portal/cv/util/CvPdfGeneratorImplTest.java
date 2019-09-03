@@ -63,19 +63,20 @@ public class CvPdfGeneratorImplTest {
 	// Test: Make sure that a PDF has been created
 	@Test
 	public void generateCvTest(){
-		CvPdfGeneratorImpl pdfGenerator = new CvPdfGeneratorImpl();
-		pdfGenerator.loadFonts();
 		try{
-			Resource generatedPdfResource = new FileSystemResource("test.pdf");
+			Resource generatedPdfResource = new FileSystemResource("pdfGenTest.pdf");
 			File generatedPdfFile = new File(generatedPdfResource.getFile().getPath());
 
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			md.update(Files.readAllBytes(generatedPdfFile.toPath()));
 			byte[] loadedPdfBytes = md.digest();
 			String pdfChecksum = DatatypeConverter.printHexBinary(loadedPdfBytes);
-			System.out.println(pdfChecksum);
+			System.out.println(".PDF GENERATION SUCCESS");
+			System.out.println("Generated .pdf filepath: " + generatedPdfFile.getAbsolutePath()); 
+			System.out.println("Generated .pdf checksum: " + pdfChecksum);
 
 		} catch (Exception ex) {
+			System.out.println(".PDF GENERATION FAILED");
 			ex.printStackTrace();
 			System.out.println("Error: " + ex.getMessage());
 		}

@@ -284,7 +284,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 	public void generateWorkExperienceBox(CvVersion cvVersion) {
 		// Work Experience
 		try {
-			paragraph.addMarkup("{color:" + QAPurple + "}*WORK EXPERIANCE - QA*\n", bodyHeadingsFontSize, kranaFatB,
+			paragraph.addMarkup("{color:" + QAPurple + "}*WORK EXPERIENCE - QA*\n", bodyHeadingsFontSize, kranaFatB,
 					kranaFatB, kranaFatB, kranaFatB);
 			paragraph.addMarkup("\n", 5, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
 			for (int i = 0; i < cvVersion.getAllWorkExperience().size(); i++) {
