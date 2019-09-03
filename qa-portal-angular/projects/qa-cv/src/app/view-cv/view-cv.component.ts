@@ -63,6 +63,28 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     });
 
   }
+  fileURL: string;
+  getPDFService() {
+    this.cvService.getPDF(this.cvData).subscribe((response) => {
+
+      let file = new Blob([response], { type: 'application/pdf' });
+      console.log(file);
+      console.log(this.fileURL+" 1111111111111111111111");
+      this.fileURL = URL.createObjectURL(file);
+      console.log(this.fileURL+" 22222222222222222");
+      window.open(this.fileURL);
+      console.log(this.fileURL+" 3333333333333333333");
+
+     
+
+
+    })
+    
+    
+
+  }
+
+
 
 
   ngOnDestroy(): void {
@@ -72,6 +94,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   onSave(): void {
     this.cvData.status = "Saved";
     this.updateCv();
+
   }
 
   updateCv(): void {
@@ -79,9 +102,23 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvService.updateCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
 
+  submitCv(): void {
+    this.cvService.submitCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
+  }
+
+  onApproveCv(): void {
+    this.cvService.approveCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
+  }
+
+  onFailCv(): void {
+    this.cvService.failCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
+  }
+
+
   onSubmit(): void {
-    this.cvData.status = "Submitted For Review";
-    this.updateCv();
+
+    this.submitCv();
+
   }
 
   onWorkExpFeedbackClick({ index }: { index: number }, expCard: CvCardBaseComponent): void {
