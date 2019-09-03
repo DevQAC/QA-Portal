@@ -20,7 +20,8 @@
   <div style="display: flex; margin-top: 10px; margin-bottom: 10px;" *ngIf="question.hasComment">
     <div class="checkbox-filler"></div>
     <textarea class="checkbox-response" matInput
-              [ngModel]="question?.commentLabel?.content"
+              [disabled]="isDisabled"
+              [ngModel]="questionResponse?.comment?.content"
               (ngModelChange)="setComment($event)"
               placeholder="{{question.commentLabel}}"></textarea>
     <div class="checkbox-filler"></div>
