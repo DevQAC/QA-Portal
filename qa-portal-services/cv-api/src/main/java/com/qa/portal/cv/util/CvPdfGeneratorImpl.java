@@ -75,7 +75,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     }
 
     @PostConstruct
-    public void loadfonts() {    	
+    public void loadFonts() {
         try {
         	this.montserrat = loadFont("Montserrat-Regular.ttf");
         	this.montserratBold = loadFont("Montserrat-SemiBold.ttf");
