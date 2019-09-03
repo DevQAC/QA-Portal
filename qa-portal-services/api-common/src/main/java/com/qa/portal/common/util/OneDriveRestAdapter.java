@@ -36,17 +36,16 @@ public class OneDriveRestAdapter {
 
     public OneDriveRestAdapter(JsonPropertyUtil jsonPropertyUtil,
                                AuthenticationManager authenticationManager,
-                               ObjectMapper objectMapper,
                                Environment environment) {
         this.jsonPropertyUtil = jsonPropertyUtil;
         this.authenticationManager = authenticationManager;
-        this.objectMapper = objectMapper;
         this.environment = environment;
     }
 
     @PostConstruct
     public void init() {
         oneDriveActive = environment.getProperty("onedrive.isActive");
+        objectMapper = new ObjectMapper();
         if (oneDriveActive != null && oneDriveActive.equals("true")) {
             setOneDriveProperties();
             authToken = authenticationManager.getAuthentication();
