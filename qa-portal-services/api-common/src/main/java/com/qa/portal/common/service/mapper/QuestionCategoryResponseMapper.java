@@ -140,6 +140,11 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
         fqcre.setQuestionCategory(getQuestionCategoryEntity(questionCategoryResponseDto.getQuestionCategory()));
         fqcre.setQuestionResponses(createQuestionResponseEntities(questionCategoryResponseDto.getQuestionResponses(), fqcre));
         fqcre.setParent(categoryResponseParent);
+        if (questionCategoryResponseDto.getComment() != null) {
+            CommentEntity commentEntity = new CommentEntity();
+            commentEntity.setContent(questionCategoryResponseDto.getComment().getContent());
+            fqcre.setComment(commentEntity);
+        }
         return fqcre;
     }
 
@@ -159,6 +164,11 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
         questionResponseEntity.setCategoryResponse(questionCategoryResponseEntity);
         questionResponseEntity.setQuestion(getQuestionEntity(questionResponseDto.getQuestion().getId()));
         questionResponseEntity.setResponseValues(getQuestionResponseValue(questionResponseDto));
+        if (questionResponseDto.getComment() != null) {
+            CommentEntity commentEntity = new CommentEntity();
+            commentEntity.setContent(questionResponseDto.getComment().getContent());
+            questionResponseEntity.setComment(commentEntity);
+        }
         return questionResponseEntity;
     }
 
