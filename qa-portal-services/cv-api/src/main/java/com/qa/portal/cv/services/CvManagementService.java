@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.util.CvPdfGenerator;
 
@@ -43,7 +44,12 @@ public class CvManagementService {
     }
 
     public byte[] getGeneratedCv(CvVersion cvVersion) throws IOException {
-        return cvPdfGenerator.generateCv(cvVersion);
+        try{
+            return cvPdfGenerator.generateCv(cvVersion);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            throw new QaPortalBusinessException(e.getMessage());
+        }
     }
     
 //	Create Service
