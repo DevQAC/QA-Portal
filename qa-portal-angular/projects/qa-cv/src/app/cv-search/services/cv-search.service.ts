@@ -10,7 +10,7 @@ export class CVSearchHistoryService {
 
     constructor(private http: HttpClient) { }
 
-    private searchUrl = 'api/filter';  // URL to web api
+    private searchUrl = 'cv-api/search';  // URL to web api
 
     /**
  * Handle Http operation that failed.
@@ -70,7 +70,7 @@ export class CVSearchHistoryService {
             // if not search term, return empty CV array.
             return of([]);
         }
-        return this.http.get<CVSearchModel[]>(`${this.searchUrl}/?name=${term}/?cohort=${intakeChoice}/?technology=${techChoice}/?cvStatus=${statusChoice}`).pipe(
+        return this.http.get<CVSearchModel[]>(`${this.searchUrl}/?name=${term}/&cohort=${intakeChoice}/&tech=${techChoice}/&status=${statusChoice}`).pipe(
             catchError(this.handleError<CVSearchModel[]>('searchCVs', []))
         );
     }

@@ -83,7 +83,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
     intakeChoice = this.selectedIntake;
     techChoice = this.selectedTech;
     statusChoice = this.selectedStatus;
-    this.cvSearchSubscription = this.cvSearchHistoryService.getCVSearches(term, intakeChoice, techChoice, statusChoice).subscribe(
+    this.cvSearchSubscription = this.cvSearchHistoryService.searchCVs(term, intakeChoice, techChoice, statusChoice).subscribe(
       (response) => {
         this.currentForm = [];
         response.forEach((search) => {
