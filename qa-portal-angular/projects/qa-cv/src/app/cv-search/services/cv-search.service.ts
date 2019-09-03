@@ -10,7 +10,7 @@ export class CVSearchHistoryService {
 
     constructor(private http: HttpClient) { }
 
-    private searchUrl = 'cv-api/search';  // URL to web api
+    private searchUrl = 'cv-api/cv/search';  // URL to web api
 
     /**
  * Handle Http operation that failed.
