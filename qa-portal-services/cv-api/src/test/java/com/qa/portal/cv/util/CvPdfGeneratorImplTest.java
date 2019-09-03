@@ -1,19 +1,23 @@
 package com.qa.portal.cv.util;
 
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.nio.file.Files;
+import java.security.MessageDigest;
 
-import com.qa.portal.cv.domain.CvVersion;
+import javax.xml.bind.DatatypeConverter;
 
 import rst.pdfbox.layout.elements.Paragraph;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qa.portal.cv.domain.CvVersion;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -21,27 +25,29 @@ public class CvPdfGeneratorImplTest {
 
 	// Test: Make sure fonts can be loaded 
 	@Test
-	public void pdfLoadFonts() {
+	public void pdfLoadFontsTest() {
 		CvPdfGeneratorImpl pdfGen = Mockito.mock(CvPdfGeneratorImpl.class);
 		try {
-			pdfGen.loadfonts();
+			pdfGen.loadFonts();
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}
-		Mockito.verify(pdfGen).loadfonts();
+		Mockito.verify(pdfGen).loadFonts();
 	}
 
 	// Test: Make sure an element can be added to the PDF
 	@Test
-	public void pdfElementCreation() throws IOException {
-		CvPdfGeneratorImpl pdfGen = Mockito.mock(CvPdfGeneratorImpl.class);
-		CvVersion cvVersion = getCvVersion();
+	public void pdfElementCreationTest() throws IOException {
+		CvPdfGeneratorImpl pdfGenerator = Mockito.mock(CvPdfGeneratorImpl.class);
+		Resource jsonResource = new ClassPathResource("cv-version.json");
+		ObjectMapper jsonObjectMapper = new ObjectMapper();
+		CvVersion cvVersion = jsonObjectMapper.readValue(jsonResource.getInputStream(), CvVersion.class);
 		Paragraph paragraph = new Paragraph();
 
-		pdfGen.generateSkillsBox(paragraph, "Programing Languages",
+		pdfGenerator.generateSkillsBox(paragraph, "Programing Languages",
 				cvVersion.getAllSkills().get(0).getProgrammingLanguages());
 
-		Mockito.verify(pdfGen).generateSkillsBox(paragraph, "Programing Languages",
+		Mockito.verify(pdfGenerator).generateSkillsBox(paragraph, "Programing Languages",
 				cvVersion.getAllSkills().get(0).getProgrammingLanguages());
 	}
 
@@ -56,24 +62,22 @@ public class CvPdfGeneratorImplTest {
 
 	// Test: Make sure that a PDF has been created
 	@Test
-	public void pdfGenTest() {
-		CvPdfGeneratorImpl pdfGen = new CvPdfGeneratorImpl();
-		pdfGen.loadfonts();
-		try {
-			byte[] pdfBytes = pdfGen.generateCv(getCvVersion());
-			// Create File from byte[] and save to file system /output/filename.pdf
-			OutputStream os = new FileOutputStream("pdfGenTest.pdf");
-			os.write(pdfBytes);
-			os.close();
-		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
-		}
-	}
+	public void generateCvTest(){
+		CvPdfGeneratorImpl pdfGenerator = new CvPdfGeneratorImpl();
+		pdfGenerator.loadFonts();
+		try{
+			Resource generatedPdfResource = new FileSystemResource("test.pdf");
+			File generatedPdfFile = new File(generatedPdfResource.getFile().getPath());
 
-	private CvVersion getCvVersion() throws IOException {
-		Resource res = new ClassPathResource("cv-version.json");
-		ObjectMapper om = new ObjectMapper();
-		CvVersion cvVersion = om.readValue(res.getInputStream(), CvVersion.class);
-		return cvVersion;
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(Files.readAllBytes(generatedPdfFile.toPath()));
+			byte[] loadedPdfBytes = md.digest();
+			String pdfChecksum = DatatypeConverter.printHexBinary(loadedPdfBytes);
+			System.out.println(pdfChecksum);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("Error: " + ex.getMessage());
+		}
 	}
 }

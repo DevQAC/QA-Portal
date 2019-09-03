@@ -71,7 +71,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 	PDFont kranaFatB;
 
 	@PostConstruct
-	public void loadfonts() {
+	public void loadFonts() {
 		try {
 			Resource montRegResource = new ClassPathResource("Montserrat-Regular.ttf");
 			Resource montBoldResource = new ClassPathResource("Montserrat-SemiBold.ttf");
@@ -121,7 +121,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
 			// column 2 body
 			generateBodyBox(cvVersion);
-			generateWorkExperianceBox(cvVersion);
+			generateWorkExperienceBox(cvVersion);
 			generateHobbiesBox(cvVersion);
 			paragraph = new Paragraph();
 			frame = new Frame(paragraph, widthCol2 - padding * 2, 0.5f);
@@ -281,7 +281,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 		}
 	}
 
-	public void generateWorkExperianceBox(CvVersion cvVersion) {
+	public void generateWorkExperienceBox(CvVersion cvVersion) {
 		// Work Experience
 		try {
 			paragraph.addMarkup("{color:" + QAPurple + "}*WORK EXPERIANCE - QA*\n", bodyHeadingsFontSize, kranaFatB,
