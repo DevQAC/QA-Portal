@@ -6,7 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
 import * as _ from 'lodash';
-import { GET_ALL_CVS, POST_CV_DATA } from '../models/cv.constants';
+import { GET_ALL_CVS, POST_CV_DATA, SUBMIT_CV, APPROVE_CV, FAIL_CV } from '../models/cv.constants';
 
 @Injectable({ providedIn: 'root' })
 export class ViewCvService {
@@ -23,9 +23,6 @@ export class ViewCvService {
 
 
 
-
-
- 
 
   /** GET cv by id. Will 404 if id not found */
   getLatestCvForCurrentUser(): Observable<ICvModel> {
@@ -66,6 +63,27 @@ export class ViewCvService {
   updateCv(cv: ICvModel): Observable<ICvModel> {
     return this.http.put(POST_CV_DATA, cv, this.httpOptions).pipe(
       tap(_ => this.log(`updated cv id=${cv.id}`)),
+      catchError(this.handleError<any>('updateICvModel'))
+    );
+  }
+
+  submitCv(cv: ICvModel): Observable<ICvModel> {
+    return this.http.put(SUBMIT_CV, cv, this.httpOptions).pipe(
+      tap(_ => this.log(`Submited cv id=${cv.id}`)),
+      catchError(this.handleError<any>('updateICvModel'))
+    );
+  }
+
+  approveCv(cv: ICvModel): Observable<ICvModel> {
+    return this.http.put(APPROVE_CV, cv, this.httpOptions).pipe(
+      tap(_ => this.log(`Aprroved cv id=${cv.id}`)),
+      catchError(this.handleError<any>('updateICvModel'))
+    );
+  }
+
+  failCv(cv: ICvModel): Observable<ICvModel> {
+    return this.http.put(FAIL_CV, cv, this.httpOptions).pipe(
+      tap(_ => this.log(`Failed cv id=${cv.id}`)),
       catchError(this.handleError<any>('updateICvModel'))
     );
   }

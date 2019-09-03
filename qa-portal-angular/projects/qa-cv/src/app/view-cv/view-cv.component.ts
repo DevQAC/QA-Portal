@@ -103,9 +103,22 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvService.updateCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
 
+  submitCv(): void {
+    this.cvService.submitCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
+  }
+
+  onApproveCv(): void {
+    this.cvService.approveCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
+  }
+
+  onFailCv(): void {
+    this.cvService.failCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
+  }
+
+
   onSubmit(): void {
-    this.cvData.status = "Submitted For Review";
-    this.updateCv();
+
+    this.submitCv();
 
   }
 
