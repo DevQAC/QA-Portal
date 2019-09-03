@@ -94,7 +94,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             frame = consultantNameBox.getFrame();
             paragraph.addMarkup("{color:#FFFFFF}*" + cvVersion.getFirstName() + "\n" + cvVersion.getSurname() + "*", sideBarHeaderFontSize, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
             paragraph.addMarkup("{color:" + QAPurple + "} \n*Consultant*", sideBarHeaderFontSize, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
-            frame.setBackgroundColor(Color.decode(QARed));
+            frame.setBackgroundColor(Color.decode(CvPdfConstants.QA_BLUE.toString()));
             document.add(frame);
             
             ImageElement arrow = loadImages("target/classes/Arrow.png", 35);
@@ -167,6 +167,8 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             byte[] data = out.toByteArray();
             InputStream in = new ByteArrayInputStream(data);
             byte[] byteArray = IOUtils.toByteArray(in);
+            out.close();
+            in.close();
             return byteArray;
 
         } catch (IOException e) {
@@ -201,11 +203,9 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         paragraph.addMarkup("\n", sideTitleListSpacing, montserrat, montserratBold, montserrat, montserrat);
         for (int i = 0; i < list.size(); i++) {
             if (i < list.size() - 1) {
-                paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + ", ", sideBarListsFontSize, montserrat, montserratBold, montserrat,
-                        montserrat);
+                paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + ", ", sideBarListsFontSize, montserrat, montserratBold, montserrat, montserrat);
             } else {
-                paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + "\n\n", sideBarListsFontSize, montserrat, montserratBold,
-                        montserrat, montserrat);
+                paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + "\n\n", sideBarListsFontSize, montserrat, montserratBold, montserrat, montserrat);
             }
         }
     }
