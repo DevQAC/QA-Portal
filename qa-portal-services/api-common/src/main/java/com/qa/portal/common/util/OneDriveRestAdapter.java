@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
 
@@ -108,7 +107,7 @@ public class OneDriveRestAdapter {
     private String createFolder(String locationId, String folderName) {
         HttpURLConnection connection = null;
         try {
-            URL url = new URL(oneDriveUrl + "items/" + locationId + "/children");
+            String url = oneDriveUrl + "items/" + locationId + "/children";
             connection = createConnection(url, HTTP_POST_METHOD_STRING);
             connection.setDoOutput(true);
             connection.connect();
@@ -117,16 +116,14 @@ public class OneDriveRestAdapter {
             postData(connection, jsonBodyAsArray);
             String response = getResponse(connection);
             return jsonPropertyUtil.getJsonContentForProperty("id", response);
-        } catch (IOException e) {
-            //TODO - Swallowing exception
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new QaPortalBusinessException("Failed to create folder for user on one drive");
         }
-        return null;
     }
 
     private String getItemId(String pathToItem) {
         try {
-            URL url = new URL(oneDriveUrl + "root:/" + pathToItem);
+            String url = oneDriveUrl + "root:/" + pathToItem;
             HttpURLConnection connection = createConnection(url, HTTP_GET_METHOD_STRING);
             connection.connect();
             String response = getResponse(connection);
@@ -141,34 +138,25 @@ public class OneDriveRestAdapter {
 
     private void uploadFile(String fileName, String destinationFolderId, byte[] fileData) {
         try {
-            //send request
-            URL url = new URL(oneDriveUrl + "items/" + destinationFolderId + ":/" + fileName + ":/content");
+            String url = oneDriveUrl + "items/" + destinationFolderId + ":/" + fileName + ":/content";
             HttpURLConnection connection = createConnection(url, HTTP_PUT_METHOD_STRING);
             connection.setDoOutput(true);
             connection.connect();
             postData(connection, fileData);
             String response = getResponse(connection);
-        } catch (MalformedURLException e) {
-            //TODO - Swallowing exception
-            e.printStackTrace();
-        } catch (IOException e) {
-            //TODO - Swallowing exception
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new QaPortalBusinessException("Error saving file on one drive");
         }
     }
 
     private void deleteFile(String itemId) {
         try {
-            URL url = new URL(oneDriveUrl + "/items/" + itemId);
+            String url = oneDriveUrl + "/items/" + itemId;
             HttpURLConnection connection = createConnection(url, HTTP_DELETE_METHOD_STRING);
             connection.connect();
             String response = getResponse(connection);
-        } catch (MalformedURLException e) {
-            //TODO - Swallowing exception
-            e.printStackTrace();
-        } catch (IOException e) {
-            //TODO - Swallowing exception
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new QaPortalBusinessException("Error deleting file from one drive");
         }
     }
 
@@ -187,14 +175,14 @@ public class OneDriveRestAdapter {
         while ((c = is.read()) != -1) {
             buffer.write((byte) c);
         }
-
         is.close();
         buffer.close();
         connection.disconnect();
         return buffer.toString();
     }
 
-    private HttpURLConnection createConnection(URL url, String requestMethod) throws IOException {
+    private HttpURLConnection createConnection(String urlString, String requestMethod) throws IOException {
+        URL url = new URL(urlString);
         HttpURLConnection connection;
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(requestMethod);
