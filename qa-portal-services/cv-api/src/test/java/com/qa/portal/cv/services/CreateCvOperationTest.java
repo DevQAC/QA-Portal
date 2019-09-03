@@ -1,6 +1,6 @@
 package com.qa.portal.cv.services;
 
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,24 +21,43 @@ public class CreateCvOperationTest {
 	@Mock
 	private CvVersionRepository repo;
 	
+	private CvVersion testData = new CvVersion();
+	
 	@Before
 	public void init() {
 		MockitoAnnotations.initMocks(this);
+		
+		this.testData.setFirstName("JUnit");
+		this.testData.setSurname("Test");
+		
+		this.testData = this.createService.createCv(testData);
+	}
+	
+	@Test
+	public void createCvTestVersionNumber() {
+		
+		Integer versionNumber = this.testData.getVersionNumber();
+		
+		assertSame("Initial Version Number is 1", 1, versionNumber);
+
 	}
 	
 //	Incomplete
+//	@Test
+//	public void createCvTestFullName() {
+//		
+//		String fullName = this.testData.getFullName();
+//		
+//		assertSame("Fullname is set upon CV creation", "JUnit Test", fullName);
+//		
+//	}
 	
 	@Test
-	public void createCvTest() {
+	public void createCvTestStatus() {
+
+		String status = this.testData.getStatus();
 		
-		CvVersion testData = new CvVersion();
-		
-		testData.setFirstName("JUnit");
-		testData.setSurname("Test");
-		
-		testData = this.createService.createCv(testData);
-		
-		verify(repo);
+		assertSame("Initial status is \"In Progress\"", "In Progress", status);
 		
 	}
 	
