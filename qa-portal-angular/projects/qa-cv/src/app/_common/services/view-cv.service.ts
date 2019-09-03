@@ -22,19 +22,7 @@ export class ViewCvService {
     private messageService: MessageService) { }
 
 
-  // /** GET cv by id. Return `undefined` when id not found */
-  // getICvModelNo404<Data>(id: number): Observable<ICvModel> {
-  //   const url = `${this.getUrl}/?id=${id}`;
-  //   return this.http.get<ICvModel[]>(url)
-  //     .pipe(
-  //       map(cvs => cvs[0]), // returns a {0|1} element array
-  //       tap(h => {
-  //         const outcome = h ? `fetched` : `did not find`;
-  //         this.log(`${outcome} cv id=${id}`);
-  //       }),
-  //       catchError(this.handleError<ICvModel>(`getICvModel id=${id}`))
-  //     );
-  // }
+
 
   /** GET cv by id. Will 404 if id not found */
   getLatestCvForCurrentUser(): Observable<ICvModel> {
@@ -49,6 +37,17 @@ export class ViewCvService {
     );
 
   }
+
+  getPDF(cv: ICvModel){
+    const url = `cv-api/cv/generated`;
+    const httpOptions = {
+      'responseType'  : 'arraybuffer' as 'json'
+
+    };
+  
+    return this.http.post<any>(url,cv,httpOptions);
+    
+    }
 
   //////// Save methods //////////
 
