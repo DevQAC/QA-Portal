@@ -22,11 +22,6 @@ public class CoreConfig {
     }
 
     @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
-
-    @Bean
     public JavaMailSender javaMailSender() {
         return new JavaMailSenderImpl();
     }
