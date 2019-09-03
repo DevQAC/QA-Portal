@@ -1,6 +1,7 @@
 package com.qa.portal.cv.services;
 
 
+import com.qa.portal.cv.domain.CvSearchCriteria;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -30,5 +31,7 @@ public class CvSearchOperation {
 //        } catch(PatternSyntaxException e) {
 //            return Collections.emptyList();
 //        }
+
+        return Collections.emptyList();
    }
 }

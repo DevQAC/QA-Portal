@@ -62,11 +62,6 @@ public class CvManagementController {
         return ResponseEntity.ok(this.service.getAll());
     }
 
-    @GetMapping("/cvs/status/{status}/tech/{tech}/cohort/{cohort}/name/{fullName}")
-    public ResponseEntity<List<CvVersion>> getAll() {
-        return ResponseEntity.ok(this.service.getAll());
-    }
-
     @GetMapping("/cv/version")
     public CvVersion findByVersionNumber(Integer versionNumber) {
         return service.findByVersionNumber(versionNumber);
