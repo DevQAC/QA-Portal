@@ -69,17 +69,17 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     float heightFooter = document.getPageHeight() / 20 - 8;
     float heightBody = document.getPageHeight() - heightHeader - heightFooter;
 
+    public PDFont loadFont(String path) throws IOException {
+    	Resource fontResource = new ClassPathResource(path);
+    	return PDType0Font.load(document.getPDDocument(), fontResource.getInputStream());
+    }
 
     @PostConstruct
-    public void loadfonts() {
+    public void loadfonts() {    	
         try {
-            Resource montRegResource = new ClassPathResource("Montserrat-Regular.ttf");
-            Resource montBoldResource = new ClassPathResource("Montserrat-SemiBold.ttf");
-            Resource kranaResource = new ClassPathResource("Krana-Fat-B.ttf");
-
-            this.montserrat = PDType0Font.load(document.getPDDocument(), montRegResource.getInputStream());
-            this.montserratBold = PDType0Font.load(document.getPDDocument(), montBoldResource.getInputStream());
-            this.kranaFatB = PDType0Font.load(document.getPDDocument(), kranaResource.getInputStream());
+        	this.montserrat = loadFont("Montserrat-Regular.ttf");
+        	this.montserratBold = loadFont("Montserrat-SemiBold.ttf");
+        	this.kranaFatB = loadFont("Krana-Fat-B.ttf");
         } catch (IOException e) {
             e.printStackTrace();
             throw new QaPortalBusinessException("Cannot load in CvPdfGeneratorImpl fonts");
@@ -97,12 +97,8 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             frame.setBackgroundColor(Color.decode(QARed));
             document.add(frame);
             
-            // column 1 box 1 image
-            ImageElement image = new ImageElement("target/classes/Arrow.png");
-            image.setWidth(image.getWidth() / 35);
-            image.setHeight(image.getHeight() / 35);
-            image.setAbsolutePosition(new Position(pd, document.getPageHeight() - heightSideBox1 + pd + 20));
-            document.add(image);
+            ImageElement arrow = loadImages("target/classes/Arrow.png", 35);
+            arrow.setAbsolutePosition(new Position(pd, document.getPageHeight() - heightSideBox1 + pd + 20));
 
             CvPdfElement skillsBox = new CvPdfElement(widthCol1, heightSideBox2, 0, document.getPageHeight() - heightSideBox1, pd);
             paragraph = skillsBox.getParagraph();
@@ -134,21 +130,15 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             frame = header.getFrame();
             paragraph.addMarkup("{color:#89898b}Consultant Profile", 8.8f, montserrat, montserratBold, montserrat, montserrat);
             document.add(frame);
-
-            // column 2 header image
-            ImageElement logo = new ImageElement("target/classes/QA_Logo.png");
-            logo.setWidth(logo.getWidth() / 37f);
-            logo.setHeight(logo.getHeight() / 37f);
-            logo.setAbsolutePosition(new Position(widthCol1 + widthCol2 - logo.getWidth() - pd,
-                    heightFooter + heightBody + logo.getHeight() + 4));
-            document.add(logo);
+            
+            ImageElement logo = loadImages("target/classes/QA_Logo.png", 37);
+            logo.setAbsolutePosition(new Position((widthCol1 + widthCol2 - logo.getWidth() - pd), (heightFooter + heightBody + logo.getHeight() + 4)));
 
             CvPdfElement body = new CvPdfElement(widthCol2, heightBody, widthCol1, document.getPageHeight()-heightHeader, pd);
             paragraph = body.getParagraph();
             frame = body.getFrame();
             bodyTitle(paragraph, "PROFILE");
             paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
-            // Work Experience
             bodyTitle(paragraph, "WORK EXPERIENCE");
             for (int i = 0; i < cvVersion.getAllWorkExperience().size(); i++) {
                 paragraph.addMarkup("{color:" + QABlue + "}*" + cvVersion.getAllWorkExperience().get(i).getJobTitle() + "*\n", bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
@@ -183,6 +173,14 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             e.printStackTrace();
             throw new QaPortalSevereException("Cannot generate pdf");
         }
+    }
+    
+    public ImageElement loadImages(String path, float resizeFactor) throws IOException {
+        ImageElement img = new ImageElement(path);
+        img.setWidth(img.getWidth() / resizeFactor);
+        img.setHeight(img.getHeight() / resizeFactor);
+        document.add(img);
+        return img;
     }
 
     public void bodyTitle(Paragraph paragraph, String title) throws IOException {
