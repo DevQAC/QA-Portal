@@ -46,9 +46,9 @@
                 <button mat-flat-button color="warn" (click)="openDialog()" title="Submit for Review"
                         [disabled]="!cvData || cvData.status==='For Review'">Submit</button>
                 Current Status: {{cvData?.status || 'Unknown'}}
-                <button mat-flat-button color="primary" (click)="onApproveCv()" title="Aprrove Cv"
+                <button *ngIf="canComment" mat-flat-button color="primary" (click)="onApproveCv()" title="Aprrove Cv"
                 [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Approve</button>
-                <button mat-flat-button color="warn" (click)="onFailCv()" title="Fail Cv"
+                <button *ngIf="canComment" mat-flat-button color="warn" (click)="onFailCv()" title="Fail Cv"
                 [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Fail</button>
         </div>
 </div>
