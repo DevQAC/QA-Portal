@@ -9,9 +9,13 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
+
+import static java.util.Arrays.*;
 
 @Component
 public class CvSearchOperation {
@@ -26,24 +30,41 @@ public class CvSearchOperation {
         this.mongoOperations = mongoOperations;
     }
 
+
+    // looking for a technology in one of several nested arrays is hardcoded
+    // and should probably be done differently.
+    // findByCriteria retrieves all cvs which meet the criteria selected on the admin search page
     public List<CvVersion> findByCriteria(CvSearchCriteria criteria) {
         try{
-            Query query = new Query();
-            if (criteria.getCohort() != "") {
+
+           Query query = new Query();
+            if (!criteria.getCohort().equals("")) {
                 query.addCriteria(Criteria.where("cohort").is(criteria.getCohort()));
             }
-            if (criteria.getFullName() !=  "") {
+            if (!criteria.getFullName().equals("")) {
                 query.addCriteria(Criteria.where("fullName").is(criteria.getFullName()));
             }
-            if (criteria.getCvStatus() != "") {
+            if (!criteria.getCvStatus().equals("")) {
                 query.addCriteria(Criteria.where("status").is(criteria.getCvStatus()));
             }
             // next one may need more thought, value in an array of objects
-            if (criteria.getTechnology() != "") {
-                query.addCriteria(Criteria.where("allSkills").is(criteria.getTechnology()));
+            // query.addCriteria(Criteria.where(("allSkills.other").(criteria.getTechnology())
+            if (!criteria.getTechnology().equals("")) {
+                query.addCriteria(Criteria.where("allSkills").exists(true).orOperator(
+                        Criteria.where("allSkills.other").is(criteria.getTechnology()),
+                        Criteria.where("allSkills.programmingLanguages").is(criteria.getTechnology()),
+                        Criteria.where("allSkills.ides").is(criteria.getTechnology()),
+                        Criteria.where("allSkills.operatingSystems").is(criteria.getTechnology()),
+                        Criteria.where("allSkills.devops").is(criteria.getTechnology()),
+                        Criteria.where("allSkills.databases").is(criteria.getTechnology()),
+                        Criteria.where("allSkills.platforms").is(criteria.getTechnology())
+
+                        )
+                );
+
             }
             return mongoOperations.find(query, CvVersion.class);
-        } catch(PatternSyntaxException e) {
+        } catch(Exception e) {
             return Collections.emptyList();
         }
 
