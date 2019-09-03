@@ -5,9 +5,8 @@ import { CvCardBaseComponent } from '../cv-card-base/cv-card-base.component';
 import { IFeedback } from '../_common/models/feedback.model';
 import { ActivatedRoute } from '@angular/router';
 import { TRAINING_ADMIN_ROLE } from '../../../../portal-core/src/app/_common/models/portal-constants';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MAT_DATE_LOCALE, MatDialog } from '@angular/material';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-confirm-dialog.component';
 
 

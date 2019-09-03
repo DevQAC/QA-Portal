@@ -20,6 +20,7 @@ import { QaToastrService } from './_common/services/qa-toastr.service';
 import { QaCvModule } from 'projects/qa-cv/src/app/qa-cv.module';
 import { MAT_DATE_LOCALE } from '@angular/material';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     PortalSideMenuComponent,
     PortalSideMenuContentComponent,
     PortalFooterComponent,
+
   ],
   imports: [
     QaCommonModule,
