@@ -1,6 +1,5 @@
 <h1>{{cvData?.fullName}}</h1>
-<button mat-flat-button color="primary" (click)="getPDFService()" title="Open PDF"
-[disabled]="!cvData || cvData.status==='Submitted For Review'">PDF of CV</button>
+
 <div class="cv-content-wrapper" (onSubmit)="onSubmit($event)">
         <section>
                 <app-cv-card-base title="Personal Profile" [canComment]="canComment"
@@ -45,10 +44,13 @@
                         [disabled]="!cvData || cvData.status==='For Review'">Save</button>
                 <button mat-flat-button color="warn" (click)="openDialog()" title="Submit for Review"
                         [disabled]="!cvData || cvData.status==='For Review'">Submit</button>
-                Current Status: {{cvData?.status || 'Unknown'}}
+                Current Status: {{cvData?.status || 'Unknown'}}   
                 <button *ngIf="canComment" mat-flat-button color="primary" (click)="onApproveCv()" title="Aprrove Cv"
-                [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Approve</button>
+                        [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Approve</button>
                 <button *ngIf="canComment" mat-flat-button color="warn" (click)="onFailCv()" title="Fail Cv"
-                [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Fail</button>
+                        [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Fail</button>
+
+                <button mat-flat-button color="primary" (click)="getPDFService()" title="Open PDF"
+                        [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status ">PDF of CV</button>
         </div>
 </div>
