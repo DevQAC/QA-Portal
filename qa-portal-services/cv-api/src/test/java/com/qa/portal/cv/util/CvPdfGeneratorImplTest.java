@@ -19,7 +19,7 @@ import org.springframework.core.io.Resource;
 @RunWith(MockitoJUnitRunner.class)
 public class CvPdfGeneratorImplTest {
 
-	// Test: Make sure fonts can be loaded
+	// Test: Make sure fonts can be loaded 
 	@Test
 	public void pdfLoadFonts() {
 		CvPdfGeneratorImpl pdfGen = Mockito.mock(CvPdfGeneratorImpl.class);

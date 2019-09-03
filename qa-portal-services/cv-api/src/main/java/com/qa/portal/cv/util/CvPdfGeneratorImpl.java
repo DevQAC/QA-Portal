@@ -41,6 +41,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 	String QAPurple = "#7F007D";
 	String QARed = "#FF004C";
 	String QAGrey = "#565759";
+	
 
 	int padding = 20;
 	int sideBarHeaderFontSize = 20;
