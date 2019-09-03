@@ -49,7 +49,6 @@ public class CohortCourseFeedbackMapper {
 	public CohortCourseFeedbackDto mapToCohortCourseFeedbackDto(CohortCourseFeedbackEntity feedbackEntity) {
 		CohortCourseFeedbackDto feedbackDto = baseMapper.mapObject(feedbackEntity, CohortCourseFeedbackDto.class);
 		feedbackDto.setCategoryResponses(feedbackDto.getCategoryResponses().stream()
-				.sorted(Comparator.comparingInt(cr -> cr.getQuestionCategory().getId()))
 				.collect(Collectors.toList()));
 		return feedbackDto;
 	}

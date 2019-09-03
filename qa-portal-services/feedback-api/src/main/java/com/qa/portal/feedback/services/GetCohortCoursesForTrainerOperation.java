@@ -10,19 +10,16 @@ import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
-import com.qa.portal.feedback.persistence.entity.CohortCourseFeedbackEntity;
 import com.qa.portal.feedback.persistence.entity.EvalQuestionCategoryResponseEntity;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 import com.qa.portal.feedback.persistence.repository.CohortCourseFeedbackRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
@@ -77,7 +74,7 @@ public class GetCohortCoursesForTrainerOperation {
 								.flatMap(e -> e.getCategoryResponses().stream())
 								.filter(cr -> cr.getQuestionCategory().getCategoryName().equals(TRAINER_EVALUATION))
 								.map(cr -> getEvaluationResponseValue(cr))
-								.filter(s -> !s.equals("N/A"))
+								.filter(s -> !s.contains("N/A"))
 								.mapToInt(s -> Integer.valueOf(s))
 								.average();
 		cohortCourseDto.setAverageKnowledgeRating("N/A");
@@ -89,18 +86,18 @@ public class GetCohortCoursesForTrainerOperation {
 		return questionCategoryResponseEntity.getQuestionResponses()
 				.stream()
 				.findFirst()
-				.map(qr -> convertResponseValueToIntString(qr.getResponseValues()))
+				.map(qr -> convertResponseValueToString(qr.getResponseValues()))
 				.orElseThrow(()  -> new QaPortalBusinessException("Error calculating Trainer evaluation"));
 	}
 
-	private String convertResponseValueToIntString(String responseValues) {
+	private String convertResponseValueToString(String responseValues) {
 		try {
 			LOGGER.info("Response Values " + responseValues);
 			ObjectMapper om = new ObjectMapper();
 			TypeFactory typeFactory = om.getTypeFactory();
-			List<Integer> values = om.readValue(responseValues, typeFactory.constructCollectionType(List.class, Integer.class));
+			List<String> values = om.readValue(responseValues, typeFactory.constructCollectionType(List.class, String.class));
 			if (values.size() > 0) {
-				return values.get(0).toString();
+				return values.get(0);
 			}
 			return "N/A";
 		}

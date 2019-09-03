@@ -31,9 +31,6 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
 
     private QuestionRepository questionRepository;
 
-    private Comparator<QuestionCategoryResponseEntity> categoryResponseComparator =
-            Comparator.comparingInt(cr -> cr.getQuestionCategory().getId());
-
     public QuestionCategoryResponseMapper(BaseMapper baseMapper,
                                           CohortCourseRepository cohortCourseRepository,
                                           QuestionCategoryRepository questionCategoryRepository,
@@ -132,7 +129,6 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
         return questionCategoryResponseDtos
                 .stream()
                 .map(fq -> createFeedbackQuestionCategoryResponseEntity(fq, categoryResponseParent))
-                .sorted(categoryResponseComparator)
                 .collect(Collectors.toList());
     }
 
@@ -155,7 +151,6 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
     private List<QuestionResponseEntity> createQuestionResponseEntities(List<QuestionResponseDto> questionResponseDtos, QuestionCategoryResponseEntity questionCategoryResponseEntity) {
         return questionResponseDtos.stream()
                 .map(qr -> createQuestionResponseEntity(qr, questionCategoryResponseEntity))
-                .sorted(Comparator.comparingInt(cr -> cr.getQuestion().getId()))
                 .collect(Collectors.toList());
     }
 
