@@ -14,6 +14,8 @@ public class QaOneDriveManager implements QaFileManager {
 
     private Environment environment;
 
+    public static final String ARCHIVE_FOLDER_NAME = "archive";
+
     public QaOneDriveManager(OneDriveRestAdapter oneDriveRestAdapter,
                              Environment environment) {
         this.oneDriveRestAdapter = oneDriveRestAdapter;
@@ -28,6 +30,6 @@ public class QaOneDriveManager implements QaFileManager {
         oneDriveRestAdapter.saveFile(folderName, fileName, cvByteArray);
 
         // Store archive file
-        oneDriveRestAdapter.saveFile(folderName, "archive", fileVersion + "-" + fileName, cvByteArray);
+        oneDriveRestAdapter.saveFile(folderName, ARCHIVE_FOLDER_NAME, fileVersion + "-" + fileName, cvByteArray);
     }
 }

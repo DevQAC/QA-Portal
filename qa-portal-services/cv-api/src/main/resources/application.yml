@@ -41,6 +41,8 @@ onedrive:
   baseFolder: root/CVs
   clientId: 08478ba0-3a48-4179-9622-9b2d420a0846
   clientSecret: d48AYcXReGDfD8rNwkVu=BaD9Fh+ju./
+  authUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+  scopeUrl: https%3A%2F%2Fgraph.microsoft.com%2F.default
   url: https://graph.microsoft.com/v1.0/me/drive/
 
 ---

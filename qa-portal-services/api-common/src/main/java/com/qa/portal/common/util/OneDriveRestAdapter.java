@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.io.ByteArrayOutputStream;
@@ -17,6 +18,24 @@ import java.util.Optional;
 
 @Component
 public class OneDriveRestAdapter {
+
+    public static final String ACCEPT_HTTP_REQUEST_HEADER = "Accept";
+
+    public static final String CONTENT_TYPE_HTTP_REQUEST_HEADER = "Content-Type";
+
+    public static final String AUTHORIZATION_HTTP_REQUEST_HEADER = "Authorization";
+
+    public static final String BEARER_TOKEN_PREFIX = "Bearer ";
+
+    public static final String HTTP_POST_METHOD_STRING = "POST";
+
+    public static final String HTTP_PUT_METHOD_STRING = "PUT";
+
+    public static final String HTTP_GET_METHOD_STRING = "GET";
+
+    public static final String HTTP_DELETE_METHOD_STRING = "DELETE";
+
+    public static final String APPLICATION_JSON_MEDIA_TYPE_STRING = "application/json";
 
     private String baseFolderPath;
 
@@ -34,22 +53,25 @@ public class OneDriveRestAdapter {
 
     private Environment environment;
 
+    private RestTemplate restTemplate;
+
     public OneDriveRestAdapter(JsonPropertyUtil jsonPropertyUtil,
                                AuthenticationManager authenticationManager,
+                               RestTemplate restTemplate,
                                Environment environment) {
         this.jsonPropertyUtil = jsonPropertyUtil;
         this.authenticationManager = authenticationManager;
         this.environment = environment;
+        this.restTemplate = restTemplate;
     }
 
     @PostConstruct
     public void init() {
         oneDriveActive = environment.getProperty("onedrive.isActive");
-        objectMapper = new ObjectMapper();
         if (oneDriveActive != null && oneDriveActive.equals("true")) {
-            setOneDriveProperties();
-            authToken = authenticationManager.getAuthentication();
             objectMapper = new ObjectMapper();
+            setOneDriveProperties();
+            authToken = authenticationManager.authenticate();
         }
     }
 
@@ -66,7 +88,7 @@ public class OneDriveRestAdapter {
         uploadFile(fileName, getArchiveFolderId(parentFolder, folderPath), fileContents);
     }
 
-    public String getFolderId(String folderPath) {
+    private String getFolderId(String folderPath) {
         String folderId = getItemId(folderPath);
         if (folderId == null) {
             folderId = createFolder(baseFolderPath, folderPath);
@@ -74,7 +96,7 @@ public class OneDriveRestAdapter {
         return folderId;
     }
 
-    public String getArchiveFolderId(String parentFolderName, String folderName) {
+    private String getArchiveFolderId(String parentFolderName, String folderName) {
         String userFolderId = getFolderId(parentFolderName);
         String archiveFolderId = getItemId(parentFolderName + "/" + folderName);
         if (archiveFolderId == null) {
@@ -83,11 +105,13 @@ public class OneDriveRestAdapter {
         return archiveFolderId;
     }
 
-    public String createFolder(String locationId, String folderName) {
+    private String createFolder(String locationId, String folderName) {
         HttpURLConnection connection = null;
         try {
             URL url = new URL(oneDriveUrl + "items/" + locationId + "/children");
-            connection = createConnection(url, "POST");
+            connection = createConnection(url, HTTP_POST_METHOD_STRING);
+            connection.setDoOutput(true);
+            connection.connect();
             String jsonBody = "{\"name\": \"" + folderName + "\",\"folder\": { } }";
             byte[] jsonBodyAsArray = jsonBody.getBytes("utf-8");
             postData(connection, jsonBodyAsArray);
@@ -100,10 +124,11 @@ public class OneDriveRestAdapter {
         return null;
     }
 
-    public String getItemId(String pathToItem) {
+    private String getItemId(String pathToItem) {
         try {
             URL url = new URL(oneDriveUrl + "root:/" + pathToItem);
-            HttpURLConnection connection = createConnection(url, "GET");
+            HttpURLConnection connection = createConnection(url, HTTP_GET_METHOD_STRING);
+            connection.connect();
             String response = getResponse(connection);
             if (connection.getResponseCode() != 200) {
                 throw new QaPortalBusinessException("Item not found on onedrive");
@@ -114,11 +139,13 @@ public class OneDriveRestAdapter {
         }
     }
 
-    public void uploadFile(String fileName, String destinationFolderId, byte[] fileData) {
+    private void uploadFile(String fileName, String destinationFolderId, byte[] fileData) {
         try {
             //send request
             URL url = new URL(oneDriveUrl + "items/" + destinationFolderId + ":/" + fileName + ":/content");
-            HttpURLConnection connection = createConnection(url, "PUT");
+            HttpURLConnection connection = createConnection(url, HTTP_PUT_METHOD_STRING);
+            connection.setDoOutput(true);
+            connection.connect();
             postData(connection, fileData);
             String response = getResponse(connection);
         } catch (MalformedURLException e) {
@@ -133,7 +160,8 @@ public class OneDriveRestAdapter {
     private void deleteFile(String itemId) {
         try {
             URL url = new URL(oneDriveUrl + "/items/" + itemId);
-            HttpURLConnection connection = createConnection(url, "DELETE");
+            HttpURLConnection connection = createConnection(url, HTTP_DELETE_METHOD_STRING);
+            connection.connect();
             String response = getResponse(connection);
         } catch (MalformedURLException e) {
             //TODO - Swallowing exception
@@ -170,12 +198,9 @@ public class OneDriveRestAdapter {
         HttpURLConnection connection;
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(requestMethod);
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Authorization", "Bearer " + authToken);
-        if (requestMethod.equals("POST") || requestMethod.equals("PUT"))
-            connection.setDoOutput(true);
-        connection.connect();
+        connection.setRequestProperty(ACCEPT_HTTP_REQUEST_HEADER, APPLICATION_JSON_MEDIA_TYPE_STRING);
+        connection.setRequestProperty(CONTENT_TYPE_HTTP_REQUEST_HEADER, APPLICATION_JSON_MEDIA_TYPE_STRING);
+        connection.setRequestProperty(AUTHORIZATION_HTTP_REQUEST_HEADER, BEARER_TOKEN_PREFIX + authToken);
         return connection;
     }
 

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 
@@ -19,6 +20,11 @@ public class CoreConfig {
         DozerBeanMapper mapper = new DozerBeanMapper();
         mapper.setMappingFiles(Arrays.asList(DOZER_CONFIG_FILE));
         return mapper;
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
     @Bean

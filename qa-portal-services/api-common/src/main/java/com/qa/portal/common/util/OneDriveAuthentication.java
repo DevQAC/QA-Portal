@@ -15,7 +15,31 @@ import java.nio.charset.StandardCharsets;
 @Component
 public class OneDriveAuthentication implements AuthenticationManager {
 
-	private final Logger LOGGER = LoggerFactory.getLogger(OneDriveAuthentication.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(OneDriveAuthentication.class);
+
+    public static final String HTTP_POST_METHOD = "POST";
+
+    public static final String CONTENT_TYPE_HTTP_HEADER = "Content-Type";
+
+    public static final String APPLICATION_X_WWW_FORM_URLENCODED = "application/x-www-form-urlencoded";
+
+    public static final String ACCESS_TOKEN_JSON_RESPONSE_PROPERTY = "access_token";
+
+    public static final String CLIENT_ID_URL_QUERY_PARAM = "client_id";
+
+    public static final String SCOPE_URL_QUERY_PARAM = "&scope=";
+
+    public static final String GRANT_TYPE_URL_QUERY_PARAM = "&grant_type";
+
+    public static final String CLIENT_SECRET_URL_QUERY_PARAM = "&client_secret=";
+
+    public static final String ONEDRIVE_CLIENT_ID_ENV_PROPERTY = "onedrive.clientId";
+
+    public static final String ONEDRIVE_SCOPE_URL_ENV_PROPERTY = "onedrive.scopeUrl";
+
+    public static final String ONEDRIVE_CLIENT_SECRET_ENV_PROPERTY = "onedrive.clientSecret";
+
+    public static final String UTF_8_STRING = "utf-8";
 
     private JsonPropertyUtil jsonPropertyUtil;
 
@@ -28,43 +52,52 @@ public class OneDriveAuthentication implements AuthenticationManager {
     }
 
     @Override
-    public String getAuthentication() {
+    public String authenticate() {
+        HttpURLConnection connection = null;
         try {
-            String urlParameters = "client_id=" + environment.getProperty("onedrive.clientId")
-                    + "&scope=https%3A%2F%2Fgraph.microsoft.com%2F.default"
-                    + "&grant_type=client_credentials"
-                    + "&client_secret=" + URLEncoder.encode(environment.getProperty("onedrive.clientSecret"), "utf-8");
-            byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
-
-            URL url = new URL("https://login.microsoftonline.com/common/oauth2/v2.0/token");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoOutput(true);
-            connection.setInstanceFollowRedirects(false);
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connection.setUseCaches(false);
-            DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-            wr.write(postData);
-
-            try {
-            	LOGGER.info("In try block of auth");
-                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
-                String response = br.readLine();
-				LOGGER.info("Auth response " + response);
-                return jsonPropertyUtil.getJsonContentForProperty("access_token", response);
-            } catch (Exception e) {
-                ByteArrayOutputStream bOut = new ByteArrayOutputStream();
-                InputStream is = connection.getErrorStream();
-                int charByte;
-                while ((charByte = is.read()) != -1) {
-                    bOut.write((byte) charByte);
-                }
-                LOGGER.error("Error connecting to one drive " + e.getMessage(), e);
-                throw new QaPortalBusinessException("Failed to connect to onedrive");
-            }
+            connection = createConnection();
+            sendAuthRequest(connection);
+            String authToken = getAuthResponse(connection);
+            return authToken;
         } catch (Exception e) {
-			LOGGER.error("Error connecting to one drive " + e.getMessage(), e);
-            throw new QaPortalBusinessException("Failed to connect to onedrive");
+            LOGGER.error("Error connecting to one drive " + e.getMessage(), e);
+            throw new QaPortalBusinessException("Failed to connect to one drive");
+        }
+    }
+
+    private HttpURLConnection createConnection() throws Exception {
+        URL url = new URL(environment.getProperty("onedrive.authUrl"));
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setInstanceFollowRedirects(false);
+        connection.setRequestMethod(HTTP_POST_METHOD);
+        connection.setRequestProperty(CONTENT_TYPE_HTTP_HEADER, APPLICATION_X_WWW_FORM_URLENCODED);
+        connection.setUseCaches(false);
+        return connection;
+    }
+
+    private void sendAuthRequest(HttpURLConnection connection) throws Exception {
+        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        String queryParameters = getQueryParameters();
+        byte[] postData = queryParameters.getBytes(StandardCharsets.UTF_8);
+        wr.write(postData);
+    }
+
+    private String getAuthResponse(HttpURLConnection connection) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), UTF_8_STRING));
+        String response = br.readLine();
+        LOGGER.info("Auth response " + response);
+        return jsonPropertyUtil.getJsonContentForProperty(ACCESS_TOKEN_JSON_RESPONSE_PROPERTY, response);
+    }
+
+    private String getQueryParameters() {
+        try {
+            return CLIENT_ID_URL_QUERY_PARAM + "=" + environment.getProperty(ONEDRIVE_CLIENT_ID_ENV_PROPERTY) +
+                    SCOPE_URL_QUERY_PARAM + environment.getProperty(ONEDRIVE_SCOPE_URL_ENV_PROPERTY) +
+                    GRANT_TYPE_URL_QUERY_PARAM + "=client_credentials" +
+                    CLIENT_SECRET_URL_QUERY_PARAM + URLEncoder.encode(environment.getProperty(ONEDRIVE_CLIENT_SECRET_ENV_PROPERTY), UTF_8_STRING);
+        } catch (Exception e) {
+            throw new QaPortalBusinessException("Failed to connect to one drive");
         }
     }
 }
