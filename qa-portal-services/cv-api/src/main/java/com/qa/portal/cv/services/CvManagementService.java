@@ -3,6 +3,7 @@ package com.qa.portal.cv.services;
 import java.io.IOException;
 import java.util.List;
 
+import com.qa.portal.cv.domain.CvSearchCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,16 +27,19 @@ public class CvManagementService {
     private UpdateCvVersionOperation updateCvService;
 
     private GetCurrentCvVersionOperation getCvService;
+
+    private CvSearchOperation cvSearchOperation;
     
-    public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator, 
-    		CreateCvOperation createCvService, GetCurrentCvVersionOperation getCvService, 
-    		UpdateCvVersionOperation updateCvService) {
+    public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator,
+                               CreateCvOperation createCvService, GetCurrentCvVersionOperation getCvService,
+                               UpdateCvVersionOperation updateCvService, CvSearchOperation cvSearchOperation) {
     	
         this.saveCvOperation = saveCvOperation;
         this.cvPdfGenerator = cvPdfGenerator;
         this.createCvService = createCvService;
     	this.getCvService = getCvService;
     	this.updateCvService = updateCvService;
+        this.cvSearchOperation = cvSearchOperation;
     }
     
     public void saveGeneratedCv(CvVersion cvVersion) throws IOException {
@@ -83,5 +87,9 @@ public class CvManagementService {
     
     public CvVersion findByVersionNumber(Integer versionNumber) {
     	return this.getCvService.findByVersionNumber(versionNumber);
+    }
+
+    public List<CvVersion>  cvSearch(CvSearchCriteria criteria){
+        return this.cvSearchOperation.findByCriteria(criteria);
     }
 } 
