@@ -16,7 +16,7 @@ import { CvSearchComponent } from './cv-search/cv-search.component';
 import { CvCardBaseComponent } from './cv-card-base/cv-card-base.component';
 import { CVSearchHistoryService } from './cv-search/services/cv-search.service';
 import { SubmitConfirmDialogComponent } from './view-cv/submit-confirm-dialog/submit-confirm-dialog.component';
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -37,7 +37,8 @@ import { SubmitConfirmDialogComponent } from './view-cv/submit-confirm-dialog/su
     BrowserModule,
     CvRoutingModule,
     QaCommonModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    PdfViewerModule
   ],
   providers: [
     CVSearchHistoryService,
