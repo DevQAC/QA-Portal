@@ -12,19 +12,14 @@ export class CvProfileComponent {
   @Input() profile: IProfile;
   @Output() profileChange = new EventEmitter<IProfile>();
   @Input() canEdit: boolean;
-  public form: FormGroup;
 
   onInputChange(data) {
     this.profile.profileDetails = data;
     this.profileChange.emit(this.profile);
   }
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit() {
-    this.form = this.fb.group({
-      profile: new FormControl({ value: '', disabled: this.canEdit })
-    });
-}
+  getEditValue() {
+    return this.canEdit;
+  }
 
 }
