@@ -10,8 +10,9 @@ public class CvPdfElement {
 	private Paragraph paragraph;
 	private Frame frame;
 		
-	public CvPdfElement(float width, float height, float xPosition, float yPosition, float padding) throws IOException {
+	public CvPdfElement(float width, float height, float xPosition, float yPosition) throws IOException {
 		super();
+		float padding = PageFormat.PADDING.value;
 		this.paragraph = new Paragraph();
 		this.frame = new Frame(this.paragraph, width, height);
 		this.frame.setAbsolutePosition(new Position(xPosition, yPosition));

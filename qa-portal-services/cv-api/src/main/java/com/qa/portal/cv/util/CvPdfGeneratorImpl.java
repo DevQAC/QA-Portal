@@ -15,7 +15,6 @@ import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.domain.Qualification;
 
 import org.apache.pdfbox.io.IOUtils;
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.springframework.core.io.ClassPathResource;
@@ -33,312 +32,169 @@ import rst.pdfbox.layout.text.Position;
 @Component
 public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
-	Document document = new Document();
-	PDDocument pdDoc = new PDDocument();
+    Document document = new Document();
 
-	// QA Colour Scheme
-	String QABlue = "#004050";
-	String QAPurple = "#7F007D";
-	String QARed = "#FF004C";
-	String QAGrey = "#565759";
-	
+    Frame frame;
+    Paragraph paragraph;
 
-	int padding = 20;
-	int sideBarHeaderFontSize = 20;
-	int sideBarTitleFontSize = 11;
-	int sideBarListsFontSize = 10;
-	int titleParagraphSpacing = 4;
-	int bodyParagraphFontSize = 9;
-	int bodyHeadingsFontSize = 12;
+    PDFont montserrat;
+    PDFont montserratBold;
+    PDFont kranaFatB;
 
-	float heightSideBox1 = document.getPageHeight() / 6 + 4;
-	float heightSideBox2 = (float) 2.5 * document.getPageHeight() / 6 + 7;
-	float heightSideBox3 = document.getPageHeight() - heightSideBox1 - heightSideBox2;
-	float widthCol1 = document.getPageWidth() / 3 + 4.5f;
-	float widthCol2 = document.getPageWidth() - widthCol1;
-	float heightHeader = document.getPageHeight() / 20 - 8;
-	float heightFooter = document.getPageHeight() / 30;
-	float heightBody = document.getPageHeight() - heightHeader - heightFooter;
+    public PDFont loadFont(String path) throws IOException {
+    	Resource fontResource = new ClassPathResource(path);
+    	return PDType0Font.load(document.getPDDocument(), fontResource.getInputStream());
+    }
 
-	String arrowPath = "target/classes/Arrow.png";
-	String logoPath = "target/classes/QA_Logo.png";
+    @PostConstruct
+    public void loadfonts() {    	
+        try {
+        	this.montserrat = loadFont(Fonts.MONTSERRAT_FILE.value);
+        	this.montserratBold = loadFont(Fonts.MONTSERRAT_BOLD_FILE.value);
+        	this.kranaFatB = loadFont(Fonts.KRANA_FAT_B_FILE.value);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new QaPortalBusinessException("Cannot load in CvPdfGeneratorImpl fonts");
+        }
+    }
 
-	Frame frame;
-	Paragraph paragraph;
+    @Override
+    public byte[] generateCv(CvVersion cvVersion) {
+        try {
+        	generateConsultantNameBox(cvVersion);
+        	generateSkillsBox(cvVersion);
+            generateQualificationsBox(cvVersion);
+            generateMainHeader(cvVersion);
+            generateMainBody(cvVersion);
+            generateMainFooter(cvVersion);
+            divider(Dividers.Y_POSITION_TOP.value);
+            divider(Dividers.Y_POSITION_BOTTOM.value);
 
-	PDFont montserrat;
-	PDFont montserratBold;
-	PDFont kranaFatB;
+            // returns
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            document.save(out);
+            byte[] data = out.toByteArray();
+            InputStream in = new ByteArrayInputStream(data);
+            byte[] byteArray = IOUtils.toByteArray(in);
+            out.close();
+            in.close();
+            return byteArray;
 
-	@PostConstruct
-	public void loadFonts() {
-		try {
-			Resource montRegResource = new ClassPathResource("Montserrat-Regular.ttf");
-			Resource montBoldResource = new ClassPathResource("Montserrat-SemiBold.ttf");
-			Resource kranaResource = new ClassPathResource("Krana-Fat-B.ttf");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new QaPortalSevereException("Cannot generate pdf");
+        }
+    }
 
-			this.montserrat = PDType0Font.load(document.getPDDocument(), montRegResource.getInputStream());
-			this.montserratBold = PDType0Font.load(document.getPDDocument(), montBoldResource.getInputStream());
-			this.kranaFatB = PDType0Font.load(document.getPDDocument(), kranaResource.getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalBusinessException("Cannot load in CvPdfGeneratorImpl fonts");
-		}
-	}
+    public void generateConsultantNameBox(CvVersion cvVersion) throws IOException {
+        CvPdfElement consultantNameBox = new CvPdfElement(ConsultantNameBox.WIDTH.value, ConsultantNameBox.HEIGHT.value, ConsultantNameBox.X_POSITION.value, ConsultantNameBox.Y_POSITION.value);
+        paragraph = consultantNameBox.getParagraph();
+        frame = consultantNameBox.getFrame();
+        paragraph.addMarkup("{color:#FFFFFF}*" + cvVersion.getFirstName() + "\n" + cvVersion.getSurname() + "*", FontSize.CONSULTANT_NAME.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+        paragraph.addMarkup("{color:" + ColourScheme.QA_PURPLE.value + "} \n*Consultant*", FontSize.CONSULTANT_NAME.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+        frame.setBackgroundColor(Color.decode(ColourScheme.QA_RED.value));
+        document.add(frame);
+        ImageElement arrow = loadImages(Images.ARROW.filePath, Images.ARROW.resizeFactor);
+        arrow.setAbsolutePosition(new Position(Images.ARROW.xPosition, Images.ARROW.yPosition));
+    }
 
-	@Override
-	public byte[] generateCv(CvVersion cvVersion) {
-		try {
-			paragraph = new Paragraph();
+    public void generateSkillsBox(CvVersion cvVersion) throws IOException {
+        CvPdfElement skillsBox = new CvPdfElement(SkillsBox.WIDTH.value, SkillsBox.HEIGHT.value, SkillsBox.X_POSITION.value, SkillsBox.Y_POSITION.value);
+        paragraph = skillsBox.getParagraph();
+        frame = skillsBox.getFrame();
+        generateSkillsBoxContent(paragraph, "Programming Languages", cvVersion.getAllSkills().get(0).getProgrammingLanguages());
+        generateSkillsBoxContent(paragraph, "IDEs", cvVersion.getAllSkills().get(0).getIdes());
+        generateSkillsBoxContent(paragraph, "Operating Systems", cvVersion.getAllSkills().get(0).getOperatingSystems());
+        generateSkillsBoxContent(paragraph, "DevOps Technologies", cvVersion.getAllSkills().get(0).getDevops());
+        generateSkillsBoxContent(paragraph, "Database Technologies", cvVersion.getAllSkills().get(0).getDatabases());
+        generateSkillsBoxContent(paragraph, "Project Frameworks", cvVersion.getAllSkills().get(0).getPlatforms());
+        generateSkillsBoxContent(paragraph, "Other", cvVersion.getAllSkills().get(0).getOther());
+        frame.setBackgroundColor(Color.decode(ColourScheme.QA_PURPLE.value));
+        document.add(frame);
+    }
 
-			// column 1 box 1
-			generateConsultantNameBox(cvVersion);
+    public void generateSkillsBoxContent(Paragraph paragraph, String title, List<String> list) throws IOException {
+        paragraph.addMarkup("{color:#FFFFFF}*" + title + "*\n", FontSize.SIDEBAR_TITLES.value, montserrat, montserratBold, montserrat, montserrat);
+        paragraph.addMarkup("\n", FontSize.SIDEBAR_TITLE_CONTENT_SPACING.value, montserrat, montserratBold, montserrat, montserrat);
+        for (int i = 0; i < list.size(); i++) {
+            if (i < list.size() - 1) {
+                paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + ", ", FontSize.SIDEBAR_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+            } else {
+                paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + "\n\n", FontSize.SIDEBAR_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+            }
+        }
+    }
 
-			// column 1 box 2
-			paragraph = new Paragraph();
-			generateSkillsBox(paragraph, "Programming Languages", cvVersion.getAllSkills().get(0).getDatabases());
-			generateSkillsBox(paragraph, "IDEs", cvVersion.getAllSkills().get(0).getIdes());
-			generateSkillsBox(paragraph, "Operating Systems", cvVersion.getAllSkills().get(0).getOperatingSystems());
-			generateSkillsBox(paragraph, "DevOps Technologies", cvVersion.getAllSkills().get(0).getDevops());
-			generateSkillsBox(paragraph, "Database Technologies", cvVersion.getAllSkills().get(0).getDatabases());
-			generateSkillsBox(paragraph, "Project Frameworks", cvVersion.getAllSkills().get(0).getPlatforms());
-			generateSkillsBox(paragraph, "Other", cvVersion.getAllSkills().get(0).getOther());
-			frame = new Frame(paragraph, widthCol1, heightSideBox2);
-			frame.setBackgroundColor(Color.decode(QAPurple));
-			frame.setAbsolutePosition(new Position(0, document.getPageHeight() - heightSideBox1));
-			paragraph.setMaxWidth(frame.getWidth() - (padding * 2));
-			frame.setPadding(padding, padding, padding, padding);
-			document.add(frame);
+    public void generateQualificationsBox(CvVersion cvVersion) throws IOException {
+        CvPdfElement qualificationsBox = new CvPdfElement(QualificationsBox.WIDTH.value, QualificationsBox.HEIGHT.value, QualificationsBox.X_POSITION.value, QualificationsBox.Y_POSITION.value);
+        paragraph = qualificationsBox.getParagraph();
+        frame = qualificationsBox.getFrame();
+        paragraph.addMarkup("{color:#FFFFFF}*Qualification*\n", FontSize.SIDEBAR_TITLES.value, montserrat, montserratBold, montserrat, montserrat);
+        paragraph.addMarkup("\n", FontSize.SIDEBAR_TITLE_CONTENT_SPACING.value, montserrat, montserratBold, montserrat, montserrat);
+        for (Qualification i : cvVersion.getAllQualifications()) {
+            paragraph.addMarkup("{color:#FFFFFF}" + i.getQualificationDetails(), FontSize.SIDEBAR_CONTENT.value, montserrat, montserratBold,
+                    montserrat, montserrat);
+        }
+        frame.setBackgroundColor(Color.decode(ColourScheme.QA_BLUE.value));
+        document.add(frame);
+    }
 
-			// create column 1 box 3
-			generateQualificationBox(cvVersion);
+    public void generateMainHeader(CvVersion cvVersion) throws IOException {
+        CvPdfElement header = new CvPdfElement(MainHeader.WIDTH.value, MainHeader.HEIGHT.value, MainHeader.X_POSITION.value, MainHeader.Y_POSITION.value);
+        paragraph = header.getParagraph();
+        frame = header.getFrame();
+        paragraph.addMarkup("{color:#89898b}Consultant Profile", 8.8f, montserrat, montserratBold, montserrat, montserrat);
+        document.add(frame);
+        ImageElement logo = loadImages(Images.LOGO.filePath, Images.LOGO.resizeFactor);
+        logo.setAbsolutePosition(new Position(Images.LOGO.xPosition-logo.getWidth(), Images.LOGO.yPosition+logo.getHeight()));
+    }
 
-			// column 2 divider 1
-			paragraph = new Paragraph();
-			frame = new Frame(paragraph, widthCol2 - padding * 2, 0.5f);
-			divider(frame, document.getPageHeight() - heightHeader);
-			document.add(frame);
+    public void generateMainBody(CvVersion cvVersion) throws IOException {
+        CvPdfElement body = new CvPdfElement(MainBody.WIDTH.value, MainBody.HEIGHT.value, MainBody.X_POSITION.value, MainBody.Y_POSITION.value);
+        paragraph = body.getParagraph();
+        frame = body.getFrame();
+        bodyTitle(paragraph, "PROFILE");
+        paragraph.addMarkup("{color:" + ColourScheme.QA_GREY.value + "}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n", FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+        bodyTitle(paragraph, "WORK EXPERIENCE");
+        for (int i = 0; i < cvVersion.getAllWorkExperience().size(); i++) {
+            paragraph.addMarkup("{color:" + ColourScheme.QA_BLUE.value + "}*" + cvVersion.getAllWorkExperience().get(i).getJobTitle() + "*\n", FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+            paragraph.addMarkup("\n", FontSize.BODY_SUBTITLE_CONTENT_SPACING.value, montserrat, montserratBold, montserrat, montserrat);
+            paragraph.addMarkup("{color:" + ColourScheme.QA_GREY.value + "}" + cvVersion.getAllWorkExperience().get(i).getWorkExperienceDetails() + "\n\n", FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+        }
+        paragraph.addMarkup("\n", FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+        bodyTitle(paragraph, "HOBBIES/INTERESTS");
+        paragraph.addMarkup("{color:" + ColourScheme.QA_GREY.value + "}" + cvVersion.getHobbies().getHobbiesDetails() + "\n\n", FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+        document.add(frame);
+    }
 
-			// column 2 body
-			generateBodyBox(cvVersion);
-			generateWorkExperienceBox(cvVersion);
-			generateHobbiesBox(cvVersion);
-			paragraph = new Paragraph();
-			frame = new Frame(paragraph, widthCol2 - padding * 2, 0.5f);
-			divider(frame, heightHeader);
-			document.add(frame);
+    public void generateMainFooter(CvVersion cvVersion) throws IOException {
+        CvPdfElement footer = new CvPdfElement(MainFooter.WIDTH.value, MainFooter.HEIGHT.value, MainFooter.X_POSITION.value, MainFooter.Y_POSITION.value);
+        paragraph = footer.getParagraph();
+        frame = footer.getFrame();
+        paragraph.addMarkup("{color:#89898b}+44 1273 022670 / qa.com", 8, montserrat, montserratBold, montserrat, montserrat);
+        paragraph.setAlignment(Alignment.Right);
+        frame.setPadding(PageFormat.PADDING.value, PageFormat.PADDING.value, 10, 0);
+        document.add(frame);
+    }
+    
+    public ImageElement loadImages(String path, float resizeFactor) throws IOException {
+        ImageElement img = new ImageElement(path);
+        img.setWidth(img.getWidth() / resizeFactor);
+        img.setHeight(img.getHeight() / resizeFactor);
+        document.add(img);
+        return img;
+    }
 
-			loadHeader();
-			loadImages(arrowPath, logoPath);
-			loadFooter();
+    public void bodyTitle(Paragraph paragraph, String title) throws IOException {
+        paragraph.addMarkup("{color:" + ColourScheme.QA_PURPLE.value + "}*" +title+ "*\n", FontSize.BODY_TITLES.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+        paragraph.addMarkup("\n", FontSize.BODY_TITLE_CONTENT_SPACING.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+    }
 
-			// returns
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			document.save(out);
-			byte[] data = out.toByteArray();
-			InputStream in = new ByteArrayInputStream(data);
-			byte[] byteArray = IOUtils.toByteArray(in);
-			return byteArray;
-
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot generate pdf");
-		}
-	}
-
-	public void divider(Frame frame, float height) {
-		frame.setBorder(Color.decode("#d9dbdb"), new Stroke(0.5f));
-		frame.setAbsolutePosition(new Position(widthCol1, height));
-		frame.setMargin(padding, 0, 0, 0);
-		frame.setPaddingTop(5);
-	}
-
-	public String loadImages(String arrowPath, String logoPath) {
-		// column 1 box 1 image
-		ImageElement image;
-		try {
-			image = new ImageElement(arrowPath);
-			image.setWidth(image.getWidth() / 35);
-			image.setHeight(image.getHeight() / 35);
-			image.setAbsolutePosition(new Position(padding, document.getPageHeight() - heightSideBox1 + padding + 20));
-			document.add(image);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl image_arrow");
-		}
-
-		// column 2 header image
-		ImageElement logo;
-		try {
-			logo = new ImageElement("target/classes/QA_Logo.png");
-			logo.setWidth(logo.getWidth() / 37f);
-			logo.setHeight(logo.getHeight() / 37f);
-			logo.setAbsolutePosition(new Position(widthCol1 + widthCol2 - logo.getWidth() - padding,
-					heightFooter + heightBody + logo.getHeight() + 4));
-			document.add(logo);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl image_logo");
-		}
-		return "Passed";
-	}
-
-	public void loadHeader() {
-		// column 2 Header
-		paragraph = new Paragraph();
-		try {
-			paragraph.addMarkup("{color:#89898b}Consultant Profile", 8.8f, montserrat, montserratBold, montserrat,
-					montserrat);
-			paragraph.setAlignment(Alignment.Left);
-			frame = new Frame(paragraph, widthCol2 - padding * 2, heightHeader);
-			frame.setAbsolutePosition(new Position(widthCol1, heightFooter + heightBody + paragraph.getHeight() + 10));
-			paragraph.setMaxWidth(frame.getWidth());
-			frame.setMargin(padding, 0, 0, 0);
-			document.add(frame);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl loadHeader");
-		}
-	}
-
-	public void generateConsultantNameBox(CvVersion cvVersion) {
-		// column 1 box 1
-		paragraph = new Paragraph();
-		try {
-			paragraph.addMarkup("{color:#FFFFFF}*" + cvVersion.getFirstName() + "\n" + cvVersion.getSurname() + "*",
-					sideBarHeaderFontSize, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
-			paragraph.addMarkup("{color:" + QAPurple + "} \n*Consultant*", sideBarHeaderFontSize, kranaFatB, kranaFatB,
-					kranaFatB, kranaFatB);
-			frame = new Frame(paragraph, widthCol1, heightSideBox1);
-			frame.setBackgroundColor(Color.decode(QARed));
-			frame.setAbsolutePosition(new Position(0, document.getPageHeight()));
-			frame.setPadding(padding, padding, padding, padding);
-			document.add(frame);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl generateConsultantNameBox");
-		}
-	}
-
-	public Paragraph generateSkillsBox(Paragraph paragraph, String title, List<String> list) {
-		try {
-			paragraph.addMarkup("{color:#FFFFFF}*" + title + "*\n", sideBarTitleFontSize, montserrat, montserratBold,
-					montserrat, montserrat);
-			paragraph.addMarkup("\n", titleParagraphSpacing, montserrat, montserratBold, montserrat, montserrat);
-			for (int i = 0; i < list.size(); i++) {
-				if (i < list.size() - 1) {
-					paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + ", ", sideBarListsFontSize, montserrat,
-							montserratBold, montserrat, montserrat);
-				} else {
-					paragraph.addMarkup("{color:#FFFFFF}" + list.get(i) + "\n\n", sideBarListsFontSize, montserrat,
-							montserratBold, montserrat, montserrat);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl generateSkillsBox");
-		}
-		return paragraph;
-	}
-
-	public void generateQualificationBox(CvVersion cvVersion) {
-		// column 1 box 3
-		paragraph = new Paragraph();
-		try {
-			paragraph.addMarkup("{color:#FFFFFF}*Qualification*\n", sideBarTitleFontSize, montserrat, montserratBold,
-					montserrat, montserrat);
-			paragraph.addMarkup("\n", titleParagraphSpacing, montserrat, montserratBold, montserrat, montserrat);
-			for (Qualification i : cvVersion.getAllQualifications()) {
-				paragraph.addMarkup("{color:#FFFFFF}" + i.getQualificationDetails(), sideBarListsFontSize, montserrat,
-						montserratBold, montserrat, montserrat);
-			}
-			frame = new Frame(paragraph, widthCol1, heightSideBox3);
-			frame.setBackgroundColor(Color.decode(QABlue));
-			frame.setAbsolutePosition(new Position(0, heightSideBox3));
-			paragraph.setMaxWidth(frame.getWidth() - (padding * 2));
-			frame.setPadding(padding, padding, padding, padding);
-			document.add(frame);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl generateQualificationBox");
-		}
-	}
-
-	public void generateBodyBox(CvVersion cvVersion) {
-		// column 2 Body
-		paragraph = new Paragraph();
-
-		// Profile
-		try {
-			paragraph.addMarkup("{color:" + QAPurple + "}*PROFILE*\n", bodyHeadingsFontSize, kranaFatB, kranaFatB,
-					kranaFatB, kranaFatB);
-			paragraph.addMarkup("\n", 5, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
-			paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n",
-					bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl generateBodyBox Profile");
-		}
-	}
-
-	public void generateWorkExperienceBox(CvVersion cvVersion) {
-		// Work Experience
-		try {
-			paragraph.addMarkup("{color:" + QAPurple + "}*WORK EXPERIENCE - QA*\n", bodyHeadingsFontSize, kranaFatB,
-					kranaFatB, kranaFatB, kranaFatB);
-			paragraph.addMarkup("\n", 5, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
-			for (int i = 0; i < cvVersion.getAllWorkExperience().size(); i++) {
-				paragraph.addMarkup(
-						"{color:" + QABlue + "}*" + cvVersion.getAllWorkExperience().get(i).getJobTitle() + "*\n",
-						bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
-				paragraph.addMarkup("\n", 4, montserrat, montserratBold, montserrat, montserrat);
-				paragraph
-						.addMarkup(
-								"{color:" + QAGrey + "}"
-										+ cvVersion.getAllWorkExperience().get(i).getWorkExperienceDetails() + "\n\n",
-								bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl generateBodyBox Work Experiance");
-		}
-	}
-
-	public void generateHobbiesBox(CvVersion cvVersion) {
-		// Hobbies and Interests
-		try {
-			paragraph.addMarkup("{color:" + QAPurple + "}*HOBBIES/INTERESTS*\n", bodyHeadingsFontSize, kranaFatB,
-					kranaFatB, kranaFatB, kranaFatB);
-			paragraph.addMarkup("{color:" + QAGrey + "}" + cvVersion.getHobbies().getHobbiesDetails() + "\n\n",
-					bodyParagraphFontSize, montserrat, montserratBold, montserrat, montserrat);
-			frame = new Frame(paragraph, widthCol2, heightBody);
-			frame.setAbsolutePosition(new Position(widthCol1, document.getPageHeight() - heightHeader));
-			paragraph.setMaxWidth(frame.getWidth() - (padding * 2));
-			frame.setPadding(padding, padding, padding, padding);
-			document.add(frame);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException(
-					"Cannot load in CvPdfGeneratorImpl generateBodyBox Hobbies and Interests");
-		}
-	}
-
-	public void loadFooter() {
-		// column 2 Footer
-		paragraph = new Paragraph();
-		try {
-			paragraph.addMarkup("{color:#89898b}+44 1273 022670 / qa.com", 8, montserrat, montserratBold, montserrat,
-					montserrat);
-			paragraph.setAlignment(Alignment.Right);
-			frame = new Frame(paragraph, widthCol2 - padding * 2, heightHeader);
-			frame.setAbsolutePosition(new Position(widthCol1, heightHeader));
-			paragraph.setMaxWidth(frame.getWidth());
-			frame.setMargin(padding, 0, 0, 0);
-			frame.setPaddingTop(5);
-			document.add(frame);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new QaPortalSevereException("Cannot load in CvPdfGeneratorImpl loadFooter");
-		}
-	}
+    public void divider(float yPosition) throws IOException {
+    	CvPdfElement divider = new CvPdfElement(Dividers.WIDTH.value, Dividers.HEIGHT.value, Dividers.X_POSITION.value, yPosition);
+    	paragraph = divider.getParagraph();
+    	frame = divider.getFrame();
+        frame.setBorder(Color.decode("#d9dbdb"), new Stroke(0.5f));
+        document.add(frame);
+    }
 }
