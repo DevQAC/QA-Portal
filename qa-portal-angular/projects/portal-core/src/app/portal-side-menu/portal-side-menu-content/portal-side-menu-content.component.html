@@ -1,28 +1,38 @@
 <div class="side-menu-panel" style="width: 300px; overflow-x: hidden;">
   <div class="section" *ngIf="!(departmentApplications$ | async)?.applications">
-      <div class="section-title light">
-          No menu items found
-        </div>
+    <div class="section-title light">
+      No menu items found
+    </div>
   </div>
+
   <div class="section" *ngFor="let application of (departmentApplications$ | async)?.applications">
     <div class="section-title">
       {{ application.name }}
     </div>
-    <div class="section-body">
-      <button mat-button *ngFor="let menuItem of application.menuItems" [routerLink]="menuItem.url"
-        routerLinkActive="mat-accent" [routerLinkActiveOptions]="{exact: true}" class="menu-item" [matTooltip]="!sideMenuService.sideMenuOpen ? menuItem.name : ''" matTooltipPosition="after" matTooltipClass="menu-item-tooltip">
 
-        <div class="menu-item-content">
-          <div class="menu-item-icon">
-            <mat-icon>{{menuItem.icon || 'bookmark'}}</mat-icon>
-          </div>
-          <div style="width: 100%; text-overflow:ellipsis; overflow: hidden; text-align: left; margin: auto 0;">
+    <div class="section-body">
+      <div *ngFor="let menuItem of application.menuItems">
+        <div *ngIf="menuItem.displayOnMenu">
+          <button mat-button [routerLink]="menuItem.url"
+                  routerLinkActive="mat-accent"
+                  [routerLinkActiveOptions]="{exact: true}" class="menu-item"
+                  [matTooltip]="!sideMenuService.sideMenuOpen ? menuItem.name : ''"
+                  matTooltipPosition="after"
+                  matTooltipClass="menu-item-tooltip">
+
+            <div class="menu-item-content">
+              <div class="menu-item-icon">
+                <mat-icon>{{menuItem.icon || 'bookmark'}}</mat-icon>
+              </div>
+              <div style="width: 100%; text-overflow:ellipsis; overflow: hidden; text-align: left; margin: auto 0;">
             <span>
               {{menuItem.name}}
             </span>
-          </div>
+              </div>
+            </div>
+          </button>
         </div>
-      </button>
+      </div>
     </div>
   </div>
 </div>
