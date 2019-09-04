@@ -1,25 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-
-
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-course-info',
   templateUrl: './course-info.component.html',
   styleUrls: ['./course-info.component.css']
 })
-
-
-
 export class CourseInfoComponent implements OnInit {
+  @Input() courseName;
+  @Input() location;
+  @Input() startDate;
+  @Input() duration;
 
   constructor() { }
 
   ngOnInit() {
   }
-
-  courseName = "API";
-  location = "Manchester";
-  startDate = "07/08/2019";
-  duration = 5;
-
 }
