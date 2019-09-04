@@ -6,7 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
 import * as _ from 'lodash';
-import { GET_ALL_CVS, POST_CV_DATA, SUBMIT_CV, APPROVE_CV, FAIL_CV } from '../models/cv.constants';
+import { GET_ALL_CVS, POST_CV_DATA, SUBMIT_CV, APPROVE_CV, FAIL_CV, GET_CURRENT_CV } from '../models/cv.constants';
 
 @Injectable({ providedIn: 'root' })
 export class ViewCvService {
@@ -52,12 +52,12 @@ export class ViewCvService {
   //////// Save methods //////////
 
   // /** POST: add a new cv to the server */
-  // addCv(cv: ICvModel): Observable<ICvModel> {
-  //   return this.http.post<ICvModel>(POST_CV_DATA, cv, this.httpOptions).pipe(
-  //     tap((newICvModel: ICvModel) => this.log(`added cv w/ id=${newICvModel.id}`)),
-  //     catchError(this.handleError<ICvModel>('addICvModel'))
-  //   );
-  // }
+  createCv(cv: ICvModel): Observable<ICvModel> {
+    return this.http.post<ICvModel>(POST_CV_DATA, cv, this.httpOptions).pipe(
+      tap((newICvModel: ICvModel) => this.log(`added cv w/ id=${newICvModel.id}`)),
+      catchError(this.handleError<ICvModel>('addICvModel'))
+    );
+  }
 
   /** PUT: update the cv on the server */
   updateCv(cv: ICvModel): Observable<ICvModel> {

@@ -23,7 +23,6 @@ export class EvaluationService implements IFormService {
   }
 
   public updateForm(formModel: IFormModel): Observable<IFormModel> {
-    console.log('Sending view model with status ' + formModel.status);
     return this.httpClient.put<IFormModel>(UPDATE_EVALUATION_FORM_URL, formModel);
   }
 }

@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Component
@@ -41,7 +40,6 @@ public class CohortCourseEvaluationMapper {
         CohortCourseEvaluationDto cohortCourseEvaluationDto =  baseMapper.mapObject(cohortCourseEvaluationEntity, CohortCourseEvaluationDto.class);
         cohortCourseEvaluationDto.setCategoryResponses(cohortCourseEvaluationDto.getCategoryResponses()
                 .stream()
-                .sorted(Comparator.comparingInt(cr -> cr.getQuestionCategory().getId()))
                 .collect(Collectors.toList()));
         return cohortCourseEvaluationDto;
     }
