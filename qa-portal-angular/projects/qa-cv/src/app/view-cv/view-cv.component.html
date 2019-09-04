@@ -49,7 +49,7 @@
                         [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Approve</button>
                 <button *ngIf="canComment" mat-flat-button color="warn" (click)="onFailCv()" title="Fail Cv"
                         [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Fail</button>
-                <button mat-flat-button color="primary" (click)="getPDF()" title="Open PDF"
+                <button mat-flat-button color="primary" (click)="getPDFService()" title="Open PDF"
                         [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status ">PDF of CV</button>
         </div>
 </div>
