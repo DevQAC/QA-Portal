@@ -24,8 +24,12 @@
   <ng-container matColumnDef="Actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let user">
-      <mat-icon id={{user.username}}>edit</mat-icon>
-      <mat-icon color="warn" id={{user.username}}>delete</mat-icon>
+      <button mat-mini-fab color="primary" (click)="doEdit">
+        <mat-icon id={{user.username}}>edit</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" (click)="doDelete">
+        <mat-icon id={{user.username}}>delete</mat-icon>
+      </button>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
