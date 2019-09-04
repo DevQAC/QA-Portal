@@ -38,7 +38,7 @@ export class ViewCvService {
 
   }
 
-  getPDF(cv: ICvModel){
+  getPDFService(cv: ICvModel){
     const url = `cv-api/cv/generated`;
     const httpOptions = {
       'responseType'  : 'arraybuffer' as 'json'

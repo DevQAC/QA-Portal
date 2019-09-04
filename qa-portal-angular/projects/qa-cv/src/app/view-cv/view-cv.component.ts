@@ -64,19 +64,21 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     });
 
   }
+
   fileURL: string;
 
-  getPDFService() {
-    this.cvService.getPDF(this.cvData).subscribe((response) => {
+  getPDF() {
+    this.cvService.getPDFService(this.cvData).subscribe((response) => {
 
       let file = new Blob([response], { type: 'application/pdf' });
-      console.log(file);
-      console.log(this.fileURL + " 1111111111111111111111");
+      console.log("it worked");
+
       this.fileURL = URL.createObjectURL(file);
-      console.log(this.fileURL + " 22222222222222222");
-      window.open(this.fileURL);
-      console.log(this.fileURL + " 3333333333333333333");
+
+      window.open(this.fileURL, '_blank');
+      console.log("this is the URL " + this.fileURL);
     })
+
   }
 
 
@@ -140,11 +142,11 @@ export class ViewCvComponent implements OnInit, OnDestroy {
       this.canEdit = false;
     } else {
       this.canEdit = true;
-    if (this.activatedRoute.snapshot.data.roles[0] === TRAINEE_ROLE && this.cvData.status !== "For Review") {
+      if (this.activatedRoute.snapshot.data.roles[0] === TRAINEE_ROLE && this.cvData.status !== "For Review") {
         this.canEdit = false;
       } else {
         this.canEdit = true;
       }
-  }
+    }
   }
 }
