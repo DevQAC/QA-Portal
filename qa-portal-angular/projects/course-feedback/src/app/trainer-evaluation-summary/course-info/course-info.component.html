@@ -1,20 +1,11 @@
 
 <table>
-<tr>
-  <td> 
-    Course: {{courseName}}
-  </td>
-  <td>
-    Location: {{location}}
-  </td>
-</tr>
-<tr>
-  <td>
-    Start Date: {{startDate}}
-  </td>
-  <td>
-    Duration: {{duration}} days
-  </td>
-</tr>
-
+  <tr>
+    <td>Course: {{courseName}} {{courseId}}</td>
+    <td>Location: {{location}}</td>
+  </tr>
+  <tr>
+    <td>Start Date: {{startDate}}</td>
+    <td>Duration: {{duration}} {{duration !== 1 ? 'days' : 'day'}}</td>
+  </tr>
 </table>
