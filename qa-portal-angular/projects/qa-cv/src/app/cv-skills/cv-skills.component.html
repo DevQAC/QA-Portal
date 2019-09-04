@@ -12,7 +12,7 @@
 <mat-form-field class="skills-chip-list">
   <mat-chip-list #chipList aria-label="Other Skills">
     <mat-chip color="primary" selected *ngFor="let others of skills?.other" [selectable]="selectable"
-      [removable]="removable" (removed)="remove(others)">
+      [removable]="!getEditValue()" (removed)="remove(others)">
       {{others}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>

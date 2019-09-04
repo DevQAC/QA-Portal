@@ -40,9 +40,9 @@
                 </app-cv-card-base>
         </section>
         <div class="button-row">
-                <button mat-flat-button color="primary" (click)="onSave()" title="Save all Changes"
+                <button *ngIf="!canComment" mat-flat-button color="primary" (click)="onSave()" title="Save all Changes"
                         [disabled]="!cvData || cvData.status==='For Review'">Save</button>
-                <button mat-flat-button color="warn" (click)="openDialog()" title="Submit for Review"
+                <button *ngIf="!canComment" mat-flat-button color="warn" (click)="openDialog()" title="Submit for Review"
                         [disabled]="!cvData || cvData.status==='For Review'">Submit</button>
                 Current Status: {{cvData?.status || 'Unknown'}}   
                 <button *ngIf="canComment" mat-flat-button color="primary" (click)="onApproveCv()" title="Aprrove Cv"
