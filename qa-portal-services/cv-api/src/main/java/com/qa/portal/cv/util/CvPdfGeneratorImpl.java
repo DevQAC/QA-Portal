@@ -45,18 +45,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     PDFont kranaFatB;
     
     // Font Sizes and Spacing
-    int pd = 20;
-    
-
-
-    float heightSideBox1 = document.getPageHeight() / 6 + 4;
-    float heightSideBox2 = (float) 2.5 * document.getPageHeight() / 6 + 7;
-    float heightSideBox3 = document.getPageHeight() - heightSideBox1 - heightSideBox2;
-    float widthCol1 = document.getPageWidth() / 3 + 4.5f;
-    float widthCol2 = document.getPageWidth() - widthCol1;
-    float heightHeader = document.getPageHeight() / 20 - 8;
-    float heightFooter = document.getPageHeight() / 20 - 8;
-    float heightBody = document.getPageHeight() - heightHeader - heightFooter;
 
     public PDFont loadFont(String path) throws IOException {
     	Resource fontResource = new ClassPathResource(path);
@@ -86,8 +74,8 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             frame.setBackgroundColor(Color.decode(ColourScheme.QA_RED.value));
             document.add(frame);
             
-            ImageElement arrow = loadImages(Images.ARROW_FILE.value, 35);
-            arrow.setAbsolutePosition(new Position(pd, document.getPageHeight() - heightSideBox1 + pd + 20));
+            ImageElement arrow = loadImages(Images.ARROW.filePath, Images.ARROW.resizeFactor);
+            arrow.setAbsolutePosition(new Position(Images.ARROW.xPosition, Images.ARROW.yPosition));
 
             CvPdfElement skillsBox = new CvPdfElement(SkillsBox.WIDTH.value, SkillsBox.HEIGHT.value, SkillsBox.X_POSITION.value, SkillsBox.Y_POSITION.value);
             paragraph = skillsBox.getParagraph();
@@ -120,8 +108,8 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             paragraph.addMarkup("{color:#89898b}Consultant Profile", 8.8f, montserrat, montserratBold, montserrat, montserrat);
             document.add(frame);
             
-            ImageElement logo = loadImages(Images.LOGO_FILE.value, 37);
-            logo.setAbsolutePosition(new Position((widthCol1 + widthCol2 - logo.getWidth() - pd), (heightFooter + heightBody + logo.getHeight() + 4)));
+            ImageElement logo = loadImages(Images.LOGO.filePath, Images.LOGO.resizeFactor);
+            logo.setAbsolutePosition(new Position(Images.LOGO.xPosition-logo.getWidth(), Images.LOGO.yPosition+logo.getHeight()));
 
             CvPdfElement body = new CvPdfElement(MainBody.WIDTH.value, MainBody.HEIGHT.value, MainBody.X_POSITION.value, MainBody.Y_POSITION.value);
             paragraph = body.getParagraph();
@@ -144,11 +132,11 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             frame = footer.getFrame();
             paragraph.addMarkup("{color:#89898b}+44 1273 022670 / qa.com", 8, montserrat, montserratBold, montserrat, montserrat);
             paragraph.setAlignment(Alignment.Right);
-            frame.setPadding(pd, pd, 10, 0);
+            frame.setPadding(PageFormat.PADDING.value, PageFormat.PADDING.value, 10, 0);
             document.add(frame);
             
-            divider(document.getPageHeight()-heightHeader);
-            divider(heightFooter);
+            divider(Dividers.Y_POSITION_TOP.value);
+            divider(Dividers.Y_POSITION_BOTTOM.value);
 
             // returns
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -180,7 +168,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     }
     
     public void divider(float yPosition) throws IOException {
-    	CvPdfElement divider = new CvPdfElement(widthCol2-pd*2, 0.5f, widthCol1+pd, yPosition);
+    	CvPdfElement divider = new CvPdfElement(Dividers.WIDTH.value, Dividers.HEIGHT.value, Dividers.X_POSITION.value, yPosition);
     	paragraph = divider.getParagraph();
     	frame = divider.getFrame();
         frame.setBorder(Color.decode("#d9dbdb"), new Stroke(0.5f));

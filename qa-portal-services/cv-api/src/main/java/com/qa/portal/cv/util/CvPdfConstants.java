@@ -22,11 +22,29 @@ enum Fonts {
 }
 
 enum Images {
-	ARROW_FILE("target/classes/Arrow.png"), 
-	LOGO_FILE("target/classes/QA_Logo.png");
-	final String value;
-	Images(String value) {
-		this.value = value;
+	ARROW(
+			"target/classes/Arrow.png", 
+			35, 
+			PageFormat.PADDING.value, 
+			PageFormat.HEIGHT.value - ConsultantNameBox.HEIGHT.value + PageFormat.PADDING.value + 20
+		),
+			
+	LOGO(
+			"target/classes/QA_Logo.png",
+			37,
+			PageFormat.WIDTH.value - PageFormat.PADDING.value,
+			MainFooter.HEIGHT.value + MainBody.HEIGHT.value + 4
+		);
+	
+	final String filePath;
+	final float resizeFactor;
+	final float xPosition;
+	final float yPosition;
+	Images(String FilePath, float resizeFactor, float xPosition, float yPosition) {
+		this.filePath = FilePath;
+		this.resizeFactor = resizeFactor;
+		this.xPosition = xPosition;
+		this.yPosition = yPosition;
 	}	
 }
 
@@ -123,9 +141,18 @@ enum MainBody {
 	}
 }
 
-enum ArrowImage {
-	
+enum Dividers {
+	WIDTH(PageFormat.WIDTH_COL2.value - PageFormat.PADDING.value*2),
+	HEIGHT(0.5f),
+	X_POSITION(PageFormat.WIDTH_COL1.value + PageFormat.PADDING.value),
+	Y_POSITION_TOP(PageFormat.HEIGHT.value - MainHeader.HEIGHT.value),
+	Y_POSITION_BOTTOM(MainFooter.HEIGHT.value);
+	final float value;
+	Dividers(float value) {
+		this.value = value;
+	}
 }
+
 
 
 
