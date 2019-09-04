@@ -1,9 +1,28 @@
 @import '~ngx-toastr/toastr.css';
-
 @import 'simplebar/dist/simplebar.css';
 
 /* for sidenav to take a whole page */
 html, body {
   margin: 0;
   height: 100%;
+}
+
+.qa-app-title {
+  justify-content: center;
+  text-align: center;
+  background-color: #004050;
+  color: #ffffff;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+mat-card-title {
+  text-align: center;
+  background-color: lightgray;
+  color: #004050;
+}
+
+mat-card-subtitle {
+  margin-top: 10px;
+  color: #004050;
 }

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class SideMenuService {
 
-  public sideMenuOpen = false;
+  public sideMenuOpen = true;
 
   public toggleOpen(): boolean {
     this.sideMenuOpen = !this.sideMenuOpen;

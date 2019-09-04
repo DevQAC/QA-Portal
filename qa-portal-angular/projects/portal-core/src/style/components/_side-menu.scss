@@ -44,7 +44,6 @@ app-portal-side-menu {
     }
   }
 
-
   .expanded {
     .mat-drawer.portal-drawer {
       width: 300px;
@@ -63,22 +62,8 @@ app-portal-side-menu {
       }
 
     }
-
-    // .mat-drawer-content {
-    //   margin-left: 300px !important;
-    // }
-
   }
 
-
-
-  /*
-
-      mat-drawer-content {
-        display: flex;
-        flex: 8;
-      }
-      */
   main {
     display: flex;
     flex-direction: row;
