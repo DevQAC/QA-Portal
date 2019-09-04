@@ -17,6 +17,7 @@ import { CourseFeedbackSharedModule } from '../../../course-feedback/src/app/app
 import { SelfReflectionSharedModule } from '../../../self-reflection/src/app/app.module';
 import { initializer } from '../../../../app-init';
 import { QaToastrService } from './_common/services/qa-toastr.service';
+import { QaCvModule } from 'projects/qa-cv/src/app/qa-cv.module';
 import { HeaderLinkComponent } from './header-link/header-link.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
 
