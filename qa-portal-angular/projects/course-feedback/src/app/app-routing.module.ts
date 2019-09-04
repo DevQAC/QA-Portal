@@ -52,7 +52,7 @@ const routes: Routes = [
             }
           },
           {
-            path: 'evaluation/course/summary',
+            path: 'evaluation/course/summary/:id',
             component: TrainerEvaluationSummaryComponent,
             canActivate: [AppAuthGuard],
             data: {

@@ -62,7 +62,17 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   onSave(): void {
     this.cvData.status = "Saved";
-    this.updateCv();
+    // save if exists, else create
+    if (this.cvData.userName){ 
+      this.updateCv();
+    } else {
+      this.createCv();
+    }
+  }
+
+  createCv(): void {
+    //this.cvData.versionNumber = this.cvData.versionNumber ? this.cvData.versionNumber + 1 : 1;
+    this.cvService.createCv(this.cvData).subscribe(newCv => this.cvData = newCv);
   }
 
   updateCv(): void {

@@ -3,14 +3,10 @@ package com.qa.portal.cv.rest;
 import java.io.IOException;
 import java.util.List;
 
+import com.qa.portal.cv.domain.CvSearchCriteria;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.cv.domain.CvVersion;
@@ -32,7 +28,7 @@ public class CvManagementController {
     //	Create
     @PostMapping("/cv")
     public ResponseEntity<CvVersion> createCv(@RequestBody CvVersion newCv) {
-        return ResponseEntity.ok(this.service.createCv(newCv));
+        return ResponseEntity.ok(this.service.createCv(newCv, qaSecurityContext.getUserName()));
     }
 
     //  Update
@@ -67,6 +63,9 @@ public class CvManagementController {
         return service.findByVersionNumber(versionNumber);
     }
 
+
+
+
     @GetMapping("/cv/trainee/search/{fullName}")
     public ResponseEntity<List<CvVersion>> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName) {
         return ResponseEntity.ok(this.service.findByFullNameIgnoreCase(fullName));
@@ -76,6 +75,29 @@ public class CvManagementController {
     public ResponseEntity<List<CvVersion>> findByuserNameIgnoreCase() {
         return ResponseEntity.ok(this.service.findByUserNameIgnoreCase(qaSecurityContext.getUserName()));
     }
+
+    //Admin search by criteria endpoint
+    @GetMapping("/cv/search")
+    public ResponseEntity<List<CvVersion>> cvSearch(@RequestParam(required = false) String cohort,@RequestParam(required = false) String tech,@RequestParam(required = false) String status,@RequestParam(required = false) String name) {
+    CvSearchCriteria c = new CvSearchCriteria("","","","");
+        // decode the query string
+        if (cohort != null && !cohort.isEmpty()) {
+            c.setCohort(cohort);
+        }
+        if (status != null && !status.isEmpty()) {
+            c.setCvStatus(status);
+        }
+        if (tech != null && !tech.isEmpty()) {
+            c.setTechnology(tech);
+        }
+        if (name != null && !name.isEmpty()) {
+            c.setFullName(name);
+        }
+        return ResponseEntity.ok(this.service.cvSearch(c));
+    }
+
+
+
 
     //	PDF
     @PostMapping("cv/file")
