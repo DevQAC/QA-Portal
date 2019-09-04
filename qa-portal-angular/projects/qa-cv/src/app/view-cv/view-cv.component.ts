@@ -7,7 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 import { TRAINING_ADMIN_ROLE, TRAINEE_ROLE } from '../../../../portal-core/src/app/_common/models/portal-constants';
 import { Observable, Subscription } from 'rxjs';
 import { MAT_DATE_LOCALE, MatDialog } from '@angular/material';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-confirm-dialog.component';
 
 
@@ -65,6 +64,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   }
 
+
   fileURL: string;
 
   getPDF() {
@@ -82,7 +82,6 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
 
-
   ngOnDestroy(): void {
     this.cvDataSubscription$.unsubscribe();
   }
@@ -90,7 +89,6 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   onSave(): void {
     this.cvData.status = "Saved";
     this.updateCv();
-
   }
 
   updateCv(): void {
@@ -98,23 +96,9 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvService.updateCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
 
-  submitCv(): void {
-    this.cvService.submitCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
-  }
-
-  onApproveCv(): void {
-    this.cvService.approveCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
-  }
-
-  onFailCv(): void {
-    this.cvService.failCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
-  }
-
-
   onSubmit(): void {
-
-    this.submitCv();
-
+    this.cvData.status = "Submitted For Review";
+    this.updateCv();
   }
 
   onWorkExpFeedbackClick({ index }: { index: number }, expCard: CvCardBaseComponent): void {

@@ -13,6 +13,9 @@
           </button>
         </div>
         <div #commentContainer class="middle">
+          <div *ngIf="!feedback" class="no-comments-text">
+            No comments yet
+          </div>
           <div class="comment-bubble" *ngFor="let comment of feedback">
 
             <div class="comment-body">
@@ -26,10 +29,6 @@
                 {{getFormattedDate(comment.date)}}
               </div>
             </div>
-          </div>
-
-          <div class="no-comments-text">
-            No comments yet
           </div>
         </div>
         <div class="bottom" *ngIf="canComment">
@@ -47,7 +46,7 @@
     </mat-drawer>
     <mat-card-header>
       <div class="card-header-wrapper">
-        <mat-card-title>{{title || ''}}</mat-card-title>
+        <mat-card-title>{{title || 'Default Card Title'}}</mat-card-title>
         <button mat-button *ngIf="showOpenButton" (click)="drawer.open()">
           <mat-icon>feedback</mat-icon>
         </button>

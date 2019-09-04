@@ -19,6 +19,8 @@ import { initializer } from '../../../../app-init';
 import { QaToastrService } from './_common/services/qa-toastr.service';
 import { QaCvModule } from 'projects/qa-cv/src/app/qa-cv.module';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import { QaAdminSharedModule } from 'projects/qa-admin/src/app/app.module';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     PortalSideMenuComponent,
     PortalSideMenuContentComponent,
     PortalFooterComponent,
+
   ],
   imports: [
     QaCommonModule,
@@ -36,7 +39,8 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     SelfReflectionSharedModule.forRoot(),
     CourseFeedbackSharedModule.forRoot(),
     HttpClientModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    QaAdminSharedModule.forRoot()
   ],
   providers: [
     MenuService,

@@ -1,6 +1,6 @@
 <h1>{{cvData?.fullName}}</h1>
 
-<div class="cv-content-wrapper" (onSubmit)="onSubmit($event)">
+<div class="cv-content-wrapper">
         <section>
                 <app-cv-card-base title="Personal Profile" [canComment]="canComment"
                         [feedback]="cvData?.profile?.profileFeedback">
@@ -41,7 +41,7 @@
         </section>
         <div class="button-row">
                 <button mat-flat-button color="primary" (click)="onSave()" title="Save all Changes"
-                        [disabled]="!cvData || cvData.status==='For Review'">Save</button>
+                        [disabled]="!cvData || cvData.status==='Submitted For Review'">Save</button>
                 <button mat-flat-button color="warn" (click)="openDialog()" title="Submit for Review"
                         [disabled]="!cvData || cvData.status==='For Review'">Submit</button>
                 Current Status: {{cvData?.status || 'Unknown'}}   
@@ -51,5 +51,6 @@
                         [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Fail</button>
                 <button mat-flat-button color="primary" (click)="getPDF()" title="Open PDF"
                         [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status ">PDF of CV</button>
+
         </div>
 </div>
