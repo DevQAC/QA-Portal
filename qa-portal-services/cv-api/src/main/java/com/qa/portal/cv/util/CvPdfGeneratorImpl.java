@@ -56,9 +56,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             montserratTTF = new TTFParser().parse(montRegResource.getInputStream());
             montserratBoldTTF = new TTFParser().parse(montBoldResource.getInputStream());
             kranaFatBTTF = new TTFParser().parse(kranaResource.getInputStream());
-            montserrat = PDType0Font.load(document.getPDDocument(), montserratTTF,true);
-            montserratBold = PDType0Font.load(document.getPDDocument(), montserratBoldTTF,true);
-            kranaFatB = PDType0Font.load(document.getPDDocument(), kranaFatBTTF,true);
         } catch (Exception e) {
             throw new QaPortalBusinessException("Cannot load fonts for CV generation");
         }
@@ -68,6 +65,9 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     public byte[] generateCv(CvVersion cvVersion) {
         document = new Document();
         try {
+            montserrat = PDType0Font.load(document.getPDDocument(), montserratTTF,true);
+            montserratBold = PDType0Font.load(document.getPDDocument(), montserratBoldTTF,true);
+            kranaFatB = PDType0Font.load(document.getPDDocument(), kranaFatBTTF,true);
             generateConsultantNameBox(cvVersion);
             generateSkillsBox(cvVersion);
             generateQualificationsBox(cvVersion);
