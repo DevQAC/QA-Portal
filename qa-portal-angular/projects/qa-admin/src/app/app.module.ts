@@ -8,6 +8,7 @@ import { RoleChipsComponent } from './role-chips/role-chips.component';
 import { QaCommonModule } from 'projects/qa-common/src/app/app.module';
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 import { DelUserConfirmDialogComponent } from './del-user-confirm-dialog/del-user-confirm-dialog.component';
+import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DelUserConfirmDialogComponent } from './del-user-confirm-dialog/del-use
     UserManagementConsoleComponent,
     RoleChipsComponent,
     AddUserDialogComponent,
-    DelUserConfirmDialogComponent
+    DelUserConfirmDialogComponent,
+    EditUserDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,8 @@ import { DelUserConfirmDialogComponent } from './del-user-confirm-dialog/del-use
   bootstrap: [AppComponent],
   entryComponents: [
     AddUserDialogComponent,
-    DelUserConfirmDialogComponent
+    DelUserConfirmDialogComponent,
+    EditUserDialogComponent
   ]
 })
 export class AppModule { }

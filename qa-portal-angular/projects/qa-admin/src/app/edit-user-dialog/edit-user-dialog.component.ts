@@ -3,21 +3,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IUser } from '../_common/models/user.model';
 
 @Component({
-  selector: 'app-add-user-dialog',
-  templateUrl: './add-user-dialog.component.html',
-  styleUrls: ['./add-user-dialog.component.css']
+  selector: 'app-edit-user-dialog',
+  templateUrl: './edit-user-dialog.component.html',
+  styleUrls: ['./edit-user-dialog.component.css']
 })
-export class AddUserDialogComponent implements OnInit {
+export class EditUserDialogComponent implements OnInit {
   @Output() public dataChanged = new EventEmitter<IUser>();
-  private data: IUser = {
-    username: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    roles: []
-  };
+  private oldData: IUser;
 
-  constructor(public dialogRef: MatDialogRef<AddUserDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<EditUserDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IUser) { }
 
   onSave(): void {
     this.dataChanged.emit(this.data);
@@ -28,11 +22,11 @@ export class AddUserDialogComponent implements OnInit {
     this.dialogRef.close();
   }
   onCancel(): void {
-    this.dataChanged.emit(this.data);
+    this.dataChanged.emit(this.oldData);
     this.dialogRef.close();
   }
   ngOnInit() {
-    this.data = this.data;
+    this.oldData = this.data;
   }
 
 }

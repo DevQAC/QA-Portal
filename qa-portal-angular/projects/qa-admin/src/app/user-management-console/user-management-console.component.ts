@@ -3,6 +3,7 @@ import { IUser } from '../_common/models/user.model';
 import { MatDialog } from '@angular/material';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
 import { DelUserConfirmDialogComponent } from '../del-user-confirm-dialog/del-user-confirm-dialog.component';
+import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
 
 @Component({
   selector: 'app-user-management-console',
@@ -20,18 +21,27 @@ export class UserManagementConsoleComponent implements OnInit {
 
   editDialog(user: IUser): void {
     console.info(user);
-    let dialogRef = this.dialog.open(AddUserDialogComponent, {
+    let dialogRef = this.dialog.open(EditUserDialogComponent, {
       width: '500px',
       data: user
     });
-    // dialogRef.componentInstance.doSubmit.subscribe(() => {
-    //   if (dialogRef.componentInstance.canSubmit === true) {
-    //     this.onSubmit();
-    //   }
-    // });
-    // dialogRef.afterClosed().subscribe(() => {
-    // });
+    dialogRef.componentInstance.dataChanged.subscribe(() => {
 
+    });
+    dialogRef.afterClosed().subscribe(() => {
+    });
+  }
+
+  addDialog(user: IUser): void {
+    console.info(user);
+    let dialogRef = this.dialog.open(AddUserDialogComponent, {
+      width: '500px',
+    });
+    dialogRef.componentInstance.dataChanged.subscribe(() => {
+
+    });
+    dialogRef.afterClosed().subscribe(() => {
+    });
   }
 
   deleteConfirmDialog(user: IUser): void {

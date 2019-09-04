@@ -1,7 +1,7 @@
-<h1 mat-dialog-title>Add A User</h1>
+<h1 mat-dialog-title>Edit A User</h1>
 <div mat-dialog-content>
   <mat-form-field>
-    <input matInput placeholder="Username" [value]="data.username">
+    <input matInput placeholder="Username" disabled [value]="data.username">
   </mat-form-field>
   <table cellspacing="0">
     <tr>
@@ -24,5 +24,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button color="warn" (click)="onCancel()">Cancel</button>
-  <button mat-button color="primary" cdkFocusInitial (click)="onSave()">Add User</button>
+  <button mat-button color="primary" cdkFocusInitial (click)="onUpdate()">Save Changes</button>
 </div>
