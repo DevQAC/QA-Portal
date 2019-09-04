@@ -2,7 +2,6 @@ package com.qa.portal.cv.rest;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 import com.qa.portal.cv.domain.CvSearchCriteria;
 import com.qa.portal.cv.domain.CvUserDetails;

@@ -4,7 +4,6 @@ import com.qa.portal.cv.domain.CvUserDetails;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 
-import com.qa.portal.cv.rest.CvManagementController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
