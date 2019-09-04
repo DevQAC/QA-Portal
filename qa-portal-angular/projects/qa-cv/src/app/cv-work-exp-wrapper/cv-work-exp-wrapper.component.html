@@ -1,6 +1,6 @@
 
 <h2>Work Experience
-  <button mat-mini-fab style="float: right" (click)="addExp()">
+  <button mat-mini-fab style="float: right" (click)="addExp()"  [disabled]="getEditValue()">
     <mat-icon>add</mat-icon>
   </button>
 </h2>

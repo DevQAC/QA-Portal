@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, OnDestroy, AfterContentInit } from '@angular/core';
 import { ICvModel, DEFAULT_CV } from '../_common/models/qac-cv-db.model';
 import { ViewCvService } from '../_common/services/view-cv.service';
 import { CvCardBaseComponent } from '../cv-card-base/cv-card-base.component';
@@ -19,10 +19,10 @@ import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-con
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   ]
 })
-export class ViewCvComponent implements OnInit, OnDestroy {
+export class ViewCvComponent implements AfterContentInit, OnInit, OnDestroy {
   @Output() public canComment: boolean;
   @Output() public canEdit: boolean;
-  
+
   enableButtons: boolean;
   cvs: ICvModel[] = [];
   openThis = false;
@@ -135,16 +135,16 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvData.allQualifications[this.qualFeedbackIndex].qualificationFeedback = feedback;
   }
 
-  ngAFterContentInit() {
-    if (this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE) {
-      this.canEdit = true;
+  ngDoCheck() {
+    if (this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE) {
+      this.canEdit = false;
     } else {
-      this.canComment = false;
-      if (this.activatedRoute.snapshot.data.roles === TRAINEE_ROLE && this.cvData.status !== "For Review") {
-        this.canEdit = true;
-      } else {
+      this.canEdit = true;
+    if (this.activatedRoute.snapshot.data.roles[0] === TRAINEE_ROLE && this.cvData.status !== "For Review") {
         this.canEdit = false;
+      } else {
+        this.canEdit = true;
       }
-    }
+  }
   }
 }

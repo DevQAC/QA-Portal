@@ -11,7 +11,7 @@
         <section>
                 <app-cv-card-base title="Hobbies and Interests" [canComment]="canComment"
                         [feedback]="cvData?.hobbies?.hobbiesFeedback">
-                        <app-cv-hobbies [hobbies]="cvData?.hobbies" (hobbiesChange)="cvData.hobbies = $event">
+                        <app-cv-hobbies [hobbies]="cvData?.hobbies" (hobbiesChange)="cvData.hobbies = $event" [canEdit]="canEdit">
                         </app-cv-hobbies>
                 </app-cv-card-base>
         </section>
@@ -20,7 +20,7 @@
                         (feedbackChange)="onQualFeedbackChange($event)" [showOpenButton]="false">
                         <app-cv-qualis-wrapper [qualifications]="cvData?.allQualifications"
                                 (qualificationsChange)="cvData.allQualifications = $event"
-                                (feedbackClick)="onQualFeedbackClick($event, qualCard)">
+                                (feedbackClick)="onQualFeedbackClick($event, qualCard)" [canEdit]="canEdit">
                         </app-cv-qualis-wrapper>
                 </app-cv-card-base>
         </section>
@@ -29,13 +29,13 @@
                         (feedbackChange)="onWorkExpFeedbackChange($event)" [showOpenButton]="false">
                         <app-cv-work-exp-wrapper [experiences]="cvData?.allWorkExperience"
                                 (experiencesChange)="cvData.allWorkExperience = $event"
-                                (feedbackClick)="onWorkExpFeedbackClick($event, expCard)">
+                                (feedbackClick)="onWorkExpFeedbackClick($event, expCard)" [canEdit]="canEdit">
                         </app-cv-work-exp-wrapper>
                 </app-cv-card-base>
         </section>
         <section>
                 <app-cv-card-base [showOpenButton]="false" title="Skills">
-                        <app-cv-skills [skills]="cvData?.allSkills[0]" (skillsChange)="cvData.allSkills[0] = $event">
+                        <app-cv-skills [skills]="cvData?.allSkills[0]" (skillsChange)="cvData.allSkills[0] = $event" [canEdit]="canEdit">
                         </app-cv-skills>
                 </app-cv-card-base>
         </section>

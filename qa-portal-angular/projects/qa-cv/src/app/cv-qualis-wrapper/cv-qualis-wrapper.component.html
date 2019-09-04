@@ -1,5 +1,5 @@
 <h2> Qualifications
-    <button mat-mini-fab style="float: right" (click)="onNewQualiClick()">
+    <button mat-mini-fab style="float: right" (click)="onNewQualiClick()" [disabled]="getEditValue()">
         <mat-icon>add</mat-icon>
     </button>
 </h2>
