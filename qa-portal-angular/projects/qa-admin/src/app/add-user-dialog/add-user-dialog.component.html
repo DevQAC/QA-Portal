@@ -21,6 +21,10 @@
     <input matInput placeholder="Email" [value]="data.email">
   </mat-form-field>
   <app-role-chips [roles]="data.roles"></app-role-chips>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Password" [value]="data.password" disabled>
+    <mat-hint>Each new user will be assigned a random password</mat-hint>
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button color="warn" (click)="onCancel()">Cancel</button>

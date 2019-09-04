@@ -10,6 +10,7 @@ import { IUser } from '../_common/models/user.model';
 export class EditUserDialogComponent implements OnInit {
   @Output() public dataChanged = new EventEmitter<IUser>();
   private oldData: IUser;
+  private passwordEditEnabled: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<EditUserDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IUser) { }
 
