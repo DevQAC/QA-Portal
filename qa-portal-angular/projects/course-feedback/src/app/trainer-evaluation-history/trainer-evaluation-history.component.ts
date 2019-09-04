@@ -53,9 +53,9 @@ export class TrainerEvaluationHistoryComponent implements OnInit {
         this.errorHandler.handleError(error);
       }
     );
-    this.viewModel2.tableRows = [{
+  //   this.viewModel2.tableRows = [{
       
-  }];
+  // }];
 
     this.dataSource2 = new MatTableDataSource(this.viewModel2.tableRows);
 
