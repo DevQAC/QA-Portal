@@ -19,7 +19,7 @@ import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-con
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   ]
 })
-export class ViewCvComponent implements AfterContentInit, OnInit, OnDestroy {
+export class ViewCvComponent implements OnInit, OnDestroy {
   @Output() public canComment: boolean;
   @Output() public canEdit: boolean;
 

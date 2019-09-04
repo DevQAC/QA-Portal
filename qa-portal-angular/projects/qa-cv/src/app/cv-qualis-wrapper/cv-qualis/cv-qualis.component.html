@@ -9,6 +9,6 @@
     </button>
   </div>
   <mat-card-actions>
-    <button mat-button color="warn" (click)="deleteQuali()" title="Remove this Qualification">Remove</button>
+    <button mat-button color="warn" (click)="deleteQuali()" title="Remove this Qualification"  [disabled]="getEditValue()">Remove</button>
   </mat-card-actions>
 </mat-card>
