@@ -1,8 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { IUser } from '../../_common/models/user.model';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { FormControl } from '@angular/forms';
-import { MatChipInputEvent, MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { IUser } from '../_common/models/user.model';
 
 @Component({
   selector: 'app-user-management-console',
