@@ -23,8 +23,6 @@ public class CreateCvOperation {
 	// pass in current username, cohort and full name from security context
 	public CvVersion createCv(CvVersion newCv, CvUserDetails user) {
 
-        LOGGER.info("£££"+user.getFirstName());
-
 		newCv.setUserName(user.getUserName());
 		newCv.setFirstName(user.getFirstName());
 		newCv.setSurname(user.getLastName());
@@ -32,11 +30,6 @@ public class CreateCvOperation {
 
 		newCv.setCohort(user.getCohort());
 		newCv.setStatus("In Progress");
-
-		LOGGER.info(newCv.getSurname());
-		LOGGER.info(newCv.getFullName());
-		LOGGER.info(newCv.getFirstName());
-
 
 		repo.save(newCv);
 		
