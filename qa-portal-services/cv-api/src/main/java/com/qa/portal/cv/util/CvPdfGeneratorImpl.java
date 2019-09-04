@@ -44,8 +44,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     PDFont montserratBold;
     PDFont kranaFatB;
     
-    // QA Colour Scheme
-
     // Font Sizes and Spacing
     int pd = 20;
     int sideBarHeaderFontSize = 20;
@@ -55,6 +53,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     int bodyHeadingsFontSize = 12;
     int bodyParagraphFontSize = 9;
     int bodyHeadingParaSpacing = 4;
+
 
     float heightSideBox1 = document.getPageHeight() / 6 + 4;
     float heightSideBox2 = (float) 2.5 * document.getPageHeight() / 6 + 7;
@@ -73,9 +72,9 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     @PostConstruct
     public void loadfonts() {    	
         try {
-        	this.montserrat = loadFont("Montserrat-Regular.ttf");
-        	this.montserratBold = loadFont("Montserrat-SemiBold.ttf");
-        	this.kranaFatB = loadFont("Krana-Fat-B.ttf");
+        	this.montserrat = loadFont(CvPdfConstants.montserratFile.value);
+        	this.montserratBold = loadFont(CvPdfConstants.montserratBoldFile.value);
+        	this.kranaFatB = loadFont(CvPdfConstants.kranaFatBFile.value);
         } catch (IOException e) {
             e.printStackTrace();
             throw new QaPortalBusinessException("Cannot load in CvPdfGeneratorImpl fonts");
@@ -93,7 +92,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             frame.setBackgroundColor(Color.decode(CvPdfConstants.QA_RED.value));
             document.add(frame);
             
-            ImageElement arrow = loadImages("target/classes/Arrow.png", 35);
+            ImageElement arrow = loadImages(CvPdfConstants.arrowFile.value, 35);
             arrow.setAbsolutePosition(new Position(pd, document.getPageHeight() - heightSideBox1 + pd + 20));
 
             CvPdfElement skillsBox = new CvPdfElement(widthCol1, heightSideBox2, 0, document.getPageHeight() - heightSideBox1, pd);
@@ -127,7 +126,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             paragraph.addMarkup("{color:#89898b}Consultant Profile", 8.8f, montserrat, montserratBold, montserrat, montserrat);
             document.add(frame);
             
-            ImageElement logo = loadImages("target/classes/QA_Logo.png", 37);
+            ImageElement logo = loadImages(CvPdfConstants.logoFile.value, 37);
             logo.setAbsolutePosition(new Position((widthCol1 + widthCol2 - logo.getWidth() - pd), (heightFooter + heightBody + logo.getHeight() + 4)));
 
             CvPdfElement body = new CvPdfElement(widthCol2, heightBody, widthCol1, document.getPageHeight()-heightHeader, pd);
