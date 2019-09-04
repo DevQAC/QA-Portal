@@ -18,12 +18,12 @@
     </tr>
   </table>
   <mat-form-field>
-    <input matInput placeholder="Email" [value]="data.email">
+    <input matInput type="email" placeholder="Email" [value]="data.email">
   </mat-form-field>
   <app-role-chips [roles]="data.roles"></app-role-chips>
   <mat-form-field>
     <input matInput type="password" placeholder="Password" [value]="data.password" [disabled]="!passwordEditEnabled">
-    <mat-hint>Only change the users password if they have forgotten it and cannot login to their account</mat-hint>
+    <mat-hint>Tick the box below to change the users password</mat-hint>
   </mat-form-field>
   <mat-checkbox class="example-margin" [(ngModel)]="passwordEditEnabled">Change Password</mat-checkbox>
 </div>

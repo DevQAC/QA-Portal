@@ -1,6 +1,6 @@
 <h1>
   Current Users
-  <button mat-mini-fab style="float: right" color="primary" (click)="addDialog()">
+  <button mat-icon-button style="float: right" color="primary" (click)="addDialog()" title="Add a New User">
     <mat-icon>add</mat-icon>
   </button>
 </h1>
@@ -30,10 +30,10 @@
   <ng-container matColumnDef="Actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let user">
-      <button mat-mini-fab color="primary" (click)="editDialog(user)">
+      <button mat-icon-button color="primary" (click)="editDialog(user)" title="Edit this users' details">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-mini-fab color="warn" (click)="deleteConfirmDialog(user)">
+      <button mat-icon-button color="warn" (click)="deleteConfirmDialog(user)" title="Delete this user">
         <mat-icon>delete</mat-icon>
       </button>
     </td>
