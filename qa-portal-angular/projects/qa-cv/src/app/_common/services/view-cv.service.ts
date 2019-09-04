@@ -5,7 +5,7 @@ import { ICvModel } from '../models/qac-cv-db.model';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import * as _ from 'lodash';
-import { GET_ALL_CVS, POST_CV_DATA } from '../models/cv.constants';
+import { GET_ALL_CVS, POST_CV_DATA, GET_CURRENT_CV } from '../models/cv.constants';
 
 @Injectable({ providedIn: 'root' })
 export class ViewCvService {
@@ -26,7 +26,7 @@ export class ViewCvService {
   }
 
   private getAllCvsForCurrentUser(): Observable<ICvModel[]> {
-    return this.http.get<ICvModel[]>(GET_ALL_CVS, this.httpOptions).pipe(
+    return this.http.get<ICvModel[]>(GET_CURRENT_CV, this.httpOptions).pipe(
       catchError(this.handleError<ICvModel[]>(`getICvModel for current user`))
     );
 
@@ -35,12 +35,12 @@ export class ViewCvService {
   //////// Save methods //////////
 
   // /** POST: add a new cv to the server */
-  // addCv(cv: ICvModel): Observable<ICvModel> {
-  //   return this.http.post<ICvModel>(POST_CV_DATA, cv, this.httpOptions).pipe(
-  //     tap((newICvModel: ICvModel) => this.log(`added cv w/ id=${newICvModel.id}`)),
-  //     catchError(this.handleError<ICvModel>('addICvModel'))
-  //   );
-  // }
+  createCv(cv: ICvModel): Observable<ICvModel> {
+    return this.http.post<ICvModel>(POST_CV_DATA, cv, this.httpOptions).pipe(
+      tap((newICvModel: ICvModel) => this.log(`added cv w/ id=${newICvModel.id}`)),
+      catchError(this.handleError<ICvModel>('addICvModel'))
+    );
+  }
 
   /** PUT: update the cv on the server */
   updateCv(cv: ICvModel): Observable<ICvModel> {
