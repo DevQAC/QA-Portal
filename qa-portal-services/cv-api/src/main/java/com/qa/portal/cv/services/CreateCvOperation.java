@@ -1,6 +1,6 @@
 package com.qa.portal.cv.services;
 
-import com.qa.portal.cv.domain.CvUserDetails;
+import com.qa.portal.cv.domain.UserDetails;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 
@@ -20,7 +20,7 @@ public class CreateCvOperation {
 	}
 
 	// pass in current username, cohort and full name from security context
-	public CvVersion createCv(CvVersion newCv, CvUserDetails user) {
+	public CvVersion createCv(CvVersion newCv, UserDetails user) {
 
 		newCv.setUserName(user.getUserName());
 		newCv.setFirstName(user.getFirstName());

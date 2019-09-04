@@ -6,7 +6,7 @@ import java.util.Set;
 
 // The identifying details retrieved from the security context
 // saved in Keycloak
-public class CvUserDetails {
+public class UserDetails {
 
     private String firstName;
     private String lastName;
@@ -48,9 +48,9 @@ public class CvUserDetails {
         this.cohort = cohort;
     }
 
-    public static CvUserDetails retrieveCvUserDetails(QaSecurityContext securityContext){
+    public static UserDetails retrieveCvUserDetails(QaSecurityContext securityContext){
 
-        CvUserDetails user = new CvUserDetails();
+        UserDetails user = new UserDetails();
         user.setFirstName(securityContext.getFirstName());
         user.setLastName(securityContext.getSurname());
         user.setUserName(securityContext.getUserName());
@@ -62,3 +62,4 @@ public class CvUserDetails {
 
     }
 }
+
