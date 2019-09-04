@@ -1,26 +1,19 @@
 package com.qa.portal.cv.util;
 
-import java.awt.Color;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.exception.QaPortalSevereException;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.domain.Qualification;
-
+import org.apache.fontbox.ttf.TTFParser;
+import org.apache.fontbox.ttf.TrueTypeFont;
 import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-
 import rst.pdfbox.layout.elements.Document;
 import rst.pdfbox.layout.elements.Frame;
 import rst.pdfbox.layout.elements.ImageElement;
@@ -29,40 +22,54 @@ import rst.pdfbox.layout.shape.Stroke;
 import rst.pdfbox.layout.text.Alignment;
 import rst.pdfbox.layout.text.Position;
 
+import javax.annotation.PostConstruct;
+import java.awt.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
 @Component
 public class CvPdfGeneratorImpl implements CvPdfGenerator {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(CvPdfGeneratorImpl.class);
 
     Document document = new Document();
 
     Frame frame;
     Paragraph paragraph;
 
+    TrueTypeFont montserratTTF;
+    TrueTypeFont montserratBoldTTF;
+    TrueTypeFont kranaFatBTTF;
     PDFont montserrat;
     PDFont montserratBold;
     PDFont kranaFatB;
 
-    public PDFont loadFont(String path) throws IOException {
-    	Resource fontResource = new ClassPathResource(path);
-    	return PDType0Font.load(document.getPDDocument(), fontResource.getInputStream());
-    }
-
     @PostConstruct
-    public void loadfonts() {    	
+    public void createFonts() {
+        Resource montRegResource = new ClassPathResource("Montserrat-Regular.ttf");
+        Resource montBoldResource = new ClassPathResource("Montserrat-SemiBold.ttf");
+        Resource kranaResource = new ClassPathResource("Krana-Fat-B.ttf");
         try {
-        	this.montserrat = loadFont(Fonts.MONTSERRAT_FILE.value);
-        	this.montserratBold = loadFont(Fonts.MONTSERRAT_BOLD_FILE.value);
-        	this.kranaFatB = loadFont(Fonts.KRANA_FAT_B_FILE.value);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new QaPortalBusinessException("Cannot load in CvPdfGeneratorImpl fonts");
+            montserratTTF = new TTFParser().parse(montRegResource.getInputStream());
+            montserratBoldTTF = new TTFParser().parse(montBoldResource.getInputStream());
+            kranaFatBTTF = new TTFParser().parse(kranaResource.getInputStream());
+            montserrat = PDType0Font.load(document.getPDDocument(), montserratTTF,true);
+            montserratBold = PDType0Font.load(document.getPDDocument(), montserratBoldTTF,true);
+            kranaFatB = PDType0Font.load(document.getPDDocument(), kranaFatBTTF,true);
+        } catch (Exception e) {
+            throw new QaPortalBusinessException("Cannot load fonts for CV generation");
         }
     }
 
     @Override
     public byte[] generateCv(CvVersion cvVersion) {
+        document = new Document();
         try {
-        	generateConsultantNameBox(cvVersion);
-        	generateSkillsBox(cvVersion);
+            generateConsultantNameBox(cvVersion);
+            generateSkillsBox(cvVersion);
             generateQualificationsBox(cvVersion);
             generateMainHeader(cvVersion);
             generateMainBody(cvVersion);
@@ -146,7 +153,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         paragraph.addMarkup("{color:#89898b}Consultant Profile", 8.8f, montserrat, montserratBold, montserrat, montserrat);
         document.add(frame);
         ImageElement logo = loadImages(Images.LOGO.filePath, Images.LOGO.resizeFactor);
-        logo.setAbsolutePosition(new Position(Images.LOGO.xPosition-logo.getWidth(), Images.LOGO.yPosition+logo.getHeight()));
+        logo.setAbsolutePosition(new Position(Images.LOGO.xPosition - logo.getWidth(), Images.LOGO.yPosition + logo.getHeight()));
     }
 
     public void generateMainBody(CvVersion cvVersion) throws IOException {
@@ -176,7 +183,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         frame.setPadding(PageFormat.PADDING.value, PageFormat.PADDING.value, 10, 0);
         document.add(frame);
     }
-    
+
     public ImageElement loadImages(String path, float resizeFactor) throws IOException {
         ImageElement img = new ImageElement(path);
         img.setWidth(img.getWidth() / resizeFactor);
@@ -186,14 +193,14 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     }
 
     public void bodyTitle(Paragraph paragraph, String title) throws IOException {
-        paragraph.addMarkup("{color:" + ColourScheme.QA_PURPLE.value + "}*" +title+ "*\n", FontSize.BODY_TITLES.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+        paragraph.addMarkup("{color:" + ColourScheme.QA_PURPLE.value + "}*" + title + "*\n", FontSize.BODY_TITLES.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
         paragraph.addMarkup("\n", FontSize.BODY_TITLE_CONTENT_SPACING.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
     }
 
     public void divider(float yPosition) throws IOException {
-    	CvPdfElement divider = new CvPdfElement(Dividers.WIDTH.value, Dividers.HEIGHT.value, Dividers.X_POSITION.value, yPosition);
-    	paragraph = divider.getParagraph();
-    	frame = divider.getFrame();
+        CvPdfElement divider = new CvPdfElement(Dividers.WIDTH.value, Dividers.HEIGHT.value, Dividers.X_POSITION.value, yPosition);
+        paragraph = divider.getParagraph();
+        frame = divider.getFrame();
         frame.setBorder(Color.decode("#d9dbdb"), new Stroke(0.5f));
         document.add(frame);
     }
