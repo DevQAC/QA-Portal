@@ -1,3 +1,3 @@
-<mat-form-field class="example-full-width">
-  <textarea matInput rows="20" [ngModel]="profile?.profileDetails" (ngModelChange)="onInputChange($event)"></textarea>
+<mat-form-field class="example-full-width" [formGroup]="form">
+  <textarea matInput rows="20" [ngModel]="profile?.profileDetails" (ngModelChange)="onInputChange($event)" [formControlName]="profile"></textarea>
 </mat-form-field>

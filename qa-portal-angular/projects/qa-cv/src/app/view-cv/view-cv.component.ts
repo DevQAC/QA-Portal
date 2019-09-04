@@ -21,9 +21,9 @@ import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-con
 })
 export class ViewCvComponent implements OnInit, OnDestroy {
   @Output() public canComment: boolean;
+  @Output() public canEdit: boolean;
 
   enableButtons: boolean;
-
   cvs: ICvModel[] = [];
   openThis = false;
 
@@ -46,7 +46,8 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (SubmitConfirmDialogComponent)
-      this.canComment = this.activatedRoute.snapshot.data.roles === TRAINING_ADMIN_ROLE;
+      this.canComment = this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE;
+      this.canEdit = this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE;
     this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = { ...DEFAULT_CV, ...cv });
   }
 

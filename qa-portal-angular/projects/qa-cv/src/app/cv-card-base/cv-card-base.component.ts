@@ -15,6 +15,7 @@ import { KeycloakService } from 'keycloak-angular';
 export class CvCardBaseComponent implements OnInit {
   @Input() title: string;
   @Input() canComment: boolean;
+  @Input() canEdit: boolean;
   @Input() feedback: IFeedback[];
   @Output() feedbackChange = new EventEmitter<IFeedback[]>();
   @Input() showOpenButton: boolean = true;
