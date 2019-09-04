@@ -16,14 +16,14 @@ public class UpdateCvVersionOperation {
 	}
 
 	public CvVersion updateCv(CvVersion updatedCv) {
-		//updatedCv.setFullName(user.getFullName());
+
 		updatedCv.setStatus("In Progress");
 		repo.save(updatedCv);
 		return updatedCv;
 	}
 	
 	public CvVersion submitCv(CvVersion submittedCv) {
-		//submittedCv.setFullName(user.getFullName());
+
 		submittedCv.setStatus("For Review");
 		repo.save(submittedCv);
 		return submittedCv;
@@ -31,14 +31,14 @@ public class UpdateCvVersionOperation {
 	
 	public CvVersion approveCv(CvVersion submittedCv) {
 		//ID should be set to null so a new entry is created and version number should be incremented.
-		//submittedCv.setFullName(user.getFullName());
+
 		submittedCv.setStatus("Approved");
 		repo.save(submittedCv);
 		return submittedCv;
 	}
 	
 	public CvVersion failCv(CvVersion submittedCv) {
-		//submittedCv.setFullName(user.getFullName());
+	
 		submittedCv.setStatus("Failed Review");
 		repo.save(submittedCv);
 		return submittedCv;
