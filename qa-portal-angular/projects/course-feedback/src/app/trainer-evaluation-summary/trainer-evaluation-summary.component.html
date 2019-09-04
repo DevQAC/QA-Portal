@@ -1,7 +1,15 @@
-<app-instructor-zone-title></app-instructor-zone-title>
+<div class="qa-app-title">
+  Trainer - Course Evaluation Summary
+</div>
 
-<app-course-info [courseName]="courseName" [location]="location" [startDate]="startDate" [duration]="duration"></app-course-info>
+<mat-card>
+  <mat-card-content>
+    <app-course-info [courseName]="courseName" [location]="location" [startDate]="startDate"
+                     [duration]="duration"></app-course-info>
+  </mat-card-content>
 
-<!-- <app-search-box></app-search-box> -->
+  <mat-card-content>
+    <app-table-component [dataSource]="dataSource" [average]="average" [tqi]="tqi"></app-table-component>
+  </mat-card-content>
+</mat-card>
 
-<app-table-component [dataSource]="dataSource" [average]="average" [tqi]="tqi"></app-table-component>
