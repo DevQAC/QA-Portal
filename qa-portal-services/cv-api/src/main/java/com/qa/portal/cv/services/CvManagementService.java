@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.qa.portal.cv.domain.CvSearchCriteria;
+import com.qa.portal.cv.domain.CvUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -51,8 +52,8 @@ public class CvManagementService {
     }
     
 //	Create Service
-    public CvVersion createCv(CvVersion newCv, String userName) {
-    	return this.createCvService.createCv(newCv, userName);
+    public CvVersion createCv(CvVersion newCv, CvUserDetails user) {
+    	return this.createCvService.createCv(newCv, user);
     }
     
 //	Update Service
