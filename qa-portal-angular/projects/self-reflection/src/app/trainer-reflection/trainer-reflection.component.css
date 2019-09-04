@@ -74,8 +74,8 @@
   /*font-weight: normal;*/
   /*color: grey;*/
   text-align: center;
-  background-color: lightgray;
-  color: #0060B9;
+  background-color: #eeeeee;
+  color: #004050;
 }
 
 .status {
@@ -107,8 +107,8 @@
 
 .grid-footer,
 ::ng-deep .grid-footer>.paginator .mat-paginator {
-  background-color: #eee;
-  border-top: #eee;
+  background-color: #eeeeee;
+  border-top: #eeeeee;
 }
 
 ::ng-deep .grid-footer>.paginator .mat-paginator-container {
@@ -135,7 +135,7 @@
 }
 
 .trainer-textareas .heading {
-  background-color: lightgrey;
+  background-color: #eeeeee;
   font-size: 16px;
 }
 
@@ -206,8 +206,8 @@ input.response:disabled {
 }
 
 input.response:disabled {
-  background-color: #eee;
-  border-bottom: 1px solid #eee;
+  background-color: #eeeeee;
+  border-bottom: 1px solid #eeeeee;
 }
 
 input[type=number].response::-webkit-inner-spin-button,

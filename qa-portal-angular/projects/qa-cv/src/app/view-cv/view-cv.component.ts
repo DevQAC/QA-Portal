@@ -1,11 +1,11 @@
-import {Component, OnInit, Output, OnDestroy} from '@angular/core';
-import {ICvModel, DEFAULT_CV} from '../_common/models/qac-cv-db.model';
+import {Component, OnDestroy, OnInit, Output} from '@angular/core';
+import {DEFAULT_CV, ICvModel} from '../_common/models/qac-cv-db.model';
 import {ViewCvService} from '../_common/services/view-cv.service';
 import {CvCardBaseComponent} from '../cv-card-base/cv-card-base.component';
 import {IFeedback} from '../_common/models/feedback.model';
 import {ActivatedRoute} from '@angular/router';
 import {TRAINING_ADMIN_ROLE} from '../../../../portal-core/src/app/_common/models/portal-constants';
-import {Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {MAT_DATE_LOCALE, MatDialog} from '@angular/material';
 import {SubmitConfirmDialogComponent} from './submit-confirm-dialog/submit-confirm-dialog.component';
 
@@ -21,26 +21,19 @@ import {SubmitConfirmDialogComponent} from './submit-confirm-dialog/submit-confi
 export class ViewCvComponent implements OnInit, OnDestroy {
   @Output() public canComment: boolean;
 
-  enableButtons: boolean;
-
-  cvs: ICvModel[] = [];
-  openThis = false;
+  fileURL: string;
+  workExpFeedbackIndex: number;
+  qualFeedbackIndex: number;
 
   public cvData: ICvModel;
   public workExpFeedback = [];
-  workExpFeedbackIndex: number;
-  public workExpDrawerOpen = false;
-
   public qualFeedback = [];
-  qualFeedbackIndex: number;
-  public qualDrawerOpen = false;
 
   private cvDataSubscription$: Subscription;
 
   constructor(private cvService: ViewCvService,
               private activatedRoute: ActivatedRoute,
-              public dialog: MatDialog
-  ) {
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -51,7 +44,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(SubmitConfirmDialogComponent, {
+    const dialogRef = this.dialog.open(SubmitConfirmDialogComponent, {
       width: '250px'
     });
     dialogRef.componentInstance.canSubmit = false;
@@ -62,22 +55,19 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(() => {
     });
-
   }
-
-  fileURL: string;
 
   getPDF() {
     this.cvService.getPDFService(this.cvData).subscribe((response) => {
 
-      let file = new Blob([response], {type: 'application/pdf'});
-      console.log("it worked");
+      const file = new Blob([response], {type: 'application/pdf'});
+      console.log('it worked');
 
       this.fileURL = URL.createObjectURL(file);
 
       window.open(this.fileURL, '_blank');
-      console.log("this is the URL " + this.fileURL);
-    })
+      console.log('this is the URL ' + this.fileURL);
+    });
 
   }
 
@@ -87,7 +77,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
   onSave(): void {
-    this.cvData.status = "Saved";
+    this.cvData.status = 'Saved';
     // save if exists, else create
     if (this.cvData.userName) {
       this.updateCv();
@@ -97,13 +87,11 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
   createCv(): void {
-    //this.cvData.versionNumber = this.cvData.versionNumber ? this.cvData.versionNumber + 1 : 1;
     this.cvService.createCv(this.cvData).subscribe(newCv => this.cvData = newCv);
     this.updateCv();
   }
 
   updateCv(): void {
-    this.cvData.versionNumber = this.cvData.versionNumber ? this.cvData.versionNumber + 1 : 1;
     this.cvService.updateCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
 

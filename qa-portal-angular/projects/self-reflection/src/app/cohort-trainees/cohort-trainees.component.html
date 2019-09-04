@@ -6,7 +6,7 @@
 
   <mat-expansion-panel expanded="true">
     <mat-expansion-panel-header>
-      <mat-panel-title>
+      <mat-panel-title class="form-category-header">
         Cohorts
       </mat-panel-title>
       <mat-panel-description>
@@ -38,11 +38,11 @@
   </div>
 
   <mat-card *ngIf="!!cohortSelected">
-    <mat-card-subtitle *ngIf="dataSourceTrainees.data.length > 0" style="background-color: lightgrey; color: #0060B9; margin-bottom: 10px;">
+    <mat-card-subtitle *ngIf="dataSourceTrainees.data.length > 0">
       <span style="margin-left: 5px;">{{ cohortSelected }} has the following trainees with a reflection for review</span>
     </mat-card-subtitle>
 
-    <mat-card-subtitle *ngIf="dataSourceTrainees.data.length === 0" style="background-color: lightgrey; color: #0060B9; margin-bottom: 10px;">
+    <mat-card-subtitle *ngIf="dataSourceTrainees.data.length === 0">
       <span style="margin-left: 5px;">No Trainees in {{ cohortSelected }} with a reflection for review</span>
     </mat-card-subtitle>
 

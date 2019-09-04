@@ -8,7 +8,7 @@ import { MatDialogRef } from '@angular/material';
 export class SubmitConfirmDialogComponent {
   @Output() public doSubmit = new EventEmitter<boolean>();
 
-  private canSubmit: boolean;
+  public canSubmit: boolean;
 
   constructor(public dialogRef: MatDialogRef<SubmitConfirmDialogComponent>) { }
 
