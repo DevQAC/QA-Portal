@@ -1,0 +1,31 @@
+<h1 mat-dialog-title *ngIf="!data">Add A User</h1>
+<h1 mat-dialog-title *ngIf="data">Edit A User</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Username" [disabled]="data" [value]="data.username">
+  </mat-form-field>
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="First name" [value]="data.firstName">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Last Name" [value]="data.lastName">
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <mat-form-field>
+    <input matInput placeholder="Email" [value]="data.email">
+  </mat-form-field>
+  <app-role-chips [roles]="data.roles"></app-role-chips>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="warn" cdkFocusInitial (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" cdkFocusInitial *ngIf="!data" (click)="onSave()">Add User</button>
+  <button mat-button color="primary" cdkFocusInitial *ngIf="data" (click)="onUpdate()">Save Changes</button>
+
+</div>

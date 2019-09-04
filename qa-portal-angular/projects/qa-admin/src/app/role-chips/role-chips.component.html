@@ -1,14 +1,17 @@
-<mat-form-field class="example-chip-list">
+<mat-form-field>
   <mat-chip-list #chipList>
-    <mat-chip *ngFor="let role of roles" [selectable]="selectable" [removable]="removable" (removed)="remove(role)">
+    <mat-chip color="primary" *ngFor="let role of roles" [selectable]="selectable" [removable]="removable"
+      (removed)="remove(role)">
       {{role}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
-    <input placeholder="Add a Role" #roleInput [formControl]="fruitCtrl" [matAutocomplete]="auto"
+
+    <input placeholder="Add a Role" #roleInput [formControl]="roleCtrl" [matAutocomplete]="auto"
       [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let role of allRoles | async" [value]="role">
+    <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
       {{role}}
     </mat-option>
   </mat-autocomplete>

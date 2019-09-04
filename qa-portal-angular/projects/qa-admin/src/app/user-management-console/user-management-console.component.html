@@ -1,3 +1,9 @@
+<h1>
+  Current Users
+  <button mat-mini-fab style="float: right" color="primary" (click)="editDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</h1>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="Username">
     <th mat-header-cell *matHeaderCellDef> Username </th>
@@ -18,17 +24,17 @@
   <ng-container matColumnDef="Roles">
     <th mat-header-cell *matHeaderCellDef>Roles</th>
     <td mat-cell *matCellDef="let user">
-      <app-role-chips [roles]="user.roles"></app-role-chips>
+      {{user.roles}}
     </td>
   </ng-container>
   <ng-container matColumnDef="Actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let user">
-      <button mat-mini-fab color="primary" (click)="doEdit">
-        <mat-icon id={{user.username}}>edit</mat-icon>
+      <button mat-mini-fab color="primary" (click)="editDialog(user)">
+        <mat-icon>edit</mat-icon>
       </button>
-      <button mat-mini-fab color="warn" (click)="doDelete">
-        <mat-icon id={{user.username}}>delete</mat-icon>
+      <button mat-mini-fab color="warn" (click)="deleteConfirmDialog(user)">
+        <mat-icon>delete</mat-icon>
       </button>
     </td>
   </ng-container>

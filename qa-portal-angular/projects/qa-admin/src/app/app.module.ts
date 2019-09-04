@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { UserManagementConsoleComponent } from './user-management-console/user-management-console.component';
 import { RoleChipsComponent } from './role-chips/role-chips.component';
 import { QaCommonModule } from 'projects/qa-common/src/app/app.module';
+import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
+import { DelUserConfirmDialogComponent } from './del-user-confirm-dialog/del-user-confirm-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserManagementConsoleComponent,
-    RoleChipsComponent
+    RoleChipsComponent,
+    AddUserDialogComponent,
+    DelUserConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +23,11 @@ import { QaCommonModule } from 'projects/qa-common/src/app/app.module';
     QaCommonModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AddUserDialogComponent,
+    DelUserConfirmDialogComponent
+  ]
 })
 export class AppModule { }
 
