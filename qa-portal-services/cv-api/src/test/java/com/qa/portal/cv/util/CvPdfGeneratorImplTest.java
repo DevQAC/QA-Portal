@@ -1,6 +1,8 @@
 package com.qa.portal.cv.util;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -123,4 +125,16 @@ public class CvPdfGeneratorImplTest {
 			System.out.println("Error: " + ex.getMessage());
 		}
 	}
+	
+//	// Test: Make sure an element is added to the correct location
+//	@Test
+//	public void elementPlacmentTest() throws IOException {
+//		String filename = ("pdfDummy.pdf");
+//		
+//		Resource generatedPdfResource = new FileSystemResource("pdfDummy.pdf");
+//		File generatedPdfFile = new File(generatedPdfResource.getFile().getPath());
+//		File dummyData = new File("pdfGenTest.pdf");
+//		
+//		 assertThat(document(filename), matcher);
+//	}
 }
