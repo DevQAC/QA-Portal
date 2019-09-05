@@ -13,7 +13,7 @@ export class CvWorkExpWrapperComponent implements OnInit {
   @Output() experiencesChange = new EventEmitter<IWorkExperience[]>();
 
   @Output() feedbackClick = new EventEmitter<{index: number, experience: IWorkExperience}>();
-
+  @Input() canEdit: boolean;
 
 
   constructor() { }
@@ -49,5 +49,9 @@ export class CvWorkExpWrapperComponent implements OnInit {
     this.feedbackClick.emit({index, experience});
 
    
+  }
+  
+  getEditValue() {
+    return this.canEdit;
   }
 }

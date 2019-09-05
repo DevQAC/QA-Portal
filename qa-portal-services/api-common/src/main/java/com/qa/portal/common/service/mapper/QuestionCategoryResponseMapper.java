@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,7 +56,7 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
     }
 
     public void setUpdatedCategoryResponse(QuestionCategoryResponseEntity questionCategoryResponseEntity,
-                                            List<QuestionCategoryResponseDto> questionCategoryResponseDtos) {
+                                           List<QuestionCategoryResponseDto> questionCategoryResponseDtos) {
         QuestionCategoryResponseDto questionCategoryResponseDto = questionCategoryResponseDtos.stream()
                 .filter(qcrDto -> qcrDto.getId().equals(questionCategoryResponseEntity.getId()))
                 .findFirst()
@@ -124,7 +125,7 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
     }
 
     public List<S> createCategoryResponsesEntities(List<QuestionCategoryResponseDto> questionCategoryResponseDtos,
-                                                    T categoryResponseParent) {
+                                                   T categoryResponseParent) {
         return questionCategoryResponseDtos
                 .stream()
                 .map(fq -> createFeedbackQuestionCategoryResponseEntity(fq, categoryResponseParent))
@@ -139,6 +140,11 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
         fqcre.setQuestionCategory(getQuestionCategoryEntity(questionCategoryResponseDto.getQuestionCategory()));
         fqcre.setQuestionResponses(createQuestionResponseEntities(questionCategoryResponseDto.getQuestionResponses(), fqcre));
         fqcre.setParent(categoryResponseParent);
+        if (questionCategoryResponseDto.getComment() != null) {
+            CommentEntity commentEntity = new CommentEntity();
+            commentEntity.setContent(questionCategoryResponseDto.getComment().getContent());
+            fqcre.setComment(commentEntity);
+        }
         return fqcre;
     }
 
@@ -158,6 +164,11 @@ public class QuestionCategoryResponseMapper<S extends QuestionCategoryResponseEn
         questionResponseEntity.setCategoryResponse(questionCategoryResponseEntity);
         questionResponseEntity.setQuestion(getQuestionEntity(questionResponseDto.getQuestion().getId()));
         questionResponseEntity.setResponseValues(getQuestionResponseValue(questionResponseDto));
+        if (questionResponseDto.getComment() != null) {
+            CommentEntity commentEntity = new CommentEntity();
+            commentEntity.setContent(questionResponseDto.getComment().getContent());
+            questionResponseEntity.setComment(commentEntity);
+        }
         return questionResponseEntity;
     }
 

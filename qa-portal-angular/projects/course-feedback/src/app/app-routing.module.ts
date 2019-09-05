@@ -3,10 +3,11 @@ import {RouterModule, Routes} from '@angular/router';
 import {TraineeCourseEvaluationComponent} from './trainee-course-evaluation/trainee-course-evaluation.component';
 import {TrainerEvaluationSummaryComponent} from '../app/trainer-evaluation-summary/trainer-evaluation-summary.component';
 import {TrainerEvaluationHistoryComponent} from './trainer-evaluation-history/trainer-evaluation-history.component';
-import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
+import {TrainerFeedbackPageComponent} from './trainer-feedback-page/trainer-feedback-page.component';
 import {TRAINEE_ROLE, TRAINER_ROLE} from '../../../portal-core/src/app/_common/models/portal-constants';
 import {AppAuthGuard} from '../../../portal-core/src/app/_common/guards/app-auth-guard';
 import {TraineeEvaluationSummaryComponent} from './trainee-evaluation-summary/trainee-evaluation-summary.component';
+import {TrainerFeedbackHistoryComponent} from './trainer-feedback-history/trainer-feedback-history.component';
 
 const routes: Routes = [
   {
@@ -51,7 +52,7 @@ const routes: Routes = [
             }
           },
           {
-            path: 'evaluation/course/summary',
+            path: 'evaluation/course/summary/:id',
             component: TrainerEvaluationSummaryComponent,
             canActivate: [AppAuthGuard],
             data: {
@@ -61,7 +62,17 @@ const routes: Routes = [
             }
           },
           {
-            path: 'current',
+            path: 'history',
+            component: TrainerFeedbackHistoryComponent,
+            canActivate: [AppAuthGuard],
+            data: {
+              roles: [
+                TRAINER_ROLE
+              ]
+            }
+          },
+          {
+            path: 'course/:id',
             component: TrainerFeedbackPageComponent,
             canActivate: [AppAuthGuard],
             data: {

@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {ModuleWithProviders, NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
@@ -12,19 +11,17 @@ import {CourseEvaluationComponent} from './course-evaluation/course-evaluation.c
 import {EvaluationTableComponent} from './evaluation-table/evaluation-table.component';
 import {TrainerEvaluationHistoryComponent} from './trainer-evaluation-history/trainer-evaluation-history.component';
 import {HttpClientModule} from '@angular/common/http';
-import {RetrieveTrainerEvaluationHistoryService} from './trainer-evaluation-history/services/retrieve-trainer-evaluation-history.service';
-import {InstructorZoneTitleComponent} from './trainer-evaluation-history/instructor-zone-title/instructor-zone-title.component';
-import {SearchFormComponent} from './trainer-evaluation-history/search-form/search-form.component';
+import {TrainerCourseHistoryService} from './_common/services/trainer-course-history.service';
 import {FormTypeService} from './_common/services/form-type.service';
 import {TraineeCourseEvaluationComponent} from './trainee-course-evaluation/trainee-course-evaluation.component';
-import {TrainerFeedbackPageComponent} from './trainer-feedback/trainer-feedback-page/trainer-feedback-page.component';
-import {FeedbackQuestionComponent} from './trainer-feedback/feedback-question/feedback-question.component';
-import {ProblemReporterComponent} from './trainer-feedback/problem-reporter/problem-reporter.component';
+import {TrainerFeedbackPageComponent} from './trainer-feedback-page/trainer-feedback-page.component';
 import {QaFormsModule} from 'projects/qa-forms';
-import {FeedbackService} from './trainer-feedback/_common/services/feedback.service';
 import {EvaluationService} from './_common/services/evaluation-service';
 import {TraineeEvaluationSummaryComponent} from './trainee-evaluation-summary/trainee-evaluation-summary.component';
 import {TraineeEvaluationSummaryService} from './trainee-evaluation-summary/services/trainee-evaluation-summary.service';
+import {FeedbackService} from './trainer-feedback-page/_common/services/feedback.service';
+import { TrainerFeedbackHistoryComponent } from './trainer-feedback-history/trainer-feedback-history.component';
+import {InstructorZoneTitleComponent} from './trainer-evaluation-summary/instructor-zone-title/instructor-zone-title.component';
 
 
 @NgModule({
@@ -33,18 +30,15 @@ import {TraineeEvaluationSummaryService} from './trainee-evaluation-summary/serv
     TrainerEvaluationSummaryComponent,
     TableComponentComponent,
     CourseInfoComponent,
-    InstructorZoneTitleComponent,
     SearchBoxComponent,
     CourseEvaluationComponent,
     EvaluationTableComponent,
     TrainerEvaluationHistoryComponent,
-    InstructorZoneTitleComponent,
-    SearchFormComponent,
     TraineeCourseEvaluationComponent,
     TrainerFeedbackPageComponent,
-    FeedbackQuestionComponent,
-    ProblemReporterComponent,
-    TraineeEvaluationSummaryComponent
+    TraineeEvaluationSummaryComponent,
+    TrainerFeedbackHistoryComponent,
+    InstructorZoneTitleComponent
   ],
   imports: [
     BrowserModule,
@@ -54,9 +48,8 @@ import {TraineeEvaluationSummaryService} from './trainee-evaluation-summary/serv
     QaFormsModule
   ],
   providers: [
-    RetrieveTrainerEvaluationHistoryService,
+    TrainerCourseHistoryService,
     TraineeEvaluationSummaryService,
-    SearchFormComponent,
     FormTypeService,
     FeedbackService,
     EvaluationService

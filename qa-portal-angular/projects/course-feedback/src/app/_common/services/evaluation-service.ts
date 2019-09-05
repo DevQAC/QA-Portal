@@ -7,22 +7,22 @@ import {
   UPDATE_EVALUATION_FORM_URL
 } from '../models/course-feedback.constants';
 import { IFormModel } from 'projects/qa-forms/src/app/_common/models';
+import {IFormService} from './iform.service';
 
 @Injectable()
-export class EvaluationService {
+export class EvaluationService implements IFormService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getEvaluationForTraineeAndCohortCourse(cohortCourseId: string): Observable<IFormModel> {
+  public getForm(cohortCourseId: string): Observable<IFormModel> {
     return this.httpClient.get<IFormModel>(GET_EVALUATION_FOR_TRAINEE_AND_COURSE_URL + cohortCourseId);
   }
 
-  public createEvaluationForm(formModel: IFormModel): Observable<IFormModel> {
+  public createForm(formModel: IFormModel): Observable<IFormModel> {
     return this.httpClient.post<IFormModel>(CREATE_EVALUATION_FORM_URL, formModel);
   }
 
-  public updateEvaluationForm(formModel: IFormModel): Observable<IFormModel> {
-    console.log('Sending view model with status ' + formModel.status);
+  public updateForm(formModel: IFormModel): Observable<IFormModel> {
     return this.httpClient.put<IFormModel>(UPDATE_EVALUATION_FORM_URL, formModel);
   }
 }

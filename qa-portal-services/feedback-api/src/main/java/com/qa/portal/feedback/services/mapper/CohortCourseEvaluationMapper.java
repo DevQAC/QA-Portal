@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class CohortCourseEvaluationMapper {
 
@@ -35,7 +37,11 @@ public class CohortCourseEvaluationMapper {
     }
 
     public CohortCourseEvaluationDto mapToCohortCourseEvaluationDto(CohortCourseEvaluationEntity cohortCourseEvaluationEntity) {
-        return baseMapper.mapObject(cohortCourseEvaluationEntity, CohortCourseEvaluationDto.class);
+        CohortCourseEvaluationDto cohortCourseEvaluationDto =  baseMapper.mapObject(cohortCourseEvaluationEntity, CohortCourseEvaluationDto.class);
+        cohortCourseEvaluationDto.setCategoryResponses(cohortCourseEvaluationDto.getCategoryResponses()
+                .stream()
+                .collect(Collectors.toList()));
+        return cohortCourseEvaluationDto;
     }
     
     public CohortCourseEvaluationEntity createCohortCourseEvaluationEntity(CohortCourseEvaluationDto cohortCourseEvaluationDto,
