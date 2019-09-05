@@ -15,7 +15,8 @@ export class AddUserDialogComponent implements OnInit {
     firstName: "",
     lastName: "",
     email: "",
-    roles: []
+    roles: [],
+    cohorts: []
   };
   public canSubmit: boolean;
 
