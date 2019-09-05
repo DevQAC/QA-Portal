@@ -10,7 +10,7 @@ export class CVSearchHistoryService {
 
     constructor(private http: HttpClient) { }
 
-    private searchUrl = 'cv-api/cv/search';  // URL to web api
+    private searchUrl = 'cv-api/cv/search';  // URL to cv-api
 
     /**
  * Handle Http operation that failed.
@@ -21,7 +21,6 @@ export class CVSearchHistoryService {
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
 
-            // TODO: send the error to remote logging infrastructure
             console.error(error); // log to console instead
 
             // Let the app keep running by returning an empty result.
@@ -64,7 +63,7 @@ export class CVSearchHistoryService {
         }));
     }
 
-    /* GET heroes whose name contains search term */
+    /* GET cvs whose name contains search term */
     searchCVs(term: string, intakeChoice: string = "", techChoice: string = "", statusChoice: string = ""): Observable<CVSearchModel[]> {
         if (!term.trim()) {
             // if not search term, return empty CV array.
