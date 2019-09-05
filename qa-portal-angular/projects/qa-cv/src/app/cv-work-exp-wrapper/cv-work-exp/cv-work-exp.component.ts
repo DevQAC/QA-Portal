@@ -13,6 +13,7 @@ export class CvWorkExpComponent{
   @Output() experienceDelete = new EventEmitter<IWorkExperience>();
 
   @Output() feedbackClick = new EventEmitter<IWorkExperience>();
+  @Input() canEdit: boolean;
 
   public get formattedEndDate(): string {
     return moment(this.experience.end || 'Unknown').format('DD/MM/YYYY');
@@ -63,5 +64,9 @@ export class CvWorkExpComponent{
     }
 
 
+  }
+
+  getEditValue() {
+    return this.canEdit;
   }
 }

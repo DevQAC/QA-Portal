@@ -13,6 +13,7 @@ import * as moment from 'moment';
 export class CvCardBaseComponent {
   @Input() title: string;
   @Input() canComment: boolean;
+  @Input() canEdit: boolean;
   @Input() feedback: IFeedback[];
   @Output() feedbackChange = new EventEmitter<IFeedback[]>();
   @Input() showOpenButton: boolean = true;
