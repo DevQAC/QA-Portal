@@ -3,7 +3,9 @@ package com.qa.portal.cv.util;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.security.MessageDigest;
 
@@ -84,9 +86,27 @@ public class CvPdfGeneratorImplTest {
 
 	// Test: Make sure that a PDF has been created
 	@Test
+	public void pdfGenTest() {
+		CvPdfGeneratorImpl pdfGen = new CvPdfGeneratorImpl();
+		pdfGen.createFonts();
+		try {
+			ObjectMapper jsonObjectMapper = new ObjectMapper();
+			Resource jsonResource = new ClassPathResource("cv-version.json");
+			CvVersion cvVersion = jsonObjectMapper.readValue(jsonResource.getInputStream(), CvVersion.class);
+			byte[] pdfBytes = pdfGen.generateCv(cvVersion);
+			OutputStream os = new FileOutputStream("pdfGenTest.pdf");
+			os.write(pdfBytes);
+			os.close();
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+
+	// Test: Make sure that a PDF can be written
+	@Test
 	public void generateCvTest() {
 		try {
-			Resource generatedPdfResource = new FileSystemResource("pdfGenTest.pdf");
+			Resource generatedPdfResource = new FileSystemResource("pdfDummy.pdf");
 			File generatedPdfFile = new File(generatedPdfResource.getFile().getPath());
 
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
