@@ -9,7 +9,7 @@ import {RowData} from './models/row-data';
 import {QaToastrService} from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
 import {QaErrorHandlerService} from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 import {Observable} from 'rxjs';
-import {QuestionModel} from "../_common/models/question.model";
+import {QuestionModel} from '../_common/models/question.model';
 
 enum PageState {
   LOADING = 'loading', NO_SELF_REFLECTIONS = 'no-self-reflections', READY = 'ready', ERROR = 'error'
@@ -60,6 +60,87 @@ export class TrainerReflectionComponent implements OnInit {
     private router: Router) {
     this.pageState = PageState.LOADING;
   }
+
+  ngOnInit() {
+    // Get trainee id from path
+    this.activatedRoute.paramMap.subscribe((pm: ParamMap): void => {
+      const traineeId = +pm.get('id');
+      // Get trainee
+      this.reflectionService.getTraineeById(traineeId).subscribe((trainee: TraineeModel): void => {
+        this.trainee = trainee;
+
+        // Get questions.
+        this.reflectionService.getQuestionsByFormType('reflection_form')
+          .subscribe(questions => {
+            this.questions = questions.sort((a, b) => {
+              const aVal = a.id;
+              const bVal = b.id;
+              if (aVal < bVal) {
+                return -1;
+              } else if (aVal > bVal) {
+                return 1;
+              } else {
+                return 0;
+              }
+            });
+
+            this.questions.forEach(question => {
+              const categories = this.rowData.map(rowData => rowData.category);
+              if (categories.length === 0 || !categories.includes(question.questionCategoryName)) {
+                this.rowData.push(
+                  {
+                    category: question.questionCategoryName,
+                    questions: [],
+                  }
+                );
+              }
+
+              if (!this.questionIds.includes(question.id)) {
+                this.questionIds.push(question.id);
+              }
+            });
+
+            for (const question of this.questions) {
+              const category = this.rowData.find(rowData => rowData.category === question.questionCategoryName);
+              if (category !== undefined) {
+                category.questions.push({id: question.id, body: question.body, reflectionQuestions: []});
+              }
+            }
+
+            // Get reflections for this user
+            this.reflectionService.getReflectionsByTraineeId(traineeId)
+              .subscribe(
+                reflections => {
+                  if (reflections && reflections.length > 0) {
+                    let num = 0;
+                    // TODO: Change to async
+                    reflections.forEach((reflection: ReflectionModel, index): void => {
+                        this.reflectionService.getReflectionQuestionsByReflectionId(reflection.id)
+                          .subscribe(
+                            (reflectionQuestions: ReflectionQuestionModel[]): void => {
+                              if (reflectionQuestions.length >= questions.length) {
+                                ReflectionModel.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
+                                this.reflections.push(reflection);
+                              }
+
+                              if (num === reflections.length - 1) {
+                                this.updateReflections();
+                              } else {
+                                ++num;
+                              }
+                            });
+                      },
+                      error => this.errorService.handleError(error)
+                    );
+                  } else {
+                    this.pageState = PageState.NO_SELF_REFLECTIONS;
+                  }
+                }, error => this.handleSevereError(error));
+          }, error => this.handleSevereError(error));
+      }, error => this.handleSevereError(error));
+    }, error => this.handleSevereError(error));
+  }
+
 
   private updateReflections() {
     this.reflections.sort((a, b): number => {
@@ -198,85 +279,5 @@ export class TrainerReflectionComponent implements OnInit {
       questionsCompleted = questionsCompleted && !!row.questions[1].reflectionQuestions[0].trainerResponse;
     });
     return questionsCompleted;
-  }
-
-  ngOnInit() {
-    // Get trainee id from path
-    this.activatedRoute.paramMap.subscribe((pm: ParamMap): void => {
-      const traineeId = +pm.get('id');
-      // Get trainee
-      this.reflectionService.getTraineeById(traineeId).subscribe((trainee: TraineeModel): void => {
-        this.trainee = trainee;
-
-        // Get questions.
-        this.reflectionService.getQuestionsByFormType('reflection_form')
-          .subscribe(questions => {
-            this.questions = questions.sort((a, b) => {
-              const aVal = a.id;
-              const bVal = b.id;
-              if (aVal < bVal) {
-                return -1;
-              } else if (aVal > bVal) {
-                return 1;
-              } else {
-                return 0;
-              }
-            });
-
-            this.questions.forEach(question => {
-              const categories = this.rowData.map(rowData => rowData.category);
-              if (!categories.includes(question.questionCategoryName)) {
-                this.rowData.push(
-                  {
-                    category: question.questionCategoryName,
-                    questions: [],
-                  }
-                );
-              }
-
-              if (!this.questionIds.includes(question.id)) {
-                this.questionIds.push(question.id);
-              }
-            });
-
-            for (const question of this.questions) {
-              const category = this.rowData.find(rowData => rowData.category === question.questionCategoryName);
-              if (category !== undefined) {
-                category.questions.push({id: question.id, body: question.body, reflectionQuestions: []});
-              }
-            }
-
-            // Get reflections for this user
-            this.reflectionService.getReflectionsByTraineeId(traineeId)
-              .subscribe(
-                reflections => {
-                if (reflections && reflections.length > 0) {
-                  let num = 0;
-                  // TODO: Change to async
-                  reflections.forEach((reflection: ReflectionModel, index): void => {
-                    this.reflectionService.getReflectionQuestionsByReflectionId(reflection.id)
-                      .subscribe(
-                        (reflectionQuestions: ReflectionQuestionModel[]): void => {
-                          if (reflectionQuestions.length >= questions.length) {
-                            ReflectionModel.setReflectionQuestions(reflection, reflectionQuestions, this.questionIds);
-                            this.reflections.push(reflection);
-                          }
-
-                          if (num === reflections.length - 1) {
-                            this.updateReflections();
-                          } else {
-                            ++num;
-                          }
-                        });
-                    },
-                    error => this.errorService.handleError(error)
-                  );
-                } else {
-                  this.pageState = PageState.NO_SELF_REFLECTIONS;
-                }
-              }, error => this.handleSevereError(error));
-          }, error => this.handleSevereError(error));
-      }, error => this.handleSevereError(error));
-    }, error => this.handleSevereError(error));
   }
 }
