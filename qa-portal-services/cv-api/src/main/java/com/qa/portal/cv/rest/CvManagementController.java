@@ -113,7 +113,7 @@ public class CvManagementController {
     }
 
     @PostMapping(value = "cv/generated", produces = {MediaType.APPLICATION_PDF_VALUE})
-    public ResponseEntity<byte[]> getCvAsPdf() throws IOException {
-        return ResponseEntity.ok(service.getGeneratedCv(new CvVersion()));
+    public ResponseEntity<byte[]> getCvAsPdf(@RequestBody CvVersion cvVersion) throws IOException {
+        return ResponseEntity.ok(service.getGeneratedCv(cvVersion));
     }
 }
