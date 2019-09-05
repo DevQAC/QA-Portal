@@ -10,6 +10,7 @@ export class CvQualisWrapperComponent {
   @Input() qualifications: IQualification[];
   @Output() qualificationsChange = new EventEmitter<IQualification[]>();
   @Output() feedbackClick = new EventEmitter<{index: number, qualifications: IQualification}>();
+  @Input() canEdit: boolean;
 
   onNewQualiClick(): void {
     this.qualifications = [{
@@ -26,6 +27,10 @@ export class CvQualisWrapperComponent {
 
   onFeedbackClick(index: number, qualifications: IQualification): void {
     this.feedbackClick.emit({index, qualifications});
+  }
+
+  getEditValue() {
+    return this.canEdit;
   }
 
 }

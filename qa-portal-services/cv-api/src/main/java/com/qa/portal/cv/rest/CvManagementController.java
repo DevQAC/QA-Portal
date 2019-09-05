@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import com.qa.portal.cv.domain.CvSearchCriteria;
+import com.qa.portal.cv.domain.UserDetails;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +22,8 @@ public class CvManagementController {
 
     private QaSecurityContext qaSecurityContext;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CvManagementController.class);
+
     public CvManagementController(CvManagementService service, QaSecurityContext qaSecurityContext) {
         super();
         this.service = service;
@@ -28,7 +33,9 @@ public class CvManagementController {
     //	Create
     @PostMapping("/cv")
     public ResponseEntity<CvVersion> createCv(@RequestBody CvVersion newCv) {
-        return ResponseEntity.ok(this.service.createCv(newCv, qaSecurityContext.getUserName()));
+
+        UserDetails user = UserDetails.retrieveCvUserDetails(this.qaSecurityContext);
+        return ResponseEntity.ok(this.service.createCv(newCv, user));
     }
 
     //  Update
