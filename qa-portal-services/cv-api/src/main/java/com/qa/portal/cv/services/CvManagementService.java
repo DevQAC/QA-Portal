@@ -3,6 +3,8 @@ package com.qa.portal.cv.services;
 import java.io.IOException;
 import java.util.List;
 
+import com.qa.portal.cv.domain.CvSearchCriteria;
+import com.qa.portal.cv.domain.UserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -26,16 +28,19 @@ public class CvManagementService {
     private UpdateCvVersionOperation updateCvService;
 
     private GetCurrentCvVersionOperation getCvService;
-    
-    public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator, 
-    		CreateCvOperation createCvService, GetCurrentCvVersionOperation getCvService, 
-    		UpdateCvVersionOperation updateCvService) {
+
+    private CvSearchOperation cvSearchOperation;
+
+    public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator,
+                               CreateCvOperation createCvService, GetCurrentCvVersionOperation getCvService,
+                               UpdateCvVersionOperation updateCvService, CvSearchOperation cvSearchOperation) {
     	
         this.saveCvOperation = saveCvOperation;
         this.cvPdfGenerator = cvPdfGenerator;
         this.createCvService = createCvService;
     	this.getCvService = getCvService;
     	this.updateCvService = updateCvService;
+        this.cvSearchOperation = cvSearchOperation;
     }
     
     public void saveGeneratedCv(CvVersion cvVersion) throws IOException {
@@ -47,13 +52,25 @@ public class CvManagementService {
     }
     
 //	Create Service
-    public CvVersion createCv(CvVersion newCv) {
-    	return this.createCvService.createCv(newCv);
+    public CvVersion createCv(CvVersion newCv, UserDetails user) {
+    	return this.createCvService.createCv(newCv, user);
     }
     
 //	Update Service
     public CvVersion updateCv(CvVersion updatedCv) {
     	return this.updateCvService.updateCv(updatedCv);
+    }
+    
+    public CvVersion submitCv(CvVersion submittedCv) {
+    	return this.updateCvService.submitCv(submittedCv);
+    }
+    
+    public CvVersion approveCv(CvVersion submittedCv) {
+    	return this.updateCvService.approveCv(submittedCv);
+    }
+    
+    public CvVersion failCv(CvVersion submittedCv) {
+    	return this.updateCvService.failCv(submittedCv);
     }
     
 //	Get Service
@@ -72,4 +89,8 @@ public class CvManagementService {
     public CvVersion findByVersionNumber(Integer versionNumber) {
     	return this.getCvService.findByVersionNumber(versionNumber);
     }
-} 
+
+    public List<CvVersion>  cvSearch(CvSearchCriteria criteria){
+        return this.cvSearchOperation.findByCriteria(criteria);
+    }
+}

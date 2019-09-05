@@ -15,7 +15,6 @@ import {FormControl} from '@angular/forms';
 })
 export class CvSearchComponent implements OnInit, OnDestroy {
 
-  // historyViewModel = new CVSearchHistoryModel();
   displayedColumns: string[] = ['name', 'intake', 'tech', 'status', 'clients'];
   technology: string[] = [''];
   intake: string[];
@@ -44,9 +43,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
     private errorHandlerService: QaErrorHandlerService) {
   }
 
-  // @HostListener('input') oninput() {
-  //   this.searchItems();
-  // }
+  
   ngOnInit() {
 
     this.filterSubscription = this.cvSearchFilterService.getFilters().subscribe(
@@ -58,15 +55,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
         this.loadingData = false;
         this.dataSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
         this.dataSource.paginator = this.paginator;
-
-        // To filter by just name
-        // this.currentFormDateSource.filterPredicate = (data: CVSearchModel, filter: string) => {
-        //   return data.name == filter;
-        //  };
-        // this.techFilter.valueChanges.subscribe((techFilterValue) => {
-        //   this.filteredData['tech'] = techFilterValue;
-        //   this.dataSource.filter = JSON.stringify(this.filteredData);
-        // });
+      
 
         this.dataSource.filterPredicate = this.customFilterPredicate();
         this.loadingData = false;
@@ -79,34 +68,22 @@ export class CvSearchComponent implements OnInit, OnDestroy {
   }
 
   getSearch(term: string, intakeChoice: string = '', techChoice: string = '', statusChoice: string = '') {
-    console.log(term);
     intakeChoice = this.selectedIntake;
     techChoice = this.selectedTech;
     statusChoice = this.selectedStatus;
-    this.cvSearchSubscription = this.cvSearchHistoryService.getCVSearches(term, intakeChoice, techChoice, statusChoice).subscribe(
+    this.cvSearchSubscription = this.cvSearchHistoryService.searchCVs(term, intakeChoice, techChoice, statusChoice).subscribe(
       (response) => {
         this.currentForm = [];
         response.forEach((search) => {
-          // if (search.status !== "Reviewed") {
 
           this.currentForm.push(search);
-          // } else {
-          // this.historyViewModel.cvSearches.push(search);
-          // }
+         
         });
         this.loadingData = false;
         this.dataSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
         this.dataSource.paginator = this.paginator;
 
-        // To filter by just name
-        // this.currentFormDateSource.filterPredicate = (data: CVSearchModel, filter: string) => {
-        //   return data.name == filter;
-        //  };
-
-        // this.techFilter.valueChanges.subscribe((techFilterValue) => {
-        //   this.filteredData['tech'] = techFilterValue;
-        //   this.dataSource.filter = JSON.stringify(this.filteredData);
-        // });
+        
 
         this.dataSource.filterPredicate = this.customFilterPredicate();
         this.loadingData = false;
@@ -121,13 +98,10 @@ export class CvSearchComponent implements OnInit, OnDestroy {
 
   applyFilter(filterValue: string) {
     // this.currentFormDateSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
-    //     this.currentFormDateSource.paginator = this.paginator;
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
-    // this.filteredData = this.currentFormDateSource.filteredData;
-    // this.currentFormDateSource = new MatTableDataSource<CVSearchModel>(this.filteredData);
-    //   this.currentFormDateSource.paginator = this.paginator;
+ 
 
   }
 

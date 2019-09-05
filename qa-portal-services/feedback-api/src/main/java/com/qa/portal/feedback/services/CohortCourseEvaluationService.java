@@ -3,6 +3,7 @@ package com.qa.portal.feedback.services;
 import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.dto.TraineeEvaluationSummaryDto;
+import com.qa.portal.feedback.util.QuestionCategorySortUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +28,9 @@ public class CohortCourseEvaluationService {
 
 	private UpdateCohortCourseEvaluationOperation updateCohortCourseEvaluationOperation;
 
-	public CreateCohortCourseEvaluationOperation createCourseEvaluation;
+	private CreateCohortCourseEvaluationOperation createCourseEvaluation;
+
+	private QuestionCategorySortUtil questionCategorySortUtil;
 
 	public CohortCourseEvaluationService(GetEvaluationForTraineeAndCourseOperation getEvaluationForTraineeAndCourseOperation,
 										 GetTraineeEvaluationSummaryOperation getTraineeEvaluationSummaryOperation,
@@ -37,7 +40,8 @@ public class CohortCourseEvaluationService {
 										 GetCurrentCohortCourseEvaluationForTraineeOperation getCurrentCohortCourseEvaluationForTraineeOperation,
 										 GetCohortCourseEvaluationOperation getCohortCourseEvaluationOperation,
 										 UpdateCohortCourseEvaluationOperation updateCohortCourseEvaluationOperation,
-										 CreateCohortCourseEvaluationOperation createCourseEvaluation) {
+										 CreateCohortCourseEvaluationOperation createCourseEvaluation,
+										 QuestionCategorySortUtil questionCategorySortUtil) {
 		this.getEvaluationForTraineeAndCourseOperation = getEvaluationForTraineeAndCourseOperation;
 		this.getTraineeEvaluationSummaryOperation = getTraineeEvaluationSummaryOperation;
 		this.getCohortCourseEvaluationsForTraineeOperation = getCohortCourseEvaluationsForTraineeOperation;
@@ -47,11 +51,15 @@ public class CohortCourseEvaluationService {
 		this.getCohortCourseEvaluationOperation = getCohortCourseEvaluationOperation;
 		this.updateCohortCourseEvaluationOperation = updateCohortCourseEvaluationOperation;
 		this.createCourseEvaluation = createCourseEvaluation;
+		this.questionCategorySortUtil = questionCategorySortUtil;
 	}
 
 	@Transactional
 	public CohortCourseEvaluationDto getEvaluationForTraineeAndCourse(String traineeUserName, Integer cohortCourseId) {
-		return getEvaluationForTraineeAndCourseOperation.getEvaluationForTraineeAndCourse(traineeUserName, cohortCourseId);
+		CohortCourseEvaluationDto cohortCourseEvaluationDto =
+							getEvaluationForTraineeAndCourseOperation.getEvaluationForTraineeAndCourse(traineeUserName, cohortCourseId);
+		questionCategorySortUtil.sortQuestionCategoryResponses(cohortCourseEvaluationDto);
+		return cohortCourseEvaluationDto;
 	}
 
 	@Transactional
@@ -61,12 +69,19 @@ public class CohortCourseEvaluationService {
 
 	@Transactional
 	public List<CohortCourseEvaluationDto> getCohortCourseEvaluationsForTrainee(String traineeUserName) {
-		return getCohortCourseEvaluationsForTraineeOperation.getCohortCourseEvaluationsForTrainee(traineeUserName);
+		List<CohortCourseEvaluationDto> cohortCourseEvaluationDtos =
+									 getCohortCourseEvaluationsForTraineeOperation.getCohortCourseEvaluationsForTrainee(traineeUserName);
+		cohortCourseEvaluationDtos.stream()
+				.forEach(cce -> questionCategorySortUtil.sortQuestionCategoryResponses(cce));
+		return cohortCourseEvaluationDtos;
 	}
 
 	@Transactional
 	public CohortCourseEvaluationDto getCurrentEvaluationForTrainee(String traineeUserName) {
-		return getCurrentCohortCourseEvaluationForTraineeOperation.getCohortCourseEvaluation(traineeUserName);
+		CohortCourseEvaluationDto cohortCourseEvaluationDto =
+						 getCurrentCohortCourseEvaluationForTraineeOperation.getCohortCourseEvaluation(traineeUserName);
+		questionCategorySortUtil.sortQuestionCategoryResponses(cohortCourseEvaluationDto);
+		return cohortCourseEvaluationDto;
 	}
 
 	@Transactional
@@ -76,22 +91,34 @@ public class CohortCourseEvaluationService {
 
 	@Transactional
 	public CohortCourseEvaluationDto getCohortCourseEvaluation(Integer id) {
-		return getCohortCourseEvaluationOperation.getCohortCourseEvaluation(id);
+		CohortCourseEvaluationDto cohortCourseEvaluationDto = getCohortCourseEvaluationOperation.getCohortCourseEvaluation(id);
+		questionCategorySortUtil.sortQuestionCategoryResponses(cohortCourseEvaluationDto);
+		return cohortCourseEvaluationDto;
 	}
 
 	@Transactional
 	public List<CohortCourseEvaluationDto> getCohortCourseEvaluationsForCourse(Integer cohortCourseId) {
-		return getCohortCourseEvaluationsForCourseOperation.getEvaluationsForCourse(cohortCourseId);
+		List<CohortCourseEvaluationDto> cohortCourseEvaluationDtos =
+									getCohortCourseEvaluationsForCourseOperation.getEvaluationsForCourse(cohortCourseId);
+		cohortCourseEvaluationDtos.stream()
+				.forEach(cce -> questionCategorySortUtil.sortQuestionCategoryResponses(cce));
+		return cohortCourseEvaluationDtos;
 	}
 
 	@Transactional
 	public CohortCourseEvaluationDto createCourseEvaluationForTrainee(CohortCourseEvaluationDto courseEvaluation,
 																	  String traineeUserName) {
-		return createCourseEvaluation.createCourseEvaluation(courseEvaluation, traineeUserName);
+		CohortCourseEvaluationDto cohortCourseEvaluationDto =
+										 createCourseEvaluation.createCourseEvaluation(courseEvaluation, traineeUserName);
+		questionCategorySortUtil.sortQuestionCategoryResponses(cohortCourseEvaluationDto);
+		return cohortCourseEvaluationDto;
 	}
 
 	@Transactional
 	public CohortCourseEvaluationDto updateCourseEvaluationForTrainee(CohortCourseEvaluationDto courseEvaluation) {
-		return updateCohortCourseEvaluationOperation.updateCourseEvaluation(courseEvaluation);
+		CohortCourseEvaluationDto cohortCourseEvaluationDto =
+										updateCohortCourseEvaluationOperation.updateCourseEvaluation(courseEvaluation);
+		questionCategorySortUtil.sortQuestionCategoryResponses(cohortCourseEvaluationDto);
+		return cohortCourseEvaluationDto;
 	}
 }

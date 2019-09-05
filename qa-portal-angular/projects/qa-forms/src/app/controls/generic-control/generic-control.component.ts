@@ -34,8 +34,9 @@ export class GenericControlComponent implements IGenericControl {
     if (!!comment) {
       if (!this.questionResponse.comment) {
         this.questionResponse.comment = {id: null, content: comment};
+      } else {
+        this.questionResponse.comment.content = comment;
       }
-      this.questionResponse.comment.content = comment;
       this.announceChange();
     }
 
@@ -49,5 +50,4 @@ export class GenericControlComponent implements IGenericControl {
     this.questionResponse.responseValues = value;
     this.announceChange();
   }
-
 }

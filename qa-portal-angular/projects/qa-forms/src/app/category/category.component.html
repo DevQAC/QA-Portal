@@ -1,5 +1,5 @@
 <mat-card [attr.name]="'category_' + categoryResponse?.id || 'UNKNOWN'" class="form-category-card">
-    <h5 style="color: #0060B9">{{categoryResponse.questionCategory.categoryName}}</h5>
+    <div class="form-category-header">{{categoryResponse.questionCategory.categoryName}}</div>
     <app-control-factory *ngFor="let question of categoryResponse.questionCategory.questions; let i = index; trackBy: trackQuestion"
                          [question]="question"
                          [type]="categoryResponse.questionCategory.selectionType"

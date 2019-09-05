@@ -6,14 +6,14 @@ import { IWorkExperience } from '../_common/models/work-experience.model';
 @Component({
   selector: 'app-cv-work-exp-wrapper',
   templateUrl: './cv-work-exp-wrapper.component.html',
-  styleUrls: ['./cv-work-exp-wrapper.component.css']
+  styleUrls: ['./cv-work-exp-wrapper.component.scss']
 })
 export class CvWorkExpWrapperComponent implements OnInit {
   @Input() experiences: IWorkExperience[];
   @Output() experiencesChange = new EventEmitter<IWorkExperience[]>();
 
   @Output() feedbackClick = new EventEmitter<{index: number, experience: IWorkExperience}>();
-
+  @Input() canEdit: boolean;
 
 
   constructor() { }
@@ -49,5 +49,9 @@ export class CvWorkExpWrapperComponent implements OnInit {
     this.feedbackClick.emit({index, experience});
 
    
+  }
+  
+  getEditValue() {
+    return this.canEdit;
   }
 }

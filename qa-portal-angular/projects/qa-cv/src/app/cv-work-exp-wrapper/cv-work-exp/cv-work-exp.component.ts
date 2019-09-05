@@ -7,23 +7,18 @@ import * as moment from 'moment';
   templateUrl: './cv-work-exp.component.html',
   styleUrls: ['./cv-work-exp.component.css']
 })
-export class CvWorkExpComponent implements OnInit {
+export class CvWorkExpComponent{
   @Input() experience: IWorkExperience;
   @Output() experienceChange = new EventEmitter<IWorkExperience>();
-
   @Output() experienceDelete = new EventEmitter<IWorkExperience>();
 
   @Output() feedbackClick = new EventEmitter<IWorkExperience>();
+  @Input() canEdit: boolean;
 
   public get formattedEndDate(): string {
     return moment(this.experience.end || 'Unknown').format('DD/MM/YYYY');
   }
 
-  constructor() { }
-
-  ngOnInit() {
-
-  }
   panelOpenState: boolean = false;
   buttonClickedState: boolean = false;
 
@@ -69,5 +64,9 @@ export class CvWorkExpComponent implements OnInit {
     }
 
 
+  }
+
+  getEditValue() {
+    return this.canEdit;
   }
 }

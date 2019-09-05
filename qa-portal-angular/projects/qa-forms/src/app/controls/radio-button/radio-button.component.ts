@@ -9,12 +9,6 @@ import { GenericControlComponent } from '../generic-control/generic-control.comp
 export class RadioButtonComponent extends GenericControlComponent implements OnInit  {
 
   ngOnInit(): void {
-    this.questionResponse.responseValues = this.questionResponse.responseValues;
-    this.questionResponse.comment = {
-      id: null,
-      ...{content: ''},
-      ...this.questionResponse.comment
-    };
   }
 
   setRadioResponse(response: string): void {

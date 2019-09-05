@@ -17,31 +17,31 @@
     </div>
   </mat-expansion-panel-header>
 
-  <mat-form-field class="wide">
-    <input matInput [ngModel]="experience.jobTitle" (ngModelChange)="onTitleChange($event)" placeholder="Job Title">
+  <mat-form-field class="wide" >
+    <input matInput [ngModel]="experience.jobTitle" (ngModelChange)="onTitleChange($event)" placeholder="Job Title"  [disabled]="getEditValue()">
   </mat-form-field><br>
   <div>
     <mat-form-field class="date-left">
       <input matInput [matDatepicker]="picker1" placeholder="Start Date" [ngModel]="experience.start"
-        (ngModelChange)="onStartDateChange($event)">
+        (ngModelChange)="onStartDateChange($event)"  [disabled]="getEditValue()">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="date-right">
       <input matInput [matDatepicker]="picker2" placeholder="End Date" [ngModel]="experience.end"
-        (ngModelChange)="onEndDateChange($event)">
+        (ngModelChange)="onEndDateChange($event)"  [disabled]="getEditValue()">
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field><br>
     <mat-form-field class="wide">
       <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
         cdkAutosizeMaxRows="5" [ngModel]="experience.workExperienceDetails" (ngModelChange)="onDetailChange($event)"
-        placeholder="Details"></textarea>
+        placeholder="Details"  [disabled]="getEditValue()"></textarea>
     </mat-form-field>
   </div>
   <mat-action-row>
-    <button mat-button color="warn" (click)="deleteExp()" title="Remove this Experience">Remove</button>
+    <button mat-button color="warn" (click)="deleteExp()" title="Remove this Experience" [disabled]="getEditValue()">Remove</button>
   </mat-action-row>
 
 

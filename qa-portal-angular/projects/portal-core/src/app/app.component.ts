@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Event, NavigationStart, Router} from '@angular/router';
-import {MenuService} from './_common/services/menu.service';
-import {Subscription} from 'rxjs';
-import {ApplicationSelectionService} from './_common/services/application-selection.service';
-import {Application} from './_common/models/application';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Event, NavigationStart, Router } from '@angular/router';
+import { MenuService } from './_common/services/menu.service';
+import { Subscription } from 'rxjs';
+import { ApplicationSelectionService } from './_common/services/application-selection.service';
+import { Application } from './_common/models/application';
 
 @Component({
   selector: 'app-root',
@@ -20,12 +20,13 @@ export class AppComponent implements OnInit, OnDestroy {
   navMenuSubscription: Subscription;
 
   constructor(private menuService: MenuService,
-              private router: Router,
-              private applicationSelectionService: ApplicationSelectionService) {
+    private router: Router,
+    private applicationSelectionService: ApplicationSelectionService) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         this.currentUrl = event.url;
         this.setSelectedApplication(event.url);
+        this.setSelectedDepartment(event.url);
       }
     });
   }
@@ -34,14 +35,34 @@ export class AppComponent implements OnInit, OnDestroy {
     this.errorApp = this.getErrorApplication();
     this.navMenuSubscription = this.menuService.getPortalMenu()
       .subscribe((response) => {
-          this.portalApplications = response;
-          this.setSelectedApplication(this.currentUrl);
-        }
+        this.portalApplications = response;
+        this.setSelectedApplication(this.currentUrl);
+        this.setSelectedDepartment(this.currentUrl);
+      }
       );
   }
 
   ngOnDestroy(): void {
     this.navMenuSubscription.unsubscribe();
+  }
+
+  private setSelectedDepartment(currUrl: string): void {
+    const currDep = this.getSelectedDepartmentForUrl(currUrl);
+    if (!currDep) {
+      this.launchLandingPage(currUrl);
+    } else {
+      this.applicationSelectionService.setSelectedDepartment(currDep);
+    }
+  }
+
+  private getSelectedDepartmentForUrl(currUrl: string) {
+    let dep = null;
+    this.portalApplications.forEach((pa: any) => {
+      if (pa.applications.some((app) => app.url.startsWith(currUrl))) {
+        dep = pa;
+      }
+    });
+    return dep;
   }
 
   private setSelectedApplication(currUrl: string): void {
