@@ -12,7 +12,7 @@ import { UserService } from '../_common/services/user.service';
   styleUrls: ['./user-management-console.component.css']
 })
 export class UserManagementConsoleComponent implements OnInit {
-  displayedColumns: string[] = ['Username', 'Email', 'First Name', 'Last Name', 'Roles', 'Actions'];
+  displayedColumns: string[] = ['Username', 'Email', 'First Name', 'Last Name', 'Roles', 'Cohort', 'Actions'];
   public dataSource: any;
 
   constructor(public dialog: MatDialog, private service: UserService) { }

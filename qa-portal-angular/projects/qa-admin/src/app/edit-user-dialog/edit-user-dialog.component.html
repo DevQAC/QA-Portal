@@ -21,6 +21,7 @@
     <input matInput type="email" placeholder="Email" [(ngModel)]="data.email" required>
   </mat-form-field>
   <app-role-chips [roles]="data.roles"></app-role-chips>
+  <app-cohort-chips [cohorts]="data.cohorts"></app-cohort-chips>
   <mat-form-field>
     <input matInput type="password" placeholder="Password" [(ngModel)]="data.password"
       [disabled]="!passwordEditEnabled">

@@ -13,6 +13,7 @@ import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.com
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './_common/services/in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CohortChipsComponent } from './cohort-chips/cohort-chips.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     UserManagementConsoleComponent,
     RoleChipsComponent,
+    CohortChipsComponent,
     AddUserDialogComponent,
     DelUserConfirmDialogComponent,
     EditUserDialogComponent

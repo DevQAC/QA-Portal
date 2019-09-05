@@ -6,33 +6,33 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-role-chips',
-  templateUrl: './role-chips.component.html',
-  styleUrls: ['./role-chips.component.css']
+  selector: 'app-cohort-chips',
+  templateUrl: './cohort-chips.component.html',
+  styleUrls: ['./cohort-chips.component.css']
 })
-export class RoleChipsComponent implements OnInit {
-  @Input() roles: string[];
+export class CohortChipsComponent implements OnInit {
+  @Input() cohorts: string[];
 
   visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  roleCtrl = new FormControl();
-  filteredRoles: Observable<string[]>
+  cohortCtrl = new FormControl();
+  filteredcohorts: Observable<string[]>
 
-  allRoles: string[] = [
-    "finance-admin", "finance-manager", "finance-user", "hr-admin", "hr-manager", "hr-user", "offline_access", "super-user", "training-admin", "training-manager", "training-user", "uma_authorization"
+  allCohorts: string[] = [
+    "cohort_CI_Intake_1", "cohort_CI_Intake_2", "cohort_Java_Intake_1", "cohort_Java_Intake_2", "cohort_Scala_Intake_1"
   ];
 
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
-  @ViewChild('roleInput', { static: false }) roleInput: ElementRef<HTMLInputElement>;
+  @ViewChild('cohortInput', { static: false }) cohortInput: ElementRef<HTMLInputElement>;
 
 
   constructor() {
-    this.filteredRoles = this.roleCtrl.valueChanges.pipe(
+    this.filteredcohorts = this.cohortCtrl.valueChanges.pipe(
       startWith(null),
-      map((role: string | null) => role ? this._filter(role) : this.allRoles.slice()));
+      map((cohort: string | null) => cohort ? this._filter(cohort) : this.allCohorts.slice()));
   }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class RoleChipsComponent implements OnInit {
 
       // Add our role
       if ((value || '').trim()) {
-        this.roles.push(value.trim());
+        this.cohorts.push(value.trim());
       }
 
       // Reset the input value
@@ -53,28 +53,28 @@ export class RoleChipsComponent implements OnInit {
         input.value = '';
       }
 
-      this.roleCtrl.setValue(null);
+      this.cohortCtrl.setValue(null);
     }
   }
 
-  remove(role: string): void {
-    const index = this.roles.indexOf(role);
+  remove(cohort: string): void {
+    const index = this.cohorts.indexOf(cohort);
 
     if (index >= 0) {
-      this.roles.splice(index, 1);
+      this.cohorts.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.roles.push(event.option.viewValue);
-    this.roleInput.nativeElement.value = '';
-    this.roleCtrl.setValue(null);
+    this.cohorts.push(event.option.viewValue);
+    this.cohortInput.nativeElement.value = '';
+    this.cohortCtrl.setValue(null);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allRoles.filter(role => role.toLowerCase().indexOf(filterValue) === 0);
+    return this.allCohorts.filter(cohort => cohort.toLowerCase().indexOf(filterValue) === 0);
   }
 }
 
