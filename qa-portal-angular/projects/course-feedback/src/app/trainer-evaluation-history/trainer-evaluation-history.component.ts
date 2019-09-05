@@ -1,12 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainerEvaluationViewModel, TrainerEvaluationViewModel2 } from './models/trainer-evaluation-vmodel';
-import { MatTab, MatTableDataSource } from '@angular/material';
-import { EvaluationTableRow } from './models/evaluation-table-row';
-import { EvaluationTableRow2 } from './models/evaluation-table-row2';
-import { TemplateParseResult } from '@angular/compiler';
-import { SearchFormComponent } from './search-form/search-form.component';
-import { FormGroup, FormControl, Form } from '@angular/forms';
-import { getLocaleDateFormat } from '@angular/common';
 import {RetrieveTrainerEvaluationHistoryService} from './services/retrieve-trainer-evaluation-history.service';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 
@@ -18,66 +11,43 @@ import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/serv
 export class TrainerEvaluationHistoryComponent implements OnInit {
 
   viewModel: TrainerEvaluationViewModel = new TrainerEvaluationViewModel();
-
   viewModel2: TrainerEvaluationViewModel = new TrainerEvaluationViewModel();
-
   viewModel3: TrainerEvaluationViewModel2 = new TrainerEvaluationViewModel2();
 
-  public trainerEvalHistory: any[] = [];
-  public trainerRow: any=[];
-
-  dataSource: MatTableDataSource<EvaluationTableRow>;
-
-  dataSource2: MatTableDataSource<EvaluationTableRow>
-
-  dataSource3: MatTableDataSource<EvaluationTableRow2>;
-
+  currentCourse: any[] = [];
+  prevCourses: any[] = [];
 
   constructor(private retrieveTrainerEvalHistory: RetrieveTrainerEvaluationHistoryService,
     private errorHandler: QaErrorHandlerService) { }
 
-  searching: FormControl = new FormControl();
-
-  filter: string = "Show All";
-
-
   ngOnInit() {
-    // need to call RetrieveTrainerEvaluationHistoryService
     this.retrieveTrainerEvalHistory.getEvalHistory().subscribe( 
       (response) => {
-        console.log(response[0]);
-        this.trainerEvalHistory = response;
-        
+        this.filterResults(response);
       },
       (error) => {
         this.errorHandler.handleError(error);
       }
     );
-  //   this.viewModel2.tableRows = [{
-      
-  // }];
-
-    this.dataSource2 = new MatTableDataSource(this.viewModel2.tableRows);
-
-
   }
 
-  filterRows(): void{
-    let str= this.searching.value;
-    let tempArr = [];
-    this.viewModel2.tableRows.filter((r) => {
-        // check if r.startDate is between the start and end date
-        if (!str) {
-          tempArr = this.viewModel2.tableRows;
-        }
-        else if (r.col1.indexOf(str) > -1) {
-          tempArr.push(r);
-        }
-    });
-    this.dataSource2 = new MatTableDataSource(tempArr);
-  }
+  filterResults(data: any[]) {
+    let tempCurrent = [];
+    let tempPrev = [];
+    for(let course of data) {
+      let startDate = new Date(course.startDate);
+      const diffTime = Math.abs(new Date('2019-07-02').getTime() - startDate.getTime());
+      let daysDiff = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+     
+      //daysDiff between 1 week and 8 weeks
+      if(daysDiff > 7 && daysDiff < 56) {
+        tempPrev.push(course);
+      } else if(daysDiff < 7) {
+        tempCurrent.push(course);
+      }
+    }
 
-  showAll() {
-    this.dataSource2 = new MatTableDataSource(this.viewModel2.tableRows);
+    this.currentCourse = tempCurrent;
+    this.prevCourses = tempPrev;
   }
 }
