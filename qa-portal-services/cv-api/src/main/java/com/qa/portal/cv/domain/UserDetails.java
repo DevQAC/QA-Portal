@@ -9,11 +9,12 @@ import java.util.Set;
 public class UserDetails {
 
     private String firstName;
+
     private String lastName;
+
     private String userName;
+
     private String cohort;
-
-
 
 
     public String getFirstName() {
