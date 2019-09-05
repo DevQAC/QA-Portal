@@ -18,7 +18,6 @@ import { CVSearchHistoryService } from './cv-search/services/cv-search.service';
 import { SubmitConfirmDialogComponent } from './view-cv/submit-confirm-dialog/submit-confirm-dialog.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
-
 @NgModule({
   declarations: [
     ViewCvComponent,
@@ -31,7 +30,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     CvQualisComponent,
     CvSearchComponent,
     CvCardBaseComponent,
-    SubmitConfirmDialogComponent
+    SubmitConfirmDialogComponent,
+    CvCardBaseComponent
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@ export class CvHobbiesComponent {
   @Output() hobbiesChange = new EventEmitter<IHobbies>();
   @Input() canEdit: boolean;
 
-  onInputChange(data) {
+  onInputChange(data: string): void {
     this.hobbies.hobbiesDetails = data;
     this.hobbiesChange.emit(this.hobbies);
   }

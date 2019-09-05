@@ -7,10 +7,9 @@ import * as moment from 'moment';
   templateUrl: './cv-work-exp.component.html',
   styleUrls: ['./cv-work-exp.component.css']
 })
-export class CvWorkExpComponent implements OnInit {
+export class CvWorkExpComponent{
   @Input() experience: IWorkExperience;
   @Output() experienceChange = new EventEmitter<IWorkExperience>();
-
   @Output() experienceDelete = new EventEmitter<IWorkExperience>();
 
   @Output() feedbackClick = new EventEmitter<IWorkExperience>();
@@ -20,11 +19,6 @@ export class CvWorkExpComponent implements OnInit {
     return moment(this.experience.end || 'Unknown').format('DD/MM/YYYY');
   }
 
-  constructor() { }
-
-  ngOnInit() {
-
-  }
   panelOpenState: boolean = false;
   buttonClickedState: boolean = false;
 

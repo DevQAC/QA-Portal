@@ -1,28 +1,23 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { ICvModel } from '../models/qac-cv-db.model';
-import { catchError, map, tap } from 'rxjs/operators';
-import { MessageService } from './message.service';
-
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {ICvModel} from '../models/qac-cv-db.model';
+import {catchError, map, tap} from 'rxjs/operators';
+import {MessageService} from './message.service';
 import * as _ from 'lodash';
-import { GET_ALL_CVS, POST_CV_DATA, SUBMIT_CV, APPROVE_CV, FAIL_CV, GET_CURRENT_CV } from '../models/cv.constants';
+import {GET_ALL_CVS, POST_CV_DATA, SUBMIT_CV, APPROVE_CV, FAIL_CV, GET_CURRENT_CV} from '../models/cv.constants';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class ViewCvService {
 
-
-
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
-
-
-
+    private messageService: MessageService) {
+  }
 
   /** GET cv by id. Will 404 if id not found */
   getLatestCvForCurrentUser(): Observable<ICvModel> {
@@ -38,16 +33,14 @@ export class ViewCvService {
 
   }
 
-  getPDFService(cv: ICvModel){
+  getPDFService(cv: ICvModel) {
     const url = `cv-api/cv/generated`;
     const httpOptions = {
-      'responseType'  : 'arraybuffer' as 'json'
+      'responseType': 'arraybuffer' as 'json'
 
     };
-  
-    return this.http.post<any>(url,cv,httpOptions);
-    
-    }
+    return this.http.post<any>(url, cv, httpOptions);
+  }
 
   //////// Save methods //////////
 

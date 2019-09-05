@@ -1,13 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-submit-confirm-dialog',
-  templateUrl: './submit-confirm-dialog.component.html',
-  styleUrls: ['./submit-confirm-dialog.component.css']
+  templateUrl: './submit-confirm-dialog.component.html'
 })
-export class SubmitConfirmDialogComponent implements OnInit {
-  @Output() public doSubmit = new EventEmitter();
+export class SubmitConfirmDialogComponent {
+  @Output() public doSubmit = new EventEmitter<boolean>();
 
   public canSubmit: boolean;
 
@@ -17,7 +16,6 @@ export class SubmitConfirmDialogComponent implements OnInit {
     this.canSubmit = false;
     this.doSubmit.emit();
     this.dialogRef.close();
-
   }
 
   onSubmit(): void {
@@ -25,8 +23,4 @@ export class SubmitConfirmDialogComponent implements OnInit {
     this.doSubmit.emit();
     this.dialogRef.close();
   }
-
-  ngOnInit() {
-  }
-
 }
