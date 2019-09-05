@@ -27,6 +27,13 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="classSize">
+        <th mat-header-cell *matHeaderCellDef> Class Size</th>
+        <td mat-cell *matCellDef="let element">
+          ???
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="courseCode">
         <th mat-header-cell *matHeaderCellDef> Course Code</th>
         <td mat-cell *matCellDef="let element">
@@ -34,8 +41,8 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['course', 'startDate', 'endDate', 'courseCode']"></tr>
-      <tr class="" mat-row *matRowDef="let row; columns: ['course', 'startDate', 'endDate', 'courseCode'];" 
+      <tr mat-header-row *matHeaderRowDef="['course', 'startDate', 'endDate', 'courseCode', 'classSize']"></tr>
+      <tr class="" mat-row *matRowDef="let row; columns: ['course', 'startDate', 'endDate', 'courseCode', 'classSize'];" 
           [routerLink]="['/feedback/trainer/evaluation/course/summary', row.id]">
     </table>
   </mat-card-content>
