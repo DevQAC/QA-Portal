@@ -14,9 +14,11 @@ public class CreateCvOperation {
 		super();
 		this.repo = repo;
 	}
-	
-	public CvVersion createCv(CvVersion newCv) {
-		
+
+	// pass in current username from security context
+	public CvVersion createCv(CvVersion newCv, String userName) {
+
+		newCv.setUserName(userName);
 		newCv.setFullName();
 		
 		repo.save(newCv);

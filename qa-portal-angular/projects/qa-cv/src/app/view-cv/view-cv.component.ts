@@ -75,9 +75,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
       window.open(this.fileURL, '_blank');
       console.log("this is the URL "+this.fileURL);
     })
-
   }
-
 
   ngOnDestroy(): void {
     this.cvDataSubscription$.unsubscribe();
@@ -106,11 +104,8 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvService.failCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
 
-
   onSubmit(): void {
-
     this.submitCv();
-
   }
 
   onWorkExpFeedbackClick({ index }: { index: number }, expCard: CvCardBaseComponent): void {
