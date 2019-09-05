@@ -22,6 +22,7 @@ import {TraineeEvaluationSummaryService} from './trainee-evaluation-summary/serv
 import {FeedbackService} from './trainer-feedback-page/_common/services/feedback.service';
 import { TrainerFeedbackHistoryComponent } from './trainer-feedback-history/trainer-feedback-history.component';
 import {InstructorZoneTitleComponent} from './trainer-evaluation-summary/instructor-zone-title/instructor-zone-title.component';
+import {RetrieveTrainerEvaluationHistoryService} from './trainer-evaluation-history/services/retrieve-trainer-evaluation-history.service';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import {InstructorZoneTitleComponent} from './trainer-evaluation-summary/instruc
   providers: [
     TrainerCourseHistoryService,
     TraineeEvaluationSummaryService,
+    RetrieveTrainerEvaluationHistoryService,
     FormTypeService,
     FeedbackService,
     EvaluationService
