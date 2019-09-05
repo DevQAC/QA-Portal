@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { IUserModel } from '../models/user.model';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { GET_USERS, DEL_USER, ADD_USER, UPDATE_USER } from '../models/User.constant';
+import { GET_USERS, DEL_USER, ADD_USER, UPDATE_USER, TEST_USERS } from '../models/User.constant';
 import { tap, catchError } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
@@ -10,6 +10,15 @@ import { MessageService } from './message.service';
   providedIn: 'root'
 })
 export class UserService {
+
+
+  /* defines the urls for api requests*/
+  private get: string = TEST_USERS;
+  private delete: string = TEST_USERS;
+  private post: string = TEST_USERS;
+  private put: string = TEST_USERS;
+
+
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -19,23 +28,26 @@ export class UserService {
     private messageService: MessageService) { }
 
   getAllUsers(): Observable<IUserModel[]> {
-    return this.http.get<IUserModel[]>(GET_USERS, this.httpOptions).pipe(
-      catchError(this.handleError<IUserModel[]>(`getICvModel for current user`)))
+    return this.http.get<IUserModel[]>(this.get, this.httpOptions).pipe(
+      catchError(this.handleError<IUserModel[]>(`retreving all registered users`)))
   }
 
-  deleteUserByUsername(username: string): Observable<IUserModel[]> {
-    debugger;
-    return this.http.delete<IUserModel[]>(DEL_USER + username, this.httpOptions)
+  deleteUserByUsername(id: number): Observable<IUserModel[]> {
+    return this.http.delete<IUserModel[]>(`${this.delete}/${id}`).pipe(
+      catchError(this.handleError<IUserModel[]>(`Deleting selected user`))
+    )
   }
 
   addUser(user: IUserModel): Observable<IUserModel[]> {
-    return this.http.post<IUserModel[]>(ADD_USER, user, this.httpOptions)
+    return this.http.post<IUserModel[]>(this.post, user, this.httpOptions).pipe(
+      catchError(this.handleError<IUserModel[]>(`Adding a New user`))
+    )
   }
 
   updateUser(user: IUserModel): Observable<IUserModel[]> {
-    return this.http.put<IUserModel[]>(UPDATE_USER, user, this.httpOptions).pipe(
+    return this.http.put<IUserModel[]>(this.put, user, this.httpOptions).pipe(
       tap(_ => this.log(`updated username=${user.username}`)),
-      catchError(this.handleError<any>('updateIUserModel')))
+      catchError(this.handleError<any>(`Updating Selected User`)))
   }
 
 

@@ -18,7 +18,6 @@ export class DelUserConfirmDialogComponent implements OnInit {
 
   onConfirmDel(): void {
     this.canSubmit = true;
-    debugger;
     this.dataChanged.emit();
     this.dialogRef.close();
   }

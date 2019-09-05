@@ -13,11 +13,12 @@ import { UserService } from '../_common/services/user.service';
 })
 export class UserManagementConsoleComponent implements OnInit {
   displayedColumns: string[] = ['Username', 'Email', 'First Name', 'Last Name', 'Roles', 'Actions'];
-  dataSource = USER_DATA;
+  public dataSource: any;
 
   constructor(public dialog: MatDialog, private service: UserService) { }
 
   ngOnInit() {
+    this.dataSource = this.service.getAllUsers();
   }
 
   editDialog(user: IUserModel): void {
@@ -57,8 +58,7 @@ export class UserManagementConsoleComponent implements OnInit {
 
     dialogRef.componentInstance.dataChanged.subscribe(() => {
       if (dialogRef.componentInstance.canSubmit) {
-        debugger;
-        this.service.deleteUserByUsername(dialogRef.componentInstance.data.username)
+        this.service.deleteUserByUsername(dialogRef.componentInstance.data.id)
       }
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -67,12 +67,3 @@ export class UserManagementConsoleComponent implements OnInit {
 
 
 }
-
-const USER_DATA: IUserModel[] = [
-  { username: "joebloggs", email: "joe.bloggs@academytrainee.com", firstName: "Joe", lastName: "Bloggs", roles: ["cohort_CI_Intake_1"] },
-  { username: "joebloggs", email: "joe.bloggs@academytrainee.com", firstName: "Joe", lastName: "Bloggs", roles: ["cohort_CI_Intake_1"] },
-  { username: "joebloggs", email: "joe.bloggs@academytrainee.com", firstName: "Joe", lastName: "Bloggs", roles: ["cohort_CI_Intake_1"] },
-  { username: "joebloggs", email: "joe.bloggs@academytrainee.com", firstName: "Joe", lastName: "Bloggs", roles: ["cohort_CI_Intake_1"] },
-  { username: "joebloggs", email: "joe.bloggs@academytrainee.com", firstName: "Joe", lastName: "Bloggs", roles: ["cohort_CI_Intake_1"] },
-  { username: "joebloggs", email: "joe.bloggs@academytrainee.com", firstName: "Joe", lastName: "Bloggs", roles: ["cohort_CI_Intake_1"] }
-];

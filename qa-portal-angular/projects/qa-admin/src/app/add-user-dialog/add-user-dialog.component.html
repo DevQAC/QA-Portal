@@ -1,28 +1,28 @@
 <h1 mat-dialog-title>Add A User</h1>
 <div mat-dialog-content>
   <mat-form-field hideRequiredMarker>
-    <input matInput placeholder="Username" [value]="data.username" required>
+    <input matInput placeholder="Username" [(ngModel)]="data.username" required>
   </mat-form-field>
   <table cellspacing="0">
     <tr>
       <td>
         <mat-form-field hideRequiredMarker>
-          <input matInput placeholder="First name" [value]="data.firstName" required>
+          <input matInput placeholder="First name" [(ngModel)]="data.firstName" required>
         </mat-form-field>
       </td>
       <td>
         <mat-form-field hideRequiredMarker>
-          <input matInput placeholder="Last Name" [value]="data.lastName" required>
+          <input matInput placeholder="Last Name" [(ngModel)]="data.lastName" required>
         </mat-form-field>
       </td>
     </tr>
   </table>
   <mat-form-field hideRequiredMarker>
-    <input matInput type="email" placeholder="Email" [value]="data.email" required>
+    <input matInput type="email" placeholder="Email" [(ngModel)]="data.email" required>
   </mat-form-field>
   <app-role-chips [roles]="data.roles"></app-role-chips>
   <mat-form-field hideRequiredMarker>
-    <input matInput type="password" placeholder="Password" [value]="data.password" disabled>
+    <input matInput type="password" placeholder="Password" [(ngModel)]="data.password" disabled>
     <mat-hint>Each new user will be assigned a random password</mat-hint>
   </mat-form-field>
 </div>

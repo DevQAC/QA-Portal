@@ -5,10 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserManagementConsoleComponent } from './user-management-console/user-management-console.component';
 import { RoleChipsComponent } from './role-chips/role-chips.component';
-import { QaCommonModule } from 'projects/qa-common/src/app/app.module';
+import { QaCommonModule } from '../../../qa-common/src/app/app.module';
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 import { DelUserConfirmDialogComponent } from './del-user-confirm-dialog/del-user-confirm-dialog.component';
 import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './_common/services/in-memory-data.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +27,11 @@ import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    QaCommonModule
+    QaCommonModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { passThruUnknownUrl: true }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent],

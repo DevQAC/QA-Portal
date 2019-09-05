@@ -10,6 +10,7 @@ import { IUserModel } from '../_common/models/user.model';
 export class AddUserDialogComponent implements OnInit {
   @Output() public dataChanged = new EventEmitter();
   public data: IUserModel = {
+    id: null,
     username: "",
     firstName: "",
     lastName: "",
@@ -22,6 +23,7 @@ export class AddUserDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddUserDialogComponent>) { }
 
   onSave(): void {
+    debugger;
     this.canSubmit = true;
     this.dataChanged.emit();
     this.dialogRef.close();
