@@ -1,15 +1,13 @@
-import { Component, OnInit, Output, OnDestroy, AfterContentInit } from '@angular/core';
-import { ICvModel, DEFAULT_CV } from '../_common/models/qac-cv-db.model';
-import { ViewCvService } from '../_common/services/view-cv.service';
-import { CvCardBaseComponent } from '../cv-card-base/cv-card-base.component';
-import { IFeedback } from '../_common/models/feedback.model';
-import { ActivatedRoute } from '@angular/router';
-import { TRAINING_ADMIN_ROLE, TRAINEE_ROLE } from '../../../../portal-core/src/app/_common/models/portal-constants';
-import { Observable, Subscription } from 'rxjs';
-import { MAT_DATE_LOCALE, MatDialog } from '@angular/material';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-confirm-dialog.component';
-
+import {Component, OnDestroy, OnInit, Output} from '@angular/core';
+import {DEFAULT_CV, ICvModel} from '../_common/models/qac-cv-db.model';
+import {ViewCvService} from '../_common/services/view-cv.service';
+import {CvCardBaseComponent} from '../cv-card-base/cv-card-base.component';
+import {IFeedback} from '../_common/models/feedback.model';
+import {ActivatedRoute} from '@angular/router';
+import {TRAINEE_ROLE, TRAINING_ADMIN_ROLE} from '../../../../portal-core/src/app/_common/models/portal-constants';
+import {Subscription} from 'rxjs';
+import {MAT_DATE_LOCALE, MatDialog} from '@angular/material';
+import {SubmitConfirmDialogComponent} from './submit-confirm-dialog/submit-confirm-dialog.component';
 
 @Component({
   selector: 'app-view-cv',
@@ -20,38 +18,35 @@ import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-con
   ]
 })
 export class ViewCvComponent implements OnInit, OnDestroy {
+
   @Output() public canComment: boolean;
   @Output() public canEdit: boolean;
 
-  enableButtons: boolean;
-  cvs: ICvModel[] = [];
-  openThis = false;
+  fileURL: string;
+  qualFeedbackIndex: number;
+  workExpFeedbackIndex: number;
 
   public cvData: ICvModel;
   public workExpFeedback = [];
-  workExpFeedbackIndex: number;
-  public workExpDrawerOpen = false;
-
   public qualFeedback = [];
-  qualFeedbackIndex: number;
-  public qualDrawerOpen = false;
 
   private cvDataSubscription$: Subscription;
 
   constructor(
     private cvService: ViewCvService,
     private activatedRoute: ActivatedRoute,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog) {
+  }
 
   ngOnInit() {
-    if (SubmitConfirmDialogComponent)
+    if (SubmitConfirmDialogComponent) {
       this.canComment = this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE;
+    }
     this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = { ...DEFAULT_CV, ...cv });
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(SubmitConfirmDialogComponent, {
+    const dialogRef = this.dialog.open(SubmitConfirmDialogComponent, {
       width: '250px'
     });
     dialogRef.componentInstance.canSubmit = false;
@@ -62,27 +57,25 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(() => {
     });
-
   }
-
-  fileURL: string;
 
   getPDF() {
     this.cvService.getPDFService(this.cvData).subscribe((response) => {
-      let file = new Blob([response], { type: 'application/pdf' });
-      console.log("it worked");
+      const file = new Blob([response], { type: 'application/pdf' });
+      console.log('it worked');
       this.fileURL = URL.createObjectURL(file);
       window.open(this.fileURL, '_blank');
-      console.log("this is the URL "+this.fileURL);
-    })
+      console.log('this is the URL ' + this.fileURL);
+    });
   }
+
 
   ngOnDestroy(): void {
     this.cvDataSubscription$.unsubscribe();
   }
 
   onSave(): void {
-    this.cvData.status = "Saved";
+    this.cvData.status = 'Saved';
     this.updateCv();
 
   }
@@ -103,6 +96,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   onFailCv(): void {
     this.cvService.failCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
+
 
   onSubmit(): void {
     this.submitCv();
@@ -133,11 +127,11 @@ export class ViewCvComponent implements OnInit, OnDestroy {
       this.canEdit = false;
     } else {
       this.canEdit = true;
-    if (this.activatedRoute.snapshot.data.roles[0] === TRAINEE_ROLE && this.cvData.status !== "For Review") {
+      if (this.activatedRoute.snapshot.data.roles[0] === TRAINEE_ROLE && (!!this.cvData && this.cvData.status !== 'For Review')) {
         this.canEdit = false;
       } else {
         this.canEdit = true;
       }
-  }
+    }
   }
 }
