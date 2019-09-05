@@ -14,6 +14,7 @@ export class CvQualisComponent implements OnInit {
   @Output() deleteQualification = new EventEmitter<IQualification>();
   
   @Output() feedbackClick = new EventEmitter<IQualification>();
+  @Input() canEdit: boolean;
   
  
 
@@ -37,6 +38,11 @@ export class CvQualisComponent implements OnInit {
   onFeedbackClick(): void {
     this.feedbackClick.emit(this.qualifications1);
   }
+
+  getEditValue() {
+    return this.canEdit;
+  }
+
 }
 
 

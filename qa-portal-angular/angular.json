@@ -24,7 +24,7 @@
               "projects/qa-common/src/assets"
             ],
             "styles": [
-              "projects/qa-common/src/styles.css"
+              "projects/qa-common/src/styles.scss"
 
             ],
             "scripts": []
@@ -85,7 +85,7 @@
               "projects/qa-common/src/assets"
             ],
             "styles": [
-              "projects/qa-common/src/styles.css"
+              "projects/qa-common/src/styles.scss"
             ],
             "scripts": []
           }
@@ -138,7 +138,7 @@
               "projects/portal-home/src/assets"
             ],
             "styles": [
-              "projects/portal-home/src/styles.css"
+              "projects/portal-home/src/styles.scss"
             ],
             "scripts": []
           },
@@ -198,7 +198,7 @@
               "projects/portal-home/src/assets"
             ],
             "styles": [
-              "projects/portal-home/src/styles.css"
+              "projects/portal-home/src/styles.scss"
             ],
             "scripts": []
           }
@@ -251,8 +251,8 @@
               "projects/portal-core/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "projects/portal-core/src/styles.css"
+              "projects/portal-core/src/style/_main.scss",
+              "projects/portal-core/src/styles.scss"
             ],
             "scripts": []
           },
@@ -313,7 +313,7 @@
               "projects/portal-core/src/assets"
             ],
             "styles": [
-              "projects/portal-core/src/styles.css"
+              "projects/portal-core/src/styles.scss"
             ],
             "scripts": []
           }
@@ -366,7 +366,7 @@
               "projects/qa-error-app/src/assets"
             ],
             "styles": [
-              "projects/qa-error-app/src/styles.css"
+              "projects/qa-error-app/src/styles.scss"
             ],
             "scripts": []
           },
@@ -426,7 +426,7 @@
               "projects/qa-error-app/src/assets"
             ],
             "styles": [
-              "projects/qa-error-app/src/styles.css"
+              "projects/qa-error-app/src/styles.scss"
             ],
             "scripts": []
           }
@@ -479,7 +479,7 @@
               "projects/self-reflection/src/assets"
             ],
             "styles": [
-              "projects/self-reflection/src/styles.css"
+              "projects/self-reflection/src/styles.scss"
             ],
             "scripts": []
           },
@@ -539,7 +539,7 @@
               "projects/self-reflection/src/assets"
             ],
             "styles": [
-              "projects/self-reflection/src/styles.css"
+              "projects/self-reflection/src/styles.scss"
             ],
             "scripts": []
           }
@@ -592,7 +592,7 @@
               "projects/course-feedback/src/assets"
             ],
             "styles": [
-              "projects/course-feedback/src/styles.css"
+              "projects/course-feedback/src/styles.scss"
             ],
             "scripts": []
           },
@@ -652,7 +652,7 @@
               "projects/course-feedback/src/assets"
             ],
             "styles": [
-              "projects/course-feedback/src/styles.css"
+              "projects/course-feedback/src/styles.scss"
             ],
             "scripts": []
           }
@@ -705,7 +705,7 @@
               "projects/course-evaluation/src/assets"
             ],
             "styles": [
-              "projects/course-evaluation/src/styles.css"
+              "projects/course-evaluation/src/styles.scss"
             ],
             "scripts": []
           },
@@ -765,7 +765,7 @@
               "projects/course-evaluation/src/assets"
             ],
             "styles": [
-              "projects/course-evaluation/src/styles.css"
+              "projects/course-evaluation/src/styles.scss"
             ],
             "scripts": []
           }
@@ -818,7 +818,7 @@
               "projects/qa-forms/src/assets"
             ],
             "styles": [
-              "projects/qa-forms/src/styles.css"
+              "projects/qa-forms/src/styles.scss"
             ],
             "scripts": []
           },
@@ -878,7 +878,7 @@
               "projects/qa-forms/src/assets"
             ],
             "styles": [
-              "projects/qa-forms/src/styles.css"
+              "projects/qa-forms/src/styles.scss"
             ],
             "scripts": []
           }
@@ -929,7 +929,7 @@
               "projects/qa-cv/src/assets"
             ],
             "styles": [
-              "projects/qa-cv/src/styles.css"
+              "projects/qa-cv/src/styles.scss"
             ],
             "scripts": []
           },
@@ -989,7 +989,7 @@
               "projects/qa-cv/src/assets"
             ],
             "styles": [
-              "projects/qa-cv/src/styles.css"
+              "projects/qa-cv/src/styles.scss"
             ],
             "scripts": []
           }
@@ -1016,6 +1016,119 @@
           "configurations": {
             "production": {
               "devServerTarget": "qa-cv:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "qa-user-admin": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/qa-user-admin",
+      "sourceRoot": "projects/qa-user-admin/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/qa-user-admin",
+            "index": "projects/qa-user-admin/src/index.html",
+            "main": "projects/qa-user-admin/src/main.ts",
+            "polyfills": "projects/qa-user-admin/src/polyfills.ts",
+            "tsConfig": "projects/qa-user-admin/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/qa-user-admin/src/favicon.ico",
+              "projects/qa-user-admin/src/assets"
+            ],
+            "styles": [
+              "projects/qa-user-admin/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/qa-user-admin/src/environments/environment.ts",
+                  "with": "projects/qa-user-admin/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "qa-user-admin:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "qa-user-admin:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "qa-user-admin:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/qa-user-admin/src/test.ts",
+            "polyfills": "projects/qa-user-admin/src/polyfills.ts",
+            "tsConfig": "projects/qa-user-admin/tsconfig.spec.json",
+            "karmaConfig": "projects/qa-user-admin/karma.conf.js",
+            "assets": [
+              "projects/qa-user-admin/src/favicon.ico",
+              "projects/qa-user-admin/src/assets"
+            ],
+            "styles": [
+              "projects/qa-user-admin/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/qa-user-admin/tsconfig.app.json",
+              "projects/qa-user-admin/tsconfig.spec.json",
+              "projects/qa-user-admin/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/qa-user-admin/e2e/protractor.conf.js",
+            "devServerTarget": "qa-user-admin:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "qa-user-admin:serve:production"
             }
           }
         }

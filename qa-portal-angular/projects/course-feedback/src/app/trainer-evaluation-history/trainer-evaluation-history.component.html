@@ -5,14 +5,14 @@
 <mat-card>
   <mat-card-content>
     <mat-card-subtitle style="color: #0060B9">Current Course:</mat-card-subtitle>
-    <table class="eval-table" mat-table [dataSource]="trainerEvalHistory" class="mat-elevation-z8 full width">
-        
+    <table class="eval-table" mat-table [dataSource]="currentCourseDataSource" class="mat-elevation-z8 full width">
+
       <ng-container matColumnDef="course">
-            <th mat-header-cell *matHeaderCellDef>Course</th>
-            <td mat-cell *matCellDef="let element">
-              {{element.course.courseName}}
-            </td>
-          </ng-container>
+        <th mat-header-cell *matHeaderCellDef>Course</th>
+        <td mat-cell *matCellDef="let element" >
+          {{element.course.courseName}}
+        </td>
+      </ng-container>
       <ng-container matColumnDef="startDate">
         <th mat-header-cell *matHeaderCellDef> Start Date</th>
         <td mat-cell *matCellDef="let element">
@@ -21,32 +21,40 @@
       </ng-container>
 
       <ng-container matColumnDef="endDate">
-          <th mat-header-cell *matHeaderCellDef> End Date</th>
-          <td mat-cell *matCellDef="let element">
-            {{element.endDate}}
-          </td>
-        </ng-container>
+        <th mat-header-cell *matHeaderCellDef> End Date</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.endDate}}
+        </td>
+      </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['course', 'startDate', 'endDate']"></tr>
-      <tr class="" mat-row *matRowDef="let row; columns: ['course', 'startDate', 'endDate'];">
+      <ng-container matColumnDef="classSize">
+        <th mat-header-cell *matHeaderCellDef> Class Size</th>
+        <td mat-cell *matCellDef="let element">
+          ???
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="courseCode">
+        <th mat-header-cell *matHeaderCellDef> Course Code</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.course.courseCode}}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['course', 'startDate', 'endDate', 'courseCode', 'classSize']"></tr>
+      <tr  mat-row *matRowDef="let row; columns: ['course', 'startDate', 'endDate', 'courseCode', 'classSize'];">
     </table>
   </mat-card-content>
 </mat-card>
 
 <mat-card>
-  <mat-card-subtitle style="color: #0060B9">Previous Courses (Last 8 Weeks)</mat-card-subtitle>
+  <mat-card-subtitle style="color: #0060B9">Previous Courses (Last 8 Weeks):</mat-card-subtitle>
   <mat-card-content>
-    <!-- <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input matInput="text" placeholder="filter" [formControl]="searching">
-      </mat-form-field>
-      <button (click)="filterRows();" mat-raised-button
-              color="#0060B9">{{!searching.value ? 'Show All' : 'Filter'}}</button>
-    </form> -->
-    <table class="eval-table" mat-table [dataSource]="trainerEvalHistory" class="mat-elevation-z8 full width">
+    <table class="eval-table" mat-table [dataSource]="prevCoursesDataSource" class="mat-elevation-z8 full width">
       <ng-container matColumnDef="courseName">
         <th mat-header-cell *matHeaderCellDef> Course</th>
-        <td mat-cell *matCellDef="let element">{{element.course.courseName}}
+        <td mat-cell *matCellDef="let element">
+          {{element.course.courseName}}
         </td>
       </ng-container>
 
@@ -56,9 +64,9 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="courseCode">
-        <th mat-header-cell *matHeaderCellDef> Course Code</th>
-        <td mat-cell *matCellDef="let element">{{element.course.courseCode}}
+      <ng-container matColumnDef="location">
+        <th mat-header-cell *matHeaderCellDef> Location</th>
+        <td mat-cell *matCellDef="let element">???
         </td>
       </ng-container>
 
@@ -68,10 +76,15 @@
         </td>
       </ng-container>
 
-      
+      <ng-container matColumnDef="tqi">
+          <th mat-header-cell *matHeaderCellDef> TQI</th>
+          <td mat-cell *matCellDef="let element">{{element.tqi}}
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="['courseName', 'courseCode', 'startDate', 'averageKnowledgeRating']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['courseName', 'courseCode', 'startDate', 'averageKnowledgeRating']">
+      <tr mat-header-row *matHeaderRowDef="['courseName', 'startDate', 'location', 'averageKnowledgeRating', 'tqi']"></tr>
+      <tr class="data-row" mat-row *matRowDef="let row; columns: ['courseName', 'startDate', 'location', 'averageKnowledgeRating', 'tqi'];"
+            [routerLink]="['/feedback/trainer/evaluation/course/summary', row.id]">
     </table>
   </mat-card-content>
 </mat-card>
@@ -83,18 +96,18 @@
     </div>
 
     <table mat-table [dataSource]="trainerEvalHistory" class="bottom-table mat-elevation-z8 right-mat-table">
-      <ng-container matColumnDef="c1">
+      <ng-container matColumnDef="knowledge">
         <th mat-header-cell *matHeaderCellDef> Knowledge</th>
         <td mat-cell *matCellDef="let element">
         </td>
       </ng-container>
-      <ng-container matColumnDef="c2">
+      <ng-container matColumnDef=tqi>
         <th mat-header-cell *matHeaderCellDef> TQI</th>
         <td mat-cell *matCellDef="let element">
         </td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="viewModel3.evaluationCols"></tr>
-      <tr class="" mat-row *matRowDef="let row; columns: viewModel3.evaluationCols;">
+      <tr mat-header-row *matHeaderRowDef="['knowledge', 'tqi']"></tr>
+      <tr class="" mat-row *matRowDef="let row; columns: ['knowledge', 'tqi'];">
     </table>
   </mat-card-content>
 </mat-card>

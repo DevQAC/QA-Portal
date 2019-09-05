@@ -9,6 +9,9 @@
     }
 }
 
-.button-row button{
-  margin-right: 8px;
+.button-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
 }
