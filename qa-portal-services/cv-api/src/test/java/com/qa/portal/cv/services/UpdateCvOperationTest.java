@@ -13,10 +13,13 @@ import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 
 @SpringBootTest
-public class CreateCvOperationTest {
+public class UpdateCvOperationTest {
 
 	@InjectMocks
 	private CreateCvOperation createService;
+	
+	@InjectMocks
+	private UpdateCvVersionOperation updateService;
 	
 	@Mock
 	private CvVersionRepository repo;
@@ -34,44 +37,42 @@ public class CreateCvOperationTest {
 	}
 	
 	@Test
-	public void createCvVersionNumberTest() {
+	public void updateCvFullNameTest() {
 		
-		Integer versionNumber = this.testData.getVersionNumber();
-		Boolean conditionMet = false;
+		this.testData.setFirstName("Update");
+		this.testData.setSurname("Test");
 		
-		if(versionNumber == 1) {
-			conditionMet = true;
-		}
-		
-		assertTrue("Initial Version Number is not 1", conditionMet);
-
-	}
-	
-	@Test
-	public void createCvFullNameTest() {
+		this.testData = this.updateService.updateCv(testData);
 		
 		String fullName = this.testData.getFullName();
-		Boolean conditionMet = false;
 		
-		if(fullName.equals("JUnit Test")) {
+		boolean conditionMet = false;
+		
+		if(fullName.equals("Update Test")) {
 			conditionMet = true;
 		}
 		
-		assertTrue("Fullname failed to set upon CV creation", conditionMet);
+		assertTrue("Fullname failed to set during the update operation", conditionMet);
 		
 	}
 	
 	@Test
-	public void createCvStatusTest() {
+	public void updateCvStatusTest() {
+		
+		this.testData.setStatus("For Review");
+		
+		this.testData = this.updateService.updateCv(testData);
 
 		String status = this.testData.getStatus();
-		Boolean conditionMet = false;
 		
-		if(status.equals("In Progress")) {
+		boolean conditionMet = false;
+		
+		if(status.equals("For Review")) {
 			conditionMet = true;
 		}
 		
-		assertTrue("Initial status is not \"In Progress\"", conditionMet);
+		assertTrue("The status changed during the update operation, "
+				+ "which should only happen if the updated cv has a status of \"Approved\"", conditionMet);
 		
 	}
 	
