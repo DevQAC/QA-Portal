@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TrainerEvaluationViewModel, TrainerEvaluationViewModel2 } from './models/trainer-evaluation-vmodel';
 import {RetrieveTrainerEvaluationHistoryService} from './services/retrieve-trainer-evaluation-history.service';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 
@@ -10,25 +9,17 @@ import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/serv
 })
 export class TrainerEvaluationHistoryComponent implements OnInit {
 
-  viewModel: TrainerEvaluationViewModel = new TrainerEvaluationViewModel();
-  viewModel2: TrainerEvaluationViewModel = new TrainerEvaluationViewModel();
-  viewModel3: TrainerEvaluationViewModel2 = new TrainerEvaluationViewModel2();
-
   currentCourse: any[] = [];
   prevCourses: any[] = [];
+
 
   constructor(private retrieveTrainerEvalHistory: RetrieveTrainerEvaluationHistoryService,
     private errorHandler: QaErrorHandlerService) { }
 
   ngOnInit() {
     this.retrieveTrainerEvalHistory.getEvalHistory().subscribe( 
-      (response) => {
-        this.filterResults(response);
-      },
-      (error) => {
-        this.errorHandler.handleError(error);
-      }
-    );
+      (response) => this.filterResults(response),
+      (error) => this.errorHandler.handleError(error));
   }
 
   filterResults(data: any[]) {
@@ -36,7 +27,7 @@ export class TrainerEvaluationHistoryComponent implements OnInit {
     let tempPrev = [];
     for(let course of data) {
       let startDate = new Date(course.startDate);
-      const diffTime = Math.abs(new Date('2019-07-02').getTime() - startDate.getTime());
+      const diffTime = Math.abs(new Date(/*'2019-07-02'*/).getTime() - startDate.getTime());
       let daysDiff = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
      
       //daysDiff between 1 week and 8 weeks

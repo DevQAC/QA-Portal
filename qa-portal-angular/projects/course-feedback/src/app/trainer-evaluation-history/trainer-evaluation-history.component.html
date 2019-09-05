@@ -90,18 +90,18 @@
     </div>
 
     <table mat-table [dataSource]="trainerEvalHistory" class="bottom-table mat-elevation-z8 right-mat-table">
-      <ng-container matColumnDef="c1">
+      <ng-container matColumnDef="knowledge">
         <th mat-header-cell *matHeaderCellDef> Knowledge</th>
         <td mat-cell *matCellDef="let element">
         </td>
       </ng-container>
-      <ng-container matColumnDef="c2">
+      <ng-container matColumnDef=tqi>
         <th mat-header-cell *matHeaderCellDef> TQI</th>
         <td mat-cell *matCellDef="let element">
         </td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="viewModel3.evaluationCols"></tr>
-      <tr class="" mat-row *matRowDef="let row; columns: viewModel3.evaluationCols;">
+      <tr mat-header-row *matHeaderRowDef="['knowledge', 'tqi']"></tr>
+      <tr class="" mat-row *matRowDef="let row; columns: ['knowledge', 'tqi'];">
     </table>
   </mat-card-content>
 </mat-card>
