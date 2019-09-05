@@ -26,14 +26,14 @@ public class UpdateCvVersionOperation {
 		repo.save(updatedCv);
 		return updatedCv;
 	}
-	
+
 	public CvVersion submitCv(CvVersion submittedCv) {
 
 		submittedCv.setStatus("For Review");
 		repo.save(submittedCv);
 		return submittedCv;
 	}
-	
+
 	public CvVersion approveCv(CvVersion submittedCv) {
 		//ID should be set to null so a new entry is created and version number should be incremented.
 

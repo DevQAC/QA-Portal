@@ -30,7 +30,7 @@ public class CvManagementService {
     private GetCurrentCvVersionOperation getCvService;
 
     private CvSearchOperation cvSearchOperation;
-    
+
     public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator,
                                CreateCvOperation createCvService, GetCurrentCvVersionOperation getCvService,
                                UpdateCvVersionOperation updateCvService, CvSearchOperation cvSearchOperation) {
@@ -93,4 +93,4 @@ public class CvManagementService {
     public List<CvVersion>  cvSearch(CvSearchCriteria criteria){
         return this.cvSearchOperation.findByCriteria(criteria);
     }
-} 
+}
