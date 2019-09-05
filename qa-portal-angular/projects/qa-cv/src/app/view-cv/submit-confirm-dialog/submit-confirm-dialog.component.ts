@@ -7,20 +7,22 @@ import { MatDialogRef } from '@angular/material';
   styleUrls: ['./submit-confirm-dialog.component.css']
 })
 export class SubmitConfirmDialogComponent implements OnInit {
-  @Output() public doSubmit = new EventEmitter<boolean>();
+  @Output() public doSubmit = new EventEmitter();
 
-  private canSubmit: boolean;
+  public canSubmit: boolean;
 
   constructor(public dialogRef: MatDialogRef<SubmitConfirmDialogComponent>) { }
 
   onNoClick(): void {
+    this.canSubmit = false;
+    this.doSubmit.emit();
     this.dialogRef.close();
+
   }
 
   onSubmit(): void {
     this.canSubmit = true;
-    this.doSubmit.emit(this.canSubmit);
-    debugger;
+    this.doSubmit.emit();
     this.dialogRef.close();
   }
 
