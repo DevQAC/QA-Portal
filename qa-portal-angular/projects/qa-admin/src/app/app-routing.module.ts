@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AppAuthGuard } from '../../../portal-core/src/app/_common/guards/app-auth-guard';
-import { TRAINING_ADMIN_ROLE } from '../../../portal-core/src/app/_common/models/portal-constants';
+import { Routes, RouterModule } from '@angular/router';
 import { UserManagementConsoleComponent } from './user-management-console/user-management-console.component';
+import { AppAuthGuard } from 'projects/portal-core/src/app/_common/guards/app-auth-guard';
+import { TRAINING_ADMIN_ROLE } from 'projects/portal-core/src/app/_common/models/portal-constants';
 
 const routes: Routes = [
   {
@@ -21,4 +21,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class QaUserAdminRoutingModule { }
+export class AppRoutingModule { }
