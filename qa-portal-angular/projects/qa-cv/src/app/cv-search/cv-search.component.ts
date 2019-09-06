@@ -34,7 +34,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
   filteredData: CVSearchModel = {id: 0, fullName: '', cohort: '', allSkills: [], clients: [], status: ''};
   globalFIlter = '';
   techFilter = new FormControl();
-
+  countTech: number;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
@@ -77,6 +77,12 @@ export class CvSearchComponent implements OnInit, OnDestroy {
         response.forEach((search) => {
 
           this.currentForm.push(search);
+          this.countTech = this.currentForm[0].allSkills[0].programmingLanguages.length+this.currentForm[0].allSkills[0].ides.length+this.currentForm[0].allSkills[0].operatingSystems.length+
+          this.currentForm[0].allSkills[0].devops.length+this.currentForm[0].allSkills[0].databases.length+this.currentForm[0].allSkills[0].platforms.length+
+          this.currentForm[0].allSkills[0].other.length
+
+          console.log("number of skills: "+this.countTech);
+          
          
         });
         this.loadingData = false;
