@@ -69,7 +69,7 @@ export class CVSearchHistoryService {
             // if not search term, return empty CV array.
             return of([]);
         }
-        return this.http.get<CVSearchModel[]>(`${this.searchUrl}/?name=${term}/&cohort=${intakeChoice}/&tech=${techChoice}/&status=${statusChoice}`).pipe(
+        return this.http.get<CVSearchModel[]>(`${this.searchUrl}?name=${term}&cohort=${intakeChoice}&tech=${techChoice}&status=${statusChoice}`).pipe(
             catchError(this.handleError<CVSearchModel[]>('searchCVs', []))
         );
     }

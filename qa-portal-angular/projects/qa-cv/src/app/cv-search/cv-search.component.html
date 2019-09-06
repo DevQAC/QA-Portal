@@ -15,7 +15,7 @@
     <div class="searchBoxWrapper">
       <div class="searchBox">
         <input #searchBox matInput [ngModel]="globalFilter" placeholder="Search" />
-        <button class="btn btn-search" ng-click="getSearch()" (click)="getSearch(searchBox.value)">
+        <button class="btn btn-search"  (click)="getSearch(searchBox.value)">
           <i class="fa fa-search"></i>
         </button>
       </div>
@@ -54,17 +54,22 @@
 
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name</th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="intake">
           <th mat-header-cell *matHeaderCellDef> Intake</th>
-          <td mat-cell *matCellDef="let element"> {{element.intake}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.cohort}} </td>
         </ng-container>
 
         <ng-container matColumnDef="tech">
           <th mat-header-cell *matHeaderCellDef> Tech</th>
-          <td mat-cell *matCellDef="let element"> {{element.tech}} </td>
+          <td mat-cell *matCellDef="let element">
+            <p *ngIf="element.allSkills<4">
+              <li *ngFor="let skill of element.allSkills">{{skill}}</li>
+            </p>
+            <p *ngIf="element.allSkills>=4">Multiple...</p>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
