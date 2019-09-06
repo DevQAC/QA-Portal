@@ -30,9 +30,9 @@ export class CVSearchHistoryService {
     public getCVSearches(term: string, intakeChoice: string = "", techChoice: string = "", statusChoice: string = ""): Observable<CVSearchModel[]> {
         return of(CVS.filter((cv) => {
             let outcome = false;
-            if (cv.name == term) {
+            if (cv.fullName == term) {
                 if (intakeChoice != "") {
-                    if (intakeChoice == cv.intake) {
+                    if (intakeChoice == cv.cohort) {
                         outcome = true;
                     }
                     else {
@@ -40,7 +40,7 @@ export class CVSearchHistoryService {
                     }
                 }
                 if (techChoice != "") {
-                    if (techChoice == cv.tech) {
+                    if (techChoice == cv.allSkills[0]) {
                         outcome = true;
                     }
                     else {

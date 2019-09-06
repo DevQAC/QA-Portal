@@ -31,7 +31,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
   filterSubscription: Subscription;
   searchText: string = '';
   previous: string;
-  filteredData: CVSearchModel = {id: 0, name: '', intake: '', tech: '', clients: [], status: ''};
+  filteredData: CVSearchModel = {id: 0, fullName: '', cohort: '', allSkills: [], clients: [], status: ''};
   globalFIlter = '';
   techFilter = new FormControl();
 
@@ -119,16 +119,16 @@ export class CvSearchComponent implements OnInit, OnDestroy {
 
       if (this.technology.includes(this.globalFIlter)) {
         // search tech text fields
-        globalMatch = data.tech.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
+        globalMatch = data.allSkills.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
       } else if (this.intake.includes(this.globalFIlter)) {
         // search tech text fields
-        globalMatch = data.intake.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
+        globalMatch = data.cohort.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
       } else if (this.status.includes(this.globalFIlter)) {
         // search tech text fields
         globalMatch = data.status.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
       } else {
         // search name text fields
-        globalMatch = data.name.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
+        globalMatch = data.fullName.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
       }
 
       if (!globalMatch) {
@@ -139,11 +139,11 @@ export class CvSearchComponent implements OnInit, OnDestroy {
       if (this.technology.includes(this.globalFIlter)) {
         let searchString = JSON.parse(filter);
         console.log(searchString);
-        return data.tech.toString().trim().indexOf(searchString.tech) !== -1;
+        return data.allSkills.toString().trim().indexOf(searchString.tech) !== -1;
       } else if (this.intake.includes(this.globalFIlter)) {
         let searchString = JSON.parse(filter);
         console.log(searchString);
-        return data.intake.toString().trim().indexOf(searchString.intake) !== -1;
+        return data.cohort.toString().trim().indexOf(searchString.intake) !== -1;
       } else if (this.status.includes(this.globalFIlter)) {
         let searchString = JSON.parse(filter);
         console.log(searchString);
@@ -151,7 +151,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
       } else {
         let searchString = JSON.parse(filter);
         console.log(searchString);
-        return data.name.toString().trim().indexOf(searchString.name) !== -1;
+        return data.fullName.toString().trim().indexOf(searchString.name) !== -1;
       }
     };
     return myFilterPredicate;
