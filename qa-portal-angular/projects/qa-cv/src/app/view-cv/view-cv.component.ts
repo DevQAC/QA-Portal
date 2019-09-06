@@ -1,5 +1,5 @@
-import {Component, OnInit, Output, OnDestroy} from '@angular/core';
-import {ICvModel, DEFAULT_CV} from '../_common/models/qac-cv-db.model';
+import {Component, OnDestroy, OnInit, Output} from '@angular/core';
+import {DEFAULT_CV, ICvModel} from '../_common/models/qac-cv-db.model';
 import {ViewCvService} from '../_common/services/view-cv.service';
 import {CvCardBaseComponent} from '../cv-card-base/cv-card-base.component';
 import {IFeedback} from '../_common/models/feedback.model';
@@ -14,13 +14,15 @@ import {SubmitConfirmDialogComponent} from './submit-confirm-dialog/submit-confi
   templateUrl: './view-cv.component.html',
   styleUrls: ['./view-cv.component.scss'],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   ]
 })
 export class ViewCvComponent implements OnInit, OnDestroy {
 
   @Output() public canComment: boolean;
   @Output() public canEdit: boolean;
+
+  loadingData = true;
 
   fileURL: string;
   qualFeedbackIndex: number;
@@ -31,6 +33,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   public qualFeedback = [];
 
   private cvDataSubscription$: Subscription;
+  private traineeSkillsSubcription$: Subscription;
 
   constructor(
     private cvService: ViewCvService,
@@ -42,7 +45,14 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     if (SubmitConfirmDialogComponent) {
       this.canComment = this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE;
     }
-    this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = { ...DEFAULT_CV, ...cv });
+    this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => {
+      this.cvData = {...DEFAULT_CV, ...cv};
+      if (!cv) {
+        this.populateSkillsForTrainee();
+      } else {
+        this.loadingData = false;
+      }
+    });
   }
 
   openDialog(): void {
@@ -61,7 +71,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   getPDF() {
     this.cvService.getPDFService(this.cvData).subscribe((response) => {
-      const file = new Blob([response], { type: 'application/pdf' });
+      const file = new Blob([response], {type: 'application/pdf'});
       console.log('it worked');
       this.fileURL = URL.createObjectURL(file);
       window.open(this.fileURL, '_blank');
@@ -72,6 +82,9 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.cvDataSubscription$.unsubscribe();
+    if (!!this.traineeSkillsSubcription$) {
+      this.cvDataSubscription$.unsubscribe();
+    }
   }
 
   onSave(): void {
@@ -102,7 +115,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.submitCv();
   }
 
-  onWorkExpFeedbackClick({ index }: { index: number }, expCard: CvCardBaseComponent): void {
+  onWorkExpFeedbackClick({index}: { index: number }, expCard: CvCardBaseComponent): void {
     this.workExpFeedbackIndex = index;
     this.workExpFeedback = this.cvData.allWorkExperience[index].workExperienceFeedback;
     expCard.drawer.open();
@@ -112,7 +125,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvData.allWorkExperience[this.workExpFeedbackIndex].workExperienceFeedback = feedback;
   }
 
-  onQualFeedbackClick({ index }: { index: number }, qualCard: CvCardBaseComponent): void {
+  onQualFeedbackClick({index}: { index: number }, qualCard: CvCardBaseComponent): void {
     this.qualFeedbackIndex = index;
     this.qualFeedback = this.cvData.allQualifications[index].qualificationFeedback;
     qualCard.drawer.open();
@@ -133,5 +146,24 @@ export class ViewCvComponent implements OnInit, OnDestroy {
         this.canEdit = true;
       }
     }
+  }
+
+  private populateSkillsForTrainee() {
+    this.traineeSkillsSubcription$ = this.cvService.getSkillsForTrainee().subscribe(skills => {
+      Object.keys(this.cvData.allSkills[0]).forEach((skillCategory) => {
+        this.cvData.allSkills[0][skillCategory] = this.getSkillsArrayForTechnology(skills[skillCategory]);
+      });
+      this.loadingData = false;
+    });
+  }
+
+  private getSkillsArrayForTechnology(skills: any[]): string[] {
+    const skillsArr = [];
+    if (!!skills) {
+      skills.forEach(s => {
+        skillsArr.push(s.technologyName);
+      });
+    }
+    return skillsArr;
   }
 }

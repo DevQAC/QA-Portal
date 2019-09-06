@@ -85,4 +85,8 @@ public class TechnologyDto {
     public void setVersion(Integer version) {
         this.version = version;
     }
+
+    public String getTechnologyCategoryName() {
+        return technologyCategory.getSearchString();
+    }
 }
