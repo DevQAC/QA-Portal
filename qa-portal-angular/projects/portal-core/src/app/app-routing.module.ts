@@ -5,8 +5,8 @@ import { QaErrorSharedModule } from '../../../qa-error-app/src/app/app.module';
 import { CourseFeedbackSharedModule } from '../../../course-feedback/src/app/app.module';
 import { SelfReflectionSharedModule } from '../../../self-reflection/src/app/app.module';
 import { AppAuthGuard } from './_common/guards/app-auth-guard';
-import { QaCvSharedModule } from 'projects/qa-cv/src/app/qa-cv.module';
-import { QaUserAdminSharedModule } from 'projects/qa-user-admin/src/app/qa-user-admin.module';
+import { QaCvSharedModule } from '../../../qa-cv/src/app/qa-cv.module';
+import { QaAdminSharedModule } from '../../../qa-admin/src/app/app.module';
 
 const routes: Routes = [
   // Add routes for new application here
@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'qa/portal/admin',
-    loadChildren: () => QaUserAdminSharedModule
+    loadChildren: () => QaAdminSharedModule
   },
   {
     path: 'qa',
@@ -47,7 +47,7 @@ const routes: Routes = [
     PortalHomeSharedModule.forRoot(),
     SelfReflectionSharedModule.forRoot(),
     QaCvSharedModule.forRoot(),
-    QaUserAdminSharedModule.forRoot()
+    QaAdminSharedModule.forRoot()
   ],
   providers: [AppAuthGuard],
   exports: [RouterModule]
