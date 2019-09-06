@@ -12,12 +12,14 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-@Component
-public class OneDriveAuthentication implements AuthenticationManager {
+//@Component
+public class OneDriveAuthentication {
 
     private final Logger LOGGER = LoggerFactory.getLogger(OneDriveAuthentication.class);
 
     public static final String HTTP_POST_METHOD = "POST";
+
+    public static final String ONEDRIVE_AUTH_URL = "onedrive.authUrl";
 
     public static final String CONTENT_TYPE_HTTP_HEADER = "Content-Type";
 
@@ -51,7 +53,7 @@ public class OneDriveAuthentication implements AuthenticationManager {
         this.environment = environment;
     }
 
-    @Override
+//    @Override
     public String authenticate() {
         HttpURLConnection connection = null;
         try {
@@ -66,7 +68,7 @@ public class OneDriveAuthentication implements AuthenticationManager {
     }
 
     private HttpURLConnection createConnection() throws Exception {
-        URL url = new URL(environment.getProperty("onedrive.authUrl"));
+        URL url = new URL(environment.getProperty(ONEDRIVE_AUTH_URL));
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setInstanceFollowRedirects(false);
@@ -90,14 +92,10 @@ public class OneDriveAuthentication implements AuthenticationManager {
         return jsonPropertyUtil.getJsonContentForProperty(ACCESS_TOKEN_JSON_RESPONSE_PROPERTY, response);
     }
 
-    private String getQueryParameters() {
-        try {
-            return CLIENT_ID_URL_QUERY_PARAM + "=" + environment.getProperty(ONEDRIVE_CLIENT_ID_ENV_PROPERTY) +
-                    SCOPE_URL_QUERY_PARAM + environment.getProperty(ONEDRIVE_SCOPE_URL_ENV_PROPERTY) +
-                    GRANT_TYPE_URL_QUERY_PARAM + "=client_credentials" +
-                    CLIENT_SECRET_URL_QUERY_PARAM + URLEncoder.encode(environment.getProperty(ONEDRIVE_CLIENT_SECRET_ENV_PROPERTY), UTF_8_STRING);
-        } catch (Exception e) {
-            throw new QaPortalBusinessException("Failed to connect to one drive");
-        }
+    private String getQueryParameters() throws Exception {
+        return CLIENT_ID_URL_QUERY_PARAM + "=" + environment.getProperty(ONEDRIVE_CLIENT_ID_ENV_PROPERTY) +
+                SCOPE_URL_QUERY_PARAM + environment.getProperty(ONEDRIVE_SCOPE_URL_ENV_PROPERTY) +
+                GRANT_TYPE_URL_QUERY_PARAM + "=client_credentials" +
+                CLIENT_SECRET_URL_QUERY_PARAM + URLEncoder.encode(environment.getProperty(ONEDRIVE_CLIENT_SECRET_ENV_PROPERTY), UTF_8_STRING);
     }
 }
