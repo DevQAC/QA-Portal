@@ -1,19 +1,19 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule, ModuleWithProviders} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { UserManagementConsoleComponent } from './user-management-console/user-management-console.component';
-import { RoleChipsComponent } from './role-chips/role-chips.component';
-import { QaCommonModule } from '../../../qa-common/src/app/app.module';
-import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
-import { DelUserConfirmDialogComponent } from './del-user-confirm-dialog/del-user-confirm-dialog.component';
-import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {UserManagementConsoleComponent} from './user-management-console/user-management-console.component';
+import {RoleChipsComponent} from './role-chips/role-chips.component';
+import {QaCommonModule} from '../../../qa-common/src/app/app.module';
+import {AddUserDialogComponent} from './add-user-dialog/add-user-dialog.component';
+import {DelUserConfirmDialogComponent} from './del-user-confirm-dialog/del-user-confirm-dialog.component';
+import {EditUserDialogComponent} from './edit-user-dialog/edit-user-dialog.component';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './_common/services/in-memory-data.service';
-import { HttpClientModule } from '@angular/common/http';
-import { CohortChipsComponent } from './cohort-chips/cohort-chips.component';
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from './_common/services/in-memory-data.service';
+import {HttpClientModule} from '@angular/common/http';
+import {CohortChipsComponent} from './cohort-chips/cohort-chips.component';
 
 
 @NgModule({
@@ -32,7 +32,7 @@ import { CohortChipsComponent } from './cohort-chips/cohort-chips.component';
     QaCommonModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { passThruUnknownUrl: true }
+      InMemoryDataService, {passThruUnknownUrl: true}
     )
   ],
   providers: [],
@@ -43,7 +43,8 @@ import { CohortChipsComponent } from './cohort-chips/cohort-chips.component';
     EditUserDialogComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+}
 
 @NgModule({})
 export class QaAdminSharedModule {
