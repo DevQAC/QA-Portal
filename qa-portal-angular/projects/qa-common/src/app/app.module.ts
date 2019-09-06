@@ -20,7 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -35,7 +35,7 @@ import { AppComponent } from './app.component';
 import { RatedQuestionComponent } from './rated-question/rated-question.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 
 const materialModules = [
   MatCheckboxModule,
@@ -101,4 +101,11 @@ const materialModules = [
     ReactiveFormsModule
   ]
 })
-export class QaCommonModule { }
+export class QaCommonModule { 
+  constructor(
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+    ) {
+    this.matIconRegistry.addSvgIcon('qa-logo', this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/qa.svg'));
+  }
+}

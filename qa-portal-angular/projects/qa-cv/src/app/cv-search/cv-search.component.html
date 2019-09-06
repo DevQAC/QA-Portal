@@ -1,7 +1,8 @@
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet" />
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+
 <div class="qa-app-title">
-  CV Management System
+  Administrator - CV Search
 </div>
 
 
@@ -10,13 +11,6 @@
 </div> -->
 
 <mat-card *ngIf="!loadingData">
-  <mat-card-title style="text-align: center; background-color: lightgray; color: #0060B9;">
-    CV Search Results
-  </mat-card-title>
-
-  <!-- <mat-card-subtitle style="color: #0060B9;">
-    Current Form
-  </mat-card-subtitle> -->
   <div class="example-header ">
     <div class="searchBoxWrapper">
       <div class="searchBox">
@@ -27,7 +21,7 @@
       </div>
     </div>
     <p>Filter by:</p>
-    
+
     <div class="filterBox">
 
       <mat-select [(ngModel)]="selectedIntake" placeholder="Intake">

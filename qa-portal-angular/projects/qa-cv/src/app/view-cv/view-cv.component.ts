@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit, Output} from '@angular/core';
-import {DEFAULT_CV, ICvModel} from '../_common/models/qac-cv-db.model';
+import {Component, OnInit, Output, OnDestroy} from '@angular/core';
+import {ICvModel, DEFAULT_CV} from '../_common/models/qac-cv-db.model';
 import {ViewCvService} from '../_common/services/view-cv.service';
 import {CvCardBaseComponent} from '../cv-card-base/cv-card-base.component';
 import {IFeedback} from '../_common/models/feedback.model';
