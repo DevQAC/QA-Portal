@@ -9,3 +9,5 @@ export const SUBMIT_CV = 'cv-api/cv/submit';
 export const APPROVE_CV = 'cv-api/cv/approve';
 
 export const FAIL_CV = 'cv-api/cv/fail';
+
+export const GET_CV_BY_ID = 'cv-api/cv/';

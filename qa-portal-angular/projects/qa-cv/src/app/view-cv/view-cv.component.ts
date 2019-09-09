@@ -19,8 +19,8 @@ import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-con
 })
 export class ViewCvComponent implements OnInit, OnDestroy {
 
-  @Output() public canComment: boolean;
-  @Output() public canEdit: boolean;
+  public canComment = false;
+  public canEdit = false;
 
   fileURL: string;
   qualFeedbackIndex: number;
@@ -39,22 +39,43 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const { roles } = this.activatedRoute.snapshot.data as { roles: any[] };
 
-    if (this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE) {
-      this.canEdit = false;
+    if(roles.includes(TRAINING_ADMIN_ROLE)) {
+      if(this.activatedRoute.snapshot.params.id) {
+        this.cvDataSubscription$ = this.cvService.getCvById(this.activatedRoute.snapshot.params.id).subscribe(this.onCvFetched);
+      } else {
+        console.error('Needs CV ID to work!');
+      }
     } else {
-      this.canEdit = true;
-      if (this.activatedRoute.snapshot.data.roles[0] === TRAINEE_ROLE && (!!this.cvData && this.cvData.status !== 'For Review')) {
+      this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(this.onCvFetched);
+    }
+
+  }
+
+  onCvFetched(cv: ICvModel) {
+    const { roles } = this.activatedRoute.snapshot.data as { roles: any[] };
+
+    this.cvData = {...DEFAULT_CV, ...cv};
+
+    if (roles.includes(TRAINING_ADMIN_ROLE)) {
+      // TRAINING ADMIN
+      this.canEdit = false;
+      this.canComment = true;
+    } else if (roles.includes(TRAINEE_ROLE)) {
+      // TRAINEE
+      this.canComment = false;
+
+      if (this.cvData.status.toLocaleLowerCase() === 'for review') {
+        // IN REVIEW
         this.canEdit = false;
       } else {
+        // NOT IN REVIEW
         this.canEdit = true;
       }
+    } else {
+      console.warn('Unsupported user roles. Roles: ', roles);
     }
-
-    if (SubmitConfirmDialogComponent) {
-      this.canComment = this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE;
-    }
-    this.cvDataSubscription$ = this.cvService.getLatestCvForCurrentUser().subscribe(cv => this.cvData = { ...DEFAULT_CV, ...cv });
   }
 
   openDialog(): void {

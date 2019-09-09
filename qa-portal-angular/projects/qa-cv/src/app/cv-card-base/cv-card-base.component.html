@@ -13,9 +13,6 @@
           </button>
         </div>
         <div #commentContainer class="middle" data-simplebar>
-          <div *ngIf="!feedback" class="no-comments-text">
-            No comments yet
-          </div>
           <div class="comment-bubble" *ngFor="let comment of feedback">
 
             <div class="comment-body">

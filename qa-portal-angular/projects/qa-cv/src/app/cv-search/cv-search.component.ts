@@ -73,4 +73,11 @@ export class CvSearchComponent implements OnInit {
     this.router.navigate(['qa', 'portal', 'cv', 'admin', 'view', row.id]);
   }
 
+  onClearButtonClicked() {
+    this.inputName = '';
+    this.selectedCohort = null;
+    this.selectedTech = null;
+    this.selectedStatus = null;
+  }
+
 }

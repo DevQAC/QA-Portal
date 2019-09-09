@@ -21,14 +21,29 @@ app-cv-search {
                     margin: 0;
                     padding: 0;
                 }
+
                 .mat-form-field-outline-end {
                     border-radius: 0px;
                     border-right-width: 0px;
                 }
             }
+
             .search-button {
                 border-top-left-radius: 0px;
                 border-bottom-left-radius: 0px;
+            }
+
+            .clear-button {
+                cursor: pointer;
+                color: map-get($map: $mat-light-theme-foreground, $key: 'icon');
+
+                .mat-icon {
+                    font-size: 24px;
+                }
+
+                &:hover {
+                    color: mat-color($theme-warn)
+                }
             }
         }
 
@@ -37,11 +52,16 @@ app-cv-search {
 
             .mat-select {
                 margin-right: 1rem;
+
                 &:last-of-type {
                     margin-right: 0;
                 }
+
+                .mat-select-value {
+                    text-align: center;
+                }
             }
-            
+
         }
     }
 
@@ -51,12 +71,13 @@ app-cv-search {
             width: 100%;
 
             tr.data-row:hover {
-                background:  map-get($map: $mat-light-theme-background, $key: 'hover');
-              }
+                background: map-get($map: $mat-light-theme-background, $key: 'hover');
+            }
         }
 
         .spinner-container {
             display: flex;
+
             .mat-spinner {
                 margin: 1rem auto;
             }

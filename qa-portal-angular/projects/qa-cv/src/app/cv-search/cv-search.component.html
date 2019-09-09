@@ -12,7 +12,10 @@
     <div class="search-input-group">
       <mat-form-field appearance="outline" class="search-input">
         <mat-label>Search by name</mat-label>
-        <input [(ngModel)]="inputName" matInput (keydown.enter)="performSearch">
+        <input [(ngModel)]="inputName" matInput (keydown.enter)="performSearch()">
+        <button mat-icon-button class="clear-button" matSuffix matTooltip="Clear search" aria-label="Clear the current search"
+          matTooltipPosition="left" (click)="onClearButtonClicked()"><mat-icon>clear</mat-icon>
+        </button>
       </mat-form-field>
       <button mat-flat-button color="primary" class="search-button" (click)="performSearch()">
         <mat-icon>search</mat-icon>
@@ -21,21 +24,21 @@
 
 
     <div class="search-filters">
-      <mat-select [(ngModel)]="selectedCohort" placeholder="Filter by Cohort">
+      <mat-select [(ngModel)]="selectedCohort" placeholder="Filter by Cohort" (selectionChange)="performSearch()">
         <mat-option [value]="null">All</mat-option>
         <mat-option *ngFor="let cohort of filterOptions?.cohort" [value]="cohort">
           {{cohort}}
         </mat-option>
       </mat-select>
 
-      <mat-select [(ngModel)]="selectedTech" placeholder="Filter by Technology">
+      <mat-select [(ngModel)]="selectedTech" placeholder="Filter by Technology" (selectionChange)="performSearch()">
         <mat-option [value]="null">All</mat-option>
         <mat-option *ngFor="let tech of filterOptions?.technology" [value]="tech">
           {{tech}}
         </mat-option>
       </mat-select>
 
-      <mat-select [(ngModel)]="selectedStatus" placeholder="Filter by Status">
+      <mat-select [(ngModel)]="selectedStatus" placeholder="Filter by Status" (selectionChange)="performSearch()">
         <mat-option [value]="null">All</mat-option>
         <mat-option *ngFor="let stat of filterOptions?.cvStatus" [value]="stat">
           {{stat}}
@@ -52,32 +55,33 @@
       <table mat-table [dataSource]="searchResultsDataSource">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.fullName || '-'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="cohort">
           <th mat-header-cell *matHeaderCellDef>Cohort</th>
-          <td mat-cell *matCellDef="let element">{{element.cohort}} </td>
+          <td mat-cell *matCellDef="let element">{{element.cohort || '-'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef> Status</th>
-          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.status || '-'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="clients">
           <th mat-header-cell *matHeaderCellDef> Clients</th>
-          <td mat-cell *matCellDef="let element"> {{element.clients}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.clients || '-'}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onResultRowClicked(row)"></tr>
+        <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onResultRowClicked(row)">
+        </tr>
       </table>
       <div class="spinner-container">
         <mat-spinner *ngIf="isLoading"></mat-spinner>
       </div>
     </div>
   </mat-card-content>
-
-  <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
+  <!-- 
+  <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator> -->
 </mat-card>

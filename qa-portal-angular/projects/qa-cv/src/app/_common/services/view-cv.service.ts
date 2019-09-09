@@ -1,17 +1,17 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {ICvModel} from '../models/qac-cv-db.model';
-import {catchError, map, tap} from 'rxjs/operators';
-import {MessageService} from './message.service';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { ICvModel } from '../models/qac-cv-db.model';
+import { catchError, map, tap } from 'rxjs/operators';
+import { MessageService } from './message.service';
 import * as _ from 'lodash';
-import {GET_ALL_CVS, POST_CV_DATA, SUBMIT_CV, APPROVE_CV, FAIL_CV, GET_CURRENT_CV} from '../models/cv.constants';
+import { GET_ALL_CVS, POST_CV_DATA, SUBMIT_CV, APPROVE_CV, FAIL_CV, GET_CURRENT_CV, GET_CV_BY_ID } from '../models/cv.constants';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ViewCvService {
 
   httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   constructor(
@@ -79,6 +79,10 @@ export class ViewCvService {
       tap(_ => this.log(`Failed cv id=${cv.id}`)),
       catchError(this.handleError<any>('updateICvModel'))
     );
+  }
+
+  getCvById(id: string): Observable<ICvModel> {
+    return this.http.get<ICvModel>(GET_CV_BY_ID + id, this.httpOptions);
   }
 
   /**
