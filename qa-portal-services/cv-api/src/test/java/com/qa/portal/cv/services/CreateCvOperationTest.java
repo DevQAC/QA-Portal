@@ -1,19 +1,22 @@
 package com.qa.portal.cv.services;
 
-import static org.junit.Assert.assertTrue;
-
-import com.qa.portal.cv.domain.UserDetails;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-
+import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
-@SpringBootTest
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.assertTrue;
+
+@RunWith(MockitoJUnitRunner.class)
 public class CreateCvOperationTest {
 
 	@InjectMocks
@@ -21,22 +24,25 @@ public class CreateCvOperationTest {
 	
 	@Mock
 	private CvVersionRepository repo;
-	
-	private CvVersion testData = new CvVersion();
 
-	private UserDetails userDetails = new UserDetails();
-	
+	@Mock
+	private QaSecurityContext qaSecurityContext;
+
+	private CvVersion cvVersion = new CvVersion();
+
 	@Before
 	public void init() {
-		MockitoAnnotations.initMocks(this);
-		this.testData.setFirstName("JUnit");
-		this.testData.setSurname("Test");
-		this.testData = this.createService.createCv(testData, userDetails);
+		Mockito.when(qaSecurityContext.getFirstName()).thenReturn("Junit");
+		Mockito.when(qaSecurityContext.getSurname()).thenReturn("Test");
+		Mockito.when(qaSecurityContext.getUserName()).thenReturn("testUser");
+		Mockito.when(qaSecurityContext.getCohorts()).thenReturn(getCohorts());
+		Mockito.when(repo.save(cvVersion)).thenReturn(cvVersion);
+		this.cvVersion = this.createService.createCv(cvVersion, qaSecurityContext);
 	}
 	
 	@Test
 	public void createCvVersionNumberTest() {
-		Integer versionNumber = this.testData.getVersionNumber();
+		Integer versionNumber = this.cvVersion.getVersionNumber();
 		Boolean conditionMet = false;
 		if(versionNumber == 1) {
 			conditionMet = true;
@@ -46,9 +52,10 @@ public class CreateCvOperationTest {
 	
 	@Test
 	public void createCvFullNameTest() {
-		String fullName = this.testData.getFullName();
+		String fullName = this.cvVersion.getFullName();
+		System.out.println("Full name " + fullName);
 		Boolean conditionMet = false;
-		if(fullName.equals("JUnit Test")) {
+		if(fullName.equals("Junit Test")) {
 			conditionMet = true;
 		}
 		assertTrue("Fullname failed to set upon CV creation", conditionMet);
@@ -57,11 +64,17 @@ public class CreateCvOperationTest {
 	
 	@Test
 	public void createCvStatusTest() {
-		String status = this.testData.getStatus();
+		String status = this.cvVersion.getStatus();
 		Boolean conditionMet = false;
 		if(status.equals("In Progress")) {
 			conditionMet = true;
 		}
 		assertTrue("Initial status is not \"In Progress\"", conditionMet);
+	}
+
+	private Set<String> getCohorts() {
+		Set<String> cohorts = new HashSet<>();
+		cohorts.add("CI_Intake_1");
+		return cohorts;
 	}
 }
