@@ -8,7 +8,7 @@
               Comments
             </h4>
           </div>
-          <button mat-icon-button (click)="drawer.close()">
+          <button mat-icon-button (click)="drawer.close()" title="Hide comments">
             <mat-icon>chevron_right</mat-icon>
           </button>
         </div>
@@ -48,12 +48,10 @@
       </div>
     </mat-drawer>
     <mat-card-header>
-      <div class="card-header-wrapper">
         <mat-card-title>{{title || ''}}</mat-card-title>
-        <button mat-button *ngIf="showOpenButton" (click)="drawer.open()">
-          <mat-icon *ngIf="!drawer.opened">feedback</mat-icon>
+        <button mat-icon-button *ngIf="showOpenButton && !drawer.opened" (click)="drawer.open()" title="Show comments">
+          <mat-icon>feedback</mat-icon>
         </button>
-      </div>
     </mat-card-header>
     <mat-card-content>
       <div class="card-base-content-wrapper">

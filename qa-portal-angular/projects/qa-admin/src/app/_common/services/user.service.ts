@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { IUserModel } from '../models/user.model';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { GET_USERS, DEL_USER, ADD_USER, UPDATE_USER, TEST_USERS } from '../models/User.constant';
+import { GET_USERS, DEL_USER, ADD_USER, UPDATE_USER, TEST_USERS } from '../models/user.constant';
 import { tap, catchError } from 'rxjs/operators';
 import { MessageService } from './message.service';
 
