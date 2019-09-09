@@ -1,8 +1,9 @@
 package com.qa.portal.feedback.services;
 
-import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.dto.TraineeEvaluationSummaryDto;
+import com.qa.portal.feedback.dto.TrainerCourseEvaluationSummaryDto;
+import com.qa.portal.feedback.dto.TrainerCourseHistoryDto;
 import com.qa.portal.feedback.util.QuestionCategorySortUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,8 +86,8 @@ public class CohortCourseEvaluationService {
 	}
 
 	@Transactional
-	public List<CohortCourseDto> getCohortCoursesForTrainer(String userName) {
-		return getCohortCoursesForTrainerOperation.getCohortCoursesForTrainer(userName);
+	public TrainerCourseHistoryDto getCohortCoursesForTrainer(String userName) {
+		return getCohortCoursesForTrainerOperation.getTrainerCourseHistory(userName);
 	}
 
 	@Transactional
@@ -97,12 +98,12 @@ public class CohortCourseEvaluationService {
 	}
 
 	@Transactional
-	public List<CohortCourseEvaluationDto> getCohortCourseEvaluationsForCourse(Integer cohortCourseId) {
-		List<CohortCourseEvaluationDto> cohortCourseEvaluationDtos =
-									getCohortCourseEvaluationsForCourseOperation.getEvaluationsForCourse(cohortCourseId);
-		cohortCourseEvaluationDtos.stream()
+	public TrainerCourseEvaluationSummaryDto getCohortCourseEvaluationsForCourse(Integer cohortCourseId) {
+		TrainerCourseEvaluationSummaryDto trainerCourseEvaluationSummaryDto =
+									getCohortCourseEvaluationsForCourseOperation.getEvaluationSummaryForCourse(cohortCourseId);
+		trainerCourseEvaluationSummaryDto.getTraineeEvaluationsForCourse().stream()
 				.forEach(cce -> questionCategorySortUtil.sortQuestionCategoryResponses(cce));
-		return cohortCourseEvaluationDtos;
+		return trainerCourseEvaluationSummaryDto;
 	}
 
 	@Transactional

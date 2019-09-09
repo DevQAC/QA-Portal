@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class QaCohortDto extends QaBaseDto {
+
     private Integer id;
 
     private String name;
