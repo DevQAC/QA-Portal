@@ -1,6 +1,7 @@
 package com.qa.portal.user.services;
 
 import com.qa.portal.common.dto.QaCohortDto;
+import com.qa.portal.common.dto.TechnologyDto;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,20 +23,30 @@ public class UserService {
 
 	private QaTraineeRepository traineeRepo;
 
-    private CohortMapper mapper;
+	private GetSkillsForTraineeOperation getSkillsForTraineeOperation;
+
+    private CohortMapper cohortMapper;
 
     private Comparator<QaCohortDto> cohortComparator = (c1, c2) -> c1.getStartDate().isBefore(c2.getStartDate()) ? 1 : -1;
 
-	public UserService(QaTrainerRepository trainerRepo, QaTraineeRepository traineeRepo, CohortMapper mapper) {
-		super();
+	public UserService(QaTrainerRepository trainerRepo,
+					   QaTraineeRepository traineeRepo,
+					   GetSkillsForTraineeOperation getSkillsForTraineeOperation,
+					   CohortMapper cohortMapper) {
 		this.trainerRepo = trainerRepo;
 		this.traineeRepo = traineeRepo;
-		this.mapper = mapper;
+		this.getSkillsForTraineeOperation = getSkillsForTraineeOperation;
+		this.cohortMapper = cohortMapper;
 	}
 
-    @Transactional
+	@Transactional
+	public Map<String, List<TechnologyDto>> getSkillsForTrainee(String traineeUserName) {
+		return getSkillsForTraineeOperation.getSkillsForTrainee(traineeUserName);
+	}
+
+	@Transactional
     public QaCohortDto getCohortForTrainee(String name) {
-        return mapper.mapToQaCohortDto(this.traineeRepo.findByUserName(name)
+        return cohortMapper.mapToQaCohortDto(this.traineeRepo.findByUserName(name)
                 .orElseThrow(() -> new QaResourceNotFoundException("Cohort with that name does not exist")).getCohort());
     }
 
@@ -44,14 +56,14 @@ public class UserService {
                 .orElseThrow(() -> new QaResourceNotFoundException("Trainer not found"));
         return trainer.getCohorts()
 				.stream()
-				.map(this.mapper::mapToQaCohortDto)
+				.map(this.cohortMapper::mapToQaCohortDto)
 				.sorted(cohortComparator)
 				.collect(Collectors.toList());
     }
 
 	@Transactional
 	public TraineeDto getTraineeById(Integer id) {
-		return this.mapper.mapToQaTraineeDto(this.traineeRepo.findById(id)
+		return this.cohortMapper.mapToQaTraineeDto(this.traineeRepo.findById(id)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee not found")));
 	}
 }

@@ -5,7 +5,7 @@ import {ICvModel} from '../models/qac-cv-db.model';
 import {catchError, map, tap} from 'rxjs/operators';
 import {MessageService} from './message.service';
 import * as _ from 'lodash';
-import {GET_ALL_CVS, POST_CV_DATA, SUBMIT_CV, APPROVE_CV, FAIL_CV, GET_CURRENT_CV} from '../models/cv.constants';
+import {GET_ALL_CVS, POST_CV_DATA, SUBMIT_CV, APPROVE_CV, FAIL_CV, GET_CURRENT_CV, GET_SKILLS_FOR_TRAINEE} from '../models/cv.constants';
 
 @Injectable({providedIn: 'root'})
 export class ViewCvService {
@@ -26,11 +26,14 @@ export class ViewCvService {
     );
   }
 
+  getSkillsForTrainee(): Observable<any> {
+    return this.http.get<any>(GET_SKILLS_FOR_TRAINEE);
+  }
+
   private getAllCvsForCurrentUser(): Observable<ICvModel[]> {
     return this.http.get<ICvModel[]>(GET_ALL_CVS, this.httpOptions).pipe(
       catchError(this.handleError<ICvModel[]>(`getICvModel for current user`))
     );
-
   }
 
   getPDFService(cv: ICvModel) {

@@ -2,8 +2,7 @@ import { IProfile } from './profile.model';
 import { IHobbies } from './hobbies.model';
 import { IWorkExperience } from './work-experience.model';
 import { IQualification } from './qualification.model';
-import { ISkills } from './skills.model'
-
+import { ISkills } from './skills.model';
 
 export interface ICvModel {
 

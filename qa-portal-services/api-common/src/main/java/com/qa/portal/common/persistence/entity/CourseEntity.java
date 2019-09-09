@@ -48,4 +48,12 @@ public class CourseEntity extends QaBaseEntity {
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
     }
+
+    public List<CourseTechnologyEntity> getCourseTechnologies() {
+        return courseTechnologies;
+    }
+
+    public void setCourseTechnologies(List<CourseTechnologyEntity> courseTechnologies) {
+        this.courseTechnologies = courseTechnologies;
+    }
 }

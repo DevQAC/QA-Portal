@@ -1,3 +1,5 @@
+export const GET_SKILLS_FOR_TRAINEE = 'user-api/user/trainee/skills'
+
 export const GET_ALL_CVS = 'cv-api/cvs';
 
 export const POST_CV_DATA = 'cv-api/cv';

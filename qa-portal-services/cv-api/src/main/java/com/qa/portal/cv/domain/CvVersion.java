@@ -163,6 +163,4 @@ public class CvVersion {
 	public void setHobbies(Hobbies hobbies) {
 		this.hobbies = hobbies;
 	}
-
-
 }
