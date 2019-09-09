@@ -8,7 +8,7 @@
 
 <div *ngIf="!loadingData">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 18px;">
-    <h3>{{cvData?.fullName}}</h3>
+    <div style="color: #004050">{{cvData?.fullName}}</div>
     <div style="margin-left: auto; color: #004050"><b>CV Status:</b> {{cvData?.status || 'In Progress'}}</div>
   </div>
 
