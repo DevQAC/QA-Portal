@@ -39,6 +39,18 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    if (this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE) {
+      this.canEdit = false;
+    } else {
+      this.canEdit = true;
+      if (this.activatedRoute.snapshot.data.roles[0] === TRAINEE_ROLE && (!!this.cvData && this.cvData.status !== 'For Review')) {
+        this.canEdit = false;
+      } else {
+        this.canEdit = true;
+      }
+    }
+
     if (SubmitConfirmDialogComponent) {
       this.canComment = this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE;
     }
@@ -84,7 +96,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvData.versionNumber = this.cvData.versionNumber ? this.cvData.versionNumber + 1 : 1;
     this.cvService.updateCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
-  1
+
   submitCv(): void {
     this.cvService.submitCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
@@ -122,16 +134,4 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvData.allQualifications[this.qualFeedbackIndex].qualificationFeedback = feedback;
   }
 
-  ngDoCheck() {
-    if (this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE) {
-      this.canEdit = false;
-    } else {
-      this.canEdit = true;
-      if (this.activatedRoute.snapshot.data.roles[0] === TRAINEE_ROLE && (!!this.cvData && this.cvData.status !== 'For Review')) {
-        this.canEdit = false;
-      } else {
-        this.canEdit = true;
-      }
-    }
-  }
 }
