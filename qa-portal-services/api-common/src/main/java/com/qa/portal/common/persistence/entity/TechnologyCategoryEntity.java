@@ -1,9 +1,7 @@
 package com.qa.portal.common.persistence.entity;
 
-import java.sql.Timestamp;
-import java.util.List;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(schema = "training", name = "technology_category")
@@ -23,16 +21,8 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
     @Column(name = "search_string")  
     private String searchString;
 
-    @Column(name = "last_updated_timestamp")
-    private Timestamp lastUpdatedTimestamp;
-
-    @Column(name = "last_updated_by")
-    private String lastUpdatedBy;
-
 	@OneToMany(mappedBy = "technologyCategory", fetch = FetchType.LAZY)
 	private List<TechnologyEntity> technologies;
-
-    private Integer version;
 
 	public Integer getId() {
 		return id;
@@ -57,33 +47,4 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
 	}
-
-	public Timestamp getLastUpdatedTimestamp() {
-		return lastUpdatedTimestamp;
-	}
-
-	public void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp) {
-		this.lastUpdatedTimestamp = lastUpdatedTimestamp;
-	}
-
-	public String getLastUpdatedBy() {
-		return lastUpdatedBy;
-	}
-
-	public void setLastUpdatedBy(String lastUpdatedBy) {
-		this.lastUpdatedBy = lastUpdatedBy;
-	}
-
-	public Integer getVersion() {
-		return version;
-	}
-
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
-
-
-
-
-
 }

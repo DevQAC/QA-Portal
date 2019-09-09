@@ -2,7 +2,7 @@ package com.qa.portal.common.dto;
 
 import java.util.List;
 
-public class QuestionCategoryResponseDto {
+public class QuestionCategoryResponseDto extends QaBaseDto {
 
     private Integer id;
 

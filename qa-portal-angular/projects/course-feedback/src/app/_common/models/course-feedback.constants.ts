@@ -1,12 +1,14 @@
 // TODO  - TO BE REMOVED
-export const GET_COURSE_EVALUATION_FOR_TRAINEE_API = 'course-evaluation';
 export const GET_FORM_TYPE = 'question-api/question/category/formtype/';
 export const SEND_EVAL_RESPONSE = 'feedback-api/feedback';
-export const COURSE_EVAL_FORM = 'course_eval_form';
-export const TRAINER_FEEDBACK_FORM = 'feedback_form';
 // TODO - END OF TO BE REMOVED
 
 // EVALUATION FORM URLS
+
+export const GET_TRAINER_EVALUATION_SUMMARY = 'feedback-api/evaluation/course/';
+
+export const GET_COHORT_COURSES_FOR_TRAINER = '/feedback-api/evaluation/trainer';
+
 export const GET_TRAINEE_EVALUATION_SUMMARY_URL = 'feedback-api/evaluation/trainee/summary';
 
 export const GET_EVALUATION_FORMS_FOR_TRAINEE_URL = 'feedback-api/evaluation/trainee';
@@ -28,7 +30,6 @@ export const UPDATE_EVALUATION_FORM_URL = 'feedback-api/evaluation'
 
 
 // FEEDBACK FORM URLS
-export const GET_COHORT_COURSES_FOR_TRAINER_URL = 'course-api/cohort/course/trainer';
 
 // Invoked with an Http POST request
 export const CREATE_FEEDBACK_FORM_URL = 'feedback-api/feedback';

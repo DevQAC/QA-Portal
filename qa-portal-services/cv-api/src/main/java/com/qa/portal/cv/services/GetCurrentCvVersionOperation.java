@@ -56,5 +56,4 @@ public class GetCurrentCvVersionOperation {
 		CvVersion a = repo.findByVersionNumber(versionNumber);
 		return a;
 	}
-	
 }

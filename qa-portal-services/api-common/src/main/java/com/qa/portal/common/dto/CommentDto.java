@@ -1,6 +1,6 @@
 package com.qa.portal.common.dto;
 
-public class CommentDto {
+public class CommentDto extends QaBaseDto {
 
     private Integer id;
 

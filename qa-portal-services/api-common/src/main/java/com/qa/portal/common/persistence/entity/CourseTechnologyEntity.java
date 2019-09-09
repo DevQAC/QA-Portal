@@ -1,5 +1,4 @@
 package com.qa.portal.common.persistence.entity;
-import java.sql.Timestamp;
 
 import javax.persistence.*;
 
@@ -24,14 +23,6 @@ public class CourseTechnologyEntity extends QaBaseEntity {
     @JoinColumn(name = "technology_id")
     private TechnologyEntity technology;
 
-    @Column(name = "last_updated_timestamp")
-    private Timestamp lastUpdatedTimestamp;
-
-    @Column(name = "last_updated_by")
-    private String lastUpdatedBy;
-
-    private Integer version;
-
     public Integer getId() {
         return this.id;
     }
@@ -39,8 +30,6 @@ public class CourseTechnologyEntity extends QaBaseEntity {
     public void setId(Integer id) {
         this.id = id;
     }
-
-
 
     public CourseEntity getCourse() {
         return course;
@@ -56,35 +45,5 @@ public class CourseTechnologyEntity extends QaBaseEntity {
 
     public void setTechnology(TechnologyEntity technology) {
         this.technology = technology;
-    }
-
-    @Override
-    public Timestamp getLastUpdatedTimestamp() {
-        return lastUpdatedTimestamp;
-    }
-
-    @Override
-    public void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp) {
-        this.lastUpdatedTimestamp = lastUpdatedTimestamp;
-    }
-
-    @Override
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    @Override
-    public void setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-    }
-
-    @Override
-    public Integer getVersion() {
-        return version;
-    }
-
-    @Override
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 }
