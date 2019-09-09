@@ -1,14 +1,13 @@
 package com.qa.portal.cv.services;
 
 import com.qa.portal.cv.domain.CvVersion;
-import com.qa.portal.cv.domain.UserDetails;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertTrue;
@@ -17,32 +16,28 @@ import static org.junit.Assert.assertTrue;
 public class UpdateCvOperationTest {
 
 	@InjectMocks
-	private CreateCvOperation createService;
-	
-	@InjectMocks
 	private UpdateCvVersionOperation updateService;
 	
 	@Mock
 	private CvVersionRepository repo;
-	
-	private CvVersion testData = new CvVersion();
 
-	private UserDetails userDetails = new UserDetails();
+	private CvVersion cvVersion = new CvVersion();
 	
 	@Before
 	public void init() {
-		MockitoAnnotations.initMocks(this);
-		this.testData.setFirstName("JUnit");
-		this.testData.setSurname("Test");
-		this.testData = this.createService.createCv(testData, userDetails);
+		cvVersion.setFirstName("Junit");
+		cvVersion.setSurname("Test");
+		cvVersion.setCohort(getCohort());
+		Mockito.when(repo.save(cvVersion)).thenReturn(cvVersion);
+		this.cvVersion = this.updateService.updateCv(cvVersion);
 	}
 	
 	@Test
 	public void updateCvFullNameTest() {
-		this.testData.setFirstName("Update");
-		this.testData.setSurname("Test");
-		this.testData = this.updateService.updateCv(testData);
-		String fullName = this.testData.getFullName();
+		this.cvVersion.setFirstName("Update");
+		this.cvVersion.setSurname("Test");
+		this.cvVersion = this.updateService.updateCv(cvVersion);
+		String fullName = this.cvVersion.getFullName();
 		boolean conditionMet = false;
 		if(fullName.equals("Update Test")) {
 			conditionMet = true;
@@ -52,14 +47,17 @@ public class UpdateCvOperationTest {
 	
 	@Test
 	public void updateCvStatusTest() {
-		this.testData.setStatus("For Review");
-		this.testData = this.updateService.updateCv(testData);
-		String status = this.testData.getStatus();
+		this.cvVersion = this.updateService.submitCv(cvVersion);
+		String status = this.cvVersion.getStatus();
 		boolean conditionMet = false;
 		if(status.equals("For Review")) {
 			conditionMet = true;
 		}
 		assertTrue("The status changed during the update operation, "
 				+ "which should only happen if the updated cv has a status of \"Approved\"", conditionMet);
+	}
+
+	private String getCohort() {
+		return "CI_Intake_1";
 	}
 }

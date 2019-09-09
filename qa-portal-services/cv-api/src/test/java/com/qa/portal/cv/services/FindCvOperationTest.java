@@ -9,14 +9,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-@SpringBootTest
 public class FindCvOperationTest {
 
     @InjectMocks
@@ -28,15 +26,12 @@ public class FindCvOperationTest {
 
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
-        // userOne = new gccvo("Chad", "Thunder");
     }
 
     @Test
     public void findAllAccounts_Test() {
         List<CvVersion> refData;
         refData = gccvo.getAll();
-
         verify(repo).findAll();
     }
 
@@ -45,7 +40,5 @@ public class FindCvOperationTest {
     public void FindVersionNumber_Test() {
         List<CvVersion> refData;
         refData = gccvo.getAll();
-
     }
-
 }
