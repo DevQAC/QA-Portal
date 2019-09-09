@@ -1,6 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
 
 
+app-cv-search {
+
+    >.mat-card {
+        margin-bottom: 1rem;
+    }
+
+    .search-input-card {
+
+        .search-input-group {
+            display: flex;
+
+            margin-bottom: 1rem;
+
+            .search-input {
+                width: 100%;
+
+                .mat-form-field-wrapper {
+                    margin: 0;
+                    padding: 0;
+                }
+                .mat-form-field-outline-end {
+                    border-radius: 0px;
+                    border-right-width: 0px;
+                }
+            }
+            .search-button {
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
+            }
+        }
+
+        .search-filters {
+            display: flex;
+
+            .mat-select {
+                margin-right: 1rem;
+                &:last-of-type {
+                    margin-right: 0;
+                }
+            }
+            
+        }
+    }
+
+    .search-results-card {
+
+        .mat-table {
+            width: 100%;
+
+            tr.data-row:hover {
+                background:  map-get($map: $mat-light-theme-background, $key: 'hover');
+              }
+        }
+
+        .spinner-container {
+            display: flex;
+            .mat-spinner {
+                margin: 1rem auto;
+            }
+        }
+    }
+}
+
+
 app-cv-card-base {
     .mat-drawer-container {
         background: transparent;

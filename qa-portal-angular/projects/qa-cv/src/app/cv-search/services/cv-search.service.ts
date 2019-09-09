@@ -65,11 +65,21 @@ export class CVSearchHistoryService {
 
     /* GET cvs whose name contains search term */
     searchCVs(term: string, intakeChoice: string = "", techChoice: string = "", statusChoice: string = ""): Observable<CVSearchModel[]> {
-        if (!term.trim()) {
-            // if not search term, return empty CV array.
-            return of([]);
+        const params = new URLSearchParams();
+        if(term) {
+            params.set('name', term);
         }
-        return this.http.get<CVSearchModel[]>(`${this.searchUrl}?name=${term}&cohort=${intakeChoice}&tech=${techChoice}&status=${statusChoice}`).pipe(
+        if(intakeChoice) {
+            params.set('cohort', intakeChoice);
+        }
+        if(techChoice) {
+            params.set('tech', techChoice);
+        }
+        if(statusChoice) {
+            params.set('status', statusChoice);
+        }
+
+        return this.http.get<CVSearchModel[]>(`${this.searchUrl}?${params.toString()}`).pipe(
             catchError(this.handleError<CVSearchModel[]>('searchCVs', []))
         );
     }
