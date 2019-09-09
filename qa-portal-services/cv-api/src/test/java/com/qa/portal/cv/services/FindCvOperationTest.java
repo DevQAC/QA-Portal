@@ -1,25 +1,20 @@
 package com.qa.portal.cv.services;
 
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-
-import java.util.List;
-
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+import java.util.List;
+
+import static org.mockito.Mockito.verify;
+
+@RunWith(MockitoJUnitRunner.class)
 public class FindCvOperationTest {
 
     @InjectMocks
@@ -31,15 +26,12 @@ public class FindCvOperationTest {
 
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
-        // userOne = new gccvo("Chad", "Thunder");
     }
 
     @Test
     public void findAllAccounts_Test() {
         List<CvVersion> refData;
         refData = gccvo.getAll();
-
         verify(repo).findAll();
     }
 
@@ -48,7 +40,5 @@ public class FindCvOperationTest {
     public void FindVersionNumber_Test() {
         List<CvVersion> refData;
         refData = gccvo.getAll();
-
     }
-
 }

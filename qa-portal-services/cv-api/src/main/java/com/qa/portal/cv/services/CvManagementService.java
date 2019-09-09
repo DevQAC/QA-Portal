@@ -3,8 +3,8 @@ package com.qa.portal.cv.services;
 import java.io.IOException;
 import java.util.List;
 
+import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.cv.domain.CvSearchCriteria;
-import com.qa.portal.cv.domain.UserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -52,8 +52,8 @@ public class CvManagementService {
     }
     
 //	Create Service
-    public CvVersion createCv(CvVersion newCv, UserDetails user) {
-    	return this.createCvService.createCv(newCv, user);
+    public CvVersion createCv(CvVersion newCv, QaSecurityContext qaSecurityContext) {
+    	return this.createCvService.createCv(newCv, qaSecurityContext);
     }
     
 //	Update Service
