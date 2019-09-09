@@ -11,13 +11,13 @@ app-cv-card-base {
     }
 
 
-    .card-header-wrapper {
+    .mat-card-header {
         display: flex;
         flex-direction: row;
         width: 100%;
 
-        .mat-card-title {
-            margin-top: 12px; // match default bottom
+        .mat-card-header-text {
+            margin-top: 12px;
             margin-right: auto;
         }
     }
@@ -71,7 +71,7 @@ app-cv-card-base {
     }
 
     .card-base-content-wrapper {
-        padding: 16px;
+        padding: 0 16px;
     }
 
     .comment-bubble {

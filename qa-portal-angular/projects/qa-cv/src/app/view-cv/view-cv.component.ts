@@ -1,13 +1,13 @@
-import {Component, OnInit, Output, OnDestroy} from '@angular/core';
-import {ICvModel, DEFAULT_CV} from '../_common/models/qac-cv-db.model';
-import {ViewCvService} from '../_common/services/view-cv.service';
-import {CvCardBaseComponent} from '../cv-card-base/cv-card-base.component';
-import {IFeedback} from '../_common/models/feedback.model';
-import {ActivatedRoute} from '@angular/router';
-import {TRAINEE_ROLE, TRAINING_ADMIN_ROLE} from '../../../../portal-core/src/app/_common/models/portal-constants';
-import {Subscription} from 'rxjs';
-import {MAT_DATE_LOCALE, MatDialog} from '@angular/material';
-import {SubmitConfirmDialogComponent} from './submit-confirm-dialog/submit-confirm-dialog.component';
+import { Component, OnInit, Output, OnDestroy } from '@angular/core';
+import { ICvModel, DEFAULT_CV } from '../_common/models/qac-cv-db.model';
+import { ViewCvService } from '../_common/services/view-cv.service';
+import { CvCardBaseComponent } from '../cv-card-base/cv-card-base.component';
+import { IFeedback } from '../_common/models/feedback.model';
+import { ActivatedRoute } from '@angular/router';
+import { TRAINEE_ROLE, TRAINING_ADMIN_ROLE } from '../../../../portal-core/src/app/_common/models/portal-constants';
+import { Subscription } from 'rxjs';
+import { MAT_DATE_LOCALE, MatDialog } from '@angular/material';
+import { SubmitConfirmDialogComponent } from './submit-confirm-dialog/submit-confirm-dialog.component';
 
 @Component({
   selector: 'app-view-cv',
@@ -84,7 +84,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvData.versionNumber = this.cvData.versionNumber ? this.cvData.versionNumber + 1 : 1;
     this.cvService.updateCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
-
+  1
   submitCv(): void {
     this.cvService.submitCv(this.cvData).subscribe(updatedCv => this.cvData = updatedCv);
   }
