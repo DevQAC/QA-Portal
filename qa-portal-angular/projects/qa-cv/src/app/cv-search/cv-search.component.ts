@@ -43,7 +43,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
     private errorHandlerService: QaErrorHandlerService) {
   }
 
-  
+
   ngOnInit() {
 
     this.filterSubscription = this.cvSearchFilterService.getFilters().subscribe(
@@ -55,7 +55,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
         this.loadingData = false;
         this.dataSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
         this.dataSource.paginator = this.paginator;
-      
+
 
         this.dataSource.filterPredicate = this.customFilterPredicate();
         this.loadingData = false;
@@ -75,22 +75,16 @@ export class CvSearchComponent implements OnInit, OnDestroy {
       (response) => {
         this.currentForm = [];
         response.forEach((search) => {
-
           this.currentForm.push(search);
-          this.countTech = this.currentForm[0].allSkills[0].programmingLanguages.length+this.currentForm[0].allSkills[0].ides.length+this.currentForm[0].allSkills[0].operatingSystems.length+
-          this.currentForm[0].allSkills[0].devops.length+this.currentForm[0].allSkills[0].databases.length+this.currentForm[0].allSkills[0].platforms.length+
-          this.currentForm[0].allSkills[0].other.length
-
-          console.log("number of skills: "+this.countTech);
-          
-         
+          // this.countTech = this.currentForm[0].allSkills[0].programmingLanguages.length+this.currentForm[0].allSkills[0].ides.length+this.currentForm[0].allSkills[0].operatingSystems.length+
+          // this.currentForm[0].allSkills[0].devops.length+this.currentForm[0].allSkills[0].databases.length+this.currentForm[0].allSkills[0].platforms.length+
+          // this.currentForm[0].allSkills[0].other.length
+          //
+          // console.log("number of skills: "+this.countTech);
         });
         this.loadingData = false;
         this.dataSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
         this.dataSource.paginator = this.paginator;
-
-        
-
         this.dataSource.filterPredicate = this.customFilterPredicate();
         this.loadingData = false;
       },
@@ -107,7 +101,7 @@ export class CvSearchComponent implements OnInit, OnDestroy {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
- 
+
 
   }
 
