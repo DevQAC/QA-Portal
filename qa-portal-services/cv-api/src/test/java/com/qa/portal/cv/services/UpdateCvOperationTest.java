@@ -1,19 +1,19 @@
 package com.qa.portal.cv.services;
 
-import static org.junit.Assert.assertTrue;
-
+import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.domain.UserDetails;
+import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import com.qa.portal.cv.domain.CvVersion;
-import com.qa.portal.cv.persistence.repository.CvVersionRepository;
+import static org.junit.Assert.assertTrue;
 
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class UpdateCvOperationTest {
 
 	@InjectMocks
