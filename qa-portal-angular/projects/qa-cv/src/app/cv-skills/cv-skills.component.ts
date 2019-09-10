@@ -81,8 +81,8 @@ export class CvSkillsComponent implements OnInit {
     this.skillsChange.emit(this.skills);
   }
 
-  getEditValue() {
-    return this.canEdit;
+  isDisabled() {
+    return !this.canEdit;
   }
 
 }

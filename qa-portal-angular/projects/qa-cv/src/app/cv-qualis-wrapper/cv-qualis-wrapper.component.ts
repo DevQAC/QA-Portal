@@ -29,8 +29,8 @@ export class CvQualisWrapperComponent {
     this.feedbackClick.emit({index, qualifications});
   }
 
-  getEditValue() {
-    return this.canEdit;
+  isDisabled() {
+    return !this.canEdit;
   }
 
 }

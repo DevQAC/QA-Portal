@@ -66,7 +66,7 @@ export class CvWorkExpComponent{
 
   }
 
-  getEditValue() {
-    return this.canEdit;
+  isDisabled() {
+    return !this.canEdit;
   }
 }

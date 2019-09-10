@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.qa.portal.cv.domain.CvVersion;
 
-public interface CvVersionRepository extends MongoRepository<CvVersion, Integer> {
+public interface CvVersionRepository extends MongoRepository<CvVersion, String> {
 
 	List<CvVersion> findByFullNameIgnoreCase(String fullName);
 	

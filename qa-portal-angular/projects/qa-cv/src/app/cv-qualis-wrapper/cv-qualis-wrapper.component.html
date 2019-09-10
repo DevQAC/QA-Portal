@@ -1,8 +1,9 @@
 <h2> Qualifications
-    <button mat-mini-fab style="float: right" (click)="onNewQualiClick()" [disabled]="getEditValue()">
+    <button mat-mini-fab style="float: right" (click)="onNewQualiClick()" [disabled]="isDisabled()">
         <mat-icon>add</mat-icon>
     </button>
 </h2>
+
 <mat-accordion *ngFor="let quali of qualifications; index as i">
     <app-cv-qualis [qualifications1]="quali" (qualifications1Change)="quali = $event"
         (deleteQualification)="onDeleteQualiEvent(i)" (feedbackClick)="onFeedbackClick(i, qualifications)" [canEdit]="canEdit">

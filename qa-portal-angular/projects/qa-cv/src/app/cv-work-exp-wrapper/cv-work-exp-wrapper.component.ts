@@ -48,10 +48,10 @@ export class CvWorkExpWrapperComponent implements OnInit {
   onFeedbackClick(index: number, experience: IWorkExperience): void {
     this.feedbackClick.emit({index, experience});
 
-   
+
   }
-  
-  getEditValue() {
-    return this.canEdit;
+
+  isDisabled() {
+    return !this.canEdit;
   }
 }
