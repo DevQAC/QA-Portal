@@ -4,13 +4,14 @@ import {ViewCvService} from '../_common/services/view-cv.service';
 import {CvCardBaseComponent} from '../cv-card-base/cv-card-base.component';
 import {IFeedback} from '../_common/models/feedback.model';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {TRAINEE_ROLE, TRAINING_ADMIN_ROLE} from '../../../../portal-core/src/app/_common/models/portal-constants';
 import {Subscription} from 'rxjs';
 import {MAT_DATE_LOCALE, MatDialog} from '@angular/material';
 import {SubmitConfirmDialogComponent} from './submit-confirm-dialog/submit-confirm-dialog.component';
 import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
 import {IQualification} from '../_common/models/qualification.model';
 import {IWorkExperience} from '../_common/models/work-experience.model';
+import {UserSkillsModel} from '../_common/models/user-skills.model';
+import {TRAINEE_ROLE, TRAINING_ADMIN_ROLE} from '../../../../portal-core/src/app/_common/models/portal-constants';
 
 @Component({
   selector: 'app-view-cv',
@@ -37,15 +38,21 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   isTraineeView = true;
 
   loadingData = true;
+
   fileURL: string;
+
   qualFeedbackIndex: number;
+
   workExpFeedbackIndex: number;
 
   public cvData: ICvModel;
+
   public workExpFeedback = [];
+
   public qualFeedback = [];
 
   private cvDataSubscription$: Subscription;
+
   private traineeSkillsSubcription$: Subscription;
 
   constructor(
@@ -105,7 +112,6 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     } else {
       this.updateCv();
     }
-    console.log('Cv saved id is ' + this.cvData.id);
   }
 
   createCv(): void {
@@ -190,10 +196,16 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
   private populateSkillsForTrainee() {
-    this.traineeSkillsSubcription$ = this.cvService.getSkillsForTrainee().subscribe(skills => {
+    this.traineeSkillsSubcription$ = this.cvService.getSkillsForTrainee().subscribe((userSkillsModel: UserSkillsModel) => {
       Object.keys(this.cvData.allSkills[0]).forEach((skillCategory) => {
-        this.cvData.allSkills[0][skillCategory] = this.getSkillsArrayForTechnology(skills[skillCategory]);
+        this.cvData.userName = userSkillsModel.userName;
+        this.cvData.firstName = userSkillsModel.userFirstName;
+        this.cvData.surname = userSkillsModel.userLastName;
+        this.cvData.fullName = this.cvData.firstName + ' ' + this.cvData.surname;
+        this.cvData.status = 'In Progress';
+        this.cvData.allSkills[0][skillCategory] = this.getSkillsArrayForTechnology(userSkillsModel.skills[skillCategory]);
       });
+      this.setEditStatus();
       this.loadingData = false;
     });
   }
@@ -213,11 +225,11 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvDataSubscription$ = this.cvService.getCurrentCvForCurrentUser().subscribe(
       (cv) => {
         this.cvData = {...DEFAULT_CV, ...cv};
-        this.setEditStatus();
         console.log('Edit Status ' + this.canEdit);
         if (!cv) {
           this.populateSkillsForTrainee();
         } else {
+          this.setEditStatus();
           this.loadingData = false;
         }
       },
@@ -274,6 +286,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   private populateResponse(response: ICvModel): void {
     this.cvData = response;
+    console.log('Created Cv id ' + this.cvData.id);
     this.setEditStatus();
   }
 
