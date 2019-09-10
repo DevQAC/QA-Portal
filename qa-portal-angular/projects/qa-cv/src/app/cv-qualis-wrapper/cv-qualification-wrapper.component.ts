@@ -3,10 +3,10 @@ import { IQualification } from '../_common/models/qualification.model';
 
 @Component({
   selector: 'app-cv-qualis-wrapper',
-  templateUrl: './cv-qualis-wrapper.component.html',
-  styleUrls: ['./cv-qualis-wrapper.component.css']
+  templateUrl: './cv-qualification-wrapper.component.html',
+  styleUrls: ['./cv-qualification-wrapper.component.css']
 })
-export class CvQualisWrapperComponent {
+export class CvQualificationWrapperComponent {
   @Input() qualifications: IQualification[];
   @Output() qualificationsChange = new EventEmitter<IQualification[]>();
   @Output() feedbackClick = new EventEmitter<{index: number, qualifications: IQualification}>();
@@ -14,7 +14,7 @@ export class CvQualisWrapperComponent {
 
   onNewQualiClick(): void {
     this.qualifications = [{
-      qualificationDetails: '<<NEW QUALI DEFAULT>>',
+      qualificationDetails: '',
       qualificationFeedback: []
     }, ...this.qualifications];
     this.qualificationsChange.emit(this.qualifications);

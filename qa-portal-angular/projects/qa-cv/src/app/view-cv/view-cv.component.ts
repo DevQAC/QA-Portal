@@ -9,6 +9,8 @@ import {Subscription} from 'rxjs';
 import {MAT_DATE_LOCALE, MatDialog} from '@angular/material';
 import {SubmitConfirmDialogComponent} from './submit-confirm-dialog/submit-confirm-dialog.component';
 import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import {IQualification} from '../_common/models/qualification.model';
+import {IWorkExperience} from '../_common/models/work-experience.model';
 
 @Component({
   selector: 'app-view-cv',
@@ -87,16 +89,17 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     });
   }
 
-
   ngOnDestroy(): void {
-    this.cvDataSubscription$.unsubscribe();
+    if (!!this.cvDataSubscription$) {
+      this.cvDataSubscription$.unsubscribe();
+    }
+
     if (!!this.traineeSkillsSubcription$) {
       this.cvDataSubscription$.unsubscribe();
     }
   }
 
   onSave(): void {
-    this.cvData.status = 'Saved';
     if (!this.cvData.id) {
       this.createCv();
     } else {
@@ -276,5 +279,36 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   private navigateToAdminSearch() {
     this.router.navigateByUrl('qa/portal/cv/admin/search');
+  }
+
+  private allDetailsEntered(): boolean {
+    return !!this.allQualificationsCompleted(this.cvData.allQualifications) &&
+      !!this.allWorkExperienceCompleted(this.cvData.allWorkExperience) &&
+      !!this.cvData.hobbies &&
+      !!this.cvData.profile;
+  }
+
+  private allQualificationsCompleted(qualifications: IQualification[]): boolean {
+    return !!qualifications &&
+      qualifications.length > 0 &&
+      !qualifications.find(q => !this.qualificationCompleted(q));
+  }
+
+  private qualificationCompleted(qualifiation: IQualification): boolean {
+    return !!qualifiation &&
+      !!qualifiation.qualificationDetails;
+  }
+
+  private allWorkExperienceCompleted(workExperiences: IWorkExperience[]): boolean {
+    return !!workExperiences &&
+      workExperiences.length > 0 &&
+      !workExperiences.find(w => !this.workExperienceCompleted(w));
+  }
+
+  private workExperienceCompleted(workExperience: IWorkExperience): boolean {
+    return !!workExperience &&
+      !!workExperience.start &&
+      !!workExperience.jobTitle &&
+      !!workExperience.workExperienceDetails;
   }
 }

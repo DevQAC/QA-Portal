@@ -5,7 +5,7 @@ import {ICvModel} from '../models/qac-cv-db.model';
 import {map} from 'rxjs/operators';
 import {MessageService} from './message.service';
 import * as _ from 'lodash';
-import {APPROVE_CV, FAIL_CV, GET_ALL_CVS, GET_CV_FOR_ID, GET_SKILLS_FOR_TRAINEE, POST_CV_DATA, SUBMIT_CV} from '../models/cv.constants';
+import {APPROVE_CV, FAIL_CV, GET_ALL_CVS, GET_CV_FOR_ID, GET_SKILLS_FOR_TRAINEE, SAVE_CV_DATA, SUBMIT_CV} from '../models/cv.constants';
 
 @Injectable()
 export class ViewCvService {
@@ -52,12 +52,12 @@ export class ViewCvService {
 
   // /** POST: add a new cv to the server */
   createCv(cv: ICvModel): Observable<ICvModel> {
-    return this.http.post<ICvModel>(POST_CV_DATA, cv, this.httpOptions);
+    return this.http.post<ICvModel>(SAVE_CV_DATA, cv, this.httpOptions);
   }
 
   /** PUT: update the cv on the server */
   updateCv(cv: ICvModel): Observable<ICvModel> {
-    return this.http.put<ICvModel>(POST_CV_DATA, cv, this.httpOptions);
+    return this.http.put<ICvModel>(SAVE_CV_DATA, cv, this.httpOptions);
   }
 
   submitCv(cv: ICvModel): Observable<ICvModel> {

@@ -7,8 +7,7 @@
 </div>
 
 <div *ngIf="!loadingData">
-  <div
-    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 18px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 18px;">
     <div style="color: #004050">{{cvData?.fullName}}</div>
     <div style="margin-left: auto; color: #004050"><b>CV Status:</b> {{cvData?.status || 'New'}}</div>
   </div>
@@ -21,6 +20,7 @@
         </app-cv-profile>
       </app-cv-card-base>
     </section>
+
     <section>
       <app-cv-card-base title="Hobbies and Interests" [canComment]="canComment"
                         [feedback]="cvData?.hobbies?.hobbiesFeedback">
@@ -28,6 +28,7 @@
         </app-cv-hobbies>
       </app-cv-card-base>
     </section>
+
     <section>
       <app-cv-card-base #qualCard [feedback]="qualFeedback" [canComment]="canComment"
                         (feedbackChange)="onQualFeedbackChange($event)" [showOpenButton]="false">
@@ -37,6 +38,7 @@
         </app-cv-qualis-wrapper>
       </app-cv-card-base>
     </section>
+
     <section>
       <app-cv-card-base #expCard [feedback]="workExpFeedback" [canComment]="canComment"
                         (feedbackChange)="onWorkExpFeedbackChange($event)" [showOpenButton]="false">
@@ -46,6 +48,7 @@
         </app-cv-work-exp-wrapper>
       </app-cv-card-base>
     </section>
+
     <section>
       <app-cv-card-base [showOpenButton]="false" title="Skills">
         <app-cv-skills [skills]="cvData?.allSkills[0]" (skillsChange)="cvData.allSkills[0] = $event"
@@ -53,31 +56,29 @@
         </app-cv-skills>
       </app-cv-card-base>
     </section>
-    <div class="button-row">
 
+    <div class="button-row">
       <div style="width: 50%; display:flex; flex-direction: row; justify-content: left;">
-        <button *ngIf="!canComment" mat-flat-button color="primary" (click)="onSave()" title="Save all Changes"
+        <button *ngIf="!canComment && cvData.status !== 'Approved'" mat-flat-button color="primary" (click)="onSave()" title="Save all Changes"
                 [disabled]="!cvData || cvData.status==='For Review'">Save
         </button>
         <div *ngIf="!canComment" style="margin-right: 20px"></div>
-        <button *ngIf="!canComment" mat-flat-button color="warn" (click)="openDialog()" title="Submit for Review"
+        <button *ngIf="!canComment && allDetailsEntered() && cvData.status !== 'Approved'" mat-flat-button color="warn" (click)="openDialog()" title="Submit for Review"
                 [disabled]="!cvData || cvData.status==='For Review'">Submit
         </button>
 
-        <button *ngIf="canComment" mat-flat-button color="primary" (click)="onApproveCv()" title="Approve Cv"
+        <button *ngIf="canComment && cvData.status !== 'Approved'" mat-flat-button color="primary" (click)="onApproveCv()" title="Approve Cv"
                 [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Approve
         </button>
         <div *ngIf="canComment" style="margin-right: 20px"></div>
-        <button *ngIf="canComment" mat-flat-button color="warn" (click)="onFailCv()" title="Fail Cv"
+        <button *ngIf="canComment  && cvData.status !== 'Approved'" mat-flat-button color="warn" (click)="onFailCv()" title="Fail Cv"
                 [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Fail
         </button>
-
       </div>
 
       <button style="margin-left: auto;" mat-flat-button color="primary" (click)="getPDF()" title="Open PDF"
-              [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status ">View PDF
+              [disabled]="!cvData || !allDetailsEntered()">View PDF
       </button>
-
     </div>
   </div>
 </div>
