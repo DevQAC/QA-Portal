@@ -29,7 +29,6 @@ public class CvManagementController {
         this.qaSecurityContext = qaSecurityContext;
     }
 
-
     //	Create
     @PostMapping("/cv")
     public ResponseEntity<CvVersion> createCv(@RequestBody CvVersion newCv) {
@@ -68,21 +67,19 @@ public class CvManagementController {
         return ResponseEntity.ok(this.service.getAll());
     }
 
-    @GetMapping("/cv/version")
-    public CvVersion findByVersionNumber(Integer versionNumber) {
-        return service.findByVersionNumber(versionNumber);
-    }
-
-
-
     @GetMapping("/cv/trainee/search/{fullName}")
     public ResponseEntity<List<CvVersion>> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName) {
         return ResponseEntity.ok(this.service.findByFullNameIgnoreCase(fullName));
     }
 
-    @GetMapping("/cv/trainee/current")
-    public ResponseEntity<List<CvVersion>> findByUserNameIgnoreCase() {
+    @GetMapping("/cv/trainee")
+    public ResponseEntity<List<CvVersion>> findCvVersionsForTrainee() {
         return ResponseEntity.ok(this.service.findByUserNameIgnoreCase(qaSecurityContext.getUserName()));
+    }
+
+    @GetMapping("/cv/trainee/current")
+    public ResponseEntity<CvVersion> findCurrentCvVersionForTrainee() {
+        return ResponseEntity.ok(this.service.getCurrentCvVersionForUser(qaSecurityContext.getUserName()));
     }
 
     //Admin search by criteria endpoint

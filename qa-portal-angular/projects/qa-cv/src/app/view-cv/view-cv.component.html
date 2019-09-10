@@ -9,7 +9,7 @@
 <div *ngIf="!loadingData">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 18px;">
     <div style="color: #004050">{{cvData?.fullName}}</div>
-    <div style="margin-left: auto; color: #004050"><b>CV Status:</b> {{cvData?.status || 'New'}}</div>
+    <div style="margin-left: auto; color: #004050"><b>CV Status:</b> {{cvData?.status}}</div>
   </div>
 
   <div class="cv-content-wrapper" (onSubmit)="onSubmit($event)">

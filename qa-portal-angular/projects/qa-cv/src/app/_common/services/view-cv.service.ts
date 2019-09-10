@@ -2,10 +2,17 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ICvModel} from '../models/qac-cv-db.model';
-import {map} from 'rxjs/operators';
 import {MessageService} from './message.service';
-import * as _ from 'lodash';
-import {APPROVE_CV, FAIL_CV, GET_ALL_CVS, GET_CV_FOR_ID, GET_SKILLS_FOR_TRAINEE, SAVE_CV_DATA, SUBMIT_CV} from '../models/cv.constants';
+import {
+  APPROVE_CV,
+  FAIL_CV,
+  GET_ALL_CVS,
+  GET_CURRENT_CV,
+  GET_CV_FOR_ID,
+  GET_SKILLS_FOR_TRAINEE,
+  SAVE_CV_DATA,
+  SUBMIT_CV
+} from '../models/cv.constants';
 
 @Injectable()
 export class ViewCvService {
@@ -25,14 +32,12 @@ export class ViewCvService {
     return this.http.get<ICvModel>(GET_CV_FOR_ID + id);
   }
 
-  getCurrentCvForTrainee(): Observable<ICvModel> {
-    return this.getAllCvsForCurrentUser().pipe(
-      map(allCvs => _.head(_.orderBy(allCvs, ['versionNumber'], ['desc'])))
-    );
-  }
-
   getSkillsForTrainee(): Observable<any> {
     return this.http.get<any>(GET_SKILLS_FOR_TRAINEE);
+  }
+
+  getCurrentCvForCurrentUser(): Observable<ICvModel> {
+    return this.http.get<ICvModel>(GET_CURRENT_CV);
   }
 
   private getAllCvsForCurrentUser(): Observable<ICvModel[]> {

@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
@@ -18,7 +17,7 @@ import static org.mockito.Mockito.verify;
 public class FindCvOperationTest {
 
     @InjectMocks
-    private GetCurrentCvVersionOperation gccvo;
+    private GetCvVersionsOperation gccvo;
 
     @Mock
     private CvVersionRepository repo;

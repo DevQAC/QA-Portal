@@ -1,6 +1,7 @@
 package com.qa.portal.cv.services;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 import com.qa.portal.common.security.QaSecurityContext;
@@ -29,7 +30,7 @@ public class CvManagementService {
 
     private UpdateCvVersionOperation updateCvService;
 
-    private GetCurrentCvVersionOperation getCvService;
+    private GetCvVersionsOperation getCvVersionsOperation;
 
     private CvSearchOperation cvSearchOperation;
 
@@ -38,14 +39,14 @@ public class CvManagementService {
                                GetCvByIdOperation getCvByIdOperation,
                                CreateCvOperation createCvService,
                                UpdateCvVersionOperation updateCvService,
-                               GetCurrentCvVersionOperation getCvService,
+                               GetCvVersionsOperation getCvVersionsOperation,
                                CvSearchOperation cvSearchOperation) {
         this.saveCvOperation = saveCvOperation;
         this.cvPdfGenerator = cvPdfGenerator;
         this.getCvByIdOperation = getCvByIdOperation;
         this.createCvService = createCvService;
         this.updateCvService = updateCvService;
-        this.getCvService = getCvService;
+        this.getCvVersionsOperation = getCvVersionsOperation;
         this.cvSearchOperation = cvSearchOperation;
     }
 
@@ -85,19 +86,23 @@ public class CvManagementService {
     }
 
     public List<CvVersion> getAll() {
-    	return this.getCvService.getAll();
+    	return this.getCvVersionsOperation.getAll();
     }
     
     public List<CvVersion> findByFullNameIgnoreCase(String fullName) {
-    	return this.getCvService.findByFullNameIgnoreCase(fullName);
+    	return this.getCvVersionsOperation.findByFullNameIgnoreCase(fullName);
     }
     
     public List<CvVersion> findByUserNameIgnoreCase(String userName) {
-    	return this.getCvService.findByUserNameIgnoreCase(userName);
+    	return this.getCvVersionsOperation.findByUserNameIgnoreCase(userName);
     }
-    
-    public CvVersion findByVersionNumber(Integer versionNumber) {
-    	return this.getCvService.findByVersionNumber(versionNumber);
+
+    public CvVersion getCurrentCvVersionForUser(String userName) {
+        return this.getCvVersionsOperation.findByUserNameIgnoreCase(userName)
+                .stream()
+                .sorted(Comparator.comparingInt(CvVersion::getVersionNumber))
+                .findFirst()
+                .orElseGet(() -> null);
     }
 
     public List<CvVersion>  cvSearch(CvSearchCriteria criteria){
