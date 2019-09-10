@@ -23,6 +23,8 @@ public class CvManagementService {
 
     private CvPdfGenerator cvPdfGenerator;
 
+    private GetCvByIdOperation getCvByIdOperation;
+
     private CreateCvOperation createCvService;
 
     private UpdateCvVersionOperation updateCvService;
@@ -31,18 +33,22 @@ public class CvManagementService {
 
     private CvSearchOperation cvSearchOperation;
 
-    public CvManagementService(SaveGeneratedCvOperation saveCvOperation, CvPdfGenerator cvPdfGenerator,
-                               CreateCvOperation createCvService, GetCurrentCvVersionOperation getCvService,
-                               UpdateCvVersionOperation updateCvService, CvSearchOperation cvSearchOperation) {
-    	
+    public CvManagementService(SaveGeneratedCvOperation saveCvOperation,
+                               CvPdfGenerator cvPdfGenerator,
+                               GetCvByIdOperation getCvByIdOperation,
+                               CreateCvOperation createCvService,
+                               UpdateCvVersionOperation updateCvService,
+                               GetCurrentCvVersionOperation getCvService,
+                               CvSearchOperation cvSearchOperation) {
         this.saveCvOperation = saveCvOperation;
         this.cvPdfGenerator = cvPdfGenerator;
+        this.getCvByIdOperation = getCvByIdOperation;
         this.createCvService = createCvService;
-    	this.getCvService = getCvService;
-    	this.updateCvService = updateCvService;
+        this.updateCvService = updateCvService;
+        this.getCvService = getCvService;
         this.cvSearchOperation = cvSearchOperation;
     }
-    
+
     public void saveGeneratedCv(CvVersion cvVersion) throws IOException {
     	saveCvOperation.saveGeneratedCv(cvVersion);
     }
@@ -74,6 +80,10 @@ public class CvManagementService {
     }
     
 //	Get Service
+    public CvVersion findById(String id) {
+        return getCvByIdOperation.findById(id);
+    }
+
     public List<CvVersion> getAll() {
     	return this.getCvService.getAll();
     }

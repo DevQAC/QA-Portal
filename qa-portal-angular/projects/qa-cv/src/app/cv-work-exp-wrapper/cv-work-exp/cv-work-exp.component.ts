@@ -9,19 +9,23 @@ import * as moment from 'moment';
 })
 export class CvWorkExpComponent{
   @Input() experience: IWorkExperience;
+
   @Output() experienceChange = new EventEmitter<IWorkExperience>();
+
   @Output() experienceDelete = new EventEmitter<IWorkExperience>();
 
   @Output() feedbackClick = new EventEmitter<IWorkExperience>();
+
   @Input() canEdit: boolean;
+
+  panelOpenState: boolean = true;
+
+  buttonClickedState: boolean = false;
+
 
   public get formattedEndDate(): string {
     return moment(this.experience.end || 'Unknown').format('DD/MM/YYYY');
   }
-
-  panelOpenState: boolean = false;
-  buttonClickedState: boolean = false;
-
 
   onTitleChange(input) {
     this.experience.jobTitle = input;
@@ -62,11 +66,9 @@ export class CvWorkExpComponent{
     if (!this.buttonClickedState) {
       this.panelOpenState = !this.panelOpenState;
     }
-
-
   }
 
-  getEditValue() {
-    return this.canEdit;
+  isDisabled() {
+    return !this.canEdit;
   }
 }

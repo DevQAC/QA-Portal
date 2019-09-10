@@ -17,7 +17,6 @@ public class UpdateCvVersionOperation {
 	}
 
 	public CvVersion updateCv(CvVersion updatedCv) {
-		updatedCv.setStatus("In Progress");
 		repo.save(updatedCv);
 		return updatedCv;
 	}

@@ -29,6 +29,7 @@ public class CvManagementController {
         this.qaSecurityContext = qaSecurityContext;
     }
 
+
     //	Create
     @PostMapping("/cv")
     public ResponseEntity<CvVersion> createCv(@RequestBody CvVersion newCv) {
@@ -57,6 +58,11 @@ public class CvManagementController {
     }
 
     //	Get
+    @GetMapping("cv/{id}")
+    public ResponseEntity<CvVersion> getCvById(@PathVariable("id") String id) {
+        return ResponseEntity.ok(service.findById(id));
+    }
+
     @GetMapping("/cvs")
     public ResponseEntity<List<CvVersion>> getAll() {
         return ResponseEntity.ok(this.service.getAll());
@@ -69,14 +75,13 @@ public class CvManagementController {
 
 
 
-
     @GetMapping("/cv/trainee/search/{fullName}")
     public ResponseEntity<List<CvVersion>> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName) {
         return ResponseEntity.ok(this.service.findByFullNameIgnoreCase(fullName));
     }
 
     @GetMapping("/cv/trainee/current")
-    public ResponseEntity<List<CvVersion>> findByuserNameIgnoreCase() {
+    public ResponseEntity<List<CvVersion>> findByUserNameIgnoreCase() {
         return ResponseEntity.ok(this.service.findByUserNameIgnoreCase(qaSecurityContext.getUserName()));
     }
 
@@ -99,8 +104,6 @@ public class CvManagementController {
         }
         return ResponseEntity.ok(this.service.cvSearch(c));
     }
-
-
 
 
     //	PDF

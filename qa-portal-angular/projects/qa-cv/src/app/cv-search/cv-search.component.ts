@@ -1,170 +1,82 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {CVSearchHistoryService} from './services/cv-search.service';
-import {CVSearchFilterService} from './services/cv-search-filter.service';
-import {CVSearchModel} from './models/cv-search-model';
-import {Subscription} from 'rxjs';
-import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
-import {FormControl} from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { CVSearchHistoryService } from './services/cv-search.service';
+import { CVSearchFilterService } from './services/cv-search-filter.service';
+import { CVSearchModel } from './models/cv-search-model';
+import { Subscription } from 'rxjs';
+import { QaErrorHandlerService } from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import { FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FilterModel } from './models/filter-search-model';
 
 @Component({
   selector: 'app-cv-search',
-  templateUrl: './cv-search.component.html',
-  styleUrls: ['./cv-search.component.css']
+  templateUrl: './cv-search.component.html'
 })
-export class CvSearchComponent implements OnInit, OnDestroy {
+export class CvSearchComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'intake', 'tech', 'status', 'clients'];
-  technology: string[] = [''];
-  intake: string[];
-  status: string[];
-  selectedIntake: string = '';
-  selectedTech: string = '';
-  selectedStatus: string = '';
-  dataSource: MatTableDataSource<CVSearchModel>;
-  currentFormDateSource: MatTableDataSource<CVSearchModel>;
-  currentForm: CVSearchModel[] = [];
+  // Results table data
+  public searchResultsDataSource = new MatTableDataSource<CVSearchModel>();
+  public displayedColumns: string[] = ['name', 'cohort', 'status', 'clients'];
 
-  loadingData = true;
-  cvSearchSubscription: Subscription;
-  filterSubscription: Subscription;
-  searchText: string = '';
-  previous: string;
-  filteredData: CVSearchModel = {id: 0, name: '', intake: '', tech: '', clients: [], status: ''};
-  globalFIlter = '';
-  techFilter = new FormControl();
+  // Filter options
+  public filterOptions: FilterModel;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  // User input
+  public inputName: string;
+  public selectedCohort: string;
+  public selectedTech: string;
+  public selectedStatus: string;
+
+  // Misc
+  public isLoading = true;
+
 
   constructor(
     private cvSearchFilterService: CVSearchFilterService,
     private cvSearchHistoryService: CVSearchHistoryService,
-    private errorHandlerService: QaErrorHandlerService) {
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    const { name, cohort, tech, status } = this.activatedRoute.snapshot.queryParams;
+
+    // populate search field sources with params (if found)
+    this.inputName = name || '';
+    this.selectedCohort = cohort || null;
+    this.selectedTech = tech || null;
+    this.selectedStatus = status || null;
+
+    this.cvSearchFilterService.getFilters().subscribe(response => this.filterOptions = response); // Populate filters
+    this.performSearch(); // search on page load
   }
 
-  
-  ngOnInit() {
+  performSearch(): void {
+    const name = this.inputName;
+    const cohort = this.selectedCohort;
+    const tech = this.selectedTech;
+    const status = this.selectedStatus;
+    this.isLoading = true;
+    this.searchResultsDataSource.data = [];
 
-    this.filterSubscription = this.cvSearchFilterService.getFilters().subscribe(
-      (response) => {
-        this.technology = response.technology;
-        this.intake = response.cohort;
-        this.status = response.cvStatus;
-
-        this.loadingData = false;
-        this.dataSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
-        this.dataSource.paginator = this.paginator;
-      
-
-        this.dataSource.filterPredicate = this.customFilterPredicate();
-        this.loadingData = false;
-      },
-      (error) => {
-        this.loadingData = false;
-        this.errorHandlerService.handleError(error);
-      }
-    );
+    // Update URL params
+    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { name, cohort, tech, status } });
+    this.cvSearchHistoryService.searchCVs(name, cohort, tech, status).subscribe(response => {
+      this.searchResultsDataSource.data = response;
+      this.isLoading = false;
+    });
   }
 
-  getSearch(term: string, intakeChoice: string = '', techChoice: string = '', statusChoice: string = '') {
-    intakeChoice = this.selectedIntake;
-    techChoice = this.selectedTech;
-    statusChoice = this.selectedStatus;
-    this.cvSearchSubscription = this.cvSearchHistoryService.searchCVs(term, intakeChoice, techChoice, statusChoice).subscribe(
-      (response) => {
-        this.currentForm = [];
-        response.forEach((search) => {
-
-          this.currentForm.push(search);
-         
-        });
-        this.loadingData = false;
-        this.dataSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
-        this.dataSource.paginator = this.paginator;
-
-        
-
-        this.dataSource.filterPredicate = this.customFilterPredicate();
-        this.loadingData = false;
-      },
-      (error) => {
-        this.loadingData = false;
-        this.errorHandlerService.handleError(error);
-      }
-    );
-
+  onResultRowClicked(row: CVSearchModel): void {
+    this.router.navigate(['qa', 'portal', 'cv', 'admin', 'view', row.id]);
   }
 
-  applyFilter(filterValue: string) {
-    // this.currentFormDateSource = new MatTableDataSource<CVSearchModel>(this.currentForm);
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
- 
-
-  }
-
-  applyFilter1(filter) {
-    this.globalFIlter = filter;
-    this.dataSource.filter = JSON.stringify(this.filteredData);
-  }
-
-  customFilterPredicate() {
-    const myFilterPredicate = (data: CVSearchModel, filter: string): boolean => {
-      let globalMatch = !this.globalFIlter;
-
-
-      console.log(this.globalFIlter);
-
-      if (this.technology.includes(this.globalFIlter)) {
-        // search tech text fields
-        globalMatch = data.tech.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
-      } else if (this.intake.includes(this.globalFIlter)) {
-        // search tech text fields
-        globalMatch = data.intake.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
-      } else if (this.status.includes(this.globalFIlter)) {
-        // search tech text fields
-        globalMatch = data.status.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
-      } else {
-        // search name text fields
-        globalMatch = data.name.toString().trim().toLowerCase().indexOf(this.globalFIlter.toLowerCase()) !== -1;
-      }
-
-      if (!globalMatch) {
-        return;
-      }
-
-      console.log(globalMatch);
-      if (this.technology.includes(this.globalFIlter)) {
-        let searchString = JSON.parse(filter);
-        console.log(searchString);
-        return data.tech.toString().trim().indexOf(searchString.tech) !== -1;
-      } else if (this.intake.includes(this.globalFIlter)) {
-        let searchString = JSON.parse(filter);
-        console.log(searchString);
-        return data.intake.toString().trim().indexOf(searchString.intake) !== -1;
-      } else if (this.status.includes(this.globalFIlter)) {
-        let searchString = JSON.parse(filter);
-        console.log(searchString);
-        return data.status.toString().trim().indexOf(searchString.status) !== -1;
-      } else {
-        let searchString = JSON.parse(filter);
-        console.log(searchString);
-        return data.name.toString().trim().indexOf(searchString.name) !== -1;
-      }
-    };
-    return myFilterPredicate;
-  }
-
-  ngOnDestroy() {
-    if (!!this.cvSearchSubscription) {
-      this.cvSearchSubscription.unsubscribe();
-    }
-  }
-
-  getCVSearchUrl(searchId: string) {
-    return '/test';
+  onClearButtonClicked() {
+    this.inputName = '';
+    this.selectedCohort = null;
+    this.selectedTech = null;
+    this.selectedStatus = null;
   }
 
 }

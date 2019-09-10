@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CvQualisWrapperComponent } from './cv-qualis-wrapper.component';
+import { CvQualificationWrapperComponent } from './cv-qualification-wrapper.component';
 
 describe('CvQualisWrapperComponent', () => {
-  let component: CvQualisWrapperComponent;
-  let fixture: ComponentFixture<CvQualisWrapperComponent>;
+  let component: CvQualificationWrapperComponent;
+  let fixture: ComponentFixture<CvQualificationWrapperComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CvQualisWrapperComponent ]
+      declarations: [ CvQualificationWrapperComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CvQualisWrapperComponent);
+    fixture = TestBed.createComponent(CvQualificationWrapperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

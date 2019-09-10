@@ -13,9 +13,6 @@
           </button>
         </div>
         <div #commentContainer class="middle" data-simplebar>
-          <div *ngIf="!feedback" class="no-comments-text">
-            No comments yet
-          </div>
           <div class="comment-bubble" *ngFor="let comment of feedback">
 
             <div class="comment-body">
@@ -35,6 +32,7 @@
             No comments yet
           </div>
         </div>
+
         <div class="bottom" *ngIf="canComment">
           <form class="comment-form" (ngSubmit)="addFeedbackItem()">
             <mat-form-field class="comment-form-field" class="comment-field"
