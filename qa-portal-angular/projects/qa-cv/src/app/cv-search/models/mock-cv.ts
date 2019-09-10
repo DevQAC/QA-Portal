@@ -4,11 +4,11 @@ export const CVS: CVSearchModel[] = [
     {
         id: 1,
 
-        name: "Dr Nice",
+        fullName: "Dr Nice",
 
-        intake: "CI Intake 1",
+        cohort: "CI Intake 1",
 
-        tech: 'Java',
+        allSkills: ['Java'],
 
         clients: ["IBM", "Cognizm"],
 
@@ -19,11 +19,11 @@ export const CVS: CVSearchModel[] = [
     {
         id: 2,
 
-        name: "Dr Narco",
+        fullName: "Dr Narco",
 
-        intake: "CI Intake 2",
+        cohort: "CI Intake 2",
 
-        tech: "Scala",
+        allSkills: ["Scala"],
 
         clients: ["Disney", "Cognizm"],
 

@@ -18,6 +18,16 @@ const routes: Routes = [
     }
   },
   {
+    path: 'admin/view/:id',
+    component: ViewCvComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        TRAINING_ADMIN_ROLE
+      ]
+    }
+  },
+  {
     path: 'admin/search',
     component: CvSearchComponent,
     canActivate: [AppAuthGuard],

@@ -7,7 +7,7 @@ import {MessageService} from './message.service';
 import * as _ from 'lodash';
 import {APPROVE_CV, FAIL_CV, GET_ALL_CVS, GET_CV_FOR_ID, GET_SKILLS_FOR_TRAINEE, POST_CV_DATA, SUBMIT_CV} from '../models/cv.constants';
 
-@Injectable({providedIn: 'root'})
+@Injectable()
 export class ViewCvService {
 
   httpOptions = {
