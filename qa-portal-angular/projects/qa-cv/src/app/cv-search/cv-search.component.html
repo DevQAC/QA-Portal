@@ -11,7 +11,7 @@
       </mat-icon>
     </button>
 
-    <input placeholder="Search by name" matInput (keydown.enter)="performSearch(); filterExpanded = false;" autofocus>
+    <input  [(ngModel)]="inputName" placeholder="Search by name" matInput (keydown.enter)="performSearch(); filterExpanded = false;" autofocus>
     <button mat-icon-button (click)="filterExpanded = !filterExpanded" matTooltip="Filters"
       aria-label="Toggle the filter panel">
       <mat-icon>

@@ -52,7 +52,6 @@ export class CvSearchComponent implements OnInit {
     this.performSearch(); // search on page load
   }
 
-
   performSearch(): void {
     const name = this.inputName;
     const cohort = this.selectedCohort;
