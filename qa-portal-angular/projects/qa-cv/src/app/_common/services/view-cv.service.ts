@@ -3,16 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ICvModel} from '../models/qac-cv-db.model';
 import {MessageService} from './message.service';
-import {
-  APPROVE_CV,
-  FAIL_CV,
-  GET_ALL_CVS,
-  GET_CURRENT_CV,
-  GET_CV_FOR_ID,
-  GET_SKILLS_FOR_TRAINEE,
-  SAVE_CV_DATA,
-  SUBMIT_CV
-} from '../models/cv.constants';
+import {GET_CURRENT_CV, GET_CV_FOR_ID, GET_SKILLS_FOR_TRAINEE, SAVE_CV_DATA} from '../models/cv.constants';
+import {take} from 'rxjs/operators';
 
 @Injectable()
 export class ViewCvService {
@@ -40,10 +32,6 @@ export class ViewCvService {
     return this.http.get<ICvModel>(GET_CURRENT_CV);
   }
 
-  private getAllCvsForCurrentUser(): Observable<ICvModel[]> {
-    return this.http.get<ICvModel[]>(GET_ALL_CVS, this.httpOptions);
-  }
-
   getPDFService(cv: ICvModel) {
     const url = `cv-api/cv/generated`;
     const httpOptions = {
@@ -53,28 +41,18 @@ export class ViewCvService {
     return this.http.post<any>(url, cv, httpOptions);
   }
 
-  //////// Save methods //////////
-
   // /** POST: add a new cv to the server */
   createCv(cv: ICvModel): Observable<ICvModel> {
-    return this.http.post<ICvModel>(SAVE_CV_DATA, cv, this.httpOptions);
+    return this.http.post<ICvModel>(SAVE_CV_DATA, cv, this.httpOptions).pipe(
+      take(1)
+    );
   }
 
   /** PUT: update the cv on the server */
   updateCv(cv: ICvModel): Observable<ICvModel> {
-    return this.http.put<ICvModel>(SAVE_CV_DATA, cv, this.httpOptions);
-  }
-
-  submitCv(cv: ICvModel): Observable<ICvModel> {
-    return this.http.put<ICvModel>(SUBMIT_CV, cv, this.httpOptions);
-  }
-
-  approveCv(cv: ICvModel): Observable<ICvModel> {
-    return this.http.put<ICvModel>(APPROVE_CV, cv, this.httpOptions);
-  }
-
-  failCv(cv: ICvModel): Observable<ICvModel> {
-    return this.http.put<ICvModel>(FAIL_CV, cv, this.httpOptions);
+    return this.http.put<ICvModel>(SAVE_CV_DATA, cv, this.httpOptions).pipe(
+      take(1)
+    );
   }
 
   /** Log a ViewCvService message with the MessageService */

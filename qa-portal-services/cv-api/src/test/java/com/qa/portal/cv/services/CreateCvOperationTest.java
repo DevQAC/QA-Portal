@@ -61,16 +61,6 @@ public class CreateCvOperationTest {
 		assertTrue("Fullname failed to set upon CV creation", conditionMet);
 		
 	}
-	
-	@Test
-	public void createCvStatusTest() {
-		String status = this.cvVersion.getStatus();
-		Boolean conditionMet = false;
-		if(status.equals("In Progress")) {
-			conditionMet = true;
-		}
-		assertTrue("Initial status is not \"In Progress\"", conditionMet);
-	}
 
 	private Set<String> getCohorts() {
 		Set<String> cohorts = new HashSet<>();

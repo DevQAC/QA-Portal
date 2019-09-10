@@ -1,6 +1,5 @@
 package com.qa.portal.cv.services;
 
-
 import com.qa.portal.cv.domain.CvSearchCriteria;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
@@ -9,13 +8,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.PatternSyntaxException;
-
-import static java.util.Arrays.*;
 
 @Component
 public class CvSearchOperation {
@@ -36,7 +30,6 @@ public class CvSearchOperation {
     // findByCriteria retrieves all cvs which meet the criteria selected on the admin search page
     public List<CvVersion> findByCriteria(CvSearchCriteria criteria) {
         try{
-
            Query query = new Query();
             if (!criteria.getCohort().equals("")) {
                 query.addCriteria(Criteria.where("cohort").is(criteria.getCohort()));
@@ -61,13 +54,10 @@ public class CvSearchOperation {
 
                         )
                 );
-
             }
             return mongoOperations.find(query, CvVersion.class);
         } catch(Exception e) {
             return Collections.emptyList();
         }
-
-
    }
 }

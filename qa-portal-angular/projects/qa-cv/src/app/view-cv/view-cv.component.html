@@ -7,7 +7,8 @@
 </div>
 
 <div *ngIf="!loadingData">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 18px;">
+  <div
+    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 18px;">
     <div style="color: #004050">{{cvData?.fullName}}</div>
     <div style="margin-left: auto; color: #004050"><b>CV Status:</b> {{cvData?.status}}</div>
   </div>
@@ -58,21 +59,47 @@
     </section>
 
     <div class="button-row">
-      <div style="width: 50%; display:flex; flex-direction: row; justify-content: left;">
-        <button *ngIf="!canComment && cvData.status !== 'Approved'" mat-flat-button color="primary" (click)="onSave()" title="Save all Changes"
+      <div *ngIf="isTraineeView"
+           style="width: 50%; display:flex; flex-direction: row; justify-content: left; align-items: center">
+        <button *ngIf="!canComment && cvData.status !== 'Approved'" mat-flat-button color="primary" (click)="onSave()"
+                title="Save all Changes"
                 [disabled]="!cvData || cvData.status==='For Review'">Save
         </button>
         <div *ngIf="!canComment" style="margin-right: 20px"></div>
-        <button *ngIf="!canComment && allDetailsEntered() && cvData.status !== 'Approved'" mat-flat-button color="warn" (click)="openDialog()" title="Submit for Review"
+        <button *ngIf="!canComment && allDetailsEntered() && cvData.status !== 'Approved'" mat-flat-button
+                color="primary" (click)="openDialog()" title="Submit for Review"
                 [disabled]="!cvData || cvData.status==='For Review'">Submit
         </button>
 
-        <button *ngIf="canComment && cvData.status !== 'Approved'" mat-flat-button color="primary" (click)="onApproveCv()" title="Approve Cv"
-                [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Approve
+
+        <button *ngIf="cvData.status === 'Approved' && isTraineeView" mat-flat-button color="primary"
+                (click)="initialiseNewCv()" title="Create New Cv">
+          New CV
+        </button>
+        <mat-checkbox *ngIf="cvData.status === 'Approved' && isTraineeView"
+                      style="margin-left: 15px;"
+                      aria-label="Use current CV as template"
+                      label="Use current CV as template"
+                      labelPosition="after"
+                      color="primary"
+                      [ngModel]="useTemplate"
+                      [value]="useTemplate"
+                      (change)="useTemplateChanged()">Use current CV as template
+        </mat-checkbox>
+      </div>
+
+      <div *ngIf="!isTraineeView"
+           style="width: 50%; display:flex; flex-direction: row; justify-content: left; align-items: center">
+        <button *ngIf="canComment && cvData.status !== 'Approved'" mat-flat-button color="primary"
+                (click)="onApproveCv()" title="Approve Cv"
+                [disabled]="!cvData || cvData.status==='In Progress' || cvData.status === 'Failed Review' || !cvData.status">
+          Approve
         </button>
         <div *ngIf="canComment" style="margin-right: 20px"></div>
-        <button *ngIf="canComment  && cvData.status !== 'Approved'" mat-flat-button color="warn" (click)="onFailCv()" title="Fail Cv"
-                [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status">Fail
+        <button *ngIf="canComment  && cvData.status !== 'Approved'" mat-flat-button color="primary"
+                (click)="onFailCv()" title="Fail Cv"
+                [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status || cvData.status === 'Failed Review'">
+          Fail
         </button>
       </div>
 
