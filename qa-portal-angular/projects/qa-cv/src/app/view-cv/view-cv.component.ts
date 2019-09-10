@@ -35,6 +35,8 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     'For Review'
   ];
 
+  useTemplate = true;
+
   isTraineeView = true;
 
   loadingData = true;
@@ -51,9 +53,11 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   public qualFeedback = [];
 
-  private cvDataSubscription$: Subscription;
+  private cvDataSubscription: Subscription;
 
-  private traineeSkillsSubcription$: Subscription;
+  private traineeSkillsSubcription: Subscription;
+
+  private adminCvSubscription: Subscription;
 
   constructor(
     private cvService: ViewCvService,
@@ -89,24 +93,53 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   getPDF() {
     this.cvService.getPDFService(this.cvData).subscribe((response) => {
       const file = new Blob([response], {type: 'application/pdf'});
-      console.log('it worked');
       this.fileURL = URL.createObjectURL(file);
       window.open(this.fileURL, '_blank');
-      console.log('this is the URL ' + this.fileURL);
     });
   }
 
   ngOnDestroy(): void {
-    if (!!this.cvDataSubscription$) {
-      this.cvDataSubscription$.unsubscribe();
+    if (!!this.cvDataSubscription) {
+      this.cvDataSubscription.unsubscribe();
     }
 
-    if (!!this.traineeSkillsSubcription$) {
-      this.cvDataSubscription$.unsubscribe();
+    if (!!this.traineeSkillsSubcription) {
+      this.cvDataSubscription.unsubscribe();
+    }
+
+    if (!!this.adminCvSubscription) {
+      this.adminCvSubscription.unsubscribe();
     }
   }
 
+  initialiseNewCv() {
+    const tempCv = this.cvData;
+    const emptyCv = null;
+    if (!!this.useTemplate) {
+      this.cvData = {...DEFAULT_CV, ...this.cvData};
+      this.cvData.status = 'In Progress';
+      this.cvData.id = null;
+      this.cvData.versionNumber = null;
+    } else {
+      this.cvData = {...DEFAULT_CV, ...emptyCv};
+      this.cvData.status = 'In Progress';
+      this.cvData.allSkills = tempCv.allSkills;
+      this.cvData.fullName = tempCv.fullName;
+    }
+    this.setEditStatus();
+  }
+
   onSave(): void {
+    if (!this.cvData.id) {
+      this.cvData.status = 'In Progress';
+      this.createCv();
+    } else {
+      this.updateCv();
+    }
+  }
+
+  onSubmit(): void {
+    this.cvData.status = 'For Review';
     if (!this.cvData.id) {
       this.createCv();
     } else {
@@ -136,43 +169,16 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     );
   }
 
-  submitCv(): void {
-    this.cvService.submitCv(this.cvData).subscribe(
-      (response) => {
-        this.populateResponse(response);
-      },
-      (error) => {
-        this.errorHandlerService.handleError(error);
-      }
-    );
-  }
-
   onApproveCv(): void {
-    this.cvService.approveCv(this.cvData).subscribe(
-      (response) => {
-        this.populateResponse(response);
-        this.navigateToAdminSearch();
-      },
-      (error) => {
-        this.errorHandlerService.handleError(error);
-      }
-    );
+    this.cvData.status = 'Approved';
+    this.updateCv();
+    this.navigateToAdminSearch();
   }
 
   onFailCv(): void {
-    this.cvService.failCv(this.cvData).subscribe(
-      (response) => {
-        this.populateResponse(response);
-        this.navigateToAdminSearch();
-      },
-      (error) => {
-        this.errorHandlerService.handleError(error);
-      }
-    );
-  }
-
-  onSubmit(): void {
-    this.submitCv();
+    this.cvData.status = 'Failed Review';
+    this.updateCv();
+    this.navigateToAdminSearch();
   }
 
   onWorkExpFeedbackClick({index}: { index: number }, expCard: CvCardBaseComponent): void {
@@ -195,8 +201,12 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     this.cvData.allQualifications[this.qualFeedbackIndex].qualificationFeedback = feedback;
   }
 
+  useTemplateChanged() {
+    this.useTemplate = !this.useTemplate;
+  }
+
   private populateSkillsForTrainee() {
-    this.traineeSkillsSubcription$ = this.cvService.getSkillsForTrainee().subscribe((userSkillsModel: UserSkillsModel) => {
+    this.traineeSkillsSubcription = this.cvService.getSkillsForTrainee().subscribe((userSkillsModel: UserSkillsModel) => {
       Object.keys(this.cvData.allSkills[0]).forEach((skillCategory) => {
         this.cvData.userName = userSkillsModel.userName;
         this.cvData.firstName = userSkillsModel.userFirstName;
@@ -221,11 +231,9 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
   private initialiseForTrainee() {
-    console.log('Initialising for Trainee');
-    this.cvDataSubscription$ = this.cvService.getCurrentCvForCurrentUser().subscribe(
+    this.cvDataSubscription = this.cvService.getCurrentCvForCurrentUser().subscribe(
       (cv) => {
         this.cvData = {...DEFAULT_CV, ...cv};
-        console.log('Edit Status ' + this.canEdit);
         if (!cv) {
           this.populateSkillsForTrainee();
         } else {
@@ -242,11 +250,10 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   private initialiseForAdmin() {
     this.activatedRoute.paramMap.subscribe(
       (paramMap: ParamMap) => {
-        this.cvService.getCvForId(paramMap.get('id')).subscribe(
+        this.adminCvSubscription = this.cvService.getCvForId(paramMap.get('id')).subscribe(
           (response) => {
             this.cvData = response;
             this.setEditStatus();
-            console.log('Edit Status ' + this.canEdit);
             this.setCommentStatus(); // Can user add comments to Cv
             this.loadingData = false;
           },
@@ -286,7 +293,6 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   private populateResponse(response: ICvModel): void {
     this.cvData = response;
-    console.log('Created Cv id ' + this.cvData.id);
     this.setEditStatus();
   }
 

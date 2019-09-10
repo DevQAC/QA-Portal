@@ -1,7 +1,6 @@
 package com.qa.portal.cv.services;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 
 import com.qa.portal.common.security.QaSecurityContext;
@@ -20,67 +19,49 @@ public class CvManagementService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CvManagementService.class);
    
-    private SaveGeneratedCvOperation saveCvOperation;
+    private SaveGeneratedCvOperation saveGeneratedCvOperation;
 
     private CvPdfGenerator cvPdfGenerator;
 
     private GetCvByIdOperation getCvByIdOperation;
 
-    private CreateCvOperation createCvService;
+    private CreateCvOperation createCvOperation;
 
-    private UpdateCvVersionOperation updateCvService;
+    private UpdateCvVersionOperation updateCvVersionOperation;
 
     private GetCvVersionsOperation getCvVersionsOperation;
 
     private CvSearchOperation cvSearchOperation;
 
-    public CvManagementService(SaveGeneratedCvOperation saveCvOperation,
+    public CvManagementService(SaveGeneratedCvOperation saveGeneratedCvOperation,
                                CvPdfGenerator cvPdfGenerator,
                                GetCvByIdOperation getCvByIdOperation,
-                               CreateCvOperation createCvService,
-                               UpdateCvVersionOperation updateCvService,
+                               CreateCvOperation createCvOperation,
+                               UpdateCvVersionOperation updateCvVersionOperation,
                                GetCvVersionsOperation getCvVersionsOperation,
                                CvSearchOperation cvSearchOperation) {
-        this.saveCvOperation = saveCvOperation;
+        this.saveGeneratedCvOperation = saveGeneratedCvOperation;
         this.cvPdfGenerator = cvPdfGenerator;
         this.getCvByIdOperation = getCvByIdOperation;
-        this.createCvService = createCvService;
-        this.updateCvService = updateCvService;
+        this.createCvOperation = createCvOperation;
+        this.updateCvVersionOperation = updateCvVersionOperation;
         this.getCvVersionsOperation = getCvVersionsOperation;
         this.cvSearchOperation = cvSearchOperation;
     }
 
-    public void saveGeneratedCv(CvVersion cvVersion) throws IOException {
-    	saveCvOperation.saveGeneratedCv(cvVersion);
+    
+    // Create CV Operation
+    public CvVersion createCv(CvVersion newCv, QaSecurityContext qaSecurityContext) {
+    	return this.createCvOperation.createCv(newCv, qaSecurityContext);
+    }
+    
+    // Update CV Operation
+    public CvVersion updateCv(CvVersion updatedCv) {
+    	return this.updateCvVersionOperation.updateCv(updatedCv);
     }
 
-    public byte[] getGeneratedCv(CvVersion cvVersion) throws IOException {
-        return cvPdfGenerator.generateCv(cvVersion);
-    }
     
-//	Create Service
-    public CvVersion createCv(CvVersion newCv, QaSecurityContext qaSecurityContext) {
-    	return this.createCvService.createCv(newCv, qaSecurityContext);
-    }
-    
-//	Update Service
-    public CvVersion updateCv(CvVersion updatedCv) {
-    	return this.updateCvService.updateCv(updatedCv);
-    }
-    
-    public CvVersion submitCv(CvVersion submittedCv) {
-    	return this.updateCvService.submitCv(submittedCv);
-    }
-    
-    public CvVersion approveCv(CvVersion submittedCv) {
-    	return this.updateCvService.approveCv(submittedCv);
-    }
-    
-    public CvVersion failCv(CvVersion submittedCv) {
-    	return this.updateCvService.failCv(submittedCv);
-    }
-    
-//	Get Service
+    //	Get CVs Operations
     public CvVersion findById(String id) {
         return getCvByIdOperation.findById(id);
     }
@@ -100,11 +81,23 @@ public class CvManagementService {
     public CvVersion getCurrentCvVersionForUser(String userName) {
         return this.getCvVersionsOperation.findByUserNameIgnoreCase(userName)
                 .stream()
-                .sorted(Comparator.comparingInt(CvVersion::getVersionNumber))
+                .sorted((cv1, cv2) -> cv2.getVersionNumber() - cv1.getVersionNumber())
                 .findFirst()
                 .orElseGet(() -> null);
     }
 
+
+    // Generated CV operations
+    public void saveGeneratedCv(CvVersion cvVersion) throws IOException {
+        saveGeneratedCvOperation.saveGeneratedCv(cvVersion);
+    }
+
+    public byte[] getGeneratedCv(CvVersion cvVersion) throws IOException {
+        return cvPdfGenerator.generateCv(cvVersion);
+    }
+
+
+    // CV Search operations
     public List<CvVersion>  cvSearch(CvSearchCriteria criteria){
         return this.cvSearchOperation.findByCriteria(criteria);
     }

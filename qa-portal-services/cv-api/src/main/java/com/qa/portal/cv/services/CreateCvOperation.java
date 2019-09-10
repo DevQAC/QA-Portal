@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
+
 @Component
 public class CreateCvOperation {
 
@@ -25,13 +27,20 @@ public class CreateCvOperation {
 		newCv.setFirstName(qaSecurityContext.getFirstName());
 		newCv.setSurname(qaSecurityContext.getSurname());
 		newCv.setCohort(getCohort(qaSecurityContext));
-		newCv.setStatus("In Progress");
-		newCv.setVersionNumber(1);
+		newCv.setVersionNumber(getPreviousVersion(qaSecurityContext) + 1);
 		return repo.save(newCv);
 	}
 
 	private String getCohort(QaSecurityContext qaSecurityContext) {
 		return qaSecurityContext.getCohorts().stream()
 				.findFirst().orElseThrow(() -> new QaPortalBusinessException("Trainee does not have a cohort"));
+	}
+
+	private Integer getPreviousVersion(QaSecurityContext qaSecurityContext) {
+		return repo.findByUserNameIgnoreCase(qaSecurityContext.getUserName())
+				.stream()
+				.map(cv -> cv.getVersionNumber())
+				.max(Comparator.comparingInt(v -> v))
+				.orElseGet(() -> Integer.valueOf(0));
 	}
 }

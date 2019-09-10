@@ -26,8 +26,8 @@ public class GetCvVersionsOperation {
 	}
 	
 	public List<CvVersion> getAll() {
-		List<CvVersion> records = repo.findAll();
-		return records;
+		List<CvVersion> cvVersions = repo.findAll();
+		return cvVersions;
 	}
 	
 	public List<CvVersion> findByFullNameIgnoreCase(String like) {		
@@ -47,12 +47,6 @@ public class GetCvVersionsOperation {
             return Collections.emptyList();
         }	
 	}
-
-//
-//	public CvVersion findByVersionNumber(Integer versionNumber) {
-//		CvVersion a = repo.findByVersionNumber(versionNumber);
-//		return a;
-//	}
 
 	private String toLikeRegex(String source) {
 		return source.replaceAll("\\*", ".*");
