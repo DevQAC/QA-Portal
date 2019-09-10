@@ -47,6 +47,7 @@ app-cv-search {
 
     .search {
         position: relative;
+        margin-bottom: 1rem;
         transition: all 0.1s ease-in-out;
 
         &.expanded {

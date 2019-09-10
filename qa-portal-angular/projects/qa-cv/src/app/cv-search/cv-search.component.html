@@ -2,17 +2,16 @@
   Administrator - CV Search
 </div>
 
-<div class="search" [class.expanded]="filterExpanded" style="margin-bottom: 1rem">
+<div class="search" [class.expanded]="filterExpanded">
   <mat-card class="search-box">
     <button mat-icon-button (click)="performSearch(); filterExpanded = false;" matTooltip="Search"
       aria-label="Search CVs">
-      <mat-icon style="margin: auto 0.5rem">
+      <mat-icon>
         search
       </mat-icon>
     </button>
 
-    <input style="width: 100%; border: none; background: transparent;" placeholder="Search by name" matInput
-      (keydown.enter)="performSearch(); filterExpanded = false;" autofocus>
+    <input placeholder="Search by name" matInput (keydown.enter)="performSearch(); filterExpanded = false;" autofocus>
     <button mat-icon-button (click)="filterExpanded = !filterExpanded" matTooltip="Filters"
       aria-label="Toggle the filter panel">
       <mat-icon>
@@ -95,6 +94,11 @@
   <!-- 
   <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator> -->
 </mat-card>
+
+<!-- <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator> -->
 
 <div class="page-backdrop" [class.visible]="filterExpanded" (click)="filterExpanded = false;">
 </div>
