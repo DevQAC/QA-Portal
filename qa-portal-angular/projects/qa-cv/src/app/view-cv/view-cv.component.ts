@@ -210,7 +210,7 @@ export class ViewCvComponent implements OnInit, OnDestroy {
 
   private initialiseForTrainee() {
     console.log('Initialising for Trainee');
-    this.cvDataSubscription$ = this.cvService.getCurrentCvForTrainee().subscribe(
+    this.cvDataSubscription$ = this.cvService.getCurrentCvForCurrentUser().subscribe(
       (cv) => {
         this.cvData = {...DEFAULT_CV, ...cv};
         this.setEditStatus();
