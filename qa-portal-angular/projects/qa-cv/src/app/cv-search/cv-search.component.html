@@ -2,52 +2,62 @@
   Administrator - CV Search
 </div>
 
+<div class="search" [class.expanded]="filterExpanded" style="margin-bottom: 1rem">
+  <mat-card class="search-box">
+    <button mat-icon-button (click)="performSearch(); filterExpanded = false;" matTooltip="Search"
+      aria-label="Search CVs">
+      <mat-icon style="margin: auto 0.5rem">
+        search
+      </mat-icon>
+    </button>
 
-<!-- <div style="display: flex; justify-content: center">
-  <mat-spinner [diameter]="70" *ngIf="loadingData"></mat-spinner>
-</div> -->
-
-<mat-card class="search-input-card">
-  <mat-card-content>
-    <div class="search-input-group">
-      <mat-form-field appearance="outline" class="search-input">
-        <mat-label>Search by name</mat-label>
-        <input [(ngModel)]="inputName" matInput (keydown.enter)="performSearch()">
-        <button mat-icon-button class="clear-button" matSuffix matTooltip="Clear search" aria-label="Clear the current search"
-          matTooltipPosition="left" (click)="onClearButtonClicked()"><mat-icon>clear</mat-icon>
-        </button>
+    <input style="width: 100%; border: none; background: transparent;" placeholder="Search by name" matInput
+      (keydown.enter)="performSearch(); filterExpanded = false;" autofocus>
+    <button mat-icon-button (click)="filterExpanded = !filterExpanded" matTooltip="Filters"
+      aria-label="Toggle the filter panel">
+      <mat-icon>
+        {{filterExpanded ? 'keyboard_arrow_up' : 'filter_list'}}</mat-icon>
+    </button>
+  </mat-card>
+  <mat-card class="filter-panel">
+    <div class="filter-panel-content">
+      <mat-form-field appearance="outline">
+        <mat-label>Cohort</mat-label>
+        <mat-select [(ngModel)]="selectedCohort" placeholder="Filter by Cohort">
+          <mat-option [value]="null">All</mat-option>
+          <mat-option *ngFor="let cohort of filterOptions?.cohort" [value]="cohort">
+            {{cohort}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-      <button mat-flat-button color="primary" class="search-button" (click)="performSearch()">
-        <mat-icon>search</mat-icon>
-      </button>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Technology</mat-label>
+        <mat-select [(ngModel)]="selectedTech" placeholder="Filter by Technology">
+          <mat-option [value]="null">All</mat-option>
+          <mat-option *ngFor="let tech of filterOptions?.technology" [value]="tech">
+            {{tech}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="selectedStatus" placeholder="Filter by Status">
+          <mat-option [value]="null">All</mat-option>
+          <mat-option *ngFor="let stat of filterOptions?.cvStatus" [value]="stat">
+            {{stat}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="filter-actions">
+        <button mat-button (click)="onClearButtonClicked();">Reset</button>
+        <button mat-flat-button color="primary" (click)="performSearch(); filterExpanded = false;">Apply</button>
+      </div>
+
     </div>
-
-
-    <div class="search-filters">
-      <mat-select [(ngModel)]="selectedCohort" placeholder="Filter by Cohort" (selectionChange)="performSearch()">
-        <mat-option [value]="null">All</mat-option>
-        <mat-option *ngFor="let cohort of filterOptions?.cohort" [value]="cohort">
-          {{cohort}}
-        </mat-option>
-      </mat-select>
-
-      <mat-select [(ngModel)]="selectedTech" placeholder="Filter by Technology" (selectionChange)="performSearch()">
-        <mat-option [value]="null">All</mat-option>
-        <mat-option *ngFor="let tech of filterOptions?.technology" [value]="tech">
-          {{tech}}
-        </mat-option>
-      </mat-select>
-
-      <mat-select [(ngModel)]="selectedStatus" placeholder="Filter by Status" (selectionChange)="performSearch()">
-        <mat-option [value]="null">All</mat-option>
-        <mat-option *ngFor="let stat of filterOptions?.cvStatus" [value]="stat">
-          {{stat}}
-        </mat-option>
-      </mat-select>
-    </div>
-
-  </mat-card-content>
-</mat-card>
+  </mat-card>
+</div>
 
 <mat-card class="search-results-card" *ngIf="!loadingData">
   <mat-card-content>
@@ -85,3 +95,6 @@
   <!-- 
   <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator> -->
 </mat-card>
+
+<div class="page-backdrop" [class.visible]="filterExpanded" (click)="filterExpanded = false;">
+</div>
