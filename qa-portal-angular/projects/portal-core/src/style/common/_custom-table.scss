@@ -2,10 +2,13 @@ table.mat-table.qa-table {
 
     tr.mat-row {
         &.selectable {
+            cursor: pointer;
+
             &:hover {
                 background: map-get($map: $mat-light-theme-background, $key: 'hover');
             }
         }
+
         &.expanded {
             background: map-get($map: $mat-light-theme-background, $key: 'raised-button');
         }
