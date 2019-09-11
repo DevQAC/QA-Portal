@@ -4,6 +4,7 @@ import com.qa.portal.common.dto.QaCohortDto;
 import com.qa.portal.common.dto.TechnologyDto;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.security.QaSecurityContext;
+import com.qa.portal.user.dto.UserSkillsDto;
 import com.qa.portal.user.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/user/trainee/skills")
-    public ResponseEntity<Map<String, List<TechnologyDto>>> getSkillsForTrainee() {
-        return ResponseEntity.ok(service.getSkillsForTrainee(securityContext.getUserName()));
+    public ResponseEntity<UserSkillsDto> getSkillsForTrainee() {
+        return ResponseEntity.ok(service.getSkillsForTrainee(securityContext));
     }
 }

@@ -44,18 +44,6 @@ public class UpdateCvOperationTest {
 		}
 		assertTrue("Fullname failed to set during the update operation", conditionMet);
 	}
-	
-	@Test
-	public void updateCvStatusTest() {
-		this.cvVersion = this.updateService.submitCv(cvVersion);
-		String status = this.cvVersion.getStatus();
-		boolean conditionMet = false;
-		if(status.equals("For Review")) {
-			conditionMet = true;
-		}
-		assertTrue("The status changed during the update operation, "
-				+ "which should only happen if the updated cv has a status of \"Approved\"", conditionMet);
-	}
 
 	private String getCohort() {
 		return "CI_Intake_1";

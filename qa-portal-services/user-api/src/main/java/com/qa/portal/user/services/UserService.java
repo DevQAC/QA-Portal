@@ -7,7 +7,9 @@ import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
+import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.common.util.mapper.CohortMapper;
+import com.qa.portal.user.dto.UserSkillsDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,8 +42,8 @@ public class UserService {
 	}
 
 	@Transactional
-	public Map<String, List<TechnologyDto>> getSkillsForTrainee(String traineeUserName) {
-		return getSkillsForTraineeOperation.getSkillsForTrainee(traineeUserName);
+	public UserSkillsDto getSkillsForTrainee(QaSecurityContext qaSecurityContext) {
+		return getSkillsForTraineeOperation.getSkillsForTrainee(qaSecurityContext);
 	}
 
 	@Transactional

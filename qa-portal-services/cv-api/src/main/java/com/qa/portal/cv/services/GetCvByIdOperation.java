@@ -15,6 +15,7 @@ public class GetCvByIdOperation {
     }
 
     public CvVersion findById(String id) {
-        return cvVersionRepository.findById(id).orElseThrow(() -> new QaPortalBusinessException("No Cv found for supplied id"));
+        return cvVersionRepository.findById(id)
+                .orElseThrow(() -> new QaPortalBusinessException("No Cv found for supplied id"));
     }
 }
