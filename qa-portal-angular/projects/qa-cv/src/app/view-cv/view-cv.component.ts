@@ -86,6 +86,7 @@ export class ViewCvComponent implements OnInit {
 
   onInitialiseNewCv() {
     this.cvData = this.viewCvPageDataService.initialiseNewCv(this.cvData, this.useExistingCvAsTemplate);
+    this.initialiseBlankCvForTrainee();
     this.refreshPageStatus();
   }
 
