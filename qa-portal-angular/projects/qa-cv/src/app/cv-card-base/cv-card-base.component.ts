@@ -11,7 +11,7 @@ import * as moment from 'moment';
   styleUrls: ['./cv-card-base.component.scss']
 })
 export class CvCardBaseComponent {
-  @Input() title: string;
+  @Input() cardTitle: string;
   @Input() canComment: boolean;
   @Input() canEdit: boolean;
   @Input() feedback: IFeedback[];
