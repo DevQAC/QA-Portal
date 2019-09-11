@@ -12,6 +12,9 @@ app-cv-search {
         .mat-table {
             width: 100%;
 
+            tr.data-row {
+                cursor: pointer;
+            }
             tr.data-row:hover {
                 background: map-get($map: $mat-light-theme-background, $key: 'hover');
             }

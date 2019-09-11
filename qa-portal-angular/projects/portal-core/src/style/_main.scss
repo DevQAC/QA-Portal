@@ -2,14 +2,17 @@
 @import './theme/qa-app-theme.scss';
 @import './theme/overrides.scss';
 
-// Core styles
+// Common
+@import './common/utils';
+@import './common/custom-table';
+
+// Core components
 @import './components/header';
 @import './components/side-menu';
 @import './components/side-menu-content';
 @import './components/header-link';
 
-
-// Project Overrides
+// Project specific
 @import '../../../course-feedback/src/styles.scss';
 @import '../../../portal-home/src/styles.scss';
 @import '../../../qa-common/src/styles.scss';

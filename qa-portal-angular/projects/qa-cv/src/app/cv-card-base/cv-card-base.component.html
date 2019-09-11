@@ -46,7 +46,7 @@
       </div>
     </mat-drawer>
     <mat-card-header>
-        <mat-card-title>{{title || ''}}</mat-card-title>
+        <mat-card-title>{{cardTitle || ''}}</mat-card-title>
         <button mat-icon-button *ngIf="showOpenButton && !drawer.opened" (click)="drawer.open()" title="Show comments">
           <mat-icon>feedback</mat-icon>
         </button>

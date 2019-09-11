@@ -13,7 +13,7 @@ export class ViewCvStateManagerService {
   constructor() {
   }
 
-  public isPageEditable(activatedRoute: ActivatedRoute, cvData: ICvModel ): boolean {
+  public isPageEditable(activatedRoute: ActivatedRoute, cvData: ICvModel): boolean {
     let isEditable = false;
     if (activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE) {
       if (ADMIN_USER_EDIT_STATES.includes(cvData.status)) {
@@ -31,7 +31,7 @@ export class ViewCvStateManagerService {
 
   public isPageDisplayForTrainee(activatedRoute: ActivatedRoute) {
     if (activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE) {
-       return false;
+      return false;
     }
     return true;
   }
@@ -39,8 +39,8 @@ export class ViewCvStateManagerService {
   public isMandatoryCvDetailsEntered(cvData: ICvModel): boolean {
     return !!this.allQualificationsCompleted(cvData.allQualifications) &&
       !!this.allWorkExperienceCompleted(cvData.allWorkExperience) &&
-      !!cvData.hobbies &&
-      !!cvData.profile;
+      !!cvData.hobbies && !!cvData.hobbies.hobbiesDetails &&
+      !!cvData.profile && !!cvData.profile.profileDetails;
   }
 
   private allQualificationsCompleted(qualifications: IQualification[]): boolean {
