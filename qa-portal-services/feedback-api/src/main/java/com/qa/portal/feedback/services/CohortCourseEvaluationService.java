@@ -86,7 +86,7 @@ public class CohortCourseEvaluationService {
 	}
 
 	@Transactional
-	public TrainerCourseHistoryDto getCohortCoursesForTrainer(String userName) {
+	public TrainerCourseHistoryDto getTrainerCourseHistory(String userName) {
 		return getCohortCoursesForTrainerOperation.getTrainerCourseHistory(userName);
 	}
 
