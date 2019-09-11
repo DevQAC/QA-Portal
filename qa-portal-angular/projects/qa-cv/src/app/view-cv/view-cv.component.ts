@@ -1,17 +1,21 @@
-import {Component, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {DEFAULT_CV, ICvModel} from '../_common/models/qac-cv-db.model';
-import {ViewCvService} from '../_common/services/view-cv.service';
+import {ViewCvService} from './services/view-cv.service';
 import {CvCardBaseComponent} from '../cv-card-base/cv-card-base.component';
 import {IFeedback} from '../_common/models/feedback.model';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
 import {MAT_DATE_LOCALE, MatDialog} from '@angular/material';
 import {SubmitConfirmDialogComponent} from './submit-confirm-dialog/submit-confirm-dialog.component';
 import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
-import {IQualification} from '../_common/models/qualification.model';
-import {IWorkExperience} from '../_common/models/work-experience.model';
 import {UserSkillsModel} from '../_common/models/user-skills.model';
-import {TRAINEE_ROLE, TRAINING_ADMIN_ROLE} from '../../../../portal-core/src/app/_common/models/portal-constants';
+import {TRAINING_ADMIN_ROLE} from '../../../../portal-core/src/app/_common/models/portal-constants';
+import {ADMIN_CV_SEARCH_URL} from '../_common/models/cv.constants';
+import {
+  ViewCvStateManagerService
+} from './services/view-cv-state-manager.service';
+import {ViewCvPageDataService} from './services/view-cv-page-data.service';
+import {Observable} from 'rxjs';
+import {APPROVED_STATUS, FAILED_REVIEW_STATUS, FOR_REVIEW_STATUS, IN_PROGRESS_STATUS} from './models/view-cv.constants';
 
 @Component({
   selector: 'app-view-cv',
@@ -21,46 +25,32 @@ import {TRAINEE_ROLE, TRAINING_ADMIN_ROLE} from '../../../../portal-core/src/app
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   ]
 })
-export class ViewCvComponent implements OnInit, OnDestroy {
+export class ViewCvComponent implements OnInit {
 
   @Output() public canComment = false;
+
   @Output() public canEdit = true;
 
-  private TRAINING_USER_EDIT_STATES = [
-    'In Progress',
-    'Failed Review'
-  ];
-
-  private ADMIN_USER_EDIT_STATES = [
-    'For Review'
-  ];
-
-  useTemplate = true;
+  useExistingCvAsTemplate = true;
 
   isTraineeView = true;
 
   loadingData = true;
 
-  fileURL: string;
+  qualificationFeedbackIndex: number;
 
-  qualFeedbackIndex: number;
-
-  workExpFeedbackIndex: number;
+  workExperienceFeedbackIndex: number;
 
   public cvData: ICvModel;
 
-  public workExpFeedback = [];
+  public workExperienceFeedback = [];
 
-  public qualFeedback = [];
-
-  private cvDataSubscription: Subscription;
-
-  private traineeSkillsSubcription: Subscription;
-
-  private adminCvSubscription: Subscription;
+  public qualificationFeedback = [];
 
   constructor(
     private cvService: ViewCvService,
+    private viewCvStateManagerService: ViewCvStateManagerService,
+    private viewCvPageDataService: ViewCvPageDataService,
     private errorHandlerService: QaErrorHandlerService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -68,11 +58,11 @@ export class ViewCvComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.setRoleForPage();   // Is page being displayed for Trainee of Admin
+    this.setRoleForPage();   // Is page being displayed for Trainee or Admin
     if (this.isTraineeView) {
-      this.initialiseForTrainee();
+      this.initialiseCvPageForTrainee();
     } else {
-      this.initialiseForAdmin();
+      this.initialiseCvPageForAdmin();
     }
   }
 
@@ -83,251 +73,175 @@ export class ViewCvComponent implements OnInit, OnDestroy {
     dialogRef.componentInstance.canSubmit = false;
     dialogRef.componentInstance.doSubmit.subscribe(() => {
       if (dialogRef.componentInstance.canSubmit === true) {
-        this.onSubmit();
+        this.onCvSubmitForReview();
       }
     });
     dialogRef.afterClosed().subscribe(() => {
     });
   }
 
-  getPDF() {
-    this.cvService.getPDFService(this.cvData).subscribe((response) => {
-      const file = new Blob([response], {type: 'application/pdf'});
-      this.fileURL = URL.createObjectURL(file);
-      window.open(this.fileURL, '_blank');
-    });
+  onDisplayPdf() {
+    this.cvService.displayPdf(this.cvData);
   }
 
-  ngOnDestroy(): void {
-    if (!!this.cvDataSubscription) {
-      this.cvDataSubscription.unsubscribe();
-    }
-
-    if (!!this.traineeSkillsSubcription) {
-      this.cvDataSubscription.unsubscribe();
-    }
-
-    if (!!this.adminCvSubscription) {
-      this.adminCvSubscription.unsubscribe();
-    }
+  onInitialiseNewCv() {
+    this.cvData = this.viewCvPageDataService.initialiseNewCv(this.cvData, this.useExistingCvAsTemplate);
+    this.refreshPageStatus();
   }
 
-  initialiseNewCv() {
-    const tempCv = this.cvData;
-    const emptyCv = null;
-    if (!!this.useTemplate) {
-      this.cvData = {...DEFAULT_CV, ...this.cvData};
-      this.cvData.status = 'In Progress';
-      this.cvData.id = null;
-      this.cvData.versionNumber = null;
-    } else {
-      this.cvData = {...DEFAULT_CV, ...emptyCv};
-      this.cvData.status = 'In Progress';
-      this.cvData.allSkills = tempCv.allSkills;
-      this.cvData.fullName = tempCv.fullName;
-    }
-    this.setEditStatus();
-  }
-
-  onSave(): void {
+  onCvSave(): void {
     if (!this.cvData.id) {
-      this.cvData.status = 'In Progress';
-      this.createCv();
-    } else {
-      this.updateCv();
+      this.cvData.status = IN_PROGRESS_STATUS;
     }
+    this.persistCvForTrainee();
   }
 
-  onSubmit(): void {
-    this.cvData.status = 'For Review';
-    if (!this.cvData.id) {
-      this.createCv();
-    } else {
-      this.updateCv();
-    }
+  onCvSubmitForReview(): void {
+    this.cvData.status = FOR_REVIEW_STATUS;
+    this.persistCvForTrainee();
   }
 
-  createCv(): void {
-    this.cvService.createCv(this.cvData).subscribe(
-      (response) => {
-        this.populateResponse(response);
-      },
-      (error) => {
-        this.errorHandlerService.handleError(error);
-      }
-    );
+  onCvApproved(): void {
+    this.cvUpdatedByAdmin(APPROVED_STATUS);
   }
 
-  updateCv(): void {
-    this.cvService.updateCv(this.cvData).subscribe(
-      (response) => {
-        this.populateResponse(response);
-      },
-      (error) => {
-        this.errorHandlerService.handleError(error);
-      }
-    );
+  onCvFailedReview(): void {
+    this.cvUpdatedByAdmin(FAILED_REVIEW_STATUS);
   }
 
-  onApproveCv(): void {
-    this.cvData.status = 'Approved';
-    this.updateCv();
-    this.navigateToAdminSearch();
-  }
-
-  onFailCv(): void {
-    this.cvData.status = 'Failed Review';
-    this.updateCv();
-    this.navigateToAdminSearch();
-  }
-
-  onWorkExpFeedbackClick({index}: { index: number }, expCard: CvCardBaseComponent): void {
-    this.workExpFeedbackIndex = index;
-    this.workExpFeedback = this.cvData.allWorkExperience[index].workExperienceFeedback;
+  onWorkExperienceFeedbackClick({index}: { index: number }, expCard: CvCardBaseComponent): void {
+    this.workExperienceFeedbackIndex = index;
+    this.workExperienceFeedback = this.cvData.allWorkExperience[index].workExperienceFeedback;
     expCard.drawer.open();
   }
 
-  onWorkExpFeedbackChange(feedback: IFeedback[]): void {
-    this.cvData.allWorkExperience[this.workExpFeedbackIndex].workExperienceFeedback = feedback;
+  onWorkExperienceFeedbackChange(feedback: IFeedback[]): void {
+    this.cvData.allWorkExperience[this.workExperienceFeedbackIndex].workExperienceFeedback = feedback;
   }
 
-  onQualFeedbackClick({index}: { index: number }, qualCard: CvCardBaseComponent): void {
-    this.qualFeedbackIndex = index;
-    this.qualFeedback = this.cvData.allQualifications[index].qualificationFeedback;
+  onQualificationFeedbackClick({index}: { index: number }, qualCard: CvCardBaseComponent): void {
+    this.qualificationFeedbackIndex = index;
+    this.qualificationFeedback = this.cvData.allQualifications[index].qualificationFeedback;
     qualCard.drawer.open();
   }
 
-  onQualFeedbackChange(feedback: IFeedback[]): void {
-    this.cvData.allQualifications[this.qualFeedbackIndex].qualificationFeedback = feedback;
+  onQualificationFeedbackChange(feedback: IFeedback[]): void {
+    this.cvData.allQualifications[this.qualificationFeedbackIndex].qualificationFeedback = feedback;
   }
 
-  useTemplateChanged() {
-    this.useTemplate = !this.useTemplate;
+  onUseExistingCvAsTemplateChanged() {
+    this.useExistingCvAsTemplate = !this.useExistingCvAsTemplate;
   }
 
-  private populateSkillsForTrainee() {
-    this.traineeSkillsSubcription = this.cvService.getSkillsForTrainee().subscribe((userSkillsModel: UserSkillsModel) => {
-      Object.keys(this.cvData.allSkills[0]).forEach((skillCategory) => {
-        this.cvData.userName = userSkillsModel.userName;
-        this.cvData.firstName = userSkillsModel.userFirstName;
-        this.cvData.surname = userSkillsModel.userLastName;
-        this.cvData.fullName = this.cvData.firstName + ' ' + this.cvData.surname;
-        this.cvData.status = 'In Progress';
-        this.cvData.allSkills[0][skillCategory] = this.getSkillsArrayForTechnology(userSkillsModel.skills[skillCategory]);
-      });
-      this.setEditStatus();
-      this.loadingData = false;
-    });
-  }
-
-  private getSkillsArrayForTechnology(skills: any[]): string[] {
-    const skillsArr = [];
-    if (!!skills) {
-      skills.forEach(s => {
-        skillsArr.push(s.technologyName);
-      });
-    }
-    return skillsArr;
-  }
-
-  private initialiseForTrainee() {
-    this.cvDataSubscription = this.cvService.getCurrentCvForCurrentUser().subscribe(
+  private initialiseCvPageForTrainee() {
+    this.cvService.getCurrentCvForTrainee().subscribe(
       (cv) => {
-        this.cvData = {...DEFAULT_CV, ...cv};
-        if (!cv) {
-          this.populateSkillsForTrainee();
+        this.cvData = {...DEFAULT_CV, ...cv};    // use spread operator to merge blank default Cv with returned CV
+        if (this.noExistingCvForTrainee(cv)) {
+          this.initialiseBlankCvForTrainee();
         } else {
-          this.setEditStatus();
-          this.loadingData = false;
+          this.refreshPageStatus();
         }
       },
       (error) => {
-        this.loadingData = false;
-        this.errorHandlerService.handleError(error);
+        this.processError(error);
       });
   }
 
-  private initialiseForAdmin() {
+  private noExistingCvForTrainee(traineeCv: ICvModel): boolean {
+    return !traineeCv;
+  }
+
+  private initialiseBlankCvForTrainee() {
+    this.cvService.getSkillsForTrainee().subscribe((userSkillsModel: UserSkillsModel) => {
+      this.viewCvPageDataService.populateCvUserDetails(this.cvData, userSkillsModel);
+      this.viewCvPageDataService.populateCvSkills(this.cvData, userSkillsModel);
+      this.refreshPageStatus();
+    });
+  }
+
+  private initialiseCvPageForAdmin() {
     this.activatedRoute.paramMap.subscribe(
       (paramMap: ParamMap) => {
-        this.adminCvSubscription = this.cvService.getCvForId(paramMap.get('id')).subscribe(
+        this.cvService.getCvForId(paramMap.get('id')).subscribe(
           (response) => {
             this.cvData = response;
-            this.setEditStatus();
-            this.setCommentStatus(); // Can user add comments to Cv
-            this.loadingData = false;
+            this.refreshPageStatus();
           },
           (error) => {
-            this.loadingData = false;
-            this.errorHandlerService.handleError(error);
+            this.processError(error);
           });
       });
   }
 
+  private persistCvForTrainee() {
+    if (!this.cvData.id) {
+      this.createCv();
+    } else {
+      this.updateCv();
+    }
+  }
+
+  private createCv(): void {
+    this.processCvServiceResponse(this.cvService.createCv(this.cvData));
+  }
+
+  private updateCv(): void {
+    this.processCvServiceResponse(this.cvService.updateCv(this.cvData));
+  }
+
+  private processCvServiceResponse(obs: Observable<ICvModel>) {
+    obs.subscribe(
+      (response) => {
+        this.populateResponse(response);
+      },
+      (error) => {
+        this.processError(error);
+      }
+    );
+  }
+
+  private cvUpdatedByAdmin(cvStatus: string) {
+    this.cvData.status = cvStatus;
+    this.updateCv();
+    this.navigateToAdminSearch();
+  }
+
   private setRoleForPage() {
-    if (this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE) {
-      this.isTraineeView = false;
-    }
-  }
-
-  setEditStatus(): void {
-    this.canEdit = false;
-    if (this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE) {
-      if (this.ADMIN_USER_EDIT_STATES.includes(this.cvData.status)) {
-        this.canEdit = true;
-      }
-    }
-
-    if (this.activatedRoute.snapshot.data.roles[0] === TRAINEE_ROLE) {
-      if (this.TRAINING_USER_EDIT_STATES.includes(this.cvData.status)) {
-        this.canEdit = true;
-      }
-    }
-  }
-
-  private setCommentStatus() {
-    if (SubmitConfirmDialogComponent) {
-      this.canComment = this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE && this.cvData.status === 'For Review';
-    }
+    this.isTraineeView = this.viewCvStateManagerService.isPageDisplayForTrainee(this.activatedRoute);
   }
 
   private populateResponse(response: ICvModel): void {
     this.cvData = response;
-    this.setEditStatus();
+    this.setPageEditStatus();
   }
 
   private navigateToAdminSearch() {
-    this.router.navigateByUrl('qa/portal/cv/admin/search');
+    this.router.navigateByUrl(ADMIN_CV_SEARCH_URL);
   }
 
   private allDetailsEntered(): boolean {
-    return !!this.allQualificationsCompleted(this.cvData.allQualifications) &&
-      !!this.allWorkExperienceCompleted(this.cvData.allWorkExperience) &&
-      !!this.cvData.hobbies &&
-      !!this.cvData.profile;
+    return this.viewCvStateManagerService.isMandatoryCvDetailsEntered(this.cvData);
   }
 
-  private allQualificationsCompleted(qualifications: IQualification[]): boolean {
-    return !!qualifications &&
-      qualifications.length > 0 &&
-      !qualifications.find(q => !this.qualificationCompleted(q));
+  private processError(error: any) {
+    this.loadingData = false;
+    this.errorHandlerService.handleError(error);
   }
 
-  private qualificationCompleted(qualifiation: IQualification): boolean {
-    return !!qualifiation &&
-      !!qualifiation.qualificationDetails;
+  private refreshPageStatus() {
+    this.setPageEditStatus();
+    this.setCommentStatus();
+    this.loadingData = false;
   }
 
-  private allWorkExperienceCompleted(workExperiences: IWorkExperience[]): boolean {
-    return !!workExperiences &&
-      workExperiences.length > 0 &&
-      !workExperiences.find(w => !this.workExperienceCompleted(w));
+  private setPageEditStatus(): void {
+    this.canEdit = this.viewCvStateManagerService.isPageEditable(this.activatedRoute, this.cvData);
   }
 
-  private workExperienceCompleted(workExperience: IWorkExperience): boolean {
-    return !!workExperience &&
-      !!workExperience.start &&
-      !!workExperience.jobTitle &&
-      !!workExperience.workExperienceDetails;
+  private setCommentStatus() {
+    if (SubmitConfirmDialogComponent) {
+      this.canComment = this.activatedRoute.snapshot.data.roles[0] === TRAINING_ADMIN_ROLE && this.cvData.status === FOR_REVIEW_STATUS;
+    }
   }
 }

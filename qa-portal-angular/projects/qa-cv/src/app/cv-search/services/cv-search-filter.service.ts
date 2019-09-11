@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from "rxjs";
+import { Observable, of } from 'rxjs';
 import { FilterModel } from '../models/filter-search-model';
 import { FILTERS } from '../models/mock-filters';
 import { catchError, map, tap } from 'rxjs/operators';
-
 
 @Injectable()
 export class CVSearchFilterService {
