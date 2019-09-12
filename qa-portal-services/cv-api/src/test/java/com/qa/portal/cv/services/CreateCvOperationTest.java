@@ -2,6 +2,7 @@ package com.qa.portal.cv.services;
 
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.cv.domain.CvVersion;
+import com.qa.portal.cv.domain.validator.CvVersionValidator;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +28,9 @@ public class CreateCvOperationTest {
 
 	@Mock
 	private QaSecurityContext qaSecurityContext;
+
+	@Mock
+	private CvVersionValidator cvVersionValidator;
 
 	private CvVersion cvVersion = new CvVersion();
 
