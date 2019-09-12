@@ -11,11 +11,7 @@ import { Injectable } from '@angular/core';
 })
 export class SideMenuService {
 
-  /**
-   * Side menu open state. Use toggleOpen to persist the state across sessions.
-   *
-   * @memberof SideMenuService
-   */
+   /* Side menu open state. Use toggleOpen / setOpenState to persist the state across sessions. */
   public sideMenuOpen = false;
 
   constructor() {
@@ -25,12 +21,18 @@ export class SideMenuService {
 
   /**
    * Toggles the side menu open state.
-   *
-   * @returns {boolean} returns the new state of the side menu
-   * @memberof SideMenuService
+   * @returns returns the new state of the side menu
    */
   public toggleOpen(): boolean {
-    this.sideMenuOpen = !this.sideMenuOpen;
+    return this.setOpenState(!this.sideMenuOpen);
+  }
+
+  /**
+   * Sets the side menu open state.
+   * @returns returns the new state of the side menu
+   */
+  public setOpenState(open: boolean): boolean {
+    this.sideMenuOpen = open;
     localStorage.setItem('sideMenuOpen', this.sideMenuOpen.toString());
     return this.sideMenuOpen;
   }

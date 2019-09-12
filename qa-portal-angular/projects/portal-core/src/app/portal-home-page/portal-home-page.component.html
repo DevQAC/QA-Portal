@@ -1,0 +1,34 @@
+<div class="h-100 w-100" style="display: flex;">
+  <div class="my-auto w-100">
+    <header>
+      <h1 class="mat-display-3 text-center" style="margin:0;">{{header}}</h1>
+      <p class="mat-caption text-center">{{description}}</p>
+    </header>
+    <mat-divider style="margin: 1rem"></mat-divider>
+    <section role="grid" name="portal-applications" class="portal-apps">
+      <div class="application-card-container" *ngFor="let app of applications">
+        <mat-card class="application-card" style="margin: 1rem">
+          <mat-card-title style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; line-height: 1.1">
+            {{app.name}}
+          </mat-card-title>
+          <mat-card-content data-simplebar style="height: 200px; margin: 0 -16px -16px;">
+            <mat-list>
+              <mat-list-item *ngFor="let item of app.menuItems">
+                <mat-icon matListIcon>folder</mat-icon>
+                <h4 matLine>
+                  {{item.name}}
+                </h4>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+    <mat-divider style="margin: 1rem"></mat-divider>
+    <section name="portal-actions" style="display: flex; flex-direction: column">
+      <p class="text-center mat-body-strong">These links can also be found in the side menu.</p>
+      <button mat-stroked-button color="primary" class="mx-auto" (click)="sideMenuService.setOpenState(true)"
+        [disabled]="sideMenuService.sideMenuOpen">Open side menu</button>
+    </section>
+  </div>
+</div>
