@@ -6,9 +6,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QaOneDriveManager implements QaFileManager {
+public class QaOneDriveFileManager implements QaFileManager {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(QaOneDriveManager.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(QaOneDriveFileManager.class);
 
     private OneDriveRestAdapter oneDriveRestAdapter;
 
@@ -16,8 +16,8 @@ public class QaOneDriveManager implements QaFileManager {
 
     public static final String ARCHIVE_FOLDER_NAME = "archive";
 
-    public QaOneDriveManager(OneDriveRestAdapter oneDriveRestAdapter,
-                             Environment environment) {
+    public QaOneDriveFileManager(OneDriveRestAdapter oneDriveRestAdapter,
+                                 Environment environment) {
         this.oneDriveRestAdapter = oneDriveRestAdapter;
         this.environment = environment;
     }

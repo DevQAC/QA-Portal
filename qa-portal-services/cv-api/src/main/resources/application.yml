@@ -63,6 +63,11 @@ onedrive:
   authUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
   scopeUrl: https%3A%2F%2Fgraph.microsoft.com%2F.default
   url: https://graph.microsoft.com/v1.0/me/drive/
+  connections:
+    max:
+      total: 30
+    per:
+      route: 6
 
 ---
 spring:

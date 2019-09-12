@@ -27,10 +27,10 @@ public class CreateCvOperationTest {
 	private CvVersionRepository repo;
 
 	@Mock
-	private QaSecurityContext qaSecurityContext;
+	private CvVersionValidator cvVersionValidator;
 
 	@Mock
-	private CvVersionValidator cvVersionValidator;
+	private QaSecurityContext qaSecurityContext;
 
 	private CvVersion cvVersion = new CvVersion();
 
