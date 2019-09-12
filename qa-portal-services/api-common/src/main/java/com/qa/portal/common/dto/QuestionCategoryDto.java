@@ -3,6 +3,7 @@ package com.qa.portal.common.dto;
 import java.util.List;
 
 public class QuestionCategoryDto extends QaBaseDto {
+
     private Integer id;
 
     private String categoryName;

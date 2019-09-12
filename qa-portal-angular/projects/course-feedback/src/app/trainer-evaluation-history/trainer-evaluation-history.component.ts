@@ -3,6 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {QaErrorHandlerService} from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 import {RetrieveTrainerEvaluationHistoryService} from './services/retrieve-trainer-evaluation-history.service';
 import {MatTableDataSource} from '@angular/material';
+import {TrainerCourseHistoryModel} from './models/trainer-course.history.model';
+import {CohortCourseModel} from '../../../../portal-core/src/app/_common/models/cohort-course.model';
 
 @Component({
   selector: 'app-trainer-evaluation-history',
@@ -11,14 +13,13 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class TrainerEvaluationHistoryComponent implements OnInit {
 
-  currentCourseDataSource: MatTableDataSource<any>;
+  currentCourseDataSource: MatTableDataSource<CohortCourseModel>;
 
-  prevCoursesDataSource: MatTableDataSource<any>;
+  prevCoursesDataSource: MatTableDataSource<CohortCourseModel>;
 
-  currentCourse: any[] = [];
+  trainerEvalHistory: MatTableDataSource<any>;
 
-  prevCourses: any[] = [];
-
+  dataLoading = true;
 
   constructor(private retrieveTrainerEvalHistory: RetrieveTrainerEvaluationHistoryService,
               private errorHandler: QaErrorHandlerService) {
@@ -26,34 +27,23 @@ export class TrainerEvaluationHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.retrieveTrainerEvalHistory.getEvalHistory().subscribe(
-      (response) => this.filterResults(response),
-      (error) => this.errorHandler.handleError(error));
+      (response: TrainerCourseHistoryModel) => {
+        this.populateTables(response);
+      },
+      (error) => {
+        this.dataLoading = false;
+        this.errorHandler.handleError(error);
+      });
   }
 
-  filterResults(data: any[]) {
-    console.log('In filter resuits - num rows ' + data.length);
-    let tempCurrent = [];
-    let tempPrev = [];
-    let count = 0;
-    for (let course of data) {
-      let startDate = new Date(course.startDate);
-      const diffTime = Math.abs(new Date(/*'2019-07-02'*/).getTime() - startDate.getTime());
-      let daysDiff = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-
-      if (daysDiff > 0 && daysDiff < 7) {
-        tempCurrent.push(course);
-      } else {
-        if (count < 8) {
-          tempPrev.push(course);
-          count++;
-        }
-      }
+  populateTables(response: TrainerCourseHistoryModel) {
+    if (!!response.currentCohortCourse) {
+      this.currentCourseDataSource = new MatTableDataSource<CohortCourseModel>([response.currentCohortCourse]);
+    } else {
+      this.currentCourseDataSource = new MatTableDataSource<CohortCourseModel>([]);
     }
-
-    console.log('Current size ' + tempCurrent.length);
-    console.log('Previous size ' + tempPrev.length);
-
-    this.currentCourseDataSource = new MatTableDataSource<any>(tempCurrent);
-    this.prevCoursesDataSource = new MatTableDataSource<any>(tempPrev);
+    this.prevCoursesDataSource = new MatTableDataSource<CohortCourseModel>(response.previousCohortCourses);
+    this.trainerEvalHistory = new MatTableDataSource<any>([{knowledge: response.averageKnowledgeRating, tqi: response.averageTqiRating}])
+    this.dataLoading = false;
   }
 }

@@ -18,8 +18,8 @@ export class CvProfileComponent {
     this.profileChange.emit(this.profile);
   }
 
-  getEditValue() {
-    return this.canEdit;
+  isDisabled() {
+    return !this.canEdit;
   }
 
 }

@@ -29,6 +29,26 @@ spring:
   level:
     org.springframework.web: DEBUG
 
+cv:
+  workexperience:
+    entries:
+      max: 3
+    detail:
+      max: 400
+
+  qualification:
+    entries:
+      max: 3
+    detail:
+      max: 80
+
+  profile:
+    detail:
+      max: 1800
+
+  hobbies:
+    detail:
+      max: 750
 
 qa:
   keycloak:

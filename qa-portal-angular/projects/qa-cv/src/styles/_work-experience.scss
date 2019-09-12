@@ -1,0 +1,44 @@
+app-cv-work-exp {
+    .job-title-container {
+        margin-top: 1rem;
+
+        .mat-form-field {
+            width: 100%;
+        }
+    }
+
+    .date-range-container {
+        .mat-form-field:first-of-type {
+            margin-right: 1rem;
+        }
+    }
+
+    .description-container {
+        width: 100%;
+
+        .mat-form-field {
+            width: 100%;
+        }
+    }
+
+
+    td.mat-column-title {
+        .job-title-container {
+            margin-top: 0;
+            display: flex;
+
+            .job-title-text {
+                margin-right: auto;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+
+            .date-range-text {
+                color: map-get($map: $mat-light-theme-foreground, $key: 'secondary-text');
+
+            }
+        }
+
+    }
+}

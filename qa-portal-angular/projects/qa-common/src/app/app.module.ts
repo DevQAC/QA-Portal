@@ -36,6 +36,8 @@ import { RatedQuestionComponent } from './rated-question/rated-question.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchBarBackdropComponent } from './search-bar-backdrop/search-bar-backdrop.component';
 
 const materialModules = [
   MatCheckboxModule,
@@ -74,7 +76,9 @@ const materialModules = [
 @NgModule({
   declarations: [
     AppComponent,
-    RatedQuestionComponent
+    RatedQuestionComponent,
+    SearchBarComponent,
+    SearchBarBackdropComponent
   ],
   imports: [
     BrowserModule,
@@ -98,10 +102,12 @@ const materialModules = [
     BrowserAnimationsModule,
     ...materialModules,
     RatedQuestionComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SearchBarComponent,
+    SearchBarBackdropComponent
   ]
 })
-export class QaCommonModule { 
+export class QaCommonModule {
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer

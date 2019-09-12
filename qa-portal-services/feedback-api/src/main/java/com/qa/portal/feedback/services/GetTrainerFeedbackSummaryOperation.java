@@ -24,7 +24,9 @@ public class GetTrainerFeedbackSummaryOperation {
 
     private BaseMapper baseMapper;
 
-    public GetTrainerFeedbackSummaryOperation(CohortCourseFeedbackRepository cohortCourseFeedbackRepository, QaTrainerRepository qaTrainerRepository, BaseMapper baseMapper) {
+    public GetTrainerFeedbackSummaryOperation(CohortCourseFeedbackRepository cohortCourseFeedbackRepository,
+                                              QaTrainerRepository qaTrainerRepository,
+                                              BaseMapper baseMapper) {
         this.cohortCourseFeedbackRepository = cohortCourseFeedbackRepository;
         this.qaTrainerRepository = qaTrainerRepository;
         this.baseMapper = baseMapper;

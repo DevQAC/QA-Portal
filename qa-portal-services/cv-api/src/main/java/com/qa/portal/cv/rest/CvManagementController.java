@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import com.qa.portal.cv.domain.CvSearchCriteria;
-import com.qa.portal.cv.domain.UserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -33,9 +32,7 @@ public class CvManagementController {
     //	Create
     @PostMapping("/cv")
     public ResponseEntity<CvVersion> createCv(@RequestBody CvVersion newCv) {
-
-        UserDetails user = UserDetails.retrieveCvUserDetails(this.qaSecurityContext);
-        return ResponseEntity.ok(this.service.createCv(newCv, user));
+        return ResponseEntity.ok(this.service.createCv(newCv, qaSecurityContext));
     }
 
     //  Update
@@ -44,43 +41,31 @@ public class CvManagementController {
         return ResponseEntity.ok(this.service.updateCv(updatedCv));
     }
 
-    @PutMapping("/cv/submit")
-    public ResponseEntity<CvVersion> submitCv(@RequestBody CvVersion submittedCv) {
-        return ResponseEntity.ok(this.service.submitCv(submittedCv));
-    }
-
-    @PutMapping("/cv/approve")
-    public ResponseEntity<CvVersion> approveCv(@RequestBody CvVersion submittedCv) {
-        return ResponseEntity.ok(this.service.approveCv(submittedCv));
-    }
-
-    @PutMapping("/cv/fail")
-    public ResponseEntity<CvVersion> failCv(@RequestBody CvVersion submittedCv) {
-        return ResponseEntity.ok(this.service.failCv(submittedCv));
-    }
 
     //	Get
+    @GetMapping("cv/{id}")
+    public ResponseEntity<CvVersion> getCvById(@PathVariable("id") String id) {
+        return ResponseEntity.ok(service.findById(id));
+    }
+
     @GetMapping("/cvs")
     public ResponseEntity<List<CvVersion>> getAll() {
         return ResponseEntity.ok(this.service.getAll());
     }
-
-    @GetMapping("/cv/version")
-    public CvVersion findByVersionNumber(Integer versionNumber) {
-        return service.findByVersionNumber(versionNumber);
-    }
-
-
-
 
     @GetMapping("/cv/trainee/search/{fullName}")
     public ResponseEntity<List<CvVersion>> findByFullNameIgnoreCase(@PathVariable("fullName") String fullName) {
         return ResponseEntity.ok(this.service.findByFullNameIgnoreCase(fullName));
     }
 
-    @GetMapping("/cv/trainee/current")
-    public ResponseEntity<List<CvVersion>> findByuserNameIgnoreCase() {
+    @GetMapping("/cv/trainee")
+    public ResponseEntity<List<CvVersion>> findCvVersionsForTrainee() {
         return ResponseEntity.ok(this.service.findByUserNameIgnoreCase(qaSecurityContext.getUserName()));
+    }
+
+    @GetMapping("/cv/trainee/current")
+    public ResponseEntity<CvVersion> findCurrentCvVersionForTrainee() {
+        return ResponseEntity.ok(this.service.getCurrentCvVersionForUser(qaSecurityContext.getUserName()));
     }
 
     //Admin search by criteria endpoint
@@ -102,8 +87,6 @@ public class CvManagementController {
         }
         return ResponseEntity.ok(this.service.cvSearch(c));
     }
-
-
 
 
     //	PDF

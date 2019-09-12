@@ -1,6 +1,5 @@
 export interface TraineeEvaluation {
-    traineeName: String;
-    knowledge: String;
-    recommend: String;
+    traineeName: string;
+    knowledge: string;
+    recommend: string;
 }
-  

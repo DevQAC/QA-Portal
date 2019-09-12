@@ -49,7 +49,6 @@ public class CvVersion {
         this.userName = userName;
         this.firstName = firstName;
         this.surname = surname;
-        this.fullName = fullName;
         this.cohort = cohort;
         this.profile = profile;
         this.allSkills = allSkills;
@@ -107,11 +106,14 @@ public class CvVersion {
     }
 
     public String getFullName() {
-        return this.fullName;
+        if (fullName == null) {
+            fullName = this.firstName + " " + this.surname;
+        }
+        return fullName;
     }
 
-    public void setFullName() {
-        this.fullName = this.firstName + " " + this.surname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getCohort() {
@@ -161,6 +163,4 @@ public class CvVersion {
 	public void setHobbies(Hobbies hobbies) {
 		this.hobbies = hobbies;
 	}
-
-
 }

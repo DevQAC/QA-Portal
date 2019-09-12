@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {TrainerEvaluationServicesService} from './services/trainer-evaluation-services.service';
+import {TrainerEvaluationService} from './services/trainer-evaluation.service';
 import {TraineeEvaluation} from './models/trainee-evaluation-data';
+import {TrainerEvaluationSummaryModel} from './models/trainer-evaluation-summary.model';
 
 @Component({
   selector: 'app-trainer-evaluation-summary',
@@ -9,10 +10,11 @@ import {TraineeEvaluation} from './models/trainee-evaluation-data';
   styleUrls: ['./trainer-evaluation-summary.component.css']
 })
 export class TrainerEvaluationSummaryComponent implements OnInit {
-  // table data
+   viewModel: TrainerEvaluationSummaryModel;
+
   dataSource: TraineeEvaluation[] = [];
-  average = 0;
-  tqi = 0;
+  courseHistoryTqi: string;
+  tqi: string;
 
   // course info data
   courseName: string;
@@ -20,7 +22,7 @@ export class TrainerEvaluationSummaryComponent implements OnInit {
   startDate: string;
   duration: number;
 
-  constructor(private trainerEvaluationService: TrainerEvaluationServicesService,
+  constructor(private trainerEvaluationService: TrainerEvaluationService,
               private activatedRoute: ActivatedRoute) {
   }
 
@@ -32,9 +34,12 @@ export class TrainerEvaluationSummaryComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(
       (params: ParamMap) => {
         const courseId = params.get('id');
-        this.trainerEvaluationService.GetTrainerFeedback(courseId).subscribe(data => {
-          this.getCourseInfo(data[0]);
-          this.getTraineeEvaulations(data);
+        this.trainerEvaluationService.getTrainerCourseEvaluationSummary(courseId).subscribe(response => {
+          this.viewModel = response;
+          this.tqi = response.courseTqi;
+          this.courseHistoryTqi = response.courseHistoryTqi;
+          this.getCourseInfo(response.traineeEvaluationsForCourse[0]);
+          this.getTraineeEvaulations(response.traineeEvaluationsForCourse);
         });
       });
   }
@@ -42,11 +47,9 @@ export class TrainerEvaluationSummaryComponent implements OnInit {
   getCourseInfo(data) {
     if (data) {
       const cohortCourse = data.cohortCourse;
-      this.average = parseInt(cohortCourse.average);
-      this.tqi = parseInt(cohortCourse.tqi);
 
       this.courseName = cohortCourse.course.courseName;
-      this.location = '???';
+      this.location = cohortCourse.location.name;
 
       const end = new Date(cohortCourse.endDate);
       const start = new Date(cohortCourse.startDate);

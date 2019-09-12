@@ -16,8 +16,8 @@ export class CvHobbiesComponent {
     this.hobbiesChange.emit(this.hobbies);
   }
 
-  getEditValue() {
-    return this.canEdit;
+  isDisabled() {
+    return !this.canEdit;
   }
 
 
