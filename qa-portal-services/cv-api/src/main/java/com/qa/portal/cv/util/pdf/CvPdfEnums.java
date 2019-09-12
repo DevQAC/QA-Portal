@@ -1,4 +1,4 @@
-package com.qa.portal.cv.util;
+package com.qa.portal.cv.util.pdf;
 
 enum ColourScheme {
 	QA_BLUE("#004050"), QA_PURPLE("#7F007D"), QA_RED("#FF004C"), QA_GREY("#565759");
@@ -59,8 +59,20 @@ enum PageFormat {
 	}
 }
 
+enum Dividers {
+	WIDTH(PageFormat.WIDTH_COL2.value - PageFormat.PADDING.value * 2), HEIGHT(0.5f),
+	X_POSITION(PageFormat.WIDTH_COL1.value + PageFormat.PADDING.value),
+	Y_POSITION_TOP(PageFormat.HEIGHT.value - MainHeader.HEIGHT.value), Y_POSITION_BOTTOM(MainFooter.HEIGHT.value);
+	final float value;
+
+	Dividers(float value) {
+		this.value = value;
+	}
+}
+
+
 enum ConsultantNameBox {
-	WIDTH(PageFormat.WIDTH_COL1.value), HEIGHT(PageFormat.HEIGHT.value / 6 + 4), X_POSITION(0),
+	WIDTH(PageFormat.WIDTH_COL1.value), HEIGHT((PageFormat.HEIGHT.value / 8)), X_POSITION(0),
 	Y_POSITION(PageFormat.HEIGHT.value);
 	final float value;
 
@@ -70,7 +82,7 @@ enum ConsultantNameBox {
 }
 
 enum SkillsBox {
-	WIDTH(PageFormat.WIDTH_COL1.value), HEIGHT(2.5f * PageFormat.HEIGHT.value / 6 + 7), X_POSITION(0),
+	WIDTH(PageFormat.WIDTH_COL1.value), HEIGHT((5 * PageFormat.HEIGHT.value) / 8) , X_POSITION(0),
 	Y_POSITION(PageFormat.HEIGHT.value - ConsultantNameBox.HEIGHT.value);
 	final float value;
 
@@ -103,6 +115,7 @@ enum MainHeader {
 enum MainFooter {
 	WIDTH(PageFormat.WIDTH_COL2.value), HEIGHT(PageFormat.HEIGHT.value / 20 - 8),
 	X_POSITION(PageFormat.WIDTH_COL1.value), Y_POSITION(HEIGHT.value);
+
 	final float value;
 
 	MainFooter(float value) {
@@ -117,17 +130,6 @@ enum MainBody {
 	final float value;
 
 	MainBody(float value) {
-		this.value = value;
-	}
-}
-
-enum Dividers {
-	WIDTH(PageFormat.WIDTH_COL2.value - PageFormat.PADDING.value * 2), HEIGHT(0.5f),
-	X_POSITION(PageFormat.WIDTH_COL1.value + PageFormat.PADDING.value),
-	Y_POSITION_TOP(PageFormat.HEIGHT.value - MainHeader.HEIGHT.value), Y_POSITION_BOTTOM(MainFooter.HEIGHT.value);
-	final float value;
-
-	Dividers(float value) {
 		this.value = value;
 	}
 }

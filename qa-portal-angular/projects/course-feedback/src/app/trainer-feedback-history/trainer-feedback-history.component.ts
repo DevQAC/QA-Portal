@@ -27,7 +27,7 @@ export class TrainerFeedbackHistoryComponent implements OnInit {
     this.trainerCourseHistoryService.getCourseHistory().subscribe(
       (response) => {
         this.viewModel = new TrainerFeedbackHistoryModel();
-        this.viewModel.cohortCourses = response;
+        this.viewModel.cohortCourses = response.cohortCourseHistory;
         this.dataSource = new MatTableDataSource(this.viewModel.cohortCourses);
         this.dataLoading = false;
       },

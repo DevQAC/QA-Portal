@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -44,10 +45,10 @@ public class GetSkillsForTraineeOperation {
         return userSkillsDto;
     }
 
-    private Map<String, List<TechnologyDto>> getSkillsForTrainee(TraineeEntity traineeEntity) {
+    private Map<String, Set<TechnologyDto>> getSkillsForTrainee(TraineeEntity traineeEntity) {
         return traineeEntity.getCohort().getCohortCourses().stream()
                 .flatMap(cce -> getTechnologiesForCourse(cce.getCourse()).stream())
-                .collect(Collectors.groupingBy(TechnologyDto::getTechnologyCategoryName, Collectors.toList()));
+                .collect(Collectors.groupingBy(TechnologyDto::getTechnologyCategoryName, Collectors.toSet()));
     }
 
     private List<TechnologyDto> getTechnologiesForCourse(CourseEntity courseEntity) {
