@@ -5,6 +5,8 @@ export class TrainerCourseHistoryModel {
 
   previousCohortCourses: CohortCourseModel[];
 
+  cohortCourseHistory: CohortCourseModel[];
+
   averageKnowledgeRating: string;
 
   averageTqiRating: string;

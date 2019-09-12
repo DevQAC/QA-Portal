@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.qa.portal.cv.domain.CvVersion;
-import com.qa.portal.cv.util.CvPdfGenerator;
+import com.qa.portal.cv.util.pdf.CvPdfGenerator;
 
 @Service
 @Transactional

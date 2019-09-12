@@ -1,6 +1,5 @@
 package com.qa.portal.feedback.rest;
 
-import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.dto.TraineeEvaluationSummaryDto;
@@ -51,7 +50,7 @@ public class CohortCourseEvaluationController {
 
     @GetMapping("/trainer")
     public ResponseEntity<TrainerCourseHistoryDto> getCohortCoursesForTrainer() {
-        return ResponseEntity.ok(this.service.getCohortCoursesForTrainer(qaSecurityContext.getUserName()));
+        return ResponseEntity.ok(this.service.getTrainerCourseHistory(qaSecurityContext.getUserName()));
     }
 
     @GetMapping("{id}")

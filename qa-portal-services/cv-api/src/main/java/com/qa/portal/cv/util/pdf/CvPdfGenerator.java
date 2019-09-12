@@ -1,4 +1,4 @@
-package com.qa.portal.cv.util;
+package com.qa.portal.cv.util.pdf;
 
 import java.io.IOException;
 

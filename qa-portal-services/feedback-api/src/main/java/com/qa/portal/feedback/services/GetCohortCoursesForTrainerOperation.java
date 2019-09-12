@@ -64,6 +64,7 @@ public class GetCohortCoursesForTrainerOperation {
 		TrainerCourseHistoryDto trainerCourseHistoryDto = new TrainerCourseHistoryDto();
 		List<CohortCourseDto> cohortCourseDtos = getCohortCoursesForTrainer(trainerUserName);
 		trainerCourseHistoryDto.setCurrentCohortCourse(getCurrentCohortCourse(cohortCourseDtos));
+		trainerCourseHistoryDto.setCohortCourseHistory(cohortCourseDtos);
 		trainerCourseHistoryDto.setPreviousCohortCourses(getPreviousCohortCourses(cohortCourseDtos));
 		trainerCourseHistoryDto.setAverageTqiRating(NOT_APPLICABLE_STRING);       // Default value - overwritten below
 		trainerCourseHistoryDto.setAverageKnowledgeRating(NOT_APPLICABLE_STRING); // Default value - overwritten below

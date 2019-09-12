@@ -74,7 +74,7 @@
 
       <button *ngIf="selfReflectionViewModel.selfReflectionForm.status !== 'Submitted' &&
                      selfReflectionViewModel.selfReflectionForm.status !== 'Reviewed'"
-              mat-raised-button (click)="saveSubmitButtonPress()">
+              mat-raised-button color="primary" (click)="saveSubmitButtonPress()">
         {{isFormCompleted() ? 'Submit' : 'Save'}}</button>
     </div>
   </mat-card-actions>

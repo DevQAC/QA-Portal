@@ -10,6 +10,8 @@ public class TrainerCourseHistoryDto {
 
     private List<CohortCourseDto> previousCohortCourses;
 
+    private List<CohortCourseDto> cohortCourseHistory;
+
     private String averageKnowledgeRating;
 
     private String averageTqiRating;
@@ -44,5 +46,13 @@ public class TrainerCourseHistoryDto {
 
     public void setAverageTqiRating(String averageTqiRating) {
         this.averageTqiRating = averageTqiRating;
+    }
+
+    public List<CohortCourseDto> getCohortCourseHistory() {
+        return cohortCourseHistory;
+    }
+
+    public void setCohortCourseHistory(List<CohortCourseDto> cohortCourseHistory) {
+        this.cohortCourseHistory = cohortCourseHistory;
     }
 }

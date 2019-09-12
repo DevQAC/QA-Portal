@@ -41,14 +41,16 @@ export class CvWorkExpComponent {
     const lastExp = this.experiences[this.experiences.length - 1];
 
     if (!lastExp || lastExp.jobTitle || lastExp.end || lastExp.start || lastExp.workExperienceDetails) {
+      const newExperience = {
+        jobTitle: '',
+        start: '',
+        end: '',
+        workExperienceDetails: '',
+        workExperienceFeedback: []
+      };
       this.experiences = [
-        ...this.experiences, {
-          jobTitle: '',
-          start: '',
-          end: '',
-          workExperienceDetails: '',
-          workExperienceFeedback: []
-        }];
+        ...this.experiences, newExperience];
+      this.expandedElement = newExperience;
       this.experiencesChange.emit(this.experiences);
     }
   }

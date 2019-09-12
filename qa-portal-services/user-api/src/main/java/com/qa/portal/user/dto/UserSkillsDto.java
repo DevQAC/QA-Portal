@@ -4,6 +4,7 @@ import com.qa.portal.common.dto.TechnologyDto;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class UserSkillsDto {
 
@@ -13,7 +14,7 @@ public class UserSkillsDto {
 
     private String userLastName;
 
-    private Map<String, List<TechnologyDto>> skills;
+    private Map<String, Set<TechnologyDto>> skills;
 
     public String getUserName() {
         return userName;
@@ -39,11 +40,11 @@ public class UserSkillsDto {
         this.userLastName = userLastName;
     }
 
-    public Map<String, List<TechnologyDto>> getSkills() {
+    public Map<String, Set<TechnologyDto>> getSkills() {
         return skills;
     }
 
-    public void setSkills(Map<String, List<TechnologyDto>> skills) {
+    public void setSkills(Map<String, Set<TechnologyDto>> skills) {
         this.skills = skills;
     }
 }
