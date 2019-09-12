@@ -3,6 +3,7 @@ package com.qa.portal.cv.services;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.cv.domain.CvVersion;
+import com.qa.portal.cv.domain.validator.CvVersionValidator;
 import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +18,15 @@ public class CreateCvOperation {
 
 	private CvVersionRepository repo;
 
-	public CreateCvOperation(CvVersionRepository repo) {
-		super();
+	private CvVersionValidator cvVersionValidator;
+
+	public CreateCvOperation(CvVersionRepository repo, CvVersionValidator cvVersionValidator) {
 		this.repo = repo;
+		this.cvVersionValidator = cvVersionValidator;
 	}
 
 	public CvVersion createCv(CvVersion newCv, QaSecurityContext qaSecurityContext) {
+		cvVersionValidator.validateCvVersion(newCv);
 		newCv.setUserName(qaSecurityContext.getUserName());
 		newCv.setFirstName(qaSecurityContext.getFirstName());
 		newCv.setSurname(qaSecurityContext.getSurname());

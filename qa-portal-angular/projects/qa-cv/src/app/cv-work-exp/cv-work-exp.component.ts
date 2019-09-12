@@ -79,12 +79,12 @@ export class CvWorkExpComponent {
   public getFormattedDateRange({ start, end }: IWorkExperience): string {
     const dateFormat = 'MMM GGGG';
     const startMom = moment(start);
-    const endMom = moment(end);
+    const endMom = !!end ? moment(end) : null;
 
-    if (startMom.isValid() || endMom.isValid()) {
+    if (startMom.isValid() || (!!endMom && endMom.isValid())) {
       const formattedStart = startMom.format(dateFormat);
-      const formattedEnd = endMom.format(dateFormat);
-      return `${startMom.isValid() && formattedStart} - ${endMom.isValid() && formattedEnd}`;
+      const formattedEnd = !!endMom ? endMom.format(dateFormat) : 'Present';
+      return formattedStart + ' - ' + formattedEnd;
     } else {
       return '';
     }
