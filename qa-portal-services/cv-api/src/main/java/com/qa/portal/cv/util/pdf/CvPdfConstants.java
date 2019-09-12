@@ -18,7 +18,7 @@ public class CvPdfConstants {
 
     public static final String SECTION_HEADER_WORK_EXPERIENCE = "WORK EXPERIENCE";
 
-    public static final String CONSULTANT_HEADER = "{color:#89898b}Consultant Profile";
+    public static final String CONSULTANT_HEADER = "{color:#89898b}";
 
     public static final String QUALIFICATION_HEADER = "*Qualifications*\n";
 

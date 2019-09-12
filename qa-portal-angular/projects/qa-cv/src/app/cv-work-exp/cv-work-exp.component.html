@@ -66,8 +66,10 @@
           <mat-form-field class="description-field" appearance="outline">
             <mat-label>Description</mat-label>
             <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"
-                      cdkAutosizeMaxRows="20" [ngModel]="element.workExperienceDetails"
+                      cdkAutosizeMaxRows="5" [ngModel]="element.workExperienceDetails"
                       (ngModelChange)="element.workExperienceDetails = $event; announceChange();"
+                      maxlength="400"
+                      placeholder="Details of work experience up to maximum of 400 characters"
                       [readonly]="isDisabled()"></textarea>
           </mat-form-field>
         </div>
@@ -78,7 +80,10 @@
   <!-- FOOTER COLUMN -->
   <ng-container matColumnDef="addNew">
     <td mat-footer-cell *matFooterCellDef colspan="100%">
-      <button mat-button color="primary" class="w-100" (click)="onNewWorkExperienceClick()" [disabled]="isDisabled()">
+      <button mat-button color="primary" class="w-100"
+              matTooltip="Maximum of 3 work experiences"
+              (click)="onNewWorkExperienceClick()"
+              [disabled]="isDisabled() || workExperienceTableDataSource.data.length === 3">
         <mat-icon>add</mat-icon>
         Add work experience
       </button>

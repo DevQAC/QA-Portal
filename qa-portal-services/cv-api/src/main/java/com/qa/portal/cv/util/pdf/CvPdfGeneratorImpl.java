@@ -4,6 +4,7 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.exception.QaPortalSevereException;
 import com.qa.portal.cv.domain.CvVersion;
 import com.qa.portal.cv.domain.Qualification;
+import com.qa.portal.cv.domain.WorkExperience;
 import org.apache.fontbox.ttf.TTFParser;
 import org.apache.fontbox.ttf.TrueTypeFont;
 import org.apache.pdfbox.pdmodel.font.PDFont;
@@ -25,9 +26,14 @@ import javax.annotation.PostConstruct;
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 import java.util.function.Function;
 
 import static com.qa.portal.cv.util.pdf.CvPdfConstants.*;
@@ -39,6 +45,8 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
     private Map<String, Function<CvVersion, List<String>>> skillsMap;
 
+    private DateTimeFormatter dateTimeFormatter;
+
     private TrueTypeFont montserratTTF;
 
     private TrueTypeFont montserratBoldTTF;
@@ -49,6 +57,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     public void init() {
         createSkillsMap();
         createFonts();
+        createDateFormatter();
     }
 
 	@Override
@@ -80,7 +89,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         document.add(generateConsultantNameBox(cvVersion, kranaFatB));
         document.add(generateSkillsBox(cvVersion, montserrat, montserratBold));
         document.add(generateQualificationsBox(cvVersion, montserrat, montserratBold));
-        document.add(generateMainHeader(montserrat, montserratBold));
+        document.add(generateMainHeader(cvVersion, montserrat, montserratBold));
         document.add(generateMainBody(cvVersion, montserrat, montserratBold, kranaFatB));
         document.add(generateMainFooter(montserrat, montserratBold));
         document.add(divider(Dividers.Y_POSITION_TOP.value));
@@ -160,12 +169,12 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         return frame;
     }
 
-    private Frame generateMainHeader(PDFont montserrat, PDFont montserratBold) throws IOException {
+    private Frame generateMainHeader(CvVersion cvVersion, PDFont montserrat, PDFont montserratBold) throws IOException {
         CvPdfElement header = getCvPdfElement(MainHeader.WIDTH.value, MainHeader.HEIGHT.value,
                 MainHeader.X_POSITION.value, MainHeader.Y_POSITION.value);
         Paragraph paragraph = header.getParagraph();
         Frame frame = header.getFrame();
-        paragraph.addMarkup(CONSULTANT_HEADER, 8.8f, montserrat, montserratBold, montserrat,
+        paragraph.addMarkup(CONSULTANT_HEADER + cvVersion.getFirstName() + " " + cvVersion.getSurname(), 8.8f, montserrat, montserratBold, montserrat,
                 montserrat);
         ImageElement logo = loadImages(Images.LOGO.filePath, Images.LOGO.resizeFactor);
         logo.setAbsolutePosition(
@@ -189,7 +198,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         for (int i = 0; i < cvVersion.getAllWorkExperience().size(); i++) {
             paragraph.addMarkup(
                     "{color:" + ColourScheme.QA_BLUE.value + "}*"
-                            + cvVersion.getAllWorkExperience().get(i).getJobTitle() + "*\n",
+                            + getWorkExperenceJobHeader(cvVersion.getAllWorkExperience().get(i)) + "*\n",
                     FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
             paragraph.addMarkup("\n", FontSize.BODY_SUBTITLE_CONTENT_SPACING.value, montserrat, montserratBold,
                     montserrat, montserrat);
@@ -267,6 +276,10 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         }
     }
 
+    private void createDateFormatter() {
+        dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY.MM");
+    }
+
     private CvPdfElement getCvPdfElement(Float width, Float height, Float xPos, Float yPos) {
         try {
             return new CvPdfElement(width, height, xPos, yPos);
@@ -274,5 +287,20 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             LOGGER.error("Error generating CV " + e.getMessage(), e);
             throw new QaPortalBusinessException("Error generating PDF file for CV");
         }
+    }
+
+    private String getWorkExperenceJobHeader(WorkExperience workExperience) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(formatDateToMMYY(workExperience.getStart()));
+        sb.append(" - ");
+        sb.append((workExperience.getEnd() == null || workExperience.getEnd().trim().length() == 0) ? "Present" : formatDateToMMYY(workExperience.getEnd()));
+        sb.append(" : ");
+        sb.append(workExperience.getJobTitle());
+        return sb.toString();
+    }
+
+    private String formatDateToMMYY(String dateString) {
+        Instant dateTime = Instant.parse(dateString);
+        return dateTime.atZone(ZoneId.systemDefault()).toLocalDate().format(dateTimeFormatter);
     }
 }
