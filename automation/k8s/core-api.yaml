@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:      
+  name: core-api
+  labels: 
+    app: core-api
+spec:
+  selector:
+    matchLabels:
+      app: core-api
+  template:
+    metadata:
+      labels:
+        app: core-api
+    spec:
+      containers:
+      - name: core-api
+        image: bobcrutchley/core-api:latest
+        ports:
+        - containerPort: 8080
+        env:
+          - name: POSTGRES_HOST
+            value: postgres-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: core-api
+spec:
+  selector:
+    app: core-api
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: NodePort

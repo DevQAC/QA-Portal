@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: keycloak
+  labels: 
+    app: keycloak
+spec:
+  containers:
+    - name: keycloak
+      image: jboss/keycloak:latest
+      ports:
+        - containerPort: 8443
+      env: 
+        - name: PROXY_ADDRESS_FORWARDING
+          value: "true"
+        - name: DB_VENDOR
+          value: postgres
+        - name: DB_DATABASE
+          value: qa-portal
+        - name: DB_ADDR
+          value: postgres-db
+        # The PostgreSQL user
+        - name: DB_USER
+          value: postgres
+        # The PostgreSQL user's password
+        - name: DB_PASSWORD
+          value: postgres
+        # The Keycloak user, which will be used for the Keycloak "Admin Console"
+        - name: KEYCLOAK_USER
+          value: admin
+        - name: KEYCLOAK_IMPORT
+          value: /tmp/realm.json
+        # The Keycloak user's password
+        - name: KEYCLOAK_PASSWORD
+          value: admin
+      volumeMounts:
+        - name: portal-realm
+          mountPath: /tmp/
+  volumes:
+    - name: portal-realm
+      configMap:
+        name: portal-realm
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+  annotations:
+    cloud.google.com/app-protocols: '{"my-https-port":"HTTPS"}'
+spec:
+  selector:
+    app: keycloak
+  ports:
+  - protocol: TCP
+    name: my-https-port
+    port: 8443
+    targetPort: 8443
+  type: NodePort

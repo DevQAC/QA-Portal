@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: default
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: default
+    networking.gke.io/managed-certificates: default  
+    kubernetes.io/ingress.allow-http: "false"
+spec:
+  rules:
+    - host: portal.qa-portal.co.uk
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: portal-core
+              servicePort: 80
+          - path: /*
+            backend:
+              serviceName: portal-core
+              servicePort: 80
+          - path: /auth
+            backend:
+              serviceName: keycloak
+              servicePort: 8443
+          - path: /auth/*
+            backend:
+              serviceName: keycloak
+              servicePort: 8443
+          - path: /core-api
+            backend:
+              serviceName: core-api
+              servicePort: 8080
+          - path: /user-api
+            backend:
+              serviceName: user-api
+              servicePort: 8080
+          - path: /self-reflection-api
+            backend:
+              serviceName: self-reflection-api
+              servicePort: 8080

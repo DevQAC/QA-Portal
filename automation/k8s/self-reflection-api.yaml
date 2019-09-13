@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:      
+  name: self-reflection-api
+  labels: 
+    app: self-reflection-api
+spec:
+  selector:
+    matchLabels:
+      app: self-reflection-api
+  template:
+    metadata:
+      labels:
+        app: self-reflection-api
+    spec:
+      containers:
+      - name: self-reflection-api
+        image: bobcrutchley/self-reflection-api:latest
+        ports:
+        - containerPort: 8080
+        env:
+          - name: POSTGRES_HOST
+            value: postgres-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: self-reflection-api
+spec:
+  selector:
+    app: self-reflection-api
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: NodePort

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:      
+  name: course-api
+  labels: 
+    app: course-api
+spec:
+  selector:
+    matchLabels:
+      app: course-api
+  template:
+    metadata:
+      labels:
+        app: course-api
+    spec:
+      containers:
+      - name: course-api
+        image: bobcrutchley/course-api:latest
+        ports:
+        - containerPort: 8080
+        env:
+          - name: POSTGRES_HOST
+            value: postgres-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: course-api
+spec:
+  selector:
+    app: course-api
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: NodePort

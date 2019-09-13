@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:      
+  name: question-api
+  labels: 
+    app: question-api
+spec:
+  selector:
+    matchLabels:
+      app: question-api
+  template:
+    metadata:
+      labels:
+        app: question-api
+    spec:
+      containers:
+      - name: question-api
+        image: bobcrutchley/question-api:latest
+        ports:
+        - containerPort: 8080
+        env:
+          - name: POSTGRES_HOST
+            value: postgres-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: question-api
+spec:
+  selector:
+    app: question-api
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: NodePort

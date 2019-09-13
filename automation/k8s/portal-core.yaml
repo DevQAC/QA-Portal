@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:      
+  name: portal-core
+  labels: 
+    app: portal-core
+spec:
+  selector:
+    matchLabels:
+      app: portal-core
+  template:
+    metadata:
+      labels:
+        app: portal-core
+    spec:
+      containers:
+      - name: portal-core
+        image: bobcrutchley/portal-core:latest
+        ports:
+        - containerPort: 80
+        env:
+          - name: POSTGRES_HOST
+            value: postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portal-core
+spec:
+  selector:
+    app: portal-core
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: NodePort

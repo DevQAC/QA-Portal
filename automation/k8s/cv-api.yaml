@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:      
+  name: cv-api
+  labels: 
+    app: cv-api
+spec:
+  selector:
+    matchLabels:
+      app: cv-api
+  template:
+    metadata:
+      labels:
+        app: cv-api
+    spec:
+      containers:
+      - name: cv-api
+        image: bobcrutchley/cv-api:latest
+        ports:
+        - containerPort: 8080
+        env:
+          - name: POSTGRES_HOST
+            value: postgres-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cv-api
+spec:
+  selector:
+    app: cv-api
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: NodePort
