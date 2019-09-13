@@ -1,5 +1,6 @@
 table.mat-table.qa-table {
 
+    
     tr.mat-row {
         &.selectable {
             cursor: pointer;
@@ -26,6 +27,8 @@ table.mat-table.qa-table {
             width: 40px; // Width of a standard icon button
         }
     }
+}
 
-
+.qa-table-card {
+    padding: 0 !important;
 }

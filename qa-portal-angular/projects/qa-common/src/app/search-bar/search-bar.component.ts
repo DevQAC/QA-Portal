@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { SearchBarBackdropComponent } from '../search-bar-backdrop/search-bar-backdrop.component';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-search-bar',
@@ -14,7 +15,7 @@ export class SearchBarComponent implements OnInit {
   @Input() backdropRef: SearchBarBackdropComponent;
 
   /** Should the filter panel be accessable? Defaults to true. */
-  @Input() public showFilterPanel = true;
+  @Input() public hasFilterPanel = true;
 
   /** Search input field placeholder text. */
   @Input() public placeholder = 'Search';
@@ -72,9 +73,13 @@ export class SearchBarComponent implements OnInit {
   }
   public set filterOpen(open: boolean) {
     this._filterOpen = open;
-    this.backdropRef.show = open;
+    if (this.backdropRef) {
+      this.backdropRef.show = open;
+    }
     this.filterOpenChange.emit(open);
   }
+
+  constructor(private overlay: Overlay) { }
 
 
   ngOnInit() {

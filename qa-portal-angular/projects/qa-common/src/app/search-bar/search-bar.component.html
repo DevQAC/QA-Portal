@@ -9,7 +9,7 @@
 
     <input [(ngModel)]="value" class="search-input" [placeholder]="placeholder"
       (keydown.enter)="announceSearch()" autofocus>
-    <button mat-icon-button (click)="filterOpen = !filterOpen" matTooltip="Filters" *ngIf="showFilterPanel"
+    <button mat-icon-button (click)="filterOpen = !filterOpen" matTooltip="Filters" *ngIf="hasFilterPanel"
       aria-label="Toggle the filter panel">
       <mat-icon>
         {{filterOpen ? 'keyboard_arrow_up' : 'filter_list'}}</mat-icon>

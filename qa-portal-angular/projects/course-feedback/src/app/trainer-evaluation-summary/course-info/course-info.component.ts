@@ -10,6 +10,7 @@ export class CourseInfoComponent implements OnInit {
   @Input() location;
   @Input() startDate;
   @Input() duration;
+  @Input() courseId;
 
   constructor() { }
 

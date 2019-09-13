@@ -6,4 +6,5 @@ export interface IUserModel {
     lastName: string;
     roles: string[];
     cohorts: string[];
+    password?: string;
 }
