@@ -1,32 +1,32 @@
 <div class="side-menu-panel" style="width: 300px; overflow-x: hidden;">
-  <div class="section" *ngIf="!(departmentApplications$ | async)?.applications">
+  <div class="section" *ngIf="!(portalApplicationProjectsObservable$ | async)?.portalProjects">
     <div class="section-title light">
       No menu items found
     </div>
   </div>
 
-  <div class="section" *ngFor="let application of (departmentApplications$ | async)?.applications">
+  <div class="section" *ngFor="let portalProject of (portalApplicationProjectsObservable$ | async)?.portalProjects">
     <div class="section-title">
-      {{ application.name }}
+      {{ portalProject.name }}
     </div>
 
     <div class="section-body">
-      <div *ngFor="let menuItem of application.menuItems">
-        <div *ngIf="menuItem.displayOnMenu">
-          <button mat-button [routerLink]="menuItem.url"
+      <div *ngFor="let projectPage of portalProject.projectPages">
+        <div *ngIf="projectPage.displayOnMenu">
+          <button mat-button [routerLink]="projectPage.url"
                   routerLinkActive="mat-accent"
                   [routerLinkActiveOptions]="{exact: true}" class="menu-item"
-                  [matTooltip]="!sideMenuService.sideMenuOpen ? menuItem.name : ''"
+                  [matTooltip]="!sideMenuService.sideMenuOpen ? projectPage.name : ''"
                   matTooltipPosition="after"
                   matTooltipClass="menu-item-tooltip">
 
             <div class="menu-item-content">
               <div class="menu-item-icon">
-                <mat-icon>{{menuItem.icon || 'bookmark'}}</mat-icon>
+                <mat-icon>{{projectPage.icon || 'bookmark'}}</mat-icon>
               </div>
               <div style="width: 100%; text-overflow:ellipsis; overflow: hidden; text-align: left; margin: auto 0;">
             <span>
-              {{menuItem.name}}
+              {{projectPage.name}}
             </span>
               </div>
             </div>

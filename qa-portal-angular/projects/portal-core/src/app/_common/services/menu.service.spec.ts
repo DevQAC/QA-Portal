@@ -2,7 +2,7 @@ import {MenuService} from './menu.service';
 import {HttpClient} from '@angular/common/http';
 import {TestBed} from '@angular/core/testing';
 import {of} from 'rxjs';
-import {DepartmentApplications} from '../models/department-applications';
+import {PortalApplicationProjectsModel} from '../models/portal-application-projects.model';
 
 describe('Menu Service tests', () => {
   let menuService: MenuService;
@@ -42,10 +42,10 @@ describe('Menu Service tests', () => {
     expect(responseDeptApps.length).toBe(3);
   });
 
-  function getMockMenuArray(numItems: number): DepartmentApplications[] {
+  function getMockMenuArray(numItems: number): PortalApplicationProjectsModel[] {
     const deptApps = [];
     for (let i = 0; i < numItems; i++) {
-      deptApps.push(new DepartmentApplications());
+      deptApps.push(new PortalApplicationProjectsModel());
     }
     return deptApps;
   }

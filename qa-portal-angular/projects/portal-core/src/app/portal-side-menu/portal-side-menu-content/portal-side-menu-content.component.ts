@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ApplicationSelectionService } from '../../_common/services/application-selection.service';
 import { Subscription, Observable } from 'rxjs';
-import { Application } from '../../_common/models/application';
-import { DepartmentApplications } from '../../_common/models/department-applications';
+import { PortalProjectModel } from '../../_common/models/portal-project.model';
+import { PortalApplicationProjectsModel } from '../../_common/models/portal-application-projects.model';
 import { SideMenuService } from '../../_common/services/side-menu.service';
 
 @Component({
@@ -12,11 +12,11 @@ import { SideMenuService } from '../../_common/services/side-menu.service';
 })
 export class PortalSideMenuContentComponent implements OnInit, OnDestroy {
 
-  private applicationSelectionSubscription: Subscription;
+  private projectSelectionSubscription: Subscription;
 
-  public departmentApplications$: Observable<DepartmentApplications>;
+  public portalApplicationProjectsObservable$: Observable<PortalApplicationProjectsModel>;
 
-  selectedApplication: Application = new Application();
+  selectedProject: PortalProjectModel = new PortalProjectModel();
 
   @Output() openedDrawerEmmiter = new EventEmitter();
 
@@ -27,18 +27,17 @@ export class PortalSideMenuContentComponent implements OnInit, OnDestroy {
     public sideMenuService: SideMenuService) { }
 
   ngOnInit() {
-    this.applicationSelectionSubscription
-      = this.applicationSelectionService.getSelectedApplication$()
-        .subscribe(app => {
-          this.selectedApplication = app;
+    this.projectSelectionSubscription
+      = this.applicationSelectionService.getSelectedProject$()
+        .subscribe(proj => {
+          this.selectedProject = proj;
+          console.log('Side menu subscription project has following number of pages ' + this.selectedProject.projectPages.length);
         });
-
-    this.departmentApplications$ = this.applicationSelectionService.getSelectedDepartment$();
-
+    this.portalApplicationProjectsObservable$ = this.applicationSelectionService.getSelectedApplication$();
   }
 
   ngOnDestroy(): void {
-    this.applicationSelectionSubscription.unsubscribe();
+    this.projectSelectionSubscription.unsubscribe();
   }
 
   toggleDrawer() {
@@ -48,6 +47,6 @@ export class PortalSideMenuContentComponent implements OnInit, OnDestroy {
 
   errorApp(): boolean {
     // TODO - remove hard coding
-    return this.selectedApplication.url === '/qa/portal/error';
+    return this.selectedProject.url === '/qa/portal/error';
   }
 }

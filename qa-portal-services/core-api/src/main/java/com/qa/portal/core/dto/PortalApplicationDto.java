@@ -1,28 +1,18 @@
-package com.qa.portal.core.persistence.entity;
+package com.qa.portal.core.dto;
 
-import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(schema = "training", name = "department")
-public class DepartmentEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "department_sequence")
-    @SequenceGenerator(name = "department_sequence",
-            sequenceName = "training.department_sequence",
-            allocationSize = 1)
+public class PortalApplicationDto {
+
     private Integer id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
     private String description;
 
-    @Column(name = "display_order")
     private Integer displayOrder;
 
+    private String baseUrl;
 
     public Integer getId() {
         return id;
@@ -56,29 +46,39 @@ public class DepartmentEntity {
         this.displayOrder = displayOrder;
     }
 
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DepartmentEntity that = (DepartmentEntity) o;
+        PortalApplicationDto that = (PortalApplicationDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(displayOrder, that.displayOrder);
+                Objects.equals(displayOrder, that.displayOrder) &&
+                Objects.equals(baseUrl, that.baseUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, displayOrder);
+        return Objects.hash(id, name, description, displayOrder, baseUrl);
     }
 
     @Override
     public String toString() {
-        return "DepartmentEntity{" +
+        return "PortalApplicationDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", displayOrder=" + displayOrder +
+                ", baseUrl='" + baseUrl + '\'' +
                 '}';
     }
 }

@@ -1,30 +1,30 @@
 import {Injectable} from '@angular/core';
-import {Application} from '../models/application';
+import {PortalProjectModel} from '../models/portal-project.model';
 import {Observable, Subject} from 'rxjs';
-import { DepartmentApplications } from '../models/department-applications';
+import { PortalApplicationProjectsModel } from '../models/portal-application-projects.model';
 
 @Injectable()
 export class ApplicationSelectionService {
 
-  private selectedApplication: Subject<Application> = new Subject();
-  private selectedDepartment: Subject<DepartmentApplications> = new Subject();
+  private selectedProject: Subject<PortalProjectModel> = new Subject();
+  private selectedApplication: Subject<PortalApplicationProjectsModel> = new Subject();
 
   constructor() {
   }
 
-  public getSelectedApplication$(): Observable<Application> {
+  public getSelectedProject$(): Observable<PortalProjectModel> {
+    return this.selectedProject.asObservable();
+  }
+
+  public setSelectedProject(app: PortalProjectModel) {
+    this.selectedProject.next(app);
+  }
+
+  public getSelectedApplication$(): Observable<PortalApplicationProjectsModel> {
     return this.selectedApplication.asObservable();
   }
 
-  public setSelectedApplication(app: Application) {
-    this.selectedApplication.next(app);
-  }
-
-  public getSelectedDepartment$(): Observable<DepartmentApplications> {
-    return this.selectedDepartment.asObservable();
-  }
-
-  public setSelectedDepartment(dep: DepartmentApplications) {
-    this.selectedDepartment.next(dep);
+  public setSelectedApplication(dep: PortalApplicationProjectsModel) {
+    this.selectedApplication.next(dep);
   }
 }

@@ -8,7 +8,7 @@ import { TRAINEE_ROLE, TRAINING_ADMIN_ROLE } from '../../../portal-core/src/app/
 
 const routes: Routes = [
   {
-    path: 'trainee/current',
+    path: 'cv/trainee/current',
     component: ViewCvComponent,
     canActivate: [AppAuthGuard],
     data: {
@@ -18,7 +18,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'admin/view/:id',
+    path: 'cv/admin/view/:id',
     component: ViewCvComponent,
     canActivate: [AppAuthGuard],
     data: {
@@ -28,7 +28,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'admin/search',
+    path: 'cv/admin/search',
     component: CvSearchComponent,
     canActivate: [AppAuthGuard],
     data: {
@@ -38,7 +38,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'admin/view/:id',
+    path: 'cv/admin/view/:id',
     component: ViewCvComponent,
     canActivate: [AppAuthGuard],
     data: {
