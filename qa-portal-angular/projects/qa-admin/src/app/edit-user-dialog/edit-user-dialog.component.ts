@@ -11,6 +11,7 @@ export class EditUserDialogComponent implements OnInit {
   @Output() public dataChanged = new EventEmitter();
   private oldData: IUserModel;
   public canSubmit: boolean;
+  public passwordEditEnabled: boolean;
 
   constructor(public dialogRef: MatDialogRef<EditUserDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IUserModel) { }
 
