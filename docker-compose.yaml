@@ -46,18 +46,16 @@ services:
       context: ./qa-portal-services
       args:
         - PROJECT=core-api
-        - PORT=8081
     environment:
       - POSTGRES_HOST=postgres
     depends_on:
       - postgres
-  self-reflection:
-    image: self-reflection:latest
+  self-reflection-api:
+    image: self-reflection-api:latest
     build: 
       context: ./qa-portal-services
       args:
         - PROJECT=self-reflection
-        - PORT=8082
     environment:
       - POSTGRES_HOST=postgres
     depends_on:
@@ -68,7 +66,6 @@ services:
       context: ./qa-portal-services
       args:
         - PROJECT=user-api
-        - PORT=8084
     environment:
       - POSTGRES_HOST=postgres
     depends_on:
