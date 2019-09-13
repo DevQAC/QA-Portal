@@ -10,8 +10,7 @@ import javax.annotation.PostConstruct;
 
 import java.util.Objects;
 
-import static com.qa.portal.common.util.OneDriveConstants.MAX_CONNECTIONS_PER_ROUTE;
-import static com.qa.portal.common.util.OneDriveConstants.MAX_CONNECTIONS_TOTAL;
+import static com.qa.portal.common.util.OneDriveConstants.*;
 
 @Component
 public class OneDriveConnectionManager {
@@ -26,10 +25,12 @@ public class OneDriveConnectionManager {
 
     @PostConstruct
     public void init() {
-        PoolingHttpClientConnectionManager poolingConnManager = new PoolingHttpClientConnectionManager();
-        poolingConnManager.setMaxTotal(Integer.parseInt(Objects.requireNonNull(environment.getProperty(MAX_CONNECTIONS_TOTAL))));
-        poolingConnManager.setDefaultMaxPerRoute(Integer.parseInt(environment.getProperty(MAX_CONNECTIONS_PER_ROUTE)));
-        httpClient = HttpClients.custom().setConnectionManager(poolingConnManager).build();
+        if (ONE_DRIVE_ACTIVE_TRUE_VALUE.equals(environment.getProperty(ONE_DRIVE_ACTIVE_FLAG))) {
+            PoolingHttpClientConnectionManager poolingConnManager = new PoolingHttpClientConnectionManager();
+            poolingConnManager.setMaxTotal(Integer.parseInt(Objects.requireNonNull(environment.getProperty(MAX_CONNECTIONS_TOTAL))));
+            poolingConnManager.setDefaultMaxPerRoute(Integer.parseInt(environment.getProperty(MAX_CONNECTIONS_PER_ROUTE)));
+            httpClient = HttpClients.custom().setConnectionManager(poolingConnManager).build();
+        }
     }
 
     public CloseableHttpClient getHttpClient() {

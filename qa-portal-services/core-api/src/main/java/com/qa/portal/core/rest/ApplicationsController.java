@@ -2,14 +2,13 @@ package com.qa.portal.core.rest;
 
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.core.dto.DepartmentApplicationsDto;
+import com.qa.portal.common.email.QaEmailClient;
 import com.qa.portal.core.service.ApplicationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +25,9 @@ public class ApplicationsController {
     private QaSecurityContext securityContext;
 
     @Autowired
-    public ApplicationsController(ApplicationService applicationService, QaSecurityContext securityContext) {
+    public ApplicationsController(ApplicationService applicationService,
+                                  QaSecurityContext securityContext,
+                                  QaEmailClient qaEmailClient) {
         this.applicationService = applicationService;
         this.securityContext = securityContext;
     }

@@ -28,7 +28,8 @@ public class ApplicationService {
     private DepartmentRoleRepository departmentRoleRepository;
 
     @Autowired
-    public ApplicationService(ApplicationServiceMapper applicationServiceMapper, DepartmentRoleRepository departmentRoleRepository) {
+    public ApplicationService(ApplicationServiceMapper applicationServiceMapper,
+                              DepartmentRoleRepository departmentRoleRepository) {
         this.applicationServiceMapper = applicationServiceMapper;
         this.departmentRoleRepository = departmentRoleRepository;
     }
@@ -44,9 +45,5 @@ public class ApplicationService {
                 .filter(dr -> userRoles.contains(dr.getDepartmentRoleName()) || userRoles.contains(SUPER_USER_ROLE))
                 .flatMap(dr -> dr.getDeptRoleApplications().stream())
                 .collect(Collectors.toSet());
-    }
-
-    private void filterMenuItemsByRole() {
-
     }
 }
