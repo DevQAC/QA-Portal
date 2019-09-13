@@ -1,0 +1,15 @@
+<div class="qa-app-title">
+  Trainer - Course Evaluation Summary
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <app-course-info [courseName]="courseName" [location]="location" [startDate]="startDate"
+                     [duration]="duration"></app-course-info>
+  </mat-card-content>
+
+  <mat-card-content>
+    <app-table-component [dataSource]="dataSource" [average]="courseHistoryTqi" [tqi]="tqi"></app-table-component>
+  </mat-card-content>
+</mat-card>
+

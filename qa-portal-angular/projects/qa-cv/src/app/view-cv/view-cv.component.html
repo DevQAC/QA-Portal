@@ -1,0 +1,106 @@
+<div class="qa-app-title">
+  Trainee - Maintain CV
+</div>
+
+<div style="display: flex; justify-content: center;">
+  <mat-spinner [diameter]="70" *ngIf="loadingData"></mat-spinner>
+</div>
+
+<div *ngIf="!loadingData">
+  <div
+    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-size: 18px;">
+    <div style="color: #004050">{{cvData?.fullName}}</div>
+    <div style="margin-left: auto; color: #004050"><b>CV Status:</b> {{cvData?.status}}</div>
+  </div>
+
+  <div class="cv-content-wrapper" (onSubmit)="onCvSubmitForReview($event)">
+    <section>
+      <app-cv-card-base cardTitle="Personal Profile" [canComment]="canComment"
+        [feedback]="cvData?.profile?.profileFeedback">
+        <app-cv-profile [profile]="cvData?.profile" (profileChange)="cvData.profile = $event" [canEdit]="canEdit">
+        </app-cv-profile>
+      </app-cv-card-base>
+    </section>
+
+    <section>
+      <app-cv-card-base cardTitle="Hobbies and Interests" [canComment]="canComment"
+        [feedback]="cvData?.hobbies?.hobbiesFeedback">
+        <app-cv-hobbies [hobbies]="cvData?.hobbies" (hobbiesChange)="cvData.hobbies = $event" [canEdit]="canEdit">
+        </app-cv-hobbies>
+      </app-cv-card-base>
+    </section>
+
+    <section>
+      <app-cv-card-base #qualCard [feedback]="qualificationFeedback" [canComment]="canComment"
+        (feedbackChange)="onQualificationFeedbackChange($event)" [showOpenButton]="false" cardTitle="Qualifications">
+        <app-cv-qualis [qualifications]="cvData?.allQualifications"
+          (qualificationsChange)="cvData.allQualifications = $event"
+          (feedbackClick)="onQualificationFeedbackClick($event, qualCard)" [canEdit]="canEdit">
+        </app-cv-qualis>
+      </app-cv-card-base>
+    </section>
+
+    <section>
+      <app-cv-card-base #expCard [feedback]="workExperienceFeedback" [canComment]="canComment"
+        (feedbackChange)="onWorkExperienceFeedbackChange($event)" [showOpenButton]="false" cardTitle="Work Experience">
+        <app-cv-work-exp [experiences]="cvData?.allWorkExperience" 
+          (experiencesChange)="cvData.allWorkExperience = $event"
+          (feedbackClick)="onWorkExperienceFeedbackClick($event, expCard)" [canEdit]="canEdit">
+        </app-cv-work-exp>
+      </app-cv-card-base>
+    </section>
+
+    <section>
+      <app-cv-card-base [showOpenButton]="false" cardTitle="Skills">
+        <app-cv-skills [skills]="cvData?.allSkills[0]" (skillsChange)="cvData.allSkills[0] = $event"
+          [canEdit]="canEdit">
+        </app-cv-skills>
+      </app-cv-card-base>
+    </section>
+
+
+    <div class="button-row">
+      <div *ngIf="isTraineeView"
+        style="width: 50%; display:flex; flex-direction: row; justify-content: left; align-items: center">
+        <button *ngIf="!canComment && cvData.status !== 'Approved'" mat-flat-button color="primary" (click)="onCvSave()"
+          title="Save all Changes" [disabled]="!cvData || cvData.status==='For Review'">Save
+        </button>
+        <div *ngIf="!canComment" style="margin-right: 20px"></div>
+        <button *ngIf="!canComment && allDetailsEntered() && cvData.status !== 'Approved'" mat-flat-button
+          color="primary" (click)="openDialog()" title="Submit for Review"
+          [disabled]="!cvData || cvData.status==='For Review'">Submit
+        </button>
+
+
+        <button *ngIf="cvData.status === 'Approved' && isTraineeView" mat-flat-button color="primary"
+          (click)="onInitialiseNewCv()" title="Create New Cv">
+          New CV
+        </button>
+        <mat-checkbox *ngIf="cvData.status === 'Approved' && isTraineeView" style="margin-left: 15px;"
+          aria-label="Use current CV as template" label="Use current CV as template" labelPosition="after"
+          color="primary" [ngModel]="useExistingCvAsTemplate" [value]="useExistingCvAsTemplate"
+          (change)="onUseExistingCvAsTemplateChanged()">Use current CV as template
+        </mat-checkbox>
+      </div>
+
+      <div *ngIf="!isTraineeView"
+        style="width: 50%; display:flex; flex-direction: row; justify-content: left; align-items: center">
+        <button *ngIf="canComment && cvData.status !== 'Approved'" mat-flat-button color="primary"
+          (click)="onCvApproved()" title="Approve Cv"
+          [disabled]="!cvData || cvData.status==='In Progress' || cvData.status === 'Failed Review' || !cvData.status">
+          Approve
+        </button>
+        <div *ngIf="canComment" style="margin-right: 20px"></div>
+        <button *ngIf="canComment  && cvData.status !== 'Approved'" mat-flat-button color="primary"
+          (click)="onCvFailedReview()" title="Fail Cv"
+          [disabled]="!cvData || cvData.status==='In Progress' || !cvData.status || cvData.status === 'Failed Review'">
+          Fail
+        </button>
+      </div>
+
+      <button style="margin-left: auto;" mat-flat-button color="primary" (click)="onDisplayPdf()" title="Open PDF"
+        [disabled]="!cvData || !allDetailsEntered()">View PDF
+      </button>
+    </div>
+  </div>
+</div>

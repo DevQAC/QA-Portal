@@ -1,0 +1,108 @@
+table {
+    width: 100%;
+}
+
+li {
+  display:inline;
+  margin-right: 1rem;
+}
+
+mat-cell{
+    font-size: 20px;
+}
+
+mat-cell.cdk-column-date{
+    position: relative;
+    left: 60%;
+    top:-32px;
+}
+
+.mat-row{
+  position: relative;
+}
+
+.mat-row-link{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.data-row:hover{
+  filter: brightness(95%);
+  cursor: pointer;
+}
+
+
+
+html,
+body {
+  font-size: 12px;
+} */
+/* .searchBox{
+  align-items: center;
+} */
+.example-header {
+  display: block;
+  font-family: sans-serif;
+  align-items: center;
+  border: 1px solid #ccc;
+  margin: 10px auto;
+  
+}
+input {
+  border: 1px solid #ccc;
+  font-size: 12px;
+  height: 30px;
+  padding: 4px 8px;
+  position: relative;
+  width: 100%;
+  align-items: center;
+  box-sizing: border-box;
+}
+input:focus {
+  outline: none;
+}
+
+button {
+  text-align: center;
+}
+button:focus {
+  outline: none;
+}
+button.btn-search, button.btn-reset {
+  border: none;
+  height: 30px;
+  font-size: 12px;
+  padding: 4px;
+  position: relative;
+  width: 30px;
+}
+
+
+.filterBox {
+  
+  display: flex;
+  
+}
+
+mat-select{
+  margin-right: 8px;
+}
+/* 
+::ng-deep .mat-select-content{
+  display: contents;  
+} */
+
+.searchBoxWrapper {
+  display: flex;
+}
+.searchBox {
+  display: flex;
+  margin: 0 auto;
+
+  width: 60%;
+  max-width: 500px;
+}
+

@@ -1,0 +1,85 @@
+server:
+  port: 8087
+  servlet:
+    context-path: /cv-api
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+#     !IMPORTANT - don't leave this empty for final build.
+#     username: MongoDB
+#     password:
+      database: qa-portal-cv
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qa-portal
+    username: postgres
+    password: postgres
+
+  jpa:
+    properties:
+      jdbc:
+        lob:
+          non_contextual_creation=true:logging: true
+
+  level:
+    org.springframework.web: DEBUG
+
+cv:
+  workexperience:
+    entries:
+      max: 3
+    detail:
+      max: 400
+
+  qualification:
+    entries:
+      max: 3
+    detail:
+      max: 80
+
+  profile:
+    detail:
+      max: 1800
+
+  hobbies:
+    detail:
+      max: 750
+
+qa:
+  keycloak:
+    config:
+      file: keycloak.json
+
+onedrive:
+  isActive: true
+  baseFolder: root/CVs
+  clientId: 08478ba0-3a48-4179-9622-9b2d420a0846
+  clientSecret: d48AYcXReGDfD8rNwkVu=BaD9Fh+ju./
+  url: https://graph.microsoft.com/v1.0/me/drive/
+
+---
+spring:
+  profiles: test
+
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:database_user;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: none
+        dialect: org.hibernate.dialect.H2Dialect
+
+
+  level:
+    org.springframework.web: DEBUG
+    com.qa.portal: DEBUG

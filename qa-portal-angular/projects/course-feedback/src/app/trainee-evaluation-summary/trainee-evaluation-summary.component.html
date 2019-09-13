@@ -1,0 +1,61 @@
+<div class="qa-app-title">
+  Trainee - Evaluation Summary
+</div>
+
+<div style="display: flex; justify-content: center">
+  <mat-spinner [diameter]="70" *ngIf="dataLoading"></mat-spinner>
+</div>
+
+<mat-card *ngIf="!dataLoading">
+<!--  <mat-card-title>-->
+<!--    Course Evaluation Summary-->
+<!--  </mat-card-title>-->
+
+  <mat-card-subtitle>
+    Trainee Courses
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <div style="display: flex; justify-content: center">
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Course Column -->
+        <ng-container matColumnDef="course">
+          <th mat-header-cell *matHeaderCellDef> Course</th>
+          <td mat-cell *matCellDef="let element"> {{element.cohortCourse.course.courseName}} </td>
+        </ng-container>
+
+        <!-- Start Column -->
+        <ng-container matColumnDef="start">
+          <th mat-header-cell *matHeaderCellDef> Start</th>
+          <td mat-cell *matCellDef="let element"> {{element.cohortCourse.startDate}} </td>
+        </ng-container>
+
+        <!-- End Column -->
+        <ng-container matColumnDef="end">
+          <th mat-header-cell *matHeaderCellDef> End</th>
+          <td mat-cell *matCellDef="let element"> {{element.cohortCourse.endDate}} </td>
+        </ng-container>
+
+        <!-- Course-ID Column -->
+        <ng-container matColumnDef="courseid">
+          <th mat-header-cell *matHeaderCellDef> Course-ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.cohortCourse.course.courseCode}} </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status</th>
+          <td mat-cell *matCellDef="let element"> {{element.evaluationStatus}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;"
+            [routerLink]="getEvaluationUrl(row.cohortCourse.id)">
+      </table>
+    </div>
+  </mat-card-content>
+
+</mat-card>
+

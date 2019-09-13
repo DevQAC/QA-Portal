@@ -1,14 +1,18 @@
 package com.qa.portal.common.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class QaCohortDto extends QaBaseDto {
+
     private Integer id;
 
     private String name;
 
     private LocalDate startDate;
+
+    private List<CohortCourseDto> cohortCourses;
 
     public Integer getId() {
         return id;
@@ -32,6 +36,14 @@ public class QaCohortDto extends QaBaseDto {
 
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
+    }
+
+    public List<CohortCourseDto> getCohortCourses() {
+        return cohortCourses;
+    }
+
+    public void setCohortCourses(List<CohortCourseDto> cohortCourses) {
+        this.cohortCourses = cohortCourses;
     }
 
     @Override

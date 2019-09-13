@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -48,7 +46,7 @@ public class GetSelfReflectionsForUserOperation {
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
 		return reflectionRepository.findByResponderId(trainee.getId())
 				.stream()
-				.map(reflectionMapper::mapToReflectionDto)
+				.map(r -> reflectionMapper.mapToReflectionDto(r))
 				.sorted(reflectionComparator)
 				.collect(Collectors.toList());
 	}

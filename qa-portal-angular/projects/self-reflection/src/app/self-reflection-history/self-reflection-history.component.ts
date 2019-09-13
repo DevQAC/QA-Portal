@@ -34,20 +34,18 @@ export class SelfReflectionHistoryComponent implements OnInit, OnDestroy {
     this.reflectionSubscription = this.reflectionHistoryService.getTraineeReflections().subscribe(
       (response) => {
         response.forEach((selfReflection) => {
-          if (selfReflection.status === 'Saved') {
+          if (selfReflection.status !== 'Reviewed') {
             this.currentForm = [];
             this.currentForm.push(selfReflection);
           } else {
             this.historyViewModel.selfReflections.push(selfReflection);
           }
         });
-        this.loadingData = false;
         this.dataSource = new MatTableDataSource<SelfReflectionFormModel>(this.historyViewModel.selfReflections);
         this.dataSource.paginator = this.paginator;
         this.currentFormDateSource = new MatTableDataSource<SelfReflectionFormModel>(this.currentForm);
         this.currentFormDateSource.paginator = this.paginator;
         this.loadingData = false;
-        console.log(this.historyViewModel.selfReflections);
       },
       (error) => {
         this.loadingData = false;

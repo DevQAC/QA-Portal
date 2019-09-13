@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+}
+
+mat-icon {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+li {
+  display:inline;
+  margin-right: 1rem;
+}

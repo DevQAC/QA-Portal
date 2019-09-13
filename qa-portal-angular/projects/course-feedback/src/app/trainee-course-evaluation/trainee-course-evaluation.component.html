@@ -1,0 +1,18 @@
+<div class="qa-app-title">
+  Trainee - Course Evaluation
+</div>
+
+<div style="display: flex; justify-content: center; margin-top: 20px">
+  <mat-spinner [diameter]="70" *ngIf="!dataLoaded"></mat-spinner>
+</div>
+
+<div *ngIf="!!dataLoaded">
+  <app-qa-form [model]="viewModel">
+  </app-qa-form>
+
+  <div *ngIf="viewModel.status !== 'Submitted'" style="display: flex; justify-content: center">
+    <button mat-raised-button color="primary" (click)="onSubmit()">
+      {{ formCompleted() ? 'Submit' : 'Save' }}
+    </button>
+  </div>
+</div>

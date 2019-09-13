@@ -1,0 +1,12 @@
+<mat-card [attr.name]="'category_' + categoryResponse?.id || 'UNKNOWN'" class="form-category-card">
+    <div class="form-category-header">{{categoryResponse.questionCategory.categoryName}}</div>
+    <app-control-factory *ngFor="let question of categoryResponse.questionCategory.questions; let i = index; trackBy: trackQuestion"
+                         [question]="question"
+                         [type]="categoryResponse.questionCategory.selectionType"
+                         [isDisabled]="isDisabled"
+                         [displayDirection]="categoryResponse.questionCategory.displayDirection"
+                         [questionResponse]="categoryResponse.questionResponses[i]"
+                         (questionResponseChange)="onQuestionResponseChange($event, i)">
+    </app-control-factory>
+    <ng-content></ng-content>
+</mat-card>

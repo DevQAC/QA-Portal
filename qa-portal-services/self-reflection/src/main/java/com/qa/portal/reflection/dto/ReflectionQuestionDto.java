@@ -1,6 +1,7 @@
 package com.qa.portal.reflection.dto;
 
 import com.qa.portal.common.dto.QaBaseDto;
+import com.qa.portal.common.dto.QuestionDto;
 
 import java.util.Objects;
 
@@ -17,7 +18,6 @@ public class ReflectionQuestionDto extends QaBaseDto {
 	private Integer response;
 
 	private Integer trainerResponse;
-
 
 	public Integer getId() {
 		return id;
@@ -73,7 +73,6 @@ public class ReflectionQuestionDto extends QaBaseDto {
         if (o == null || getClass() != o.getClass()) return false;
         ReflectionQuestionDto that = (ReflectionQuestionDto) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(reflection, that.reflection) &&
                 Objects.equals(question, that.question) &&
                 Objects.equals(response, that.response) &&
                 Objects.equals(trainerResponse, that.trainerResponse);

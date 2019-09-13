@@ -42,5 +42,4 @@ public class CohortService {
         return mapper.mapObject(this.repo.findByName(name)
                 .orElseThrow(() -> new QaResourceNotFoundException("Cohort with that name does not exist")), QaCohortDto.class);
     }
-
 }

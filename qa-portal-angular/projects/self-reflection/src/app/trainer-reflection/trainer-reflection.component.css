@@ -74,8 +74,8 @@
   /*font-weight: normal;*/
   /*color: grey;*/
   text-align: center;
-  background-color: lightgray;
-  color: #0060B9;
+  background-color: #eeeeee;
+  color: #004050;
 }
 
 .status {
@@ -107,8 +107,8 @@
 
 .grid-footer,
 ::ng-deep .grid-footer>.paginator .mat-paginator {
-  background-color: #eee;
-  border-top: #eee;
+  background-color: #eeeeee;
+  border-top: #eeeeee;
 }
 
 ::ng-deep .grid-footer>.paginator .mat-paginator-container {
@@ -135,13 +135,14 @@
 }
 
 .trainer-textareas .heading {
-  background-color: lightgrey;
+  background-color: #eeeeee;
   font-size: 16px;
 }
 
 .grid-wrapper {
   margin-bottom: 3em;
-  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+  /* box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12); */
+  border: 1px solid lightgray;
 }
 
 .grid-container {
@@ -151,7 +152,7 @@
 .grid-container .header-container {
   display: flex;
   justify-content: center;
-  background-color: #eee;
+  background-color: lightgray;
   padding-top: .5em;
   padding-bottom: .5em;
   color: black;
@@ -183,7 +184,7 @@
 }
 
 .author-container {
-  background-color: #eee;
+  background-color: lightgray;
 }
 
 .author {
@@ -193,9 +194,10 @@
 .response {
   display: inline-block;
   text-align: center;
-  height: 100%;
-  /* border: 1px solid #eee; */
-  border: none;
+  /*height: 100%;*/
+  border: 1px solid #eee;
+  height: 61px;
+  /*border: none;*/
 }
 
 .response:hover,
@@ -204,14 +206,18 @@ input.response:disabled {
 }
 
 input.response:disabled {
-  background-color: #eee;
-  border-bottom: 1px solid #eee;
+  background-color: #eeeeee;
+  border-bottom: 1px solid #eeeeee;
 }
 
 input[type=number].response::-webkit-inner-spin-button,
 input[type=number].response::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 input.response:focus {
@@ -222,7 +228,20 @@ input.response:focus {
 .grid-container .question,
 .grid-container .author-container {
   /* .grid-container .response-container { */
-  border: 1px solid #eee;
+  border-right: 1px solid lightgray;
+}
+
+.response-container {
+  flex-direction: column;
+}
+
+/*
+.grid:first-child .question:first-child {
+  border: transparent;
+} */
+
+.grid:last-child .question:last-child {
+  border: transparent;
 }
 
 .grid-wrapper {
@@ -242,11 +261,10 @@ input.response:focus {
   width: 100px;
   color: #bbb;
   font-size: 15px;
-
 }
 
 .reflection-dates {
-  left: -100px;
+  right: -120px;
 }
 
 .trainer-names {

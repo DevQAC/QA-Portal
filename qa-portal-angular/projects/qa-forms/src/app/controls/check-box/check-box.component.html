@@ -1,0 +1,29 @@
+<div style="display: flex; flex-direction: column; margin-top: 10px">
+
+  <div style="display: flex; flex-direction: row">
+    <div class="qa-checkbox-grp-label" style="width: 65%;">
+      {{question.body}}
+    </div>
+
+    <div style="width: 5%"></div>
+
+    <div style="display: flex; width:35%">
+      <div style="display: flex; flex-direction: column;">
+        <mat-checkbox #matCheckBox class="checkbox-response" *ngFor="let option of question.selectionOptionsList"
+                      [value]="option" [disabled]="isDisabled"
+                      [checked]="matchesValue(option, questionResponse.responseValues)"
+                      (change)="setCheckResponse($event)" style="padding-right : 10px;">{{option}}</mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; margin-top: 10px; margin-bottom: 10px;" *ngIf="question.hasComment">
+    <div class="checkbox-filler"></div>
+    <textarea class="checkbox-response" matInput
+              [disabled]="isDisabled"
+              [ngModel]="questionResponse?.comment?.content"
+              (ngModelChange)="setComment($event)"
+              placeholder="{{question.commentLabel}}"></textarea>
+    <div class="checkbox-filler"></div>
+  </div>
+</div>

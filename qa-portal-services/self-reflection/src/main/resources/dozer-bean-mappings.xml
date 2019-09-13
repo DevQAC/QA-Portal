@@ -14,6 +14,11 @@
                 <class-a>java.time.LocalDate</class-a>
                 <class-b>java.sql.Date</class-b>
             </converter>
+
+            <converter type="com.qa.portal.common.util.mapper.converters.StringListConverter">
+                <class-a>java.lang.String</class-a>
+                <class-b>java.util.List</class-b>
+            </converter>
         </custom-converters>
     </configuration>
 
@@ -23,13 +28,26 @@
     </mapping>
 
     <mapping>
-        <class-a>com.qa.portal.reflection.dto.QuestionDto</class-a>
-        <class-b>com.qa.portal.reflection.persistence.entity.QuestionEntity</class-b>
+        <class-a>com.qa.portal.common.dto.QuestionDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.QuestionEntity</class-b>
     </mapping>
 
     <mapping>
         <class-a>com.qa.portal.common.dto.QaCohortDto</class-a>
         <class-b>com.qa.portal.common.persistence.entity.QaCohortEntity</class-b>
+    </mapping>
+
+    <mapping>
+        <class-a>com.qa.portal.common.dto.CohortCourseDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.CohortCourseEntity</class-b>
+        <field-exclude>
+            <a>cohort</a>
+            <b>cohort</b>
+        </field-exclude>
+        <field-exclude>
+            <a>trainer</a>
+            <b>trainer</b>
+        </field-exclude>
     </mapping>
 
     <mapping>

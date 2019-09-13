@@ -37,9 +37,8 @@ export class CohortTraineesComponent implements OnInit, OnDestroy {
 
   updateTraineesTable(row) {
     this.cohortSelected = row.name;
-    this.subscriptionTrainees = this.cohortTraineesService.getTrainees(row.id).subscribe(
+    this.subscriptionTrainees = this.cohortTraineesService.getTraineesForReview(row.id).subscribe(
       (data) => {
-        console.log('In update trainees table');
         this.dataSourceTrainees = new MatTableDataSource<TraineeModel>(data);
         this.subscriptionTrainees.unsubscribe();
       }

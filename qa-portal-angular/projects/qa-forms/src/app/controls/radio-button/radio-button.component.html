@@ -1,0 +1,53 @@
+<div style="display: flex; flex-direction: column; margin-top: 10px;">
+  <div *ngIf="displayDirection === 'VERTICAL'" class="vertical-radio-btn">
+    <div class="qa-radio-btn-grp-label" style="width: 65%;">
+      {{question.body}}
+    </div>
+
+    <div style="width:5%">
+    </div>
+
+    <mat-radio-group class="qa-radio-btn-grp" style="width: 35%;">
+      <div class="qa-radio-btn-layout-vertical">
+        <mat-radio-button #matRadioButton color="primary" class="qa-response-button"
+                          *ngFor="let options of question.selectionOptionsList"
+                          (change)="setRadioResponse(matRadioButton.value)"
+                          [disabled]="isDisabled"
+                          [checked]="matchesValue(options)"
+                          [value]="options">{{options}}</mat-radio-button>
+      </div>
+    </mat-radio-group>
+    <div style="width:10%">
+    </div>
+  </div>
+
+  <div *ngIf="displayDirection === 'HORIZONTAL'" class="horizontal-radio-button">
+    <div class="qa-radio-btn-grp-label">
+      {{question.body}}
+    </div>
+
+    <mat-radio-group class="qa-radio-btn-grp">
+      <div class="qa-radio-btn-layout-horizontal">
+        <mat-radio-button #matRadioButton color="primary" class="qa-response-button"
+                          *ngFor="let options of question.selectionOptionsList"
+                          (change)="setRadioResponse(matRadioButton.value)"
+                          [disabled]="isDisabled"
+                          [checked]="matchesValue(options)"
+                          [value]="options">{{options}}</mat-radio-button>
+      </div>
+    </mat-radio-group>
+  </div>
+
+  <div></div>
+
+  <div style="display: flex; flex-direction: row; margin-bottom: 10px; margin-top: 10px;" *ngIf="question.hasComment">
+    <div class="qa-radiobutton-filler"></div>
+    <textarea matInput class="qa-radiobutton-comment"
+              [disabled]="isDisabled"
+              [ngModel]="questionResponse?.comment?.content"
+              (ngModelChange)="setComment($event)"
+              placeholder="{{question.commentLabel}}"></textarea>
+    <div class="qa-radiobutton-filler"></div>
+  </div>
+</div>
+

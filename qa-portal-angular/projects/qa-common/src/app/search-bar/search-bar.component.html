@@ -1,0 +1,29 @@
+<div class="search-bar" [class.expanded]="filterOpen">
+  <mat-card class="search-box">
+    <button mat-icon-button (click)="announceSearch()" matTooltip="Search"
+      aria-label="Search CVs">
+      <mat-icon>
+        search
+      </mat-icon>
+    </button>
+
+    <input [(ngModel)]="value" class="search-input" [placeholder]="placeholder"
+      (keydown.enter)="announceSearch()" autofocus>
+    <button mat-icon-button (click)="filterOpen = !filterOpen" matTooltip="Filters" *ngIf="hasFilterPanel"
+      aria-label="Toggle the filter panel">
+      <mat-icon>
+        {{filterOpen ? 'keyboard_arrow_up' : 'filter_list'}}</mat-icon>
+    </button>
+  </mat-card>
+  <mat-card class="filter-panel">
+    <div class="filter-panel-content">
+      <div class="filter-body">
+        <ng-content></ng-content>
+      </div>
+      <div class="filter-actions">
+        <button mat-button (click)="announceFilterReset();">Reset</button>
+        <button mat-flat-button color="primary" (click)="announceFilterApply()">Apply</button>
+      </div>
+    </div>
+  </mat-card>
+</div>

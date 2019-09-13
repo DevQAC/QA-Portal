@@ -1,0 +1,60 @@
+<mat-card class="card-base mat-elevation-z2">
+  <mat-drawer-container class="card-base-content-container" autosize>
+    <mat-drawer #drawer class="card-base-drawer" mode="side" position="end">
+      <div class="card-base-drawer-content">
+        <div class="top">
+          <div class="drawer-title">
+            <h4>
+              Comments
+            </h4>
+          </div>
+          <button mat-icon-button (click)="drawer.close()" title="Hide comments">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+        <div #commentContainer class="middle" data-simplebar>
+          <div class="comment-bubble" *ngFor="let comment of feedback">
+
+            <div class="comment-body">
+              {{comment.comment}}
+            </div>
+            <div class="comment-details mat-caption">
+              <div class="reviewer">
+                {{comment.reviewer}}
+              </div>
+              <div class="date" [title]="getFullDate(comment.date)">
+                {{getFormattedDate(comment.date)}}
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="!feedback || feedback.length == 0" class="no-comments-text">
+            No comments yet
+          </div>
+        </div>
+
+        <div class="bottom" *ngIf="canComment">
+          <form class="comment-form" (ngSubmit)="addFeedbackItem()">
+            <mat-form-field class="comment-form-field" class="comment-field"
+                            [hideRequiredMarker]="options.value.hideRequired" floatLabel="never">
+              <input [formControl]="commentInput" type="text" matInput placeholder="Write a comment" autocomplete="off">
+              <mat-icon matSuffix (click)="addFeedbackItem()">send
+              </mat-icon>
+            </mat-form-field>
+          </form>
+        </div>
+      </div>
+    </mat-drawer>
+    <mat-card-header>
+        <mat-card-title>{{cardTitle || ''}}</mat-card-title>
+        <button mat-icon-button *ngIf="showOpenButton && !drawer.opened" (click)="drawer.open()" title="Show comments">
+          <mat-icon>feedback</mat-icon>
+        </button>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="card-base-content-wrapper">
+        <ng-content></ng-content>
+      </div>
+    </mat-card-content>
+  </mat-drawer-container>
+</mat-card>

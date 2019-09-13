@@ -1,0 +1,120 @@
+app-cv-search {
+
+    >.mat-card {
+        margin-bottom: 1rem;
+    }
+
+    .search-results-card {
+
+
+        padding: 0px;
+        
+        .mat-table {
+            width: 100%;
+
+            tr.data-row {
+                cursor: pointer;
+            }
+            tr.data-row:hover {
+                background: map-get($map: $mat-light-theme-background, $key: 'hover');
+            }
+        }
+
+        .spinner-container {
+            display: flex;
+
+            .mat-spinner {
+                margin: 1rem auto;
+            }
+        }
+    }
+
+    .page-backdrop {
+        height: 100%;
+        width: 100%;
+        background: #333333b0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        opacity: 0;
+
+        pointer-events: none;
+
+        transition: 0.1s all ease-in-out;
+
+        &.visible {
+            opacity: 1;
+            z-index: 99;
+            pointer-events: all;
+
+        }
+    }
+
+    .search {
+        position: relative;
+        margin-bottom: 1rem;
+        transition: all 0.1s ease-in-out;
+
+        &.expanded {
+
+            .search-box {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                z-index: 101;
+                background: $light-bg-darker-10;
+            }
+
+            .filter-panel {
+                z-index: 100;
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+
+        .search-box {
+            // border: 1px gray solid;
+            // border-radius: 5px;
+            display: flex;
+            // background: lightgray;
+            padding: 0;
+            // background: white;
+        }
+
+        .filter-panel {
+            opacity: 0;
+            pointer-events: none;
+
+            background: white;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+
+            position: absolute;
+            width: 100%;
+            padding: 0px;
+
+            .filter-panel-content {
+                padding: 16px;
+                display: flex;
+                flex-direction: column;
+
+                >* {
+                    margin: 0.5rem 0;
+                }
+
+                .filter-actions {
+                    display: flex;
+
+                    >* {
+                        margin-left: 1rem;
+                    }
+
+                    >*:first-of-type {
+                        margin-left: auto;
+                    }
+                }
+            }
+
+        }
+    }
+}

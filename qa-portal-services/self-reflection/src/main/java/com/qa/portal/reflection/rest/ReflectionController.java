@@ -1,5 +1,6 @@
 package com.qa.portal.reflection.rest;
 
+import com.qa.portal.common.dto.QaUserDto;
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.reflection.dto.CohortSummaryDto;
 import com.qa.portal.reflection.dto.ReflectionDto;
@@ -18,11 +19,11 @@ import java.util.Set;
 @RequestMapping("/reflection")
 public class ReflectionController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(ReflectionController.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(ReflectionController.class);
 
-    private ReflectionService service;
+	private ReflectionService service;
 
-    private QaSecurityContext context;
+	private QaSecurityContext context;
 
 	@Autowired
 	public ReflectionController(ReflectionService service, QaSecurityContext context) {
@@ -80,4 +81,8 @@ public class ReflectionController {
 		return ResponseEntity.ok(this.service.updateSelfReflection(reflection, context.getUserName()));
 	}
 
+    @GetMapping("/cohort/trainees/review/{id}")
+    public ResponseEntity<List<QaUserDto>> getTraineesToReviewForCohort(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(this.service.getTraineesToReviewForCohort(id));
+    }
 }

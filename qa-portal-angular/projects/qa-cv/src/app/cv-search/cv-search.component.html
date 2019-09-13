@@ -1,0 +1,82 @@
+<div class="qa-app-title">
+  Administrator - CV Search
+</div>
+
+<app-search-bar  placeholder="Search by name" [backdropRef]="backdrop" (search)="performSearch()" [(value)]="inputName"
+  (filterApply)="performSearch()" (filterReset)="onClearButtonClicked()">
+  <mat-form-field appearance="outline">
+    <mat-label>Cohort</mat-label>
+    <mat-select [(ngModel)]="selectedCohort" placeholder="Filter by Cohort">
+      <mat-option [value]="null">All</mat-option>
+      <mat-option *ngFor="let cohort of filterOptions?.cohort" [value]="cohort">
+        {{cohort}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Technology</mat-label>
+    <mat-select [(ngModel)]="selectedTech" placeholder="Filter by Technology">
+      <mat-option [value]="null">All</mat-option>
+      <mat-option *ngFor="let tech of filterOptions?.technology" [value]="tech">
+        {{tech}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="selectedStatus" placeholder="Filter by Status">
+      <mat-option [value]="null">All</mat-option>
+      <mat-option *ngFor="let stat of filterOptions?.cvStatus" [value]="stat">
+        {{stat}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</app-search-bar>
+
+<mat-card class="search-results-card" *ngIf="!isLoading">
+  <mat-card-content>
+    <div>
+      <table mat-table [dataSource]="searchResultsDataSource">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.fullName || '-'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cohort">
+          <th mat-header-cell *matHeaderCellDef>Cohort</th>
+          <td mat-cell *matCellDef="let element">{{element.cohort || '-'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status</th>
+          <td mat-cell *matCellDef="let element"> {{element.status || '-'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="clients">
+          <th mat-header-cell *matHeaderCellDef> Clients</th>
+          <td mat-cell *matCellDef="let element"> {{element.clients || '-'}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onResultRowClicked(row)">
+        </tr>
+      </table>
+      <div class="spinner-container">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+      </div>
+    </div>
+  </mat-card-content>
+  <!-- 
+  <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator> -->
+</mat-card>
+
+<!-- <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator> -->
+<!-- 
+<div class="page-backdrop" [class.visible]="filterExpanded" (click)="filterExpanded = false;">
+</div> -->
+<app-search-bar-backdrop #backdrop></app-search-bar-backdrop>

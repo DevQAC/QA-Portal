@@ -1,0 +1,16 @@
+.cv-content-wrapper {
+    >section {
+        margin-bottom: 1rem;
+    }
+
+    >section:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.button-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
