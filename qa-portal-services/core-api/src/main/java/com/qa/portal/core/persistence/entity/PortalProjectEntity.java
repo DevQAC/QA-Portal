@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(schema = "training", name = "application")
-public class ApplicationEntity {
+@Table(schema = "training", name = "portal_project")
+public class PortalProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "application_sequence")
@@ -18,11 +18,8 @@ public class ApplicationEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "url")
-    private String url;
-
-    @OneToMany(mappedBy = "application")
-    private List<MenuItemEntity> menuItems;
+    @OneToMany(mappedBy = "portalProject")
+    private List<ProjectPageEntity> projectPages;
 
     public Integer getId() {
         return id;
@@ -40,36 +37,27 @@ public class ApplicationEntity {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public List<ProjectPageEntity> getProjectPages() {
+        return projectPages;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public List<MenuItemEntity> getMenuItems() {
-        return menuItems;
-    }
-
-    public void setMenuItems(List<MenuItemEntity> menuItems) {
-        this.menuItems = menuItems;
+    public void setProjectPages(List<ProjectPageEntity> projectPages) {
+        this.projectPages = projectPages;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ApplicationEntity that = (ApplicationEntity) o;
+        PortalProjectEntity that = (PortalProjectEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(url, that.url) &&
-                Objects.equals(menuItems, that.menuItems);
+                Objects.equals(projectPages, that.projectPages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, url, menuItems);
+        return Objects.hash(id, name, projectPages);
     }
 
     @Override
@@ -77,8 +65,7 @@ public class ApplicationEntity {
         return "ApplicationEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", menuItems=" + menuItems +
+                ", menuItems=" + projectPages +
                 '}';
     }
 }

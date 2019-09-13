@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(schema = "training", name = "app_menu_item")
-public class MenuItemEntity {
+@Table(schema = "training", name = "project_page")
+public class ProjectPageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "app_menu_item_sequence")
@@ -24,12 +24,15 @@ public class MenuItemEntity {
     @Column(name = "tooltip")
     private String tooltip;
 
-    @ManyToOne
-    @JoinColumn(name = "app_id")
-    private ApplicationEntity application;
+    @Column(name = "icon")
+    private String icon;
 
-    @OneToMany(mappedBy = "menuItem")
-    private List<DeptRoleMenuItem> deptRoleMenuItems;
+    @ManyToOne
+    @JoinColumn(name = "portal_project_id")
+    private PortalProjectEntity portalProject;
+
+    @OneToMany(mappedBy = "projectPage")
+    private List<RoleProjectPageEntity> roleProjectPageEntities;
 
     @Column(name = "display_on_menu")
     private Boolean displayOnMenu;
@@ -67,20 +70,20 @@ public class MenuItemEntity {
         this.tooltip = tooltip;
     }
 
-    public ApplicationEntity getApplication() {
-        return application;
+    public PortalProjectEntity getPortalProject() {
+        return portalProject;
     }
 
-    public void setApplication(ApplicationEntity application) {
-        this.application = application;
+    public void setPortalProject(PortalProjectEntity portalProject) {
+        this.portalProject = portalProject;
     }
 
-    public List<DeptRoleMenuItem> getDeptRoleMenuItems() {
-        return deptRoleMenuItems;
+    public List<RoleProjectPageEntity> getRoleProjectPageEntities() {
+        return roleProjectPageEntities;
     }
 
-    public void setDeptRoleMenuItems(List<DeptRoleMenuItem> deptRoleMenuItems) {
-        this.deptRoleMenuItems = deptRoleMenuItems;
+    public void setRoleProjectPageEntities(List<RoleProjectPageEntity> roleProjectPageEntities) {
+        this.roleProjectPageEntities = roleProjectPageEntities;
     }
 
     public Boolean getDisplayOnMenu() {
@@ -91,35 +94,45 @@ public class MenuItemEntity {
         this.displayOnMenu = displayOnMenu;
     }
 
-    @Override
-    public String toString() {
-        return "MenuItemEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", tooltip='" + tooltip + '\'' +
-                ", application=" + application +
-                ", deptRoleMenuItems=" + deptRoleMenuItems +
-                ", displayOnMenu=" + displayOnMenu +
-                '}';
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MenuItemEntity that = (MenuItemEntity) o;
+        ProjectPageEntity that = (ProjectPageEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(url, that.url) &&
                 Objects.equals(tooltip, that.tooltip) &&
-                Objects.equals(application, that.application) &&
-                Objects.equals(deptRoleMenuItems, that.deptRoleMenuItems) &&
+                Objects.equals(icon, that.icon) &&
+                Objects.equals(portalProject, that.portalProject) &&
+                Objects.equals(roleProjectPageEntities, that.roleProjectPageEntities) &&
                 Objects.equals(displayOnMenu, that.displayOnMenu);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, url, tooltip, application, deptRoleMenuItems, displayOnMenu);
+        return Objects.hash(id, name, url, tooltip, icon, portalProject, roleProjectPageEntities, displayOnMenu);
+    }
+
+    @Override
+    public String toString() {
+        return "ProjectPageEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", tooltip='" + tooltip + '\'' +
+                ", icon='" + icon + '\'' +
+                ", portalProject=" + portalProject +
+                ", deptRoleMenuItems=" + roleProjectPageEntities +
+                ", displayOnMenu=" + displayOnMenu +
+                '}';
     }
 }

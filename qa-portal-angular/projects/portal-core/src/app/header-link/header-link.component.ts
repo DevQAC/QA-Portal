@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { DepartmentApplications } from '../_common/models/department-applications';
+import {Component, Input, OnInit} from '@angular/core';
+import { PortalApplicationProjectsModel } from '../_common/models/portal-application-projects.model';
 
 @Component({
   selector: 'app-header-link',
@@ -7,5 +7,9 @@ import { DepartmentApplications } from '../_common/models/department-application
   styleUrls: ['./header-link.component.css']
 })
 export class HeaderLinkComponent {
-  @Input() department: DepartmentApplications;
+  @Input() portalApplicationProjects: PortalApplicationProjectsModel;
+
+  getFirstUrl() {
+    return this.portalApplicationProjects.portalProjects[0].projectPages.find((pp) => pp.displayOnMenu).url;
+  }
 }
