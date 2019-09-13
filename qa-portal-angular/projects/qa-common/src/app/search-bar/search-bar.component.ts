@@ -13,14 +13,17 @@ export class SearchBarComponent implements OnInit {
    */
   @Input() backdropRef: SearchBarBackdropComponent;
 
-  /* search input field placeholder text. */
+  /** Should the filter panel be accessable? Defaults to true. */
+  @Input() public showFilterPanel = true;
+
+  /** Search input field placeholder text. */
   @Input() public placeholder = 'Search';
 
-  /* Internal value for the search input. use value get/set. */
+  /** Internal value for the search input. use value get/set. */
   // tslint:disable-next-line: variable-name
   private _value = '';
 
-  /* Current value of the search input. */
+  /** Current value of the search input. */
   @Input() public get value(): string {
     return this._value;
   }
@@ -59,10 +62,7 @@ export class SearchBarComponent implements OnInit {
    */
   @Output() public filterReset = new EventEmitter<string>();
 
-  
-  /**
-   * Internal value for filterOpen. Use filterOpen!
-   */
+  /** Internal value for filterOpen. Use filterOpen! */
   // tslint:disable-next-line: variable-name
   private _filterOpen = false;
 
