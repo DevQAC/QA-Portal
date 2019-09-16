@@ -69,7 +69,7 @@ export class CvSearchComponent implements OnInit {
   }
 
   onResultRowClicked(row: CVSearchModel): void {
-    this.router.navigate(['qa', 'portal', 'cv', 'admin', 'view', row.id]);
+    this.router.navigate(['qa', 'portal', 'training', 'cv', 'admin', 'view', row.id]);
   }
 
   onClearButtonClicked() {

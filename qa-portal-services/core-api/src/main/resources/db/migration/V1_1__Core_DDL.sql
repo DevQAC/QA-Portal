@@ -2,6 +2,16 @@ drop table if exists training.dept_role_menu_item CASCADE;
 
 drop table if exists training.dept_role_application CASCADE;
 
+drop table if exists training.portal_application CASCADE;
+
+drop table if exists training.portal_project CASCADE;
+
+drop table if exists training.project_page CASCADE;
+
+drop table if exists training.role_project_page CASCADE;
+
+drop table if exists training.role_menu_item CASCADE;
+
 drop table if exists training.dept_role CASCADE;
 
 drop table if exists training.app_menu_item CASCADE;

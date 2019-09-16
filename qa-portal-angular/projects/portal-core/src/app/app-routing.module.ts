@@ -10,7 +10,7 @@ import {QaAdminSharedModule} from '../../../qa-admin/src/app/app.module';
 const routes: Routes = [
   // Add routes for new application here
   {
-    path: 'qa/portal',
+    path: 'qa/portal/training',
     loadChildren: () => CourseFeedbackSharedModule
   },
   {
@@ -18,7 +18,7 @@ const routes: Routes = [
     loadChildren: () => SelfReflectionSharedModule
   },
   {
-    path: 'qa/portal/cv',
+    path: 'qa/portal/training',
     loadChildren: () => QaCvSharedModule
   },
   {

@@ -1,8 +1,9 @@
 package com.qa.portal.core.dto;
 
+import java.util.List;
 import java.util.Objects;
 
-public class MenuItemDto {
+public class PortalProjectDto {
 
     private Integer id;
 
@@ -10,11 +11,7 @@ public class MenuItemDto {
 
     private String url;
 
-    private String tooltip;
-
-    private Integer level;
-
-    private Boolean displayOnMenu;
+    private List<ProjectPageDto> projectPages;
 
     public Integer getId() {
         return id;
@@ -40,45 +37,27 @@ public class MenuItemDto {
         this.url = url;
     }
 
-    public String getTooltip() {
-        return tooltip;
+    public List<ProjectPageDto> getProjectPages() {
+        return projectPages;
     }
 
-    public void setTooltip(String tooltip) {
-        this.tooltip = tooltip;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Boolean getDisplayOnMenu() {
-        return displayOnMenu;
-    }
-
-    public void setDisplayOnMenu(Boolean displayOnMenu) {
-        this.displayOnMenu = displayOnMenu;
+    public void setProjectPages(List<ProjectPageDto> projectPages) {
+        this.projectPages = projectPages;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MenuItemDto that = (MenuItemDto) o;
+        PortalProjectDto that = (PortalProjectDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(url, that.url) &&
-                Objects.equals(tooltip, that.tooltip) &&
-                Objects.equals(level, that.level) &&
-                Objects.equals(displayOnMenu, that.displayOnMenu);
+                Objects.equals(projectPages, that.projectPages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, url, tooltip, level, displayOnMenu);
+        return Objects.hash(id, name, url, projectPages);
     }
 }
