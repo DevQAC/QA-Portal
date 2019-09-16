@@ -33,5 +33,10 @@
     "target": "http://localhost:8087",
     "secure": false,
     "logLevel": "debug"
+  },
+  "/admin-api": {
+    "target": "http://localhost:8088",
+    "secure": false,
+    "logLevel": "debug"
   }
 }
