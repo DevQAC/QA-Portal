@@ -7,22 +7,22 @@ import { IRowClickEvent } from './models/row-click-event';
   selector: 'app-data-table',
   templateUrl: './data-table.component.html'
 })
-export class DataTableComponent implements AfterContentInit {
-  @ViewChild('table', { static: false }) public matTable: MatTable<any>;
+export class DataTableComponent<DataType> implements AfterContentInit {
+  @ViewChild('table', { static: false }) public matTable: MatTable<DataType>;
   @ContentChildren(MatColumnDef) public columns: MatColumnDef[];
 
   // Inputs
-  @Input() public dataSource: MatTableDataSource<any>;
+  @Input() public dataSource: MatTableDataSource<DataType>;
   @Input() public displayedColumns: string[] = [];
   @Input() public isLoading = false;
 
   // Events
   @Output() rowSelectionChange = new EventEmitter<boolean[]>();
-  @Output() rowClick = new EventEmitter<IRowClickEvent>();
+  @Output() rowClick = new EventEmitter<IRowClickEvent<DataType>>();
 
   // Internal props
-  public actualDisplayedColumns: string[] = [];
   public rowSelection = [];
+  public actualDisplayedColumns: string[] = [];
   public allRowsSelected = false;
   public atLeastOneRowSelected = false;
 
@@ -38,13 +38,12 @@ export class DataTableComponent implements AfterContentInit {
     this.actualDisplayedColumns = this.displayedColumns;
   }
 
-  onRowClicked(index: number, data: any, event: MouseEvent | KeyboardEvent): void {
+  onRowClicked(index: number, data: DataType, event: MouseEvent | KeyboardEvent): void {
     this.rowClick.emit({ index, data, event });
   }
 
 
   // ROW SELECTION
-
   public setRowSelected(index: number, selected: boolean) {
     this.rowSelection[index] = selected;
     this.updateRowSelectedState();
@@ -61,6 +60,16 @@ export class DataTableComponent implements AfterContentInit {
   public onSelectAllCheckboxChange({ checked }: MatCheckboxChange) {
     this.rowSelection = checked ? Array(this.dataSource.data.length).fill(true) : [];
     this.updateRowSelectedState();
+  }
+
+  public deselectAllRows(): void {
+    this.rowSelection = [];
+    this.updateRowSelectedState();
+  }
+
+  // MISC. UTIL FUNCTIONS
+  public getSelectedRowsData(): DataType[] {
+    return this.rowSelection.map((_row, index) => this.dataSource.data[index]);
   }
 
 }

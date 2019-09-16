@@ -19,4 +19,9 @@ export class CohortService {
           c.trainer.toLowerCase().includes(search.toLowerCase()))
     ).pipe(delay(Math.floor(Math.random() * 3500) + 500));
   }
+
+  public deleteCohorts(cohorts: ICohort[]): Observable<void> {
+    console.log('ChoortService.deleteCohorts is not implemented! Input data:', cohorts);
+    return of(null).pipe(delay(Math.floor(Math.random() * 3500) + 500));
+  }
 }

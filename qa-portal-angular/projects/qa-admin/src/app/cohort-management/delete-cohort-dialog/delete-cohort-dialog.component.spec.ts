@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataTableComponent } from './data-table.component';
+import { DeleteCohortDialogComponent } from './delete-cohort-dialog.component';
 
-describe('DataTableComponent', () => {
-  let component: DataTableComponent<any>;
-  let fixture: ComponentFixture<DataTableComponent<any>>;
+describe('DeleteCohortDialogComponent', () => {
+  let component: DeleteCohortDialogComponent;
+  let fixture: ComponentFixture<DeleteCohortDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DataTableComponent ]
+      declarations: [ DeleteCohortDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DataTableComponent);
+    fixture = TestBed.createComponent(DeleteCohortDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,7 +2,7 @@
     <mat-progress-bar mode="indeterminate" color="accent" [style.display]="isLoading ? null : 'none'">
     </mat-progress-bar>
     <mat-card-content>
-        <table #table mat-table [dataSource]="dataSource" class="qa-table w-100">
+        <table #table mat-table [dataSource]="dataSource" class="qa-table w-100" [class.loading]="isLoading">
             <!-- BULK ACTIONS HEADER -->
             <ng-container matColumnDef="bulkActions">
                 <th mat-header-cell *matHeaderCellDef colspan="100%">

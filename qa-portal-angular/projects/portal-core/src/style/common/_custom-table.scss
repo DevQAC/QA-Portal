@@ -1,5 +1,10 @@
 table.mat-table.qa-table {
 
+    &.loading {
+        pointer-events: none;
+        opacity: .5;
+    }
+
 
     tr.mat-row {
         &.selectable {
@@ -35,17 +40,9 @@ table.mat-table.qa-table {
 
 .qa-table-card {
     padding: 0 !important;
-
     overflow: hidden;
 
-    .table-card-loading {
+    .mat-progress-bar {
         position: absolute;
-        height: 100%;
-        width: 100%;
-        background: #82827d80;
-
-        .mat-spinner {
-            margin: 100px auto;
-        }
     }
 }

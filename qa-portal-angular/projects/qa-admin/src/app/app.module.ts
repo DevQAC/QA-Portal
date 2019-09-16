@@ -15,6 +15,7 @@ import { InMemoryDataService } from './_common/services/in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CohortChipsComponent } from './cohort-chips/cohort-chips.component';
 import { CohortManagementComponent } from './cohort-management/cohort-management.component';
+import { DeleteCohortDialogComponent } from './cohort-management/delete-cohort-dialog/delete-cohort-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CohortManagementComponent } from './cohort-management/cohort-management
     AddUserDialogComponent,
     DelUserConfirmDialogComponent,
     EditUserDialogComponent,
-    CohortManagementComponent
+    CohortManagementComponent,
+    DeleteCohortDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { CohortManagementComponent } from './cohort-management/cohort-management
   entryComponents: [
     AddUserDialogComponent,
     DelUserConfirmDialogComponent,
-    EditUserDialogComponent
+    EditUserDialogComponent,
+    DeleteCohortDialogComponent
   ]
 })
 export class AppModule {
