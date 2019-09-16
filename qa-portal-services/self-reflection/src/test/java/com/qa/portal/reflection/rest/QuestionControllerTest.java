@@ -33,18 +33,18 @@ public class QuestionControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Test
-    @FlywayTest
-    public void testGetUserRoles() {
-        try {
-            ResponseEntity<Set> response =
+	@Test
+	@FlywayTest()
+	public void testGetUserRoles() {
+		try {
+			ResponseEntity<Set> response =
 					restTemplate.getForEntity(createURLWithPort("/self-reflection-api/question/cohort/1"), Set.class);
-            response.getBody().stream().forEach(q -> LOGGER.info(q.toString()));
-            assertThat(6, equalTo(response.getBody().size()));
-        } catch (Exception e) {
+			response.getBody().stream().forEach(q -> LOGGER.info(q.toString()));
+			assertThat(6, equalTo(response.getBody().size()));
+		} catch (Exception e) {
 			Assert.fail("Exception retrieving questions " + e.getMessage());
-        }
-    }
+		}
+	}
 
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + uri;
