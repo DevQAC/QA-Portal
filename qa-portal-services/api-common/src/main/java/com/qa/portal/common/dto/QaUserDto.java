@@ -8,6 +8,8 @@ public class QaUserDto extends QaBaseDto {
 
     private String userName;
 
+    private String email;
+
     private String firstName;
 
     private String lastName;
@@ -48,26 +50,39 @@ public class QaUserDto extends QaBaseDto {
         this.lastName = lastName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        QaUserDto qaUserDto = (QaUserDto) o;
-        return Objects.equals(id, qaUserDto.id) && Objects.equals(userName, qaUserDto.userName)
-                && Objects.equals(firstName, qaUserDto.firstName) && Objects.equals(lastName, qaUserDto.lastName);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QaUserDto userDto = (QaUserDto) o;
+        return Objects.equals(id, userDto.id) &&
+                Objects.equals(userName, userDto.userName) &&
+                Objects.equals(email, userDto.email) &&
+                Objects.equals(firstName, userDto.firstName) &&
+                Objects.equals(lastName, userDto.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, firstName, lastName);
+        return Objects.hash(id, userName, email, firstName, lastName);
     }
 
     @Override
     public String toString() {
-        return "QaUserDto{" + "id=" + id + ", userName='" + userName + '\'' + ", firstName='" + firstName + '\''
-                + ", lastName='" + lastName + '\'' + ", lastUpdatedTimestamp=" + lastUpdatedTimestamp
-                + ", lastUpdatedBy='" + lastUpdatedBy + '\'' + '}';
+        return "QaUserDto{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }

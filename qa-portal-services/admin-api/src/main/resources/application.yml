@@ -1,7 +1,7 @@
 server:
-  port: 8083
+  port: 8088
   servlet:
-    context-path: /user-api
+    context-path: /admin-api
 
 spring:
   main:
@@ -25,6 +25,12 @@ qa:
     config:
       file: keycloak.json
 
+    admin:
+      url: "http://localhost:8080/auth"
+      realm: qa-portal
+      user: adminclient1@qa.com
+      password: pass1
+      clientId: admin-cli
 
 ---
 spring:
