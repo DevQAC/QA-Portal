@@ -1,9 +1,9 @@
 package com.qa.portal.core.persistence.repository;
 
-import com.qa.portal.core.persistence.entity.ApplicationEntity;
+import com.qa.portal.core.persistence.entity.PortalApplicationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ApplicationRepository extends JpaRepository<ApplicationEntity, Long> {
+public interface PortalApplicationRepository extends JpaRepository<PortalApplicationEntity, Integer> {
 }

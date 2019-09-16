@@ -111,7 +111,7 @@ export class QaCommonModule {
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
-    ) {
+  ) {
     this.matIconRegistry.addSvgIcon('qa-logo', this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/qa.svg'));
   }
 }

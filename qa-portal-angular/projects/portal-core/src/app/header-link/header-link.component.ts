@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { DepartmentApplications } from '../_common/models/department-applications';
+import { PortalApplicationProjectsModel } from '../_common/models/portal-application-projects.model';
 
 @Component({
   selector: 'app-header-link',
-  templateUrl: './header-link.component.html',
-  styleUrls: ['./header-link.component.css']
+  templateUrl: './header-link.component.html'
 })
 export class HeaderLinkComponent {
-  @Input() department: DepartmentApplications;
+  @Input() public portalApplicationProjects: PortalApplicationProjectsModel;
 }

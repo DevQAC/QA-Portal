@@ -1,21 +1,20 @@
 package com.qa.portal.core.service;
 
-import com.qa.portal.core.dto.DepartmentApplicationsDto;
-import com.qa.portal.core.persistence.entity.DepartmentRoleApplicationEntity;
-import com.qa.portal.core.persistence.repository.DepartmentRoleRepository;
+import com.qa.portal.core.dto.ApplicationProjectsDto;
+import com.qa.portal.core.persistence.entity.RoleProjectPageEntity;
+import com.qa.portal.core.persistence.repository.RoleProjectPageRepository;
+import com.qa.portal.core.persistence.repository.RoleRepository;
 import com.qa.portal.core.service.mapper.ApplicationServiceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static com.qa.portal.core.CoreConstants.SUPER_USER_ROLE;
 
 @Service
 public class ApplicationService {
@@ -23,30 +22,38 @@ public class ApplicationService {
     //TODO - Maybe Cache this info for performance
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationService.class);
 
+    private static final String ANY_ROLE = "any";
+
     private ApplicationServiceMapper applicationServiceMapper;
 
-    private DepartmentRoleRepository departmentRoleRepository;
+    private RoleRepository roleRepository;
 
-    @Autowired
-    public ApplicationService(ApplicationServiceMapper applicationServiceMapper, DepartmentRoleRepository departmentRoleRepository) {
+    private RoleProjectPageRepository roleProjectPageRepository;
+
+    public ApplicationService(ApplicationServiceMapper applicationServiceMapper,
+                              RoleRepository roleRepository,
+                              RoleProjectPageRepository roleProjectPageRepository) {
         this.applicationServiceMapper = applicationServiceMapper;
-        this.departmentRoleRepository = departmentRoleRepository;
+        this.roleRepository = roleRepository;
+        this.roleProjectPageRepository = roleProjectPageRepository;
     }
 
     @Transactional
-    public List<DepartmentApplicationsDto> getApplicationsByDepartment(Collection<String> userRoles) {
-        Set<DepartmentRoleApplicationEntity> dras = getDeptRoleApps(userRoles);
-        return applicationServiceMapper.createDepartmentsApplicationsDto(dras, userRoles);
+    public List<ApplicationProjectsDto> getApplicationsByDepartment(Collection<String> userRoles) {
+        userRoles.add(ANY_ROLE);
+        Set<RoleProjectPageEntity> roleProjectPages = getRoleProjectPages(userRoles);
+        return applicationServiceMapper.createApplicationProjectsDto(roleProjectPages);
     }
 
-    private Set<DepartmentRoleApplicationEntity> getDeptRoleApps(Collection<String> userRoles) {
-        return departmentRoleRepository.findAll().stream()
-                .filter(dr -> userRoles.contains(dr.getDepartmentRoleName()) || userRoles.contains(SUPER_USER_ROLE))
-                .flatMap(dr -> dr.getDeptRoleApplications().stream())
+    private Set<RoleProjectPageEntity> getRoleProjectPages(Collection<String> roles) {
+        return roles.stream()
+                .flatMap(r -> getRoleProjectPages(r).stream())
                 .collect(Collectors.toSet());
     }
 
-    private void filterMenuItemsByRole() {
-
+    private List<RoleProjectPageEntity> getRoleProjectPages(String roleName) {
+        return roleRepository.findByName(roleName)
+                .map(r -> r.getRoleProjectPages())
+                .orElseGet(() -> Collections.emptyList());
     }
 }
