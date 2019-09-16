@@ -39,7 +39,7 @@ export class DataTableComponent<DataType> implements AfterContentInit {
   }
 
   onRowClicked(index: number, data: DataType, event: MouseEvent | KeyboardEvent): void {
-    this.rowClick.emit({ index, data, event });
+      this.rowClick.emit({ index, data, event });
   }
 
 

@@ -31,11 +31,19 @@ table.mat-table.qa-table {
         td.icon-cell {
             width: 40px; // Width of a standard icon button
         }
+
+        td.mat-column-select {
+            width: 40px;
+        }
     }
 
-    tr.mat-header-row.bulk-actions-row {
-        background: map-get($map: $mat-light-theme-background, $key: 'app-bar');
+    tr.mat-header-row {
+        &.bulk-actions-row {
+            background: map-get($map: $mat-light-theme-background, $key: 'app-bar');
+        }
     }
+
+
 }
 
 .qa-table-card {
