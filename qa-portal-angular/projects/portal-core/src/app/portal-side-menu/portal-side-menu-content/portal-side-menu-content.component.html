@@ -1,11 +1,11 @@
 <div class="side-menu-panel" style="width: 300px; overflow-x: hidden;">
-  <div class="section" *ngIf="!(portalApplicationProjectsObservable$ | async)?.portalProjects">
+  <div class="section" *ngIf="!(appService.currentApplication$ | async)?.portalProjects">
     <div class="section-title light">
       No menu items found
     </div>
   </div>
 
-  <div class="section" *ngFor="let portalProject of (portalApplicationProjectsObservable$ | async)?.portalProjects">
+  <div class="section" *ngFor="let portalProject of (appService.currentApplication$ | async)?.portalProjects">
     <div class="section-title">
       {{ portalProject.name }}
     </div>
@@ -15,7 +15,7 @@
         <div *ngIf="projectPage.displayOnMenu">
           <button mat-button [routerLink]="projectPage.url"
                   routerLinkActive="mat-accent"
-                  [routerLinkActiveOptions]="{exact: true}" class="menu-item"
+                  [routerLinkActiveOptions]="{exact: false}" class="menu-item"
                   [matTooltip]="!sideMenuService.sideMenuOpen ? projectPage.name : ''"
                   matTooltipPosition="after"
                   matTooltipClass="menu-item-tooltip">

@@ -6,9 +6,9 @@
         <mat-icon svgIcon="qa-logo"></mat-icon>
       </a>
       <div class="header-links">
-          <app-header-link *ngFor="let portalApp of portalApplicationProjectsList" [portalApplicationProjects]="portalApp">
-            {{portalApp?.portalApplication?.name || 'Unknown Department'}}
-          </app-header-link>
+          <app-header-link *ngFor="let portalApp of (appService.portalApplications$ | async)" [portalApplicationProjects]="portalApp">
+              {{portalApp?.portalApplication?.name || 'Unknown Department'}}
+            </app-header-link>
         </div>
     </div>
 
