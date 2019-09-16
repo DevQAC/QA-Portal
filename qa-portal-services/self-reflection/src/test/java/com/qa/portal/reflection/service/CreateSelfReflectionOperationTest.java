@@ -15,6 +15,8 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class CreateSelfReflectionOperationTest {
 
+    private final String USER_NAME = "TEST_USER";
+
     @Mock
     private ReflectionDto reflectionDto;
 
@@ -23,8 +25,6 @@ public class CreateSelfReflectionOperationTest {
 
     @Mock
     private ReflectionEntity reflectionEntity;
-
-    private final String USER_NAME = "TEST_USER";
 
     @Mock
     private ReflectionMapper reflectionMapper;
