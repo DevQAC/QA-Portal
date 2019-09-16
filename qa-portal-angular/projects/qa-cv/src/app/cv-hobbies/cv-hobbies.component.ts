@@ -9,10 +9,15 @@ import { IHobbies } from '../_common/models/hobbies.model';
 export class CvHobbiesComponent {
   @Input() hobbies: IHobbies;
   @Output() hobbiesChange = new EventEmitter<IHobbies>();
+  @Input() canEdit: boolean;
 
-  onInputChange(data) {
+  onInputChange(data: string): void {
     this.hobbies.hobbiesDetails = data;
     this.hobbiesChange.emit(this.hobbies);
+  }
+
+  isDisabled() {
+    return !this.canEdit;
   }
 
 

@@ -7,13 +7,13 @@
 </div>
 
 <mat-card *ngIf="!loadingData">
-  <mat-card-title style="text-align: center; background-color: lightgray; color: #0060B9;">
+  <mat-card-title>
     Current Self Reflection Form {{
       selfReflectionViewModel.selfReflectionForm.formDate| date : "dd/MM/yy"
     }}
   </mat-card-title>
 
-  <mat-card-subtitle style="color: #0060B9;">
+  <mat-card-subtitle>
     Introduction
   </mat-card-subtitle>
 
@@ -26,13 +26,13 @@
     </div>
   </mat-card-content>
 
-  <mat-card-subtitle style="color: #0060B9;">
+  <mat-card-subtitle>
     Rated Questions
   </mat-card-subtitle>
 
   <mat-card-content>
 
-    <div style="text-align: left; margin-bottom: 15px;">
+    <div style="margin-left: 20px; margin-bottom: 15px;">
       Rated Questions Score Guide: <b>1 = Poor, 5 = Average, 10 = Excellent</b>
     </div>
 
@@ -44,12 +44,12 @@
     </app-rated-question>
   </mat-card-content>
 
-  <mat-card-subtitle style="color: #0060B9;">
+  <mat-card-subtitle>
     SWOT analysis
   </mat-card-subtitle>
 
   <mat-card-content>
-    <div style="text-align: left; margin-bottom: 15px;">
+    <div style="margin-left: 20px; margin-bottom: 15px;">
       Make your targets <b>SMART</b>: <span style="margin-left: 10px"><b>S</b>pecific <b>M</b>easurable <b>A</b>ttainable <b>R</b>ealistic <b>T</b>ime-Bound</span>
     </div>
 
@@ -74,7 +74,7 @@
 
       <button *ngIf="selfReflectionViewModel.selfReflectionForm.status !== 'Submitted' &&
                      selfReflectionViewModel.selfReflectionForm.status !== 'Reviewed'"
-              mat-raised-button (click)="saveSubmitButtonPress()">
+              mat-raised-button color="primary" (click)="saveSubmitButtonPress()">
         {{isFormCompleted() ? 'Submit' : 'Save'}}</button>
     </div>
   </mat-card-actions>

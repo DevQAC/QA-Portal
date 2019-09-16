@@ -6,7 +6,6 @@ import {QaCommonModule} from '../../../qa-common/src/app/app.module';
 import {TrainerEvaluationSummaryComponent} from './trainer-evaluation-summary/trainer-evaluation-summary.component';
 import {TableComponentComponent} from './trainer-evaluation-summary/table-component/table-component.component';
 import {CourseInfoComponent} from './trainer-evaluation-summary/course-info/course-info.component';
-import {SearchBoxComponent} from './trainer-evaluation-summary/search-box/search-box.component';
 import {CourseEvaluationComponent} from './course-evaluation/course-evaluation.component';
 import {EvaluationTableComponent} from './evaluation-table/evaluation-table.component';
 import {TrainerEvaluationHistoryComponent} from './trainer-evaluation-history/trainer-evaluation-history.component';
@@ -21,7 +20,8 @@ import {TraineeEvaluationSummaryComponent} from './trainee-evaluation-summary/tr
 import {TraineeEvaluationSummaryService} from './trainee-evaluation-summary/services/trainee-evaluation-summary.service';
 import {FeedbackService} from './trainer-feedback-page/_common/services/feedback.service';
 import { TrainerFeedbackHistoryComponent } from './trainer-feedback-history/trainer-feedback-history.component';
-import {InstructorZoneTitleComponent} from './trainer-evaluation-summary/instructor-zone-title/instructor-zone-title.component';
+import {RetrieveTrainerEvaluationHistoryService} from './trainer-evaluation-history/services/retrieve-trainer-evaluation-history.service';
+import {TrainerEvaluationService} from './trainer-evaluation-summary/services/trainer-evaluation.service';
 
 
 @NgModule({
@@ -30,15 +30,13 @@ import {InstructorZoneTitleComponent} from './trainer-evaluation-summary/instruc
     TrainerEvaluationSummaryComponent,
     TableComponentComponent,
     CourseInfoComponent,
-    SearchBoxComponent,
     CourseEvaluationComponent,
     EvaluationTableComponent,
     TrainerEvaluationHistoryComponent,
     TraineeCourseEvaluationComponent,
     TrainerFeedbackPageComponent,
     TraineeEvaluationSummaryComponent,
-    TrainerFeedbackHistoryComponent,
-    InstructorZoneTitleComponent
+    TrainerFeedbackHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -50,9 +48,11 @@ import {InstructorZoneTitleComponent} from './trainer-evaluation-summary/instruc
   providers: [
     TrainerCourseHistoryService,
     TraineeEvaluationSummaryService,
+    RetrieveTrainerEvaluationHistoryService,
     FormTypeService,
     FeedbackService,
-    EvaluationService
+    EvaluationService,
+    TrainerEvaluationService
   ],
   bootstrap: [AppComponent]
 })

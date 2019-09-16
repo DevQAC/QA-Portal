@@ -1,3 +1,8 @@
-<mat-form-field class="example-full-width">
-  <textarea matInput rows="20" [ngModel]="profile?.profileDetails" (ngModelChange)="onInputChange($event)"></textarea>
+<mat-form-field appearance="outline" class="example-full-width">
+  <textarea matInput rows="14"
+            maxlength="1800"
+            placeholder="Professional Profile of up to 1800 characters"
+            [ngModel]="profile?.profileDetails"
+            (ngModelChange)="onInputChange($event)"
+            [disabled]="isDisabled()"></textarea>
 </mat-form-field>

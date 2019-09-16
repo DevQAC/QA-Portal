@@ -1,25 +1,10 @@
 package com.qa.portal.common.dto;
 
-import java.sql.Timestamp;
-
-public class CvStatusDto {
+public class CvStatusDto extends QaBaseDto {
 
     private Integer id;
-    private String statusName;
-    private Timestamp lastUpdatedTimestamp ;
-    private String lastUpdatedBy;
-    private Integer version;
 
-    @Override
-    public String toString() {
-        return "CvStatusDto{" +
-                "id=" + id +
-                ", statusName='" + statusName + '\'' +
-                ", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
-                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-                ", version=" + version +
-                '}';
-    }
+    private String statusName;
 
     public Integer getId() {
         return id;
@@ -37,27 +22,11 @@ public class CvStatusDto {
         this.statusName = statusName;
     }
 
-    public Timestamp getLastUpdatedTimestamp() {
-        return lastUpdatedTimestamp;
-    }
-
-    public void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp) {
-        this.lastUpdatedTimestamp = lastUpdatedTimestamp;
-    }
-
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
+    @Override
+    public String toString() {
+        return "CvStatusDto{" +
+                "id=" + id +
+                ", statusName='" + statusName + '\'' +
+                '}';
     }
 }

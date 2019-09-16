@@ -1,46 +1,29 @@
 package com.qa.portal.cv.services;
 
+import com.qa.portal.cv.domain.CvVersion;
+import com.qa.portal.cv.domain.validator.CvVersionValidator;
+import com.qa.portal.cv.persistence.repository.CvVersionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.qa.portal.cv.domain.CvVersion;
-import com.qa.portal.cv.persistence.repository.CvVersionRepository;
 
 @Component
 public class UpdateCvVersionOperation {
-	
+
+	private final Logger LOGGER = LoggerFactory.getLogger(UpdateCvVersionOperation.class);
+
 	private CvVersionRepository repo;
-	
-	public UpdateCvVersionOperation(CvVersionRepository repo) {
-		super();
+
+	private CvVersionValidator cvVersionValidator;
+
+	public UpdateCvVersionOperation(CvVersionRepository repo, CvVersionValidator cvVersionValidator) {
 		this.repo = repo;
+		this.cvVersionValidator = cvVersionValidator;
 	}
 
 	public CvVersion updateCv(CvVersion updatedCv) {
-		updatedCv.setFullName();
-		updatedCv.setStatus("In Progress");
-		repo.save(updatedCv);
-		return updatedCv;
-	}
-	
-	public CvVersion submitCv(CvVersion submittedCv) {
-		submittedCv.setFullName();
-		submittedCv.setStatus("For Review");
-		repo.save(submittedCv);
-		return submittedCv;
-	}
-	
-	public CvVersion approveCv(CvVersion submittedCv) {
-		//ID should be set to null so a new entry is created and version number should be incremented.
-		submittedCv.setFullName();
-		submittedCv.setStatus("Approved");
-		repo.save(submittedCv);
-		return submittedCv;
-	}
-	
-	public CvVersion failCv(CvVersion submittedCv) {
-		submittedCv.setFullName();
-		submittedCv.setStatus("Failed Review");
-		repo.save(submittedCv);
-		return submittedCv;
+		cvVersionValidator.validateCvVersion(updatedCv);
+		return repo.save(updatedCv);
 	}
 }

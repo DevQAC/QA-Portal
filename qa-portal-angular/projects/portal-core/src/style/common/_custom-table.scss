@@ -1,0 +1,34 @@
+table.mat-table.qa-table {
+
+    
+    tr.mat-row {
+        &.selectable {
+            cursor: pointer;
+
+            &:hover {
+                background: map-get($map: $mat-light-theme-background, $key: 'hover');
+            }
+        }
+
+        &.expanded {
+            background: map-get($map: $mat-light-theme-background, $key: 'raised-button');
+        }
+
+
+        &.expander-row {
+            height: 0;
+
+            .row-detail {
+                overflow: hidden;
+            }
+        }
+
+        td.icon-cell {
+            width: 40px; // Width of a standard icon button
+        }
+    }
+}
+
+.qa-table-card {
+    padding: 0 !important;
+}

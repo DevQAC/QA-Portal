@@ -21,6 +21,8 @@ public class QuestionCategoryMapper {
     public QuestionCategoryDto createQuestionCategoryDto(QuestionCategoryEntity questionCategoryEntity) {
         QuestionCategoryDto questionCategoryDto = baseMapper.mapObject(questionCategoryEntity, QuestionCategoryDto.class);
         LOGGER.info("Category is " + questionCategoryDto.getCategoryName());
+        questionCategoryDto.getQuestions().stream()
+                .forEach(q -> q.setQuestionCategoryName(questionCategoryDto.getCategoryName()));
         return questionCategoryDto;
     }
 }

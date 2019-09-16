@@ -1,9 +1,8 @@
 package com.qa.portal.common.dto;
 
-import java.sql.Timestamp;
 import java.util.List;
 
-public class TechnologyDto {
+public class TechnologyDto extends QaBaseDto {
 
     private Integer id;
 
@@ -14,12 +13,6 @@ public class TechnologyDto {
     private List<CourseTechnologyDto> courseTechnologies;
 
     private String searchString;
-
-    private Timestamp lastUpdatedTimestamp;
-
-    private String lastUpdatedBy;
-
-    private Integer version;
 
     public Integer getId() {
         return id;
@@ -61,28 +54,7 @@ public class TechnologyDto {
         this.searchString = searchString;
     }
 
-    public Timestamp getLastUpdatedTimestamp() {
-        return lastUpdatedTimestamp;
-    }
-
-    public void setLastUpdatedTimestamp(Timestamp lastUpdatedTimestamp) {
-        this.lastUpdatedTimestamp = lastUpdatedTimestamp;
-    }
-
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-    }
-
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
+    public String getTechnologyCategoryName() {
+        return technologyCategory.getSearchString();
     }
 }

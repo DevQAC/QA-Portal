@@ -1,6 +1,5 @@
 package com.qa.portal.common.persistence.entity;
 
-
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -33,6 +32,10 @@ public class CohortCourseEntity extends QaBaseEntity {
     @ManyToOne
     @JoinColumn(name = "trainer_id")
     private TrainerEntity trainer;
+
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private LocationEntity location;
 
     public Integer getId() {
         return id;
@@ -82,9 +85,24 @@ public class CohortCourseEntity extends QaBaseEntity {
         this.trainer = trainer;
     }
 
-	@Override
-	public String toString() {
-		return "CohortCourseEntity [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", course="
-				+ course + ", cohort=" + cohort + ", trainer=" + trainer + "]";
-	}
+    public LocationEntity getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationEntity location) {
+        this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return "CohortCourseEntity{" +
+                "id=" + id +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", course=" + course +
+                ", cohort=" + cohort +
+                ", trainer=" + trainer +
+                ", location=" + location +
+                '}';
+    }
 }

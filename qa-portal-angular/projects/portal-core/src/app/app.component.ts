@@ -3,7 +3,8 @@ import {Event, NavigationStart, Router} from '@angular/router';
 import {MenuService} from './_common/services/menu.service';
 import {Subscription} from 'rxjs';
 import {ApplicationSelectionService} from './_common/services/application-selection.service';
-import {Application} from './_common/models/application';
+import {PortalProjectModel} from './_common/models/portal-project.model';
+import {PortalApplicationProjectsModel} from './_common/models/portal-application-projects.model';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +12,9 @@ import {Application} from './_common/models/application';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  portalApplications: any[] = [];
+  portalApplicationProjectsList: PortalApplicationProjectsModel[] = [];
 
-  errorApp: Application;
+  errorApp: PortalProjectModel;
 
   currentUrl: string;
 
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationStart) {
         this.currentUrl = event.url;
         this.setSelectedApplication(event.url);
+        this.setSelectedProject(event.url);
       }
     });
   }
@@ -34,8 +36,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.errorApp = this.getErrorApplication();
     this.navMenuSubscription = this.menuService.getPortalMenu()
       .subscribe((response) => {
-          this.portalApplications = response;
+          this.portalApplicationProjectsList = response;
+          console.log('Got Portal applications from service');
           this.setSelectedApplication(this.currentUrl);
+          this.setSelectedProject(this.currentUrl);
         }
       );
   }
@@ -45,28 +49,42 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private setSelectedApplication(currUrl: string): void {
-    let selectedApp = this.getApplicationForUrl(currUrl);
-    if (!selectedApp) {
-      selectedApp = this.getSelectedApplicationForParameterizedUrl(currUrl);
-    }
-
-    if (!selectedApp) {
+    const currApp = this.getSelectedApplicationForUrl(currUrl);
+    if (!currApp) {
       this.launchLandingPage(currUrl);
     } else {
-      this.applicationSelectionService.setSelectedApplication(selectedApp);
+      this.applicationSelectionService.setSelectedApplication(currApp);
     }
   }
 
-  private getApplicationForUrl(currUrl: string): Application {
+  private getSelectedApplicationForUrl(currUrl: string): PortalApplicationProjectsModel {
+    return this.portalApplicationProjectsList
+              .find((pa: PortalApplicationProjectsModel) => currUrl.startsWith(pa.portalApplication.baseUrl));
+  }
+
+  private setSelectedProject(currUrl: string): void {
+    let selectedProject = this.getProjectForUrl(currUrl);
+    if (!selectedProject) {
+      selectedProject = this.getSelectedProjectForParameterizedUrl(currUrl);
+    }
+
+    if (!selectedProject) {
+      this.launchLandingPage(currUrl);
+    } else {
+      this.applicationSelectionService.setSelectedProject(selectedProject);
+    }
+  }
+
+  private getProjectForUrl(currUrl: string): PortalProjectModel {
     let selectedApp = null;
-    this.portalApplications.forEach(pa => {
-      pa.applications.forEach(a => {
-        if (currUrl === a.url) {
-          selectedApp = a;
+    this.portalApplicationProjectsList.forEach(pa => {
+      pa.portalProjects.forEach(pp => {
+        if (currUrl === pp.url) {
+          selectedApp = pp;
         }
-        a.menuItems.forEach(mi => {
-          if (mi.url === currUrl) {
-            selectedApp = a;
+        pp.projectPages.forEach(page => {
+          if (page.url === currUrl) {
+            selectedApp = pp;
           }
         });
       });
@@ -74,23 +92,23 @@ export class AppComponent implements OnInit, OnDestroy {
     return selectedApp;
   }
 
-  private getSelectedApplicationForParameterizedUrl(currUrl: string): Application {
+  private getSelectedProjectForParameterizedUrl(currUrl: string): PortalProjectModel {
     // Substring to last index of '/' character
     const url = currUrl.substring(0, currUrl.lastIndexOf('/'));
-    return this.getApplicationForUrl(url);
+    return this.getProjectForUrl(url);
   }
 
   private launchLandingPage(currUrl: string): void {
-    if (this.portalApplications.length > 0 &&
+    if (this.portalApplicationProjectsList.length > 0 &&
       !currUrl.startsWith('/qa/portal/error')) {
-      this.applicationSelectionService.setSelectedApplication(this.portalApplications[0].applications[0]);
+      this.applicationSelectionService.setSelectedProject(this.portalApplicationProjectsList[0].portalProjects[0]);
     } else if (currUrl.startsWith('/qa/portal/error')) {
-      this.applicationSelectionService.setSelectedApplication(this.errorApp);
+      this.applicationSelectionService.setSelectedProject(this.errorApp);
     }
   }
 
-  private getErrorApplication(): Application {
-    const errorApp = new Application();
+  private getErrorApplication(): PortalProjectModel {
+    const errorApp = new PortalProjectModel();
     errorApp.url = '/qa/portal/error';
     return errorApp;
   }

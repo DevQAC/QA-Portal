@@ -1,11 +1,11 @@
 export class CVSearchModel {
   id: number;
 
-  name: string;
+  fullName: string;
 
-  intake: string;
+  cohort: string;
 
-  tech: string;
+  allSkills: string[];
 
   clients: string[];
 

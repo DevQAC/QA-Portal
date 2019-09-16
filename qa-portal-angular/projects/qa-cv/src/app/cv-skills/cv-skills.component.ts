@@ -11,6 +11,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 export class CvSkillsComponent implements OnInit {
   @Input() skills: ISkills;
   @Output() skillsChange = new EventEmitter<ISkills>();
+  @Input() canEdit: boolean;
 
   public skillCategories = [
     {
@@ -78,6 +79,10 @@ export class CvSkillsComponent implements OnInit {
   onInputChange(data) {
     this.skills.other = data;
     this.skillsChange.emit(this.skills);
+  }
+
+  isDisabled() {
+    return !this.canEdit;
   }
 
 }

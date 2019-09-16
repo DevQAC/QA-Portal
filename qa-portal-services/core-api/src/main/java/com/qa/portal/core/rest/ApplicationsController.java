@@ -1,7 +1,7 @@
 package com.qa.portal.core.rest;
 
 import com.qa.portal.common.security.QaSecurityContext;
-import com.qa.portal.core.dto.DepartmentApplicationsDto;
+import com.qa.portal.core.dto.ApplicationProjectsDto;
 import com.qa.portal.core.service.ApplicationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class ApplicationsController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<DepartmentApplicationsDto>> getApplicationsByDepartment() {
+    public ResponseEntity<List<ApplicationProjectsDto>> getApplicationsByDepartment() {
         return ResponseEntity.ok(applicationService.getApplicationsByDepartment(securityContext.getRoles()));
     }
 }

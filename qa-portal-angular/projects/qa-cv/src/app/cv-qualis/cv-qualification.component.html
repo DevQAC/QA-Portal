@@ -1,0 +1,42 @@
+<table mat-table class="qa-table w-100" [dataSource]="qualificationsTableDataSource">
+
+    <!-- COLUMNS -->
+    <ng-container matColumnDef="qualificationDetails">
+        <th mat-header-cell *matHeaderCellDef>Qualification</th>
+        <td mat-cell *matCellDef="let element">
+            <input matInput [ngModel]="element.qualificationDetails" placeholder="Qualification Details up to 80 characters"
+                   maxlength="80"
+                (ngModelChange)="onQualificationDetailsInputChange(element, $event)" [readonly]="isDisabled()">
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="remove">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element; let i = index;" class="icon-cell">
+            <button mat-icon-button (click)="onRemoveQualificationClicked(i)" matTooltip="Remove" [disabled]="isDisabled()"
+                matTooltipPosition="left" aria-label="Remove this qualification">
+                <mat-icon>clear</mat-icon>
+            </button></td>
+    </ng-container>
+    <ng-container matColumnDef="feedback">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element; let i = index" class="icon-cell">
+            <button mat-icon-button (click)="onFeedbackButtonClicked(i, element)" matTooltip="Feedback"
+                matTooltipPosition="left" aria-label="Show feedback for this qualification">
+                <mat-icon>feedback</mat-icon>
+            </button></td>
+    </ng-container>
+
+    <ng-container matColumnDef="addNew">
+        <td mat-footer-cell *matFooterCellDef colspan="100%">
+            <button mat-button color="primary" class="w-100" [disabled]="isDisabled() || qualificationsTableDataSource.data.length === 3"
+                    matTooltip="Maximum of 3 qualifications"
+                (click)="onNewQualiClick()">
+                <mat-icon>add</mat-icon>
+                Add new qualification
+            </button>
+        </td>
+    </ng-container>
+    <tr mat-row *matRowDef="let row; columns: ['qualificationDetails', 'remove', 'feedback']; let i = index;">
+    </tr>
+    <tr mat-footer-row *matFooterRowDef="['addNew']"></tr>
+</table>

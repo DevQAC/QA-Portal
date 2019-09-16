@@ -1,9 +1,8 @@
 package com.qa.portal.common.dto;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class CohortCourseDto {
+public class CohortCourseDto extends QaBaseDto {
 
     private Integer id;
 
@@ -17,11 +16,15 @@ public class CohortCourseDto {
 
     private TrainerDto trainer;
 
+    private LocationDto location;
+
     private String feedbackStatus;
 
 	private String averageKnowledgeRating;
     
     private String tqi;
+
+    private Integer classSize;
 
     public Integer getId() {
         return id;
@@ -93,5 +96,21 @@ public class CohortCourseDto {
 
     public void setFeedbackStatus(String feedbackStatus) {
         this.feedbackStatus = feedbackStatus;
+    }
+
+    public LocationDto getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationDto location) {
+        this.location = location;
+    }
+
+    public Integer getClassSize() {
+        return classSize;
+    }
+
+    public void setClassSize(Integer classSize) {
+        this.classSize = classSize;
     }
 }

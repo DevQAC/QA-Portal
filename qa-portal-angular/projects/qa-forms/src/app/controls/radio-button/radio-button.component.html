@@ -43,7 +43,8 @@
   <div style="display: flex; flex-direction: row; margin-bottom: 10px; margin-top: 10px;" *ngIf="question.hasComment">
     <div class="qa-radiobutton-filler"></div>
     <textarea matInput class="qa-radiobutton-comment"
-              [ngModel]="question?.commentLabel?.content"
+              [disabled]="isDisabled"
+              [ngModel]="questionResponse?.comment?.content"
               (ngModelChange)="setComment($event)"
               placeholder="{{question.commentLabel}}"></textarea>
     <div class="qa-radiobutton-filler"></div>

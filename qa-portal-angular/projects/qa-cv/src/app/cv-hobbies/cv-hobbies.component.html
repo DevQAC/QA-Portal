@@ -1,4 +1,8 @@
-<mat-form-field class="example-full-width">
-        <textarea matInput rows="20" [ngModel]="hobbies?.hobbiesDetails"
-                (ngModelChange)="onInputChange($event)"></textarea>
+<mat-form-field appearance="outline" class="example-full-width">
+        <textarea matInput rows=8
+                  maxlength="750"
+                  placeholder="Relevant hobbies and interests up to 750 characters"
+                  [ngModel]="hobbies?.hobbiesDetails"
+                  (ngModelChange)="onInputChange($event)"
+                  [disabled]="isDisabled()"></textarea>
 </mat-form-field>
