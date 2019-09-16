@@ -33,15 +33,19 @@ services:
       - portal-core
       - core-api
       - user-api
-      - self-reflection
+      - self-reflection-api
+      - course-api
+      - cv-api
+      - feedback-api
+      - question-api
     ports:
       - target: 80
         published: 80
   portal-core:
-    image: portal-core:latest
+    image: bobcrutchley/portal-core:latest
     build: ./qa-portal-angular
   core-api:
-    image: core-api:latest
+    image: bobcrutchley/core-api:latest
     build: 
       context: ./qa-portal-services
       args:
@@ -50,18 +54,8 @@ services:
       - POSTGRES_HOST=postgres
     depends_on:
       - postgres
-  self-reflection-api:
-    image: self-reflection-api:latest
-    build: 
-      context: ./qa-portal-services
-      args:
-        - PROJECT=self-reflection
-    environment:
-      - POSTGRES_HOST=postgres
-    depends_on:
-      - postgres
   user-api:
-    image: user-api:latest
+    image: bobcrutchley/user-api:latest
     build: 
       context: ./qa-portal-services
       args:
@@ -70,9 +64,53 @@ services:
       - POSTGRES_HOST=postgres
     depends_on:
       - postgres
-
-
-
-
-
-
+  self-reflection-api:
+    image: bobcrutchley/self-reflection-api:latest
+    build: 
+      context: ./qa-portal-services
+      args:
+        - PROJECT=self-reflection
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+  course-api:
+    image: bobcrutchley/course-api:latest
+    build: 
+      context: ./qa-portal-services
+      args:
+        - PROJECT=course-api
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+  cv-api:
+    image: bobcrutchley/cv-api:latest
+    build: 
+      context: ./qa-portal-services
+      args:
+        - PROJECT=cv-api
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+  feedback-api:
+    image: bobcrutchley/feedback-api:latest
+    build: 
+      context: ./qa-portal-services
+      args:
+        - PROJECT=feedback-api
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+  question-api:
+    image: bobcrutchley/question-api:latest
+    build: 
+      context: ./qa-portal-services
+      args:
+        - PROJECT=question-api
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
