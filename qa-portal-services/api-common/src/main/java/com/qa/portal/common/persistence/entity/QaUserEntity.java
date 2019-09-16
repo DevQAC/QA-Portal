@@ -1,22 +1,38 @@
 package com.qa.portal.common.persistence.entity;
 
-import javax.persistence.*;
-import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
-@Table(schema="training", name="qa_user")
-public class QaUserEntity extends QaBaseEntity {
+@Table(schema = "training", name = "qa_user")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
+public abstract class QaUserEntity extends QaBaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="qa_user_sequence")
-    @SequenceGenerator(name = "qa_user_sequence", sequenceName = "qa_user_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "qa_user_sequence")
+    @SequenceGenerator(name = "qa_user_sequence",
+            sequenceName = "training.qa_user_sequence",
+            allocationSize = 1)
     private Integer id;
 
     @Column(name = "user_name")
     private String userName;
 
-    @ManyToOne
-    @JoinColumn(name = "reviewer_id")
-    private QaUserEntity reviewer;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
 
     public Integer getId() {
         return id;
@@ -34,37 +50,19 @@ public class QaUserEntity extends QaBaseEntity {
         this.userName = userName;
     }
 
-    public QaUserEntity getReviewer() {
-        return reviewer;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setReviewer(QaUserEntity reviewer) {
-        this.reviewer = reviewer;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        QaUserEntity that = (QaUserEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(userName, that.userName) &&
-                Objects.equals(reviewer, that.reviewer);
+    public String getLastName() {
+        return lastName;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, userName, reviewer);
-    }
-
-    @Override
-    public String toString() {
-        return "QaUserEntity{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", reviewer=" + reviewer +
-                ", lastUpdatedTimestamp=" + lastUpdatedTimestamp +
-                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-                '}';
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

@@ -1,0 +1,65 @@
+<!--<div style="display: flex; justify-content: center; margin-top: 20px">-->
+<!--  <mat-spinner [diameter]="70" *ngIf="loadingData"></mat-spinner>-->
+<!--</div>-->
+
+<!--<mat-card *ngIf="!loadingData">-->
+<!--  <mat-card-title style="text-align: center; background-color: lightgray; color: #0060B9;">-->
+<!--    Current Self Reflection Form-->
+<!--  </mat-card-title>-->
+
+<!--  <mat-card-subtitle style="color: #0060B9;">-->
+<!--    Introduction-->
+<!--  </mat-card-subtitle>-->
+
+<!--  <mat-card-content>-->
+<!--    <div style="margin: 20px;">The ability to perform self-analysis, to look at your flaws and considering how they-->
+<!--      can be improved, as well as looking at your successes and attempting to replicate them, is a vital skill for-->
+<!--      anyone, in any walk of life.-->
+<!--      As consultants you need to demonstrate that you understand and champion our core values. Below is your-->
+<!--      opportunity to analyse how your performance over the last week has shown you capability in certain areas.-->
+<!--    </div>-->
+<!--  </mat-card-content>-->
+
+<!--  <mat-card-subtitle style="color: #0060B9;">-->
+<!--    Rated Questions-->
+<!--  </mat-card-subtitle>-->
+
+<!--  <mat-card-content>-->
+<!--    <app-rated-question *ngFor="let sr of selfReflectionViewModel.selfReflectionForm.reflectionQuestions"-->
+<!--                        [options]="sr.question.numberOfOptions"-->
+<!--                        [questionText]="sr.question.body"-->
+<!--                        [selectedRating]="sr">-->
+<!--    </app-rated-question>-->
+<!--  </mat-card-content>-->
+
+<!--  <mat-card-subtitle style="color: #0060B9;">-->
+<!--    SWOT analysis-->
+<!--  </mat-card-subtitle>-->
+
+<!--  <mat-card-content>-->
+<!--    <div style="text-align: center; margin-bottom: 15px;">-->
+<!--      Make your targets <b>SMART</b>: <span style="margin-left: 10px"><b>S</b>pecific <b>M</b>easurable <b>A</b>ttainable <b>R</b>ealistic <b>T</b>ime-Bound</span>-->
+<!--    </div>-->
+
+<!--    <div style="display: flex; flex-direction: column;">-->
+<!--      <textarea [(ngModel)]="selfReflectionViewModel.selfReflectionForm.strengths" style="resize: none;" rows="5" matInput-->
+<!--                placeholder="Strengths - What went well last week"></textarea>-->
+<!--      <textarea [(ngModel)]="selfReflectionViewModel.selfReflectionForm.weaknesses" style="resize: none;" rows="5" matInput-->
+<!--                placeholder="Weaknesses - What did not go well last week"></textarea>-->
+<!--      <textarea [(ngModel)]="selfReflectionViewModel.selfReflectionForm.opportunities" style="resize: none;" rows="5" matInput-->
+<!--                placeholder="Opportunities - What could you do in the future to improve your strengths"></textarea>-->
+<!--      <textarea [(ngModel)]="selfReflectionViewModel.selfReflectionForm.threats" style="resize: none;" rows="5" matInput-->
+<!--                placeholder="Threats - The issues you need to avoid in the future to minimise your weaknesses"></textarea>-->
+<!--    </div>-->
+<!--  </mat-card-content>-->
+
+<!--  <mat-card-actions>-->
+<!--    <div class="qa-card-action-container">-->
+<!--      &lt;!&ndash;        <button mat-raised-button [disabled]="!srForm.valid" (click)="saveForm()">Save</button>&ndash;&gt;-->
+<!--      <button mat-raised-button (click)="submitForm()">Submit</button>-->
+<!--    </div>-->
+<!--  </mat-card-actions>-->
+
+
+<!--</mat-card>-->
+

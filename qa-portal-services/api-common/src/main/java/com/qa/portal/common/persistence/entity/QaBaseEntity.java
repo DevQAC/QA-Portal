@@ -15,10 +15,10 @@ import java.sql.Timestamp;
 public class QaBaseEntity {
 
     @UpdateTimestamp
-    @Column(name="last_updated_timestamp")
+    @Column(name = "last_updated_timestamp")
     protected Timestamp lastUpdatedTimestamp;
 
-    @Column(name="last_updated_by")
+    @Column(name = "last_updated_by")
     protected String lastUpdatedBy;
 
     @Version

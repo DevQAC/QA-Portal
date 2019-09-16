@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('clone repo') {
+            steps{
+                git branch: "${env.GITHUB_BRANCH}", url: "${env.GITHUB_REPO}"
+                sh label: '', script: 'ls'
+            }
+        }
+        stage('docker-compose build') {
+            steps {
+                sh label: '', script: 'docker-compose build'
+            }
+        }
+        stage('Push to GCR') {
+            steps {
+                sh label: '', script: 'echo ./build/push-gcr.sh '
+            }
+        }
+    }
+}

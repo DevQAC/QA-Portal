@@ -4,6 +4,8 @@ import {MenuService} from './_common/services/menu-service';
 import {Subscription} from 'rxjs';
 import {ApplicationSelectionService} from './_common/services/application-selection.service';
 import {Application} from './_common/models/application';
+import {MenuItem} from './_common/models/menu-item';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -49,8 +51,11 @@ export class AppComponent implements OnInit, OnDestroy {
     let appSelected = false;
     this.portalApplications.forEach((pa) => {
       pa.applications.forEach(a => {
-        if (currUrl.startsWith(a.url) && a.url !== '/qa/portal' && !appSelected) {
+        if (currUrl.startsWith(this.getAppBaseUrl(a.url)) &&
+          a.url !== '/qa/portal' &&
+          !appSelected) {
           this.applicationSelectionService.setSelectedApplication(a);
+          console.log('app selected ' + a.url);
           appSelected = true;
         }
       });
@@ -65,6 +70,23 @@ export class AppComponent implements OnInit, OnDestroy {
     } else if (currUrl.startsWith('/qa/portal/error')) {
       this.applicationSelectionService.setSelectedApplication(this.errorApp);
     }
+  }
+
+  private getAppBaseUrl(appUrl: string): string {
+    // Get index of 3rd / by substring of /qa/portal/
+    let appString = '/qa/portal/home';
+
+    const mainUrl = appUrl.substring('/qa/portal/'.length);
+    console.log('Main url ' + mainUrl);
+
+    const firstSeparator = mainUrl.indexOf('/');
+    console.log('First separator index ' + firstSeparator);
+
+    if (firstSeparator > -1) {
+      appString = appUrl.substring(0, '/qa/portal/'.length + firstSeparator);
+    }
+    console.log('App String ' + appString);
+    return appString;
   }
 
   private getErrorApplication(): Application {

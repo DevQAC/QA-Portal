@@ -21,16 +21,18 @@ public class ApplicationsController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationsController.class);
 
-    @Autowired
     private ApplicationService applicationService;
 
-    @Autowired
     private QaSecurityContext securityContext;
+
+    @Autowired
+    public ApplicationsController(ApplicationService applicationService, QaSecurityContext securityContext) {
+        this.applicationService = applicationService;
+        this.securityContext = securityContext;
+    }
 
     @GetMapping()
     public ResponseEntity<List<DepartmentApplicationsDto>> getApplicationsByDepartment() {
-        securityContext.getRoles().forEach(r -> LOGGER.info(r));
         return ResponseEntity.ok(applicationService.getApplicationsByDepartment(securityContext.getRoles()));
     }
-
- }
+}

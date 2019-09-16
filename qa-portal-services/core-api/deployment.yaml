@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:      
+  name: core-api
+  labels: 
+    app: core-api
+spec:
+  selector:
+    matchLabels:
+      app: core-api
+  template:
+    metadata:
+      labels:
+        app: core-api
+    spec:
+      containers:
+      - name: core-api
+        image: jpeckover/core-api:latest
+        ports:
+        - containerPort: 8081

@@ -5,19 +5,20 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(schema="training", name="application")
+@Table(schema = "training", name = "application")
 public class ApplicationEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "application_sequence")
     @SequenceGenerator(name = "application_sequence",
             sequenceName = "training.application_sequence",
-            allocationSize=1)
+            allocationSize = 1)
     private Integer id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="url")
+    @Column(name = "url")
     private String url;
 
     @OneToMany(mappedBy = "application")

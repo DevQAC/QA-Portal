@@ -4,20 +4,18 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(schema="training", name="role")
+@Table(schema = "training", name = "role")
 public class RoleEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "role_sequence")
     @SequenceGenerator(name = "role_sequence",
             sequenceName = "training.role_sequence",
-            allocationSize=1)
+            allocationSize = 1)
     private Integer id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-
-    @Column(name="level")
-    private Integer level;
 
     public Integer getId() {
         return id;
@@ -35,27 +33,18 @@ public class RoleEntity {
         this.name = name;
     }
 
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoleEntity that = (RoleEntity) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(level, that.level);
+                Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, level);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -63,7 +52,6 @@ public class RoleEntity {
         return "RoleEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", level=" + level +
                 '}';
     }
 }

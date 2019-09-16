@@ -13,8 +13,12 @@ import static com.qa.portal.common.CommonConstants.KEYCLOAK_CONFIG_FILE_PROP;
 @Component
 public class QaServicesKeycloakConfigResolver implements KeycloakConfigResolver {
 
-    @Autowired
     private Environment env;
+
+    @Autowired
+    public QaServicesKeycloakConfigResolver(Environment env) {
+        this.env = env;
+    }
 
     @Override
     public KeycloakDeployment resolve(OIDCHttpFacade.Request request) {

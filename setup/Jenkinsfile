@@ -1,0 +1,14 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Install glcoud sdk')
+            steps {
+                sh label: '', script: 'bash ./cloud-sdk.sh'
+            }    
+        stage('gcloud auth')
+            steps {
+                sh label: '', script: 'gcloud auth activate service account --key-file=~/jenkins-sa.json '
+            }
+    }
+}

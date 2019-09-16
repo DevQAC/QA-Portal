@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jenkins
+  labels: 
+    app: jenkins
+spec:
+  securityContext:
+    fsGroup: 1000
+  serviceAccountName: jenkins-service-account
+  containers:
+    - name: jenkins
+      securityContext:
+        runAsUser: 1000
+      image: yamileon/jenkins:latest
+      ports:
+      - containerPort: 8080
+      imagePullPolicy: Always
+      env:
+      - name: JENKINS_OPTS
+        value: "--prefix=/jenkins"
+      - name: GITHUB_REPO
+        value: "https://github.com/bob-crutchley/QA-Portal.git"
+      - name: GITHUB_BRANCH
+        value: "ci-kube"
+      - name: PROJECT
+        value: "qa-portal-249709"
+      volumeMounts:
+        - mountPath: "/var/jenkins_home"
+          name: jenkins-home
+        - mountPath: "/var/run/docker.sock"
+          name: docker-socket
+      command: ["/bin/sh"]
+      args: ["-c", "sudo chmod 777 /usr/bin/docker && sudo chmod 777 /var/run/docker.sock"]
+  volumes:
+    - name: jenkins-home
+      persistentVolumeClaim:
+        claimName: jenkins-home
+    - name: docker-socket
+      hostPath:
+        path: /var/run/docker.sock
+        type: File

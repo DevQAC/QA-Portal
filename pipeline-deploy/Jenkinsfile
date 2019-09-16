@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    stages {
+        stage('pull images' {
+            steps {
+                sh label: '', script: 'bash ./deploy/pull-gcr.sh.sh'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh label: '', script: 'bash ./deploy/deployment.sh'
+            }
+        }
+    }
+}
