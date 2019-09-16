@@ -1,6 +1,6 @@
 table.mat-table.qa-table {
 
-    
+
     tr.mat-row {
         &.selectable {
             cursor: pointer;
@@ -27,8 +27,25 @@ table.mat-table.qa-table {
             width: 40px; // Width of a standard icon button
         }
     }
+
+    tr.mat-header-row.bulk-actions-row {
+        background: map-get($map: $mat-light-theme-background, $key: 'app-bar');
+    }
 }
 
 .qa-table-card {
     padding: 0 !important;
+
+    overflow: hidden;
+
+    .table-card-loading {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background: #82827d80;
+
+        .mat-spinner {
+            margin: 100px auto;
+        }
+    }
 }
