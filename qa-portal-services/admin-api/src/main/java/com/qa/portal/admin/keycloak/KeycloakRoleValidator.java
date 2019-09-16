@@ -14,12 +14,9 @@ public class KeycloakRoleValidator {
     }
 
     public void validateRole(String roleName) {
-        if (roleExists(roleName)) {
-            throw new QaPortalBusinessException("Role exists for supplied role name");
-        }
     }
 
-    private boolean roleExists(String roleName) {
+    public boolean roleExists(String roleName) {
         return keycloakAdminClient.getRealm().roles().list().stream()
                 .filter(r -> r.getName().equals(roleName))
                 .findAny()

@@ -1,10 +1,11 @@
 package com.qa.portal.admin.keycloak;
 
+import com.qa.portal.common.exception.QaPortalBusinessException;
+import com.qa.portal.common.security.QaSecurityContext;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import org.keycloak.admin.client.resource.RealmResource;
-import org.keycloak.representations.idm.RealmRepresentation;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +28,12 @@ public class KeycloakAdminClient {
 
 	private Environment environment;
 
-    public KeycloakAdminClient(Environment environment) {
+	private QaSecurityContext qaSecurityContext;
+
+    public KeycloakAdminClient(Environment environment,
+                               QaSecurityContext qaSecurityContext) {
         this.environment = environment;
+        this.qaSecurityContext = qaSecurityContext;
     }
 
     @PostConstruct
@@ -43,10 +48,15 @@ public class KeycloakAdminClient {
     }
 
     public Keycloak getKeycloakAdminClient() {
-    	return keycloak;
+        if (qaSecurityContext.getUserName().equals(environment.getProperty(QA_KEYCLOAK_ADMIN_USER_PROP))) {
+            return keycloak;
+        }
+        else {
+            throw new QaPortalBusinessException("User does not have privileges to maintain keycloak resources.");
+        }
 	}
 
 	public RealmResource getRealm() {
-    	return keycloak.realm(environment.getProperty(QA_KEYCLOAK_ADMIN_REALM_PROP));
+    	return getKeycloakAdminClient().realm(environment.getProperty(QA_KEYCLOAK_ADMIN_REALM_PROP));
 	}
 }

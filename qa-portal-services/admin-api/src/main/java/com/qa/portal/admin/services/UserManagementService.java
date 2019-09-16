@@ -1,7 +1,7 @@
 package com.qa.portal.admin.services;
 
 import com.qa.portal.admin.dto.QaUserAndRoleDto;
-import com.qa.portal.admin.keycloak.KeycloakUserManager;
+import com.qa.portal.admin.keycloak.KeycloakResourceManager;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -9,15 +9,15 @@ import javax.transaction.Transactional;
 @Service
 public class UserManagementService {
 
-    private KeycloakUserManager keycloakUserManager;
+    private KeycloakResourceManager keycloakResourceManager;
 
-    public UserManagementService(KeycloakUserManager keycloakUserManager) {
-        this.keycloakUserManager = keycloakUserManager;
+    public UserManagementService(KeycloakResourceManager keycloakResourceManager) {
+        this.keycloakResourceManager = keycloakResourceManager;
     }
 
     @Transactional
     public QaUserAndRoleDto createUser(QaUserAndRoleDto userDetails) {
-        keycloakUserManager.createUserAndRole(userDetails);
+        keycloakResourceManager.createUserAndRole(userDetails);
         return userDetails;
     }
 
