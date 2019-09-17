@@ -27,6 +27,8 @@ import com.qa.portal.reflection.service.mapper.ReflectionMapper;
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateSelfReflectionOperationTest {
 
+	private final String USER_NAME = "USER_NAME";
+
 	@Mock
 	private ReflectionMapper reflectionMapper;
 
@@ -48,7 +50,6 @@ public class UpdateSelfReflectionOperationTest {
 	@Mock
 	private ReflectionEntity updatedReflectionEntity;
 
-	private final String USER_NAME = "USER_NAME";
 
 	@InjectMocks
 	private UpdateSelfReflectionOperation operation;

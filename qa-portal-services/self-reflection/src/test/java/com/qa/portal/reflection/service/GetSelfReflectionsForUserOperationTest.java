@@ -24,6 +24,12 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class GetSelfReflectionsForUserOperationTest {
 
+	private final String USER_NAME = "TEST_USER";
+
+	private final String UNKNOWN_NAME = "UNKNOWN_USER";
+
+	private final Integer TRAINEE_ID = 1;
+
 	@Mock
 	private ReflectionDto reflectionDto1;
 
@@ -50,12 +56,6 @@ public class GetSelfReflectionsForUserOperationTest {
 	
 	@Mock
 	private TraineeEntity traineeEntity;
-
-	private final String USER_NAME = "TEST_USER";
-	
-	private final String UNKNOWN_NAME = "UNKNOWN_USER";
-	
-	private final Integer TRAINEE_ID = 1;
 
 	@InjectMocks
 	private GetSelfReflectionsForUserOperation operation;

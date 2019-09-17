@@ -32,7 +32,7 @@ public class ApplicationsController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ApplicationProjectsDto>> getApplicationsByDepartment() {
-        return ResponseEntity.ok(applicationService.getApplicationsByDepartment(securityContext.getRoles()));
+    public ResponseEntity<List<ApplicationProjectsDto>> getPortalApplications() {
+        return ResponseEntity.ok(applicationService.getPortalApplications(securityContext.getRoles()));
     }
 }

@@ -24,7 +24,8 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private messageService: MessageService) { }
 
   getAllUsers(): Observable<IUserModel[]> {

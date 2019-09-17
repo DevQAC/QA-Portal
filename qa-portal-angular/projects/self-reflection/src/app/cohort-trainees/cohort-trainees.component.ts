@@ -46,7 +46,7 @@ export class CohortTraineesComponent implements OnInit, OnDestroy {
   }
 
   reviewReflectionForm(formId: string) {
-    return '/qa/portal/training/trainer/selfreflection/' + formId;
+    return '/qa/portal/training/self-reflection/trainer/trainee/' + formId;
   }
 
   ngOnDestroy(): void {

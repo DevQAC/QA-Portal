@@ -49,13 +49,11 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-spring-security-adapter</artifactId>
-            <version>6.0.1</version>
         </dependency>
 
         <dependency>
             <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
-            <version>5.5.1</version>
         </dependency>
 
         <dependency>

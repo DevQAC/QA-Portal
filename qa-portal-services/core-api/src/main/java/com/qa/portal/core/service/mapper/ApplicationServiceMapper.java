@@ -8,8 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.*;
 
 @Component
 public class ApplicationServiceMapper {
@@ -26,16 +30,16 @@ public class ApplicationServiceMapper {
     public List<ApplicationProjectsDto> createApplicationProjectsDto(Set<RoleProjectPageEntity> roleProjectPageEntities) {
         return getProjectsByApplication(roleProjectPageEntities).entrySet().stream()
                 .map((entry) -> new ApplicationProjectsDto(entry.getKey(), entry.getValue()))
-                .sorted(Comparator.comparingInt((ApplicationProjectsDto d) -> d.getPortalApplication().getDisplayOrder()))
-                .collect(Collectors.toList());
+                .sorted(comparingInt((ApplicationProjectsDto d) -> d.getPortalApplication().getDisplayOrder()))
+                .collect(toList());
     }
 
     private Map<PortalApplicationDto, Set<PortalProjectDto>> getProjectsByApplication(Set<RoleProjectPageEntity> roleProjectPageEntities) {
         return roleProjectPageEntities.stream()
                 .map(rpp -> createApplicationProjectDto(rpp, roleProjectPageEntities))
-                .sorted(Comparator.comparingInt(ap -> ap.getPortalProjectDto().getId()))
-                .collect(Collectors.groupingBy(ApplicationProjectDto::getPortalApplication,
-                        Collectors.mapping(ApplicationProjectDto::getPortalProjectDto, Collectors.toSet())));
+                .sorted(comparingInt(ap -> ap.getPortalProjectDto().getId()))
+                .collect(groupingBy(ApplicationProjectDto::getPortalApplication,
+                        mapping(ApplicationProjectDto::getPortalProjectDto, toSet())));
     }
 
     private ApplicationProjectDto createApplicationProjectDto(RoleProjectPageEntity roleProjectPageEntity,
@@ -51,7 +55,7 @@ public class ApplicationServiceMapper {
         return roleProjectPageEntities.stream()
                 .filter(rppe -> rppe.getProjectPage().getPortalProject().getName().equals(portalProjectDto.getName()))
                 .map(rppe -> baseMapper.mapObject(rppe.getProjectPage(), ProjectPageDto.class))
-                .sorted(Comparator.comparingInt(ProjectPageDto::getId))
-                .collect(Collectors.toList());
+                .sorted(comparingInt(ProjectPageDto::getId))
+                .collect(toList());
     }
 }

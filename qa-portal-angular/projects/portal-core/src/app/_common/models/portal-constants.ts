@@ -20,3 +20,5 @@ export const USER_API_TRAINEES_FOR_REVIEW = 'self-reflection-api/reflection/coho
 export const TRAINEE_ROLE = 'training-user';
 export const TRAINER_ROLE = 'training-manager';
 export const TRAINING_ADMIN_ROLE = 'training-admin';
+
+export const SUPER_USER = 'super-user';

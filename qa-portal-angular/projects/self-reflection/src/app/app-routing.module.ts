@@ -11,10 +11,10 @@ import {AppAuthGuard} from '../../../portal-core/src/app/_common/guards/app-auth
 
 const routes: Routes = [
   {
-    path: 'trainee',
+    path: 'self-reflection',
     children: [
       {
-        path: 'selfreflection', component: TraineeNewReflectionComponent,
+        path: 'trainee/new', component: TraineeNewReflectionComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
@@ -23,30 +23,25 @@ const routes: Routes = [
         }
       },
       {
-        path: 'selfreflection/:id', component: TraineeReflectionComponent,
+        path: 'trainee/history', component: SelfReflectionHistoryComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
             TRAINEE_ROLE
           ]
         }
-      } ,
+      },
       {
-        path: 'selfreflections', component: SelfReflectionHistoryComponent,
+        path: 'trainee/:id', component: TraineeReflectionComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
             TRAINEE_ROLE
           ]
         }
-      }
-    ]
-  },
-  {
-    path: 'trainer',
-    children: [
+      },
       {
-        path: 'cohort/trainees', component: CohortTraineesComponent,
+        path: 'trainer/cohorts/trainees', component: CohortTraineesComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
@@ -55,21 +50,16 @@ const routes: Routes = [
         }
       },
       {
-        path: 'selfreflection/:id', component: TrainerReflectionComponent,
+        path: 'trainer/trainee/:id', component: TrainerReflectionComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
             TRAINER_ROLE
           ]
         }
-      }
-    ]
-  },
-  {
-    path: 'admin',
-    children: [
+      },
       {
-        path: 'cohorts', component: CohortSummaryComponent,
+        path: 'admin/cohorts/summary', component: CohortSummaryComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
@@ -80,7 +70,6 @@ const routes: Routes = [
     ]
   }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

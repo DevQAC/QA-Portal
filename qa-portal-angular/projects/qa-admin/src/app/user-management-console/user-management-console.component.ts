@@ -15,6 +15,10 @@ export class UserManagementConsoleComponent implements OnInit {
   displayedColumns: string[] = ['Username', 'Email', 'First Name', 'Last Name', 'Roles', 'Cohort', 'Actions'];
   public dataSource: any;
 
+  private modalConfig = {
+    maxWidth: '1000px'
+  };
+
   constructor(public dialog: MatDialog, private service: UserService) { }
 
   ngOnInit() {
@@ -23,13 +27,13 @@ export class UserManagementConsoleComponent implements OnInit {
 
   editDialog(user: IUserModel): void {
     console.info(user);
-    let dialogRef = this.dialog.open(EditUserDialogComponent, {
-      width: '500px',
+    const dialogRef = this.dialog.open(EditUserDialogComponent, {
+      ...this.modalConfig,
       data: user
     });
     dialogRef.componentInstance.dataChanged.subscribe(() => {
       if (dialogRef.componentInstance.data !== user && dialogRef.componentInstance.canSubmit) {
-        this.service.updateUser(dialogRef.componentInstance.data)
+        this.service.updateUser(dialogRef.componentInstance.data);
       }
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -38,12 +42,10 @@ export class UserManagementConsoleComponent implements OnInit {
 
   addDialog(): void {
 
-    let dialogRef = this.dialog.open(AddUserDialogComponent, {
-      width: '500px',
-    });
+    let dialogRef = this.dialog.open(AddUserDialogComponent, this.modalConfig);
     dialogRef.componentInstance.dataChanged.subscribe(() => {
       if (dialogRef.componentInstance.canSubmit) {
-        this.service.addUser(dialogRef.componentInstance.data)
+        this.service.addUser(dialogRef.componentInstance.data);
       }
     });
     dialogRef.afterClosed().subscribe(() => {
@@ -52,13 +54,13 @@ export class UserManagementConsoleComponent implements OnInit {
 
   deleteConfirmDialog(user: IUserModel): void {
     let dialogRef = this.dialog.open(DelUserConfirmDialogComponent, {
-      width: '500px',
+      ...this.modalConfig,
       data: user
     });
 
     dialogRef.componentInstance.dataChanged.subscribe(() => {
       if (dialogRef.componentInstance.canSubmit) {
-        this.service.deleteUserByUsername(dialogRef.componentInstance.data.id)
+        this.service.deleteUserByUsername(dialogRef.componentInstance.data.id);
       }
     });
     dialogRef.afterClosed().subscribe(() => {

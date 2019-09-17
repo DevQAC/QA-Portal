@@ -1,12 +1,14 @@
 package com.qa.portal.core.persistence.entity;
 
+import com.qa.portal.common.persistence.entity.QaBaseEntity;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(schema = "training", name = "portal_project")
-public class PortalProjectEntity {
+public class PortalProjectEntity extends QaBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "application_sequence")

@@ -92,7 +92,7 @@
             *matHeaderRowDef="['courseName', 'startDate', 'location', 'averageKnowledgeRating', 'tqi']"></tr>
         <tr class="data-row" mat-row
             *matRowDef="let row; columns: ['courseName', 'startDate', 'location', 'averageKnowledgeRating', 'tqi'];"
-            [routerLink]="['/feedback/trainer/evaluation/course/summary', row.id]">
+            [routerLink]="['/qa/portal/training/feedback/trainer/evaluation/course/summary', row.id]">
       </table>
     </mat-card-content>
   </mat-card>
