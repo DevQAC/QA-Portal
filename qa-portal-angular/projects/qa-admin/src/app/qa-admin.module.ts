@@ -12,6 +12,8 @@ import { InMemoryDataService } from './_common/services/in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CohortChipsComponent } from './cohort-chips/cohort-chips.component';
 import { QaAdminRoutingModule } from './qa-admin-routing.module';
+import { DeleteCohortDialogComponent } from './cohort-management/delete-cohort-dialog/delete-cohort-dialog.component';
+import { CohortManagementComponent } from './cohort-management/cohort-management.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { QaAdminRoutingModule } from './qa-admin-routing.module';
     CohortChipsComponent,
     AddUserDialogComponent,
     DelUserConfirmDialogComponent,
-    EditUserDialogComponent
+    EditUserDialogComponent,
+    CohortManagementComponent,
+    DeleteCohortDialogComponent,
   ],
   imports: [
     QaCommonModule,
@@ -35,7 +39,8 @@ import { QaAdminRoutingModule } from './qa-admin-routing.module';
   entryComponents: [
     AddUserDialogComponent,
     DelUserConfirmDialogComponent,
-    EditUserDialogComponent
+    EditUserDialogComponent,
+    DeleteCohortDialogComponent
   ]
 })
 export class QaAdminModule { }

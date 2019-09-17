@@ -39,7 +39,7 @@ public class ApplicationService {
     }
 
     @Transactional
-    public List<ApplicationProjectsDto> getApplicationsByDepartment(Collection<String> userRoles) {
+    public List<ApplicationProjectsDto> getPortalApplications(Collection<String> userRoles) {
         userRoles.add(ANY_ROLE);
         Set<RoleProjectPageEntity> roleProjectPages = getRoleProjectPages(userRoles);
         return applicationServiceMapper.createApplicationProjectsDto(roleProjectPages);

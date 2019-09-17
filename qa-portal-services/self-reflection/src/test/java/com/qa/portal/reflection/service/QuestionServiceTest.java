@@ -25,6 +25,10 @@ import com.qa.portal.reflection.service.mapper.QuestionMapper;
 @RunWith(MockitoJUnitRunner.class)
 public class QuestionServiceTest {
 
+	private static final Integer COHORT_ID = 1;
+
+	private static final Integer FAKE_ID = 2;
+
 	@Mock
 	private CohortQuestionRepository cohortQuestionRepo;
 
@@ -48,8 +52,7 @@ public class QuestionServiceTest {
 	
 	@InjectMocks
 	private QuestionService service;
-	
-	private final Integer COHORT_ID = 1, FAKE_ID = 2; 
+
 	
 	@Test
 	public void getQuestionsForCohortTest() {

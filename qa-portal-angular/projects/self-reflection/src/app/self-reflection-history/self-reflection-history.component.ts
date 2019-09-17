@@ -31,6 +31,7 @@ export class SelfReflectionHistoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('Reflection history init');
     this.reflectionSubscription = this.reflectionHistoryService.getTraineeReflections().subscribe(
       (response) => {
         response.forEach((selfReflection) => {

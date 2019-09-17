@@ -255,7 +255,7 @@ export class TrainerReflectionComponent implements OnInit {
             this.saveReflectionQuestions().subscribe(reflectionQuestions => {
               this.toastrService.showSuccess(`Reflection form ${this.updateMessage}`);
               this.disableInputs = false;
-              this.router.navigateByUrl('/qa/portal/training/trainer/cohort/trainees');
+              this.router.navigateByUrl('qa/portal/training/self-reflection/trainer/cohorts/trainees');
             }, error => this.errorService.handleError(error));
           }
         }, error => this.errorService.handleError(error));

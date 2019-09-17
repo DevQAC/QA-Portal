@@ -36,6 +36,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchBarBackdropComponent } from './search-bar-backdrop/search-bar-backdrop.component';
 import { CommonModule } from '@angular/common';
+import { DataTableComponent } from './data-table/data-table.component';
 
 const materialModules = [
   MatCheckboxModule,
@@ -75,7 +76,8 @@ const materialModules = [
   declarations: [
     RatedQuestionComponent,
     SearchBarComponent,
-    SearchBarBackdropComponent
+    SearchBarBackdropComponent,
+    DataTableComponent
   ],
   imports: [
     CommonModule,
@@ -98,7 +100,8 @@ const materialModules = [
     RatedQuestionComponent,
     ReactiveFormsModule,
     SearchBarComponent,
-    SearchBarBackdropComponent
+    SearchBarBackdropComponent,
+    DataTableComponent
   ]
 })
 export class QaCommonModule {
