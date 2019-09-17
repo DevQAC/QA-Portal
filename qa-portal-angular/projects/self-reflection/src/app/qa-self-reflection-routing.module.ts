@@ -11,63 +11,58 @@ import { AppAuthGuard } from '../../../portal-core/src/app/_common/guards/app-au
 
 const routes: Routes = [
   {
-    path: 'self-reflection',
-    children: [
-      {
-        path: 'trainee/new', component: TraineeNewReflectionComponent,
-        canActivate: [AppAuthGuard],
-        data: {
-          roles: [
-            TRAINEE_ROLE
-          ]
-        }
-      },
-      {
-        path: 'trainee/history', component: SelfReflectionHistoryComponent,
-        canActivate: [AppAuthGuard],
-        data: {
-          roles: [
-            TRAINEE_ROLE
-          ]
-        }
-      },
-      {
-        path: 'trainee/:id', component: TraineeReflectionComponent,
-        canActivate: [AppAuthGuard],
-        data: {
-          roles: [
-            TRAINEE_ROLE
-          ]
-        }
-      },
-      {
-        path: 'trainer/cohorts/trainees', component: CohortTraineesComponent,
-        canActivate: [AppAuthGuard],
-        data: {
-          roles: [
-            TRAINER_ROLE
-          ]
-        }
-      },
-      {
-        path: 'trainer/trainee/:id', component: TrainerReflectionComponent,
-        canActivate: [AppAuthGuard],
-        data: {
-          roles: [
-            TRAINER_ROLE
-          ]
-        }
-      },
-      {
-        path: 'admin/cohorts/summary', component: CohortSummaryComponent,
-        canActivate: [AppAuthGuard],
-        data: {
-          roles: [
-            TRAINING_ADMIN_ROLE
-          ]
-        }
-      }
-    ]
+    path: 'trainee/new', component: TraineeNewReflectionComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        TRAINEE_ROLE
+      ]
+    }
+  },
+  {
+    path: 'trainee/history', component: SelfReflectionHistoryComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        TRAINEE_ROLE
+      ]
+    }
+  },
+  {
+    path: 'trainee/:id', component: TraineeReflectionComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        TRAINEE_ROLE
+      ]
+    }
+  },
+  {
+    path: 'trainer/cohorts/trainees', component: CohortTraineesComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        TRAINER_ROLE
+      ]
+    }
+  },
+  {
+    path: 'trainer/trainee/:id', component: TrainerReflectionComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        TRAINER_ROLE
+      ]
+    }
+  },
+  {
+    path: 'admin/cohorts/summary', component: CohortSummaryComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        TRAINING_ADMIN_ROLE
+      ]
+    }
   }
 ];
 
