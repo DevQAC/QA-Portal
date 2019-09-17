@@ -1,6 +1,8 @@
-import { Component, Input, ViewChild, AfterContentInit, ChangeDetectorRef, ContentChildren, EventEmitter, Output } from '@angular/core';
-import { MatTableDataSource, MatColumnDef, MatTable, MatCheckboxChange } from '@angular/material';
+import { Component, Input, ViewChild, AfterContentInit, ChangeDetectorRef, ContentChildren, EventEmitter, Output, ElementRef } from '@angular/core';
+import { MatTableDataSource, MatColumnDef, MatTable, MatCheckboxChange, MatCheckbox } from '@angular/material';
 import { IRowClickEvent } from './models/row-click-event';
+
+import * as _ from 'lodash';
 
 
 @Component({
@@ -26,6 +28,8 @@ export class DataTableComponent<DataType> implements AfterContentInit {
   public allRowsSelected = false;
   public atLeastOneRowSelected = false;
 
+  public lastSelectionIndex: number = null;
+
 
   constructor(private cdRef: ChangeDetectorRef) { }
 
@@ -39,17 +43,11 @@ export class DataTableComponent<DataType> implements AfterContentInit {
   }
 
   onRowClicked(index: number, data: DataType, event: MouseEvent | KeyboardEvent): void {
-      this.rowClick.emit({ index, data, event });
+    this.rowClick.emit({ index, data, event });
   }
 
 
   // ROW SELECTION
-  public setRowSelected(index: number, selected: boolean) {
-    this.rowSelection[index] = selected;
-    this.updateRowSelectedState();
-    console.log(this.rowSelection);
-  }
-
   updateRowSelectedState() {
     this.allRowsSelected = this.rowSelection.length === this.dataSource.data.length &&
       (this.rowSelection.every(x => x) || false);
@@ -64,6 +62,27 @@ export class DataTableComponent<DataType> implements AfterContentInit {
 
   public deselectAllRows(): void {
     this.rowSelection = [];
+    this.updateRowSelectedState();
+  }
+
+  public onRowCheckboxClicked(event: MouseEvent, index: number) {
+    event.preventDefault(); // Stop default checkbox behaviour
+
+    if (event.shiftKey && this.lastSelectionIndex !== null) {
+      if (!event.ctrlKey) {
+        this.rowSelection = [];
+      }
+
+      this.rowSelection[index] = true;
+
+      for (const i of _.range(this.lastSelectionIndex, index)) {
+        this.rowSelection[i] = true;
+      }
+    } else {
+      this.rowSelection[index] = this.rowSelection[index] === undefined ? true : !this.rowSelection[index];
+      this.lastSelectionIndex = index;
+    }
+
     this.updateRowSelectedState();
   }
 
