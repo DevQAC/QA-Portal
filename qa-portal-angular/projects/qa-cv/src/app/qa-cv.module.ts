@@ -13,7 +13,6 @@ import { CvSearchComponent } from './cv-search/cv-search.component';
 import { CvCardBaseComponent } from './cv-card-base/cv-card-base.component';
 import { CVSearchHistoryService } from './cv-search/services/cv-search.service';
 import { SubmitConfirmDialogComponent } from './view-cv/submit-confirm-dialog/submit-confirm-dialog.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ViewCvService } from './view-cv/services/view-cv.service';
 import { ViewCvStateManagerService } from './view-cv/services/view-cv-state-manager.service';
 import { ViewCvPageDataService } from './view-cv/services/view-cv-page-data.service';
@@ -34,8 +33,7 @@ import { ViewCvPageDataService } from './view-cv/services/view-cv-page-data.serv
   imports: [
     QaCommonModule,
     CvRoutingModule,
-    MatNativeDateModule,
-    PdfViewerModule
+    MatNativeDateModule
   ],
   providers: [
     CVSearchHistoryService,
