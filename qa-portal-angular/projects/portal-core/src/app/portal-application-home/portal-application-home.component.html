@@ -4,7 +4,7 @@
       <h1 class="mat-display-3 text-center" style="margin:0;">{{(appService.currentApplication$ | async)?.portalApplication?.name}}</h1>
       <p class="mat-caption text-center">{{(appService.currentApplication$ | async)?.portalApplication?.description}}</p>
     </header>
-    <mat-divider style="margin: 1rem"></mat-divider>
+    <mat-divider></mat-divider>
     <section role="grid" name="portal-applications" class="portal-apps" [attr.num-of-apps]="(appService.currentApplication$ | async)?.portalProjects?.length || 0">
       <div class="app-card-container" *ngFor="let app of (appService.currentApplication$ | async)?.portalProjects">
         <mat-card class="application-card">
@@ -24,7 +24,7 @@
         </mat-card>
       </div>
     </section>
-    <mat-divider style="margin: 1rem"></mat-divider>
+    <mat-divider></mat-divider>
     <section name="portal-actions" style="display: flex; flex-direction: column">
       <p class="text-center mat-body-strong">These links can also be found in the side menu.</p>
       <button mat-stroked-button color="primary" class="mx-auto" (click)="sideMenuService.setOpenState(true)"

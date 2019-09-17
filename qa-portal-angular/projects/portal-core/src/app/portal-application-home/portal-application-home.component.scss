@@ -9,20 +9,21 @@
         grid-template-columns: 100%;
     }
 
-
     @media only screen and (max-width: 1280px) {
         grid-template-columns: 50% 50%;
-
     }
 
     @media only screen and (max-width: 800px) {
         grid-template-columns: 100%;
-
     }
 
     .application-card {
         max-width: 400px;
         margin: auto;
     }
-
 }
+
+mat-divider {
+    margin: 2rem;
+}
+
