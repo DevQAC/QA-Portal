@@ -15,7 +15,6 @@ import { CohortTableComponent } from './cohort-table/cohort-table.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule, MatRippleModule } from '@angular/material';
 import { CohortChartComponent } from './cohort-chart/cohort-chart.component';
 import { CohortTraineesComponent } from './cohort-trainees/cohort-trainees.component';
-import { HttpClientModule } from '@angular/common/http';
 import { SelfReflectionService } from './trainer-reflection/services/self-reflection.service';
 import { CohortTraineesService } from './cohort-trainees/services/cohort-trainees.service';
 import { RatedQuestionsService } from './trainee-reflection/services/rated-questions.service';
@@ -40,7 +39,6 @@ import { SelfReflectionFormStateService } from './_common/services/self-reflecti
   imports: [
     QaCommonModule,
     AppRoutingModule,
-    HttpClientModule,
     FormsModule,
     MatTableModule,
     MatPaginatorModule,

@@ -9,7 +9,6 @@ import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.com
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './_common/services/in-memory-data.service';
-import { HttpClientModule } from '@angular/common/http';
 import { CohortChipsComponent } from './cohort-chips/cohort-chips.component';
 import { QaAdminRoutingModule } from './qa-admin-routing.module';
 import { DeleteCohortDialogComponent } from './cohort-management/delete-cohort-dialog/delete-cohort-dialog.component';
@@ -30,7 +29,6 @@ import { CohortManagementComponent } from './cohort-management/cohort-management
   imports: [
     QaCommonModule,
     QaAdminRoutingModule,
-    HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { passThruUnknownUrl: true }
     )
