@@ -1,17 +1,14 @@
-package com.qa.portal.admin.keycloak;
+package com.qa.portal.core.keycloak;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.portal.admin.dto.QaUserAndRoleDto;
+import com.qa.portal.core.dto.QaUserDetailsDto;
 import com.qa.portal.common.dto.QaUserDto;
 import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.StringWriter;
@@ -28,33 +25,33 @@ public class KeycloakResourceManagerTest {
         try {
             restTemplate = new RestTemplate();
             LOGGER.info("Sending request");
-            ResponseEntity<QaUserAndRoleDto> response =
-                    restTemplate.postForEntity("http://localhost:8088/admin-api/user", getRequest(), QaUserAndRoleDto.class);
+            ResponseEntity<QaUserDetailsDto> response =
+                    restTemplate.postForEntity("http://localhost:8088/admin-api/user", getRequest(), QaUserDetailsDto.class);
             LOGGER.info(response.getBody().toString());
         } catch (Exception e) {
             Assert.fail("Exception updating keycloak " + e.getMessage());
         }
     }
 
-    private HttpEntity<QaUserAndRoleDto> getRequest() {
+    private HttpEntity<QaUserDetailsDto> getRequest() {
         ObjectMapper om = new ObjectMapper();
-        QaUserAndRoleDto qaUserAndRoleDto = new QaUserAndRoleDto();
+        QaUserDetailsDto qaUserDetailsDto = new QaUserDetailsDto();
         QaUserDto userDto = new QaUserDto();
         userDto.setFirstName("Scott");
         userDto.setLastName("Thomson");
         userDto.setUserName("s2@qa.com");
         userDto.setEmail("scotthmsn@hotmail.com");
-        qaUserAndRoleDto.setUser(userDto);
-        qaUserAndRoleDto.setRoleName("training-user");
+        qaUserDetailsDto.setUser(userDto);
+        qaUserDetailsDto.setRoleName("training-user");
         StringWriter sw = new StringWriter();
         try {
-            om.writeValue(sw, qaUserAndRoleDto);
+            om.writeValue(sw, qaUserDetailsDto);
             LOGGER.info(sw.toString());
         }
         catch (Exception e) {
 
         }
-        HttpEntity<QaUserAndRoleDto> entity = new HttpEntity<>(qaUserAndRoleDto, getHeaders());
+        HttpEntity<QaUserDetailsDto> entity = new HttpEntity<>(qaUserDetailsDto, getHeaders());
         return entity;
     }
 

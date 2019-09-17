@@ -1,4 +1,4 @@
-package com.qa.portal.admin.keycloak;
+package com.qa.portal.core.keycloak;
 
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.security.QaSecurityContext;

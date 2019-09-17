@@ -1,8 +1,8 @@
-package com.qa.portal.admin.dto;
+package com.qa.portal.core.dto;
 
 import com.qa.portal.common.dto.QaUserDto;
 
-public class QaUserAndRoleDto {
+public class QaUserDetailsDto {
 
     private QaUserDto user;
 

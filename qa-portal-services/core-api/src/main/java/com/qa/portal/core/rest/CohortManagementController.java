@@ -1,6 +1,6 @@
-package com.qa.portal.admin.rest;
+package com.qa.portal.core.rest;
 
-import com.qa.portal.admin.services.CohortManagementService;
+import com.qa.portal.core.service.CohortManagementService;
 import com.qa.portal.common.dto.QaCohortDto;
 import com.qa.portal.common.security.QaSecurityContext;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.qa.portal.admin.services;
+package com.qa.portal.core.service;
 
 import com.qa.portal.common.dto.CourseDto;
 import org.springframework.stereotype.Service;

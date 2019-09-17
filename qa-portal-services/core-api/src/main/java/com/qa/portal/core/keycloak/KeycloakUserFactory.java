@@ -1,8 +1,7 @@
-package com.qa.portal.admin.keycloak;
+package com.qa.portal.core.keycloak;
 
 import com.qa.portal.common.dto.QaUserDto;
 import org.keycloak.representations.idm.CredentialRepresentation;
-import org.keycloak.representations.idm.RequiredActionProviderSimpleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Component;
 

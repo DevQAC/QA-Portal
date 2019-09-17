@@ -1,4 +1,4 @@
-package com.qa.portal.admin.keycloak;
+package com.qa.portal.core.keycloak;
 
 public class KeycloakCohortValidator {
 }

@@ -1,7 +1,5 @@
-package com.qa.portal.admin.keycloak;
+package com.qa.portal.core.keycloak;
 
-import com.qa.portal.common.dto.QaUserDto;
-import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.springframework.stereotype.Component;
 
 @Component

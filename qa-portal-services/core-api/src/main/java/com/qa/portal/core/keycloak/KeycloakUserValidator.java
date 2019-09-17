@@ -1,6 +1,6 @@
-package com.qa.portal.admin.keycloak;
+package com.qa.portal.core.keycloak;
 
-import com.qa.portal.admin.dto.QaUserAndRoleDto;
+import com.qa.portal.core.dto.QaUserDetailsDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -14,7 +14,7 @@ public class KeycloakUserValidator {
         this.keycloakAdminClient = keycloakAdminClient;
     }
 
-    public void validateUser(QaUserAndRoleDto userDetails) {
+    public void validateUser(QaUserDetailsDto userDetails) {
         if (StringUtils.isEmpty(userDetails.getUser().getFirstName()) ||
                 StringUtils.isEmpty(userDetails.getUser().getUserName()) ||
                 StringUtils.isEmpty(userDetails.getUser().getLastName().isEmpty()) ||

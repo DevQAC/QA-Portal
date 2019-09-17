@@ -1,7 +1,7 @@
-package com.qa.portal.admin.services;
+package com.qa.portal.core.service;
 
-import com.qa.portal.admin.dto.QaUserAndRoleDto;
-import com.qa.portal.admin.keycloak.KeycloakResourceManager;
+import com.qa.portal.core.dto.QaUserDetailsDto;
+import com.qa.portal.core.keycloak.KeycloakResourceManager;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,13 +16,13 @@ public class UserManagementService {
     }
 
     @Transactional
-    public QaUserAndRoleDto createUser(QaUserAndRoleDto userDetails) {
+    public QaUserDetailsDto createUserDetails(QaUserDetailsDto userDetails) {
         keycloakResourceManager.createUserAndRole(userDetails);
         return userDetails;
     }
 
     @Transactional
-    public QaUserAndRoleDto updateUser(QaUserAndRoleDto userDetails) {
+    public QaUserDetailsDto updateUserDetails(QaUserDetailsDto userDetails) {
         return userDetails;
     }
 

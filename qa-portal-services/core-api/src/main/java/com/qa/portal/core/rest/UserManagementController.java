@@ -1,7 +1,7 @@
-package com.qa.portal.admin.rest;
+package com.qa.portal.core.rest;
 
-import com.qa.portal.admin.dto.QaUserAndRoleDto;
-import com.qa.portal.admin.services.UserManagementService;
+import com.qa.portal.core.dto.QaUserDetailsDto;
+import com.qa.portal.core.service.UserManagementService;
 import com.qa.portal.common.security.QaSecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,15 +25,13 @@ public class UserManagementController {
     }
 
     @PostMapping
-    public ResponseEntity<QaUserAndRoleDto> createUser(@RequestBody QaUserAndRoleDto userDetails) {
-        LOGGER.info("In create user in controller");
-        return ResponseEntity.ok(userManagementService.createUser(userDetails));
+    public ResponseEntity<QaUserDetailsDto> createUser(@RequestBody QaUserDetailsDto userDetails) {
+        return ResponseEntity.ok(userManagementService.createUserDetails(userDetails));
     }
 
     @PutMapping
-    public ResponseEntity<QaUserAndRoleDto> updateUser(@RequestBody QaUserAndRoleDto userDetails) {
-        LOGGER.info("In update user in controller");
-        return ResponseEntity.ok(userManagementService.updateUser(userDetails));
+    public ResponseEntity<QaUserDetailsDto> updateUser(@RequestBody QaUserDetailsDto userDetails) {
+        return ResponseEntity.ok(userManagementService.updateUserDetails(userDetails));
     }
 
     @DeleteMapping("{userName}")

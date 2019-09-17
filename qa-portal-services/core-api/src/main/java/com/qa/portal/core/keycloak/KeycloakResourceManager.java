@@ -1,6 +1,6 @@
-package com.qa.portal.admin.keycloak;
+package com.qa.portal.core.keycloak;
 
-import com.qa.portal.admin.dto.QaUserAndRoleDto;
+import com.qa.portal.core.dto.QaUserDetailsDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -39,13 +39,13 @@ public class KeycloakResourceManager {
         this.keycloakAdminClient = keycloakAdminClient;
     }
 
-    public void createUserAndRole(QaUserAndRoleDto qaUserAndRoleDto) {
-        UserRepresentation userRepresentation = createUser(qaUserAndRoleDto);
-        RoleRepresentation roleRepresentation = createRole(qaUserAndRoleDto.getRoleName());
+    public void createUserAndRole(QaUserDetailsDto qaUserDetailsDto) {
+        UserRepresentation userRepresentation = createUser(qaUserDetailsDto);
+        RoleRepresentation roleRepresentation = createRole(qaUserDetailsDto.getRoleName());
         assignRoleToUser(userRepresentation, roleRepresentation);
     }
 
-    public UserRepresentation createUser(QaUserAndRoleDto userDetails) {
+    public UserRepresentation createUser(QaUserDetailsDto userDetails) {
         keycloakUserValidator.validateUser(userDetails);
         UserRepresentation userRepresentation = keycloakUserFactory.createKeycloakUser(userDetails.getUser());
         keycloakAdminClient.getRealm().users().create(userRepresentation);
