@@ -67,4 +67,8 @@ export class CohortManagementComponent implements OnInit {
     });
   }
 
+  public onAddCohortButtonClicked(): void {
+    console.warn('Add new cohort not implemented!');
+  }
+
 }

@@ -1,6 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { QaCommonModule } from '../../../qa-common/src/app/app.module';
+import { NgModule } from '@angular/core';
+import { QaCommonModule } from '../../../qa-common/src/app/qa-common.module';
 import { CvRoutingModule } from './cv-routing.module';
 import { ViewCvComponent } from './view-cv/view-cv.component';
 import { CvProfileComponent } from './cv-profile/cv-profile.component';
@@ -14,7 +13,6 @@ import { CvSearchComponent } from './cv-search/cv-search.component';
 import { CvCardBaseComponent } from './cv-card-base/cv-card-base.component';
 import { CVSearchHistoryService } from './cv-search/services/cv-search.service';
 import { SubmitConfirmDialogComponent } from './view-cv/submit-confirm-dialog/submit-confirm-dialog.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ViewCvService } from './view-cv/services/view-cv.service';
 import { ViewCvStateManagerService } from './view-cv/services/view-cv-state-manager.service';
 import { ViewCvPageDataService } from './view-cv/services/view-cv-page-data.service';
@@ -33,11 +31,9 @@ import { ViewCvPageDataService } from './view-cv/services/view-cv-page-data.serv
     CvCardBaseComponent
   ],
   imports: [
-    BrowserModule,
-    CvRoutingModule,
     QaCommonModule,
-    MatNativeDateModule,
-    PdfViewerModule
+    CvRoutingModule,
+    MatNativeDateModule
   ],
   providers: [
     CVSearchHistoryService,
@@ -50,16 +46,5 @@ import { ViewCvPageDataService } from './view-cv/services/view-cv-page-data.serv
     SubmitConfirmDialogComponent
   ]
 })
-export class QaCvModule {
-}
+export class QaCvModule { }
 
-@NgModule({})
-export class QaCvSharedModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: QaCvModule,
-      providers: []
-    };
-  }
-
-}

@@ -7,7 +7,7 @@ import { ApplicationService } from '../_common/services/application.service';
   selector: 'app-portal-header',
   templateUrl: './portal-header.component.html'
 })
-export class PortalHeaderComponent implements OnInit{
+export class PortalHeaderComponent implements OnInit {
   public displayName = '';
 
   constructor(
@@ -19,6 +19,6 @@ export class PortalHeaderComponent implements OnInit{
   }
 
   logout() {
-    this.keycloak.logout(environment.host + 'qa/portal/home');
+    this.keycloak.logout(environment.host + '/');
   }
 }
