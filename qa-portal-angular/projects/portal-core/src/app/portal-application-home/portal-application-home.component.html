@@ -6,7 +6,7 @@
     </header>
     <mat-divider style="margin: 1rem"></mat-divider>
     <section role="grid" name="portal-applications" class="portal-apps">
-      <div class="application-card-container" *ngFor="let app of (appService.currentApplication$ | async)?.portalProjects">
+      <div class="app-card-container" *ngFor="let app of (appService.currentApplication$ | async)?.portalProjects">
         <mat-card class="application-card" style="margin: 1rem">
           <mat-card-title style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; line-height: 1.1">
             {{app.name}}
