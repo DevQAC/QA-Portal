@@ -29,7 +29,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
 import { RatedQuestionComponent } from './rated-question/rated-question.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -74,7 +73,6 @@ const materialModules = [
 
 @NgModule({
   declarations: [
-    AppComponent,
     RatedQuestionComponent,
     SearchBarComponent,
     SearchBarBackdropComponent
@@ -93,7 +91,6 @@ const materialModules = [
     )
   ],
   providers: [],
-  bootstrap: [AppComponent],
   exports: [
     CommonModule,
     FormsModule,

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { QaCommonModule } from '../../../qa-common/src/app/app.module';
+import { QaCommonModule } from '../../../qa-common/src/app/qa-common.module';
 import { CvRoutingModule } from './cv-routing.module';
 import { ViewCvComponent } from './view-cv/view-cv.component';
 import { CvProfileComponent } from './cv-profile/cv-profile.component';

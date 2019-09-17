@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {QaFeedbackRoutingModule} from './qa-feedback-routing.module';
-import {QaCommonModule} from '../../../qa-common/src/app/app.module';
+import {QaCommonModule} from '../../../qa-common/src/app/qa-common.module';
 import {TrainerEvaluationSummaryComponent} from './trainer-evaluation-summary/trainer-evaluation-summary.component';
 import {TableComponentComponent} from './trainer-evaluation-summary/table-component/table-component.component';
 import {CourseInfoComponent} from './trainer-evaluation-summary/course-info/course-info.component';

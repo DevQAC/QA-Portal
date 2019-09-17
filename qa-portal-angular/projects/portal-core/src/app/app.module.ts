@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PortalHeaderComponent } from './portal-header/portal-header.component';
-import { QaCommonModule } from '../../../qa-common/src/app/app.module';
+import { QaCommonModule } from '../../../qa-common/src/app/qa-common.module';
 import { PortalSideMenuComponent } from './portal-side-menu/portal-side-menu.component';
 import { PortalSideMenuContentComponent } from './portal-side-menu/portal-side-menu-content/portal-side-menu-content.component';
 import { PortalFooterComponent } from './portal-footer/portal-footer.component';
