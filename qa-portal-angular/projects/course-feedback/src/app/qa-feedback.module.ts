@@ -7,7 +7,6 @@ import {CourseInfoComponent} from './trainer-evaluation-summary/course-info/cour
 import {CourseEvaluationComponent} from './course-evaluation/course-evaluation.component';
 import {EvaluationTableComponent} from './evaluation-table/evaluation-table.component';
 import {TrainerEvaluationHistoryComponent} from './trainer-evaluation-history/trainer-evaluation-history.component';
-import {HttpClientModule} from '@angular/common/http';
 import {TrainerCourseHistoryService} from './_common/services/trainer-course-history.service';
 import {FormTypeService} from './_common/services/form-type.service';
 import {TraineeCourseEvaluationComponent} from './trainee-course-evaluation/trainee-course-evaluation.component';
@@ -38,7 +37,6 @@ import {TrainerEvaluationService} from './trainer-evaluation-summary/services/tr
   imports: [
     QaCommonModule,
     QaFeedbackRoutingModule,
-    HttpClientModule,
     QaFormsModule
   ],
   providers: [
