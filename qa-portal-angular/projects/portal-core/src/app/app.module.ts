@@ -4,10 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PortalHeaderComponent } from './portal-header/portal-header.component';
 import { QaCommonModule } from '../../../qa-common/src/app/app.module';
-import { MenuService } from './_common/services/menu.service';
 import { PortalSideMenuComponent } from './portal-side-menu/portal-side-menu.component';
 import { PortalSideMenuContentComponent } from './portal-side-menu/portal-side-menu-content/portal-side-menu-content.component';
-import { ApplicationSelectionService } from './_common/services/application-selection.service';
 import { PortalFooterComponent } from './portal-footer/portal-footer.component';
 import { PortalHomeSharedModule } from '../../../portal-home/src/app/app.module';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
@@ -20,6 +18,7 @@ import { QaToastrService } from './_common/services/qa-toastr.service';
 import { QaCvModule } from 'projects/qa-cv/src/app/qa-cv.module';
 import { HeaderLinkComponent } from './header-link/header-link.component';
 import { MAT_DATE_LOCALE } from '@angular/material';
+import { ApplicationService } from './_common/services/application.service';
 
 @NgModule({
   declarations: [
@@ -41,8 +40,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
     KeycloakAngularModule
   ],
   providers: [
-    MenuService,
-    ApplicationSelectionService,
+    ApplicationService,
     QaErrorHandlerService,
     QaToastrService,
     {
@@ -58,5 +56,4 @@ import { MAT_DATE_LOCALE } from '@angular/material';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

@@ -38,6 +38,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchBarBackdropComponent } from './search-bar-backdrop/search-bar-backdrop.component';
+import { DataTableComponent } from './data-table/data-table.component';
 
 const materialModules = [
   MatCheckboxModule,
@@ -78,7 +79,8 @@ const materialModules = [
     AppComponent,
     RatedQuestionComponent,
     SearchBarComponent,
-    SearchBarBackdropComponent
+    SearchBarBackdropComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +106,8 @@ const materialModules = [
     RatedQuestionComponent,
     ReactiveFormsModule,
     SearchBarComponent,
-    SearchBarBackdropComponent
+    SearchBarBackdropComponent,
+    DataTableComponent
   ]
 })
 export class QaCommonModule {
