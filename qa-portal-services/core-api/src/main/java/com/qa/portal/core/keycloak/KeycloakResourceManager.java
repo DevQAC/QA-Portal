@@ -1,5 +1,7 @@
 package com.qa.portal.core.keycloak;
 
+import com.qa.portal.common.exception.QaMultiStepCommitContext;
+import com.qa.portal.common.exception.QaPortalMultiStepCommitException;
 import com.qa.portal.core.dto.QaUserDetailsDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.keycloak.admin.client.resource.UserResource;
@@ -40,9 +42,16 @@ public class KeycloakResourceManager {
     }
 
     public void createUserAndRole(QaUserDetailsDto qaUserDetailsDto) {
-        UserRepresentation userRepresentation = createUser(qaUserDetailsDto);
-        RoleRepresentation roleRepresentation = createRole(qaUserDetailsDto.getRoleName());
-        assignRoleToUser(userRepresentation, roleRepresentation);
+        try {
+            UserRepresentation userRepresentation = createUser(qaUserDetailsDto);
+            RoleRepresentation roleRepresentation = createRole(qaUserDetailsDto.getRoleName());
+            assignRoleToUser(userRepresentation, roleRepresentation);
+        } catch (Exception e) {
+            throw new QaPortalMultiStepCommitException(new QaMultiStepCommitContext(this.getClass().getName(),
+                    qaUserDetailsDto,
+                    QaUserDetailsDto.class,
+                    2), e.getMessage());
+        }
     }
 
     public UserRepresentation createUser(QaUserDetailsDto userDetails) {

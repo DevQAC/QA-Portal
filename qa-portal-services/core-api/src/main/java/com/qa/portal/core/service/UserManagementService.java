@@ -11,12 +11,17 @@ public class UserManagementService {
 
     private KeycloakResourceManager keycloakResourceManager;
 
-    public UserManagementService(KeycloakResourceManager keycloakResourceManager) {
+    private CreateUserOperation createUserOperation;
+
+    public UserManagementService(KeycloakResourceManager keycloakResourceManager,
+                                 CreateUserOperation createUserOperation) {
         this.keycloakResourceManager = keycloakResourceManager;
+        this.createUserOperation = createUserOperation;
     }
 
     @Transactional
     public QaUserDetailsDto createUserDetails(QaUserDetailsDto userDetails) {
+        createUserOperation.createUserDetails(userDetails);
         keycloakResourceManager.createUserAndRole(userDetails);
         return userDetails;
     }
