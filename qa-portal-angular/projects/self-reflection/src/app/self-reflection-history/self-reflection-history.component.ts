@@ -59,6 +59,6 @@ export class SelfReflectionHistoryComponent implements OnInit, OnDestroy {
   }
 
   getReflectionUrl(reflectionId: string) {
-    return '/qa/portal/training/trainee/selfreflection/' + reflectionId;
+    return '/qa/portal/training/self-reflection/trainee/' + reflectionId;
   }
 }
