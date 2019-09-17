@@ -4,10 +4,10 @@ import { ApplicationService } from '../_common/services/application.service';
 
 @Component({
   selector: 'app-portal-application-home',
-  templateUrl: './portal-application-home.component.html',
-  styleUrls: ['./portal-application-home.component.scss']
+  templateUrl: './portal-application-home.component.html'
 })
 export class PortalApplicationHomeComponent {
+
   constructor(
     public sideMenuService: SideMenuService,
     public appService: ApplicationService

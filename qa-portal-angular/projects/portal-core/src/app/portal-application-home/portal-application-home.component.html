@@ -13,12 +13,14 @@
           </mat-card-title>
           <mat-card-content data-simplebar style="height: 200px; margin: 0 -16px -16px;">
             <mat-list>
-              <mat-list-item *ngFor="let item of app.projectPages" [routerLink]="item.url"  >
-                <mat-icon matListIcon>folder</mat-icon>
-                <h4 matLine>
-                  {{item.name}}
-                </h4>
-              </mat-list-item>
+              <ng-template ngFor let-item [ngForOf]="app?.projectPages">
+                <mat-list-item *ngIf="item?.displayOnMenu" [routerLink]="item.url"  >
+                  <mat-icon matListIcon>folder</mat-icon>
+                  <h4 matLine>
+                    {{item.name}}
+                  </h4>
+                </mat-list-item>
+              </ng-template>
             </mat-list>
           </mat-card-content>
         </mat-card>

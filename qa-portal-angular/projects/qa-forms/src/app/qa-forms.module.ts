@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { FormComponent } from './form/form.component';
@@ -19,7 +18,6 @@ import { GenericControlComponent } from './controls/generic-control/generic-cont
     GenericControlComponent
   ],
   imports: [
-    BrowserModule,
     QaCommonModule
   ],
   exports: [

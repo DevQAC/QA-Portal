@@ -17,13 +17,26 @@
         grid-template-columns: 100%;
     }
 
+    .app-card-container {
+        padding: 1rem;
+    }
+
     .application-card {
         max-width: 400px;
         margin: auto;
+        
+    }
+
+    .mat-list-item {
+        cursor: pointer;
+
+        &:hover {
+            background: map-get($map: $mat-light-theme-background, $key: 'hover');
+        }
     }
 }
 
 mat-divider {
-    margin: 2rem;
+    margin: 1rem
 }
 
