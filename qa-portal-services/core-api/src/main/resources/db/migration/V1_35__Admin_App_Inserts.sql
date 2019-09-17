@@ -35,6 +35,10 @@ insert into training.project_page(id, name, url, portal_project_id, tooltip, dis
       values (18, 'Manage Courses', '/qa/portal/admin/manage/courses', 8, 'Create and update courses and their technologies', true, '',
       current_timestamp, 'admin', 1);
 
+insert into training.project_page(id, name, url, portal_project_id, tooltip, display_on_menu, icon, last_updated_timestamp, last_updated_by, version)
+      values (19, 'Course Evaluation Summary', '/qa/portal/training/feedback/trainer/evaluation/course/summary', 2, 'Trainer Course Evaluation Summary', false, '',
+      current_timestamp, 'admin', 1);
+
 update training.role set portal_application_id = 5 where id = 10;
 
 insert into training.role_project_page(id, role_id, project_page_id, last_updated_timestamp, last_updated_by, version)
@@ -49,7 +53,10 @@ insert into training.role_project_page(id, role_id, project_page_id, last_update
 insert into training.role_project_page(id, role_id, project_page_id, last_updated_timestamp, last_updated_by, version)
       values (17, 10, 18, current_timestamp, 'admin', 1);
 
-update training.project_page set url ='/qa/portal/training/self-reflection/trainee' where id = 2;
+insert into training.role_project_page(id, role_id, project_page_id, last_updated_timestamp, last_updated_by, version)
+      values (18, 2, 19, current_timestamp, 'admin', 1);
+
+update training.project_page set url ='/qa/portal/training/self-reflection/trainee/new' where id = 2;
 
 update training.project_page set url ='/qa/portal/training/self-reflection/trainee/history' where id = 1;
 

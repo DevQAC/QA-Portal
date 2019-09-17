@@ -38,6 +38,7 @@ public class ReflectionController {
 
     @GetMapping("/trainee")
     public ResponseEntity<List<ReflectionDto>> getSelfReflectionsForTrainee() {
+	    LOGGER.info("In get Self reflections for trainee");
         return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(context.getUserName()));
     }
 

@@ -14,7 +14,16 @@ const routes: Routes = [
     path: 'self-reflection',
     children: [
       {
-        path: 'trainee', component: TraineeNewReflectionComponent,
+        path: 'trainee/new', component: TraineeNewReflectionComponent,
+        canActivate: [AppAuthGuard],
+        data: {
+          roles: [
+            TRAINEE_ROLE
+          ]
+        }
+      },
+      {
+        path: 'trainee/history', component: SelfReflectionHistoryComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
@@ -30,18 +39,9 @@ const routes: Routes = [
             TRAINEE_ROLE
           ]
         }
-      } ,
-      {
-        path: 'trainee/history', component: SelfReflectionHistoryComponent,
-        canActivate: [AppAuthGuard],
-        data: {
-          roles: [
-            TRAINEE_ROLE
-          ]
-        }
       },
       {
-        path: 'trainer/cohort/trainees', component: CohortTraineesComponent,
+        path: 'trainer/cohorts/trainees', component: CohortTraineesComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
