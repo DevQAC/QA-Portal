@@ -2,30 +2,27 @@
     display: grid;
     grid-template-columns: 33% 33% 33%;
 
-    /* Grid spanning when there's only one card. */
-    // https://stackoverflow.com/questions/8720931/can-css-detect-the-number-of-children-an-element-has
-    .app-card-container:first-child:nth-last-child(1) {
-        margin: 0 auto;
-        width: 33%;
-        grid-column: 1 / 4;
+    &[num-of-apps="2"] {
+        grid-template-columns: 50% 50%;
     }
+    &[num-of-apps="1"] {
+        grid-template-columns: 100%;
+    }
+
 
     @media only screen and (max-width: 1280px) {
         grid-template-columns: 50% 50%;
 
-        .app-card-container:first-child:nth-last-child(1) {
-            width: 50%;
-        }
     }
 
     @media only screen and (max-width: 800px) {
         grid-template-columns: 100%;
 
-        .app-card-container:first-child:nth-last-child(1) {
-            width: 100%;
-        }
     }
 
-
+    .application-card {
+        max-width: 400px;
+        margin: auto;
+    }
 
 }

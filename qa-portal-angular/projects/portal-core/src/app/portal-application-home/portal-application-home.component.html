@@ -5,9 +5,9 @@
       <p class="mat-caption text-center">{{(appService.currentApplication$ | async)?.portalApplication?.description}}</p>
     </header>
     <mat-divider style="margin: 1rem"></mat-divider>
-    <section role="grid" name="portal-applications" class="portal-apps">
+    <section role="grid" name="portal-applications" class="portal-apps" [attr.num-of-apps]="(appService.currentApplication$ | async)?.portalProjects?.length || 0">
       <div class="app-card-container" *ngFor="let app of (appService.currentApplication$ | async)?.portalProjects">
-        <mat-card class="application-card" style="margin: 1rem">
+        <mat-card class="application-card">
           <mat-card-title style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; line-height: 1.1">
             {{app.name}}
           </mat-card-title>
