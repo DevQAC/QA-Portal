@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'trainee',
     children: [
       {
-        path: 'selfreflection', component: TraineeNewReflectionComponent,
+        path: 'new', component: TraineeNewReflectionComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
@@ -23,7 +23,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'selfreflection/:id', component: TraineeReflectionComponent,
+        path: ':id', component: TraineeReflectionComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
@@ -32,7 +32,7 @@ const routes: Routes = [
         }
       } ,
       {
-        path: 'selfreflections', component: SelfReflectionHistoryComponent,
+        path: 'history', component: SelfReflectionHistoryComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
@@ -46,7 +46,7 @@ const routes: Routes = [
     path: 'trainer',
     children: [
       {
-        path: 'cohort/trainees', component: CohortTraineesComponent,
+        path: 'trainees', component: CohortTraineesComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
@@ -55,7 +55,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'selfreflection/:id', component: TrainerReflectionComponent,
+        path: 'trainee/:id', component: TrainerReflectionComponent,
         canActivate: [AppAuthGuard],
         data: {
           roles: [
@@ -83,7 +83,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

@@ -13,6 +13,6 @@ export class QaErrorPageComponent {
   error: string;
 
   constructor(private route: ActivatedRoute) {
-    this.error = this.route.snapshot.paramMap.get(ERROR_MSG_PARM);
+    this.error = this.route.snapshot.queryParams[ERROR_MSG_PARM];
   }
 }

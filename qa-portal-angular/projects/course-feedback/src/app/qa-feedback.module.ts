@@ -1,7 +1,5 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
+import {NgModule} from '@angular/core';
+import {QaFeedbackRoutingModule} from './qa-feedback-routing.module';
 import {QaCommonModule} from '../../../qa-common/src/app/app.module';
 import {TrainerEvaluationSummaryComponent} from './trainer-evaluation-summary/trainer-evaluation-summary.component';
 import {TableComponentComponent} from './trainer-evaluation-summary/table-component/table-component.component';
@@ -26,7 +24,6 @@ import {TrainerEvaluationService} from './trainer-evaluation-summary/services/tr
 
 @NgModule({
   declarations: [
-    AppComponent,
     TrainerEvaluationSummaryComponent,
     TableComponentComponent,
     CourseInfoComponent,
@@ -39,9 +36,8 @@ import {TrainerEvaluationService} from './trainer-evaluation-summary/services/tr
     TrainerFeedbackHistoryComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
     QaCommonModule,
+    QaFeedbackRoutingModule,
     HttpClientModule,
     QaFormsModule
   ],
@@ -53,18 +49,6 @@ import {TrainerEvaluationService} from './trainer-evaluation-summary/services/tr
     FeedbackService,
     EvaluationService,
     TrainerEvaluationService
-  ],
-  bootstrap: [AppComponent]
+  ]
 })
-export class AppModule {
-}
-
-@NgModule({})
-export class CourseFeedbackSharedModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: AppModule,
-      providers: []
-    };
-  }
-}
+export class QaFeedbackModule { }

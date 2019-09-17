@@ -1,5 +1,3 @@
-// Angular Material Components
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -35,9 +33,10 @@ import { AppComponent } from './app.component';
 import { RatedQuestionComponent } from './rated-question/rated-question.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchBarBackdropComponent } from './search-bar-backdrop/search-bar-backdrop.component';
+import { CommonModule } from '@angular/common';
 
 const materialModules = [
   MatCheckboxModule,
@@ -81,9 +80,8 @@ const materialModules = [
     SearchBarBackdropComponent
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     FormsModule,
-    BrowserAnimationsModule,
     ...materialModules,
     ReactiveFormsModule,
     ToastrModule.forRoot(
@@ -97,9 +95,8 @@ const materialModules = [
   providers: [],
   bootstrap: [AppComponent],
   exports: [
+    CommonModule,
     FormsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     ...materialModules,
     RatedQuestionComponent,
     ReactiveFormsModule,

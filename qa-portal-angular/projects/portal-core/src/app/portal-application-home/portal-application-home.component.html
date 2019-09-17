@@ -1,19 +1,19 @@
 <div class="h-100 w-100" style="display: flex;">
   <div class="my-auto w-100">
     <header>
-      <h1 class="mat-display-3 text-center" style="margin:0;">{{header}}</h1>
-      <p class="mat-caption text-center">{{description}}</p>
+      <h1 class="mat-display-3 text-center" style="margin:0;">{{(appService.currentApplication$ | async)?.portalApplication?.name}}</h1>
+      <p class="mat-caption text-center">{{(appService.currentApplication$ | async)?.portalApplication?.description}}</p>
     </header>
     <mat-divider style="margin: 1rem"></mat-divider>
     <section role="grid" name="portal-applications" class="portal-apps">
-      <div class="application-card-container" *ngFor="let app of applications">
+      <div class="application-card-container" *ngFor="let app of (appService.currentApplication$ | async)?.portalProjects">
         <mat-card class="application-card" style="margin: 1rem">
           <mat-card-title style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; line-height: 1.1">
             {{app.name}}
           </mat-card-title>
           <mat-card-content data-simplebar style="height: 200px; margin: 0 -16px -16px;">
             <mat-list>
-              <mat-list-item *ngFor="let item of app.menuItems">
+              <mat-list-item *ngFor="let item of app.projectPages" [routerLink]="item.url"  >
                 <mat-icon matListIcon>folder</mat-icon>
                 <h4 matLine>
                   {{item.name}}

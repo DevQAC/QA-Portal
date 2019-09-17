@@ -8,7 +8,7 @@ import { TRAINEE_ROLE, TRAINING_ADMIN_ROLE } from '../../../portal-core/src/app/
 
 const routes: Routes = [
   {
-    path: 'cv/trainee/current',
+    path: 'trainee/current',
     component: ViewCvComponent,
     canActivate: [AppAuthGuard],
     data: {
@@ -18,7 +18,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'cv/admin/view/:id',
+    path: 'admin/view/:id',
     component: ViewCvComponent,
     canActivate: [AppAuthGuard],
     data: {
@@ -28,7 +28,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'cv/admin/search',
+    path: 'admin/search',
     component: CvSearchComponent,
     canActivate: [AppAuthGuard],
     data: {
@@ -38,7 +38,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'cv/admin/view/:id',
+    path: 'admin/view/:id',
     component: ViewCvComponent,
     canActivate: [AppAuthGuard],
     data: {
@@ -50,7 +50,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class CvRoutingModule { }

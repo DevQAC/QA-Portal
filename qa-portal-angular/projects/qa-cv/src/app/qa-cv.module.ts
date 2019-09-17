@@ -1,5 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { QaCommonModule } from '../../../qa-common/src/app/app.module';
 import { CvRoutingModule } from './cv-routing.module';
 import { ViewCvComponent } from './view-cv/view-cv.component';
@@ -33,9 +32,8 @@ import { ViewCvPageDataService } from './view-cv/services/view-cv-page-data.serv
     CvCardBaseComponent
   ],
   imports: [
-    BrowserModule,
-    CvRoutingModule,
     QaCommonModule,
+    CvRoutingModule,
     MatNativeDateModule,
     PdfViewerModule
   ],
@@ -50,16 +48,5 @@ import { ViewCvPageDataService } from './view-cv/services/view-cv-page-data.serv
     SubmitConfirmDialogComponent
   ]
 })
-export class QaCvModule {
-}
+export class QaCvModule { }
 
-@NgModule({})
-export class QaCvSharedModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: QaCvModule,
-      providers: []
-    };
-  }
-
-}

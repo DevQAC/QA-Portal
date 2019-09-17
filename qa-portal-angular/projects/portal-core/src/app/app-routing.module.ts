@@ -1,57 +1,50 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PortalHomeSharedModule } from '../../../portal-home/src/app/app.module';
-import { CourseFeedbackSharedModule } from '../../../course-feedback/src/app/app.module';
-import { SelfReflectionSharedModule } from '../../../self-reflection/src/app/app.module';
 import { AppAuthGuard } from './_common/guards/app-auth-guard';
-import { QaCvSharedModule } from '../../../qa-cv/src/app/qa-cv.module';
-import { QaAdminSharedModule } from '../../../qa-admin/src/app/app.module';
-import { PortalHomePageComponent } from './portal-home-page/portal-home-page.component';
+import { PortalApplicationHomeComponent } from './portal-application-home/portal-application-home.component';
+import { PortalHomeComponent } from './portal-home/portal-home.component';
 
 const routes: Routes = [
+  { // Common portal applications home page. Keep this at the top!
+    path: 'qa/portal/:dep',
+    pathMatch: 'full',
+    component: PortalApplicationHomeComponent
+  },
   // Add routes for new application here
   {
-    path: 'qa/portal/training',
-    loadChildren: () => CourseFeedbackSharedModule
+    path: 'qa/portal/training/feedback',
+    loadChildren: () => import('../../../course-feedback/src/app/qa-feedback.module').then(mod => mod.QaFeedbackModule)
   },
   {
-    path: 'qa/portal/training',
-    loadChildren: () => SelfReflectionSharedModule
+    path: 'qa/portal/training/self-reflection',
+    loadChildren: () => import('../../../self-reflection/src/app/qa-self-reflection.module').then(mod => mod.QaSelfReflectionModule)
   },
   {
-    path: 'qa/portal/training',
-    loadChildren: () => QaCvSharedModule
-  },
-  {
-    path: 'qa/portal/home',
-    loadChildren: () => PortalHomeSharedModule
+    path: 'qa/portal/training/cv',
+    loadChildren: () => import('../../../qa-cv/src/app/qa-cv.module').then(mod => mod.QaCvModule)
   },
   {
     path: 'qa/portal/admin',
-    loadChildren: () => QaAdminSharedModule
+    loadChildren: () => import('../../../qa-admin/src/app/qa-admin.module').then(mod => mod.QaAdminModule)
   },
   {
-    path: 'qa/portal/:department/home',
-    component: PortalHomePageComponent
+    path: 'error',
+    loadChildren: () => import('../../../qa-error-app/src/app/qa-error.module').then(mod => mod.QaErrorModule)
   },
   {
-    path: 'qa',
-    children: [
-      { path: '**', redirectTo: '/qa/portal/home' }
-    ]
+    path: '',
+    pathMatch: 'full',
+    component: PortalHomeComponent
   },
   {
-    path: '', redirectTo: '/qa/portal/home', pathMatch: 'full'
+    path: '**',
+    redirectTo: 'error/404'
   }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
-    PortalHomeSharedModule.forRoot(),
-    SelfReflectionSharedModule.forRoot(),
-    QaCvSharedModule.forRoot(),
-    QaAdminSharedModule.forRoot()
+    RouterModule.forRoot(routes, { enableTracing: true }),
   ],
   providers: [AppAuthGuard],
   exports: [RouterModule]
