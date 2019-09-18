@@ -39,7 +39,7 @@ export class DataTableComponent<DataType> implements AfterContentInit {
   // Inputs
   /** MatTableDataSource for the MatTable to use. This is required. */
   @Input() public dataSource: MatTableDataSource<DataType>;
-  /** Whish columns to display. Update this to dynamically change columns shown to the user. */
+  /** Which columns to display. */
   @Input() public displayedColumns: string[] = [];
   @Input() public isLoading = false;
 
