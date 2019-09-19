@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DeleteUserDialogComponent } from './delete-user-dialog/delete-user-dialog.component';
 import { UpdateUserCohortDialogComponent } from './update-user-cohort-dialog/update-user-cohort-dialog.component';
 import { UpdateUserRoleDialogComponent } from './update-user-role-dialog/update-user-role-dialog.component';
+import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 
 @Component({
   selector: 'app-user-management',
@@ -64,7 +65,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   public onUpdateCohortActionClicked() {
-    const dialogRef = this.dialog.open(UpdateUserCohortDialogComponent, { });
+    const dialogRef = this.dialog.open(UpdateUserCohortDialogComponent, {});
 
     dialogRef.afterClosed().subscribe(cohort => {
       if (cohort) {
@@ -77,7 +78,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   public onUpdateRoleActionClicked() {
-    const dialogRef = this.dialog.open(UpdateUserRoleDialogComponent, { });
+    const dialogRef = this.dialog.open(UpdateUserRoleDialogComponent, {});
 
     dialogRef.afterClosed().subscribe(role => {
       if (role) {
@@ -89,47 +90,13 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  // editDialog(user: IUserModel): void {
-  //   console.info(user);
-  //   const dialogRef = this.dialog.open(EditUserDialogComponent, {
-  //     ...this.modalConfig,
-  //     data: user
-  //   });
-  //   dialogRef.componentInstance.dataChanged.subscribe(() => {
-  //     if (dialogRef.componentInstance.data !== user && dialogRef.componentInstance.canSubmit) {
-  //       this.service.updateUser(dialogRef.componentInstance.data);
-  //     }
-  //   });
-  //   dialogRef.afterClosed().subscribe(() => {
-  //   });
-  // }
-
-  // addDialog(): void {
-
-  //   let dialogRef = this.dialog.open(AddUserDialogComponent, this.modalConfig);
-  //   dialogRef.componentInstance.dataChanged.subscribe(() => {
-  //     if (dialogRef.componentInstance.canSubmit) {
-  //       this.service.addUser(dialogRef.componentInstance.data);
-  //     }
-  //   });
-  //   dialogRef.afterClosed().subscribe(() => {
-  //   });
-  // }
-
-  // deleteConfirmDialog(user: IUserModel): void {
-  //   let dialogRef = this.dialog.open(DelUserConfirmDialogComponent, {
-  //     ...this.modalConfig,
-  //     data: user
-  //   });
-
-  //   dialogRef.componentInstance.dataChanged.subscribe(() => {
-  //     if (dialogRef.componentInstance.canSubmit) {
-  //       this.service.deleteUserByUsername(dialogRef.componentInstance.data.id);
-  //     }
-  //   });
-  //   dialogRef.afterClosed().subscribe(() => {
-  //   });
-  // }
-
+  onAddUserClicked(): void {
+    const dialogRef = this.dialog.open(AddUserDialogComponent, {});
+    dialogRef.afterClosed().subscribe(user => {
+      if (user) {
+        this.performSearch();
+      }
+    });
+  }
 
 }

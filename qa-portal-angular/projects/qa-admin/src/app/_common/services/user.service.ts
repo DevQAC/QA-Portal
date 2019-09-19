@@ -18,6 +18,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  public createUser(user: UserModel): Observable<UserModel> {
+    return of(user).pipe(delay(Math.floor(Math.random() * 3500) + 500));
+  }
+
   public searchUsers(search: string): Observable<UserModel[]> {
     console.warn('UserService.searchUsers is using dummy data!');
     return of(
