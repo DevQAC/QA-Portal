@@ -37,6 +37,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchBarBackdropComponent } from './search-bar-backdrop/search-bar-backdrop.component';
 import { CommonModule } from '@angular/common';
 import { DataTableComponent } from './data-table/data-table.component';
+import { SpinnerOverlayComponent } from './spinner-overlay/spinner-overlay.component';
 
 const iconsMap = [
   { name: 'qa-logo', path: 'assets/qa.svg' },
@@ -87,7 +88,8 @@ const materialModules = [
     RatedQuestionComponent,
     SearchBarComponent,
     SearchBarBackdropComponent,
-    DataTableComponent
+    DataTableComponent,
+    SpinnerOverlayComponent
   ],
   imports: [
     CommonModule,
@@ -111,7 +113,8 @@ const materialModules = [
     ReactiveFormsModule,
     SearchBarComponent,
     SearchBarBackdropComponent,
-    DataTableComponent
+    DataTableComponent,
+    SpinnerOverlayComponent
   ]
 })
 export class QaCommonModule {

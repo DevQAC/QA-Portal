@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddUserDialogComponent } from './add-user-dialog.component';
+import { SpinnerOverlayComponent } from './spinner-overlay.component';
 
-describe('AddUserDialogComponent', () => {
-  let component: AddUserDialogComponent;
-  let fixture: ComponentFixture<AddUserDialogComponent>;
+describe('SpinnerOverlayComponent', () => {
+  let component: SpinnerOverlayComponent;
+  let fixture: ComponentFixture<SpinnerOverlayComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddUserDialogComponent ]
+      declarations: [ SpinnerOverlayComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddUserDialogComponent);
+    fixture = TestBed.createComponent(SpinnerOverlayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

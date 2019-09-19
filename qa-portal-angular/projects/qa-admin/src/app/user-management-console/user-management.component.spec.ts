@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeleteCohortDialogComponent } from './delete-cohort-dialog.component';
+import { UserManagementComponent } from './user-management.component';
 
-describe('DeleteCohortDialogComponent', () => {
-  let component: DeleteCohortDialogComponent;
-  let fixture: ComponentFixture<DeleteCohortDialogComponent>;
+describe('UserManagementConsoleComponent', () => {
+  let component: UserManagementComponent;
+  let fixture: ComponentFixture<UserManagementComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteCohortDialogComponent ]
+      declarations: [ UserManagementComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteCohortDialogComponent);
+    fixture = TestBed.createComponent(UserManagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,9 +1,8 @@
-import { Component, OnInit, OnChanges, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatCheckboxChange, MatTable, MatDialog } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatDialog } from '@angular/material';
 import { ICohort } from '../_common/models/cohort.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CohortService } from '../_common/services/cohort.service';
-import { DeleteCohortDialogComponent } from './delete-cohort-dialog/delete-cohort-dialog.component';
 import { DataTableComponent } from 'projects/qa-common/src/app/data-table/data-table.component';
 
 @Component({
@@ -28,9 +27,7 @@ export class CohortManagementComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private cohortService: CohortService,
-    private dialog: MatDialog
-  ) { }
+    private cohortService: CohortService  ) { }
 
 
   ngOnInit() {
@@ -48,22 +45,6 @@ export class CohortManagementComponent implements OnInit {
     this.cohortService.searchCohorts(this.searchInput).subscribe(results => {
       this.cohortsTableDataSource.data = results;
       this.isLoading = false;
-    });
-  }
-
-
-  // Action bar handlers
-  public onDeleteActionClicked(): void {
-    const dialogRef = this.dialog.open(DeleteCohortDialogComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.isLoading = true;
-        this.cohortService.deleteCohorts(this.dataTable.getSelectedRowsData()).subscribe(() => {
-          this.performSearch();
-        });
-      }
     });
   }
 

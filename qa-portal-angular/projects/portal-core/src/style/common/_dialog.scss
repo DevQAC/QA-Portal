@@ -1,0 +1,8 @@
+
+
+.action-buttons {
+    float: right;
+    &>* {
+        margin-left: 1rem !important;
+    }
+}
