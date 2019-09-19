@@ -8,13 +8,13 @@ import { UpdateUserCohortDialogComponent } from '../update-user-cohort-dialog/up
 })
 export class UpdateUserRoleDialogComponent implements OnInit {
 
-  public roleInput = '';
+  public roleSelection = '';
 
   public roles = [];
 
   constructor(
     public dialogRef: MatDialogRef<UpdateUserCohortDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: boolean) { }
+    @Inject(MAT_DIALOG_DATA) public data: string) { }
 
   ngOnInit(): void {
     this.roles = [

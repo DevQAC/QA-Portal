@@ -50,13 +50,13 @@ export class UserManagementComponent implements OnInit {
 
 
   public onDeleteActionClicked() {
-    const dialogRef = this.dialog.open(DeleteUserDialogComponent, {
-    });
+    const users = this.dataTable.getSelectedRowsData();
+    const dialogRef = this.dialog.open(DeleteUserDialogComponent, { data: users });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.isLoading = true;
-        this.userService.deleteUsers(this.dataTable.getSelectedRowsData()).subscribe(() => {
+        this.userService.deleteUsers(users).subscribe(() => {
           this.performSearch();
         });
       }
@@ -64,13 +64,12 @@ export class UserManagementComponent implements OnInit {
   }
 
   public onUpdateCohortActionClicked() {
-    const dialogRef = this.dialog.open(UpdateUserCohortDialogComponent, {
-    });
+    const dialogRef = this.dialog.open(UpdateUserCohortDialogComponent, { });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+    dialogRef.afterClosed().subscribe(cohort => {
+      if (cohort) {
         this.isLoading = true;
-        this.userService.updateUsersCohort(this.dataTable.getSelectedRowsData(), 'DUMMY_COHORT').subscribe(() => {
+        this.userService.updateUsersCohort(this.dataTable.getSelectedRowsData(), cohort).subscribe(() => {
           this.performSearch();
         });
       }
@@ -78,13 +77,12 @@ export class UserManagementComponent implements OnInit {
   }
 
   public onUpdateRoleActionClicked() {
-    const dialogRef = this.dialog.open(UpdateUserRoleDialogComponent, {
-    });
+    const dialogRef = this.dialog.open(UpdateUserRoleDialogComponent, { });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+    dialogRef.afterClosed().subscribe(role => {
+      if (role) {
         this.isLoading = true;
-        this.userService.updateUsersRole(this.dataTable.getSelectedRowsData(), 'DUMMY_ROLE').subscribe(() => {
+        this.userService.updateUsersRole(this.dataTable.getSelectedRowsData(), role).subscribe(() => {
           this.performSearch();
         });
       }

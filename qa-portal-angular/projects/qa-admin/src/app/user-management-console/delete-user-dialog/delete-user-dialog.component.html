@@ -1,8 +1,9 @@
-<h1 mat-dialog-title>Delete Selected Users</h1>
+<h1 mat-dialog-title>Delete {{numberOfUsers > 1 ? numberOfUsers + ' Users': 'User'}}?</h1>
 <div mat-dialog-content>
-  <p>This action cannot be undone. Are you sure?</p>
+  <p><strong> This action cannot be undone.</strong></p>
+  <p>Are you sure?</p>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions class="action-buttons">
   <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Cancel</button>
-  <button mat-button color="warn" [mat-dialog-close]="true">Delete</button>
+  <button mat-flat-button color="warn" [mat-dialog-close]="true" [disabled]="!canDelete">Delete</button>
 </div>

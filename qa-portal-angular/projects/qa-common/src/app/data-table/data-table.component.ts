@@ -113,8 +113,13 @@ export class DataTableComponent<DataType> implements AfterContentInit {
 
   // MISC. UTIL FUNCTIONS
   public getSelectedRowsData(): DataType[] {
-    // tslint:disable-next-line: variable-name
-    return this.rowSelection.map((_row, index) => this.dataSource.data[index]);
+    const rowData = this.rowSelection.map((row, index) => row === true ? this.dataSource.data[index] : undefined);
+    for (const index in rowData) {
+      if (!rowData[index]) {
+        delete rowData[index];
+      }
+    }
+    return rowData;
   }
 
 }
