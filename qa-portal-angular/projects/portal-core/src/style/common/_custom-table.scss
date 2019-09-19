@@ -40,6 +40,9 @@ table.mat-table.qa-table {
     tr.mat-header-row {
         &.bulk-actions-row {
             background: map-get($map: $mat-light-theme-background, $key: 'app-bar');
+            [bulk-action]:not(:first-of-type) {
+                margin-left: 1rem;
+            }
         }
     }
 
