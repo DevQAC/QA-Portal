@@ -34,5 +34,4 @@ public class CohortService {
                 .sorted(cohortDtoComparator.reversed())
                 .collect(Collectors.toList());
     }
-
 }
