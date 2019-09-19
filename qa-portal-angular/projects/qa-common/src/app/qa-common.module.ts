@@ -38,6 +38,14 @@ import { SearchBarBackdropComponent } from './search-bar-backdrop/search-bar-bac
 import { CommonModule } from '@angular/common';
 import { DataTableComponent } from './data-table/data-table.component';
 
+const iconsMap = [
+  { name: 'qa-logo', path: 'assets/qa.svg' },
+  { name: 'qa-manage-apps', path: 'assets/icons/qa_manage_apps_48px.svg' },
+  { name: 'qa-manage-cohorts', path: 'assets/icons/qa_manage_cohorts_48px.svg' },
+  { name: 'qa-manage--courses', path: 'assets/icons/qa_manage_courses_48px.svg' },
+  { name: 'qa-manage-users', path: 'assets/icons/qa_manage_users_48px.svg' }
+];
+
 const materialModules = [
   MatCheckboxModule,
   MatCheckboxModule,
@@ -109,6 +117,8 @@ export class QaCommonModule {
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    this.matIconRegistry.addSvgIcon('qa-logo', this.domSanitizer.bypassSecurityTrustResourceUrl('/assets/qa.svg'));
+    for (const icon of iconsMap) {
+      this.matIconRegistry.addSvgIcon(icon.name, this.domSanitizer.bypassSecurityTrustResourceUrl(icon.path));
+    }
   }
 }
