@@ -6,7 +6,7 @@ import com.qa.portal.common.exception.QaPortalMultiStepCommitException;
 import com.qa.portal.common.persistence.entity.QaUserEntity;
 import com.qa.portal.common.persistence.repository.QaUserRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
-import com.qa.portal.user.dto.QaUserDetailsDto;
+import com.qa.portal.common.dto.QaUserDetailsDto;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

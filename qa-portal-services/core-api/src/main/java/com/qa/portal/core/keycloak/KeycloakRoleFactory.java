@@ -1,4 +1,4 @@
-package com.qa.portal.user.keycloak;
+package com.qa.portal.core.keycloak;
 
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.springframework.stereotype.Component;

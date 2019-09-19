@@ -2,12 +2,9 @@ package com.qa.portal.cohort.rest;
 
 import com.qa.portal.cohort.services.CohortService;
 import com.qa.portal.common.dto.QaCohortDto;
-import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
+import com.qa.portal.common.dto.QaUserDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,9 +22,8 @@ public class CohortController {
         return ResponseEntity.ok(cohortService.getAllCohorts());
     }
 
-    @DeleteMapping("cohorts")
-    private ResponseEntity<List<QaCohortDto>> deleteCohorts(@RequestBody List<QaCohortDto> cohortDtos) {
-        cohortService.deleteCohorts(cohortDtos);
-        return ResponseEntity.ok(cohortDtos);
+    @GetMapping("trainees/{id}")
+    public ResponseEntity<List<QaUserDto>> getTraineesForCohort(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(cohortService.getTraineesForCohort(id));
     }
 }

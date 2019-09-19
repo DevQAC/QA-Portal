@@ -1,4 +1,4 @@
-package com.qa.portal.user.dto;
+package com.qa.portal.common.dto;
 
 import com.qa.portal.common.dto.QaUserDto;
 

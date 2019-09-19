@@ -22,7 +22,7 @@
 
             <div class="menu-item-content">
               <div class="menu-item-icon">
-                <mat-icon>{{projectPage.icon || 'bookmark'}}</mat-icon>
+                <mat-icon [svgIcon]="projectPage.icon">{{projectPage.icon || 'bookmark'}}</mat-icon>
               </div>
               <div style="width: 100%; text-overflow:ellipsis; overflow: hidden; text-align: left; margin: auto 0;">
             <span>

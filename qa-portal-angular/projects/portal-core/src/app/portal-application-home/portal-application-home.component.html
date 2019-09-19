@@ -15,7 +15,7 @@
             <mat-list>
               <ng-template ngFor let-item [ngForOf]="app?.projectPages">
                 <mat-list-item *ngIf="item?.displayOnMenu" [routerLink]="item.url"  >
-                  <mat-icon matListIcon>folder</mat-icon>
+                    <mat-icon matListIcon [svgIcon]="item.icon">{{item.icon || 'bookmark'}}</mat-icon>
                   <h4 matLine>
                     {{item.name}}
                   </h4>

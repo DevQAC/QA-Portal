@@ -2,7 +2,7 @@ package com.qa.portal.user.keycloak;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.portal.common.dto.QaUserDto;
-import com.qa.portal.user.dto.QaUserDetailsDto;
+import com.qa.portal.common.dto.QaUserDetailsDto;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

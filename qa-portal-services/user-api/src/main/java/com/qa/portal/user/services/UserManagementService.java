@@ -1,37 +1,35 @@
 package com.qa.portal.user.services;
 
-import com.qa.portal.user.dto.QaUserDetailsDto;
-import com.qa.portal.user.keycloak.KeycloakResourceManager;
+import com.qa.portal.common.dto.QaUserDetailsDto;
+import com.qa.portal.user.keycloak.KeycloakUserResourceManager;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class UserManagementService {
 
-    private KeycloakResourceManager keycloakResourceManager;
+    private KeycloakUserResourceManager keycloakUserResourceManager;
 
-    private CreateUserOperation createUserOperation;
-
-    public UserManagementService(KeycloakResourceManager keycloakResourceManager,
-                                 CreateUserOperation createUserOperation) {
-        this.keycloakResourceManager = keycloakResourceManager;
-        this.createUserOperation = createUserOperation;
+    public UserManagementService(KeycloakUserResourceManager keycloakUserResourceManager) {
+        this.keycloakUserResourceManager = keycloakUserResourceManager;
     }
 
-    @Transactional
+    public List<QaUserDetailsDto> getAllUsers() {
+        return keycloakUserResourceManager.getAllUsers();
+    }
+
     public QaUserDetailsDto createUserDetails(QaUserDetailsDto userDetails) {
-        createUserOperation.createUserDetails(userDetails);
-        keycloakResourceManager.createUserAndRole(userDetails);
+        keycloakUserResourceManager.createUserAndRole(userDetails);
         return userDetails;
     }
 
-    @Transactional
     public QaUserDetailsDto updateUserDetails(QaUserDetailsDto userDetails) {
+        keycloakUserResourceManager.updateUser(userDetails);
         return userDetails;
     }
 
-    @Transactional
     public void deleteUser(String userName) {
+        keycloakUserResourceManager.deleteUser(userName);
     }
 }

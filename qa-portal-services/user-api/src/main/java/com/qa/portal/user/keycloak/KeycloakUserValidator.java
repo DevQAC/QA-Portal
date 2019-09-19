@@ -2,7 +2,7 @@ package com.qa.portal.user.keycloak;
 
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.keycloak.KeycloakAdminClient;
-import com.qa.portal.user.dto.QaUserDetailsDto;
+import com.qa.portal.common.dto.QaUserDetailsDto;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 

@@ -1,7 +1,7 @@
 package com.qa.portal.user.rest;
 
 import com.qa.portal.common.security.QaSecurityContext;
-import com.qa.portal.user.dto.QaUserDetailsDto;
+import com.qa.portal.common.dto.QaUserDetailsDto;
 import com.qa.portal.user.services.UserManagementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/manage/user")
 public class UserManagementController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UserManagementController.class);
@@ -24,6 +24,7 @@ public class UserManagementController {
         this.qaSecurityContext = qaSecurityContext;
     }
 
+
     @PostMapping
     public ResponseEntity<QaUserDetailsDto> createUser(@RequestBody QaUserDetailsDto userDetails) {
         return ResponseEntity.ok(userManagementService.createUserDetails(userDetails));
@@ -34,7 +35,7 @@ public class UserManagementController {
         return ResponseEntity.ok(userManagementService.updateUserDetails(userDetails));
     }
 
-    @DeleteMapping("{userName}")
+    @DeleteMapping("user/{userName}")
     public ResponseEntity<?> deleteUser(@PathVariable("userName") String userName) {
         userManagementService.deleteUser(userName);
         return ResponseEntity.ok().build();
