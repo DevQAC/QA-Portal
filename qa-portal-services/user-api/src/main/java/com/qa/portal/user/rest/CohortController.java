@@ -1,7 +1,6 @@
 package com.qa.portal.user.rest;
 
 import com.qa.portal.common.dto.QaUserDto;
-import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.user.services.CohortService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +14,7 @@ public class CohortController {
 
     private CohortService service;
 
-    private QaSecurityContext qaSecurityContext;
-
-    public CohortController(CohortService service, QaSecurityContext qaSecurityContext) {
+    public CohortController(CohortService service) {
         this.service = service;
     }
 

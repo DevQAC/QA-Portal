@@ -18,7 +18,7 @@
             (change)="onSelectAllCheckboxChange($event)"></mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let rowData; let i = index">
-          <mat-checkbox [ngModel]="rowSelection[i]" (ngModelChange)="setRowSelected(i, $event)"></mat-checkbox>
+          <mat-checkbox [checked]="rowSelection[i]" (click)="onRowCheckboxClicked($event, i);"></mat-checkbox>
         </td>
       </ng-container>
 
@@ -27,7 +27,7 @@
         class="header-row" [class.bulk-actions-row]="atLeastOneRowSelected">
       </tr>
       <tr mat-row *matRowDef="let row; columns: actualDisplayedColumns; let i = index"
-        (click)="onRowClicked(i, row, $event)" class="selectable" ></tr>
+        (click)="onRowClicked(i, row, $event)" class="selectable"></tr>
     </table>
   </mat-card-content>
 </mat-card>

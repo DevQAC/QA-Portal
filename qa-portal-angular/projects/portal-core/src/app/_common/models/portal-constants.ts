@@ -4,16 +4,15 @@ export const REFLECTION_API = 'self-reflection-api/reflection';
 export const REFLECTION_QUESTION_API = `self-reflection-api/reflection-question`;
 export const QUESTION_CATEGORY_API = `question-api/question/category/formtype`;
 export const QUESTION_API = `question-api/question/formtype`;
-export const TRAINER_COHORTS_API = 'user-api/user/cohorts/1';
 export const SELF_REFLECTION_QUESTION_API = 'self-reflection-api/question';
 export const SELF_REFLECTIONS_API = 'self-reflection-api/reflections';
 export const USER_API = 'user-api/user';
-export const USER_API_COHORTS = 'user-api/user/cohorts';
+export const USER_API_COHORTS = 'user-api/user/trainer/cohorts';
 export const USER_API_TRAINEES = 'user-api/cohort/trainees/';
+export const USER_API_GET_TRAINEE_COHORT_URL = '/user-api/user/trainee/cohort';
 export const USER_API_TRAINEES_FOR_REVIEW = 'self-reflection-api/reflection/cohort/trainees/review/'
 
 // Internal Angular Route urls
-
 
 
 // Roles for application

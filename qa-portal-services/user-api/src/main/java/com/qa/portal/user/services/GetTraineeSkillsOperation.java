@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class GetSkillsForTraineeOperation {
+public class GetTraineeSkillsOperation {
 
     private TechnologyRepository technologyRepository;
 
@@ -26,9 +26,9 @@ public class GetSkillsForTraineeOperation {
     private BaseMapper baseMapper;
 
 
-    public GetSkillsForTraineeOperation(TechnologyRepository technologyRepository,
-                                        QaTraineeRepository traineeRepository,
-                                        BaseMapper baseMapper) {
+    public GetTraineeSkillsOperation(TechnologyRepository technologyRepository,
+                                     QaTraineeRepository traineeRepository,
+                                     BaseMapper baseMapper) {
         this.technologyRepository = technologyRepository;
         this.traineeRepository = traineeRepository;
         this.baseMapper = baseMapper;

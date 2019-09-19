@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { IUserModel } from '../_common/models/user.model';
+import {UserModel} from '../../../../portal-core/src/app/_common/models/user.model';
 
 @Component({
   selector: 'app-edit-user-dialog',
@@ -9,11 +10,11 @@ import { IUserModel } from '../_common/models/user.model';
 })
 export class EditUserDialogComponent implements OnInit {
   @Output() public dataChanged = new EventEmitter();
-  private oldData: IUserModel;
+  private oldData: UserModel;
   public canSubmit: boolean;
   public passwordEditEnabled: boolean;
 
-  constructor(public dialogRef: MatDialogRef<EditUserDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IUserModel) { }
+  constructor(public dialogRef: MatDialogRef<EditUserDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: UserModel) { }
 
 
   onUpdate(): void {
