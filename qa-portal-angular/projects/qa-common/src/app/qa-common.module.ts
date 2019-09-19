@@ -43,7 +43,8 @@ const iconsMap = [
   { name: 'qa-manage-apps', path: 'assets/icons/qa_manage_apps_48px.svg' },
   { name: 'qa-manage-cohorts', path: 'assets/icons/qa_manage_cohorts_48px.svg' },
   { name: 'qa-manage-courses', path: 'assets/icons/qa_manage_courses_48px.svg' },
-  { name: 'qa-manage-users', path: 'assets/icons/qa_manage_users_48px.svg' }
+  { name: 'qa-manage-users', path: 'assets/icons/qa_manage_users_48px.svg' },
+  { name: 'qa-manage-roles', path: 'assets/icons/qa_manage_roles_48px.svg' }
 ];
 
 const materialModules = [
