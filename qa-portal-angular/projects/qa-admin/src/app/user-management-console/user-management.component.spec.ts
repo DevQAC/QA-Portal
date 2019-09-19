@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserManagementConsoleComponent } from './user-management-console.component';
+import { UserManagementComponent } from './user-management.component';
 
 describe('UserManagementConsoleComponent', () => {
-  let component: UserManagementConsoleComponent;
-  let fixture: ComponentFixture<UserManagementConsoleComponent>;
+  let component: UserManagementComponent;
+  let fixture: ComponentFixture<UserManagementComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserManagementConsoleComponent ]
+      declarations: [ UserManagementComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserManagementConsoleComponent);
+    fixture = TestBed.createComponent(UserManagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

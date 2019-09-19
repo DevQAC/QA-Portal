@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Change Role</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Role</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let role of roles" [value]="role">
+        {{role}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <p>This will add the chosen role of all selected users.</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Cancel</button>
+  <button mat-button color="primary" [mat-dialog-close]="true">Update</button>
+</div>
