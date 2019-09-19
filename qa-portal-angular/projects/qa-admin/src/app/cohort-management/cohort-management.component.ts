@@ -1,10 +1,10 @@
-import { Component, OnInit, OnChanges, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatCheckboxChange, MatTable, MatDialog } from '@angular/material';
-import { ICohort } from '../_common/models/cohort.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CohortService } from '../_common/services/cohort.service';
-import { DeleteCohortDialogComponent } from './delete-cohort-dialog/delete-cohort-dialog.component';
-import { DataTableComponent } from 'projects/qa-common/src/app/data-table/data-table.component';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatTableDataSource} from '@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CohortService} from '../_common/services/cohort.service';
+import {DeleteCohortDialogComponent} from './delete-cohort-dialog/delete-cohort-dialog.component';
+import {DataTableComponent} from 'projects/qa-common/src/app/data-table/data-table.component';
+import {CohortModel} from '../../../../portal-core/src/app/_common/models/cohort.model';
 
 @Component({
   selector: 'app-cohort-management',
@@ -12,26 +12,22 @@ import { DataTableComponent } from 'projects/qa-common/src/app/data-table/data-t
 })
 export class CohortManagementComponent implements OnInit {
 
-  @ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<ICohort>;
+  @ViewChild('dataTable', {static: false}) dataTable: DataTableComponent<CohortModel>;
 
   // SEARCH
   public searchInput = '';
 
   // TABLE
-  public cohortsTableDataSource = new MatTableDataSource<ICohort>();
+  public cohortsTableDataSource = new MatTableDataSource<CohortModel>();
   public displayedColumns = ['select', 'cohortName', 'trainer', 'start'];
   public rowSelection = [];
+  public isLoading = true;
 
-  public isLoading = false;
-
-
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private cohortService: CohortService,
-    private dialog: MatDialog
-  ) { }
-
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private cohortService: CohortService,
+              private dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.searchInput = this.activatedRoute.snapshot.queryParams.search || this.searchInput;
@@ -43,7 +39,7 @@ export class CohortManagementComponent implements OnInit {
       this.dataTable.deselectAllRows();
     }
     this.isLoading = true;
-    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { search: this.searchInput } });
+    this.router.navigate([], {relativeTo: this.activatedRoute, queryParams: {search: this.searchInput}});
 
     this.cohortService.searchCohorts(this.searchInput).subscribe(results => {
       this.cohortsTableDataSource.data = results;
@@ -54,15 +50,14 @@ export class CohortManagementComponent implements OnInit {
 
   // Action bar handlers
   public onDeleteActionClicked(): void {
-    const dialogRef = this.dialog.open(DeleteCohortDialogComponent, {
-    });
+    const dialogRef = this.dialog.open(DeleteCohortDialogComponent, {});
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.isLoading = true;
-        this.cohortService.deleteCohorts(this.dataTable.getSelectedRowsData()).subscribe(() => {
-          this.performSearch();
-        });
+        // this.isLoading = true;
+        // this.cohortService.deleteCohorts(this.dataTable.getSelectedRowsData()).subscribe(() => {
+        //   this.performSearch();
+        // });
       }
     });
   }
@@ -70,5 +65,4 @@ export class CohortManagementComponent implements OnInit {
   public onAddCohortButtonClicked(): void {
     console.warn('Add new cohort not implemented!');
   }
-
 }

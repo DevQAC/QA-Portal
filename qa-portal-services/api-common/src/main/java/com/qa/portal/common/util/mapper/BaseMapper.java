@@ -52,7 +52,4 @@ public class BaseMapper {
     public TrainerDto mapToQaTrainerDto(TrainerEntity qaTrainerEntity) {
         return mapper.map(qaTrainerEntity, TrainerDto.class);
     }
-    
-
-
 }

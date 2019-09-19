@@ -1,27 +1,28 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ICohort } from '../models/cohort.model';
-import { DUMMY_COHORTS } from './dummy-cohort-data';
-import { delay } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {take} from 'rxjs/operators';
+import {CohortModel} from '../../../../../portal-core/src/app/_common/models/cohort.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {DELETE_COHORTS_URL, GET_COHORTS_URL} from '../models/user.constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CohortService {
 
-  constructor() { }
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'}),
+  };
 
-  public searchCohorts(search: string): Observable<ICohort[]> {
-    console.warn('CohortService.searchCohorts is using dummy data!');
-    return of(
-      DUMMY_COHORTS
-        .filter(c => c.cohortName.toLowerCase().includes(search.toLowerCase()) ||
-          c.trainer.toLowerCase().includes(search.toLowerCase()))
-    ).pipe(delay(Math.floor(Math.random() * 3500) + 500));
+  constructor(private http: HttpClient) { }
+
+  public searchCohorts(search: string): Observable<CohortModel[]> {
+    return this.http.get<CohortModel[]>(GET_COHORTS_URL, this.httpOptions).pipe(
+      take(1)
+    );
   }
 
-  public deleteCohorts(cohorts: ICohort[]): Observable<void> {
-    console.log('ChoortService.deleteCohorts is not implemented! Input data:', cohorts);
-    return of(null).pipe(delay(Math.floor(Math.random() * 3500) + 500));
+  public deleteCohorts(cohorts: CohortModel[]) {
+    // Functionality no longer required
   }
 }
