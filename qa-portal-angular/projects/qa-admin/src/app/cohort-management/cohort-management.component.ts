@@ -51,22 +51,6 @@ export class CohortManagementComponent implements OnInit {
     });
   }
 
-
-  // Action bar handlers
-  public onDeleteActionClicked(): void {
-    const dialogRef = this.dialog.open(DeleteCohortDialogComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.isLoading = true;
-        this.cohortService.deleteCohorts(this.dataTable.getSelectedRowsData()).subscribe(() => {
-          this.performSearch();
-        });
-      }
-    });
-  }
-
   public onAddCohortButtonClicked(): void {
     console.warn('Add new cohort not implemented!');
   }

@@ -10,8 +10,8 @@
 
 <app-data-table #table [dataSource]="dataSource" [displayedColumns]="displayedColumns" [isLoading]="isLoading">
   <!-- BULK ACTIONS -->
-  <button bulk-action mat-button color="primary" (click)="onUpdateCohortActionClicked()">Add to Cohort</button>
-  <button bulk-action mat-button color="primary" (click)="onUpdateRoleActionClicked()">Change Role</button>
+  <button bulk-action mat-button color="primary" (click)="onUpdateCohortActionClicked()">Change Cohort</button>
+  <button bulk-action mat-button color="primary" (click)="onUpdateRoleActionClicked()">Add Role</button>
   <button bulk-action mat-button color="warn" (click)="onDeleteActionClicked()">Delete</button>
 
   <!-- COLUMNS -->

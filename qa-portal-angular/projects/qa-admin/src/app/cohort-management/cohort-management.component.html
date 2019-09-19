@@ -10,7 +10,6 @@
 <app-data-table #dataTable [displayedColumns]="displayedColumns" [dataSource]="cohortsTableDataSource"
     [isLoading]="isLoading">
     <button bulk-action mat-button color="primary">Edit</button>
-    <button bulk-action mat-button color="warn" (click)="onDeleteActionClicked()">Delete</button>
 
     <ng-container matColumnDef="cohortName">
         <th mat-header-cell *matHeaderCellDef> Name </th>

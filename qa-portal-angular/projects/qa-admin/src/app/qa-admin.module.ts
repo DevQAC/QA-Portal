@@ -7,7 +7,6 @@ import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.compon
 
 import { CohortChipsComponent } from './cohort-chips/cohort-chips.component';
 import { QaAdminRoutingModule } from './qa-admin-routing.module';
-import { DeleteCohortDialogComponent } from './cohort-management/delete-cohort-dialog/delete-cohort-dialog.component';
 import { CohortManagementComponent } from './cohort-management/cohort-management.component';
 import { DeleteUserDialogComponent } from './user-management-console/delete-user-dialog/delete-user-dialog.component';
 import { UpdateUserCohortDialogComponent } from './user-management-console/update-user-cohort-dialog/update-user-cohort-dialog.component';
@@ -21,7 +20,6 @@ import { UpdateUserRoleDialogComponent } from './user-management-console/update-
     CohortChipsComponent,
     AddUserDialogComponent,
     CohortManagementComponent,
-    DeleteCohortDialogComponent,
     DeleteUserDialogComponent,
     UpdateUserCohortDialogComponent,
     UpdateUserRoleDialogComponent,
@@ -36,9 +34,7 @@ import { UpdateUserRoleDialogComponent } from './user-management-console/update-
     AddUserDialogComponent,
     DeleteUserDialogComponent,
     UpdateUserCohortDialogComponent,
-    UpdateUserRoleDialogComponent,
-    // Cohort
-    DeleteCohortDialogComponent
+    UpdateUserRoleDialogComponent
   ]
 })
 export class QaAdminModule { }
