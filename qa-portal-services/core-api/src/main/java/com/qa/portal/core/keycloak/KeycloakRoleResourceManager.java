@@ -26,11 +26,8 @@ public class KeycloakRoleResourceManager {
 
     public RoleRepresentation createRole(String roleName) {
         keycloakRoleValidator.validateRole(roleName);
-        RoleRepresentation roleRepresentation = null;
-        if (!keycloakRoleValidator.roleExists(roleName)) {
-            roleRepresentation = keycloakRoleFactory.createKeycloakRole(roleName);
-            keycloakAdminClient.getRealm().roles().create(roleRepresentation);
-        }
+        RoleRepresentation roleRepresentation = keycloakRoleFactory.createKeycloakRole(roleName);
+        keycloakAdminClient.getRealm().roles().create(roleRepresentation);
         return getRoleRepresentation(roleName).orElseThrow(() -> new QaPortalBusinessException("Error creating role in keycloak"));
     }
 

@@ -11,6 +11,7 @@ import { DeleteUserDialogComponent } from './user-management-console/delete-user
 import { UpdateUserCohortDialogComponent } from './user-management-console/update-user-cohort-dialog/update-user-cohort-dialog.component';
 import { UpdateUserRoleDialogComponent } from './user-management-console/update-user-role-dialog/update-user-role-dialog.component';
 import { AddUserDialogComponent } from './user-management-console/add-user-dialog/add-user-dialog.component';
+import {RoleService} from './_common/services/role.service';
 
 
 @NgModule({

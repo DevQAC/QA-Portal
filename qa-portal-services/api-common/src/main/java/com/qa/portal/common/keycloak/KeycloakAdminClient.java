@@ -58,7 +58,7 @@ public class KeycloakAdminClient {
     }
 
     private void initializeKeycloakAdminClient(String enabledFlag) {
-        if (enabledFlag.equals("true)")) {
+        if (enabledFlag.equals("true")) {
             keycloak = KeycloakBuilder.builder()
                     .serverUrl(environment.getProperty(QA_KEYCLOAK_ADMIN_URL_PROP))
                     .realm(environment.getProperty(QA_KEYCLOAK_ADMIN_REALM_PROP))

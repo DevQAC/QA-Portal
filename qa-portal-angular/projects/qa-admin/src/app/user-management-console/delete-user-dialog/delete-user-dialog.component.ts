@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserModel } from 'projects/portal-core/src/app/_common/models/user.model';
+import {UserDetailsModel} from '../../../../../portal-core/src/app/_common/models/user-details.model';
 
 @Component({
   selector: 'app-delete-user-dialog',
@@ -14,7 +15,7 @@ export class DeleteUserDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DeleteUserDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: UserModel[]) { }
+    @Inject(MAT_DIALOG_DATA) public data: UserDetailsModel[]) { }
 
   ngOnInit() {
     // Brief pause before the delete button is enabled.

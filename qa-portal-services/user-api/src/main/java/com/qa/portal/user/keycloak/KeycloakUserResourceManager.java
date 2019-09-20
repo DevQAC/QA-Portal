@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.qa.portal.user.keycloak.KeycloakUserConstants.*;
+import static com.qa.portal.common.keycloak.KeycloakUserConstants.*;
 
 @Component
 public class KeycloakUserResourceManager {
@@ -48,7 +48,7 @@ public class KeycloakUserResourceManager {
 
     public List<QaUserDetailsDto> getAllUsers() {
         return keycloakAdminClient.getRealm().users().list().stream()
-                .map(u -> keycloakUserMapper.mapToUserDetailsDto(u))
+                .map(u -> keycloakUserMapper.mapToUserDetailsDto(keycloakAdminClient.getRealm().users().get(u.getId())))
                 .collect(Collectors.toList());
     }
 
@@ -58,6 +58,7 @@ public class KeycloakUserResourceManager {
             RoleRepresentation roleRepresentation = getRoleRepresentation(qaUserDetailsDto.getRoleName());
             assignRoleToUser(userRepresentation, roleRepresentation);
         } catch (Exception e) {
+            LOGGER.error("Exception creating user is " + e.getMessage(), e);
             throw new QaPortalMultiStepCommitException(new QaMultiStepCommitContext(this.getClass().getName(),
                     qaUserDetailsDto,
                     QaUserDetailsDto.class,
@@ -84,16 +85,27 @@ public class KeycloakUserResourceManager {
         return userRepresentation;
     }
 
-    public void deleteUser(String userName) {
-        Response response = keycloakAdminClient.getRealm().users().delete(userName);
-        if (response.getStatus() != HttpStatus.OK.value()) {
-            throw new QaPortalBusinessException("Error deleting user");
-        }
+    public void deleteUsers(List<QaUserDetailsDto> users) {
+        users.stream()
+                .filter(u -> u != null)  // Workaround for issue in angular - Ian to fix
+                .forEach(u -> deleteUser(u.getUser().getUserName()));
     }
 
     public void assignRoleToUser(UserRepresentation userRepresentation, RoleRepresentation roleRepresentation) {
         UserResource userResource = keycloakAdminClient.getRealm().users().get(userRepresentation.getId());
         userResource.roles().realmLevel().add(Arrays.asList(roleRepresentation));
+    }
+
+    private void deleteUser(String userName) {
+        String id = keycloakAdminClient.getRealm().users().list().stream()
+                .filter(u -> u.getUsername().equals(userName))
+                .findFirst()
+                .map(u -> u.getId())
+                .orElseThrow(() -> new QaPortalBusinessException("No user found for supplied username"));
+        Response response = keycloakAdminClient.getRealm().users().delete(id);
+        if (response.getStatus() >= HttpStatus.BAD_REQUEST.value()) {
+            throw new QaPortalBusinessException("Error deleting user");
+        }
     }
 
     private void updateUserRoles(UserResource userResource,
@@ -116,18 +128,19 @@ public class KeycloakUserResourceManager {
                             String newPortalRole) {
         if (!existingPortalRole.equals(newPortalRole)) {
             // Delete old role
-            List<RoleRepresentation> rolesToDelete = Stream.of(existingPortalRole)
-                    .map(r -> getRoleRepresentation(r))
-                    .collect(Collectors.toList());
-
+            List<RoleRepresentation> rolesToDelete = convertToRoleRepresentationList(existingPortalRole);
             userResource.roles().realmLevel().remove(rolesToDelete);
 
             // Assign new role
-            List<RoleRepresentation> rolesToAdd = Stream.of(newPortalRole)
-                    .map(r -> getRoleRepresentation(r))
-                    .collect(Collectors.toList());
+            List<RoleRepresentation> rolesToAdd = convertToRoleRepresentationList(newPortalRole);
             userResource.roles().realmLevel().add(rolesToAdd);
         }
+    }
+
+    private List<RoleRepresentation> convertToRoleRepresentationList(String s) {
+        return Stream.of(s)
+                .map(r -> getRoleRepresentation(r))
+                .collect(Collectors.toList());
     }
 
     private Optional<UserRepresentation> getUserRepresentation(UserRepresentation userRepresentation) {

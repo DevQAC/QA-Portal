@@ -8,4 +8,6 @@ export class UserModel {
   lastName: string;
 
   email: string;
+
+  role: string;
 }

@@ -18,8 +18,7 @@ public class KeycloakUserValidator {
     public void validateUser(QaUserDetailsDto userDetails) {
         if (StringUtils.isEmpty(userDetails.getUser().getFirstName()) ||
                 StringUtils.isEmpty(userDetails.getUser().getUserName()) ||
-                StringUtils.isEmpty(userDetails.getUser().getLastName().isEmpty()) ||
-                StringUtils.isEmpty(userDetails.getUser().getUserName().isEmpty())) {
+                StringUtils.isEmpty(userDetails.getUser().getLastName())) {
             throw new QaPortalBusinessException("Cannot create user. Not all user details supplied");
         }
 
