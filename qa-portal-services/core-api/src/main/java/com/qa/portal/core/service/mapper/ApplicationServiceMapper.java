@@ -2,16 +2,18 @@ package com.qa.portal.core.service.mapper;
 
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.core.dto.*;
-import com.qa.portal.core.persistence.entity.DepartmentRoleApplicationEntity;
-import com.qa.portal.core.persistence.entity.MenuItemEntity;
+import com.qa.portal.core.persistence.entity.RoleProjectPageEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.*;
 
 @Component
 public class ApplicationServiceMapper {
@@ -25,28 +27,35 @@ public class ApplicationServiceMapper {
         this.baseMapper = baseMapper;
     }
 
-    public List<DepartmentApplicationsDto> createDepartmentsApplicationsDto(Set<DepartmentRoleApplicationEntity> deptRoleApps,
-                                                                            Collection<String> userRoles) {
-        return getApplicationsByDepartment(deptRoleApps, userRoles).entrySet().stream()
-                .map((entry) -> new DepartmentApplicationsDto(entry.getKey(), entry.getValue()))
-                .sorted(Comparator.comparingInt((DepartmentApplicationsDto d) -> d.getDepartment().getDisplayOrder()))
-                .collect(Collectors.toList());
-
+    public List<ApplicationProjectsDto> createApplicationProjectsDto(Set<RoleProjectPageEntity> roleProjectPageEntities) {
+        return getProjectsByApplication(roleProjectPageEntities).entrySet().stream()
+                .map((entry) -> new ApplicationProjectsDto(entry.getKey(), entry.getValue()))
+                .sorted(comparingInt((ApplicationProjectsDto d) -> d.getPortalApplication().getDisplayOrder()))
+                .collect(toList());
     }
 
-    private Map<DepartmentDto, Set<ApplicationDto>> getApplicationsByDepartment(Set<DepartmentRoleApplicationEntity> deptRoleApps,
-                                                                                Collection<String> userRoles) {
-        return deptRoleApps.stream()
-                .map(dra -> createDepartmentApplicationDto(dra, userRoles))
-                .collect(Collectors.groupingBy(DepartmentApplicationDto::getDepartment,
-                        Collectors.mapping(DepartmentApplicationDto::getApplicationDto, Collectors.toSet())));
+    private Map<PortalApplicationDto, Set<PortalProjectDto>> getProjectsByApplication(Set<RoleProjectPageEntity> roleProjectPageEntities) {
+        return roleProjectPageEntities.stream()
+                .map(rpp -> createApplicationProjectDto(rpp, roleProjectPageEntities))
+                .sorted(comparingInt(ap -> ap.getPortalProjectDto().getId()))
+                .collect(groupingBy(ApplicationProjectDto::getPortalApplication,
+                        mapping(ApplicationProjectDto::getPortalProjectDto, toSet())));
     }
 
-    public DepartmentApplicationDto createDepartmentApplicationDto(DepartmentRoleApplicationEntity draEntity,
-                                                                   Collection<String> userRoles) {
-        DepartmentDto departmentDto = baseMapper.mapObject(draEntity.getDepartmentRole().getDepartment(), DepartmentDto.class);
-        ApplicationDto applicationDto = baseMapper.mapObject(draEntity.getApplication(), ApplicationDto.class);
-        applicationDto.getMenuItems().stream().forEach(mi -> LOGGER.info(mi.getName() + ", " + mi.getUrl()));
-        return new DepartmentApplicationDto(departmentDto, applicationDto);
+    private ApplicationProjectDto createApplicationProjectDto(RoleProjectPageEntity roleProjectPageEntity,
+                                                              Set<RoleProjectPageEntity> roleProjectPageEntities) {
+        PortalApplicationDto portalApplicationDto = baseMapper.mapObject(roleProjectPageEntity.getRole().getPortalApplication(), PortalApplicationDto.class);
+        PortalProjectDto portalProjectDto = baseMapper.mapObject(roleProjectPageEntity.getProjectPage().getPortalProject(), PortalProjectDto.class);
+        portalProjectDto.setProjectPages(getProjectPagesForPortalProject(portalProjectDto, roleProjectPageEntities));
+        return new ApplicationProjectDto(portalApplicationDto, portalProjectDto);
+    }
+
+    private List<ProjectPageDto> getProjectPagesForPortalProject(PortalProjectDto portalProjectDto,
+                                                                 Set<RoleProjectPageEntity> roleProjectPageEntities) {
+        return roleProjectPageEntities.stream()
+                .filter(rppe -> rppe.getProjectPage().getPortalProject().getName().equals(portalProjectDto.getName()))
+                .map(rppe -> baseMapper.mapObject(rppe.getProjectPage(), ProjectPageDto.class))
+                .sorted(comparingInt(ProjectPageDto::getId))
+                .collect(toList());
     }
 }

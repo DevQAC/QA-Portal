@@ -1,0 +1,42 @@
+package com.qa.portal.common.config;
+
+import org.dozer.DozerBeanMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Arrays;
+
+import static com.qa.portal.common.CommonConstants.DOZER_CONFIG_FILE;
+
+@Configuration
+@EnableSwagger2
+public class CoreConfig {
+
+    @Bean
+    public DozerBeanMapper dozerBeanMapper() {
+        DozerBeanMapper mapper = new DozerBeanMapper();
+        mapper.setMappingFiles(Arrays.asList(DOZER_CONFIG_FILE));
+        return mapper;
+    }
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    @Bean
+    public JavaMailSender javaMailSender() {
+        return new JavaMailSenderImpl();
+    }
+}

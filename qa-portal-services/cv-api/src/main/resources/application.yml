@@ -55,6 +55,9 @@ qa:
     config:
       file: keycloak.json
 
+    admin:
+      enabled: false
+
 onedrive:
   isActive: true
   baseFolder: root/CVs

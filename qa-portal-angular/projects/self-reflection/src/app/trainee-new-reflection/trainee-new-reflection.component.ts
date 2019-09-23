@@ -42,6 +42,7 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('In TraineeNewReflectionComponent');
     this.initialiseForm();
   }
 
@@ -88,7 +89,7 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
     if (element.status === 'Reviewed') {
       this.listOfFormDates.push(element.formDate);
     } else {
-      this.router.navigateByUrl('qa/portal/training/trainee/selfreflection/' + element.id);
+      this.router.navigateByUrl('qa/portal/training/self-reflection/trainee/' + element.id);
     }
   }
 
@@ -155,7 +156,7 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
     this.selfReflectionFormService.createSelfReflectionForm(this.selfReflectionViewModel.selfReflectionForm)
       .subscribe(
         (response) => {
-          this.router.navigateByUrl('qa/portal/training/trainee/selfreflections');
+          this.router.navigateByUrl('qa/portal/training/self-reflection/trainee/history');
           this.toastrService.showSuccess('Reflection Form ' + this.selfReflectionViewModel.selfReflectionForm.status);
         },
         (error) => {

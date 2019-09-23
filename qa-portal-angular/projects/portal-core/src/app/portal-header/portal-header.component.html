@@ -1,29 +1,20 @@
 <mat-toolbar>
   <mat-toolbar-row class="mat-elevation-z2">
-    
-    <!-- ICON -->
-    <!-- <div class="icon-container">
-      <a class="logo" [routerLink]="['/qa/portal/home']" matRipple>
-        <mat-icon svgIcon="qa-logo"></mat-icon>
-      </a>
-    </div> -->
-    
     <!-- LEFT ALIGN-->
     <div class="content-left">
-      <!-- <a class="menu-button" (click)="sideMenuService.toggleOpen()">
-        <mat-icon>menu</mat-icon>
-      </a> -->
-      <a class="logo" [routerLink]="['/qa/portal/home']" matRipple>
+      <a class="logo" [routerLink]="['/']" matRipple>
         <mat-icon svgIcon="qa-logo"></mat-icon>
       </a>
       <div class="header-links">
-          <app-header-link *ngFor="let deptApps of portalApplications" [department]="deptApps">{{deptApps?.department?.name || 'Unknown Department'}}</app-header-link>
+          <app-header-link *ngFor="let portalApp of (appService.portalApplications$ | async)" [portalApplicationProjects]="portalApp">
+              {{portalApp?.portalApplication?.name || 'Unknown Department'}}
+            </app-header-link>
         </div>
     </div>
 
     <!-- RIGHT ALIGN -->
     <div class="content-right">
-      
+
       <!-- TODO: MOVE THIS! -->
       <!-- <span class="portal-buttons" *ngFor="let deptApps of portalApplications">
         <button mat-flat-button [mat-menu-trigger-for]="sub_menu">
@@ -36,7 +27,7 @@
         </mat-menu>
       </span> -->
       <!-- TODO END -->
-      
+
       <button isIconButton="true" class="user-button" mat-flat-button color="primary"
         [mat-menu-trigger-for]="acct_menu">
         {{displayName}}
@@ -53,6 +44,3 @@
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
-
-
-<!--  -->

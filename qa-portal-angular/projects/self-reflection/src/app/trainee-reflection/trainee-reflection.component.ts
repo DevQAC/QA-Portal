@@ -33,6 +33,7 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('In TraineeReflectionComponent');
     this.route.paramMap.subscribe(
       (params: ParamMap) => {
         this.populateSelfReflectionForm(params.get('id'));

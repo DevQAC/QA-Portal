@@ -1,8 +1,7 @@
 package com.qa.portal.core.rest;
 
 import com.qa.portal.common.security.QaSecurityContext;
-import com.qa.portal.core.dto.DepartmentApplicationsDto;
-import com.qa.portal.common.email.QaEmailClient;
+import com.qa.portal.core.dto.ApplicationProjectsDto;
 import com.qa.portal.core.service.ApplicationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,15 +24,13 @@ public class ApplicationsController {
     private QaSecurityContext securityContext;
 
     @Autowired
-    public ApplicationsController(ApplicationService applicationService,
-                                  QaSecurityContext securityContext,
-                                  QaEmailClient qaEmailClient) {
+    public ApplicationsController(ApplicationService applicationService, QaSecurityContext securityContext) {
         this.applicationService = applicationService;
         this.securityContext = securityContext;
     }
 
     @GetMapping()
-    public ResponseEntity<List<DepartmentApplicationsDto>> getApplicationsByDepartment() {
-        return ResponseEntity.ok(applicationService.getApplicationsByDepartment(securityContext.getRoles()));
+    public ResponseEntity<List<ApplicationProjectsDto>> getPortalApplications() {
+        return ResponseEntity.ok(applicationService.getPortalApplications(securityContext.getRoles()));
     }
 }

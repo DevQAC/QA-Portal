@@ -117,119 +117,6 @@
         }
       }
     },
-    "portal-home": {
-      "projectType": "application",
-      "schematics": {},
-      "root": "projects/portal-home",
-      "sourceRoot": "projects/portal-home/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/portal-home",
-            "index": "projects/portal-home/src/index.html",
-            "main": "projects/portal-home/src/main.ts",
-            "polyfills": "projects/portal-home/src/polyfills.ts",
-            "tsConfig": "projects/portal-home/tsconfig.app.json",
-            "aot": false,
-            "assets": [
-              "projects/portal-home/src/favicon.ico",
-              "projects/portal-home/src/assets"
-            ],
-            "styles": [
-              "projects/portal-home/src/styles.scss"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/portal-home/src/environments/environment.ts",
-                  "with": "projects/portal-home/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "portal-home:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "portal-home:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "portal-home:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/portal-home/src/test.ts",
-            "polyfills": "projects/portal-home/src/polyfills.ts",
-            "tsConfig": "projects/portal-home/tsconfig.spec.json",
-            "karmaConfig": "projects/portal-home/karma.conf.js",
-            "assets": [
-              "projects/portal-home/src/favicon.ico",
-              "projects/portal-home/src/assets"
-            ],
-            "styles": [
-              "projects/portal-home/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/portal-home/tsconfig.app.json",
-              "projects/portal-home/tsconfig.spec.json",
-              "projects/portal-home/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/portal-home/e2e/protractor.conf.js",
-            "devServerTarget": "portal-home:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "portal-home:serve:production"
-            }
-          }
-        }
-      }
-    },
     "portal-core": {
       "projectType": "application",
       "schematics": {},
@@ -1021,28 +908,28 @@
         }
       }
     },
-    "qa-user-admin": {
+    "qa-admin": {
       "projectType": "application",
       "schematics": {},
-      "root": "projects/qa-user-admin",
-      "sourceRoot": "projects/qa-user-admin/src",
+      "root": "projects/qa-admin",
+      "sourceRoot": "projects/qa-admin/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/qa-user-admin",
-            "index": "projects/qa-user-admin/src/index.html",
-            "main": "projects/qa-user-admin/src/main.ts",
-            "polyfills": "projects/qa-user-admin/src/polyfills.ts",
-            "tsConfig": "projects/qa-user-admin/tsconfig.app.json",
+            "outputPath": "dist/qa-admin",
+            "index": "projects/qa-admin/src/index.html",
+            "main": "projects/qa-admin/src/main.ts",
+            "polyfills": "projects/qa-admin/src/polyfills.ts",
+            "tsConfig": "projects/qa-admin/tsconfig.app.json",
             "aot": false,
             "assets": [
-              "projects/qa-user-admin/src/favicon.ico",
-              "projects/qa-user-admin/src/assets"
+              "projects/qa-admin/src/favicon.ico",
+              "projects/qa-admin/src/assets"
             ],
             "styles": [
-              "projects/qa-user-admin/src/styles.css"
+              "projects/qa-admin/src/styles.css"
             ],
             "scripts": []
           },
@@ -1050,8 +937,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/qa-user-admin/src/environments/environment.ts",
-                  "with": "projects/qa-user-admin/src/environments/environment.prod.ts"
+                  "replace": "projects/qa-admin/src/environments/environment.ts",
+                  "with": "projects/qa-admin/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -1076,33 +963,33 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "qa-user-admin:build"
+            "browserTarget": "qa-admin:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "qa-user-admin:build:production"
+              "browserTarget": "qa-admin:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "qa-user-admin:build"
+            "browserTarget": "qa-admin:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/qa-user-admin/src/test.ts",
-            "polyfills": "projects/qa-user-admin/src/polyfills.ts",
-            "tsConfig": "projects/qa-user-admin/tsconfig.spec.json",
-            "karmaConfig": "projects/qa-user-admin/karma.conf.js",
+            "main": "projects/qa-admin/src/test.ts",
+            "polyfills": "projects/qa-admin/src/polyfills.ts",
+            "tsConfig": "projects/qa-admin/tsconfig.spec.json",
+            "karmaConfig": "projects/qa-admin/karma.conf.js",
             "assets": [
-              "projects/qa-user-admin/src/favicon.ico",
-              "projects/qa-user-admin/src/assets"
+              "projects/qa-admin/src/favicon.ico",
+              "projects/qa-admin/src/assets"
             ],
             "styles": [
-              "projects/qa-user-admin/src/styles.css"
+              "projects/qa-admin/src/styles.css"
             ],
             "scripts": []
           }
@@ -1111,9 +998,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/qa-user-admin/tsconfig.app.json",
-              "projects/qa-user-admin/tsconfig.spec.json",
-              "projects/qa-user-admin/e2e/tsconfig.json"
+              "projects/qa-admin/tsconfig.app.json",
+              "projects/qa-admin/tsconfig.spec.json",
+              "projects/qa-admin/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -1123,12 +1010,12 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/qa-user-admin/e2e/protractor.conf.js",
-            "devServerTarget": "qa-user-admin:serve"
+            "protractorConfig": "projects/qa-admin/e2e/protractor.conf.js",
+            "devServerTarget": "qa-admin:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "qa-user-admin:serve:production"
+              "devServerTarget": "qa-admin:serve:production"
             }
           }
         }

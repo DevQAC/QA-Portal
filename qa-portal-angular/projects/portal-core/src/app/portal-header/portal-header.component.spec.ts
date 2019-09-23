@@ -2,11 +2,11 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import {MatIconModule, MatMenuModule, MatToolbarModule} from '@angular/material';
 import {PortalHeaderComponent} from './portal-header.component';
 import {MenuService} from '../_common/services/menu.service';
-import {DepartmentApplications} from '../_common/models/department-applications';
+import {PortalApplicationProjectsModel} from '../_common/models/portal-application-projects.model';
 import {KeycloakService} from 'keycloak-angular';
 import {of} from 'rxjs';
-import {Application} from '../_common/models/application';
-import {Department} from '../_common/models/department';
+import {PortalProjectModel} from '../_common/models/portal-project.model';
+import {PortalApplicationModel} from '../_common/models/portal-application.model';
 import {CommonModule} from '@angular/common';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Component} from '@angular/core';
@@ -76,7 +76,7 @@ describe('Portal Header Component Tests', () => {
     fixture.detectChanges();
 
     // After ngOnInit is completed there should be 1 entry in the components portalApplications property
-    expect(component.portalApplications.length).toBe(1);
+    expect(component.portalApplicationProjectsList.length).toBe(1);
   });
 
   it('Should have one Department called Test Dept', () => {
@@ -115,22 +115,22 @@ describe('Portal Header Component Tests', () => {
     expect(anchorUrl.endsWith('/test/url')).toBe(true);
   });
 
-  function createDeptApps(): DepartmentApplications[] {
-    const deptApps = new DepartmentApplications();
-    deptApps.department = createMockDepartment();
-    deptApps.applications = createMockApplications();
+  function createDeptApps(): PortalApplicationProjectsModel[] {
+    const deptApps = new PortalApplicationProjectsModel();
+    deptApps.portalApplication = createMockDepartment();
+    deptApps.portalProjects = createMockApplications();
     return [deptApps];
   }
 
-  function createMockDepartment(): Department {
-    const dept = new Department();
+  function createMockDepartment(): PortalApplicationModel {
+    const dept = new PortalApplicationModel();
     dept.name = 'Test Dept';
     dept.displayOrder = 1;
     return dept;
   }
 
-  function createMockApplications(): Application[] {
-    const appl = new Application();
+  function createMockApplications(): PortalProjectModel[] {
+    const appl = new PortalProjectModel();
     appl.url = '/test/url';
     appl.name = 'Test Appl';
     return [appl];

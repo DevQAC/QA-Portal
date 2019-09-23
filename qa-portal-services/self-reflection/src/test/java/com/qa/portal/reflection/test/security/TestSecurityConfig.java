@@ -16,7 +16,6 @@ public class TestSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         LOGGER.info("Test Security configure");
-        System.out.println("Configure of Test security");
         http.csrf().disable().authorizeRequests().antMatchers("/**").permitAll();
     }
 }

@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Add A User</h1>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="userName" required>
+      <mat-error>Must be a valid @qa.com or @academytrainee.com email address</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role" required>
+        <mat-option *ngFor="let role of roles" [value]="role">
+          {{role}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button [mat-dialog-close]="false" [disabled]="isLoading">Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()"
+      [disabled]="isLoading || userForm.invalid">Create</button>
+  </div>
+</form>
+<app-spinner-overlay [show]="isLoading"></app-spinner-overlay>

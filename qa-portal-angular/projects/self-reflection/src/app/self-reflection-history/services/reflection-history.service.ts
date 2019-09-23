@@ -4,8 +4,6 @@ import {GET_SELF_REFLECTIONS_FOR_TRAINEE_API} from '../../_common/models/trainee
 import {Observable} from 'rxjs';
 import {SelfReflectionFormModel} from '../../_common/models/self-reflection-form-model';
 
-
-
 @Injectable()
 export class ReflectionHistoryService {
 

@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Add to Cohort</h1>
+<div mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Cohort</mat-label>
+        <mat-select [(ngModel)]="cohortSelection">
+          <mat-option *ngFor="let cohort of cohorts" [value]="cohort">
+            {{cohort}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <p>This will add the chosen role to all selected users.</p>
+</div>
+<div mat-dialog-actions class="action-buttons">
+  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Cancel</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="cohortSelection" [disabled]="!cohortSelection">Update</button>
+</div>

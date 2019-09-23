@@ -6,7 +6,7 @@ import {IFormService} from './services/iform.service';
 
 export abstract class FormPage {
 
-  protected dataLoaded = false;
+  public dataLoaded = false;
 
   protected getFormSubscription: Subscription;
 

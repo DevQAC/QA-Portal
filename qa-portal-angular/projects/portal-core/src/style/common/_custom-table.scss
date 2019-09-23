@@ -1,5 +1,11 @@
 table.mat-table.qa-table {
 
+    &.loading {
+        pointer-events: none;
+        opacity: .5;
+    }
+
+
     tr.mat-row {
         &.selectable {
             cursor: pointer;
@@ -25,7 +31,29 @@ table.mat-table.qa-table {
         td.icon-cell {
             width: 40px; // Width of a standard icon button
         }
+
+        td.mat-column-select {
+            width: 40px;
+        }
+    }
+
+    tr.mat-header-row {
+        &.bulk-actions-row {
+            background: map-get($map: $mat-light-theme-background, $key: 'app-bar');
+            [bulk-action]:not(:first-of-type) {
+                margin-left: 1rem;
+            }
+        }
     }
 
 
+}
+
+.qa-table-card {
+    padding: 0 !important;
+    overflow: hidden;
+
+    .mat-progress-bar {
+        position: absolute;
+    }
 }

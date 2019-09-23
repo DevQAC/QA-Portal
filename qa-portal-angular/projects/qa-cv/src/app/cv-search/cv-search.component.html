@@ -35,7 +35,7 @@
   </mat-form-field>
 </app-search-bar>
 
-<mat-card class="search-results-card" *ngIf="!loadingData">
+<mat-card class="search-results-card" *ngIf="!isLoading">
   <mat-card-content>
     <div>
       <table mat-table [dataSource]="searchResultsDataSource">

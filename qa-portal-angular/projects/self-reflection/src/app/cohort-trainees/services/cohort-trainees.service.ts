@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {QaCohortModel} from '../models/qa-cohort.model';
 import {
-  USER_API_COHORTS,
+  USER_API_COHORTS, USER_API_GET_TRAINEE_COHORT_URL,
   USER_API_TRAINEES,
   USER_API_TRAINEES_FOR_REVIEW
 } from 'projects/portal-core/src/app/_common/models/portal-constants';
@@ -18,7 +18,7 @@ export class CohortTraineesService {
   }
 
   getCohort(): Observable<QaCohortModel> {
-    return this.httpClient.get<QaCohortModel>('/user-api/user/cohort');
+    return this.httpClient.get<QaCohortModel>(USER_API_GET_TRAINEE_COHORT_URL);
   }
 
   getCohorts(): Observable<QaCohortModel[]> {

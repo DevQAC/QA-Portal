@@ -1,0 +1,33 @@
+<mat-card class="qa-table-card">
+  <mat-progress-bar mode="indeterminate" color="accent" [style.display]="isLoading ? null : 'none'">
+  </mat-progress-bar>
+  <mat-card-content>
+    <table #table mat-table [dataSource]="dataSource" class="qa-table w-100" [class.loading]="isLoading">
+      <!-- BULK ACTIONS HEADER -->
+      <ng-container matColumnDef="bulkActions">
+        <th mat-header-cell *matHeaderCellDef colspan="100%">
+          <ng-content select="[bulk-action]"></ng-content>
+        </th>
+      </ng-container>
+
+
+      <!-- SELECT CHECKBOXES -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox [checked]="allRowsSelected" [indeterminate]="!allRowsSelected && atLeastOneRowSelected"
+            (change)="onSelectAllCheckboxChange($event)"></mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let rowData; let i = index">
+          <mat-checkbox [checked]="rowSelection[i]" (click)="onRowCheckboxClicked($event, i);"></mat-checkbox>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="atLeastOneRowSelected ? ['select', 'bulkActions'] : actualDisplayedColumns"
+        class="header-row" [class.bulk-actions-row]="atLeastOneRowSelected">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: actualDisplayedColumns; let i = index"
+        (click)="onRowClicked(i, row, $event)" class="selectable"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>

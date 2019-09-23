@@ -18,6 +18,16 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @Profile("!test")
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
+    public static final String SWAGGER_DOCS = "/v2/api-docs";
+
+    public static final String SWAGGER_UI = "/swagger-resources/configuration/ui";
+
+    public static final String SWAGGER_RESOURCES = "/swagger-resources";
+
+    public static final String SWAGGER_RESOURCES_SECURITY = "/swagger-resources/configuration/security";
+
+    public static final String SWAGGER_UI_PAGE = "/swagger-ui.html";
+
     private KeycloakConfigResolver configResolver;
 
     @Autowired
@@ -44,7 +54,17 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http.csrf().disable().authorizeRequests()
-                .anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers(SWAGGER_DOCS,
+                        SWAGGER_UI,
+                        SWAGGER_RESOURCES,
+                        SWAGGER_RESOURCES_SECURITY,
+                        SWAGGER_UI_PAGE).permitAll()
+                .and()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .csrf().disable();
     }
 }

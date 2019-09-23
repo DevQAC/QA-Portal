@@ -36,4 +36,7 @@ export interface IQuestion {
      * @memberof IGenericQuestion
      */
     selectionType: ControlTypes;
+
+
+    selectionOptionsList: any[];
 }
