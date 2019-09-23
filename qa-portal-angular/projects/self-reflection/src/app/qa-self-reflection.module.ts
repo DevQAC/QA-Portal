@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './qa-self-reflection-routing.module';
 import { QaCommonModule } from '../../../qa-common/src/app/qa-common.module';
-import { TrainerCohortsService } from '../../../portal-core/src/app/_common/services/trainer-cohorts-service/trainer-cohorts.service';
 import { TrainerReflectionComponent } from './trainer-reflection/trainer-reflection.component';
 import { CommentBoxComponent } from './trainer-reflection/comment-box/comment-box.component';
 import { SaveButtonComponent } from './trainer-reflection/save-button/save-button.component';
@@ -47,7 +46,6 @@ import { SelfReflectionFormStateService } from './_common/services/self-reflecti
   ],
   providers: [
     SummaryService,
-    TrainerCohortsService,
     SelfReflectionService,
     CohortTraineesService,
     RatedQuestionsService,

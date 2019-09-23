@@ -25,6 +25,9 @@ qa:
     config:
       file: keycloak.json
 
+    admin:
+      enabled: false
+
 
 ---
 spring:

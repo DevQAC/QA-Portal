@@ -1,5 +1,6 @@
 package com.qa.portal.core.keycloak;
 
+import com.qa.portal.common.keycloak.KeycloakAdminClient;
 import org.springframework.stereotype.Component;
 
 @Component
