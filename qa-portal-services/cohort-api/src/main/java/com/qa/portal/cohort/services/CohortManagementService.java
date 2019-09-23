@@ -4,16 +4,22 @@ import com.qa.portal.cohort.keycloak.KeycloakCohortResourceManager;
 import com.qa.portal.common.dto.QaCohortDto;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class CohortManagementService {
 
     private KeycloakCohortResourceManager keycloakCohortResourceManager;
 
+    private CreateCohortOperation createCohortOperation;
+
+    public CohortManagementService(KeycloakCohortResourceManager keycloakCohortResourceManager,
+                                   CreateCohortOperation createCohortOperation) {
+        this.keycloakCohortResourceManager = keycloakCohortResourceManager;
+        this.createCohortOperation = createCohortOperation;
+    }
+
     public QaCohortDto createCohort(QaCohortDto cohortDetails) {
-        keycloakCohortResourceManager.createCohort(cohortDetails.getName());
+        createCohortOperation.createCohort(cohortDetails);
+        keycloakCohortResourceManager.createCohort(cohortDetails.getName().replace(' ', '_'));
         return cohortDetails;
     }
 

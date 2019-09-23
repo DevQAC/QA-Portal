@@ -4,10 +4,15 @@ import com.qa.portal.common.dto.QaCohortDto;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
 import com.qa.portal.common.util.mapper.CohortMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class CreateCohortOperation {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(CreateCohortOperation.class);
 
     private QaCohortRepository cohortRepository;
 
@@ -18,9 +23,10 @@ public class CreateCohortOperation {
         this.cohortMapper = cohortMapper;
     }
 
+    @Transactional
     public QaCohortDto createCohort(QaCohortDto qaCohortDto) {
         QaCohortEntity qaCohortEntity = cohortMapper.mapToQaCohortEntity(qaCohortDto);
-        qaCohortEntity = cohortRepository.save(qaCohortEntity);
-        return cohortMapper.mapToQaCohortDto(qaCohortEntity);
+        QaCohortEntity savedEntity =  cohortRepository.save(qaCohortEntity);
+        return cohortMapper.mapToQaCohortDto(savedEntity);
     }
 }

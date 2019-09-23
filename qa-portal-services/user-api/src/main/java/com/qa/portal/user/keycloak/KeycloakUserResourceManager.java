@@ -6,6 +6,7 @@ import com.qa.portal.common.exception.QaMultiStepCommitContext;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.exception.QaPortalMultiStepCommitException;
 import com.qa.portal.common.keycloak.KeycloakAdminClient;
+import com.qa.portal.common.keycloak.KeycloakUserConstants;
 import com.qa.portal.user.keycloak.mapper.KeycloakUserMapper;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.RoleRepresentation;

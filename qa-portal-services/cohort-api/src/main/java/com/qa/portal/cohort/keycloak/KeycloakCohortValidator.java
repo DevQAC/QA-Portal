@@ -2,7 +2,9 @@ package com.qa.portal.cohort.keycloak;
 
 import com.qa.portal.common.keycloak.KeycloakAdminClient;
 import com.qa.portal.common.keycloak.KeycloakUserConstants;
+import org.springframework.stereotype.Component;
 
+@Component
 public class KeycloakCohortValidator {
     private KeycloakAdminClient keycloakAdminClient;
 

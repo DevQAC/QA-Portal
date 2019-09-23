@@ -24,6 +24,7 @@ public class KeycloakUserMapper {
         UserRepresentation userRepresentation = userResource.toRepresentation();
         userDetailsDto.setUser(createUserDto(userRepresentation));
         userDetailsDto.setRoleName(getPortalRole(userResource.roles().realmLevel().listAll()));
+        userDetailsDto.setCohortName(getCohortName(userResource.roles().realmLevel().listAll()));
         return userDetailsDto;
     }
 
@@ -42,6 +43,14 @@ public class KeycloakUserMapper {
                 .findFirst()
                 .map(r -> r.getName())
                 .orElseThrow(() -> new QaPortalBusinessException("No role set up for user"));
+    }
+
+    private String getCohortName(List<RoleRepresentation> realmRoles) {
+        return realmRoles.stream()
+                .filter(r -> r.getName().startsWith(COHORT_ROLE_PREFIX))
+                .map(r -> r.getName())
+                .findFirst()
+                .orElseGet(() -> null);
     }
 
     private boolean isPortalRole(String roleName) {

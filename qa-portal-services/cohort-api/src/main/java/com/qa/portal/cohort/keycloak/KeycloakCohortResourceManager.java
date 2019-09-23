@@ -4,11 +4,13 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.keycloak.KeycloakAdminClient;
 import com.qa.portal.common.keycloak.KeycloakUserConstants;
 import org.keycloak.representations.idm.RoleRepresentation;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 public class KeycloakCohortResourceManager {
 
     private KeycloakCohortFactory keycloakCohortFactory;
