@@ -1,28 +1,23 @@
 package com.qa.portal.common.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.portal.common.exception.QaPortalBusinessException;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Optional;
+
+import static com.qa.portal.common.util.OneDriveConstants.*;
 
 @Component
 public class OneDriveRestAdapter {
 
-    private String baseFolderPath;
-
     private String oneDriveUrl;
-
-    private String oneDriveActive;
 
     private String authToken;
 
@@ -30,31 +25,34 @@ public class OneDriveRestAdapter {
 
     private AuthenticationManager authenticationManager;
 
-    private ObjectMapper objectMapper;
+    private OneDriveConnectionManager oneDriveConnectionManager;
+
+    private HttpMethodRequestFactory httpMethodRequestFactory;
 
     private Environment environment;
 
     public OneDriveRestAdapter(JsonPropertyUtil jsonPropertyUtil,
                                AuthenticationManager authenticationManager,
+                               OneDriveConnectionManager oneDriveConnectionManager,
+                               HttpMethodRequestFactory httpMethodRequestFactory,
                                Environment environment) {
         this.jsonPropertyUtil = jsonPropertyUtil;
         this.authenticationManager = authenticationManager;
+        this.oneDriveConnectionManager = oneDriveConnectionManager;
+        this.httpMethodRequestFactory = httpMethodRequestFactory;
         this.environment = environment;
     }
 
+
+    // TODO - Auth Token OK on one node, what about multi node deployment of Cv service? Do we keep the token in a DB?
     @PostConstruct
     public void init() {
-        oneDriveActive = environment.getProperty("onedrive.isActive");
-        objectMapper = new ObjectMapper();
-        if (oneDriveActive != null && oneDriveActive.equals("true")) {
-            setOneDriveProperties();
-            authToken = authenticationManager.getAuthentication();
-            objectMapper = new ObjectMapper();
-        }
+        Optional<String> oneDriveActiveFlag = Optional.ofNullable(environment.getProperty(ONE_DRIVE_ACTIVE_FLAG));
+        oneDriveActiveFlag.ifPresent(f -> getOneDriveAuthToken(f));
     }
 
     public void deleteFile(String folderName, String fileName) {
-        Optional<String> currentCvId = Optional.ofNullable(getItemId(folderName + "/" + fileName));
+        Optional<String> currentCvId = getItemId(folderName + "/" + fileName);
         currentCvId.ifPresent(id -> deleteFile(id));
     }
 
@@ -66,128 +64,87 @@ public class OneDriveRestAdapter {
         uploadFile(fileName, getArchiveFolderId(parentFolder, folderPath), fileContents);
     }
 
-    public String getFolderId(String folderPath) {
-        String folderId = getItemId(folderPath);
-        if (folderId == null) {
-            folderId = createFolder(baseFolderPath, folderPath);
+    private void getOneDriveAuthToken(String oneDriveActive) {
+        if (oneDriveActive.equals(ONE_DRIVE_ACTIVE_TRUE_VALUE)) {
+            oneDriveUrl = environment.getProperty(ONE_DRIVE_RESOURCE_BASE_URL);
+            authToken = authenticationManager.authenticate();
         }
-        return folderId;
     }
 
-    public String getArchiveFolderId(String parentFolderName, String folderName) {
+    private String getFolderId(String folderPath) {
+        Optional<String> folderId = getItemId(folderPath);
+        return folderId.orElseGet(
+                () -> createFolder(environment.getProperty(ONE_DRIVE_BASE_FOLDER), folderPath)
+        );
+    }
+
+    private String getArchiveFolderId(String parentFolderName, String folderName) {
         String userFolderId = getFolderId(parentFolderName);
-        String archiveFolderId = getItemId(parentFolderName + "/" + folderName);
-        if (archiveFolderId == null) {
-            archiveFolderId = createFolder(userFolderId, folderName);
-        }
-        return archiveFolderId;
+        Optional<String> archiveFolderId = getItemId(parentFolderName + "/" + folderName);
+        return archiveFolderId.orElseGet(() -> createFolder(userFolderId, folderName));
     }
 
-    public String createFolder(String locationId, String folderName) {
-        HttpURLConnection connection = null;
+    private String createFolder(String locationId, String folderName) {
         try {
-            URL url = new URL(oneDriveUrl + "items/" + locationId + "/children");
-            connection = createConnection(url, "POST");
+            String url = oneDriveUrl + "items/" + locationId + "/children";
             String jsonBody = "{\"name\": \"" + folderName + "\",\"folder\": { } }";
-            byte[] jsonBodyAsArray = jsonBody.getBytes("utf-8");
-            postData(connection, jsonBodyAsArray);
-            String response = getResponse(connection);
-            return jsonPropertyUtil.getJsonContentForProperty("id", response);
-        } catch (IOException e) {
-            //TODO - Swallowing exception
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public String getItemId(String pathToItem) {
-        try {
-            URL url = new URL(oneDriveUrl + "root:/" + pathToItem);
-            HttpURLConnection connection = createConnection(url, "GET");
-            String response = getResponse(connection);
-            if (connection.getResponseCode() != 200) {
-                throw new QaPortalBusinessException("Item not found on onedrive");
-            }
+            HttpRequestBase httpPost = httpMethodRequestFactory.getHttpMethod(url, authToken, jsonBody, HttpMethodRequestFactory.HttpRequestTypeEnum.POST);
+            String response = executeRequest(httpPost);
             return jsonPropertyUtil.getJsonContentForProperty("id", response);
         } catch (Exception e) {
-            throw new QaPortalBusinessException("Item not found on onedrive");
+            throw new QaPortalBusinessException("Failed to create folder for user on one drive");
         }
     }
 
-    public void uploadFile(String fileName, String destinationFolderId, byte[] fileData) {
+    private Optional<String> getItemId(String pathToItem) {
         try {
-            //send request
-            URL url = new URL(oneDriveUrl + "items/" + destinationFolderId + ":/" + fileName + ":/content");
-            HttpURLConnection connection = createConnection(url, "PUT");
-            postData(connection, fileData);
-            String response = getResponse(connection);
-        } catch (MalformedURLException e) {
-            //TODO - Swallowing exception
-            e.printStackTrace();
-        } catch (IOException e) {
-            //TODO - Swallowing exception
-            e.printStackTrace();
+            String url = oneDriveUrl + "root:/" + pathToItem;
+            HttpRequestBase httpGet = httpMethodRequestFactory.getHttpMethod(url, authToken, HttpMethodRequestFactory.HttpRequestTypeEnum.GET);
+            String response = executeRequest(httpGet);
+            return Optional.ofNullable(jsonPropertyUtil.getJsonContentForProperty("id", response));
+        } catch (Exception e) {
+            throw new QaPortalBusinessException("Error retriving item from one drive");
+        }
+    }
+
+    private void uploadFile(String fileName, String destinationFolderId, byte[] fileData) {
+        try {
+            String url = oneDriveUrl + "items/" + destinationFolderId + ":/" + fileName + ":/content";
+            HttpRequestBase httpPut = httpMethodRequestFactory.getHttpMethod(url, authToken, fileData, HttpMethodRequestFactory.HttpRequestTypeEnum.PUT);
+            executeRequest(httpPut);
+        } catch (Exception e) {
+            throw new QaPortalBusinessException("Error uploading file to one drive");
         }
     }
 
     private void deleteFile(String itemId) {
         try {
-            URL url = new URL(oneDriveUrl + "/items/" + itemId);
-            HttpURLConnection connection = createConnection(url, "DELETE");
-            String response = getResponse(connection);
-        } catch (MalformedURLException e) {
-            //TODO - Swallowing exception
-            e.printStackTrace();
-        } catch (IOException e) {
-            //TODO - Swallowing exception
-            e.printStackTrace();
+            String url = oneDriveUrl + "/items/" + itemId;
+            HttpRequestBase httpDelete = httpMethodRequestFactory.getHttpMethod(url, authToken, HttpMethodRequestFactory.HttpRequestTypeEnum.DELETE);
+            executeRequest(httpDelete);
+        } catch (Exception e) {
+            throw new QaPortalBusinessException("Error deleting file from one drive");
         }
     }
 
-    private String getResponse(HttpURLConnection connection) throws IOException {
-        int responseCode = connection.getResponseCode();
-        InputStream is = null;
-        if (responseCode < 200 || responseCode >= 300) {
-            is = connection.getErrorStream();
-            throw new QaPortalBusinessException("Failed to save file to onedrive");
-        } else {
-            is = connection.getInputStream();
-        }
+    private String executeRequest(HttpRequestBase httpRequestBase) throws Exception {
+        CloseableHttpClient httpClient = oneDriveConnectionManager.getHttpClient();
+        HttpResponse httpResponse = httpClient.execute(httpRequestBase);
+        return processResponse(httpResponse);
+    }
 
+    private String processResponse(HttpResponse httpResponse) throws Exception {
+        if (httpResponse.getStatusLine().getStatusCode() != 200) {
+            throw new QaPortalBusinessException("Error accessing one drive");
+        }
+        InputStream is = httpResponse.getEntity().getContent();
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         int c = -1;
         while ((c = is.read()) != -1) {
             buffer.write((byte) c);
         }
-
         is.close();
         buffer.close();
-        connection.disconnect();
         return buffer.toString();
-    }
-
-    private HttpURLConnection createConnection(URL url, String requestMethod) throws IOException {
-        HttpURLConnection connection;
-        connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod(requestMethod);
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Authorization", "Bearer " + authToken);
-        if (requestMethod.equals("POST") || requestMethod.equals("PUT"))
-            connection.setDoOutput(true);
-        connection.connect();
-        return connection;
-    }
-
-    private void postData(HttpURLConnection connection, byte[] data) throws IOException {
-        OutputStream os = connection.getOutputStream();
-        os.write(data);
-        os.flush();
-        os.close();
-    }
-
-    private void setOneDriveProperties() {
-        oneDriveUrl = environment.getProperty("onedrive.url");
-        baseFolderPath = environment.getProperty("onedrive.baseFolder");
     }
 }

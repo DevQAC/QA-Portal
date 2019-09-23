@@ -18,12 +18,12 @@ public class UpdateCvOperationTest {
 
 	@InjectMocks
 	private UpdateCvVersionOperation updateService;
-	
-	@Mock
-	private CvVersionRepository repo;
 
 	@Mock
 	private CvVersionValidator cvVersionValidator;
+	
+	@Mock
+	private CvVersionRepository repo;
 
 	private CvVersion cvVersion = new CvVersion();
 	

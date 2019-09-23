@@ -6,16 +6,18 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QaOneDriveManager implements QaFileManager {
+public class QaOneDriveFileManager implements QaFileManager {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(QaOneDriveManager.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(QaOneDriveFileManager.class);
 
     private OneDriveRestAdapter oneDriveRestAdapter;
 
     private Environment environment;
 
-    public QaOneDriveManager(OneDriveRestAdapter oneDriveRestAdapter,
-                             Environment environment) {
+    public static final String ARCHIVE_FOLDER_NAME = "archive";
+
+    public QaOneDriveFileManager(OneDriveRestAdapter oneDriveRestAdapter,
+                                 Environment environment) {
         this.oneDriveRestAdapter = oneDriveRestAdapter;
         this.environment = environment;
     }
@@ -28,6 +30,6 @@ public class QaOneDriveManager implements QaFileManager {
         oneDriveRestAdapter.saveFile(folderName, fileName, cvByteArray);
 
         // Store archive file
-        oneDriveRestAdapter.saveFile(folderName, "archive", fileVersion + "-" + fileName, cvByteArray);
+        oneDriveRestAdapter.saveFile(folderName, ARCHIVE_FOLDER_NAME, fileVersion + "-" + fileName, cvByteArray);
     }
 }
