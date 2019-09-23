@@ -17,11 +17,6 @@ public class CohortController {
         this.cohortService = cohortService;
     }
 
-    @GetMapping("cohorts")
-    public ResponseEntity<List<QaCohortDto>> getAllCohorts() {
-        return ResponseEntity.ok(cohortService.getAllCohorts());
-    }
-
     @GetMapping("trainees/{id}")
     public ResponseEntity<List<QaUserDto>> getTraineesForCohort(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(cohortService.getTraineesForCohort(id));

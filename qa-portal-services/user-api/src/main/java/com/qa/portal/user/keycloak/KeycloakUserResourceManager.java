@@ -1,6 +1,7 @@
 package com.qa.portal.user.keycloak;
 
 import com.qa.portal.common.dto.QaUserDetailsDto;
+import com.qa.portal.common.email.QaEmailClient;
 import com.qa.portal.common.exception.QaMultiStepCommitContext;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.exception.QaPortalMultiStepCommitException;
@@ -11,6 +12,7 @@ import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +28,12 @@ import static com.qa.portal.common.keycloak.KeycloakUserConstants.*;
 @Component
 public class KeycloakUserResourceManager {
 
+    public static final String QA_PORTAL_ACCOUNT_SETUP_EMAIL_SUBJECT = "QA Portal Account Setup";
+
+    public static final String QA_ACCOUNT_SETUP_MESSAGE_BODY_PROPERTY = "qa.account.setup.message.body";
+
+    public static final String QA_ACCOUNT_SETUP_MESSAGE_URL_PROPERTY = "qa.account.setup.message.url";
+
     private final Logger LOGGER = LoggerFactory.getLogger(KeycloakUserResourceManager.class);
 
     private KeycloakUserMapper keycloakUserMapper;
@@ -36,14 +44,22 @@ public class KeycloakUserResourceManager {
 
     private KeycloakAdminClient keycloakAdminClient;
 
+    private QaEmailClient qaEmailClient;
+
+    private Environment environment;
+
     public KeycloakUserResourceManager(KeycloakUserMapper keycloakUserMapper,
                                        KeycloakUserValidator keycloakUserValidator,
                                        KeycloakUserFactory keycloakUserFactory,
-                                       KeycloakAdminClient keycloakAdminClient) {
+                                       KeycloakAdminClient keycloakAdminClient,
+                                       QaEmailClient qaEmailClient,
+                                       Environment environment) {
         this.keycloakUserMapper = keycloakUserMapper;
         this.keycloakUserValidator = keycloakUserValidator;
         this.keycloakUserFactory = keycloakUserFactory;
         this.keycloakAdminClient = keycloakAdminClient;
+        this.qaEmailClient = qaEmailClient;
+        this.environment = environment;
     }
 
     public List<QaUserDetailsDto> getAllUsers() {
@@ -70,6 +86,7 @@ public class KeycloakUserResourceManager {
         keycloakUserValidator.validateUser(userDetails);
         UserRepresentation userRepresentation = keycloakUserFactory.createKeycloakUser(userDetails.getUser());
         keycloakAdminClient.getRealm().users().create(userRepresentation);
+        sendEmail(userRepresentation);
         return getUserRepresentation(userRepresentation).orElseGet(() -> userRepresentation);
     }
 
@@ -154,5 +171,20 @@ public class KeycloakUserResourceManager {
                 .filter(r -> r.getName().equals(roleName))
                 .findFirst()
                 .orElseThrow(() -> new QaPortalBusinessException("No role found for supplied role name"));
+    }
+
+    private String getEmailBody(UserRepresentation userRepresentation) {
+        String emailBody = String.format(environment.getProperty(QA_ACCOUNT_SETUP_MESSAGE_BODY_PROPERTY),
+                environment.getProperty(KeycloakUserResourceManager.QA_ACCOUNT_SETUP_MESSAGE_URL_PROPERTY),
+                userRepresentation.getUsername(),
+                userRepresentation.getCredentials().get(0).getValue());
+        LOGGER.info("Email body " + emailBody);
+        return emailBody;
+    }
+
+    public void sendEmail(UserRepresentation userRepresentation) {
+        qaEmailClient.sendEmail(userRepresentation.getUsername(),
+                QA_PORTAL_ACCOUNT_SETUP_EMAIL_SUBJECT,
+                getEmailBody(userRepresentation));
     }
 }

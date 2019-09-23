@@ -21,11 +21,15 @@ public class CreateUserOperation {
 
     private QaUserRepository userRepository;
 
+    private UserFactory userFactory;
+
     private BaseMapper baseMapper;
 
     public CreateUserOperation(QaUserRepository userRepository,
+                               UserFactory userFactory,
                                BaseMapper baseMapper) {
         this.userRepository = userRepository;
+        this.userFactory = userFactory;
         this.baseMapper = baseMapper;
     }
 
@@ -54,11 +58,7 @@ public class CreateUserOperation {
     }
 
     private QaUserDetailsDto createNewUser(QaUserDetailsDto userDetailsDto) {
-        LOGGER.info("In create new user");
-        QaUserEntity userEntity = baseMapper.mapToQaUserEntity(userDetailsDto.getUser());
-        userRepository.save(userEntity);
-        userDetailsDto.setUser(baseMapper.mapToQaUserDto(userEntity));
-        return userDetailsDto;
+        return userFactory.createUser(userDetailsDto);
     }
 
     private Optional<QaUserEntity> getUser(QaUserDetailsDto userDetailsDto) {

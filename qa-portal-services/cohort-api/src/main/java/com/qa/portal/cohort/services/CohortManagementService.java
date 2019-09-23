@@ -4,6 +4,9 @@ import com.qa.portal.cohort.keycloak.KeycloakCohortResourceManager;
 import com.qa.portal.common.dto.QaCohortDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CohortManagementService {
 

@@ -20,6 +20,18 @@ spring:
   level:
     org.springframework.web: DEBUG
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: qacportal2019@gmail.com
+    password: q@m@1l$1
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 qa:
   keycloak:
     config:
@@ -32,6 +44,12 @@ qa:
       user: adminclient1@qa.com
       password: pass1
       clientId: admin-cli
+
+  account:
+    setup:
+      message:
+        body: Click on the link %s to set up your QA Portal account. Your username is %s and your temporary password is %s.
+        url: http://localhost:4200/qa/portal/home
 
 ---
 spring:

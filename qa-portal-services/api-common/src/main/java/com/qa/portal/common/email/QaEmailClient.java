@@ -1,23 +1,30 @@
 package com.qa.portal.common.email;
 
+import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
 public class QaEmailClient {
 
-    private JavaMailSender javaMailSender;
+    private JavaMailSenderFactory javaMailSenderFactory;
 
-    public QaEmailClient(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
+    public QaEmailClient(JavaMailSenderFactory javaMailSenderFactory) {
+        this.javaMailSenderFactory = javaMailSenderFactory;
     }
 
+    @Async
     public void sendEmail(String emailAddress, String emailSubject, String emailBody) {
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(emailAddress);
-        msg.setSubject(emailSubject);
-        msg.setText(emailBody);
-        javaMailSender.send(msg);
+        try {
+            SimpleMailMessage msg = new SimpleMailMessage();
+            msg.setTo(emailAddress);
+            msg.setSubject(emailSubject);
+            msg.setText(emailBody);
+            javaMailSenderFactory.getJavaMailSender().send(msg);
+        }
+        catch (Exception e ) {
+            throw new QaPortalBusinessException("Error sending email");
+        }
     }
 }
