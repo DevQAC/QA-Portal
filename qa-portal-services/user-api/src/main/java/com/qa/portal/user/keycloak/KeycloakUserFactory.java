@@ -5,12 +5,16 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Component;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Component
 public class KeycloakUserFactory {
+
+    public static final String UPDATE_PASSWORD_ACTION = "UPDATE_PASSWORD";
 
     public UserRepresentation createKeycloakUser(QaUserDto userDetails) {
         CredentialRepresentation credential = new CredentialRepresentation();
@@ -30,13 +34,12 @@ public class KeycloakUserFactory {
     }
 
     private String generatePassword() {
-        return "password";
+        return RandomStringUtils.randomAlphanumeric(8);
     }
 
     private List<String> getRequiredActions() {
         List<String> requiredActions = new ArrayList<>();
-        requiredActions.add("UPDATE_PASSWORD");
-        requiredActions.add("VERIFY_EMAIL");
+        requiredActions.add(UPDATE_PASSWORD_ACTION);
         return requiredActions;
     }
 }

@@ -32,6 +32,16 @@ public class UserManagementController {
         return ResponseEntity.ok(userManagementService.getAllUsersFromKeycloak());
     }
 
+    @GetMapping("users/trainees/no-cohort")
+    public ResponseEntity<List<QaUserDetailsDto>> getTraineesWithoutCohort() {
+        return ResponseEntity.ok(userManagementService.getTraineesWithoutCohort());
+    }
+
+    @GetMapping("users/available/trainers/cohort/{cohortName}")
+    public ResponseEntity<List<QaUserDetailsDto>> getAvailableTrainersForCohort(@PathVariable("cohortName") String cohortName) {
+        return ResponseEntity.ok(userManagementService.getAvailableTrainersForCohort(cohortName));
+    }
+
     @GetMapping("users/trainees")
     public ResponseEntity<List<QaUserDetailsDto>> getTrainees() {
         return ResponseEntity.ok(userManagementService.getTrainees());

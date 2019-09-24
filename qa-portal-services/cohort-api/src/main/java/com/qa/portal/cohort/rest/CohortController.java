@@ -6,6 +6,7 @@ import com.qa.portal.common.dto.QaUserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @RestController
@@ -15,6 +16,11 @@ public class CohortController {
 
     public CohortController(CohortService cohortService) {
         this.cohortService = cohortService;
+    }
+
+    @GetMapping("cohort/{cohortId}")
+    public ResponseEntity<QaCohortDto> getCohortForId(@PathVariable("cohortId") Integer cohortId) {
+        return ResponseEntity.ok(cohortService.getCohortForId(cohortId));
     }
 
     @GetMapping("cohorts")

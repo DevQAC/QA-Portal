@@ -1,10 +1,15 @@
 package com.qa.portal.user.services;
 
 import com.qa.portal.common.dto.QaUserDetailsDto;
+import com.qa.portal.common.persistence.entity.QaCohortEntity;
+import com.qa.portal.common.persistence.repository.QaCohortRepository;
 import com.qa.portal.user.keycloak.KeycloakUserResourceManager;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.qa.portal.common.keycloak.KeycloakUserConstants.TRAINEE_USER_ROLE;
@@ -13,7 +18,13 @@ import static com.qa.portal.common.keycloak.KeycloakUserConstants.TRAINER_USER_R
 @Service
 public class UserManagementService {
 
+    private static final Long COHORT_DURATION = 84L;  // Assumption is 12 weeks - can calculate from courses when this is added
+
     private KeycloakUserResourceManager keycloakUserResourceManager;
+
+    private QaCohortRepository cohortRepository;
+
+    private GetTrainerCohortsOperation getTrainerCohortsOperation;
 
     private CreateUserOperation createUserOperation;
 
@@ -24,15 +35,31 @@ public class UserManagementService {
     public UserManagementService(KeycloakUserResourceManager keycloakUserResourceManager,
                                  CreateUserOperation createUserOperation,
                                  UpdateUserOperation updateUserOperation,
-                                 DeleteUserOperation deleteUserOperation) {
+                                 DeleteUserOperation deleteUserOperation,
+                                 GetTrainerCohortsOperation getTrainerCohortsOperation,
+                                 QaCohortRepository cohortRepository) {
         this.keycloakUserResourceManager = keycloakUserResourceManager;
         this.createUserOperation = createUserOperation;
         this.updateUserOperation = updateUserOperation;
         this.deleteUserOperation = deleteUserOperation;
+        this.getTrainerCohortsOperation = getTrainerCohortsOperation;
+        this.cohortRepository = cohortRepository;
     }
 
     public List<QaUserDetailsDto> getAllUsersFromKeycloak() {
         return keycloakUserResourceManager.getAllUsers();
+    }
+
+    public List<QaUserDetailsDto> getTraineesWithoutCohort() {
+        return getTrainees().stream()
+                .filter(t -> StringUtils.isEmpty(t.getCohortName()))
+                .collect(Collectors.toList());
+    }
+
+    public List<QaUserDetailsDto> getAvailableTrainersForCohort(String cohortName) {
+        return getTrainers().stream()
+                .filter(t -> isAvailableForCohort(cohortName, t.getUser().getUserName()))
+                .collect(Collectors.toList());
     }
 
     public List<QaUserDetailsDto> getTrainees() {
@@ -68,5 +95,20 @@ public class UserManagementService {
     public void deleteUsers(List<QaUserDetailsDto> users) {
         deleteUserOperation.deleteUsers(users);
         keycloakUserResourceManager.deleteUsers(users);
+    }
+
+    private boolean isAvailableForCohort(String cohortName, String trainerName) {
+        Optional<QaCohortEntity> cohortEntity = cohortRepository.findByName(cohortName);
+        return cohortEntity.map(e -> trainerAvailableForCohort(e, trainerName)).orElseGet(() -> false);
+    }
+
+    private boolean trainerAvailableForCohort(QaCohortEntity cohortEntity, String trainerName) {
+        LocalDate cohortStart = cohortEntity.getStartDate().toLocalDate();
+        LocalDate cohortEnd = cohortStart.plusDays(COHORT_DURATION);
+        return getTrainerCohortsOperation.getCohortsForTrainer(trainerName).stream()
+                .filter(c -> cohortStart.isBefore(c.getStartDate()) && cohortEnd.isAfter(c.getStartDate()))
+                .findAny()
+                .map(c -> false)
+                .orElseGet(() -> true);
     }
 }

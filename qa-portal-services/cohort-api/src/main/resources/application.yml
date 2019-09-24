@@ -26,7 +26,7 @@ qa:
       file: keycloak.json
 
     admin:
-      enabled: false
+      enabled: true
       url: "http://localhost:8080/auth"
       realm: qa-portal
       user: adminclient1@qa.com

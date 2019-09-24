@@ -28,7 +28,10 @@ public class QaCohortEntity extends QaBaseEntity {
     @OneToMany(mappedBy = "cohort", fetch = FetchType.LAZY)
     private Set<TraineeEntity> trainees;
 
-    @OneToMany(mappedBy = "cohort", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cohort",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<CohortCourseEntity> cohortCourses;
 
     @ManyToOne
@@ -73,6 +76,16 @@ public class QaCohortEntity extends QaBaseEntity {
 
     public void setCohortCourses(List<CohortCourseEntity> cohortCourses) {
         this.cohortCourses = cohortCourses;
+    }
+
+    public void addCohortCourse(CohortCourseEntity cohortCourse) {
+        this.cohortCourses.add(cohortCourse);
+        cohortCourse.setCohort(this);
+    }
+
+    public void removeCohortCourse(CohortCourseEntity cohortCourseEntity) {
+        this.cohortCourses.remove(cohortCourseEntity);
+        cohortCourseEntity.setCohort(null);
     }
 
     public Date getStartDate() {

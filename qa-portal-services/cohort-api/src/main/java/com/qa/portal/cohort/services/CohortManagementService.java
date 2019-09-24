@@ -9,12 +9,25 @@ public class CohortManagementService {
 
     private KeycloakCohortResourceManager keycloakCohortResourceManager;
 
+    private CreateCohortOperation createCohortOperation;
+
+    private UpdateCohortOperation updateCohortOperation;
+
+    public CohortManagementService(KeycloakCohortResourceManager keycloakCohortResourceManager,
+                                   CreateCohortOperation createCohortOperation,
+                                   UpdateCohortOperation updateCohortOperation) {
+        this.keycloakCohortResourceManager = keycloakCohortResourceManager;
+        this.createCohortOperation = createCohortOperation;
+        this.updateCohortOperation = updateCohortOperation;
+    }
+
     public QaCohortDto createCohort(QaCohortDto cohortDetails) {
-        keycloakCohortResourceManager.createCohort(cohortDetails.getName());
+        createCohortOperation.createCohort(cohortDetails);
+        keycloakCohortResourceManager.createCohort(cohortDetails.getName().replace(' ', '_'));
         return cohortDetails;
     }
 
     public QaCohortDto updateCohort(QaCohortDto cohortDetails) {
-        return null;
+        return updateCohortOperation.updateCohort(cohortDetails);
     }
 }
