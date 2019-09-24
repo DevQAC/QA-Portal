@@ -22,6 +22,7 @@ public class CreateCohortCourseFeedbackOperation {
 	
 	public CohortCourseFeedbackDto createCohortCourseFeedback(CohortCourseFeedbackDto cohortCourseFeedbackDto) {
 		return this.cohortCourseFeedbackMapper
-				.mapToCohortCourseFeedbackDto(this.cohortCourseFeedbackRepository.save(this.cohortCourseFeedbackMapper.createCohortCourseFeedbackEntity(cohortCourseFeedbackDto)));
+				.mapToCohortCourseFeedbackDto(this.cohortCourseFeedbackRepository
+							.save(this.cohortCourseFeedbackMapper.createCohortCourseFeedbackEntity(cohortCourseFeedbackDto)));
 	}
 }

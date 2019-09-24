@@ -106,7 +106,6 @@ public class GetCohortSummaryOperation {
     }
 
     private OptionalDouble averageRatingForTrainee(Set<ReflectionQuestionEntity> reflectionQuestions) {
-        LOGGER.info("Average Rating - Reflections are " + reflectionQuestions);
         if (reflectionQuestions.size() == 0) {
             return OptionalDouble.of(0.0);
         } else {

@@ -2,7 +2,6 @@ package com.qa.portal.feedback.services;
 
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
-import com.qa.portal.common.persistence.entity.CourseEntity;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.dto.TrainerCourseEvaluationSummaryDto;
@@ -39,7 +38,7 @@ public class GetCohortCourseEvaluationsForCourseOperation {
 
     public TrainerCourseEvaluationSummaryDto getEvaluationSummaryForCourse(Integer cohortCourseId) {
         TrainerCourseEvaluationSummaryDto trainerCourseEvaluationSummaryDto = new TrainerCourseEvaluationSummaryDto();
-        trainerCourseEvaluationSummaryDto.setTraineeEvaluationsForCourse(getEvaluationsForCourse(cohortCourseId));
+        trainerCourseEvaluationSummaryDto.setTraineeEvaluationsForCourse(getSubmittedEvaluationsForCourse(cohortCourseId));
         getCohortCourseEntity(cohortCourseId)
                 .ifPresent(cce -> {
                     setTqiForCohortCourse(getSubmittedCohortCourseEvaluations(cce), trainerCourseEvaluationSummaryDto);
@@ -49,13 +48,26 @@ public class GetCohortCourseEvaluationsForCourseOperation {
         return trainerCourseEvaluationSummaryDto;
     }
 
-    public List<CohortCourseEvaluationDto> getEvaluationsForCourse(Integer cohortCourseId) {
+    public List<CohortCourseEvaluationDto> getAllEvaluationsForCourse(Integer cohortCourseId) {
         return getCohortCourseEntity(cohortCourseId)
-                .map(cce -> getEvaluationsForCourse(cce))
+                .map(cce -> getAllEvaluationsForCourse(cce))
                 .orElseThrow(() -> new QaPortalBusinessException("Cohort course not found"));
     }
 
-    private List<CohortCourseEvaluationDto> getEvaluationsForCourse(CohortCourseEntity cohortCourseEntity) {
+    public List<CohortCourseEvaluationDto> getSubmittedEvaluationsForCourse(Integer cohortCourseId) {
+        return getCohortCourseEntity(cohortCourseId)
+                .map(cce -> getSubmittedEvaluationsForCourse(cce))
+                .orElseThrow(() -> new QaPortalBusinessException("Cohort course not found"));
+    }
+
+    private List<CohortCourseEvaluationDto> getAllEvaluationsForCourse(CohortCourseEntity cohortCourseEntity) {
+        return getAllCohortCourseEvaluations(cohortCourseEntity)
+                .stream()
+                .map(e -> cohortCourseEvaluationMapper.mapToCohortCourseEvaluationDto(e))
+                .collect(Collectors.toList());
+    }
+
+    private List<CohortCourseEvaluationDto> getSubmittedEvaluationsForCourse(CohortCourseEntity cohortCourseEntity) {
         return getSubmittedCohortCourseEvaluations(cohortCourseEntity)
                 .stream()
                 .map(e -> cohortCourseEvaluationMapper.mapToCohortCourseEvaluationDto(e))
@@ -64,6 +76,12 @@ public class GetCohortCourseEvaluationsForCourseOperation {
 
     private Optional<CohortCourseEntity> getCohortCourseEntity(Integer cohortCourseId) {
         return cohortCourseRepository.findById(cohortCourseId);
+    }
+
+    private List<CohortCourseEvaluationEntity> getAllCohortCourseEvaluations(CohortCourseEntity cohortCourseEntity) {
+        return this.cohortCourseEvaluationRepository.findByCohortCourse(cohortCourseEntity)
+                .stream()
+                .collect(Collectors.toList());
     }
 
     private List<CohortCourseEvaluationEntity> getSubmittedCohortCourseEvaluations(CohortCourseEntity cohortCourseEntity) {

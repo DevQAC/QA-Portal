@@ -18,15 +18,15 @@ public class WorkExperience {
         super();
     }
 
-    public WorkExperience(String jobTitle, String start, String end, String workExperienceDetails,
-                          List<Feedback> workExperienceFeedback) {
-        super();
-        this.jobTitle = jobTitle;
-        this.start = start;
-        this.end = end;
-        this.workExperienceDetails = workExperienceDetails;
-        this.workExperienceFeedback = workExperienceFeedback;
-    }
+//    public WorkExperience(String jobTitle, String start, String end, String workExperienceDetails,
+//                          List<Feedback> workExperienceFeedback) {
+//        super();
+//        this.jobTitle = jobTitle;
+//        this.start = start;
+//        this.end = end;
+//        this.workExperienceDetails = workExperienceDetails;
+//        this.workExperienceFeedback = workExperienceFeedback;
+//    }
 
     public String getJobTitle() {
         return jobTitle;

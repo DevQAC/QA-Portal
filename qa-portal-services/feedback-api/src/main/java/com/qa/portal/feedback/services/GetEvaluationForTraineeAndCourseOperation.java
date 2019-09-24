@@ -43,7 +43,7 @@ public class GetEvaluationForTraineeAndCourseOperation {
     }
 
     public CohortCourseEvaluationDto getEvaluationForTraineeAndCourse(String traineeUserName, Integer cohortCourseId) {
-        return getCohortCourseEvaluationsForCourseOperation.getEvaluationsForCourse(cohortCourseId)
+        return getCohortCourseEvaluationsForCourseOperation.getAllEvaluationsForCourse(cohortCourseId)
                 .stream()
                 .filter(eval -> eval.getTrainee().getUserName().equals(traineeUserName))
                 .findFirst()
@@ -74,5 +74,4 @@ public class GetEvaluationForTraineeAndCourseOperation {
                 .map(e -> questionCategoryResponseMapper.createQuestionCategoryResponseDto(e))
                 .collect(Collectors.toList());
     }
-
 }

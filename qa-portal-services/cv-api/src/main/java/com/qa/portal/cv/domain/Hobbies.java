@@ -12,11 +12,11 @@ public class Hobbies {
         super();
     }
 
-    public Hobbies(String hobbiesDetails, List<Feedback> hobbiesFeedback) {
-        super();
-        this.hobbiesDetails = hobbiesDetails;
-        this.hobbiesFeedback = hobbiesFeedback;
-    }
+//    public Hobbies(String hobbiesDetails, List<Feedback> hobbiesFeedback) {
+//        super();
+//        this.hobbiesDetails = hobbiesDetails;
+//        this.hobbiesFeedback = hobbiesFeedback;
+//    }
 
     public String getHobbiesDetails() {
         return hobbiesDetails;

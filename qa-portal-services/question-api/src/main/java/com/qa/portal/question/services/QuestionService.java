@@ -1,9 +1,7 @@
 package com.qa.portal.question.services;
 
 import com.qa.portal.common.dto.QuestionCategoryDto;
-import com.qa.portal.common.dto.QuestionCategoryResponseDto;
 import com.qa.portal.common.dto.QuestionDto;
-import com.qa.portal.common.dto.QuestionResponseDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.QuestionCategoryEntity;
 import com.qa.portal.common.persistence.repository.FormTypeRepository;

@@ -2,7 +2,6 @@ package com.qa.portal.cohort.dto.user;
 
 import com.qa.portal.common.dto.TechnologyDto;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 

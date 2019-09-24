@@ -47,4 +47,12 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
 	}
+
+	public List<TechnologyEntity> getTechnologies() {
+		return technologies;
+	}
+
+	public void setTechnologies(List<TechnologyEntity> technologies) {
+		this.technologies = technologies;
+	}
 }

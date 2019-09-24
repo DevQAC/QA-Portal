@@ -18,17 +18,17 @@ public class Skills {
 
     private List<String> other;
 
-	public Skills(List<String> programmingLanguages, List<String> ides, List<String> operatingSystems,
-				  List<String> devops, List<String> databases, List<String> platforms, List<String> other) {
-		super();
-		this.programmingLanguages = programmingLanguages;
-		this.ides = ides;
-		this.operatingSystems = operatingSystems;
-		this.devops = devops;
-		this.databases = databases;
-		this.platforms = platforms;
-		this.other = other;
-	}
+//	public Skills(List<String> programmingLanguages, List<String> ides, List<String> operatingSystems,
+//				  List<String> devops, List<String> databases, List<String> platforms, List<String> other) {
+//		super();
+//		this.programmingLanguages = programmingLanguages;
+//		this.ides = ides;
+//		this.operatingSystems = operatingSystems;
+//		this.devops = devops;
+//		this.databases = databases;
+//		this.platforms = platforms;
+//		this.other = other;
+//	}
 
 	public Skills() {
 		super();

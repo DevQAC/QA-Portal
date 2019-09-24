@@ -21,8 +21,7 @@ public class CourseEntity extends QaBaseEntity {
     @Column(name = "course_code")
     private String courseCode;
 
-
-	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<CourseTechnologyEntity> courseTechnologies;
 
     public Integer getId() {
@@ -55,5 +54,15 @@ public class CourseEntity extends QaBaseEntity {
 
     public void setCourseTechnologies(List<CourseTechnologyEntity> courseTechnologies) {
         this.courseTechnologies = courseTechnologies;
+    }
+
+    public void addCourseTechnology(CourseTechnologyEntity courseTechnology) {
+        this.courseTechnologies.add(courseTechnology);
+        courseTechnology.setCourse(this);
+    }
+
+    public void removeCourseTechnology(CourseTechnologyEntity courseTechnology) {
+        this.courseTechnologies.remove(courseTechnology);
+        courseTechnology.setCourse(null);
     }
 }

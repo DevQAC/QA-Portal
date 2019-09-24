@@ -74,7 +74,7 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
     this.selfReflectionFormService.updateSelfReflectionForm(this.selfReflectionViewModel.selfReflectionForm)
       .subscribe(
         (response) => {
-          this.router.navigateByUrl('qa/portal/training/trainee/selfreflections');
+          this.router.navigateByUrl('qa/portal/training/self-reflection/trainee/history');
           this.toastrService.showSuccess('Reflection Form ' + this.selfReflectionViewModel.selfReflectionForm.status);
         },
         (error) => {
