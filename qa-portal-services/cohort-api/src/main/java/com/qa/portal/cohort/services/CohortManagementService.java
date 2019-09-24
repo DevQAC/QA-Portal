@@ -29,12 +29,13 @@ public class CohortManagementService {
     public QaCohortDto createCohort(QaCohortDto cohortDetails) {
         createCohortOperation.createCohort(cohortDetails);
         keycloakCohortResourceManager.createCohort(cohortDetails.getName().replace(' ', '_'));
+        keycloakUserResourceManager.updateCohortsMembers(cohortDetails);
         return cohortDetails;
     }
 
     public QaCohortDto updateCohort(QaCohortDto cohortDetails) {
         updateCohortOperation.updateCohort(cohortDetails);
-        keycloakUserResourceManager.updateCohortsTrainees(cohortDetails);
+        keycloakUserResourceManager.updateCohortsMembers(cohortDetails);
         return cohortDetails;
     }
 }

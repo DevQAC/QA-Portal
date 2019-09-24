@@ -189,17 +189,18 @@ public class KeycloakUserResourceManager {
                 getEmailBody(userRepresentation));
     }
 
-    public void updateCohortsTrainees(QaCohortDto cohortDto) {
+    public void updateCohortsMembers(QaCohortDto cohortDto) {
         List<RoleRepresentation> cohortRole = getCohortRole(cohortDto.getName());
-        List<UserRepresentation> existingTraineesInCohort = getKeycloakUsersForCohort(cohortDto.getName());
-        List<String> existingCohortTraineeNames = existingTraineesInCohort.stream().map(u -> u.getUsername()).collect(Collectors.toList());
-        existingTraineesInCohort.stream()
-                .filter(u -> cohortDto.getTraineeNames().contains(u.getUsername()))
-                .forEach(u -> removeTraineeFromCohort(u, cohortRole));
+        List<UserRepresentation> existingCohortMembers = getKeycloakUsersForCohort(cohortDto.getName());
+        List<String> existingCohortMemberNames = existingCohortMembers.stream().map(u -> u.getUsername()).collect(Collectors.toList());
+        existingCohortMembers.stream()
+                .filter(u -> !(cohortDto.getTraineeNames().contains(u.getUsername()) ||
+                             cohortDto.getTrainerUserName().equals(u.getUsername())))
+                .forEach(u -> removeMemberFromCohort(u, cohortRole));
 
-        List<UserRepresentation> newTraineesInCohort = getNewTraineesInCohort(cohortDto.getTraineeNames());
-        newTraineesInCohort.stream()
-                .filter(u -> !existingCohortTraineeNames.contains(u.getUsername()))
+        List<UserRepresentation> newCohortMembers = getNewCohortMembers(cohortDto);
+        newCohortMembers.stream()
+                .filter(u -> !existingCohortMemberNames.contains(u.getUsername()))
                 .forEach(u -> assignRoleToUser(u, cohortRole.get(0)));
     }
 
@@ -209,8 +210,8 @@ public class KeycloakUserResourceManager {
                 .collect(Collectors.toList());
     }
 
-    private List<UserRepresentation> getNewTraineesInCohort(List<String> traineeNames) {
-        return traineeNames.stream()
+    private List<UserRepresentation> getNewCohortMembers(QaCohortDto cohortDto) {
+        return Stream.concat(cohortDto.getTraineeNames().stream(), Stream.of(cohortDto.getTrainerUserName()))
                 .map(t -> getUserRepresentation(t))
                 .filter(t -> t.isPresent())
                 .map(t -> t.get())
@@ -232,7 +233,7 @@ public class KeycloakUserResourceManager {
                 .orElseGet(() -> false);
     }
 
-    private void removeTraineeFromCohort(UserRepresentation userRepresentation, List<RoleRepresentation> cohorts) {
+    private void removeMemberFromCohort(UserRepresentation userRepresentation, List<RoleRepresentation> cohorts) {
         keycloakAdminClient.getRealm().users().get(userRepresentation.getId())
                 .roles().realmLevel()
                 .remove(cohorts);
