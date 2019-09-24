@@ -33,5 +33,4 @@ public class QuestionMapper {
         questionEntity.setCategory(questionCategoryEntity);
         return questionEntity;
     }
-
 }

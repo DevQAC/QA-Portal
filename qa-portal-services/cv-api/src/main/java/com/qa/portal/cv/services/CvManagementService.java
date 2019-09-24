@@ -60,7 +60,6 @@ public class CvManagementService {
     	return this.updateCvVersionOperation.updateCv(updatedCv);
     }
 
-    
     //	Get CVs Operations
     public CvVersion findById(String id) {
         return getCvByIdOperation.findById(id);
@@ -86,7 +85,6 @@ public class CvManagementService {
                 .orElseGet(() -> null);
     }
 
-
     // Generated CV operations
     public void saveGeneratedCv(CvVersion cvVersion) throws IOException {
         saveGeneratedCvOperation.saveGeneratedCv(cvVersion);
@@ -95,7 +93,6 @@ public class CvManagementService {
     public byte[] getGeneratedCv(CvVersion cvVersion) throws IOException {
         return cvPdfGenerator.generateCv(cvVersion);
     }
-
 
     // CV Search operations
     public List<CvVersion>  cvSearch(CvSearchCriteria criteria){

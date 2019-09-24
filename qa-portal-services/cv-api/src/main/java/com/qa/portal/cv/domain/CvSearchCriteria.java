@@ -17,7 +17,6 @@ public class CvSearchCriteria {
         FullName = fullName;
         this.cohort = cohort;
         this.technology = technology;
-
     }
 
     public String getCvStatus() {

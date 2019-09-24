@@ -15,8 +15,8 @@ import java.util.List;
 public class CvSearchOperation {
 
     private CvVersionRepository repo;
-    private MongoOperations mongoOperations;
 
+    private MongoOperations mongoOperations;
 
     public CvSearchOperation(CvVersionRepository repo, MongoOperations mongoOperations) {
         super();

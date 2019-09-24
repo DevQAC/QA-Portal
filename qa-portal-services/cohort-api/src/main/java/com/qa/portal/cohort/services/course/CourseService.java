@@ -2,6 +2,7 @@ package com.qa.portal.cohort.services.course;
 
 import com.qa.portal.cohort.services.user.GetTraineeCoursesOperation;
 import com.qa.portal.common.dto.CourseDto;
+import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.repository.CourseRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,12 @@ public class CourseService {
     public List<CourseDto> getCourses() {
         return courseRepository.findAll().stream()
                 .map(ce -> baseMapper.mapObject(ce, CourseDto.class)).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public CourseDto getCourseById(Integer courseId) {
+        return courseRepository.findById(courseId)
+                .map(ce -> baseMapper.mapObject(ce, CourseDto.class))
+                .orElseThrow(() -> new QaPortalBusinessException("No Course found for supplied id"));
     }
 }

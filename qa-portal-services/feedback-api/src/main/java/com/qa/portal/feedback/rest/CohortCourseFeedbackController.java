@@ -21,7 +21,6 @@ public class CohortCourseFeedbackController {
 
     private QaSecurityContext qaSecurityContext;
 
-    @Autowired
     public CohortCourseFeedbackController(CohortCourseFeedbackService service, QaSecurityContext qaSecurityContext) {
         this.service = service;
         this.qaSecurityContext = qaSecurityContext;

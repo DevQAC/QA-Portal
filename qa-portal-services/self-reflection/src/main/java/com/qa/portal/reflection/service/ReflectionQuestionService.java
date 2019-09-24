@@ -1,34 +1,29 @@
 package com.qa.portal.reflection.service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
-
 import com.qa.portal.common.dto.QuestionDto;
+import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
-import com.qa.portal.common.persistence.repository.CohortQuestionRepository;
+import com.qa.portal.common.security.QaSecurityContext;
+import com.qa.portal.reflection.dto.ReflectionQuestionDto;
+import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
+import com.qa.portal.reflection.persistence.repository.ReflectionQuestionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionQuestionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.portal.common.exception.QaResourceNotFoundException;
-import com.qa.portal.common.security.QaSecurityContext;
-import com.qa.portal.reflection.dto.ReflectionQuestionDto;
-import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
-import com.qa.portal.reflection.persistence.repository.ReflectionQuestionRepository;
+import javax.transaction.Transactional;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ReflectionQuestionService {
     private final Logger LOGGER = LoggerFactory.getLogger(ReflectionQuestionService.class);
 
     private ReflectionQuestionRepository reflectionQuestionRepo;
-
-    private CohortQuestionRepository cohortQuestionRepository;
 
     private QaCohortRepository cohortRepository;
 
@@ -42,12 +37,10 @@ public class ReflectionQuestionService {
 
     @Autowired
     public ReflectionQuestionService(ReflectionQuestionRepository reflectionQuestionRepo,
-                                     CohortQuestionRepository cohortQuestionRepository,
                                      QaCohortRepository cohortRepository,
                                      ReflectionQuestionMapper reflectionQuestionMapper,
                                      QaSecurityContext context) {
         this.reflectionQuestionRepo = reflectionQuestionRepo;
-        this.cohortQuestionRepository = cohortQuestionRepository;
         this.cohortRepository = cohortRepository;
         this.reflectionQuestionMapper = reflectionQuestionMapper;
         this.context = context;

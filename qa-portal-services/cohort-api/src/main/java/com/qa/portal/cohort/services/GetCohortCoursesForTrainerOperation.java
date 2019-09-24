@@ -17,6 +17,12 @@ public class GetCohortCoursesForTrainerOperation {
 
     private CohortCourseMapper cohortCourseMapper;
 
+    public GetCohortCoursesForTrainerOperation(QaTrainerRepository qaTrainerRepository,
+                                               CohortCourseMapper cohortCourseMapper) {
+        this.qaTrainerRepository = qaTrainerRepository;
+        this.cohortCourseMapper = cohortCourseMapper;
+    }
+
     public List<CohortCourseDto> getCohortCoursesForTrainer(String trainerUserName) {
         return qaTrainerRepository.findByUserName(trainerUserName)
                 .map(te -> getCohortCourses(te))

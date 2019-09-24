@@ -5,7 +5,6 @@ import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 import com.qa.portal.reflection.persistence.repository.ReflectionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -18,7 +17,6 @@ public class UpdateSelfReflectionOperation {
     private ReflectionMapper reflectionMapper;
 
 
-    @Autowired
     public UpdateSelfReflectionOperation(ReflectionRepository reflectionRepository, ReflectionMapper reflectionMapper) {
         this.reflectionRepository = reflectionRepository;
         this.reflectionMapper = reflectionMapper;
