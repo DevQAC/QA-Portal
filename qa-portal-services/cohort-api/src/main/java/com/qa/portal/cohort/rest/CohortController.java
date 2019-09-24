@@ -4,9 +4,10 @@ import com.qa.portal.cohort.services.CohortService;
 import com.qa.portal.common.dto.QaCohortDto;
 import com.qa.portal.common.dto.QaUserDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @RestController
