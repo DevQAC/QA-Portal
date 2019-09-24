@@ -1,5 +1,4 @@
 import {CohortCourseModel} from './cohort-course.model';
-import {TrainerModel} from './trainer.model';
 
 export class CohortModel {
   id: number;
@@ -9,6 +8,8 @@ export class CohortModel {
   startDate: Date;
 
   trainerUserName: string;
+
+  traineeNames: string[];
 
   cohortCourses: CohortCourseModel[];
 }

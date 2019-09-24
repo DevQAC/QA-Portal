@@ -1,6 +1,6 @@
 export const GET_CV_FOR_ID_URL = 'cv-api/cv/';
 
-export const GET_SKILLS_FOR_TRAINEE_URL = 'user-api/user/trainee/skills'
+export const GET_SKILLS_FOR_TRAINEE_URL = 'cohort-api/user/trainee/skills'
 
 export const GENERATE_CV_URL = `cv-api/cv/generated`;
 

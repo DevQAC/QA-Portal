@@ -1,8 +1,8 @@
 package com.qa.portal.cohort.rest;
 
+import com.qa.portal.cohort.services.course.CourseService;
 import com.qa.portal.common.dto.CourseDto;
 import com.qa.portal.common.security.QaSecurityContext;
-import com.qa.portal.cohort.services.CourseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

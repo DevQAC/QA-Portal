@@ -24,7 +24,6 @@
     <modules>
         <module>api-common</module>
         <module>core-api</module>
-        <module>user-api</module>
         <module>question-api</module>
         <module>cohort-api</module>
         <module>self-reflection</module>
