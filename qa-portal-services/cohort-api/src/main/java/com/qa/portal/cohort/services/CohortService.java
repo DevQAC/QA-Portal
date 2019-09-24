@@ -2,6 +2,7 @@ package com.qa.portal.cohort.services;
 
 import com.qa.portal.common.dto.QaCohortDto;
 import com.qa.portal.common.dto.QaUserDto;
+import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
@@ -38,13 +39,19 @@ public class CohortService {
     }
 
     @Transactional
+    public QaCohortDto getCohortForId(Integer cohortId) {
+        return cohortRepository.findById(cohortId)
+                .map(e -> cohortMapper.mapToQaCohortDto(e))
+                .orElseThrow(() -> new QaPortalBusinessException("No cohort found for supplied id"));
+    }
+
+    @Transactional
     public List<QaCohortDto> getAllCohorts() {
         return cohortRepository.findAll().stream()
                 .map(ce -> cohortMapper.mapToQaCohortDto(ce))
                 .sorted(cohortDtoComparator.reversed())
                 .collect(Collectors.toList());
     }
-
 
     @Transactional
     public List<QaUserDto> getTraineesForCohort(Integer id) {

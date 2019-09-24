@@ -1,0 +1,1 @@
+alter table training.cohort_course alter column cohort_id drop not null;

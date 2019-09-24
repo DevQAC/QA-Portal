@@ -24,7 +24,7 @@ public class CohortCourseController {
         return ResponseEntity.ok(cohortCourseService.getCohortCoursesForTrainer(qaSecurityContext.getUserName()));
     }
 
-    @GetMapping("{id}")
+    @GetMapping("courses/{id}")
     public ResponseEntity<List<CohortCourseDto>> getCohortCoursesForCohort(@PathVariable("id") Integer cohortId) {
         return ResponseEntity.ok(cohortCourseService.getCohortCoursesForCohort(cohortId));
     }

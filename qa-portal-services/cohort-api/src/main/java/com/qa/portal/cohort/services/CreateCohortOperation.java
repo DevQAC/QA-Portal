@@ -25,7 +25,7 @@ public class CreateCohortOperation {
 
     @Transactional
     public QaCohortDto createCohort(QaCohortDto qaCohortDto) {
-        QaCohortEntity qaCohortEntity = cohortMapper.mapToQaCohortEntity(qaCohortDto);
+        QaCohortEntity qaCohortEntity = cohortMapper.mapToNewQaCohortEntity(qaCohortDto);
         QaCohortEntity savedEntity =  cohortRepository.save(qaCohortEntity);
         return cohortMapper.mapToQaCohortDto(savedEntity);
     }

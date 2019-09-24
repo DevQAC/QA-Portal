@@ -11,10 +11,14 @@ public class CohortManagementService {
 
     private CreateCohortOperation createCohortOperation;
 
+    private UpdateCohortOperation updateCohortOperation;
+
     public CohortManagementService(KeycloakCohortResourceManager keycloakCohortResourceManager,
-                                   CreateCohortOperation createCohortOperation) {
+                                   CreateCohortOperation createCohortOperation,
+                                   UpdateCohortOperation updateCohortOperation) {
         this.keycloakCohortResourceManager = keycloakCohortResourceManager;
         this.createCohortOperation = createCohortOperation;
+        this.updateCohortOperation = updateCohortOperation;
     }
 
     public QaCohortDto createCohort(QaCohortDto cohortDetails) {
@@ -24,6 +28,6 @@ public class CohortManagementService {
     }
 
     public QaCohortDto updateCohort(QaCohortDto cohortDetails) {
-        return null;
+        return updateCohortOperation.updateCohort(cohortDetails);
     }
 }
