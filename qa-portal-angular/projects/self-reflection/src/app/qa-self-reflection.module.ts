@@ -16,7 +16,6 @@ import { CohortChartComponent } from './cohort-chart/cohort-chart.component';
 import { CohortTraineesComponent } from './cohort-trainees/cohort-trainees.component';
 import { SelfReflectionService } from './trainer-reflection/services/self-reflection.service';
 import { CohortTraineesService } from './cohort-trainees/services/cohort-trainees.service';
-import { RatedQuestionsService } from './trainee-reflection/services/rated-questions.service';
 import { SelfReflectionFormService } from './trainee-reflection/services/self-reflection-form.service';
 import { TraineeNewReflectionComponent } from './trainee-new-reflection/trainee-new-reflection.component';
 import { ReflectionHistoryService } from './self-reflection-history/services/reflection-history.service';
@@ -48,7 +47,6 @@ import { SelfReflectionFormStateService } from './_common/services/self-reflecti
     SummaryService,
     SelfReflectionService,
     CohortTraineesService,
-    RatedQuestionsService,
     SelfReflectionFormService,
     ReflectionHistoryService,
     SelfReflectionFormStateService

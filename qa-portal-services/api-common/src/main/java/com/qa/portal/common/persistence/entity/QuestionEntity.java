@@ -1,6 +1,7 @@
 package com.qa.portal.common.persistence.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(schema = "training", name = "question")
@@ -76,5 +77,18 @@ public class QuestionEntity extends QaBaseEntity {
 
     public void setSelectionOptionsList(String selectionOptionsList) {
         this.selectionOptionsList = selectionOptionsList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QuestionEntity that = (QuestionEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

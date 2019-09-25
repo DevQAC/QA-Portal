@@ -14,7 +14,7 @@
     "secure": false,
     "logLevel": "debug"
   },
-  "/question-api": {
+  "/form-api": {
     "target": "http://localhost:8085",
     "secure": false,
     "logLevel": "debug"

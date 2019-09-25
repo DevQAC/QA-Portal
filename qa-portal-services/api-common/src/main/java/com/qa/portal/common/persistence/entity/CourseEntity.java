@@ -1,6 +1,7 @@
 package com.qa.portal.common.persistence.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -57,6 +58,9 @@ public class CourseEntity extends QaBaseEntity {
     }
 
     public void addCourseTechnology(CourseTechnologyEntity courseTechnology) {
+        if (this.courseTechnologies == null) {
+            this.courseTechnologies = new ArrayList<>();
+        }
         this.courseTechnologies.add(courseTechnology);
         courseTechnology.setCourse(this);
     }

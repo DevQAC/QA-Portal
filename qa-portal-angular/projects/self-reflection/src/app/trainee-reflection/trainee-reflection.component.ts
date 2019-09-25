@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {QuestionsServiceService} from './services/questions-service.service';
 import {SelfReflectionFormViewModel} from './models/self-reflection-form-vmodel';
-import {RatedQuestionsService} from './services/rated-questions.service';
 import {SelfReflectionFormService} from './services/self-reflection-form.service';
 import {Subscription} from 'rxjs';
 import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
@@ -22,8 +21,7 @@ export class TraineeReflectionComponent implements OnInit, OnDestroy {
 
   loadingData = true;
 
-  constructor(private ratedQuestionsService: RatedQuestionsService,
-              private selfReflectionFormService: SelfReflectionFormService,
+  constructor(private selfReflectionFormService: SelfReflectionFormService,
               private selfReflectionFormStateService: SelfReflectionFormStateService,
               private questionsService: QuestionsServiceService,
               private errorHandlerService: QaErrorHandlerService,

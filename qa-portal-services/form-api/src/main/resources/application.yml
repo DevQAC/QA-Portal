@@ -1,7 +1,7 @@
 server:
   port: 8085
   servlet:
-    context-path: /question-api
+    context-path: /form-api
 
 spring:
   main:

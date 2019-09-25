@@ -1,5 +1,5 @@
 // TODO  - TO BE REMOVED
-export const GET_FORM_TYPE = 'question-api/question/category/formtype/';
+export const GET_FORM_TYPE = 'form-api/question/category/formtype/';
 export const SEND_EVAL_RESPONSE = 'feedback-api/feedback';
 // TODO - END OF TO BE REMOVED
 

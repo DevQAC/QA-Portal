@@ -12,8 +12,8 @@
     <groupId>com.qa.portal</groupId>
     <artifactId>question-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>question-api</name>
-    <description>QA Portal Question API</description>
+    <name>form-api</name>
+    <description>QA Portal Form API</description>
 
     <properties>
         <java.version>1.8</java.version>
