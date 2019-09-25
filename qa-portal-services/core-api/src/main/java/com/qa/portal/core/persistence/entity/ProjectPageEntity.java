@@ -33,7 +33,7 @@ public class ProjectPageEntity extends QaBaseEntity {
     @JoinColumn(name = "portal_project_id")
     private PortalProjectEntity portalProject;
 
-    @OneToMany(mappedBy = "projectPage")
+    @OneToMany(mappedBy = "projectPage", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RoleProjectPageEntity> roleProjectPageEntities;
 
     @Column(name = "display_on_menu")
@@ -86,6 +86,16 @@ public class ProjectPageEntity extends QaBaseEntity {
 
     public void setRoleProjectPageEntities(List<RoleProjectPageEntity> roleProjectPageEntities) {
         this.roleProjectPageEntities = roleProjectPageEntities;
+    }
+
+    public void addRoleProjectPageEntity(RoleProjectPageEntity roleProjectPageEntity) {
+        roleProjectPageEntities.add(roleProjectPageEntity);
+        roleProjectPageEntity.setProjectPage(this);
+    }
+
+    public void removeRoleProjectPageEntity(RoleProjectPageEntity roleProjectPageEntity) {
+        roleProjectPageEntities.remove(roleProjectPageEntity);
+        roleProjectPageEntity.setProjectPage(null);
     }
 
     public Boolean getDisplayOnMenu() {

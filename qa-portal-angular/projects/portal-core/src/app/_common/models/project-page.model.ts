@@ -6,4 +6,6 @@ export class ProjectPageModel {
   level: number;
   displayOnMenu: boolean;
   icon: string;
+  portalProjectName: string;
+  roles: string[];
 }

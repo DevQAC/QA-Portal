@@ -1,10 +1,10 @@
-package com.qa.portal.core.service;
+package com.qa.portal.core.service.application;
 
 import com.qa.portal.core.dto.ApplicationProjectsDto;
 import com.qa.portal.core.persistence.entity.RoleProjectPageEntity;
 import com.qa.portal.core.persistence.repository.RoleProjectPageRepository;
 import com.qa.portal.core.persistence.repository.RoleRepository;
-import com.qa.portal.core.service.mapper.ApplicationServiceMapper;
+import com.qa.portal.core.service.application.mapper.ApplicationServiceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,10 +17,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class ApplicationService {
+public class PortalApplicationService {
 
     //TODO - Maybe Cache this info for performance
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PortalApplicationService.class);
 
     private static final String ANY_ROLE = "any";
 
@@ -30,9 +30,9 @@ public class ApplicationService {
 
     private RoleProjectPageRepository roleProjectPageRepository;
 
-    public ApplicationService(ApplicationServiceMapper applicationServiceMapper,
-                              RoleRepository roleRepository,
-                              RoleProjectPageRepository roleProjectPageRepository) {
+    public PortalApplicationService(ApplicationServiceMapper applicationServiceMapper,
+                                    RoleRepository roleRepository,
+                                    RoleProjectPageRepository roleProjectPageRepository) {
         this.applicationServiceMapper = applicationServiceMapper;
         this.roleRepository = roleRepository;
         this.roleProjectPageRepository = roleProjectPageRepository;

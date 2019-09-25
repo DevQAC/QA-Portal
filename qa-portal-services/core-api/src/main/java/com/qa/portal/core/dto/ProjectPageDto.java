@@ -1,8 +1,9 @@
 package com.qa.portal.core.dto;
 
+import java.util.List;
 import java.util.Objects;
 
-public class ProjectPageDto {
+public class ProjectPageDto  {
 
     private Integer id;
 
@@ -17,6 +18,10 @@ public class ProjectPageDto {
     private Boolean displayOnMenu;
 
     private String icon;
+
+    private String portalProjectName;
+
+    private List<String> roles;
 
     public Integer getId() {
         return id;
@@ -72,6 +77,22 @@ public class ProjectPageDto {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public String getPortalProjectName() {
+        return portalProjectName;
+    }
+
+    public void setPortalProjectName(String portalProjectName) {
+        this.portalProjectName = portalProjectName;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     @Override
