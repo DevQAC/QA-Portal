@@ -19,6 +19,6 @@ export class PortalHeaderComponent implements OnInit {
   }
 
   logout() {
-    this.keycloak.logout(environment.host + '/');
+    this.keycloak.logout(environment.host + '/qa/portal/home');
   }
 }

@@ -1,12 +1,11 @@
 package com.qa.portal.core.rest;
 
-import com.qa.portal.core.service.RoleManagementService;
+import com.qa.portal.core.dto.RoleDto;
+import com.qa.portal.core.service.role.RoleManagementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,4 +25,14 @@ public class RoleManagementController {
     public ResponseEntity<List<String>> getPortalRolesFromKeycloak() {
         return ResponseEntity.ok(roleManagementService.getPortalRoles());
     }
-}
+
+    @PostMapping("role")
+    public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto roleDto) {
+        return ResponseEntity.ok(roleManagementService.createRole(roleDto));
+    }
+
+    @PutMapping("role")
+    public ResponseEntity<RoleDto> updateRole(@RequestBody RoleDto roleDto) {
+        return ResponseEntity.ok(roleManagementService.updateRole(roleDto));
+    }
+ }

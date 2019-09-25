@@ -1,4 +1,4 @@
-package com.qa.portal.core.service.mapper;
+package com.qa.portal.core.service.application.mapper;
 
 import com.qa.portal.common.util.mapper.BaseMapper;
 import com.qa.portal.core.dto.*;

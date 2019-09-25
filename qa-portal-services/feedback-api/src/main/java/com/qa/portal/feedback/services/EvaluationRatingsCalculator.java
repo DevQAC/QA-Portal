@@ -69,7 +69,7 @@ public class EvaluationRatingsCalculator {
                 .stream()
                 .findFirst()
                 .map(qr -> convertResponseValueToString(qr.getResponseValues()))
-                .orElseThrow(()  -> new QaPortalBusinessException("Error calculating Trainer evaluation"));
+                .orElseThrow(() -> new QaPortalBusinessException("Error calculating Trainer evaluation"));
     }
 
     private Integer getTqiForKnowledgeRating(String knowledgeRating) {
@@ -103,7 +103,6 @@ public class EvaluationRatingsCalculator {
 
     private String convertResponseValueToString(String responseValues) {
         try {
-            LOGGER.info("Response Values " + responseValues);
             ObjectMapper om = new ObjectMapper();
             TypeFactory typeFactory = om.getTypeFactory();
             List<String> values = om.readValue(responseValues, typeFactory.constructCollectionType(List.class, String.class));
@@ -111,8 +110,7 @@ public class EvaluationRatingsCalculator {
                 return values.get(0);
             }
             return NOT_APPLICABLE_STRING;
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             throw new QaPortalBusinessException("Error calculating Trainer evaluation");
         }
     }

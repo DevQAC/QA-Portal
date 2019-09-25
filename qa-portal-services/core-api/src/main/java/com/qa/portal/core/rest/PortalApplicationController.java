@@ -2,7 +2,7 @@ package com.qa.portal.core.rest;
 
 import com.qa.portal.common.security.QaSecurityContext;
 import com.qa.portal.core.dto.ApplicationProjectsDto;
-import com.qa.portal.core.service.ApplicationService;
+import com.qa.portal.core.service.application.PortalApplicationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +15,22 @@ import static com.qa.portal.core.CoreConstants.APPLICATIONS_API_URL;
 
 @RestController
 @RequestMapping(value = APPLICATIONS_API_URL)
-public class ApplicationsController {
+public class PortalApplicationController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationsController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PortalApplicationController.class);
 
-    private ApplicationService applicationService;
+    private PortalApplicationService portalApplicationService;
 
     private QaSecurityContext securityContext;
 
     @Autowired
-    public ApplicationsController(ApplicationService applicationService, QaSecurityContext securityContext) {
-        this.applicationService = applicationService;
+    public PortalApplicationController(PortalApplicationService portalApplicationService, QaSecurityContext securityContext) {
+        this.portalApplicationService = portalApplicationService;
         this.securityContext = securityContext;
     }
 
     @GetMapping()
     public ResponseEntity<List<ApplicationProjectsDto>> getPortalApplications() {
-        return ResponseEntity.ok(applicationService.getPortalApplications(securityContext.getRoles()));
+        return ResponseEntity.ok(portalApplicationService.getPortalApplications(securityContext.getRoles()));
     }
 }

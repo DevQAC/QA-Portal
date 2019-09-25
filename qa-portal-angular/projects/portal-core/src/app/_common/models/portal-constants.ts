@@ -1,5 +1,5 @@
 // Spring Boot Services
-export const PORTAL_APPLICATIONS_API = 'core-api/applications';
+export const PORTAL_APPLICATIONS_API = 'core-api/portal/applications';
 export const REFLECTION_API = 'self-reflection-api/reflection';
 export const REFLECTION_QUESTION_API = `self-reflection-api/reflection-question`;
 export const QUESTION_CATEGORY_API = `question-api/question/category/formtype`;
