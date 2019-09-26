@@ -14,15 +14,18 @@ import { CohortTableComponent } from './cohort-table/cohort-table.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule, MatRippleModule } from '@angular/material';
 import { CohortChartComponent } from './cohort-chart/cohort-chart.component';
 import { CohortTraineesComponent } from './cohort-trainees/cohort-trainees.component';
-import { SelfReflectionService } from './trainer-reflection/services/self-reflection.service';
+import { TrainerReflectionService } from './trainer-reflection/services/trainer-reflection.service';
 import { CohortTraineesService } from './cohort-trainees/services/cohort-trainees.service';
 import { SelfReflectionFormService } from './trainee-reflection/services/self-reflection-form.service';
 import { TraineeNewReflectionComponent } from './trainee-new-reflection/trainee-new-reflection.component';
 import { ReflectionHistoryService } from './self-reflection-history/services/reflection-history.service';
 import { SelfReflectionFormStateService } from './_common/services/self-reflection-form-state.service';
+import {ScottTrainerReflectionComponent} from './trainer-reflection/scott-trainer-reflection.component';
+import {ScottTrainerReflectionService} from './trainer-reflection/services/scott-trainer-reflection.service';
 
 @NgModule({
   declarations: [
+    ScottTrainerReflectionComponent,
     TrainerReflectionComponent,
     CommentBoxComponent,
     SaveButtonComponent,
@@ -44,8 +47,9 @@ import { SelfReflectionFormStateService } from './_common/services/self-reflecti
     MatRippleModule
   ],
   providers: [
+    ScottTrainerReflectionService,
     SummaryService,
-    SelfReflectionService,
+    TrainerReflectionService,
     CohortTraineesService,
     SelfReflectionFormService,
     ReflectionHistoryService,

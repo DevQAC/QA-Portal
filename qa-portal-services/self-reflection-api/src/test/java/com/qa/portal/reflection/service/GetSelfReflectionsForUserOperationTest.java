@@ -86,9 +86,9 @@ public class GetSelfReflectionsForUserOperationTest {
 		when(reflectionDto2.getFormDate()).thenReturn(LocalDate.now());
 		when(reflectionMapper.mapToReflectionDto(re1)).thenReturn(reflectionDto1);
 		when(reflectionMapper.mapToReflectionDto(re2)).thenReturn(reflectionDto2);
-		when(traineeEntity.getId()).thenReturn(TRAINEE_ID);
 		when(traineeRepository.findByUserName(USER_NAME)).thenReturn(Optional.of(traineeEntity));
-		when(reflectionRepository.findByResponderId(TRAINEE_ID)).thenReturn(reflectionEntities);
+		when(traineeRepository.findById(TRAINEE_ID)).thenReturn(Optional.of(traineeEntity));
+		when(reflectionRepository.findAllByResponder(traineeEntity)).thenReturn(reflectionEntities);
 	}
 	
 	private void executeAction() {
@@ -97,17 +97,17 @@ public class GetSelfReflectionsForUserOperationTest {
 	
 	private void checkPostConditions() {
 		verify(traineeRepository, times(1)).findByUserName(USER_NAME);
-		verify(reflectionRepository, times(1)).findByResponderId(TRAINEE_ID);
+		verify(reflectionRepository, times(1)).findAllByResponder(traineeEntity);
 		verify(reflectionMapper, times(1)).mapToReflectionDto(re1);
 		verify(reflectionMapper, times(1)).mapToReflectionDto(re2);
 	}
 	
 	private void executeActionForUser() {
-		operation.getSelfReflectionsForUser(TRAINEE_ID);
+		operation.getSelfReflectionsForTrainee(TRAINEE_ID);
 	}
 	
 	private void checkPostConditionsForUser() {
-		verify(reflectionRepository, times(1)).findByResponderId(TRAINEE_ID);
+		verify(reflectionRepository, times(1)).findAllByResponder(traineeEntity);
 		verify(reflectionMapper, times(1)).mapToReflectionDto(re1);
 		verify(reflectionMapper, times(1)).mapToReflectionDto(re2);
 	}

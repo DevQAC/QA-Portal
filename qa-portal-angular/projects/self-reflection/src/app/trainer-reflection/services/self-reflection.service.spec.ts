@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { SelfReflectionService } from './self-reflection.service';
+import { TrainerReflectionService } from './trainer-reflection.service';
 
 describe('Service: SelfReflection', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SelfReflectionService]
+      providers: [TrainerReflectionService]
     });
   });
 
-  it('should ...', inject([SelfReflectionService], (service: SelfReflectionService) => {
+  it('should ...', inject([TrainerReflectionService], (service: TrainerReflectionService) => {
     expect(service).toBeTruthy();
   }));
 });

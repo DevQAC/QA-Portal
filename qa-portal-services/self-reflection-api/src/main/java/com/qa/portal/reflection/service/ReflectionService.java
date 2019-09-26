@@ -50,8 +50,8 @@ public class ReflectionService {
     }
 
     @Transactional
-    public Set<ReflectionDto> getSelfReflectionsForTrainee(Integer userId) {
-        return this.getSelfReflectionsForUserOperation.getSelfReflectionsForUser(userId);
+    public List<ReflectionDto> getSelfReflectionsForTrainee(Integer userId) {
+        return this.getSelfReflectionsForUserOperation.getSelfReflectionsForTrainee(userId);
     }
 
     @Transactional

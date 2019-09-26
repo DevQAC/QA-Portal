@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {SelfReflectionService} from './services/self-reflection.service';
+import {TrainerReflectionService} from './services/trainer-reflection.service';
 import {ReflectionModel} from './models/dto/reflection.model';
 import {TraineeModel} from './models/dto/trainee.model';
 import {ReflectionQuestionModel} from './models/dto/reflection-question.model';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {MatSnackBar, PageEvent} from '@angular/material';
 import {RowData} from './models/row-data';
 import {QaToastrService} from '.././../../../portal-core/src/app/_common/services/qa-toastr.service';
 import {QaErrorHandlerService} from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 import {Observable} from 'rxjs';
 import {QuestionModel} from '../_common/models/question.model';
+import {PageEvent} from '@angular/material';
 
 enum PageState {
   LOADING = 'loading', NO_SELF_REFLECTIONS = 'no-self-reflections', READY = 'ready', ERROR = 'error'
@@ -52,9 +52,8 @@ export class TrainerReflectionComponent implements OnInit {
   public entriesPerPage = 100;
 
   constructor(
-    private reflectionService: SelfReflectionService,
+    private reflectionService: TrainerReflectionService,
     private activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar,
     private toastrService: QaToastrService,
     private errorService: QaErrorHandlerService,
     private router: Router) {

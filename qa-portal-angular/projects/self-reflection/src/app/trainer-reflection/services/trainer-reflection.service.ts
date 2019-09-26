@@ -14,7 +14,7 @@ import {TraineeModel} from '../models/dto/trainee.model';
 import {QuestionModel} from '../../_common/models/question.model';
 
 @Injectable()
-export class SelfReflectionService {
+export class TrainerReflectionService {
 
   constructor(private http: HttpClient) { }
 

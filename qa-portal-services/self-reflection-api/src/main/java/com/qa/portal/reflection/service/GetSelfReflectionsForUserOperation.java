@@ -28,7 +28,7 @@ public class GetSelfReflectionsForUserOperation {
 
 	private QaTrainerRepository trainerRepository;
 
-	private Comparator<ReflectionDto> reflectionComparator = (r1, r2) -> r1.getFormDate().isBefore(r2.getFormDate()) ? 1 : -1;
+	private Comparator<ReflectionDto> reflectionByDescendingFormDate = (r1, r2) -> r1.getFormDate().isBefore(r2.getFormDate()) ? 1 : -1;
 
 	@Autowired
 	public GetSelfReflectionsForUserOperation(ReflectionMapper reflectionMapper,
@@ -42,26 +42,31 @@ public class GetSelfReflectionsForUserOperation {
 	}
 
 	public List<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
-		TraineeEntity trainee = traineeRepository.findByUserName(userName)
+		return traineeRepository.findByUserName(userName)
+				.map(t -> getReflectionsByResponder(t))
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
-		return reflectionRepository.findByResponderId(trainee.getId())
-				.stream()
-				.map(r -> reflectionMapper.mapToReflectionDto(r))
-				.sorted(reflectionComparator)
-				.collect(Collectors.toList());
 	}
-	
+
+
+	public List<ReflectionDto> getSelfReflectionsForTrainee(Integer traineeId) {
+		return traineeRepository.findById(traineeId)
+				.map(t -> getReflectionsByResponder(t))
+				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
+	}
+
 	public Set<ReflectionDto> getSelfReflectionsForTrainer(String userName) {
 		TrainerEntity trainer = trainerRepository.findByUserName(userName)
 				.orElseThrow(() -> new QaResourceNotFoundException("Trainer does not exist"));
-		return reflectionRepository.findByReviewerId(trainer.getId())
+		return reflectionRepository.findAllByReviewer(trainer)
 				.stream().map(reflectionMapper::mapToReflectionDto)
 				.collect(Collectors.toSet());
 	}
-	
-	public Set<ReflectionDto> getSelfReflectionsForUser(Integer traineeId) {
-		return reflectionRepository.findByResponderId(traineeId)
-				.stream().map(reflectionMapper::mapToReflectionDto)
-				.collect(Collectors.toSet());
+
+	private List<ReflectionDto> getReflectionsByResponder(TraineeEntity traineeEntity) {
+		return reflectionRepository.findAllByResponder(traineeEntity)
+				.stream()
+				.map(r -> reflectionMapper.mapToReflectionDto(r))
+				.sorted(reflectionByDescendingFormDate)
+				.collect(Collectors.toList());
 	}
 }

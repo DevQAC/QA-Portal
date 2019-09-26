@@ -291,3 +291,21 @@ input.response:focus {
   display: flex;
   justify-content: center;
 }
+
+.trainer-response-label {
+  color:rgba(22, 22, 22, 0.54);
+  font-family:Roboto;
+  font-size:12px;
+  font-style:normal;
+  font-variant-caps:normal;
+  font-variant-east-asian:normal;
+  font-variant-ligatures:normal;
+  font-variant-numeric:normal;
+  font-weight:500;
+  margin-left:auto; margin-right:0;
+}
+
+.trainer-response-input {
+  margin-left:auto; margin-right:0;
+  margin-top: 10px;
+}

@@ -57,7 +57,6 @@ public class CreateCvOperationTest {
 	@Test
 	public void createCvFullNameTest() {
 		String fullName = this.cvVersion.getFullName();
-		System.out.println("Full name " + fullName);
 		Boolean conditionMet = false;
 		if(fullName.equals("Junit Test")) {
 			conditionMet = true;

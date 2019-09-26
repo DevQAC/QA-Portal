@@ -1,0 +1,117 @@
+<div class="qa-app-title">
+  Trainer Reflection Form Review
+</div>
+
+<div style="display: flex; justify-content: center; margin-top: 20px">
+  <mat-spinner [diameter]="70" *ngIf="loadingData"></mat-spinner>
+</div>
+
+<div *ngIf="!loadingData">
+  <div class='title'>
+    Self&nbsp;Reflection&nbsp;Form Review - <span class='trainee-firstname'>{{trainee.firstName}}</span>&nbsp;<span
+    class='trainee-lastname'>{{trainee.lastName}}</span>&nbsp;
+  </div>
+
+  <div style="margin-bottom: 10px;" *ngFor="let categoryName of categoryNames()">
+    <mat-card>
+      <mat-card-title>{{categoryName}}</mat-card-title>
+      <mat-card-subtitle>Current Reflection</mat-card-subtitle>
+      <div style="display: flex; flex-direction: row; width: 100%;">
+        <div style="flex: 80;">
+          <mat-table style="margin-bottom: 20px;" [dataSource]="[currentReflection]">
+            <ng-container matColumnDef="start-date">
+              <th mat-header-cell style="margin-right: 5%; width: 15%; text-align: left;"
+                  *matHeaderCellDef> Form Date
+              </th>
+              <td mat-cell style="vertical-align: middle; text-align: left; margin-right: 5%; width: 15%;"
+                  *matCellDef="let element">
+                {{element.formDate}}
+              </td>
+            </ng-container>
+            <div *ngFor="let reflectionQuestion of categoryReflectionQuestions[categoryName]">
+              <ng-container style="width: 100%;"
+                            matColumnDef="{{getColumnId(reflectionQuestion.question.id)}}">
+                <th mat-header-cell style="margin-right: 10%; text-align: left;"
+                    [style.width]='((1 / categoryReflectionQuestions[categoryName].length) * (80 - (categoryReflectionQuestions[categoryName].length * 10))) + "%"'
+                    *matHeaderCellDef>{{reflectionQuestion.question.body}}
+                </th>
+                <td mat-cell style="vertical-align: middle; text-align: center; margin-right: 10%;"
+                    [style.width]='((1 / categoryReflectionQuestions[categoryName].length) * (80 - (categoryReflectionQuestions[categoryName].length * 10))) + "%"'
+                    *matCellDef="let element">
+                  {{getQuestionResponseValueForReflection(element, reflectionQuestion.question.id)}}
+                </td>
+              </ng-container>
+            </div>
+
+            <tr mat-header-row *matHeaderRowDef="getReflectionColumnHeaders(categoryName)"></tr>
+            <tr mat-row *matRowDef="let row; columns: getReflectionColumnHeaders(categoryName);"></tr>
+          </mat-table>
+        </div>
+
+        <div style="display: flex; flex: 20; flex-direction: column; align-content: end;">
+          <label class="trainer-response-label">Trainer Rating For Category</label>
+          <div class="trainer-response-input">
+            <input maxlength="3" size="3" [(ngModel)]="categoryReflectionQuestions[categoryName][0].trainerResponse">
+          </div>
+        </div>
+      </div>
+
+      <mat-accordion>
+        <mat-expansion-panel style="width: 80%;">
+          <mat-expansion-panel-header>
+            Previous Reflections
+          </mat-expansion-panel-header>
+          <mat-table style="width: 100%;" [dataSource]="previousReflections">
+            <ng-container matColumnDef="start-date">
+              <th mat-header-cell style="margin-right: 5%; width: 15%; text-align: left;"
+                  *matHeaderCellDef> Form Date
+              </th>
+              <td mat-cell style="text-align: left; vertical-align: middle; margin-right: 5%; width: 15%;"
+                  *matCellDef="let element">
+                {{element.formDate}}
+              </td>
+            </ng-container>
+            <div *ngFor="let reflectionQuestion of categoryReflectionQuestions[categoryName]">
+              <ng-container style="width: 100%;"
+                            matColumnDef="{{getColumnId(reflectionQuestion.question.id)}}">
+                <th mat-header-cell style="text-align: left;"
+                    [style.width]='((1 / categoryReflectionQuestions[categoryName].length) * (80 - (categoryReflectionQuestions[categoryName].length * 10))) + "%"'
+                    *matHeaderCellDef>{{reflectionQuestion.question.body}}
+                </th>
+                <td mat-cell style="vertical-align: middle; text-align: center; margin-right: 10%;"
+                    [style.width]='((1 / categoryReflectionQuestions[categoryName].length) * (80 - (categoryReflectionQuestions[categoryName].length * 10))) + "%"'
+                    *matCellDef="let element">
+                  {{getQuestionResponseValueForReflection(element, reflectionQuestion.question.id)}}
+                </td>
+              </ng-container>
+            </div>
+
+            <tr mat-header-row *matHeaderRowDef="getReflectionColumnHeaders(categoryName)"></tr>
+            <tr mat-row *matRowDef="let row; columns: getReflectionColumnHeaders(categoryName);"></tr>
+          </mat-table>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card>
+  </div>
+
+
+  <div class='trainer-textareas'>
+    <div style="display: flex; flex-direction: column;" class='trainer-feedback'>
+      <div class='heading'>Trainer Feedback</div>
+      <textarea [(ngModel)]="currentReflection.trainerFeedback" style="resize: none;" rows="8" matInput
+                placeholder="Trainer Feedback - To be completed by the Trainer"></textarea>
+    </div>
+
+    <div style="display: flex; flex-direction: column;" class='learning-pathway'>
+      <div class='heading'>Learning Pathway</div>
+      <textarea [(ngModel)]="currentReflection.learningPathway" style="resize: none;" rows="8" matInput
+                placeholder="Learning Pathway - To be completed by the Trainer"></textarea>
+    </div>
+  </div>
+
+  <div class='submit-button-wrapper'>
+    <button class='submit-button' color="primary" (click)='onSubmit()' mat-raised-button>
+      {{ isFormCompleted() ? 'Submit' : 'Save' }}
+    </button>
+  </div>
+</div>
