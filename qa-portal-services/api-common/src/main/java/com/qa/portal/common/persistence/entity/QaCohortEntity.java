@@ -1,11 +1,11 @@
 package com.qa.portal.common.persistence.entity;
 
+import javax.persistence.*;
 import java.sql.Date;
-
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.*;
 
 @Entity
 @Table(schema = "training", name = "qa_cohort")
@@ -64,6 +64,9 @@ public class QaCohortEntity extends QaBaseEntity {
     }
 
     public void addTrainee(TraineeEntity trainee) {
+        if (this.trainees == null) {
+            this.trainees = new HashSet<>();
+        }
         this.trainees.add(trainee);
         trainee.setCohort(this);
     }
@@ -90,6 +93,9 @@ public class QaCohortEntity extends QaBaseEntity {
     }
 
     public void addCohortCourse(CohortCourseEntity cohortCourse) {
+        if (this.cohortCourses == null) {
+            this.cohortCourses = new ArrayList<>();
+        }
         this.cohortCourses.add(cohortCourse);
         cohortCourse.setCohort(this);
     }

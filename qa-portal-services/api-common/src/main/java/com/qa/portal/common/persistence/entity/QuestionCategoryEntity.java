@@ -1,7 +1,11 @@
 package com.qa.portal.common.persistence.entity;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(schema = "training", name = "question_category")
@@ -34,7 +38,7 @@ public class QuestionCategoryEntity extends QaBaseEntity {
     @JoinColumn(name = "form_type_id")
     private FormTypeEntity formType;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<QuestionEntity> questions;
 
     public Integer getId() {
@@ -99,5 +103,31 @@ public class QuestionCategoryEntity extends QaBaseEntity {
 
     public void setQuestions(List<QuestionEntity> questions) {
         this.questions = questions;
+    }
+
+    public void addQuestion(QuestionEntity questionEntity) {
+        if (this.questions == null) {
+            this.questions = new ArrayList<>();
+        }
+        this.questions.add(questionEntity);
+        questionEntity.setCategory(this);
+    }
+
+    public void removeQuestion(QuestionEntity questionEntity) {
+        this.questions.remove(questionEntity);
+        questionEntity.setCategory(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QuestionCategoryEntity that = (QuestionCategoryEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

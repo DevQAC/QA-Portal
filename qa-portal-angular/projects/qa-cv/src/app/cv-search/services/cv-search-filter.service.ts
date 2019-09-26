@@ -10,7 +10,7 @@ export class CVSearchFilterService {
 
     constructor(private http: HttpClient) { }
 
-    private filterUrl = 'core-api/referencedata';  // URL to web api
+    private filterUrl = 'portal-application-api/referencedata';  // URL to web api
 
     /**
  * Handle Http operation that failed.

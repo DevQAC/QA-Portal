@@ -8,6 +8,8 @@ public class FormTypeDto extends QaBaseDto {
 
     private String formName;
 
+    private String description;
+
     private List<QuestionCategoryDto> questionCategories;
 
     public Integer getId() {
@@ -32,5 +34,13 @@ public class FormTypeDto extends QaBaseDto {
 
     public void setQuestionCategories(List<QuestionCategoryDto> questionCategories) {
         this.questionCategories = questionCategories;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

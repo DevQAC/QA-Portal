@@ -1,5 +1,5 @@
 {
-  "/core-api": {
+  "/portal-application-api": {
     "target": "http://localhost:8081",
     "secure": false,
     "logLevel": "debug"
@@ -14,7 +14,7 @@
     "secure": false,
     "logLevel": "debug"
   },
-  "/question-api": {
+  "/form-api": {
     "target": "http://localhost:8085",
     "secure": false,
     "logLevel": "debug"
