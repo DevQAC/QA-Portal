@@ -1,7 +1,7 @@
 package com.qa.portal.form.services.category;
 
 import com.qa.portal.common.dto.QuestionCategoryDto;
-import org.aspectj.weaver.patterns.TypePatternQuestions;
+import com.qa.portal.common.dto.QuestionDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,10 +12,14 @@ public class QuestionCategoryManagementService {
 
     private UpdateQuestionCategoryOperation updateQuestionCategoryOperation;
 
+    private RemoveQuestionFromCategoryOperation removeQuestionFromCategoryOperation;
+
     public QuestionCategoryManagementService(CreateQuestionCategoryOperation createQuestionCategoryOperation,
-                                             UpdateQuestionCategoryOperation updateQuestionCategoryOperation) {
+                                             UpdateQuestionCategoryOperation updateQuestionCategoryOperation,
+                                             RemoveQuestionFromCategoryOperation removeQuestionFromCategoryOperation) {
         this.createQuestionCategoryOperation = createQuestionCategoryOperation;
         this.updateQuestionCategoryOperation = updateQuestionCategoryOperation;
+        this.removeQuestionFromCategoryOperation = removeQuestionFromCategoryOperation;
     }
 
     @Transactional
@@ -26,5 +30,10 @@ public class QuestionCategoryManagementService {
     @Transactional
     public QuestionCategoryDto updateQuestionCategory(QuestionCategoryDto questionCategoryDto) {
         return updateQuestionCategoryOperation.updateQuestionCategory(questionCategoryDto);
+    }
+
+    @Transactional
+    public QuestionCategoryDto removeQuestionFromQuestionCategory(Integer questionId) {
+        return removeQuestionFromCategoryOperation.removeQuestionFromCategory(questionId);
     }
 }

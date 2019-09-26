@@ -4,7 +4,7 @@ import com.qa.portal.common.dto.FormTypeDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.FormTypeEntity;
 import com.qa.portal.common.persistence.repository.FormTypeRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.form.services.mapper.FormMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -14,12 +14,12 @@ public class UpdateFormOperation {
 
     private FormTypeRepository formTypeRepository;
 
-    private BaseMapper baseMapper;
+    private FormMapper formMapper;
 
     public UpdateFormOperation(FormTypeRepository formTypeRepository,
-                               BaseMapper baseMapper) {
+                               FormMapper formMapper) {
         this.formTypeRepository = formTypeRepository;
-        this.baseMapper = baseMapper;
+        this.formMapper = formMapper;
     }
 
     public FormTypeDto updateForm(FormTypeDto formTypeDto) {
@@ -29,8 +29,8 @@ public class UpdateFormOperation {
     }
 
     private FormTypeDto persistUpdatedForm(FormTypeEntity formTypeEntity, FormTypeDto formTypeDto) {
-        formTypeEntity.setDescription(formTypeDto.getDescription());
-        return baseMapper.mapObject(formTypeEntity, FormTypeDto.class);
+        formMapper.updatedFormTypeEntity(formTypeEntity, formTypeDto);
+        return formMapper.createFormDto(formTypeEntity);
     }
 
     private Optional<FormTypeEntity> getForm(FormTypeDto formTypeDto) {

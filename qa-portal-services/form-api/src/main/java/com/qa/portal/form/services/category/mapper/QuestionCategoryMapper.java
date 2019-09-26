@@ -12,9 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component
 public class QuestionCategoryMapper {
 
@@ -36,7 +33,6 @@ public class QuestionCategoryMapper {
 
     public QuestionCategoryDto createQuestionCategoryDto(QuestionCategoryEntity questionCategoryEntity) {
         QuestionCategoryDto questionCategoryDto = baseMapper.mapObject(questionCategoryEntity, QuestionCategoryDto.class);
-        LOGGER.info("Category is " + questionCategoryDto.getCategoryName());
         questionCategoryDto.getQuestions().stream()
                 .forEach(q -> q.setQuestionCategoryName(questionCategoryDto.getCategoryName()));
         return questionCategoryDto;
@@ -44,28 +40,28 @@ public class QuestionCategoryMapper {
 
     public QuestionCategoryEntity mapToNewQuestionCategoryEntity(QuestionCategoryDto questionCategoryDto) {
         QuestionCategoryEntity questionCategoryEntity = baseMapper.mapObject(questionCategoryDto, QuestionCategoryEntity.class);
-        questionCategoryEntity.setQuestions(getQuestionsForNewCategory(questionCategoryDto));
+        addNewQuestionsToCategory(questionCategoryEntity, questionCategoryDto);
         return questionCategoryEntity;
     }
 
-    public QuestionCategoryEntity mapToUpdatedQuestionCategoryEntity(QuestionCategoryDto questionCategoryDto) {
-        QuestionCategoryEntity questionCategoryEntity = baseMapper.mapObject(questionCategoryDto, QuestionCategoryEntity.class);
-        questionCategoryEntity.setQuestions(getQuestionsForNewCategory(questionCategoryDto));
-        return questionCategoryEntity;
+    public void updateQuestionCategoryEntity(QuestionCategoryEntity questionCategoryEntity,
+                                                               QuestionCategoryDto questionCategoryDto) {
+        questionCategoryEntity.setCommentLabel(questionCategoryDto.getCommentLabel());
+        questionCategoryEntity.setDisplayDirection(questionCategoryDto.getDisplayDirection());
+        questionCategoryEntity.setHasComment(questionCategoryDto.getHasComment());
+        questionCategoryEntity.setSelectionType(questionCategoryDto.getSelectionType());
+        removeExistingQuestionsFromCategory(questionCategoryEntity);
+        addNewQuestionsToCategory(questionCategoryEntity, questionCategoryDto);
     }
 
-    public List<QuestionEntity> getQuestionsForNewCategory(QuestionCategoryDto questionCategoryDto) {
-        return questionCategoryDto.getQuestions().stream()
-                .map(qDto -> getQuestionEntity(qDto))
-                .collect(Collectors.toList());
+    private void addNewQuestionsToCategory(QuestionCategoryEntity questionCategoryEntity, QuestionCategoryDto questionCategoryDto) {
+        questionCategoryDto.getQuestions().stream()
+                .forEach(q -> questionCategoryEntity.addQuestion(getQuestionEntity(q)));
     }
 
-    private void addNewQuestionsToCategory() {
-
-    }
-
-    private void removeExistingQuestionsFromCategory() {
-
+    private void removeExistingQuestionsFromCategory(QuestionCategoryEntity questionCategoryEntity) {
+        questionCategoryEntity.getQuestions().iterator()
+                .forEachRemaining(q -> questionCategoryEntity.removeQuestion(q));
     }
 
     private QuestionEntity getQuestionEntity(QuestionDto questionDto) {

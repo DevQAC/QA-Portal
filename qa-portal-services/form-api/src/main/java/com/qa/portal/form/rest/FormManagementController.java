@@ -24,9 +24,4 @@ public class FormManagementController {
     public ResponseEntity<FormTypeDto> updateForm(@RequestBody FormTypeDto formTypeDto) {
         return ResponseEntity.ok(formManagementService.updateForm(formTypeDto));
     }
-
-    @PutMapping("form/category/{id}")
-    public ResponseEntity<FormTypeDto> removeCategoryFromForm(@PathVariable("id") Integer questionCategoryId) {
-        return ResponseEntity.ok(formManagementService.removeCategoryFromForm(questionCategoryId));
-    }
 }

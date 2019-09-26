@@ -15,12 +15,12 @@ public class QuestionCategoryManagementController {
         this.questionCategoryManagementService = questionCategoryManagementService;
     }
 
-    @PostMapping("question/category")
+    @PostMapping("form/category")
     public ResponseEntity<QuestionCategoryDto> createQuestionCategory(@RequestBody QuestionCategoryDto questionCategoryDto) {
         return ResponseEntity.ok(questionCategoryManagementService.createQuestionCategory(questionCategoryDto));
     }
 
-    @PutMapping("question/category")
+    @PutMapping("form/category")
     public ResponseEntity<QuestionCategoryDto> updateQuestionCategory(@RequestBody QuestionCategoryDto questionCategoryDto) {
         return ResponseEntity.ok(questionCategoryManagementService.updateQuestionCategory(questionCategoryDto));
     }
