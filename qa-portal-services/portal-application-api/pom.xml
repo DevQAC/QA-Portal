@@ -10,10 +10,10 @@
     </parent>
 
     <groupId>com.qa.portal</groupId>
-    <artifactId>core-api</artifactId>
+    <artifactId>portal-application-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>core-api</name>
-    <description>QA Portal Core API</description>
+    <name>portal-application-api</name>
+    <description>QA Portal Application API</description>
 
     <properties>
         <java.version>1.8</java.version>
