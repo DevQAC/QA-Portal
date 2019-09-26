@@ -1,8 +1,10 @@
+export const FORM_TYPE_PLACEHOLDER = '{form-type}';
+
 // Spring Boot Services
 export const PORTAL_APPLICATIONS_API = 'portal-application-api/portal/applications';
 export const REFLECTION_API = 'self-reflection-api/reflection';
 export const REFLECTION_QUESTION_API = `self-reflection-api/reflection-question`;
-export const QUESTION_API = 'form-api/form/{form-type}/questions';
+export const QUESTION_API = 'form-api/form/' + FORM_TYPE_PLACEHOLDER + '/questions';
 export const SELF_REFLECTION_QUESTION_API = 'self-reflection-api/question';
 export const USER_API = 'cohort-api/user';
 export const USER_API_COHORTS = 'cohort-api/user/trainer/cohorts';

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {
+  FORM_TYPE_PLACEHOLDER,
   QUESTION_API,
   REFLECTION_API,
   REFLECTION_QUESTION_API,
@@ -34,7 +35,7 @@ export class SelfReflectionService {
   }
 
   public getQuestionsByFormType(formType: string): Observable<QuestionModel[]> {
-    return this.http.get<QuestionModel[]>(`${QUESTION_API}/${formType}`);
+    return this.http.get<QuestionModel[]>(QUESTION_API.replace(FORM_TYPE_PLACEHOLDER, formType));
   }
 
   // TODO: move to portal-common
