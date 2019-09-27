@@ -7,7 +7,7 @@ import {CohortTraineesComponent} from './cohort-trainees/cohort-trainees.compone
 import {TraineeNewReflectionComponent} from './trainee-new-reflection/trainee-new-reflection.component';
 import {TRAINEE_ROLE, TRAINER_ROLE, TRAINING_ADMIN_ROLE} from '../../../portal-core/src/app/_common/models/portal-constants';
 import {AppAuthGuard} from '../../../portal-core/src/app/_common/guards/app-auth-guard';
-import {ScottTrainerReflectionComponent} from './trainer-reflection/scott-trainer-reflection.component';
+import {TrainerReflectionComponent} from './trainer-reflection/trainer-reflection.component';
 
 const routes: Routes = [
   {
@@ -47,7 +47,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'trainer/trainee/:id', component: ScottTrainerReflectionComponent,
+    path: 'trainer/trainee/:id', component: TrainerReflectionComponent,
     canActivate: [AppAuthGuard],
     data: {
       roles: [

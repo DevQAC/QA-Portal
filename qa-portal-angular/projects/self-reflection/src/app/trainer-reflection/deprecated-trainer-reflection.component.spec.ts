@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { TrainerReflectionComponent } from './trainer-reflection.component';
+import { DeprecatedTrainerReflectionComponent } from './deprecated-trainer-reflection.component';
 
 describe('TrainerReflectionComponent', () => {
-  let component: TrainerReflectionComponent;
-  let fixture: ComponentFixture<TrainerReflectionComponent>;
+  let component: DeprecatedTrainerReflectionComponent;
+  let fixture: ComponentFixture<DeprecatedTrainerReflectionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TrainerReflectionComponent ]
+      declarations: [ DeprecatedTrainerReflectionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TrainerReflectionComponent);
+    fixture = TestBed.createComponent(DeprecatedTrainerReflectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

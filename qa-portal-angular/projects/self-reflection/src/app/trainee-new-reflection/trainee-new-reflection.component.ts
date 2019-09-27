@@ -10,7 +10,7 @@ import {ReflectionQuestionModel} from '../_common/models/reflection.question.mod
 import {CohortTraineesService} from '../cohort-trainees/services/cohort-trainees.service';
 import {SelfReflectionFormStateService} from '../_common/services/self-reflection-form-state.service';
 import {QaToastrService} from '../../../../portal-core/src/app/_common/services/qa-toastr.service';
-import {TrainerReflectionService} from '../trainer-reflection/services/trainer-reflection.service';
+import {DeprecatedTrainerReflectionService} from '../trainer-reflection/services/deprecated-trainer-reflection.service';
 import {QuestionModel} from '../_common/models/question.model';
 
 @Component({
@@ -30,7 +30,7 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
   MILLIS_IN_A_DAY = 24 * 60 * 60 * 1000;
 
-  constructor(private selfReflectionService: TrainerReflectionService,
+  constructor(private selfReflectionService: DeprecatedTrainerReflectionService,
               private selfReflectionFormService: SelfReflectionFormService,
               private questionsService: QuestionsServiceService,
               private errorHandlerService: QaErrorHandlerService,
