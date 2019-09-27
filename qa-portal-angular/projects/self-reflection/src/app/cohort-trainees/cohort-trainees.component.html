@@ -2,7 +2,11 @@
   Trainer - Cohort Trainees
 </div>
 
-<div class='cohort-trainees'>
+<div style="display: flex; justify-content: center; margin-top: 20px">
+  <mat-spinner [diameter]="70" *ngIf="loadingCohorts"></mat-spinner>
+</div>
+
+<div *ngIf="!loadingCohorts" class='cohort-trainees'>
 
   <mat-expansion-panel expanded="true">
     <mat-expansion-panel-header>
@@ -37,7 +41,11 @@
   <div style="margin-bottom: 20px;">
   </div>
 
-  <mat-card *ngIf="!!cohortSelected">
+  <div style="display: flex; justify-content: center; margin-top: 20px">
+    <mat-spinner [diameter]="70" *ngIf="loadingTrainees"></mat-spinner>
+  </div>
+
+  <mat-card *ngIf="!!cohortSelected && !loadingTrainees">
     <mat-card-subtitle *ngIf="dataSourceTrainees.data.length > 0">
       <span style="margin-left: 5px;">{{ cohortSelected }} has the following trainees with a reflection for review</span>
     </mat-card-subtitle>

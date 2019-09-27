@@ -6,6 +6,7 @@ import {Subscription, Observable} from 'rxjs';
 import {CohortTraineesService} from './services/cohort-trainees.service';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
 
 @Component({
   selector: 'app-cohort-trainees',
@@ -13,6 +14,8 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./cohort-trainees.component.css']
 })
 export class CohortTraineesComponent implements OnInit, OnDestroy {
+  loadingCohorts = true;
+  loadingTrainees = false;
   cohorts: QaCohortModel[];
   trainees: TraineeModel[];
   cohortColumns: string[] = ['name', 'startDate'];
@@ -23,7 +26,9 @@ export class CohortTraineesComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<QaCohortModel>(this.cohorts);
   dataSourceTrainees = new MatTableDataSource<TraineeModel>(this.trainees);
 
-  constructor(private http: HttpClient, private cohortTraineesService: CohortTraineesService) {
+  constructor(private http: HttpClient,
+              private errorHandler: QaErrorHandlerService,
+              private cohortTraineesService: CohortTraineesService) {
   }
 
   ngOnInit() {
@@ -31,16 +36,27 @@ export class CohortTraineesComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
           this.dataSource = new MatTableDataSource<QaCohortModel>(data);
           this.dataSourceTrainees = new MatTableDataSource<TraineeModel>([]);
+          this.loadingCohorts = false;
+        },
+        (error) => {
+          this.loadingCohorts = false;
+          this.errorHandler.handleError(error);
         }
       );
   }
 
   updateTraineesTable(row) {
     this.cohortSelected = row.name;
+    this.loadingTrainees = true;
     this.subscriptionTrainees = this.cohortTraineesService.getTraineesForReview(row.id).subscribe(
       (data) => {
         this.dataSourceTrainees = new MatTableDataSource<TraineeModel>(data);
         this.subscriptionTrainees.unsubscribe();
+        this.loadingTrainees = false;
+      },
+      (error) => {
+        this.loadingTrainees = false;
+        this.errorHandler.handleError(error);
       }
     );
   }
