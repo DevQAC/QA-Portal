@@ -14,3 +14,5 @@ export const GET_SELF_REFLECTIONS_FOR_TRAINEE_API = 'self-reflection-api/reflect
 
 export const GET_SELF_REFLECTIONS_BY_STATUS_API = 'self-reflection-api/reflection/trainee/status';
 
+export const GET_TRAINEE_URL = 'cohort-api//user/trainee/';
+

@@ -43,7 +43,7 @@ public class ReflectionController {
     }
 
     @GetMapping("trainee/{id}")
-    public ResponseEntity<Set<ReflectionDto>> getSelfReflectionsByTraineeId(@PathVariable Integer id) {
+    public ResponseEntity<List<ReflectionDto>> getSelfReflectionsForTrainee(@PathVariable Integer id) {
         return ResponseEntity.ok(this.service.getSelfReflectionsForTrainee(id));
     }
 

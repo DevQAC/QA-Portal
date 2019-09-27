@@ -59,7 +59,7 @@ public class ReflectionServiceTest {
 	private void checkPostConditions() {
 		verify(getSelfReflectionsForUserOperation).getSelfReflectionsForTrainee(anyString());
 		verify(getSelfReflectionsForUserOperation).getSelfReflectionsForTrainer(anyString());
-		verify(getSelfReflectionsForUserOperation).getSelfReflectionsForUser(anyInt());
+		verify(getSelfReflectionsForUserOperation).getSelfReflectionsForTrainee(anyInt());
 		verify(getSelfReflectionOperation).getSelfReflectionById(anyInt());
 		verify(getSelfReflectionOperation).getSelfReflectionByUserAndDate(anyString(), any(LocalDate.class));
 		verify(createSelfReflectionOperation).createSelfReflection(any(), anyString());

@@ -16,9 +16,7 @@ public interface ReflectionRepository extends JpaRepository<ReflectionEntity, In
 
     Set<ReflectionEntity> findAllByResponder(TraineeEntity trainee);
 
-    Set<ReflectionEntity> findByResponderId(Integer id);
-
-    Set<ReflectionEntity> findByReviewerId(Integer id);
+    Set<ReflectionEntity> findAllByReviewer(TrainerEntity trainer);
 
     Optional<ReflectionEntity> findByReviewerAndFormDate(TrainerEntity trainer, LocalDate date);
 

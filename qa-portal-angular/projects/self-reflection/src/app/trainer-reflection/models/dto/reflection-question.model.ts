@@ -1,6 +1,5 @@
-import { ReflectionModel } from './reflection.model';
-import { QuestionModel } from './question.model';
-import { BaseModel } from './base.model';
+import {QuestionModel} from './question.model';
+import {BaseModel} from './base.model';
 
 export class ReflectionQuestionModel extends BaseModel {
   id?: number;
