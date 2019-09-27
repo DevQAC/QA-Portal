@@ -1,34 +1,45 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
-  <ng-container matColumnDef="traineeName">
-      <th mat-header-cell *matHeaderCellDef> Delegate </th>
-      <td mat-cell *matCellDef="let eval"> {{eval.traineeName}} </td>
+<div style="display: flex; flex-direction: row; width: 100%">
+  <div style="flex: 10;"></div>
+  <table mat-table style="flex: 80; width: 100%" [dataSource]="dataSource" class="mat-elevation-z8">
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <ng-container matColumnDef="traineeName">
+      <th mat-header-cell style="vertical-align: middle; text-align: center;" *matHeaderCellDef> Delegate</th>
+      <td mat-cell style="vertical-align: middle; text-align: center;"
+          *matCellDef="let eval"> {{eval.traineeName}} </td>
     </ng-container>
 
-  <ng-container matColumnDef="knowledge">
-    <th mat-header-cell *matHeaderCellDef> Trainer Knowledge </th>
-    <td mat-cell *matCellDef="let eval"> {{eval.knowledge}} </td>
-  </ng-container>
+    <ng-container matColumnDef="knowledge">
+      <th mat-header-cell style="vertical-align: middle; text-align: center;" *matHeaderCellDef> Trainer Knowledge</th>
+      <td mat-cell style="vertical-align: middle; text-align: center;" *matCellDef="let eval"> {{eval.knowledge}} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="recommend">
-    <th mat-header-cell *matHeaderCellDef> Recommend QA </th>
-    <td mat-cell *matCellDef="let eval"> {{eval.recommend}} </td>
-  </ng-container>
-</table>
+    <ng-container matColumnDef="recommend">
+      <th mat-header-cell style="vertical-align: middle; text-align: center;" *matHeaderCellDef> Recommend QA</th>
+      <td mat-cell style="vertical-align: middle; text-align: center;" *matCellDef="let eval"> {{eval.recommend}} </td>
+    </ng-container>
+  </table>
+  <div style="flex: 10;"></div>
+</div>
 
-<table class="average">
-  <ng-container matColumnDef="tqi">
-    <tr>
-      <td mat-cell> TQI for this event </td>
-      <td mat-cell> {{tqi}} </td>
-    </tr>
- </ng-container>
-  <ng-container matColumnDef="average">
-    <tr>
-      <td mat-cell> Average for this event </td>
-      <td mat-cell> {{average}} </td>
-    </tr>
-  </ng-container>
-</table>
+<div style="display: flex; flex-direction: row; width: 100%">
+  <div style="flex: 70;"></div>
+  <table class="average" style="flex:20; width: 100%;">
+    <ng-container matColumnDef="tqi">
+      <tr>
+        <td mat-cell matTooltip="Trainer Quality Index for the event"> TQI for this event</td>
+        <td mat-cell> {{tqi}} </td>
+      </tr>
+    </ng-container>
+    <div style="margin-bottom: 20px;"></div>
+    <ng-container matColumnDef="average">
+      <tr>
+        <td mat-cell matTooltip="Average Trainer Quality Index for every instance of this course"> Average for this event</td>
+        <td mat-cell> {{average}} </td>
+      </tr>
+    </ng-container>
+  </table>
+  <div style="flex: 10;"></div>
+</div>
+
