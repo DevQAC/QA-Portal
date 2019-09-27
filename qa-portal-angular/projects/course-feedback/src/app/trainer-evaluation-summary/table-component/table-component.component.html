@@ -28,14 +28,14 @@
   <table class="average" style="flex:20; width: 100%;">
     <ng-container matColumnDef="tqi">
       <tr>
-        <td mat-cell matTooltip="Trainer Quality Index for the event"> TQI for this event</td>
+        <td mat-cell matTooltip="Trainer Quality Index for this {{courseName}} course"> TQI for this event</td>
         <td mat-cell> {{tqi}} </td>
       </tr>
     </ng-container>
     <div style="margin-bottom: 20px;"></div>
     <ng-container matColumnDef="average">
       <tr>
-        <td mat-cell matTooltip="Average Trainer Quality Index for every instance of this course"> Average for this event</td>
+        <td mat-cell matTooltip="Average Trainer Quality Index for all {{courseName}} courses"> Average for this event</td>
         <td mat-cell> {{average}} </td>
       </tr>
     </ng-container>

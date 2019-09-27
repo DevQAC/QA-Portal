@@ -9,10 +9,12 @@ import { TraineeEvaluation } from '../models/trainee-evaluation-data';
 export class TableComponentComponent {
 
   displayedColumns: string[] = ['traineeName', 'knowledge', 'recommend'];
-  
+
   @Input() dataSource: TraineeEvaluation[];
 
   @Input() average: number;
 
   @Input() tqi: number;
+
+  @Input() courseName: string;
 }
