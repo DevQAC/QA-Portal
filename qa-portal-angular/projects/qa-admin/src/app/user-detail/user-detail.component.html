@@ -1,0 +1,38 @@
+<h1>
+  User Details
+</h1>
+
+<mat-card>
+  <mat-card-content style="margin-bottom: 0;">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div formGroupName="user">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="userName" readonly>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" required>
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Roles</mat-label>
+        <mat-select formControlName="roleNames" multiple>
+          <mat-option *ngFor="let role of roles" [value]="role">
+            {{role}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div style="display: flex" >
+        <button mat-flat-button color="primary" (click)="onSubmit()" style="margin-left: auto"
+          [disabled]="isLoading || userForm.invalid">Update</button>
+      </div>
+    </form>
+  </mat-card-content>
+
+  <app-spinner-overlay [show]="isLoading"></app-spinner-overlay>
+</mat-card>

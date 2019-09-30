@@ -12,12 +12,12 @@ public class Feedback {
         super();
     }
 
-    public Feedback(String reviewer, String date, String comment) {
-        super();
-        this.reviewer = reviewer;
-        this.date = date;
-        this.comment = comment;
-    }
+//    public Feedback(String reviewer, String date, String comment) {
+//        super();
+//        this.reviewer = reviewer;
+//        this.date = date;
+//        this.comment = comment;
+//    }
 
     public String getReviewer() {
         return reviewer;

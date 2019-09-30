@@ -1,8 +1,11 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { UserModel } from 'projects/portal-core/src/app/_common/models/user.model';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { UserService } from '../../_common/services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UserService} from '../../_common/services/user.service';
+import {UserDetailsModel} from '../../../../../portal-core/src/app/_common/models/user-details.model';
+import {RoleService} from '../../_common/services/role.service';
+import {QaErrorHandlerService} from '../../../../../portal-core/src/app/_common/services/qa-error-handler.service';
+import {UserModel} from '../../../../../portal-core/src/app/_common/models/user.model';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -11,12 +14,15 @@ import { UserService } from '../../_common/services/user.service';
 export class AddUserDialogComponent implements OnInit {
 
   public userForm: FormGroup;
+
   public roles: string[];
 
   public isLoading = false;
 
   constructor(
     public dialogRef: MatDialogRef<AddUserDialogComponent>,
+    private rolesService: RoleService,
+    private errorService: QaErrorHandlerService,
     private userService: UserService
   ) {
     this.userForm = new FormBuilder().group({
@@ -28,24 +34,21 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.roles = [
-      'This',
-      'Component',
-      'Is',
-      'Not',
-      'Yet',
-      'Implemented'
-    ];
+    this.rolesService.getPortalRoles().subscribe((response) => {
+        this.roles = response;
+      },
+      (error) => {
+        this.errorService.handleError(error);
+      });
   }
 
   onSubmit(): void {
     this.isLoading = true;
     this.userForm.disable();
-    this.userService.createUser(this.userForm.value as UserModel).subscribe(user => {
+    this.userService.addUser(this.userForm.value as UserModel).subscribe(user => {
       this.isLoading = false;
       this.userForm.enable();
       this.dialogRef.close(user);
     });
   }
-
 }

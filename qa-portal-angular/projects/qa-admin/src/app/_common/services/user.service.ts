@@ -1,49 +1,53 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { GET_USERS, DEL_USER, ADD_USER, UPDATE_USER, TEST_USERS } from '../models/user.constant';
-import { tap, catchError, delay } from 'rxjs/operators';
-import { MessageService } from './message.service';
-import { UserModel } from 'projects/portal-core/src/app/_common/models/user.model';
-import { DUMMY_USERS } from './dummy-user-data';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {CREATE_USER_URL, DELETE_USERS_URL, GET_ALL_USERS_URL, GET_USER_BY_USERNAME_URL, UPDATE_USER_URL} from '../models/user.constant';
+import {take} from 'rxjs/operators';
+import {UserDetailsModel} from '../../../../../portal-core/src/app/_common/models/user-details.model';
+import {UserModel} from '../../../../../portal-core/src/app/_common/models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient) { }
-
-  public createUser(user: UserModel): Observable<UserModel> {
-    return of(user).pipe(delay(Math.floor(Math.random() * 3500) + 500));
+  constructor(
+    private http: HttpClient) {
   }
 
-  public searchUsers(search: string): Observable<UserModel[]> {
-    console.warn('UserService.searchUsers is using dummy data!');
-    return of(
-      DUMMY_USERS
-        .filter(c => c.userName.toLowerCase().includes(search.toLowerCase()) ||
-          c.firstName.toLowerCase().includes(search.toLowerCase()))
-    ).pipe(delay(Math.floor(Math.random() * 3500) + 500));
+  getAllUsers(): Observable<UserDetailsModel[]> {
+    return this.http.get<UserDetailsModel[]>(GET_ALL_USERS_URL, this.httpOptions).pipe(
+      take(1)
+    );
   }
 
-  public deleteUsers(users: UserModel[]): Observable<void> {
-    console.log('UserService.deleteUsers is not implemented! Input data:', users);
-    return of(null).pipe(delay(Math.floor(Math.random() * 3500) + 500));
+  deleteUsers(users: UserDetailsModel[]): Observable<any> {
+    return this.http.put<any>(DELETE_USERS_URL, users).pipe(
+      take(1)
+    );
   }
 
-  public updateUsersCohort(users: UserModel[], cohort: string): Observable<void> {
-    console.log('UserService.updateUsersCohort is not implemented! Input data:', users, cohort);
-    return of(null).pipe(delay(Math.floor(Math.random() * 3500) + 500));
+  addUser(user: UserModel): Observable<UserModel> {
+    const userDetails = new UserDetailsModel();
+    user.email = user.userName;
+    userDetails.user = user;
+    userDetails.roleNames = [user.role];
+    return this.http.post<UserModel>(CREATE_USER_URL, userDetails, this.httpOptions).pipe(
+      take(1)
+    );
   }
 
-  public updateUsersRole(users: UserModel[], role: string): Observable<void> {
-    console.log('UserService.updateUsersRole is not implemented! Input data:', users, role);
-    return of(null).pipe(delay(Math.floor(Math.random() * 3500) + 500));
+  updateUser(user: UserDetailsModel): Observable<UserDetailsModel> {
+    return this.http.put<UserDetailsModel>(UPDATE_USER_URL, user, this.httpOptions).pipe(
+      take(1)
+    );
   }
 
+  getUserByUsername(username: string): Observable<UserDetailsModel> {
+    return this.http.get<UserDetailsModel>(GET_USER_BY_USERNAME_URL + username, this.httpOptions).pipe(take(1));
+  }
 }

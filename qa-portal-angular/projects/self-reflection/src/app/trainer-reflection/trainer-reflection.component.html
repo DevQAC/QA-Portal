@@ -2,130 +2,142 @@
   Trainer Reflection Form Review
 </div>
 
-<div [ngSwitch]="pageState">
-  <div *ngSwitchCase="'loading'" class='status'>
-    <div class='status-message loading'>
-      <div class='loading-bar'>
-        <mat-progress-bar mode='indeterminate'></mat-progress-bar>
-      </div>
-      <div class='message'>
-        <p>Checking for Self Reflections...</p>
-      </div>
-    </div>
+<div style="display: flex; justify-content: center; margin-top: 20px">
+  <mat-spinner [diameter]="70" *ngIf="loadingData"></mat-spinner>
+</div>
+
+<div *ngIf="!loadingData">
+  <div class='title'>
+    Self&nbsp;Reflection&nbsp;Form Review - <span class='trainee-firstname'>{{trainee.firstName}}</span>&nbsp;<span
+    class='trainee-lastname'>{{trainee.lastName}}</span>&nbsp;
   </div>
-  <div *ngSwitchCase="'error'" class='status'>
-    <div class='status-message'>
-      <mat-icon class='icon' aria-label='warning'>warning</mat-icon>
-      <div class='message'>
-        <p>There was an issue retrieving this user's data.</p>
-      </div>
-    </div>
-  </div>
-  <div *ngSwitchCase="'no-self-reflections'" class='status'>
-    <div class='status-message'>
-      <mat-icon class='icon' aria-label='sad-face'>sentiment_very_dissatisfied</mat-icon>
-      <div class='message'>
-        <p>{{noSelfReflectionMessage()}}</p>
-      </div>
-    </div>
-  </div>
-  <div *ngSwitchCase="'ready'" class='ready'>
-    <div class='trainer-reflection'>
-      <div class='title'>
-        Self&nbsp;Reflection&nbsp;Form Review - <span class='trainee-firstname'>{{trainee.firstName}}</span>&nbsp;<span
-          class='trainee-lastname'>{{trainee.lastName}}</span>&nbsp;
-      </div>
-      <div class='grid-wrapper'>
-        <div class='grid-container' [style.height]='(393 + (visibleReflections.length * 60)) + "px"'>
-          <mat-grid-list class='grid' rowHeight='100%' *ngFor='let rows of rowData' cols='8'
-            [style.width]='(1 / rowData.length * 100) + "%"'>
-            <mat-grid-tile colspan='8'>
 
-              <div class='header-container'>
-                <span class='header'>{{ rows.category }}</span>
-              </div>
+  <div style="margin-bottom: 20px;" *ngFor="let categoryName of categoryNames()">
+    <mat-card>
+      <mat-card-title>{{categoryName}}</mat-card-title>
+      <mat-card-subtitle>Current Reflection</mat-card-subtitle>
+      <div style="display: flex; flex-direction: row; width: 100%;">
+        <div style="flex: 80;">
+          <mat-table style="margin-bottom: 20px;" [dataSource]="[currentReflection]">
+            <ng-container matColumnDef="start-date">
+              <th mat-header-cell style="margin-right: 5%; width: 15%; text-align: left;"
+                  *matHeaderCellDef> Form Date
+              </th>
+              <td mat-cell style="vertical-align: middle; text-align: left; margin-right: 5%; width: 15%;"
+                  *matCellDef="let element">
+                {{element.formDate}}
+              </td>
+            </ng-container>
+            <div *ngFor="let reflectionQuestion of categoryReflectionQuestions[categoryName]">
+              <ng-container style="width: 100%;"
+                            matColumnDef="{{getColumnIdAsString(reflectionQuestion.question.id)}}">
+                <th mat-header-cell style="margin-right: 10%; text-align: left;"
+                    [style.width]='((1 / categoryReflectionQuestions[categoryName].length) * (80 - (categoryReflectionQuestions[categoryName].length * 10))) + "%"'
+                    *matHeaderCellDef>{{reflectionQuestion.question.body}}
+                </th>
+                <td mat-cell style="vertical-align: middle; text-align: center; margin-right: 10%;"
+                    [style.width]='((1 / categoryReflectionQuestions[categoryName].length) * (80 - (categoryReflectionQuestions[categoryName].length * 10))) + "%"'
+                    *matCellDef="let element">
+                  {{getQuestionResponseValueForReflection(element, reflectionQuestion.question.id)}}
+                </td>
+              </ng-container>
+            </div>
 
-              <div class='question-container'>
-                <span *ngFor='let question of rows.questions' [style.width]='(1 / rows.questions.length * 100) + "%"'
-                  class='question'>{{ question.body }}</span>
-              </div>
-
-              <div class='author-wrapper'>
-                <div class='author-container' *ngFor='let question of rows.questions, let i = index'
-                  [style.width]='(1 / rows.questions.length * 100) + "%"'>
-                  <span *ngFor='let author of authors[i%2]' class='author' [style.width]='"50%"'>
-                    {{author}}
-                  </span>
-                </div>
-              </div>
-
-              <div class='response-wrapper'>
-                <div *ngFor='let question of rows.questions, let questionIndex = index' [style.width]='(1 / rows.questions.length * 100) + "%"'
-                  class='response-container'>
-
-                  <div style="display: flex; flex-direction: row;" *ngFor='let reflectionQuestion of question.reflectionQuestions, let i = index' [style.width]='(100) + "%"'>
-
-                    <!-- Trainee -->
-                    <input *ngIf="questionIndex % 2 === 1" type='number' [(ngModel)]='reflectionQuestion.response'
-                      (keydown.enter)='saveReflectionQuestions()' [disabled]="true"
-                           [style.width]='(50) + "%"' class='response' min='1' max='10' />
-
-                    <!-- Trainer -->
-                    <input *ngIf="questionIndex % 2 === 1" type='number' [(ngModel)]='reflectionQuestion.trainerResponse'
-                      (keydown.enter)='saveReflectionQuestions()' [disabled]="i > 0"
-                      [style.width]='(50) + "%"' class='response' min='1' max='10' />
-
-                    <!-- Blank column -->
-                    <input *ngIf="questionIndex % 2 === 0"
-                           (keydown.enter)='saveReflectionQuestions()' [disabled]="true"
-                           [style.width]='(50) + "%"' class='response' />
-
-                    <!-- Trainee -->
-                    <input *ngIf="questionIndex % 2 === 0" type='number' [(ngModel)]='reflectionQuestion.response'
-                           (keydown.enter)='saveReflectionQuestions()' [disabled]="true"
-                           [style.width]='(50) + "%"' class='response' min='1' max='10' />
-
-                  </div>
-
-                </div>
-              </div>
-            </mat-grid-tile>
-          </mat-grid-list>
+            <tr mat-header-row *matHeaderRowDef="getReflectionColumnHeaders(categoryName)"></tr>
+            <tr mat-row *matRowDef="let row; columns: getReflectionColumnHeaders(categoryName);"></tr>
+          </mat-table>
         </div>
 
-        <div class='reflection-dates'>
-          <div class='entry' *ngFor='let reflection of visibleReflections'>
-            <div>{{ reflection.formDate | date: 'dd/MM/y'}}</div>
+        <div style="flex: 3;"></div>
+        <div style="display: flex; flex: 9; flex-direction: column; align-content: flex-start;">
+          <label class="trainer-response-label">Trainer Rating For {{categoryName}}</label>
+          <div class="trainer-response-input">
+            <input size="1"
+                   matTooltip="Enter Trainer Rating from 1 to 10 for {{categoryName}}"
+                   [(ngModel)]="categoryReflectionQuestions[categoryName][0].trainerResponse">
           </div>
         </div>
-
+        <div style="flex: 5;"></div>
       </div>
 
-      <div class='trainer-textareas'>
+      <mat-accordion>
+        <mat-expansion-panel>
 
-        <div style="display: flex; flex-direction: column;" class='trainer-feedback'>
-          <div class='heading'>Trainer Feedback</div>
-          <textarea [(ngModel)]="trainerFeedback" style="resize: none;" rows="8" matInput
-            placeholder="Trainer Feedback - To be completed by the Trainer"></textarea>
-        </div>
+          <mat-expansion-panel-header>
+            Previous Reflections
+          </mat-expansion-panel-header>
 
-        <div style="display: flex; flex-direction: column;" class='learning-pathway'>
-          <div class='heading'>Learning Pathway</div>
-          <textarea [(ngModel)]="learningPathway" style="resize: none;" rows="8" matInput
-            placeholder="Learning Pathway - To be completed by the Trainer"></textarea>
-        </div>
+          <div style="display: flex; flex-direction: row; width: 100%;">
+            <mat-table style="flex: 75;" [dataSource]="previousReflections">
+              <ng-container matColumnDef="start-date">
+                <th mat-header-cell style="margin-right: 5%; width: 15%; text-align: left;"
+                    *matHeaderCellDef> Form Date
+                </th>
+                <td mat-cell style="text-align: left; vertical-align: middle; margin-right: 5%; width: 15%;"
+                    *matCellDef="let element">
+                  {{element.formDate}}
+                </td>
+              </ng-container>
 
-      </div>
+              <div *ngFor="let reflectionQuestion of categoryReflectionQuestions[categoryName]">
+                <ng-container style="width: 100%;"
+                              matColumnDef="{{getColumnIdAsString(reflectionQuestion.question.id)}}">
+                  <th mat-header-cell style="text-align: left;"
+                      [style.width]='((1 / categoryReflectionQuestions[categoryName].length) * (80 - (categoryReflectionQuestions[categoryName].length * 10))) + "%"'
+                      *matHeaderCellDef>{{reflectionQuestion.question.body}}
+                  </th>
+                  <td mat-cell style="vertical-align: middle; text-align: center; margin-right: 10%;"
+                      [style.width]='((1 / categoryReflectionQuestions[categoryName].length) * (80 - (categoryReflectionQuestions[categoryName].length * 10))) + "%"'
+                      *matCellDef="let element">
+                    {{getQuestionResponseValueForReflection(element, reflectionQuestion.question.id)}}
+                  </td>
+                </ng-container>
+              </div>
 
-      <div class='submit-button-wrapper'>
-        <button class='submit-button' color="primary" [disabled]='disableInputs' (click)='onSubmit()' mat-raised-button>
-          {{ isFormCompleted() ? 'Submit' : 'Save' }}
-        </button>
-      </div>
+              <tr mat-header-row *matHeaderRowDef="getReflectionColumnHeaders(categoryName)"></tr>
+              <tr mat-row *matRowDef="let row; columns: getReflectionColumnHeaders(categoryName);"></tr>
+            </mat-table>
 
+            <div style="flex: 2;"></div>
+
+            <mat-table style="flex: 13;" [dataSource]="previousReflections">>
+              <ng-container matColumnDef="trainer-rating">
+                <th mat-header-cell style="text-align: left;"
+                    *matHeaderCellDef> Trainer Rating
+                </th>
+                <td mat-cell style="vertical-align: middle; text-align: center"
+                    *matCellDef="let element">
+                  {{ getTrainerResponse(element, categoryName) }}
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="trainerRatingColumn"></tr>
+              <tr mat-row *matRowDef="let row; columns: trainerRatingColumn;"></tr>
+            </mat-table>
+
+            <div style="flex: 2;"></div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card>
+  </div>
+
+  <div class='trainer-textareas'>
+    <div style="display: flex; flex-direction: column;" class='trainer-feedback'>
+      <div class='heading'>Trainer Feedback</div>
+      <textarea [(ngModel)]="currentReflection.trainerFeedback" style="resize: none;" rows="8" matInput
+                placeholder="Trainer Feedback - To be completed by the Trainer"></textarea>
+    </div>
+
+    <div style="display: flex; flex-direction: column;" class='learning-pathway'>
+      <div class='heading'>Learning Pathway</div>
+      <textarea [(ngModel)]="currentReflection.learningPathway" style="resize: none;" rows="8" matInput
+                placeholder="Learning Pathway - To be completed by the Trainer"></textarea>
     </div>
   </div>
-  <div *ngSwitchDefault>
 
+  <div class='submit-button-wrapper'>
+    <button class='submit-button' color="primary" (click)='onSubmit()' mat-raised-button>
+      {{ isFormCompleted() ? 'Submit' : 'Save' }}
+    </button>
   </div>
 </div>

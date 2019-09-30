@@ -1,11 +1,11 @@
 package com.qa.portal.common.persistence.entity;
 
+import javax.persistence.*;
 import java.sql.Date;
-
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.*;
 
 @Entity
 @Table(schema = "training", name = "qa_cohort")
@@ -25,10 +25,14 @@ public class QaCohortEntity extends QaBaseEntity {
     @Column(name = "start_date")
     private Date startDate;
 
-    @OneToMany(mappedBy = "cohort", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cohort",
+            fetch = FetchType.LAZY)
     private Set<TraineeEntity> trainees;
 
-    @OneToMany(mappedBy = "cohort", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cohort",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<CohortCourseEntity> cohortCourses;
 
     @ManyToOne
@@ -59,6 +63,19 @@ public class QaCohortEntity extends QaBaseEntity {
         this.trainees = trainees;
     }
 
+    public void addTrainee(TraineeEntity trainee) {
+        if (this.trainees == null) {
+            this.trainees = new HashSet<>();
+        }
+        this.trainees.add(trainee);
+        trainee.setCohort(this);
+    }
+
+    public void removeTrainee(TraineeEntity trainee) {
+        this.trainees.remove(trainee);
+        trainee.setCohort(null);
+    }
+
     public TrainerEntity getTrainer() {
         return trainer;
     }
@@ -73,6 +90,19 @@ public class QaCohortEntity extends QaBaseEntity {
 
     public void setCohortCourses(List<CohortCourseEntity> cohortCourses) {
         this.cohortCourses = cohortCourses;
+    }
+
+    public void addCohortCourse(CohortCourseEntity cohortCourse) {
+        if (this.cohortCourses == null) {
+            this.cohortCourses = new ArrayList<>();
+        }
+        this.cohortCourses.add(cohortCourse);
+        cohortCourse.setCohort(this);
+    }
+
+    public void removeCohortCourse(CohortCourseEntity cohortCourseEntity) {
+        this.cohortCourses.remove(cohortCourseEntity);
+        cohortCourseEntity.setCohort(null);
     }
 
     public Date getStartDate() {

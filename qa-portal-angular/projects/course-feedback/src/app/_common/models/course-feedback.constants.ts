@@ -1,5 +1,8 @@
 // TODO  - TO BE REMOVED
-export const GET_FORM_TYPE = 'question-api/question/category/formtype/';
+import {FORM_TYPE_PLACEHOLDER} from '../../../../../portal-core/src/app/_common/models/portal-constants';
+
+export const GET_FORM_TYPE = 'form-api/form/' + FORM_TYPE_PLACEHOLDER + '/categories';
+
 export const SEND_EVAL_RESPONSE = 'feedback-api/feedback';
 // TODO - END OF TO BE REMOVED
 

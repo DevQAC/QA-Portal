@@ -17,6 +17,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     DeleteUserDialogComponent,
     UpdateUserCohortDialogComponent,
     UpdateUserRoleDialogComponent,
-    CohortDetailComponent
+    CohortDetailComponent,
+    UserDetailComponent
   ],
   imports: [
     QaCommonModule,

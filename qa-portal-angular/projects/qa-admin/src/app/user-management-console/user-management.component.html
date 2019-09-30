@@ -8,27 +8,26 @@
 <app-search-bar [hasFilterPanel]="false" (search)="performSearch()" [(value)]="searchInput"></app-search-bar>
 
 
-<app-data-table #table [dataSource]="dataSource" [displayedColumns]="displayedColumns" [isLoading]="isLoading">
+<app-data-table #table [dataSource]="dataSource" [displayedColumns]="displayedColumns" [isLoading]="isLoading"
+  (rowClick)="onRowClicked($event)">
   <!-- BULK ACTIONS -->
-  <button bulk-action mat-button color="primary" (click)="onUpdateCohortActionClicked()">Change Cohort</button>
-  <button bulk-action mat-button color="primary" (click)="onUpdateRoleActionClicked()">Add Role</button>
   <button bulk-action mat-button color="warn" (click)="onDeleteActionClicked()">Delete</button>
 
   <!-- COLUMNS -->
   <ng-container matColumnDef="Username">
     <th mat-header-cell *matHeaderCellDef> Username </th>
-    <td mat-cell *matCellDef="let user"> {{user.userName}} </td>
+    <td mat-cell *matCellDef="let userDetails"> {{userDetails.user.userName}} </td>
   </ng-container>
   <ng-container matColumnDef="Email">
     <th mat-header-cell *matHeaderCellDef> Email </th>
-    <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+    <td mat-cell *matCellDef="let userDetails"> {{userDetails.user.email}} </td>
   </ng-container>
   <ng-container matColumnDef="First Name">
     <th mat-header-cell *matHeaderCellDef> First Name </th>
-    <td mat-cell *matCellDef="let user"> {{user.firstName}} </td>
+    <td mat-cell *matCellDef="let userDetails"> {{userDetails.user.firstName}} </td>
   </ng-container>
   <ng-container matColumnDef="Last Name">
     <th mat-header-cell *matHeaderCellDef> Last Name </th>
-    <td mat-cell *matCellDef="let user"> {{user.lastName}} </td>
+    <td mat-cell *matCellDef="let userDetails"> {{userDetails.user.lastName}} </td>
   </ng-container>
 </app-data-table>

@@ -7,5 +7,9 @@ export class CohortModel {
 
   startDate: string;
 
+  trainerUserName: string;
+
+  traineeNames: string[];
+
   cohortCourses: CohortCourseModel[];
 }

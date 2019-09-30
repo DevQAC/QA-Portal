@@ -23,11 +23,10 @@
 
     <modules>
         <module>api-common</module>
-        <module>core-api</module>
-        <module>user-api</module>
-        <module>question-api</module>
-        <module>course-api</module>
-        <module>self-reflection</module>
+        <module>portal-application-api</module>
+        <module>form-api</module>
+        <module>cohort-api</module>
+        <module>self-reflection-api</module>
         <module>feedback-api</module>
         <module>cv-api</module>
     </modules>
