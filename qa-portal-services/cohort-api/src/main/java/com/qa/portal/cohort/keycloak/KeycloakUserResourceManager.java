@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.core.Response;
@@ -83,8 +84,8 @@ public class KeycloakUserResourceManager {
     public void createUserAndRole(QaUserDetailsDto qaUserDetailsDto) {
         try {
             UserRepresentation userRepresentation = createUser(qaUserDetailsDto);
-            RoleRepresentation roleRepresentation = getRoleRepresentation(qaUserDetailsDto.getRoleName());
-            assignRoleToUser(userRepresentation, roleRepresentation);
+            qaUserDetailsDto.getRoleNames().stream()
+                    .forEach(roleName -> assignRoleToUser(userRepresentation, roleName));
         } catch (Exception e) {
             LOGGER.error("Exception creating user is " + e.getMessage(), e);
             throw new QaPortalMultiStepCommitException(new QaMultiStepCommitContext(this.getClass().getName(),
@@ -95,7 +96,7 @@ public class KeycloakUserResourceManager {
     }
 
     public UserRepresentation createUser(QaUserDetailsDto userDetails) {
-        keycloakUserValidator.validateUser(userDetails);
+        keycloakUserValidator.validateUser(userDetails, true);
         UserRepresentation userRepresentation = keycloakUserFactory.createKeycloakUser(userDetails.getUser());
         keycloakAdminClient.getRealm().users().create(userRepresentation);
         sendEmail(userRepresentation);
@@ -103,14 +104,15 @@ public class KeycloakUserResourceManager {
     }
 
     public UserRepresentation updateUser(QaUserDetailsDto userDetails) {
-        keycloakUserValidator.validateUser(userDetails);
-        UserResource userResource = keycloakAdminClient.getRealm().users().get(userDetails.getUser().getUserName());
-        UserRepresentation userRepresentation = userResource.toRepresentation();
+        keycloakUserValidator.validateUser(userDetails, false);
+        UserRepresentation userRepresentation = getUserRepresentation(userDetails.getUser().getUserName())
+                .orElseThrow(() -> new QaPortalBusinessException("User not found in keycloak for username"));
+        List<RoleRepresentation> currentUserRoles = getUserRoles(userRepresentation);
         userRepresentation.setEmail(userDetails.getUser().getEmail());
         userRepresentation.setFirstName(userDetails.getUser().getFirstName());
         userRepresentation.setLastName(userDetails.getUser().getLastName());
-        updateUserRoles(userResource, userDetails);
-        userResource.update(userRepresentation);
+        updateUserRoles(userRepresentation, currentUserRoles, userDetails);
+        keycloakAdminClient.getRealm().users().get(userRepresentation.getId()).update(userRepresentation);
         return userRepresentation;
     }
 
@@ -120,9 +122,17 @@ public class KeycloakUserResourceManager {
                 .forEach(u -> deleteUser(u.getUser().getUserName()));
     }
 
-    public void assignRoleToUser(UserRepresentation userRepresentation, RoleRepresentation roleRepresentation) {
+    public void assignRoleToUser(UserRepresentation userRepresentation, String roleName) {
+        RoleRepresentation roleRepresentation = getRoleRepresentation(roleName);
         UserResource userResource = keycloakAdminClient.getRealm().users().get(userRepresentation.getId());
         userResource.roles().realmLevel().add(Arrays.asList(roleRepresentation));
+    }
+
+    private List<RoleRepresentation> getUserRoles(UserRepresentation userRepresentation) {
+        return keycloakAdminClient.getRealm().users().get(userRepresentation.getId()).roles().getAll().getRealmMappings()
+                .stream()
+                .map(r -> getRoleRepresentation(r.getName()))
+                .collect(Collectors.toList());
     }
 
     private void deleteUser(String userName) {
@@ -137,13 +147,13 @@ public class KeycloakUserResourceManager {
         }
     }
 
-    private void updateUserRoles(UserResource userResource,
+    private void updateUserRoles(UserRepresentation userRepresentation,
+                                 List<RoleRepresentation> currentUserRoles,
                                  QaUserDetailsDto userDetailsDto) {
-        List<RoleRepresentation> allRoles = userResource.roles().realmLevel().listAll();
-        Optional<RoleRepresentation> portalRole = allRoles.stream()
+        List<RoleRepresentation> currentPortalRoles = currentUserRoles.stream()
                 .filter(r -> isPortalRole(r.getName()))
-                .findAny();
-        portalRole.ifPresent(r -> updateRole(userResource, r.getName(), userDetailsDto.getRoleName()));
+                .collect(Collectors.toList());
+        updateRolesForUser(userRepresentation, currentPortalRoles, userDetailsDto.getRoleNames());
     }
 
     private boolean isPortalRole(String roleName) {
@@ -152,18 +162,27 @@ public class KeycloakUserResourceManager {
                 !roleName.startsWith((COHORT_ROLE_PREFIX));
     }
 
-    private void updateRole(UserResource userResource,
-                            String existingPortalRole,
-                            String newPortalRole) {
-        if (!existingPortalRole.equals(newPortalRole)) {
-            // Delete old role
-            List<RoleRepresentation> rolesToDelete = convertToRoleRepresentationList(existingPortalRole);
-            userResource.roles().realmLevel().remove(rolesToDelete);
+    private void updateRolesForUser(UserRepresentation userRepresentation,
+                                    List<RoleRepresentation> existingPortalRoles,
+                                    List<String> newPortalRoles) {
+        UserResource userResource = keycloakAdminClient.getRealm().users().get(userRepresentation.getId());
+        if (!existingPortalRoles.equals(newPortalRoles)) {
+            // Delete old roles
+            deleteRolesFromUser(userResource, existingPortalRoles);
 
-            // Assign new role
-            List<RoleRepresentation> rolesToAdd = convertToRoleRepresentationList(newPortalRole);
-            userResource.roles().realmLevel().add(rolesToAdd);
+            // Assign new roles
+            newPortalRoles.stream()
+                    .forEach(r -> addRoleToUser(userResource, r));
         }
+    }
+
+    private void deleteRolesFromUser(UserResource userResource, List<RoleRepresentation> rolesToDelete) {
+        userResource.roles().realmLevel().remove(rolesToDelete);
+    }
+
+    private void addRoleToUser(UserResource userResource, String roleName) {
+        List<RoleRepresentation> rolesToAdd = convertToRoleRepresentationList(roleName);
+        userResource.roles().realmLevel().add(rolesToAdd);
     }
 
     private List<RoleRepresentation> convertToRoleRepresentationList(String s) {
@@ -205,13 +224,13 @@ public class KeycloakUserResourceManager {
         List<String> existingCohortMemberNames = existingCohortMembers.stream().map(u -> u.getUsername()).collect(Collectors.toList());
         existingCohortMembers.stream()
                 .filter(u -> !(cohortDto.getTraineeNames().contains(u.getUsername()) ||
-                             cohortDto.getTrainerUserName().equals(u.getUsername())))
+                        cohortDto.getTrainerUserName().equals(u.getUsername())))
                 .forEach(u -> removeMemberFromCohort(u, cohortRole));
 
         List<UserRepresentation> newCohortMembers = getNewCohortMembers(cohortDto);
         newCohortMembers.stream()
                 .filter(u -> !existingCohortMemberNames.contains(u.getUsername()))
-                .forEach(u -> assignRoleToUser(u, cohortRole.get(0)));
+                .forEach(u -> assignRoleToUser(u, getCohortRoleName(cohortRole.get(0).getName())));
     }
 
     private List<UserRepresentation> getKeycloakUsersForCohort(String cohortName) {

@@ -8,6 +8,8 @@ public class KeycloakUserConstants {
 
     public static final String COHORT_ROLE_PREFIX = "cohort_";
 
+    public static final String TRAINING_ROLE_PREFIX = "training-";
+
     public static final String TRAINEE_USER_ROLE = "training-user";
 
     public static final String TRAINER_USER_ROLE = "training-manager";

@@ -4,7 +4,7 @@ export class UserDetailsModel {
 
   roleNames: string[];
 
-  cohortName: string;
+  cohortNames: string[];
 
   user: UserModel;
 }

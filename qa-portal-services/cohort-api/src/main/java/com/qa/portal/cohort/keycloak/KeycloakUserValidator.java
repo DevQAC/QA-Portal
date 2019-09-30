@@ -15,15 +15,20 @@ public class KeycloakUserValidator {
         this.keycloakAdminClient = keycloakAdminClient;
     }
 
-    public void validateUser(QaUserDetailsDto userDetails) {
+    public void validateUser(QaUserDetailsDto userDetails, boolean isNewUser) {
         if (StringUtils.isEmpty(userDetails.getUser().getFirstName()) ||
                 StringUtils.isEmpty(userDetails.getUser().getUserName()) ||
                 StringUtils.isEmpty(userDetails.getUser().getLastName())) {
             throw new QaPortalBusinessException("Cannot create user. Not all user details supplied");
         }
 
-        if (userNameExists(userDetails.getUser().getUserName())) {
+        boolean userNameExists = userNameExists(userDetails.getUser().getUserName());
+        if (userNameExists && isNewUser) {
             throw new QaPortalBusinessException("User already exists for supplied username");
+        }
+
+        if (!userNameExists && !isNewUser) {
+            throw new QaPortalBusinessException("User does not exist on keycloak for supplied username");
         }
     }
 

@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.StringWriter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 //@RunWith(SpringRunner.class)
 public class KeycloakResourceManagerTest {
@@ -42,7 +44,7 @@ public class KeycloakResourceManagerTest {
         userDto.setUserName("s2@qa.com");
         userDto.setEmail("scotthmsn@hotmail.com");
         qaUserDetailsDto.setUser(userDto);
-        qaUserDetailsDto.setRoleName("training-user");
+        qaUserDetailsDto.setRoleNames(Stream.of("training-user").collect(Collectors.toList()));
         StringWriter sw = new StringWriter();
         try {
             om.writeValue(sw, qaUserDetailsDto);
