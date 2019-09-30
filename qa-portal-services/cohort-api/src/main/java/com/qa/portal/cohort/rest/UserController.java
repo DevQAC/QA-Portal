@@ -31,6 +31,11 @@ public class UserController {
         return ResponseEntity.ok(service.getAllUsers());
     }
 
+    @GetMapping("user/{id}")
+    public ResponseEntity<QaUserDto> getUser(@PathVariable("id") Integer userId) {
+        return ResponseEntity.ok(service.getUser(userId));
+    }
+
     @GetMapping("/user/trainee/{id}")
 	public ResponseEntity<TraineeDto> getTraineeById(@PathVariable Integer id) {
 		return ResponseEntity.ok(this.service.getTraineeById(id));

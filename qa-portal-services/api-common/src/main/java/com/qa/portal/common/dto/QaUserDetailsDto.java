@@ -1,7 +1,5 @@
 package com.qa.portal.common.dto;
 
-import com.qa.portal.common.dto.QaUserDto;
-
 public class QaUserDetailsDto {
 
     private QaUserDto user;

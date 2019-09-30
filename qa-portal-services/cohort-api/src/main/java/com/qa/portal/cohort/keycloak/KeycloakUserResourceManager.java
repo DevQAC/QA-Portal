@@ -64,6 +64,16 @@ public class KeycloakUserResourceManager {
         this.environment = environment;
     }
 
+    public QaUserDetailsDto getUser(String userName) {
+        return keycloakAdminClient.getRealm().users().search(userName)
+                .stream()
+                .filter(u -> u.getUsername().equals(userName))
+                .findFirst()
+                .map(u -> keycloakUserMapper.mapToUserDetailsDto(keycloakAdminClient.getRealm().users().get(u.getId())))
+                .orElseThrow(() -> new QaPortalBusinessException("No user found for supplied username"));
+
+    }
+
     public List<QaUserDetailsDto> getAllUsers() {
         return keycloakAdminClient.getRealm().users().list().stream()
                 .map(u -> keycloakUserMapper.mapToUserDetailsDto(keycloakAdminClient.getRealm().users().get(u.getId())))
