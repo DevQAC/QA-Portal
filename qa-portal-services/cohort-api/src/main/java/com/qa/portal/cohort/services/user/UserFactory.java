@@ -16,11 +16,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 
-import static com.qa.portal.common.keycloak.KeycloakUserConstants.TRAINEE_USER_ROLE;
-import static com.qa.portal.common.keycloak.KeycloakUserConstants.TRAINER_USER_ROLE;
+import static com.qa.portal.common.keycloak.KeycloakUserConstants.*;
 
 @Component
 public class UserFactory {
@@ -53,7 +51,10 @@ public class UserFactory {
     }
 
     public QaUserDetailsDto createUser(QaUserDetailsDto userDetails) {
-        return Optional.ofNullable(factoryMap.get(userDetails.getRoleNames()))
+        return userDetails.getRoleNames().stream()
+                .filter(r -> r.contains(TRAINING_ROLE_PREFIX))
+                .findFirst()
+                .map(r -> factoryMap.get(r))
                 .map(e -> e.apply(userDetails))
                 .orElseGet(() -> createQaUser(userDetails));
     }
