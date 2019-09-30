@@ -35,7 +35,7 @@ export class UserService {
     const userDetails = new UserDetailsModel();
     user.email = user.userName;
     userDetails.user = user;
-    userDetails.roleName = user.role;
+    userDetails.roleNames = [user.role];
     return this.http.post<UserModel>(CREATE_USER_URL, userDetails, this.httpOptions).pipe(
       take(1)
     );
@@ -43,20 +43,6 @@ export class UserService {
 
   updateUser(user: UserDetailsModel): Observable<UserDetailsModel> {
     return this.http.put<UserDetailsModel>(UPDATE_USERS_URL, user, this.httpOptions).pipe(
-      take(1)
-    );
-  }
-
-  updateRoleForUsers(users: UserDetailsModel[], role: string) {
-    users.forEach(u => u.roleName = role);
-    return this.http.put<UserDetailsModel[]>(UPDATE_USERS_URL, users, this.httpOptions).pipe(
-      take(1)
-    );
-  }
-
-  updateCohortForUsers(users: UserDetailsModel[], cohortName: string) {
-    users.forEach(u => u.cohortName = cohortName);
-    return this.http.put<UserDetailsModel[]>(UPDATE_USERS_URL, users, this.httpOptions).pipe(
       take(1)
     );
   }

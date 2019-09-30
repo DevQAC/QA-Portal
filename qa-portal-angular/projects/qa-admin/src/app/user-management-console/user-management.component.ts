@@ -54,41 +54,11 @@ export class UserManagementComponent implements OnInit {
 
   public onDeleteActionClicked() {
     const users = this.dataTable.getSelectedRowsData();
-
-    console.log('Users to be deleted ' + users.length);
-
     const dialogRef = this.dialog.open(DeleteUserDialogComponent, {data: users});
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.isLoading = true;
         this.userService.deleteUsers(users).subscribe(() => {
-          this.performSearch();
-        });
-      }
-    });
-  }
-
-  public onUpdateCohortActionClicked() {
-    const dialogRef = this.dialog.open(UpdateUserCohortDialogComponent, {});
-
-    dialogRef.afterClosed().subscribe(cohort => {
-      if (cohort) {
-        this.isLoading = true;
-        this.userService.updateCohortForUsers(this.dataTable.getSelectedRowsData(), cohort).subscribe(() => {
-          this.performSearch();
-        });
-      }
-    });
-  }
-
-  public onUpdateRoleActionClicked() {
-    const dialogRef = this.dialog.open(UpdateUserRoleDialogComponent, {});
-
-    dialogRef.afterClosed().subscribe(role => {
-      if (role) {
-        this.isLoading = true;
-        this.userService.updateRoleForUsers(this.dataTable.getSelectedRowsData(), role).subscribe(() => {
           this.performSearch();
         });
       }

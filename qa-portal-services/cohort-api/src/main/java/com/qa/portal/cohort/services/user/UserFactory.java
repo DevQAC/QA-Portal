@@ -53,7 +53,7 @@ public class UserFactory {
     }
 
     public QaUserDetailsDto createUser(QaUserDetailsDto userDetails) {
-        return Optional.ofNullable(factoryMap.get(userDetails.getRoleName()))
+        return Optional.ofNullable(factoryMap.get(userDetails.getRoleNames()))
                 .map(e -> e.apply(userDetails))
                 .orElseGet(() -> createQaUser(userDetails));
     }
