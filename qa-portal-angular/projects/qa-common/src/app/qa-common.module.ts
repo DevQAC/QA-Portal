@@ -98,7 +98,7 @@ const materialModules = [
     ReactiveFormsModule,
     ToastrModule.forRoot(
       {
-        positionClass: 'toast-bottom-center',
+        positionClass: 'toast-bottom-right',
         closeButton: true,
         timeOut: 7000
       }
