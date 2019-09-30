@@ -3,7 +3,7 @@
 </h1>
 
 <mat-card>
-  <mat-card-content>
+  <mat-card-content style="margin-bottom: 0;">
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div formGroupName="user">
         <mat-form-field appearance="outline" class="w-100">
@@ -20,15 +20,15 @@
         </mat-form-field>
       </div>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Role</mat-label>
+        <mat-label>Roles</mat-label>
         <mat-select formControlName="roleNames" multiple>
           <mat-option *ngFor="let role of roles" [value]="role">
             {{role}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <div>
-        <button mat-flat-button color="primary" (click)="onSubmit()"
+      <div style="display: flex" >
+        <button mat-flat-button color="primary" (click)="onSubmit()" style="margin-left: auto"
           [disabled]="isLoading || userForm.invalid">Update</button>
       </div>
     </form>
