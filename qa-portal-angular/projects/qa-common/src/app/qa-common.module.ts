@@ -38,6 +38,7 @@ import { SearchBarBackdropComponent } from './search-bar-backdrop/search-bar-bac
 import { CommonModule } from '@angular/common';
 import { DataTableComponent } from './data-table/data-table.component';
 import { SpinnerOverlayComponent } from './spinner-overlay/spinner-overlay.component';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 const iconsMap = [
   { name: 'qa-logo', path: 'assets/qa.svg' },
@@ -80,7 +81,8 @@ const materialModules = [
   MatSnackBarModule,
   MatTableModule,
   MatSortModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatMomentDateModule
 ];
 
 @NgModule({

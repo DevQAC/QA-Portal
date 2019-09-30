@@ -5,7 +5,7 @@ export class CohortModel {
 
   name: string;
 
-  startDate: Date;
+  startDate: string;
 
   cohortCourses: CohortCourseModel[];
 }

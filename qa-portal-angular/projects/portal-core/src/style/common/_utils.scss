@@ -7,10 +7,43 @@
 }
 
 
+
+// MARGIN
+$margin-increments: 0 1rem 2rem 3rem;
+
+@each $margin in $margin-increments {
+    $i: index($margin-increments, $margin)-1;
+
+    .mb-#{$i},
+    .mx-#{$i},
+    .m-#{$i} {
+        margin-bottom: $margin;
+    }
+
+    .mt-#{$i},
+    .mx-#{$i},
+    .m-#{$i} {
+        margin-top: $margin;
+    }
+
+    .ml-#{$i},
+    .my-#{$i},
+    .m-#{$i} {
+        margin-bottom: $margin;
+    }
+
+    .mr-#{$i},
+    .my-#{$i},
+    .m-#{$i} {
+        margin-top: $margin;
+    }
+}
+
 .mx-auto {
     margin-left: auto !important;
     margin-right: auto !important;
 }
+
 .my-auto {
     margin-top: auto !important;
     margin-bottom: auto !important;

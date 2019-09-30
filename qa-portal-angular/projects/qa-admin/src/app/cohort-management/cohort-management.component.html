@@ -8,7 +8,7 @@
 <app-search-bar [hasFilterPanel]="false" (search)="performSearch()" [(value)]="searchInput"></app-search-bar>
 
 <app-data-table #dataTable [displayedColumns]="displayedColumns" [dataSource]="cohortsTableDataSource"
-    [isLoading]="isLoading">
+    [isLoading]="isLoading" (rowClick)="onRowClicked($event)">
     <button bulk-action mat-button color="primary">Edit</button>
 
     <ng-container matColumnDef="cohortName">

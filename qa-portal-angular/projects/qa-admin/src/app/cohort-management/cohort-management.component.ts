@@ -4,6 +4,7 @@ import { ICohort } from '../_common/models/cohort.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CohortService } from '../_common/services/cohort.service';
 import { DataTableComponent } from 'projects/qa-common/src/app/data-table/data-table.component';
+import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 
 @Component({
   selector: 'app-cohort-management',
@@ -27,7 +28,7 @@ export class CohortManagementComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private cohortService: CohortService  ) { }
+    private cohortService: CohortService) { }
 
 
   ngOnInit() {
@@ -50,6 +51,10 @@ export class CohortManagementComponent implements OnInit {
 
   public onAddCohortButtonClicked(): void {
     console.warn('Add new cohort not implemented!');
+  }
+
+  onRowClicked(event: IRowClickEvent<ICohort>): void {
+    this.router.navigate(['qa', 'portal', 'admin', 'manage', 'cohorts', event.data.cohortName]); // TODO: Migrate to CohortModel
   }
 
 }

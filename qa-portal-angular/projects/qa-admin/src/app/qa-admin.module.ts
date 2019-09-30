@@ -11,6 +11,12 @@ import { DeleteUserDialogComponent } from './user-management-console/delete-user
 import { UpdateUserCohortDialogComponent } from './user-management-console/update-user-cohort-dialog/update-user-cohort-dialog.component';
 import { UpdateUserRoleDialogComponent } from './user-management-console/update-user-role-dialog/update-user-role-dialog.component';
 import { AddUserDialogComponent } from './user-management-console/add-user-dialog/add-user-dialog.component';
+import { CohortDetailComponent } from './cohort-detail/cohort-detail.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 
 
 @NgModule({
@@ -23,10 +29,16 @@ import { AddUserDialogComponent } from './user-management-console/add-user-dialo
     DeleteUserDialogComponent,
     UpdateUserCohortDialogComponent,
     UpdateUserRoleDialogComponent,
+    CohortDetailComponent
   ],
   imports: [
     QaCommonModule,
-    QaAdminRoutingModule
+    QaAdminRoutingModule,
+    DragDropModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   providers: [],
   entryComponents: [
