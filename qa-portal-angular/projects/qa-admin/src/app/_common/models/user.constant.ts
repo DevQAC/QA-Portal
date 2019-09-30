@@ -11,3 +11,5 @@ export const UPDATE_USER_URL = 'cohort-api/manage/user';
 export const GET_COHORTS_URL = 'cohort-api/cohorts';
 
 export const GET_PORTAL_ROLES_URL = 'portal-application-api/manage/roles';
+
+export const GET_USER_BY_USERNAME_URL = 'cohort-api/manage/user/';

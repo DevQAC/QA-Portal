@@ -8,6 +8,7 @@ import {UpdateUserCohortDialogComponent} from './update-user-cohort-dialog/updat
 import {UpdateUserRoleDialogComponent} from './update-user-role-dialog/update-user-role-dialog.component';
 import {AddUserDialogComponent} from './add-user-dialog/add-user-dialog.component';
 import {UserDetailsModel} from '../../../../portal-core/src/app/_common/models/user-details.model';
+import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 
 @Component({
   selector: 'app-user-management',
@@ -72,5 +73,9 @@ export class UserManagementComponent implements OnInit {
         this.performSearch();
       }
     });
+  }
+
+  public onRowClicked(event: IRowClickEvent<UserDetailsModel>): void {
+    this.router.navigate(['qa', 'portal', 'admin', 'manage', 'users', event.data.user.userName]);
   }
 }

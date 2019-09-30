@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {CREATE_USER_URL, DELETE_USERS_URL, GET_ALL_USERS_URL, UPDATE_USERS_URL} from '../models/user.constant';
-import {take} from 'rxjs/operators';
-import {UserDetailsModel} from '../../../../../portal-core/src/app/_common/models/user-details.model';
-import {UserModel} from '../../../../../portal-core/src/app/_common/models/user.model';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CREATE_USER_URL, DELETE_USERS_URL, GET_ALL_USERS_URL, UPDATE_USERS_URL, GET_USER_BY_USERNAME_URL, UPDATE_USER_URL } from '../models/user.constant';
+import { take } from 'rxjs/operators';
+import { UserDetailsModel } from '../../../../../portal-core/src/app/_common/models/user-details.model';
+import { UserModel } from '../../../../../portal-core/src/app/_common/models/user.model';
+import { O_DIRECT } from 'constants';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import {UserModel} from '../../../../../portal-core/src/app/_common/models/user.
 export class UserService {
 
   httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'}),
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
   constructor(
@@ -42,7 +43,7 @@ export class UserService {
   }
 
   updateUser(user: UserDetailsModel): Observable<UserDetailsModel> {
-    return this.http.put<UserDetailsModel>(UPDATE_USERS_URL, user, this.httpOptions).pipe(
+    return this.http.put<UserDetailsModel>(UPDATE_USER_URL, user, this.httpOptions).pipe(
       take(1)
     );
   }
