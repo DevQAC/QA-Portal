@@ -92,10 +92,11 @@ export class DataTableComponent<DataType> implements AfterContentInit {
 
   public onRowCheckboxClicked(event: MouseEvent, index: number) {
     event.preventDefault(); // Stop default checkbox behaviour
+    event.stopPropagation(); // Stop the row from clicking when using a checkbox
 
     if (event.shiftKey && this.lastSelectionIndex !== null) { // SHIFT click
       if (!event.ctrlKey) {
-        this.rowSelection = []; // Not holding CTRL too? Clear existing slection.
+        this.rowSelection = []; // Not holding CTRL too? Clear existing selection.
       }
 
       this.rowSelection[index] = true; // Set clicked row to true.

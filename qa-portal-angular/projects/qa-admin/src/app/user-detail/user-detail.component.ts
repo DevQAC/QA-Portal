@@ -32,12 +32,12 @@ export class UserDetailComponent implements OnInit {
     this.userForm = new FormBuilder().group({
       user: new FormBuilder().group(
         {
-          userName: ['', [Validators.required, Validators.email]],
+          userName: [''],
           firstName: ['', [Validators.required]],
           lastName: ['', [Validators.required]],
         }
       ),
-      roleName: ['']
+      roleNames: [['']]
     });
 
     this.userForm.disable();
@@ -64,7 +64,14 @@ export class UserDetailComponent implements OnInit {
   public onSubmit() {
     this.isLoading = true;
     this.userForm.disable();
-    const userData: UserDetailsModel = _.merge(this.fetchedUser, this.userForm.value);
+    const userData: UserDetailsModel = {
+      ...this.fetchedUser,
+      ...this.userForm.value,
+      user: {
+        ...this.fetchedUser.user,
+        ...this.userForm.value.user
+      }
+    };
     this.userService.updateUser(userData).pipe(take(1))
       .subscribe(user => {
         this.userForm.patchValue({ user });

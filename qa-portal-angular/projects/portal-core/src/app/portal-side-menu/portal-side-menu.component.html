@@ -1,24 +1,26 @@
 <mat-drawer-container class="portal-drawer-container" [class.expanded]="sideMenuService.sideMenuOpen" autosize>
-  <mat-drawer #drawer class="portal-drawer mat-elevation-z2" mode="side" [opened]="true">
-    <div class="side-menu-content-wrapper">
-      <div data-simplebar class="side-menu-body">
-        <app-portal-side-menu-content></app-portal-side-menu-content>
-      </div>
-      <div class="side-menu-fixed-bottom">
-        <button mat-button (click)="sideMenuService.toggleOpen()" class="menu-item drawer-toggle">
-          <div class="menu-item-content">
-            <div class="menu-item-icon">
-              <mat-icon>chevron_right</mat-icon>
-            </div>
-            <div style="width: 100%; text-overflow:ellipsis; overflow: hidden; text-align: left; margin: auto 0;">
-              <span>
-                Collapse sidebar
-              </span>
-            </div>
-          </div>
-        </button>
-      </div>
+  <mat-drawer #drawer class="portal-drawer mat-elevation-z2" mode="side" [opened]="true"
+    [@sidenavAnimationIsExpanded]="sideMenuService.sideMenuOpen" (@sidenavAnimationIsExpanded.start)="start()"
+    (@sidenavAnimationIsExpanded.done)="done()">
+  <div class="side-menu-content-wrapper">
+    <div data-simplebar class="side-menu-body">
+      <app-portal-side-menu-content></app-portal-side-menu-content>
     </div>
+    <div class="side-menu-fixed-bottom">
+      <button mat-button (click)="sideMenuService.toggleOpen()" class="menu-item drawer-toggle">
+        <div class="menu-item-content">
+          <div class="menu-item-icon">
+            <mat-icon>chevron_right</mat-icon>
+          </div>
+          <div style="width: 100%; text-overflow:ellipsis; overflow: hidden; text-align: left; margin: auto 0;">
+            <span>
+              Collapse sidebar
+            </span>
+          </div>
+        </div>
+      </button>
+    </div>
+  </div>
 
 
   </mat-drawer>
