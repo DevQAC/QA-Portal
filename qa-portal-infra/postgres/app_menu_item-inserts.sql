@@ -1,3 +1,0 @@
-INSERT INTO training.app_menu_item (id, name, url, level, app_id, tooltip) VALUES (2, 'Current Reflection', '/qa/portal/training/trainee/reflection/create', 1, 1, 'Create or update current reflection');
-INSERT INTO training.app_menu_item (id, name, url, level, app_id, tooltip) VALUES (1, 'Reflection List', '/qa/portal/training/trainee/reflection/home', 1, 1, 'View reflection history');
-INSERT INTO training.app_menu_item (id, name, url, level, app_id, tooltip) VALUES (3, 'Home', '/qa/portal/home', 1, 5, 'Portal Home page');
