@@ -32,7 +32,7 @@ export class UserDetailComponent implements OnInit {
     this.userForm = new FormBuilder().group({
       user: new FormBuilder().group(
         {
-          userName: ['', [Validators.required, Validators.email]],
+          userName: [''],
           firstName: ['', [Validators.required]],
           lastName: ['', [Validators.required]],
         }
