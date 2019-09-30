@@ -2,7 +2,7 @@ import {UserModel} from './user.model';
 
 export class UserDetailsModel {
 
-  roleName: string;
+  roleNames: string[];
 
   cohortName: string;
 
