@@ -29,7 +29,7 @@ export class SideMenuService {
 
   /**
    * Sets the side menu open state.
-   * @returns returns the new state of the side menu
+   * @returns returns the new state of the side menuP
    */
   public setOpenState(open: boolean): boolean {
     this.sideMenuOpen = open;
