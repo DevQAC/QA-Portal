@@ -2,7 +2,6 @@ package com.qa.portal.cohort.keycloak.mapper;
 
 import com.qa.portal.common.dto.QaUserDetailsDto;
 import com.qa.portal.common.dto.QaUserDto;
-import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -11,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.qa.portal.common.keycloak.KeycloakUserConstants.*;
 
@@ -23,8 +23,8 @@ public class KeycloakUserMapper {
         QaUserDetailsDto userDetailsDto = new QaUserDetailsDto();
         UserRepresentation userRepresentation = userResource.toRepresentation();
         userDetailsDto.setUser(createUserDto(userRepresentation));
-        userDetailsDto.setRoleName(getPortalRole(userResource.roles().realmLevel().listAll()));
-        userDetailsDto.setCohortName(getCohortName(userResource.roles().realmLevel().listAll()));
+        userDetailsDto.setRoleNames(getPortalRoles(userResource.roles().realmLevel().listAll()));
+        userDetailsDto.setCohortNames(getCohortNames(userResource.roles().realmLevel().listAll()));
         return userDetailsDto;
     }
 
@@ -37,20 +37,18 @@ public class KeycloakUserMapper {
         return userDto;
     }
 
-    private String getPortalRole(List<RoleRepresentation> realmRoles) {
+    private List<String> getPortalRoles(List<RoleRepresentation> realmRoles) {
         return realmRoles.stream()
                 .filter(r -> isPortalRole(r.getName()))
-                .findFirst()
                 .map(r -> r.getName())
-                .orElseThrow(() -> new QaPortalBusinessException("No role set up for user"));
+                .collect(Collectors.toList());
     }
 
-    private String getCohortName(List<RoleRepresentation> realmRoles) {
+    private List<String> getCohortNames(List<RoleRepresentation> realmRoles) {
         return realmRoles.stream()
                 .filter(r -> r.getName().startsWith(COHORT_ROLE_PREFIX))
                 .map(r -> r.getName())
-                .findFirst()
-                .orElseGet(() -> null);
+                .collect(Collectors.toList());
     }
 
     private boolean isPortalRole(String roleName) {

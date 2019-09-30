@@ -39,9 +39,15 @@ public class UpdateUserOperation {
     }
 
     private QaUserDetailsDto updateExistingUser(QaUserDetailsDto userDetailsDto) {
-        QaUserEntity userEntity = baseMapper.mapToQaUserEntity(userDetailsDto.getUser());
-        userRepository.save(userEntity);
-        userDetailsDto.setUser(baseMapper.mapToQaUserDto(userEntity));
+        return getUser(userDetailsDto)
+                .map(u -> updateExistingUser(u, userDetailsDto))
+                .orElseThrow(() -> new QaPortalBusinessException("No user found for supplied username"));
+    }
+
+    private QaUserDetailsDto updateExistingUser(QaUserEntity existingUserEntity, QaUserDetailsDto userDetailsDto) {
+        existingUserEntity.setFirstName(userDetailsDto.getUser().getFirstName());
+        existingUserEntity.setLastName(userDetailsDto.getUser().getLastName());
+        userDetailsDto.setUser(baseMapper.mapToQaUserDto(existingUserEntity));
         return userDetailsDto;
     }
 

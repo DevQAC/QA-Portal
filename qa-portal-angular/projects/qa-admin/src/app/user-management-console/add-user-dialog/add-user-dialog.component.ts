@@ -14,6 +14,7 @@ import {UserModel} from '../../../../../portal-core/src/app/_common/models/user.
 export class AddUserDialogComponent implements OnInit {
 
   public userForm: FormGroup;
+
   public roles: string[];
 
   public isLoading = false;
@@ -50,5 +51,4 @@ export class AddUserDialogComponent implements OnInit {
       this.dialogRef.close(user);
     });
   }
-
 }

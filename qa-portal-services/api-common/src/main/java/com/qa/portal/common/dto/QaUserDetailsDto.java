@@ -1,12 +1,14 @@
 package com.qa.portal.common.dto;
 
+import java.util.List;
+
 public class QaUserDetailsDto {
 
     private QaUserDto user;
 
-    private String roleName;
+    private List<String> roleNames;
 
-    private String cohortName;
+    private List<String> cohortNames;
 
     public QaUserDto getUser() {
         return user;
@@ -16,19 +18,19 @@ public class QaUserDetailsDto {
         this.user = user;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public List<String> getRoleNames() {
+        return roleNames;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRoleNames(List<String> roleNames) {
+        this.roleNames = roleNames;
     }
 
-    public String getCohortName() {
-        return cohortName;
+    public List<String> getCohortNames() {
+        return cohortNames;
     }
 
-    public void setCohortName(String cohortName) {
-        this.cohortName = cohortName;
+    public void setCohortNames(List<String> cohortNames) {
+        this.cohortNames = cohortNames;
     }
 }
