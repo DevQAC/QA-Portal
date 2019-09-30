@@ -1,0 +1,439 @@
+{
+  "realm" : "qa-portal",
+  "users" : [ {
+    "id" : "75d03f83-f31d-4bb2-8ac9-c4f31d3ab86c",
+    "createdTimestamp" : 1565856059702,
+    "username" : "admin1@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Dave",
+    "lastName" : "Admin1",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "4SvceVAUaUda9kb65Z+d1cykSFBQ92FoeYeIzv2NjQraBUw4G6NTsOze1Ge+QOWAnqB/5vIzRfwy5a659tm1Kw==",
+      "salt" : "LHCM0MlvB7leS1QvGp04bw==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1565856068047,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "training-admin", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "09fe7c36-b91f-4600-886f-064489cf54db",
+    "createdTimestamp" : 1567438231582,
+    "username" : "adminclient1@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "Gu854VBJSZXreczm7vFvJi620z6WoG9qdxu4x2ghU+KcKUvl0Sm6/Hi9WA8DY2zAjc2cWRSWIdjEelIDURNgiw==",
+      "salt" : "SS5U7ON0mgfdXV9GH3Iscg==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1568717754993,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "uma_authorization", "offline_access", "super-user" ],
+    "clientRoles" : {
+      "realm-management" : [ "manage-realm", "query-groups", "query-realms", "manage-clients", "query-users", "create-client", "query-clients", "realm-admin", "manage-events", "manage-identity-providers", "view-realm", "impersonation", "manage-users", "manage-authorization" ],
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "4689287a-30ba-4608-9901-f3469618de3a",
+    "createdTimestamp" : 1569314115071,
+    "username" : "scotthmsn@hotmail.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Scot",
+    "lastName" : "Thomson",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "cdqBgHF54MnNfWqjOrMtMGEJZulE8J3GyuNgq2xQ5iGgBfAYpnSQbF60F+YtnteC2bBlPZQ5NRWubiLKLGHF2A==",
+      "salt" : "/Hif70dIPu5IZFJpZcGybw==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1569314180521,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "training-user", "cohort_CI_Intake_1", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "db7dc0eb-43e2-4b12-8382-6e44400924fe",
+    "createdTimestamp" : 1569840033809,
+    "username" : "scotttest1@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Scott",
+    "lastName" : "Test1h",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "Snnu5OB5z/TfOUneSsl6gfT3lu3UmHl7HBTKMPhyhHKdj/U8oOVKZfpf2ALT524yNlvWTrAeyWUjxD8gP/394Q==",
+      "salt" : "JhGkue4yG/LSjYl6iZLD8Q==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1569840033818,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "UPDATE_PASSWORD" ],
+    "realmRoles" : [ "offline_access", "training-user", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "0b7fe82f-f2c3-41cc-bca1-ee64156b9ee4",
+    "createdTimestamp" : 1569843438866,
+    "username" : "test2@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Scott",
+    "lastName" : "Test2a",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "b8Fckn4gydQyaDPpbmbUWLx15Tu1B14TUX4lHTvWshX7dTdWsbsBhlcSZ4kB2y+gtxtEO1f8LCB9i7htXf+gRg==",
+      "salt" : "W04WIT/rvIMEs7HDKSJbsg==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1569843438871,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "UPDATE_PASSWORD" ],
+    "realmRoles" : [ "offline_access", "training-user", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "ba55f2ba-ff5c-4b1b-9f71-bd4c9584108d",
+    "createdTimestamp" : 1569844082568,
+    "username" : "test3@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Scott",
+    "lastName" : "Test3b",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "O0Zr3TB9mNNHkbC5iakZx//DP3DXlcsMaCvodhAZLej1Z9rx0uJ9pRwEI0edIeXQJNeUeplKyavUGvgvDrz1/Q==",
+      "salt" : "IOAWIS5onp0WPbQC+csoDg==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1569844082576,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "UPDATE_PASSWORD" ],
+    "realmRoles" : [ "offline_access", "training-user", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "92b92836-44fb-45c2-8bed-0a4efb68b601",
+    "createdTimestamp" : 1565724551667,
+    "username" : "trainee1@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Jim",
+    "lastName" : "Trainee1",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "i4Qgig2IT8cF2epZhSplb614UqrOvsKaqs02V3jXT8s3yksD0s6iAodAeilqzS5NZJ3UEui3pSDKcycVPlBueg==",
+      "salt" : "gvEuSvm6lUzgPRw+w+6WOQ==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1565724563307,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "training-user", "cohort_CI_Intake_1", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "2aff7864-9f45-41d0-a0e8-46f4e35a026c",
+    "createdTimestamp" : 1565724598904,
+    "username" : "trainee2@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Joe",
+    "lastName" : "Trainee2",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "aelDlIOXMNR2VSyM1QetHMx6x4hBulOT6E8+khC6XFrtPS5lEERF6nZzMIGl6fsv04fyutvlIGdkbPKH1Mt7BA==",
+      "salt" : "nFeZUTcs+srnQC0q/E/azQ==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1565724613862,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "training-user", "cohort_CI_Intake_1", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "a7535ac2-d394-4ae2-aa80-76566140d773",
+    "createdTimestamp" : 1568024784009,
+    "username" : "trainee3@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Katy",
+    "lastName" : "Trainee3",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "45nA2QlFl1CEH3kvhq/TNMsKEqGEbnTbK+WARgNY1/TGG4wLXqwkLuVYanEXkP7Iv6QmInQcLYeJOfvVstoynA==",
+      "salt" : "X2MWCoMk4C48AxHfJLr5Fg==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1568024792956,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "training-user", "cohort_CI_Intake_1", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "c47464d0-423b-4d0e-842b-313cbba99987",
+    "createdTimestamp" : 1568024824478,
+    "username" : "trainee4@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Harry",
+    "lastName" : "Trainee4",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "qjFo7yp/l92xJa0uYqyUlP4mA7FO7qQslVOC5q+2Echh8BJg5mK/I4ZNzc7EOih67KRirAZH4MSJ8Laa4tGRxA==",
+      "salt" : "bVH63+6y1QlJ+8a9m4Eyiw==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1568024848033,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "training-user", "cohort_CI_Intake_1", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "c58eec58-9fb3-43b2-b4fe-03f5aa4c45cb",
+    "createdTimestamp" : 1569246594302,
+    "username" : "trainee51@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Scott",
+    "lastName" : "Trainee51",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "rcAznltJzH0PQ/TQzlmm9RUWcIH5LM1eYLC2OwREX9ykoJga2RB0S7DZwI3gyl7/LWYUkB0YbQyKAm8M8vEfqg==",
+      "salt" : "GnnbEJTGpLZxHtlME3LPXQ==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1569246594310,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "UPDATE_PASSWORD" ],
+    "realmRoles" : [ "offline_access", "training-user", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "0da72bf5-7168-4bf8-80fd-373bf2b5c698",
+    "createdTimestamp" : 1569246620173,
+    "username" : "trainee52@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Derek",
+    "lastName" : "Trainee52",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "1+Eu8Tke59Zi6sY5Z4oygoivnaFEjJaoOh82WjwJ4EqmtIv5bHm7KziPjZEg4I/J2bU6e7dCiaeVnfrOlh2wvg==",
+      "salt" : "OykaOLyeDNNaSch98Cv7gw==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1569246620174,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ "UPDATE_PASSWORD" ],
+    "realmRoles" : [ "offline_access", "training-user", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "7b2125e5-5bd8-4da7-a28b-f89e0818d48e",
+    "createdTimestamp" : 1565875504757,
+    "username" : "trainee6@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Ray",
+    "lastName" : "Trainee6",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "ytxy+vKHOCnh35KFJ/kx8r877GYwANHJ0CLKdmyHj0QYy1Kjj9mx7AR7+M+4UtknyvvDplsbw9mvrjdwnXfX/A==",
+      "salt" : "LKiYC1mnzim6tOm5/N2RiA==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1565875513784,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "training-user", "uma_authorization", "cohort_CI_Intake_2" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "43bb53ea-65c4-4d12-8f77-c096e367eb09",
+    "createdTimestamp" : 1565724653222,
+    "username" : "trainer1@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Pete",
+    "lastName" : "Trainer1",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "GUa0Y5OGZzzkBzxl16fRpiefD6Q+1Gqf3MlzpbONQeSETGHGfshq2icB9LPHKtDWHqSUie1AwaL+qsvooZ1q4A==",
+      "salt" : "6F262Fc1HgeY0hEIgD4niQ==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1565724664512,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "training-manager", "cohort_CI_Intake_1", "uma_authorization", "cohort_CI_Intake_2" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "70739eb5-9540-4b84-a3f9-2ac15dd17a5c",
+    "createdTimestamp" : 1569250206204,
+    "username" : "trainer2@qa.com",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Harry",
+    "lastName" : "Trainer2",
+    "email" : "trainer2@qa.com",
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "AQqxtbqMAYisSCL1vEpeRIQpz2PQQ5KDMkrF0frarz5OwjG3qQQ4iWuQmfJ7688f4Mp/+qpHJC4hwisYb8JsBA==",
+      "salt" : "wtAFvF7gAHu+5TDuyH+xsg==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "createdDate" : 1569250214106,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "training-manager", "uma_authorization", "cohort_CI_Intake_2" ],
+    "clientRoles" : {
+      "account" : [ "view-profile", "manage-account" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}
