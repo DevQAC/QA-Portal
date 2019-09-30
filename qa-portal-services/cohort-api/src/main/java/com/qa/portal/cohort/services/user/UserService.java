@@ -41,6 +41,11 @@ public class UserService {
     }
 
     @Transactional
+    public QaUserDto getUser(Integer id) {
+        return getUsersOperation.getUser(id);
+    }
+
+    @Transactional
     public UserSkillsDto getTraineeSkills(QaSecurityContext qaSecurityContext) {
         return getTraineeSkillsOperation.getSkillsForTrainee(qaSecurityContext);
     }

@@ -2,6 +2,7 @@ package com.qa.portal.cohort.services.user;
 
 import com.qa.portal.cohort.keycloak.KeycloakUserResourceManager;
 import com.qa.portal.common.dto.QaUserDetailsDto;
+import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,10 @@ public class UserManagementService {
         this.deleteUserOperation = deleteUserOperation;
         this.getTrainerCohortsOperation = getTrainerCohortsOperation;
         this.cohortRepository = cohortRepository;
+    }
+
+    public QaUserDetailsDto getUserFromKeycloak(String userName) {
+        return keycloakUserResourceManager.getUser(userName);
     }
 
     public List<QaUserDetailsDto> getAllUsersFromKeycloak() {

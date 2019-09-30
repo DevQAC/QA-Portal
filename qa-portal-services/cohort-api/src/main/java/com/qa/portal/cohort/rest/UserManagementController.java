@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @RestController
@@ -26,6 +27,10 @@ public class UserManagementController {
         this.qaSecurityContext = qaSecurityContext;
     }
 
+    @GetMapping("user/{userName}")
+    public ResponseEntity<QaUserDetailsDto> getUserFromKeycloak(@PathVariable("userName") String userName) {
+        return ResponseEntity.ok(userManagementService.getUserFromKeycloak(userName));
+    }
 
     @GetMapping("users")
     public ResponseEntity<List<QaUserDetailsDto>> getUsersFromKeycloak() {
