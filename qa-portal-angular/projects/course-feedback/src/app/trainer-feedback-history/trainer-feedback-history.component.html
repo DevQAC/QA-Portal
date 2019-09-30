@@ -7,10 +7,6 @@
 </div>
 
 <mat-card *ngIf="!dataLoading">
-<!--  <mat-card-title>-->
-<!--    Course Feedback Summary-->
-<!--  </mat-card-title>-->
-
   <mat-card-subtitle>
     Trainer Courses
   </mat-card-subtitle>
@@ -45,7 +41,9 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr class="data-row" mat-row *matRowDef="let row; columns: displayedColumns;"
+        <tr class="data-row" mat-row
+            *matRowDef="let row; columns: displayedColumns;"
+            matTooltip="Select to access Trainer Feedback Form for {{row.course.courseName}} course"
             [routerLink]="getFeedbackUrl(row.id)">
       </table>
     </div>
