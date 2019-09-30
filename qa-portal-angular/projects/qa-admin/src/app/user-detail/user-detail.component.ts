@@ -37,7 +37,7 @@ export class UserDetailComponent implements OnInit {
           lastName: ['', [Validators.required]],
         }
       ),
-      roleNames: [['']]
+      roleNames: [[]]
     });
 
     this.userForm.disable();
