@@ -8,7 +8,8 @@
 <app-search-bar [hasFilterPanel]="false" (search)="performSearch()" [(value)]="searchInput"></app-search-bar>
 
 
-<app-data-table #table [dataSource]="dataSource" [displayedColumns]="displayedColumns" [isLoading]="isLoading">
+<app-data-table #table [dataSource]="dataSource" [displayedColumns]="displayedColumns" [isLoading]="isLoading"
+  (rowClick)="onRowClicked($event)">
   <!-- BULK ACTIONS -->
   <button bulk-action mat-button color="warn" (click)="onDeleteActionClicked()">Delete</button>
 

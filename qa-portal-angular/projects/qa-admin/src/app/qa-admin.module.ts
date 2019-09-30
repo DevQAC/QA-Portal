@@ -12,6 +12,7 @@ import { UpdateUserCohortDialogComponent } from './user-management-console/updat
 import { UpdateUserRoleDialogComponent } from './user-management-console/update-user-role-dialog/update-user-role-dialog.component';
 import { AddUserDialogComponent } from './user-management-console/add-user-dialog/add-user-dialog.component';
 import {RoleService} from './_common/services/role.service';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {RoleService} from './_common/services/role.service';
     DeleteUserDialogComponent,
     UpdateUserCohortDialogComponent,
     UpdateUserRoleDialogComponent,
+    UserDetailComponent,
   ],
   imports: [
     QaCommonModule,
