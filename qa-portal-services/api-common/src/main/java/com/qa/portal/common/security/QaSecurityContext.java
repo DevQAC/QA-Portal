@@ -47,6 +47,12 @@ public class QaSecurityContext {
         return getAccessToken().getFamilyName();
     }
 
+    public String getAuthToken() {
+        KeycloakAuthenticationToken token = (KeycloakAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        KeycloakSecurityContext keycloakContext = token.getAccount().getKeycloakSecurityContext();
+        return keycloakContext.getTokenString();
+    }
+
     private AccessToken getAccessToken() {
         KeycloakAuthenticationToken token = (KeycloakAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         KeycloakSecurityContext keycloakContext = token.getAccount().getKeycloakSecurityContext();

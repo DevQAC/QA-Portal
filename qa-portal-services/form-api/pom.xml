@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.qa.portal</groupId>
-    <artifactId>question-api</artifactId>
+    <artifactId>form-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>form-api</name>
     <description>QA Portal Form API</description>
