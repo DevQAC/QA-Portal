@@ -68,7 +68,6 @@ export class CohortDetailComponent implements OnInit {
         this.cohortForm.patchValue(cohort);
         this.isLoading = false;
         this.cohortForm.enable();
-        // debugger;
       },
         (err) => this.errorService.handleError(err)
       );
@@ -108,10 +107,10 @@ export class CohortDetailComponent implements OnInit {
     this.refreshCalendar.next();
   }
 
-
   public eventClicked({ event, ...rest }: { event: CalendarEvent }): void {
     console.log('Event clicked', event, rest);
   }
+
   public dayClicked({ day }): void {
     const dialog = this.dialog.open(
       AddCourseDialogComponent,
