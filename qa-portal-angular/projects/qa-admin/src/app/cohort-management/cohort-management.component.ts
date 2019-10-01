@@ -52,7 +52,7 @@ export class CohortManagementComponent implements OnInit {
   }
 
   onRowClicked(event: IRowClickEvent<CohortModel>): void {
-    this.router.navigate(['qa', 'portal', 'admin', 'manage', 'cohorts', event.data.name]);
+    this.router.navigate(['qa', 'portal', 'admin', 'manage', 'cohorts', event.data.id]);
   }
 
 }

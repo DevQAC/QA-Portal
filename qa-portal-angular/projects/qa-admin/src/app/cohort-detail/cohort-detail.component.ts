@@ -6,6 +6,12 @@ import { CalendarEvent } from 'calendar-utils';
 
 import * as moment from 'moment';
 import business from 'moment-business';
+import { CohortService } from '../_common/services/cohort.service';
+import { forkJoin } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 
 @Component({
   selector: 'app-cohort-detail',
@@ -69,10 +75,29 @@ export class CohortDetailComponent implements OnInit {
   public selectedCourses: CourseModel[] = [
   ];
 
-  constructor() { }
+
+  public cohortForm: FormGroup;
+  public isLoading = true;
+
+  constructor(
+    private cohortService: CohortService,
+    private aR: ActivatedRoute,
+    private errorService: QaErrorHandlerService) { }
 
   ngOnInit() {
     // this.availableEvents = this.availableCourses.map(course => this.courseToCalendarEvent(course));
+
+    forkJoin(
+      this.cohortService.getCohortById(this.aR.snapshot.params.id)
+    ).pipe(take(1))
+      .subscribe(([cohort]) => {
+
+        // this.userForm.patchValue({ ...user });
+        this.isLoading = false;
+        // this.cohortForm.enable();
+      },
+        (err) => this.errorService.handleError(err)
+      );
   }
 
   private courseToCalendarEvent(course: CourseModel, start = moment()): CalendarEvent<CourseModel> {
