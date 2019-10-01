@@ -15,6 +15,9 @@ import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/serv
 import { CourseService } from '../_common/services/course.service';
 import { CohortCourseModel } from 'projects/portal-core/src/app/_common/models/cohort-course.model';
 import { CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { MatDialog } from '@angular/material';
+import { AddCourseDialogComponent } from './add-course-dialog/add-course-dialog.component';
+import { TrainerModel } from 'projects/portal-core/src/app/_common/models/trainer.model';
 
 @Component({
   selector: 'app-cohort-detail',
@@ -23,25 +26,21 @@ import { CalendarEventTimesChangedEvent } from 'angular-calendar';
 })
 export class CohortDetailComponent implements OnInit {
 
-  public viewDate: Date = new Date();
-  public calendarEvents: CalendarEvent<CohortCourseModel>[] = [
-  ];
-
   public cohort: CohortModel;
-
+  public availableTrainers: TrainerModel[] = [];
   public availableCourses: CourseModel[] = [];
-
-  public selectedCourses: CourseModel[] = [
-  ];
-
+  public calendarEvents: CalendarEvent<CohortCourseModel>[] = [];
+  public viewDate: Date = new Date();
+  public refreshCalendar = new Subject<any>();
   public cohortForm: FormGroup;
   public isLoading = true;
-  public refreshCalendar = new Subject<any>();
+
 
   constructor(
     private cohortService: CohortService,
     private courseService: CourseService,
     private aR: ActivatedRoute,
+    private dialog: MatDialog,
     private errorService: QaErrorHandlerService) {
     // this.availableEvents = this.availableCourses.map(course => this.courseToCalendarEvent(course));
     this.cohortForm = new FormBuilder().group({
@@ -52,14 +51,17 @@ export class CohortDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    const cohortId = this.aR.snapshot.params.id;
     forkJoin(
-      this.cohortService.getCohortById(this.aR.snapshot.params.id),
-      this.courseService.getAllCourses()
+      this.cohortService.getCohortById(cohortId),
+      this.courseService.getAllCourses(),
+      this.cohortService.getAvailableTrainersForCohort(cohortId)
     ).pipe(take(1))
-      .subscribe(([cohort, courses]) => {
+      .subscribe(([cohort, courses, trainers]) => {
         this.cohort = cohort;
         this.availableCourses = courses;
-        this.calendarEvents = this.cohort.cohortCourses.map(c => this.courseToCalendarEvent(c));
+        this.availableTrainers = trainers;
+        this.calendarEvents = this.cohort.cohortCourses.map(c => this.cohortCourseToCalendarEvent(c));
 
         this.viewDate = moment(cohort.startDate).toDate();
 
@@ -76,7 +78,7 @@ export class CohortDetailComponent implements OnInit {
     });
   }
 
-  private courseToCalendarEvent(course: CohortCourseModel): CalendarEvent<CohortCourseModel> {
+  private cohortCourseToCalendarEvent(course: CohortCourseModel): CalendarEvent<CohortCourseModel> {
     return {
       start: moment(course.startDate).toDate(),
       end: course.endDate ? moment(course.endDate).toDate() : moment(course.startDate).add(course.course.duration, 'days').toDate(),
@@ -86,6 +88,12 @@ export class CohortDetailComponent implements OnInit {
       color: this.courseService.getColorForCourse(course.course),
       meta: course
     };
+  }
+
+  private buildCohortCourse(course: CourseModel, startDate: Date, endDate: Date, trainer: TrainerModel): CohortCourseModel {
+    return {
+      course, startDate, endDate, trainer,
+    } as CohortCourseModel;
   }
 
 
@@ -98,5 +106,31 @@ export class CohortDetailComponent implements OnInit {
   public onCalendarStartClicked(): void {
     this.viewDate = moment(this.cohort.startDate).toDate();
     this.refreshCalendar.next();
+  }
+
+
+  public eventClicked({ event, ...rest }: { event: CalendarEvent }): void {
+    console.log('Event clicked', event, rest);
+  }
+  public dayClicked({ day }): void {
+    const dialog = this.dialog.open(
+      AddCourseDialogComponent,
+      { data: { availableCourses: this.availableCourses, availableTrainers: this.availableTrainers } }
+    );
+
+    dialog.beforeClosed().subscribe(data => {
+      this.calendarEvents.push(
+        this.cohortCourseToCalendarEvent(
+          this.buildCohortCourse(
+            data.selectedCourse,
+            day.date,
+            moment(day.date).add((data.selectedDuration || 1) - 1, 'days').toDate(),
+            data.selectedTrainer
+          )
+        )
+      );
+      this.refreshCalendar.next();
+      debugger;
+    });
   }
 }

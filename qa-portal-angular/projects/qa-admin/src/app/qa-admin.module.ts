@@ -18,6 +18,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { AddCourseDialogComponent } from './cohort-detail/add-course-dialog/add-course-dialog.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     UpdateUserCohortDialogComponent,
     UpdateUserRoleDialogComponent,
     CohortDetailComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    AddCourseDialogComponent
   ],
   imports: [
     QaCommonModule,
@@ -48,7 +50,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     AddUserDialogComponent,
     DeleteUserDialogComponent,
     UpdateUserCohortDialogComponent,
-    UpdateUserRoleDialogComponent
+    UpdateUserRoleDialogComponent,
+    AddCourseDialogComponent
   ]
 })
 export class QaAdminModule { }

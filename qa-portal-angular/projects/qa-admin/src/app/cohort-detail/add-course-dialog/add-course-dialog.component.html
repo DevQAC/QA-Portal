@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Add Course</h1>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Course</mat-label>
+    <mat-select [(ngModel)]="data.selectedCourse">
+      <mat-option *ngFor="let course of data.availableCourses" [value]="course">
+        <strong>
+          {{course.courseCode}}
+        </strong>{{course.courseName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Trainer</mat-label>
+    <mat-select [(ngModel)]="data.selectedTrainer">
+      <mat-option *ngFor="let trainer of data.availableTrainers" [value]="trainer">
+        {{trainer}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Duration</mat-label>
+    <input matInput type="number" (ngModelChange)="data.selectedDuration = $event"
+      [ngModel]="data.selectedDuration || data.selectedCourse?.duration || 1" [disabled]="!data.selectedCourse">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Add</button>
+</mat-dialog-actions>

@@ -26,17 +26,16 @@
   <mat-card-header>
     <mat-card-title>Course Planner - {{viewDate | date:'MMMM y'}}</mat-card-title>
     <div style="margin-left:auto">
-      <button mat-stroked-button mwlCalendarPreviousView view="month" [(viewDate)]="viewDate">
+      <button mat-button mwlCalendarPreviousView view="month" [(viewDate)]="viewDate">
         Previous
       </button>
-      <button mat-stroked-button (click)="onCalendarStartClicked()">
-          Start
-        </button>
-      <button mat-stroked-button mwlCalendarToday [(viewDate)]="viewDate">
+      <button mat-button (click)="onCalendarStartClicked()">
+        Start
+      </button>
+      <button mat-button mwlCalendarToday [(viewDate)]="viewDate">
         Today
       </button>
-      
-      <button mat-stroked-button mwlCalendarNextView view="month" [(viewDate)]="viewDate">
+      <button mat-button mwlCalendarNextView view="month" [(viewDate)]="viewDate">
         Next
       </button>
     </div>
@@ -44,7 +43,8 @@
   <mat-card-content>
 
     <mwl-calendar-month-view class="course-planner-calendar" [(viewDate)]="viewDate" [events]="calendarEvents"
-      (eventTimesChanged)="eventTimesChanged($event)" [refresh]="refreshCalendar">
+      (eventTimesChanged)="eventTimesChanged($event)" [refresh]="refreshCalendar" (eventClicked)="eventClicked($event)"
+      (dayClicked)="dayClicked($event)">
     </mwl-calendar-month-view>
   </mat-card-content>
 </mat-card>
