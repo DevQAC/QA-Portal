@@ -4,4 +4,6 @@ export class CourseModel {
   courseName: string;
 
   courseCode: string;
+
+  duration: number;
 }

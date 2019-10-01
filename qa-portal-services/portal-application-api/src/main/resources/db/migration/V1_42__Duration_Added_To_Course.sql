@@ -1,0 +1,1 @@
+alter table training.course add duration int default 5 not null;
