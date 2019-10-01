@@ -29,7 +29,9 @@ export class CohortDetailComponent implements OnInit {
     id: 1234567890,
     name: 'Demo Cohort',
     startDate: '2020-02-17',
-    cohortCourses: []
+    cohortCourses: [],
+    traineeNames: [],
+    trainerUserName: 'example trainer username'
   };
 
   public availableCourses: CourseModel[] = [

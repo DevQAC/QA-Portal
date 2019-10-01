@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
  * Service to control and persist side menu specific functionality.
  *
  * @export
- * @class SideMenuService
  */
 @Injectable({
   providedIn: 'root'
