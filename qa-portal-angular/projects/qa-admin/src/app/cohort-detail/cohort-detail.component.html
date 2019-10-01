@@ -4,35 +4,47 @@
   <mat-card-header>
     <mat-card-title>Details</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Cohort Name</mat-label>
-      <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Start Date</mat-label>
-      <input matInput [matDatepicker]="startDatePicker">
-      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #startDatePicker></mat-datepicker>
-    </mat-form-field>
-  </mat-card-content>
+  <form [formGroup]="cohortForm">
+    <mat-card-content>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Cohort Name</mat-label>
+        <input formControlName="name" matInput>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+      </mat-form-field>
+    </mat-card-content>
+  </form>
 </mat-card>
 
 
 <mat-card class="mb-1">
   <mat-card-header>
-    <mat-card-title>Course Plan</mat-card-title>
+    <mat-card-title>Course Planner - {{viewDate | date:'MMMM y'}}</mat-card-title>
+    <div style="margin-left:auto">
+      <button mat-stroked-button mwlCalendarPreviousView view="month" [(viewDate)]="viewDate">
+        Previous
+      </button>
+      <button mat-stroked-button (click)="onCalendarStartClicked()">
+          Start
+        </button>
+      <button mat-stroked-button mwlCalendarToday [(viewDate)]="viewDate">
+        Today
+      </button>
+      
+      <button mat-stroked-button mwlCalendarNextView view="month" [(viewDate)]="viewDate">
+        Next
+      </button>
+    </div>
   </mat-card-header>
   <mat-card-content>
 
-    <ng-template #customCellTemplate let-day="day" let-locale="locale">
-      <div class="cal-cell" mwlDraggable [class.weekend]="day.isWeekend" [style.background]="day.events.length ? 'coral' : null">
-        <!-- <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span> -->
-        <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
-      </div>
-    </ng-template>
-
-    <mwl-calendar-month-view [viewDate]="viewDate" [events]="events"
-      [cellTemplate]="customCellTemplate"></mwl-calendar-month-view>
+    <mwl-calendar-month-view class="course-planner-calendar" [(viewDate)]="viewDate" [events]="calendarEvents"
+      (eventTimesChanged)="eventTimesChanged($event)" [refresh]="refreshCalendar">
+    </mwl-calendar-month-view>
   </mat-card-content>
 </mat-card>

@@ -7,11 +7,14 @@ import { CalendarEvent } from 'calendar-utils';
 import * as moment from 'moment';
 import business from 'moment-business';
 import { CohortService } from '../_common/services/cohort.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
+import { CourseService } from '../_common/services/course.service';
+import { CohortCourseModel } from 'projects/portal-core/src/app/_common/models/cohort-course.model';
+import { CalendarEventTimesChangedEvent } from 'angular-calendar';
 
 @Component({
   selector: 'app-cohort-detail',
@@ -21,104 +24,79 @@ import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/serv
 export class CohortDetailComponent implements OnInit {
 
   public viewDate: Date = new Date();
-  public events: CalendarEvent<CohortModel>[] = [
-    {
-      start: moment().toDate(),
-      title: 'Demo event',
-      end: business.addWeekDays(moment(), 4).toDate(),
-      allDay: true,
-      draggable: true
-    }
+  public calendarEvents: CalendarEvent<CohortCourseModel>[] = [
   ];
 
-  public cohort: CohortModel = {
-    id: 1234567890,
-    name: 'Demo Cohort',
-    startDate: '2020-02-17',
-    cohortCourses: [],
-    traineeNames: [],
-    trainerUserName: 'example trainer username'
-  };
+  public cohort: CohortModel;
 
-  public availableCourses: CourseModel[] = [
-    {
-      id: 1234567,
-      courseName: 'Example Course',
-      courseCode: 'BFR-1',
-      duration: 1
-    },
-    {
-      id: 1234567,
-      courseName: 'Example Course',
-      courseCode: 'BFR-1',
-      duration: 3
-    },
-    {
-      id: 1234567,
-      courseName: 'Example Course',
-      courseCode: 'BFR-1',
-      duration: 2
-    },
-    {
-      id: 1234567,
-      courseName: 'Example Course',
-      courseCode: 'BFR-1',
-      duration: 2
-    },
-    {
-      id: 1234567,
-      courseName: 'Example Course',
-      courseCode: 'BFR-1',
-      duration: 1
-    }
-  ];
+  public availableCourses: CourseModel[] = [];
+
   public selectedCourses: CourseModel[] = [
   ];
 
-
   public cohortForm: FormGroup;
   public isLoading = true;
+  public refreshCalendar = new Subject<any>();
 
   constructor(
     private cohortService: CohortService,
+    private courseService: CourseService,
     private aR: ActivatedRoute,
-    private errorService: QaErrorHandlerService) { }
+    private errorService: QaErrorHandlerService) {
+    // this.availableEvents = this.availableCourses.map(course => this.courseToCalendarEvent(course));
+    this.cohortForm = new FormBuilder().group({
+      name: [''],
+      startDate: ['']
+    });
+    this.cohortForm.disable();
+  }
 
   ngOnInit() {
-    // this.availableEvents = this.availableCourses.map(course => this.courseToCalendarEvent(course));
-
     forkJoin(
-      this.cohortService.getCohortById(this.aR.snapshot.params.id)
+      this.cohortService.getCohortById(this.aR.snapshot.params.id),
+      this.courseService.getAllCourses()
     ).pipe(take(1))
-      .subscribe(([cohort]) => {
+      .subscribe(([cohort, courses]) => {
+        this.cohort = cohort;
+        this.availableCourses = courses;
+        this.calendarEvents = this.cohort.cohortCourses.map(c => this.courseToCalendarEvent(c));
 
-        // this.userForm.patchValue({ ...user });
+        this.viewDate = moment(cohort.startDate).toDate();
+
+        this.cohortForm.patchValue(cohort);
         this.isLoading = false;
-        // this.cohortForm.enable();
+        this.cohortForm.enable();
+        // debugger;
       },
         (err) => this.errorService.handleError(err)
       );
+
+    this.cohortForm.valueChanges.subscribe(v => {
+      this.cohort = { ...this.cohort, ...v };
+    });
   }
 
-  private courseToCalendarEvent(course: CourseModel, start = moment()): CalendarEvent<CourseModel> {
+  private courseToCalendarEvent(course: CohortCourseModel): CalendarEvent<CohortCourseModel> {
     return {
-      start: start.toDate(),
-      end: start.add(course.duration, 'days').toDate(),
-      title: course.courseName,
+      start: moment(course.startDate).toDate(),
+      end: course.endDate ? moment(course.endDate).toDate() : moment(course.startDate).add(course.course.duration, 'days').toDate(),
+      title: course.course.courseName,
       draggable: true,
       allDay: true,
+      color: this.courseService.getColorForCourse(course.course),
       meta: course
     };
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
+
+  public eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+    event.start = newStart;
+    event.end = newEnd;
+    this.refreshCalendar.next();
+  }
+
+  public onCalendarStartClicked(): void {
+    this.viewDate = moment(this.cohort.startDate).toDate();
+    this.refreshCalendar.next();
   }
 }

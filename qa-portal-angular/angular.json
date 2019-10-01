@@ -929,7 +929,7 @@
               "projects/qa-admin/src/assets"
             ],
             "styles": [
-              "projects/qa-admin/src/styles.css"
+              "projects/qa-admin/src/styles.scss"
             ],
             "scripts": []
           },
@@ -989,7 +989,7 @@
               "projects/qa-admin/src/assets"
             ],
             "styles": [
-              "projects/qa-admin/src/styles.css"
+              "projects/qa-admin/src/styles.scss"
             ],
             "scripts": []
           }
