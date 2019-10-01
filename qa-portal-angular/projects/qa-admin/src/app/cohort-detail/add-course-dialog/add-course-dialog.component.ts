@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { CourseModel } from 'projects/portal-core/src/app/_common/models/course.model';
-import { UserModel } from 'projects/portal-core/src/app/_common/models/user.model';
 
 export interface AddCourseDialogData {
   availableCourses: CourseModel[];

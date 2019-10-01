@@ -119,18 +119,19 @@ export class CohortDetailComponent implements OnInit {
     );
 
     dialog.beforeClosed().subscribe(data => {
-      this.calendarEvents.push(
-        this.cohortCourseToCalendarEvent(
-          this.buildCohortCourse(
-            data.selectedCourse,
-            day.date,
-            moment(day.date).add((data.selectedDuration || 1) - 1, 'days').toDate(),
-            data.selectedTrainer
+      if (data) {
+        this.calendarEvents.push(
+          this.cohortCourseToCalendarEvent(
+            this.buildCohortCourse(
+              data.selectedCourse,
+              day.date,
+              moment(day.date).add((data.selectedDuration || 1) - 1, 'days').toDate(),
+              data.selectedTrainer
+            )
           )
-        )
-      );
-      this.refreshCalendar.next();
-      debugger;
+        );
+        this.refreshCalendar.next();
+      }
     });
   }
 }
