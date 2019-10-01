@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SelfReflectionFormViewModel} from '../trainee-reflection/models/self-reflection-form-vmodel';
-import {Subscription} from 'rxjs';
+import {forkJoin, Subscription} from 'rxjs';
 import {SelfReflectionFormService} from '../trainee-reflection/services/self-reflection-form.service';
 import {QuestionsServiceService} from '../trainee-reflection/services/questions-service.service';
 import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
@@ -12,6 +12,7 @@ import {SelfReflectionFormStateService} from '../_common/services/self-reflectio
 import {QaToastrService} from '../../../../portal-core/src/app/_common/services/qa-toastr.service';
 import {DeprecatedTrainerReflectionService} from '../trainer-reflection/services/deprecated-trainer-reflection.service';
 import {QuestionModel} from '../_common/models/question.model';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-trainee-new-reflection',
@@ -42,7 +43,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('In TraineeNewReflectionComponent');
     this.initialiseForm();
   }
 
@@ -69,27 +69,37 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   }
 
   initialiseForm() {
-    this.selfReflectionFormService.getAllReflectionFormsForUser().subscribe(
-      (response) => {
-        this.selfReflectionViewModel.selfReflectionForm = new SelfReflectionFormModel();
-        this.listOfFormDates = [];
-        response.forEach((element) => this.checkIfReviewed(element));
-
-        if (this.listOfFormDates.length === 0) {
-          this.setInitialFormDateFromCohortStartDate();
-        } else {
-          this.setFormDateFromExisting();
+    forkJoin(
+      this.selfReflectionFormService.getAllReflectionFormsForUser(),
+      this.cohortTraineesService.getCohort()
+    ).pipe(take(1))
+      .subscribe(([reflections, cohort]) => {
+          this.populateSelfReflections(reflections);
+          if (this.listOfFormDates.length === 0) {
+            this.setInitialFormDateFromCohortStartDate(cohort);
+          } else {
+            this.setFormDateFromExisting();
+          }
+          this.getSelfReflectionQuestions();
+        },
+        (err) => {
+          this.router.navigateByUrl('qa/portal/training');
+          this.errorHandlerService.handleError(err);
         }
-        this.getSelfReflectionQuestions();
-      }
-    );
+      );
   }
 
-  checkIfReviewed(element) {
-    if (element.status === 'Reviewed') {
-      this.listOfFormDates.push(element.formDate);
+  populateSelfReflections(reflections) {
+    this.selfReflectionViewModel.selfReflectionForm = new SelfReflectionFormModel();
+    this.listOfFormDates = [];
+    reflections.forEach((reflection) => this.checkIfReviewed(reflection));
+  }
+
+  checkIfReviewed(reflection) {
+    if (reflection.status === 'Reviewed') {
+      this.listOfFormDates.push(reflection.formDate);
     } else {
-      this.router.navigateByUrl('qa/portal/training/self-reflection/trainee/' + element.id);
+      this.router.navigateByUrl('qa/portal/training/self-reflection/trainee/' + reflection.id);
     }
   }
 
@@ -100,15 +110,8 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
     this.setFormDate(this.addDays(date, 7));
   }
 
-  setInitialFormDateFromCohortStartDate() {
-    this.cohortTraineesService.getCohort().subscribe(
-      (cohort) => {
-        this.setFormDate(new Date(cohort.startDate));
-      },
-      (error) => {
-        this.errorHandlerService.handleError(error);
-      }
-    );
+  setInitialFormDateFromCohortStartDate(cohort) {
+    this.setFormDate(new Date(cohort.startDate));
   }
 
   getSelfReflectionQuestions() {
