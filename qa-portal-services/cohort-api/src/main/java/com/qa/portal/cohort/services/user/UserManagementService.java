@@ -18,7 +18,7 @@ import static com.qa.portal.common.keycloak.KeycloakUserConstants.TRAINER_USER_R
 @Service
 public class UserManagementService {
 
-    private static final Long COHORT_DURATION = 84L;  // Assumption is 12 weeks - can calculate from courses when this is added
+    private static final Long COHORT_DURATION = 84L;  // TODO - Assumption is 12 weeks - can calculate from courses when this is added
 
     private KeycloakUserResourceManager keycloakUserResourceManager;
 
@@ -68,13 +68,13 @@ public class UserManagementService {
 
     public List<QaUserDetailsDto> getTrainees() {
         return keycloakUserResourceManager.getAllUsers().stream()
-                .filter(u -> u.getRoleNames().equals(TRAINEE_USER_ROLE))
+                .filter(u -> u.getRoleNames().contains(TRAINEE_USER_ROLE))
                 .collect(Collectors.toList());
     }
 
     public List<QaUserDetailsDto> getTrainers() {
         return keycloakUserResourceManager.getAllUsers().stream()
-                .filter(u -> u.getRoleNames().equals(TRAINER_USER_ROLE))
+                .filter(u -> u.getRoleNames().contains(TRAINER_USER_ROLE))
                 .collect(Collectors.toList());
     }
 

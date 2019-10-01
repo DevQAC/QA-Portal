@@ -39,12 +39,10 @@ public class QuestionMapper {
         QuestionEntity tempEntity = baseMapper.mapObject(questionDto, QuestionEntity.class);
         questionCategoryRepository.findByCategoryName(questionDto.getQuestionCategoryName())
                 .ifPresent(c -> questionEntity.setCategory(c));
-        // TODO - Replace with below if update not working
-//        questionEntity.setBody(questionDto.getBody());
-//        questionEntity.setCommentLabel(questionDto.getCommentLabel());
-//        questionEntity.setHasComment(questionDto.getHasComment());
-//        questionEntity.setSelectionOptionsList(tempEntity.getSelectionOptionsList());
-//        return questionEntity;
-        return tempEntity;
+        questionEntity.setBody(questionDto.getBody());
+        questionEntity.setCommentLabel(questionDto.getCommentLabel());
+        questionEntity.setHasComment(questionDto.getHasComment());
+        questionEntity.setSelectionOptionsList(tempEntity.getSelectionOptionsList());
+        return questionEntity;
     }
 }
