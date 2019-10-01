@@ -1,6 +1,5 @@
 package com.qa.portal.common.keycloak;
 
-import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.security.QaSecurityContext;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.admin.client.Keycloak;
@@ -46,11 +45,7 @@ public class KeycloakAdminClient {
     }
 
     public Keycloak getKeycloakAdminClient() {
-        if (qaSecurityContext.getUserName().equals(environment.getProperty(QA_KEYCLOAK_ADMIN_USER_PROP))) {
-            return keycloak;
-        } else {
-            throw new QaPortalBusinessException("User does not have privileges to maintain keycloak resources.");
-        }
+        return keycloak;
     }
 
     public RealmResource getRealm() {

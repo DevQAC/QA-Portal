@@ -10,6 +10,8 @@ public class CourseDto extends QaBaseDto {
 
     private String courseCode;
 
+    private Integer duration;
+
     private List<CourseTechnologyDto> technologies;
 
     public Integer getId() {
@@ -44,4 +46,11 @@ public class CourseDto extends QaBaseDto {
         this.technologies = technologies;
     }
 
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
 }
