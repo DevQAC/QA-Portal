@@ -20,6 +20,18 @@
         <mat-label>Suggested Duration</mat-label>
         <input matInput formControlName="duration" type="number" required>
       </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Technologies</mat-label>
+        <mat-select formControlName="technologies" multiple>
+          <mat-optgroup *ngFor="let category of availableTechCategories" [label]="category.categoryName">
+            <mat-option *ngFor="let tech of category.technologies" [value]="tech">
+              {{tech.technologyName}}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+
     </mat-card-content>
   </form>
 </mat-card>

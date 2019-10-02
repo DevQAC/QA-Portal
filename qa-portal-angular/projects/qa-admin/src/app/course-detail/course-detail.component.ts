@@ -6,6 +6,9 @@ import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/serv
 import { QaToastrService } from 'projects/portal-core/src/app/_common/services/qa-toastr.service';
 import { CourseModel } from 'projects/portal-core/src/app/_common/models/course.model';
 import { finalize } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
+import { TechnologyService } from '../_common/technology.service';
+import { TechnologyCategoryModel } from 'projects/portal-core/src/app/_common/models/technology-category.model';
 
 @Component({
   selector: 'app-course-detail',
@@ -17,12 +20,14 @@ export class CourseDetailComponent implements OnInit {
   public courseForm: FormGroup;
 
   public course: CourseModel;
+  public availableTechCategories: TechnologyCategoryModel[] = [];
 
   public isLoading = true;
 
 
   constructor(
     private courseService: CourseService,
+    private techService: TechnologyService,
     private aR: ActivatedRoute,
     private errorService: QaErrorHandlerService,
     private toastr: QaToastrService
@@ -30,22 +35,28 @@ export class CourseDetailComponent implements OnInit {
     this.courseForm = new FormBuilder().group({
       courseName: ['', Validators.required],
       duration: ['', [Validators.required, Validators.min(1), Validators.max(99)]],
-      courseCode: ['', Validators.required]
+      courseCode: ['', Validators.required],
+      technologies: [[]]
     });
     this.courseForm.disable();
 
   }
 
   ngOnInit() {
-    this.courseService.getCourseById(this.aR.snapshot.params.id)
+    forkJoin(
+      this.courseService.getCourseById(this.aR.snapshot.params.id),
+      this.techService.getAllCategories()
+    )
       .pipe(finalize(() => {
         this.courseForm.enable();
         this.isLoading = false;
       }))
       .subscribe(
-        course => {
+        ([course, techCats]) => {
           this.course = course;
+          this.availableTechCategories = techCats;
           this.courseForm.patchValue(this.course);
+          // debugger;
         }, err => this.errorService.handleError(err)
       );
   }
@@ -55,6 +66,8 @@ export class CourseDetailComponent implements OnInit {
       ...this.course,
       ...this.courseForm.value
     };
+
+    debugger;
 
     this.courseService.saveCourse(this.course)
       .pipe(finalize(() => {
