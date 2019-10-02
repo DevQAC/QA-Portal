@@ -2,9 +2,9 @@ package com.qa.portal.cohort.services.technology;
 
 import com.qa.portal.cohort.services.technology.mapper.TechnologyMapper;
 import com.qa.portal.common.dto.TechnologyCategoryDto;
+import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.repository.TechnologyCategoryRepository;
 import com.qa.portal.common.persistence.repository.TechnologyRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,5 +34,12 @@ public class TechnologyService {
                 .stream()
                 .map(tc -> technologyMapper.mapToTechnologyCategoryDto(tc))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public TechnologyCategoryDto getTechnologyCategory(Integer id) {
+        return technologyCategoryRepository.findById(id)
+                .map(tc -> technologyMapper.mapToTechnologyCategoryDto(tc))
+                .orElseThrow(() -> new QaPortalBusinessException("No Technology Category found for the supplied id"));
     }
 }

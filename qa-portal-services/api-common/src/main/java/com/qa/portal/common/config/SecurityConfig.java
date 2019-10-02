@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -33,21 +32,15 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     public static final String SWAGGER_UI_PAGE = "/swagger-ui.html";
 
-    public static final String MANAGEMENT_APIS = "/manage/users";
+    public static final String MANAGEMENT_APIS = "/manage/**";
 
     public static final String PORTAL_ADMIN_ROLE = "super-user";
-
-    public static final String SERVER_SERVLET_CONTEXT_PATH = "server.servlet.context-path";
-
-    private Environment environment;
 
     private KeycloakConfigResolver configResolver;
 
     @Autowired
-    public SecurityConfig(KeycloakConfigResolver configResolver,
-                          Environment environment) {
+    public SecurityConfig(KeycloakConfigResolver configResolver) {
         this.configResolver = configResolver;
-        this.environment = environment;
     }
 
     @Autowired
@@ -75,15 +68,9 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                         SWAGGER_RESOURCES,
                         SWAGGER_RESOURCES_SECURITY,
                         SWAGGER_UI_PAGE).permitAll()
-                .antMatchers(getManagementUris()).hasAuthority(PORTAL_ADMIN_ROLE)
+                .antMatchers(MANAGEMENT_APIS).hasAuthority(PORTAL_ADMIN_ROLE)
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
-    }
-
-    private String getManagementUris() {
-        String uri = environment.getProperty(SERVER_SERVLET_CONTEXT_PATH) + MANAGEMENT_APIS;
-        LOGGER.info("Management url is " + uri);
-        return uri;
     }
 }
