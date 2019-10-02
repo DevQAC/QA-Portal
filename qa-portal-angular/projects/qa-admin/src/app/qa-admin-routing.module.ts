@@ -6,6 +6,7 @@ import { SUPER_USER } from 'projects/portal-core/src/app/_common/models/portal-c
 import { CohortManagementComponent } from './cohort-management/cohort-management.component';
 import { CohortDetailComponent } from './cohort-detail/cohort-detail.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { CourseManagementComponent } from './course-management/course-management.component';
 
 const routes: Routes = [
   {
@@ -47,7 +48,17 @@ const routes: Routes = [
         SUPER_USER
       ]
     }
-  }
+  },
+  {
+    path: 'manage/courses',
+    component: CourseManagementComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
 ];
 
 @NgModule({
