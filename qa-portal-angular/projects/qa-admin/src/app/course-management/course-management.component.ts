@@ -5,6 +5,7 @@ import { CourseModel } from 'projects/portal-core/src/app/_common/models/course.
 import { Router, ActivatedRoute } from '@angular/router';
 import { CourseService } from '../_common/services/course.service';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
+import { NewCourseDialogComponent } from './new-course-dialog/new-course-dialog.component';
 
 @Component({
   selector: 'app-course-management',
@@ -19,10 +20,10 @@ export class CourseManagementComponent implements OnInit {
 
   // TABLE
   public coursesTableDataSource = new MatTableDataSource<CourseModel>();
-  public displayedColumns = ['select', 'courseName', 'courseCode', 'duration'];
+  public displayedColumns = ['courseName', 'courseCode', 'duration'];
   public rowSelection = [];
   public isLoading = true;
-
+  
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -52,6 +53,13 @@ export class CourseManagementComponent implements OnInit {
 
   public onAddCourseButtonClicked(): void {
     console.warn('Add new course not implemented!');
+
+    const dialogRef = this.dialog.open(NewCourseDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.isLoading = true;
+      }
+    });
   }
 
   onRowClicked(event: IRowClickEvent<CourseModel>): void {

@@ -19,7 +19,7 @@ export class CohortManagementComponent implements OnInit {
 
   // TABLE
   public cohortsTableDataSource = new MatTableDataSource<CohortModel>();
-  public displayedColumns = ['select', 'cohortName', 'trainer', 'start'];
+  public displayedColumns = ['cohortName', 'trainer', 'start'];
   public rowSelection = [];
   public isLoading = true;
 

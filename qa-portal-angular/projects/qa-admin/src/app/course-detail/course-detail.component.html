@@ -18,7 +18,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Suggested Duration</mat-label>
-        <input matInput formControlName="duration" type="number" required>
+        <input matInput formControlName="duration" type="number" min="1" step="1" max="99" pattern="\d*" required>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-100">
@@ -36,7 +36,7 @@
   </form>
 </mat-card>
 
-<button mat-flat-button color="accent" class="w-100 mt-1" (click)="onSaveCourseClicked()">Update</button>
+<button mat-flat-button color="accent" class="w-100 mt-1" (click)="onSaveCourseClicked()" [disabled]="isLoading || courseForm.invalid || courseForm.pristine">Update</button>
 
 
 <app-spinner-overlay [show]="isLoading" fadeBg="true"></app-spinner-overlay>

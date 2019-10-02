@@ -21,7 +21,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { AddCourseDialogComponent } from './cohort-detail/add-course-dialog/add-course-dialog.component';
 import { CourseManagementComponent } from './course-management/course-management.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
-
+import { NewCourseDialogComponent } from './course-management/new-course-dialog/new-course-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
     UserDetailComponent,
     AddCourseDialogComponent,
     CourseManagementComponent,
-    CourseDetailComponent
+    CourseDetailComponent,
+    NewCourseDialogComponent
   ],
   imports: [
     QaCommonModule,
@@ -50,12 +51,12 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
   ],
   providers: [],
   entryComponents: [
-    // User
     AddUserDialogComponent,
     DeleteUserDialogComponent,
     UpdateUserCohortDialogComponent,
     UpdateUserRoleDialogComponent,
-    AddCourseDialogComponent
+    AddCourseDialogComponent,
+    NewCourseDialogComponent
   ]
 })
 export class QaAdminModule { }
