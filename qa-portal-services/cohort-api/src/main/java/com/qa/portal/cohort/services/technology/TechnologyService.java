@@ -4,6 +4,7 @@ import com.qa.portal.common.dto.TechnologyCategoryDto;
 import com.qa.portal.common.persistence.repository.TechnologyCategoryRepository;
 import com.qa.portal.common.persistence.repository.TechnologyRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class TechnologyService {
         this.baseMapper = baseMapper;
     }
 
+    @Transactional
     public List<TechnologyCategoryDto> getTechnologyCategories() {
         return technologyCategoryRepository.findAll()
                 .stream()
