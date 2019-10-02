@@ -1,8 +1,7 @@
 package com.qa.portal.cohort.rest;
 
-import com.qa.portal.cohort.services.technology.TechnologyManagementService;
+import com.qa.portal.cohort.services.technology.TechnologyCategoryManagementService;
 import com.qa.portal.common.dto.TechnologyCategoryDto;
-import com.qa.portal.common.dto.TechnologyDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,24 +9,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/manage")
 public class TechnologyManagementController {
 
-    private TechnologyManagementService technologyManagementService;
+    private TechnologyCategoryManagementService technologyCategoryManagementService;
 
-    public TechnologyManagementController(TechnologyManagementService technologyManagementService) {
-        this.technologyManagementService = technologyManagementService;
+    public TechnologyManagementController(TechnologyCategoryManagementService technologyCategoryManagementService) {
+        this.technologyCategoryManagementService = technologyCategoryManagementService;
     }
 
     @PostMapping("technology/category")
     public ResponseEntity<TechnologyCategoryDto> createTechnologyCategory(@RequestBody TechnologyCategoryDto technologyCategoryDto) {
-        return ResponseEntity.ok(technologyManagementService.createTechnologyCategory(technologyCategoryDto));
+        return ResponseEntity.ok(technologyCategoryManagementService.createTechnologyCategory(technologyCategoryDto));
     }
 
-    @PostMapping("technology")
-    public ResponseEntity<TechnologyDto> createTechnology(@RequestBody TechnologyDto technologyDto) {
-        return ResponseEntity.ok(technologyManagementService.createTechnology(technologyDto));
-    }
-
-    @PutMapping("technology")
-    public ResponseEntity<TechnologyDto> updateTechnology(@RequestBody TechnologyDto technologyDto) {
-        return ResponseEntity.ok(technologyManagementService.updateTechnology(technologyDto));
+    @PutMapping("technology/category")
+    public ResponseEntity<TechnologyCategoryDto> updateTechnologyCategory(@RequestBody TechnologyCategoryDto technologyCategoryDto) {
+        return ResponseEntity.ok(technologyCategoryManagementService.updateTechnologyCategory(technologyCategoryDto));
     }
 }

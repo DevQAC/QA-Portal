@@ -55,7 +55,7 @@ public class CourseManagementService {
     }
 
     private void deleteRemovedCourseTechnologies(CourseEntity courseEntity, CourseDto courseDto) {
-        List<String> newCourseTechnologies = getCurrentTechnologiesForCourse(courseDto);
+        List<String> newCourseTechnologies = getNewTechnologiesForCourse(courseDto);
         courseEntity.getCourseTechnologies().stream()
                 .filter(ct -> !newCourseTechnologies.contains(ct.getTechnology().getTechnologyName()))
                 .collect(Collectors.toList())
@@ -65,7 +65,7 @@ public class CourseManagementService {
 
     private void addNewCourseTechnologies(CourseEntity courseEntity, CourseDto courseDto) {
         List<String> previousCourseTechnologies = getPreviousTechnologiesForCourse(courseEntity);
-        List<CourseTechnologyDto> courseTechnologyDtos = Optional.ofNullable(courseDto.getTechnologies())
+        List<CourseTechnologyDto> courseTechnologyDtos = Optional.ofNullable(courseDto.getCourseTechnologies())
                 .orElseGet(() -> Collections.emptyList());
          courseTechnologyDtos.stream()
                 .filter(ctDto -> !previousCourseTechnologies.contains(ctDto.getTechnology().getTechnologyName()))
@@ -80,8 +80,8 @@ public class CourseManagementService {
                 .orElseGet(() -> Collections.emptyList());
     }
 
-    private List<String> getCurrentTechnologiesForCourse(CourseDto courseDto) {
-        return Optional.ofNullable(courseDto.getTechnologies())
+    private List<String> getNewTechnologiesForCourse(CourseDto courseDto) {
+        return Optional.ofNullable(courseDto.getCourseTechnologies())
                 .map(list -> list.stream()
                         .map(ct -> ct.getTechnology().getTechnologyName())
                         .collect(Collectors.toList()))
