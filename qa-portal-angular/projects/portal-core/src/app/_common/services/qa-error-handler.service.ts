@@ -28,6 +28,7 @@ export class QaErrorHandlerService {
   }
 
   private processError(error: HttpErrorResponse): Observable<string> {
+    console.error('ERROR HANDLER PROCESSED ERROR:', error);
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Display in an error toast.
       return throwError(error.error.message);

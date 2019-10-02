@@ -6,6 +6,7 @@ import { CourseModel } from 'projects/portal-core/src/app/_common/models/course.
 import { TechnologyService } from '../_common/technology.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
+import { NewCategoryDialogComponent } from './new-category-dialog/new-category-dialog.component';
 
 @Component({
   selector: 'app-technology-management',
@@ -48,15 +49,14 @@ export class TechnologyManagementComponent implements OnInit {
   }
 
 
-  public onAddCourseButtonClicked(): void {
-    console.warn('Add new course not implemented!');
+  public onAddCategoryButtonClicked(): void {
 
-    // const dialogRef = this.dialog.open(NewCourseDialogComponent);
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     // this.isLoading = true;
-    //   }
-    // });
+    const dialogRef = this.dialog.open(NewCategoryDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.isLoading = true;
+      }
+    });
   }
 
   onRowClicked(event: IRowClickEvent<CourseModel>): void {
