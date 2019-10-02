@@ -7,6 +7,7 @@ import { CohortManagementComponent } from './cohort-management/cohort-management
 import { CohortDetailComponent } from './cohort-detail/cohort-detail.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { CourseManagementComponent } from './course-management/course-management.component';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,16 @@ const routes: Routes = [
   {
     path: 'manage/courses',
     component: CourseManagementComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
+  {
+    path: 'manage/courses/:id',
+    component: CourseDetailComponent,
     canActivate: [AppAuthGuard],
     data: {
       roles: [

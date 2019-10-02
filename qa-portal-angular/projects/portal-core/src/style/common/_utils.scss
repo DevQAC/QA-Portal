@@ -17,25 +17,25 @@ $margin-increments: 0 1rem 2rem 3rem;
     .mb-#{$i},
     .mx-#{$i},
     .m-#{$i} {
-        margin-bottom: $margin;
+        margin-bottom: $margin !important;
     }
 
     .mt-#{$i},
     .mx-#{$i},
     .m-#{$i} {
-        margin-top: $margin;
+        margin-top: $margin !important;
     }
 
     .ml-#{$i},
     .my-#{$i},
     .m-#{$i} {
-        margin-bottom: $margin;
+        margin-bottom: $margin !important;
     }
 
     .mr-#{$i},
     .my-#{$i},
     .m-#{$i} {
-        margin-top: $margin;
+        margin-top: $margin !important;
     }
 }
 

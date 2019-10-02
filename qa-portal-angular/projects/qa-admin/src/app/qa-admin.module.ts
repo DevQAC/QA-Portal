@@ -20,6 +20,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { AddCourseDialogComponent } from './cohort-detail/add-course-dialog/add-course-dialog.component';
 import { CourseManagementComponent } from './course-management/course-management.component';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { CourseManagementComponent } from './course-management/course-management
     CohortDetailComponent,
     UserDetailComponent,
     AddCourseDialogComponent,
-    CourseManagementComponent
+    CourseManagementComponent,
+    CourseDetailComponent
   ],
   imports: [
     QaCommonModule,
