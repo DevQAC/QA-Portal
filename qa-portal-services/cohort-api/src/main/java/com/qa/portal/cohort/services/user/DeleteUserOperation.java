@@ -8,6 +8,7 @@ import com.qa.portal.common.persistence.repository.QaUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class DeleteUserOperation {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public void deleteUsers(List<QaUserDetailsDto> users) {
         try {
             users.stream()

@@ -9,6 +9,7 @@ import com.qa.portal.common.persistence.repository.CourseRepository;
 import com.qa.portal.common.persistence.repository.CourseTechnologyRepository;
 import com.qa.portal.common.util.mapper.BaseMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +33,7 @@ public class CourseManagementService {
         this.baseMapper = baseMapper;
     }
 
+    @Transactional
     public CourseDto createCourse(CourseDto courseDto) {
         // Check course doesn't already exist - for name or code
         CourseEntity courseEntity = baseMapper.mapObject(courseDto, CourseEntity.class);
@@ -40,10 +42,13 @@ public class CourseManagementService {
         return baseMapper.mapObject(savedEntity, CourseDto.class);
     }
 
+    @Transactional
     public CourseDto updateCourse(CourseDto courseDto) {
         // Throw Exception if the course does not exist
         CourseEntity courseEntity = courseRepository.findById(courseDto.getId())
                 .orElseThrow(() -> new QaPortalBusinessException("No course found for supplied course id"));
+        courseEntity.setDuration(courseDto.getDuration());
+        courseEntity.setCourseCode(courseDto.getCourseCode());
         addNewCourseTechnologies(courseEntity, courseDto);
         deleteRemovedCourseTechnologies(courseEntity, courseDto);
         return courseDto;
@@ -53,7 +58,9 @@ public class CourseManagementService {
         List<String> newCourseTechnologies = getCurrentTechnologiesForCourse(courseDto);
         courseEntity.getCourseTechnologies().stream()
                 .filter(ct -> !newCourseTechnologies.contains(ct.getTechnology().getTechnologyName()))
-                .forEach(ct -> courseEntity.removeCourseTechnology(ct));
+                .collect(Collectors.toList())
+                .iterator()
+                .forEachRemaining(ct -> courseEntity.removeCourseTechnology(ct));
     }
 
     private void addNewCourseTechnologies(CourseEntity courseEntity, CourseDto courseDto) {

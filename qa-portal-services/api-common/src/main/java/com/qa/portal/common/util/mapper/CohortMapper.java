@@ -126,7 +126,7 @@ public class CohortMapper {
         cohortCourseEntity.setEndDate(Date.valueOf(cohortCourseDto.getEndDate()));
         cohortCourseEntity.setCohort(cohortEntity);
         cohortCourseEntity.setTrainer(cohortEntity.getTrainer());
-        courseRepository.findByCourseName(cohortCourseDto.getCourse().getCourseName()).ifPresent(course -> cohortCourseEntity.setCourse(course));
+        courseRepository.findById(cohortCourseDto.getCourse().getId()).ifPresent(course -> cohortCourseEntity.setCourse(course));
         locationRepository.findById(cohortCourseDto.getLocation().getId()).ifPresent(location -> cohortCourseEntity.setLocation(location));
         cohortEntity.addCohortCourse(cohortCourseEntity);
     }
