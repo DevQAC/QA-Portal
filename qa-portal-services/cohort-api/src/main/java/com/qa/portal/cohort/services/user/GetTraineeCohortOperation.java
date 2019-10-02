@@ -1,6 +1,7 @@
 package com.qa.portal.cohort.services.user;
 
 import com.qa.portal.common.dto.QaCohortDto;
+import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.util.mapper.CohortMapper;
@@ -19,8 +20,10 @@ public class GetTraineeCohortOperation {
         this.traineeRepository = traineeRepository;
     }
 
-    public QaCohortDto getCohortForTrainee(String name) {
-        return cohortMapper.mapToQaCohortDto(traineeRepository.findByUserName(name)
-                .orElseThrow(() -> new QaResourceNotFoundException("Cohort with that name does not exist")).getCohort());
+    public QaCohortDto getCohortForTrainee(String traineeUserName) {
+        return traineeRepository.findByUserName(traineeUserName)
+                .map(t -> t.getCohort())
+                .map(c -> cohortMapper.mapToQaCohortDto(c))
+                .orElseThrow(() -> new QaPortalBusinessException("Trainee not assigned to a cohort. Contact the Portal administrator."));
     }
 }
