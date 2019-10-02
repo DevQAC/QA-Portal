@@ -1,5 +1,7 @@
 package com.qa.portal.common.dto;
 
+import java.util.List;
+
 public class TechnologyCategoryDto extends QaBaseDto {
 
     private Integer id;
@@ -7,6 +9,8 @@ public class TechnologyCategoryDto extends QaBaseDto {
     private String  categoryName;
 
     private String searchString;
+
+    private List<TechnologyDto> technologies;
 
     public Integer getId() {
         return id;
@@ -32,12 +36,11 @@ public class TechnologyCategoryDto extends QaBaseDto {
         this.searchString = searchString;
     }
 
-    @Override
-    public String toString() {
-        return "TechnologyCategoryDto{" +
-                "id=" + id +
-                ", categoryName='" + categoryName + '\'' +
-                ", searchString='" + searchString + '\'' +
-                '}';
+    public List<TechnologyDto> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(List<TechnologyDto> technologies) {
+        this.technologies = technologies;
     }
 }

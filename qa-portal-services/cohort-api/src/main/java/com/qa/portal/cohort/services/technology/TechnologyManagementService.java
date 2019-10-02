@@ -1,5 +1,6 @@
 package com.qa.portal.cohort.services.technology;
 
+import com.qa.portal.cohort.services.technology.mapper.TechnologyMapper;
 import com.qa.portal.common.dto.TechnologyCategoryDto;
 import com.qa.portal.common.dto.TechnologyDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
@@ -7,7 +8,6 @@ import com.qa.portal.common.persistence.entity.TechnologyCategoryEntity;
 import com.qa.portal.common.persistence.entity.TechnologyEntity;
 import com.qa.portal.common.persistence.repository.TechnologyCategoryRepository;
 import com.qa.portal.common.persistence.repository.TechnologyRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,43 +20,43 @@ public class TechnologyManagementService {
 
     private TechnologyRepository technologyRepository;
 
-    private BaseMapper baseMapper;
+    private TechnologyMapper technologyMapper;
 
     public TechnologyManagementService(TechnologyCategoryRepository technologyCategoryRepository,
                                        TechnologyRepository technologyRepository,
-                                       BaseMapper baseMapper) {
+                                       TechnologyMapper technologyMapper) {
         this.technologyCategoryRepository = technologyCategoryRepository;
         this.technologyRepository = technologyRepository;
-        this.baseMapper = baseMapper;
+        this.technologyMapper = technologyMapper;
     }
 
     @Transactional
     public TechnologyCategoryDto createTechnologyCategory(TechnologyCategoryDto technologyCategoryDto) {
-        TechnologyCategoryEntity technologyCategoryEntity = baseMapper.mapObject(technologyCategoryDto, TechnologyCategoryEntity.class);
+        TechnologyCategoryEntity technologyCategoryEntity = technologyMapper.mapToNewTechnologyCategoryEntity(technologyCategoryDto);
         TechnologyCategoryEntity savedEntity = technologyCategoryRepository.save(technologyCategoryEntity);
-        return baseMapper.mapObject(savedEntity, TechnologyCategoryDto.class);
+        return technologyMapper.mapToTechnologyCategoryDto(savedEntity);
     }
 
     @Transactional
     public TechnologyDto createTechnology(TechnologyDto technologyDto) {
-        TechnologyEntity technologyEntity = baseMapper.mapObject(technologyDto, TechnologyEntity.class);
-        getTechnologyCategoryEntity(technologyDto.getTechnologyCategory())
+        TechnologyEntity technologyEntity = technologyMapper.mapToNewTechnologyEntity(technologyDto);
+        getTechnologyCategoryEntity(technologyDto.getTechnologyCategoryId())
                 .ifPresent(tc -> technologyEntity.setTechnologyCategory(tc));
         TechnologyEntity savedEntity = technologyRepository.save(technologyEntity);
-        return baseMapper.mapObject(savedEntity, TechnologyDto.class);
+        return technologyMapper.mapToTechnologyDto(savedEntity);
     }
 
     @Transactional
     public TechnologyDto updateTechnology(TechnologyDto technologyDto) {
         TechnologyEntity technologyEntity = technologyRepository.findById(technologyDto.getId())
                 .orElseThrow(() -> new QaPortalBusinessException("Cannot find Technology to be updated"));
-        getTechnologyCategoryEntity(technologyDto.getTechnologyCategory())
+        getTechnologyCategoryEntity(technologyDto.getTechnologyCategoryId())
                 .ifPresent(tc -> technologyEntity.setTechnologyCategory(tc));
         TechnologyEntity savedEntity = technologyRepository.save(technologyEntity);
-        return baseMapper.mapObject(savedEntity, TechnologyDto.class);
+        return technologyMapper.mapToTechnologyDto(savedEntity);
     }
 
-    private Optional<TechnologyCategoryEntity> getTechnologyCategoryEntity(TechnologyCategoryDto technologyCategoryDto) {
-        return technologyCategoryRepository.findById(technologyCategoryDto.getId());
+    private Optional<TechnologyCategoryEntity> getTechnologyCategoryEntity(Integer id) {
+        return technologyCategoryRepository.findById(id);
     }
 }
