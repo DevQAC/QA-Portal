@@ -9,6 +9,7 @@ import { finalize } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { TechnologyService } from '../_common/technology.service';
 import { TechnologyCategoryModel } from 'projects/portal-core/src/app/_common/models/technology-category.model';
+import { TechnologyModel } from 'projects/portal-core/src/app/_common/models/technology.model';
 
 @Component({
   selector: 'app-course-detail',
@@ -61,13 +62,17 @@ export class CourseDetailComponent implements OnInit {
       );
   }
 
+  public getSelectedTechnologyCategories(selectedTech: TechnologyModel[]): TechnologyCategoryModel[] {
+    console.warn('getSelectedTechnologyCategories not implemented!');
+    return [];
+  }
+
   public onSaveCourseClicked() {
     this.course = {
       ...this.course,
-      ...this.courseForm.value
+      ...this.courseForm.value,
+      technologies: this.getSelectedTechnologyCategories(this.courseForm.value.technologies)
     };
-
-    debugger;
 
     this.courseService.saveCourse(this.course)
       .pipe(finalize(() => {
