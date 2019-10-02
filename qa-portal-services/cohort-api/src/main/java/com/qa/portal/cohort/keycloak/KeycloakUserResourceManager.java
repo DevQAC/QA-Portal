@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.core.Response;
@@ -219,7 +218,8 @@ public class KeycloakUserResourceManager {
     }
 
     public void updateCohortsMembers(QaCohortDto cohortDto) {
-        List<RoleRepresentation> cohortRole = getCohortRole(cohortDto.getName());
+        RoleRepresentation cohortRole = getCohortRole(cohortDto.getName());
+        LOGGER.info("Cohort role is " + cohortRole);
         List<UserRepresentation> existingCohortMembers = getKeycloakUsersForCohort(cohortDto.getName());
         List<String> existingCohortMemberNames = existingCohortMembers.stream().map(u -> u.getUsername()).collect(Collectors.toList());
         existingCohortMembers.stream()
@@ -230,7 +230,7 @@ public class KeycloakUserResourceManager {
         List<UserRepresentation> newCohortMembers = getNewCohortMembers(cohortDto);
         newCohortMembers.stream()
                 .filter(u -> !existingCohortMemberNames.contains(u.getUsername()))
-                .forEach(u -> assignRoleToUser(u, getCohortRoleName(cohortRole.get(0).getName())));
+                .forEach(u -> assignRoleToUser(u, cohortRole.getName()));
     }
 
     private List<UserRepresentation> getKeycloakUsersForCohort(String cohortName) {
@@ -262,18 +262,17 @@ public class KeycloakUserResourceManager {
                 .orElseGet(() -> false);
     }
 
-    private void removeMemberFromCohort(UserRepresentation userRepresentation, List<RoleRepresentation> cohorts) {
+    private void removeMemberFromCohort(UserRepresentation userRepresentation, RoleRepresentation cohort) {
         keycloakAdminClient.getRealm().users().get(userRepresentation.getId())
                 .roles().realmLevel()
-                .remove(cohorts);
+                .remove(Stream.of(cohort).collect(Collectors.toList()));
     }
 
-    private List<RoleRepresentation> getCohortRole(String cohortName) {
+    private RoleRepresentation getCohortRole(String cohortName) {
         return keycloakAdminClient.getRealm().roles().list().stream()
                 .filter(r -> r.getName().equals(getCohortRoleName(cohortName)))
                 .findFirst()
-                .map(r -> Stream.of(r).collect(Collectors.toList()))
-                .orElseGet(() -> Collections.emptyList());
+                .orElseThrow(() -> new QaPortalBusinessException("No Cohort on Keycloak for supplied name"));
     }
 
     private String getCohortRoleName(String cohortName) {
