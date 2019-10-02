@@ -47,7 +47,8 @@ export class CohortDetailComponent implements OnInit {
     // this.availableEvents = this.availableCourses.map(course => this.courseToCalendarEvent(course));
     this.cohortForm = new FormBuilder().group({
       name: [''],
-      startDate: ['']
+      startDate: [''],
+      trainerUserName: ['']
     });
     this.cohortForm.disable();
   }
