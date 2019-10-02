@@ -7,6 +7,7 @@ export interface Endpoints {
   GET_COURSE_BY_ID: string;
   SAVE_COURSE: string;
   GET_ALL_TECHNOLOGY_CATEGORIES: string;
+  GET_ALL_TECHNOLOGY_CATEGORY_BY_ID: string;
 }
 
 export const endpoints: Endpoints = {
@@ -16,7 +17,8 @@ export const endpoints: Endpoints = {
   SAVE_COHORT: 'cohort-api/manage/cohort',
   GET_COURSE_BY_ID: '/cohort-api/course/:id',
   SAVE_COURSE: 'cohort-api/manage/course',
-  GET_ALL_TECHNOLOGY_CATEGORIES: 'cohort-api/technology/categories'
+  GET_ALL_TECHNOLOGY_CATEGORIES: 'cohort-api/technology/categories',
+  GET_ALL_TECHNOLOGY_CATEGORY_BY_ID: 'cohort-api/technology/category/:id'
 };
 
 export type EndpointRef = keyof Endpoints;
