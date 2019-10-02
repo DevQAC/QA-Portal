@@ -81,6 +81,7 @@ public class CohortMapper {
                 .orElseThrow(() -> new QaPortalBusinessException("Cohort not found"));
         trainerRepository.findByUserName(qaCohortDto.getTrainerUserName())
                 .ifPresent(t -> cohortEntity.setTrainer(t));
+        cohortEntity.setName(qaCohortDto.getName());
         cohortEntity.setStartDate(Date.valueOf(qaCohortDto.getStartDate()));
         updateCohortCourses(qaCohortDto, cohortEntity);
         updateCohortTrainees(qaCohortDto, cohortEntity);
