@@ -11,7 +11,7 @@ export class TechnologyService {
   constructor(private qaHttp: QaHttpService) { }
 
   public getAllCategories(): Observable<TechnologyCategoryModel[]> {
-    return this.qaHttp.get({ref: 'GET_ALL_TECHNOLOGY_CATEGORIES'});s
+    return this.qaHttp.get({ref: 'GET_ALL_TECHNOLOGY_CATEGORIES'});
   }
 
 }
