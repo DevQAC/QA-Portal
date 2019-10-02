@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -27,7 +28,24 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs10" />
+     id="defs10">
+    <linearGradient
+       id="linearGradient917"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop915" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient911"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop909" />
+    </linearGradient>
+  </defs>
   <sodipodi:namedview
      borderopacity="1"
      objecttolerance="10"
@@ -39,9 +57,9 @@
      inkscape:window-height="1016"
      id="namedview8"
      showgrid="false"
-     inkscape:zoom="6.9532165"
-     inkscape:cx="8.6526993"
-     inkscape:cy="1.1349214"
+     inkscape:zoom="13.906433"
+     inkscape:cx="11.385573"
+     inkscape:cy="13.643406"
      inkscape:window-x="50"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -56,7 +74,7 @@
      inkscape:connector-curvature="0"
      style="stroke-width:0.55254239" />
   <g
-     style="fill:currentColor;fill-opacity:1"
+     style="fill-opacity:1;"
      id="g875-5"
      transform="matrix(-0.1885967,0,0,-0.19541199,42.511259,47.044395)">
     <rect
@@ -68,7 +86,7 @@
        height="52.010651"
        width="52.010651"
        id="rect913"
-       style="fill-opacity:1;stroke-width:0;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:14.5;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill" />
+       style="fill-opacity:1;paint-order:markers stroke fill;" />
   </g>
   <g
      style="stroke-width:13.90985012;stroke-miterlimit:14.5;stroke-dasharray:none"
