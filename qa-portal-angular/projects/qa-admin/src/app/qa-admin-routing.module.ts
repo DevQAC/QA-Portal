@@ -8,6 +8,7 @@ import { CohortDetailComponent } from './cohort-detail/cohort-detail.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { CourseManagementComponent } from './course-management/course-management.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
+import { TechnologyManagementComponent } from './technology-management/technology-management.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,16 @@ const routes: Routes = [
   {
     path: 'manage/courses/:id',
     component: CourseDetailComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
+  {
+    path: 'manage/technologies',
+    component: TechnologyManagementComponent,
     canActivate: [AppAuthGuard],
     data: {
       roles: [

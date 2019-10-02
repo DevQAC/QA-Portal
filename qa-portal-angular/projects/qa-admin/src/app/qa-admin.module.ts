@@ -22,6 +22,7 @@ import { AddCourseDialogComponent } from './cohort-detail/add-course-dialog/add-
 import { CourseManagementComponent } from './course-management/course-management.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { NewCourseDialogComponent } from './course-management/new-course-dialog/new-course-dialog.component';
+import { TechnologyManagementComponent } from './technology-management/technology-management.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NewCourseDialogComponent } from './course-management/new-course-dialog/
     AddCourseDialogComponent,
     CourseManagementComponent,
     CourseDetailComponent,
-    NewCourseDialogComponent
+    NewCourseDialogComponent,
+    TechnologyManagementComponent
   ],
   imports: [
     QaCommonModule,
