@@ -18,6 +18,7 @@ import { CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { MatDialog } from '@angular/material';
 import { AddCourseDialogComponent } from './add-course-dialog/add-course-dialog.component';
 import { TrainerModel } from 'projects/portal-core/src/app/_common/models/trainer.model';
+import { QaToastrService } from 'projects/portal-core/src/app/_common/services/qa-toastr.service';
 
 @Component({
   selector: 'app-cohort-detail',
@@ -41,6 +42,7 @@ export class CohortDetailComponent implements OnInit {
     private courseService: CourseService,
     private aR: ActivatedRoute,
     private dialog: MatDialog,
+    private toastr: QaToastrService,
     private errorService: QaErrorHandlerService) {
     // this.availableEvents = this.availableCourses.map(course => this.courseToCalendarEvent(course));
     this.cohortForm = new FormBuilder().group({
@@ -89,6 +91,14 @@ export class CohortDetailComponent implements OnInit {
     };
   }
 
+  private calendarEventToCohorCourse(calendarEvent: CalendarEvent<CohortCourseModel>): CohortCourseModel {
+    return {
+      ...calendarEvent.meta,
+      startDate: calendarEvent.start,
+      endDate: calendarEvent.end
+    };
+  }
+
   private buildCohortCourse(course: CourseModel, startDate: Date, endDate: Date, trainer: TrainerModel): CohortCourseModel {
     return {
       course, startDate, endDate, trainer,
@@ -132,5 +142,19 @@ export class CohortDetailComponent implements OnInit {
         this.refreshCalendar.next();
       }
     });
+  }
+
+
+  public onSaveCohortClicked(): void {
+    this.cohort = {
+      ...this.cohort,
+      ...this.cohortForm.value,
+      cohortCourses: this.calendarEvents.map(e => this.calendarEventToCohorCourse(e))
+    };
+
+    this.cohortService.saveCohort(this.cohort).subscribe(resp => {
+      this.toastr.showSuccess('Cohort updated');
+    },
+      err => this.errorService.handleError(err));
   }
 }

@@ -31,4 +31,8 @@ export class CohortService {
   public getAvailableTrainersForCohort(id: string | number): Observable<TrainerModel[]> {
     return this.qaHttp.get({ ref: 'GET_TRAINERS_AVAILABLE_FOR_COHORT', params: { id: id.toString() } });
   }
+
+  public saveCohort(cohort: CohortModel): Observable<CohortModel> {
+    return this.qaHttp.put({ref: 'SAVE_COHORT'}, cohort);
+  }
 }

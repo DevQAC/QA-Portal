@@ -8,6 +8,7 @@ import { Component, Input } from '@angular/core';
 export class SpinnerOverlayComponent {
 
   @Input() public show = false;
+  @Input() public fadeBg = false;
 
 
 }
