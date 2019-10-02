@@ -35,4 +35,13 @@
             <b>trainer</b>
         </field-exclude>
     </mapping>
+
+    <mapping>
+        <class-a>com.qa.portal.common.dto.TechnologyCategoryDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.TechnologyCategoryEntity</class-b>
+        <field-exclude>
+            <a>technologies</a>
+            <b>technologies</b>
+        </field-exclude>
+    </mapping>
 </mappings>

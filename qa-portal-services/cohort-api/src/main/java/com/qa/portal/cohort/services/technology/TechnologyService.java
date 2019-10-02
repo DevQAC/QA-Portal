@@ -1,5 +1,6 @@
 package com.qa.portal.cohort.services.technology;
 
+import com.qa.portal.cohort.services.technology.mapper.TechnologyMapper;
 import com.qa.portal.common.dto.TechnologyCategoryDto;
 import com.qa.portal.common.persistence.repository.TechnologyCategoryRepository;
 import com.qa.portal.common.persistence.repository.TechnologyRepository;
@@ -17,21 +18,21 @@ public class TechnologyService {
 
     private TechnologyRepository technologyRepository;
 
-    private BaseMapper baseMapper;
+    private TechnologyMapper technologyMapper;
 
     public TechnologyService(TechnologyCategoryRepository technologyCategoryRepository,
                              TechnologyRepository technologyRepository,
-                             BaseMapper baseMapper) {
+                             TechnologyMapper technologyMapper) {
         this.technologyCategoryRepository = technologyCategoryRepository;
         this.technologyRepository = technologyRepository;
-        this.baseMapper = baseMapper;
+        this.technologyMapper = technologyMapper;
     }
 
     @Transactional
     public List<TechnologyCategoryDto> getTechnologyCategories() {
         return technologyCategoryRepository.findAll()
                 .stream()
-                .map(tc -> baseMapper.mapObject(tc, TechnologyCategoryDto.class))
+                .map(tc -> technologyMapper.mapToTechnologyCategoryDto(tc))
                 .collect(Collectors.toList());
     }
 }
