@@ -57,7 +57,6 @@ export class CourseDetailComponent implements OnInit {
           this.course = course;
           this.availableTechCategories = techCats;
           this.courseForm.patchValue(this.course);
-          // debugger;
         }, err => this.errorService.handleError(err)
       );
   }

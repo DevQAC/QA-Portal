@@ -29,6 +29,6 @@ export class CourseService {
     return {
       primary: randomColor({ seed: course.id, hue: 'random', luminosity: 'random' }),
       secondary: randomColor({ seed: course.id, hue: 'random', luminosity: 'random' }) + '77',
-    }
+    };
   }
 }
