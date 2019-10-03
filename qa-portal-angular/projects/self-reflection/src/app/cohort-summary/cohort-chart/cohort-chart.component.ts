@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {Chart} from 'chart.js';
-import {CohortSummaryModel} from '../_common/models/cohort-summary.model';
+import {CohortSummaryModel} from '../../_common/models/cohort-summary.model';
 
 @Component({
   selector: 'app-cohort-chart',
