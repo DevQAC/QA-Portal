@@ -1,5 +1,9 @@
 export class TechnologyModel {
     id: number;
-    technologyName: string;
+    lastUpdatedBy: string;
+    lastUpdatedTimestamp: Date;
     searchString: string;
+    technologyCategoryId: number;
+    technologyCategoryName: string;
+    technologyName: string;
 }

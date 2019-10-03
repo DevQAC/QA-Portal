@@ -14,4 +14,12 @@ export class TechnologyService {
     return this.qaHttp.get({ref: 'GET_ALL_TECHNOLOGY_CATEGORIES'});
   }
 
+  public getCategoryById(id: string | number): Observable<TechnologyCategoryModel> {
+    return this.qaHttp.get({ref: 'GET_ALL_TECHNOLOGY_CATEGORY_BY_ID', params: {id: id.toString()}});
+  }
+
+  public saveCategory(category: TechnologyCategoryModel): Observable<TechnologyCategoryModel> {
+    return this.qaHttp.put({ref: 'SAVE_TECHNOLOGY_CATEGORY'}, category);
+  }
+
 }

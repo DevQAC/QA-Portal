@@ -22,6 +22,9 @@ import { AddCourseDialogComponent } from './cohort-detail/add-course-dialog/add-
 import { CourseManagementComponent } from './course-management/course-management.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { NewCourseDialogComponent } from './course-management/new-course-dialog/new-course-dialog.component';
+import { TechnologyManagementComponent } from './technology-management/technology-management.component';
+import { TechnologyDetailComponent } from './technology-detail/technology-detail.component';
+import { NewCategoryDialogComponent } from './technology-management/new-category-dialog/new-category-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { NewCourseDialogComponent } from './course-management/new-course-dialog/
     AddCourseDialogComponent,
     CourseManagementComponent,
     CourseDetailComponent,
-    NewCourseDialogComponent
+    NewCourseDialogComponent,
+    TechnologyManagementComponent,
+    TechnologyDetailComponent,
+    NewCategoryDialogComponent
   ],
   imports: [
     QaCommonModule,
@@ -56,7 +62,8 @@ import { NewCourseDialogComponent } from './course-management/new-course-dialog/
     UpdateUserCohortDialogComponent,
     UpdateUserRoleDialogComponent,
     AddCourseDialogComponent,
-    NewCourseDialogComponent
+    NewCourseDialogComponent,
+    NewCategoryDialogComponent
   ]
 })
 export class QaAdminModule { }

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { endpoints, EndpointRef } from '../../../environments/endpoints';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { QaErrorHandlerService } from './qa-error-handler.service';
 
 export interface HttpOptions {
   handleErrors?: true;
@@ -29,7 +30,7 @@ export class QaHttpService {
     headers: { 'Content-Type': 'application/json' }
   };
 
-  constructor(private httpClient: HttpClient, private errHandler: ErrorHandler) { }
+  constructor(private httpClient: HttpClient) { }
 
   /**
    * Constructs a formatted URL from a base URL in configuration (determined by url.ref) and params.
@@ -53,33 +54,23 @@ export class QaHttpService {
 
 
   public get<T>(url: string | HttpUrlDefinition, options?: HttpOptions): Observable<T> {
-    return this.httpClient.get<T>(this.buildUrl(url), { ...this.DEFAULT_HTTP_OPTIONS, ...options })
-      .pipe(catchError(this.handleError));
+    return this.httpClient.get<T>(this.buildUrl(url), { ...this.DEFAULT_HTTP_OPTIONS, ...options });
   }
 
   public post<T>(url: string | HttpUrlDefinition, body: any, options?: HttpOptions): Observable<T> {
-    return this.httpClient.post<T>(this.buildUrl(url), body, { ...this.DEFAULT_HTTP_OPTIONS, ...options })
-      .pipe(catchError(this.handleError));
+    return this.httpClient.post<T>(this.buildUrl(url), body, { ...this.DEFAULT_HTTP_OPTIONS, ...options });
   }
 
   public put<T>(url: string | HttpUrlDefinition, body: any, options?: HttpOptions): Observable<T> {
-    return this.httpClient.put<T>(this.buildUrl(url), body, { ...this.DEFAULT_HTTP_OPTIONS, ...options })
-      .pipe(catchError(this.handleError));
+    return this.httpClient.put<T>(this.buildUrl(url), body, { ...this.DEFAULT_HTTP_OPTIONS, ...options });
   }
 
   public patch<T>(url: string | HttpUrlDefinition, body: any, options?: HttpOptions): Observable<T> {
-    return this.httpClient.patch<T>(this.buildUrl(url), body, { ...this.DEFAULT_HTTP_OPTIONS, ...options })
-      .pipe(catchError(this.handleError));
+    return this.httpClient.patch<T>(this.buildUrl(url), body, { ...this.DEFAULT_HTTP_OPTIONS, ...options });
   }
 
   public delete<T>(url: string | HttpUrlDefinition, options?: HttpOptions): Observable<T> {
-    return this.httpClient.delete<T>(this.buildUrl(url), { ...this.DEFAULT_HTTP_OPTIONS, ...options })
-      .pipe(catchError(this.handleError));
+    return this.httpClient.delete<T>(this.buildUrl(url), { ...this.DEFAULT_HTTP_OPTIONS, ...options });
   }
 
-
-  private handleError(err: any): Observable<never> {
-    this.errHandler.handleError(err);
-    return throwError(err);
-  }
 }
