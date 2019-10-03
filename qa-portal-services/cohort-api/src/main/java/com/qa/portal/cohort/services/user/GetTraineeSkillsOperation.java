@@ -60,7 +60,7 @@ public class GetTraineeSkillsOperation {
 
     private TechnologyWithCategoryDto getTechnologyWithCategory(TechnologyEntity technologyEntity) {
         TechnologyDto technologyDto = baseMapper.mapObject(technologyEntity, TechnologyDto.class);
-        return new TechnologyWithCategoryDto(technologyEntity.getTechnologyCategory().getCategoryName(), technologyDto);
+        return new TechnologyWithCategoryDto(technologyEntity.getTechnologyCategory().getSearchString(), technologyDto);
     }
 
     // Class created for convenience to make it easier to group the technology categories and get the sets of technologies for those categories.
