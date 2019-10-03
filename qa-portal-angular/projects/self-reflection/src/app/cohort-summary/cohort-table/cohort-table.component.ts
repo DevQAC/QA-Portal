@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
-import {CohortSummaryModel} from '../_common/models/cohort-summary.model';
+import {CohortSummaryModel} from '../../_common/models/cohort-summary.model';
 
 @Component({
   selector: 'app-cohort-table',
