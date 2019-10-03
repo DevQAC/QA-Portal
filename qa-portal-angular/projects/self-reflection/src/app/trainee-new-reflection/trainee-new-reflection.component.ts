@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SelfReflectionFormViewModel} from '../trainee-reflection/models/self-reflection-form-vmodel';
 import {forkJoin, Subscription} from 'rxjs';
 import {SelfReflectionFormService} from '../trainee-reflection/services/self-reflection-form.service';
-import {QuestionsServiceService} from '../trainee-reflection/services/questions-service.service';
 import {QaErrorHandlerService} from '../../../../portal-core/src/app/_common/services/qa-error-handler.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SelfReflectionFormModel} from '../_common/models/self-reflection-form-model';
@@ -10,9 +9,9 @@ import {ReflectionQuestionModel} from '../_common/models/reflection.question.mod
 import {CohortTraineesService} from '../cohort-trainees/services/cohort-trainees.service';
 import {SelfReflectionFormStateService} from '../_common/services/self-reflection-form-state.service';
 import {QaToastrService} from '../../../../portal-core/src/app/_common/services/qa-toastr.service';
-import {DeprecatedTrainerReflectionService} from '../trainer-reflection/services/deprecated-trainer-reflection.service';
 import {QuestionModel} from '../_common/models/question.model';
 import {take} from 'rxjs/operators';
+import {ReflectionQuestionService} from './services/reflection-question.service';
 
 @Component({
   selector: 'app-trainee-new-reflection',
@@ -31,9 +30,8 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
   MILLIS_IN_A_DAY = 24 * 60 * 60 * 1000;
 
-  constructor(private selfReflectionService: DeprecatedTrainerReflectionService,
+  constructor(private reflectionQuestionService: ReflectionQuestionService,
               private selfReflectionFormService: SelfReflectionFormService,
-              private questionsService: QuestionsServiceService,
               private errorHandlerService: QaErrorHandlerService,
               private selfReflectionFormStateService: SelfReflectionFormStateService,
               private router: Router,
@@ -44,22 +42,6 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initialiseForm();
-  }
-
-  getSortedDateArray(arrayOfDates: []): Date[] {
-    return arrayOfDates.sort(
-      (a, b) => {
-        const dateA = new Date(a);
-        const dateB = new Date(b);
-        if (dateA > dateB) {
-          return 1;
-        } else if (dateA < dateB) {
-          return -1;
-        } else {
-          return 0;
-        }
-      }
-    );
   }
 
   addDays(date: Date, days: number) {
@@ -115,7 +97,7 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
   }
 
   getSelfReflectionQuestions() {
-    this.questionSubscription = this.selfReflectionService.getQuestionsByFormType('reflection_form').subscribe(
+    this.questionSubscription = this.reflectionQuestionService.getQuestionsByFormType('reflection_form').subscribe(
       (answers) => {
         answers.forEach((entry) => {
           const reflectionQuestion = new ReflectionQuestionModel();
@@ -190,5 +172,21 @@ export class TraineeNewReflectionComponent implements OnInit, OnDestroy {
     if (!!this.questionSubscription) {
       this.questionSubscription.unsubscribe();
     }
+  }
+
+  private getSortedDateArray(arrayOfDates: []): Date[] {
+    return arrayOfDates.sort(
+      (a, b) => {
+        const dateA = new Date(a);
+        const dateB = new Date(b);
+        if (dateA > dateB) {
+          return 1;
+        } else if (dateA < dateB) {
+          return -1;
+        } else {
+          return 0;
+        }
+      }
+    );
   }
 }
