@@ -1,6 +1,7 @@
 package com.qa.portal.common.persistence.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,7 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
     @Column(name = "search_string")  
     private String searchString;
 
-	@OneToMany(mappedBy = "technologyCategory", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "technologyCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<TechnologyEntity> technologies;
 
 	public Integer getId() {
@@ -54,5 +55,18 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
 
 	public void setTechnologies(List<TechnologyEntity> technologies) {
 		this.technologies = technologies;
+	}
+
+	public void addTechnology(TechnologyEntity technologyEntity) {
+		if (technologies == null) {
+			technologies = new ArrayList<>();
+		}
+		technologies.add(technologyEntity);
+		technologyEntity.setTechnologyCategory(this);
+	}
+
+	public void removeTechnology(TechnologyEntity technologyEntity) {
+		technologies.remove(technologyEntity);
+		technologyEntity.setTechnologyCategory(null);
 	}
 }

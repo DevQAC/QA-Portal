@@ -36,7 +36,8 @@ public class CourseService {
     @Transactional
     public List<CourseDto> getCourses() {
         return courseRepository.findAll().stream()
-                .map(ce -> baseMapper.mapObject(ce, CourseDto.class)).collect(Collectors.toList());
+                .map(ce -> baseMapper.mapObject(ce, CourseDto.class))
+                .collect(Collectors.toList());
     }
 
     @Transactional
