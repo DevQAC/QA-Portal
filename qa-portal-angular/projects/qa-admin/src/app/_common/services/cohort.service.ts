@@ -35,4 +35,8 @@ export class CohortService {
   public saveCohort(cohort: CohortModel): Observable<CohortModel> {
     return this.qaHttp.put({ref: 'SAVE_COHORT'}, cohort);
   }
+
+  public addCohort(cohort: CohortModel): Observable<CohortModel> {
+    return this.qaHttp.post({ref: 'CREATE_COHORT'}, cohort);
+  }
 }
