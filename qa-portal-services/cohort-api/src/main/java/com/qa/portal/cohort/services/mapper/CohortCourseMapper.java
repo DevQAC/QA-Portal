@@ -2,7 +2,7 @@ package com.qa.portal.cohort.services.mapper;
 
 import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,4 +1,4 @@
-package com.qa.portal.common.util.mapper;
+package com.qa.portal.cohort.services.mapper;
 
 import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.dto.QaCohortDto;
@@ -6,6 +6,7 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.*;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

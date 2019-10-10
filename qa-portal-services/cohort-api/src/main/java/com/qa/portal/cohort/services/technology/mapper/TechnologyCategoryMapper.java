@@ -7,7 +7,7 @@ import com.qa.portal.common.persistence.entity.TechnologyCategoryEntity;
 import com.qa.portal.common.persistence.entity.TechnologyEntity;
 import com.qa.portal.common.persistence.repository.TechnologyCategoryRepository;
 import com.qa.portal.common.persistence.repository.TechnologyRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

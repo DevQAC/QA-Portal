@@ -4,7 +4,7 @@ import com.qa.portal.cohort.services.user.GetTraineeCoursesOperation;
 import com.qa.portal.common.dto.CourseDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.repository.CourseRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

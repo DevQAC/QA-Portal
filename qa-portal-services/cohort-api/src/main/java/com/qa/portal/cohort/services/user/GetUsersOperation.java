@@ -3,7 +3,7 @@ package com.qa.portal.cohort.services.user;
 import com.qa.portal.common.dto.QaUserDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.repository.QaUserRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class GetUsersOperation {
     public QaUserDto getUser(Integer id) {
         return userRepository.findById(id)
                 .map(ue -> baseMapper.mapToQaUserDto(ue))
-                .orElseThrow(() -> new QaPortalBusinessException("User not found for supplied id"));
+                .orElseThrow(() -> new QaPortalBusinessException("No user found for supplied id"));
     }
 
     public List<QaUserDto> getAllUsers() {

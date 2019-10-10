@@ -1,7 +1,7 @@
 package com.qa.portal.application.service.page.mapper;
 
 import com.qa.portal.common.exception.QaPortalBusinessException;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.application.dto.ProjectPageDto;
 import com.qa.portal.application.persistence.entity.ProjectPageEntity;
 import com.qa.portal.application.persistence.entity.RoleEntity;

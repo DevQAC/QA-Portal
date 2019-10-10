@@ -6,14 +6,12 @@ import com.qa.portal.common.persistence.entity.*;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.QuestionCategoryRepository;
 import com.qa.portal.common.persistence.repository.QuestionRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

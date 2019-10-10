@@ -3,7 +3,7 @@ package com.qa.portal.feedback.services;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 import com.qa.portal.feedback.services.mapper.CohortCourseEvaluationMapper;
@@ -43,6 +43,6 @@ public class GetCohortCourseEvaluationsForTraineeOperation {
 
     private TraineeEntity getTrainee(String traineeUserName) {
         return traineeRepository.findByUserName(traineeUserName)
-                .orElseThrow(() -> new QaPortalBusinessException("Cannot find trainee"));
+                .orElseThrow(() -> new QaPortalBusinessException("No trainee for supplied user name"));
     }
 }

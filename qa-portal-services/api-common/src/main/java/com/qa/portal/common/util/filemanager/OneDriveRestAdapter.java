@@ -1,4 +1,4 @@
-package com.qa.portal.common.util;
+package com.qa.portal.common.util.filemanager;
 
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.apache.http.HttpResponse;
@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Optional;
 
-import static com.qa.portal.common.util.OneDriveConstants.*;
+import static com.qa.portal.common.util.filemanager.OneDriveConstants.*;
 
 @Component
 public class OneDriveRestAdapter {
@@ -103,7 +103,7 @@ public class OneDriveRestAdapter {
             String response = executeRequest(httpGet);
             return Optional.ofNullable(jsonPropertyUtil.getJsonContentForProperty("id", response));
         } catch (Exception e) {
-            throw new QaPortalBusinessException("Error retriving item from one drive");
+            throw new QaPortalBusinessException("Error retrieving item from one drive");
         }
     }
 

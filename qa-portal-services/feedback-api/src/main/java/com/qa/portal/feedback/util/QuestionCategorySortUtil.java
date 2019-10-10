@@ -12,25 +12,25 @@ import java.util.List;
 @Component
 public class QuestionCategorySortUtil {
 
-    private Comparator<QuestionCategoryResponseDto> questionCategoryResponseDtoComparator
+    private Comparator<QuestionCategoryResponseDto> questionCategoryResponseByAscendingId
             = Comparator.comparingInt(qcr -> qcr.getQuestionCategory().getId());
 
-    private Comparator<QuestionResponseDto> questionResponseDtoComparator
+    private Comparator<QuestionResponseDto> questionResponseByAscendingId
             = Comparator.comparingInt((qr -> qr.getQuestion().getId()));
 
 
     public void sortQuestionCategoryResponses(CohortCourseEvaluationDto cohortCourseEvaluationDto) {
-        cohortCourseEvaluationDto.getCategoryResponses().sort(questionCategoryResponseDtoComparator);
+        cohortCourseEvaluationDto.getCategoryResponses().sort(questionCategoryResponseByAscendingId);
         sortQuestionResponses(cohortCourseEvaluationDto.getCategoryResponses());
     }
 
     public void sortQuestionCategoryResponses(CohortCourseFeedbackDto cohortCourseFeedbackDto) {
-        cohortCourseFeedbackDto.getCategoryResponses().sort(questionCategoryResponseDtoComparator);
+        cohortCourseFeedbackDto.getCategoryResponses().sort(questionCategoryResponseByAscendingId);
         sortQuestionResponses(cohortCourseFeedbackDto.getCategoryResponses());
     }
 
     private void sortQuestionResponses(List<QuestionCategoryResponseDto> questionCategoryResponseDtos) {
         questionCategoryResponseDtos.stream()
-                .forEach(qcr -> qcr.getQuestionResponses().sort(questionResponseDtoComparator));
+                .forEach(qcr -> qcr.getQuestionResponses().sort(questionResponseByAscendingId));
     }
 }

@@ -1,7 +1,7 @@
 package com.qa.portal.application.service.role;
 
 import com.qa.portal.common.exception.QaPortalBusinessException;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.application.dto.RoleDto;
 import com.qa.portal.application.persistence.repository.RoleRepository;
 import org.springframework.stereotype.Service;

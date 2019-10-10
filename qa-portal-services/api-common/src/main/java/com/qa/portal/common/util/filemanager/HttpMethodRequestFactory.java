@@ -1,4 +1,4 @@
-package com.qa.portal.common.util;
+package com.qa.portal.common.util.filemanager;
 
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.apache.commons.codec.Charsets;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static com.qa.portal.common.util.OneDriveConstants.*;
+import static com.qa.portal.common.util.filemanager.OneDriveConstants.*;
 
 @Component
 public class HttpMethodRequestFactory {
