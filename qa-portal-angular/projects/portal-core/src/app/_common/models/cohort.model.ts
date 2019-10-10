@@ -1,4 +1,4 @@
-import {CohortCourseModel} from './cohort-course.model';
+import { CohortCourseModel } from './cohort-course.model';
 
 export class CohortModel {
   id: number;
