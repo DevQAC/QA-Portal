@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -54,7 +55,8 @@ public class CohortMapper {
 
     public QaCohortDto mapToQaCohortDto(QaCohortEntity qaCohortEntity) {
         QaCohortDto cohortDto = baseMapper.mapObject(qaCohortEntity, QaCohortDto.class);
-        cohortDto.setTrainerUserName(qaCohortEntity.getTrainer().getUserName());
+        Optional.ofNullable(qaCohortEntity.getTrainer())
+                .ifPresent(t -> cohortDto.setTrainerUserName(t.getUserName()));
         cohortDto.setTraineeNames(new ArrayList<>());
         qaCohortEntity.getTrainees().stream()
                 .forEach(te -> cohortDto.getTraineeNames().add(te.getUserName()));
@@ -71,9 +73,9 @@ public class CohortMapper {
                 .ifPresent(t -> cohortEntity.setTrainer(t));
         cohortEntity.setStartDate(Date.valueOf(qaCohortDto.getStartDate()));
         cohortEntity.setCohortCourses(new ArrayList<>());
-        addNewCohortCourses(qaCohortDto, cohortEntity);
+//        addNewCohortCourses(qaCohortDto, cohortEntity);
         cohortEntity.setTrainees(new HashSet<>());
-        addNewTrainees(qaCohortDto, cohortEntity);
+//        addNewTrainees(qaCohortDto, cohortEntity);
         return cohortEntity;
     }
 
