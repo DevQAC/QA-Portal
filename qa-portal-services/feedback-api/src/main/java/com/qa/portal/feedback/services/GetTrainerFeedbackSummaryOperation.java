@@ -41,7 +41,7 @@ public class GetTrainerFeedbackSummaryOperation {
     private List<TrainerFeedbackSummaryRowDto> getTrainerFeedbackSummaryRows(String trainerUserName) {
         return qaTrainerRepository.findByUserName(trainerUserName)
                 .map(te -> getTrainerFeedbackSummaryRows(te))
-                .orElseThrow(() -> new QaPortalBusinessException("Cannot find trainer"));
+                .orElseThrow(() -> new QaPortalBusinessException("No trainer found for supplied user name"));
     }
 
     private List<TrainerFeedbackSummaryRowDto> getTrainerFeedbackSummaryRows(TrainerEntity trainerEntity) {

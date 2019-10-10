@@ -43,6 +43,6 @@ public class GetCohortCourseEvaluationsForTraineeOperation {
 
     private TraineeEntity getTrainee(String traineeUserName) {
         return traineeRepository.findByUserName(traineeUserName)
-                .orElseThrow(() -> new QaPortalBusinessException("Cannot find trainee"));
+                .orElseThrow(() -> new QaPortalBusinessException("No trainee for supplied user name"));
     }
 }

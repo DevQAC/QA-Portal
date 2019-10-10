@@ -35,7 +35,9 @@ public class CourseManagementService {
 
     @Transactional
     public CourseDto createCourse(CourseDto courseDto) {
-        // Check course doesn't already exist - for name or code
+        // TODO - may have to be extended to course name as well
+        getCourseByCode(courseDto.getCourseCode())
+                .ifPresent((c) -> {throw new QaPortalBusinessException("Course with the supplied code already exists");});
         CourseEntity courseEntity = baseMapper.mapObject(courseDto, CourseEntity.class);
         addNewCourseTechnologies(courseEntity, courseDto);
         CourseEntity savedEntity = courseRepository.save(courseEntity);
@@ -44,7 +46,6 @@ public class CourseManagementService {
 
     @Transactional
     public CourseDto updateCourse(CourseDto courseDto) {
-        // Throw Exception if the course does not exist
         CourseEntity courseEntity = courseRepository.findById(courseDto.getId())
                 .orElseThrow(() -> new QaPortalBusinessException("No course found for supplied course id"));
         courseEntity.setDuration(courseDto.getDuration());
@@ -86,5 +87,9 @@ public class CourseManagementService {
                         .map(ct -> ct.getTechnology().getTechnologyName())
                         .collect(Collectors.toList()))
                 .orElseGet(() -> Collections.emptyList());
+    }
+
+    private Optional<CourseEntity> getCourseByCode(String courseCode) {
+        return courseRepository.findByCourseCode(courseCode);
     }
 }

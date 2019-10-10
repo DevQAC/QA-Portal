@@ -80,7 +80,7 @@ public class UserManagementService {
 
     public QaUserDetailsDto createUserDetails(QaUserDetailsDto userDetails) {
         createUserOperation.createUserDetails(userDetails);
-        keycloakUserResourceManager.createUserAndRole(userDetails);
+        keycloakUserResourceManager.createUserAndRoles(userDetails);
         return userDetails;
     }
 

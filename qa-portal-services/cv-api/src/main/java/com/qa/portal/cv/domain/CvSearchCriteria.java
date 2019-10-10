@@ -1,6 +1,6 @@
 package com.qa.portal.cv.domain;
 
-// Class for the search criteria selected on teh admin search page.
+// Class for the search criteria selected on the admin search page.
 // Currently Cohort, Status, Technology and Name
 public class CvSearchCriteria {
 
