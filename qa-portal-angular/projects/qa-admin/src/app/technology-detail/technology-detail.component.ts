@@ -55,7 +55,7 @@ export class TechnologyDetailComponent implements OnInit {
 
     this.techCategory = {
       ...this.techCategory,
-      ...this.technologyForm,
+      ...this.technologyForm.value,
       technologies: this.technologies
     };
     this.technologyForm.disable();

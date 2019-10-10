@@ -1,3 +1,15 @@
-<p>
-  new-category-dialog works!
-</p>
+<h1 mat-dialog-title>Add New Category</h1>
+<form [formGroup]="catForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Category Name</mat-label>
+      <input matInput formControlName="categoryName" required>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button [mat-dialog-close]="false" [disabled]="isLoading">Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()"
+      [disabled]="isLoading || catForm.invalid">Create</button>
+  </div>
+</form>
+<app-spinner-overlay [show]="isLoading"></app-spinner-overlay>

@@ -22,4 +22,8 @@ export class TechnologyService {
     return this.qaHttp.put({ref: 'SAVE_TECHNOLOGY_CATEGORY'}, category);
   }
 
+  public addCategory(category: TechnologyCategoryModel): Observable<TechnologyCategoryModel> {
+    return this.qaHttp.post({ref: 'CREATE_TECHNOLOGY_CATEGORY'}, category);
+  }
+
 }
