@@ -73,9 +73,11 @@ public class CohortMapper {
                 .ifPresent(t -> cohortEntity.setTrainer(t));
         cohortEntity.setStartDate(Date.valueOf(qaCohortDto.getStartDate()));
         cohortEntity.setCohortCourses(new ArrayList<>());
-//        addNewCohortCourses(qaCohortDto, cohortEntity);
+        Optional.ofNullable(qaCohortDto.getCohortCourses())
+                .ifPresent(l -> addNewCohortCourses(qaCohortDto, cohortEntity));
         cohortEntity.setTrainees(new HashSet<>());
-//        addNewTrainees(qaCohortDto, cohortEntity);
+        Optional.ofNullable(qaCohortDto.getTraineeNames())
+                .ifPresent(l -> addNewTrainees(qaCohortDto, cohortEntity));
         return cohortEntity;
     }
 
