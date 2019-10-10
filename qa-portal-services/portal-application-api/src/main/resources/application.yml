@@ -29,7 +29,8 @@ spring:
       hibernate:
         jdbc:
           lob:
-            non_contextual_creation=true:logging: true
+            non_contextual_creation: true
+
   level:
     org.springframework.web: DEBUG
 
