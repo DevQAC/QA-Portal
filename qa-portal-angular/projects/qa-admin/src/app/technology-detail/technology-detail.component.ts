@@ -60,7 +60,6 @@ export class TechnologyDetailComponent implements OnInit {
     };
     this.technologyForm.disable();
     this.isLoading = true;
-    debugger;
     this.techService.saveCategory(this.techCategory)
       .pipe(finalize(() => {
         this.technologyForm.enable();
