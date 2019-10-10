@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CohortService } from '../_common/services/cohort.service';
 import { DataTableComponent } from 'projects/qa-common/src/app/data-table/data-table.component';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
+import { NewCohortDialogComponent } from './new-cohort-dialog/new-cohort-dialog.component';
 
 @Component({
   selector: 'app-cohort-management',
@@ -48,7 +49,9 @@ export class CohortManagementComponent implements OnInit {
   }
 
   public onAddCohortButtonClicked(): void {
-    console.warn('Add new cohort not implemented!');
+    this.dialog.open(NewCohortDialogComponent, {}).afterClosed().subscribe(data => {
+
+    });
   }
 
   onRowClicked(event: IRowClickEvent<CohortModel>): void {
