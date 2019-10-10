@@ -34,6 +34,6 @@ public class PortalProjectService {
     public PortalProjectDto getPortalProject(Long id) {
         return portalProjectRepository.findById(id)
                 .map(p -> baseMapper.mapObject(p, PortalProjectDto.class))
-                .orElseThrow(() -> new QaPortalBusinessException("Portal Project not found"));
+                .orElseThrow(() -> new QaPortalBusinessException("No Portal Project found for supplied id"));
     }
 }

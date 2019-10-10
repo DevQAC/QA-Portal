@@ -16,14 +16,14 @@ import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.*;
 
 @Component
-public class ApplicationServiceMapper {
+public class ApplicationProjectsMapper {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(ApplicationServiceMapper.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(ApplicationProjectsMapper.class);
 
     private BaseMapper baseMapper;
 
     @Autowired
-    public ApplicationServiceMapper(BaseMapper baseMapper) {
+    public ApplicationProjectsMapper(BaseMapper baseMapper) {
         this.baseMapper = baseMapper;
     }
 
