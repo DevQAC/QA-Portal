@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.qa.portal.application.CoreConstants.APPLICATIONS_API_URL;
+import static com.qa.portal.application.PortalApplicationConstants.APPLICATIONS_API_URL;
 
 @RestController
 @RequestMapping(value = APPLICATIONS_API_URL)

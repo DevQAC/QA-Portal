@@ -1,6 +1,6 @@
 package com.qa.portal.application.service.mapper;
 
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.application.dto.*;
 import com.qa.portal.application.persistence.entity.RoleProjectPageEntity;
 import org.slf4j.Logger;
@@ -16,14 +16,14 @@ import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.*;
 
 @Component
-public class ApplicationServiceMapper {
+public class ApplicationProjectsMapper {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(ApplicationServiceMapper.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(ApplicationProjectsMapper.class);
 
     private BaseMapper baseMapper;
 
     @Autowired
-    public ApplicationServiceMapper(BaseMapper baseMapper) {
+    public ApplicationProjectsMapper(BaseMapper baseMapper) {
         this.baseMapper = baseMapper;
     }
 

@@ -20,9 +20,6 @@ enum Fonts {
 }
 
 enum Images {
-	ARROW("target/classes/Arrow.png", 35, PageFormat.PADDING.value,
-			PageFormat.HEIGHT.value - ConsultantNameBox.HEIGHT.value + PageFormat.PADDING.value + 20),
-
 	LOGO("target/classes/QA_Logo.png", 37, PageFormat.WIDTH.value - PageFormat.PADDING.value,
 			MainFooter.HEIGHT.value + MainBody.HEIGHT.value + 4);
 

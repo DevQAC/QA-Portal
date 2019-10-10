@@ -3,7 +3,7 @@ package com.qa.portal.cohort.services;
 import com.qa.portal.common.dto.QaCohortDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
-import com.qa.portal.common.util.mapper.CohortMapper;
+import com.qa.portal.cohort.services.mapper.CohortMapper;
 import org.springframework.stereotype.Component;
 
 @Component

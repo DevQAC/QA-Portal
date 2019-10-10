@@ -5,7 +5,7 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.TrainerFeedbackSummaryDto;
 import com.qa.portal.feedback.dto.TrainerFeedbackSummaryRowDto;
 import com.qa.portal.feedback.persistence.entity.CohortCourseFeedbackEntity;
@@ -41,7 +41,7 @@ public class GetTrainerFeedbackSummaryOperation {
     private List<TrainerFeedbackSummaryRowDto> getTrainerFeedbackSummaryRows(String trainerUserName) {
         return qaTrainerRepository.findByUserName(trainerUserName)
                 .map(te -> getTrainerFeedbackSummaryRows(te))
-                .orElseThrow(() -> new QaPortalBusinessException("Cannot find trainer"));
+                .orElseThrow(() -> new QaPortalBusinessException("No trainer found for supplied user name"));
     }
 
     private List<TrainerFeedbackSummaryRowDto> getTrainerFeedbackSummaryRows(TrainerEntity trainerEntity) {

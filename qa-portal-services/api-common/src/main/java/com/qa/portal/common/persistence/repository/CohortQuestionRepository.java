@@ -10,6 +10,9 @@ import com.qa.portal.common.persistence.entity.CohortQuestionEntity;
 
 @Repository
 @Deprecated
+/**
+ * TODO - To be removed once Self Reflection has been refactored to use the Question and QuestionCategory from the form-api service.
+ */
 public interface CohortQuestionRepository extends JpaRepository<CohortQuestionEntity, Integer> {
 
     Set<CohortQuestionEntity> findByCohort(QaCohortEntity cohort);

@@ -4,7 +4,7 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.QuestionCategoryRepository;
 import com.qa.portal.common.persistence.repository.QuestionRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseFeedbackDto;
 import com.qa.portal.feedback.persistence.entity.CohortCourseFeedbackEntity;
 import com.qa.portal.feedback.persistence.repository.CohortCourseFeedbackRepository;
@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Component

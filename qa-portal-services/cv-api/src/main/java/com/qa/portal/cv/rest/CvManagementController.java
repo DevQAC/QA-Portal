@@ -70,7 +70,10 @@ public class CvManagementController {
 
     //Admin search by criteria endpoint
     @GetMapping("/cv/search")
-    public ResponseEntity<List<CvVersion>> cvSearch(@RequestParam(required = false) String cohort,@RequestParam(required = false) String tech,@RequestParam(required = false) String status,@RequestParam(required = false) String name) {
+    public ResponseEntity<List<CvVersion>> cvSearch(@RequestParam(required = false) String cohort,
+                                                    @RequestParam(required = false) String tech,
+                                                    @RequestParam(required = false) String status,
+                                                    @RequestParam(required = false) String name) {
     CvSearchCriteria c = new CvSearchCriteria("","","","");
         // decode the query string
         if (cohort != null && !cohort.isEmpty()) {

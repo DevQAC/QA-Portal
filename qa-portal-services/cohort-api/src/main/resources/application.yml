@@ -14,9 +14,11 @@ spring:
 
   jpa:
     properties:
-      jdbc:
-        lob:
-          non_contextual_creation=true:logging: true
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
   level:
     org.springframework.web: DEBUG
 
@@ -39,7 +41,7 @@ qa:
 
     admin:
       enabled: true
-      url: "http://localhost:8080/auth"
+      url: http://localhost:8080/auth
       realm: qa-portal
       user: adminclient1@qa.com
       password: pass1

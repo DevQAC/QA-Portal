@@ -12,6 +12,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cohort_question", schema = "training")
 @Deprecated
+/**
+ * TODO - To be removed once Self Reflection has been refactored to use the Question and QuestionCategory from the form-api service.
+ */
 public class CohortQuestionEntity extends QaBaseEntity {
 
     @Id

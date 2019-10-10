@@ -80,7 +80,7 @@ public class KeycloakUserResourceManager {
                 .collect(Collectors.toList());
     }
 
-    public void createUserAndRole(QaUserDetailsDto qaUserDetailsDto) {
+    public void createUserAndRoles(QaUserDetailsDto qaUserDetailsDto) {
         try {
             UserRepresentation userRepresentation = createUser(qaUserDetailsDto);
             qaUserDetailsDto.getRoleNames().stream()
@@ -217,11 +217,13 @@ public class KeycloakUserResourceManager {
                 getEmailBody(userRepresentation));
     }
 
-    public void updateCohortsMembers(QaCohortDto cohortDto) {
+    public void updateCohortMembers(QaCohortDto cohortDto) {
         RoleRepresentation cohortRole = getCohortRole(cohortDto.getName());
         LOGGER.info("Cohort role is " + cohortRole);
         List<UserRepresentation> existingCohortMembers = getKeycloakUsersForCohort(cohortDto.getName());
-        List<String> existingCohortMemberNames = existingCohortMembers.stream().map(u -> u.getUsername()).collect(Collectors.toList());
+        List<String> existingCohortMemberNames = existingCohortMembers.stream()
+                .map(u -> u.getUsername())
+                .collect(Collectors.toList());
         existingCohortMembers.stream()
                 .filter(u -> !(cohortDto.getTraineeNames().contains(u.getUsername()) ||
                         cohortDto.getTrainerUserName().equals(u.getUsername())))

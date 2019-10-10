@@ -4,7 +4,7 @@ import com.qa.portal.common.dto.QuestionDto;
 import com.qa.portal.common.persistence.entity.QuestionEntity;
 import com.qa.portal.common.persistence.repository.QuestionCategoryRepository;
 import com.qa.portal.common.persistence.repository.QuestionRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
 @Component
