@@ -1,7 +1,7 @@
 package com.qa.portal.application.service.project;
 
 import com.qa.portal.common.exception.QaPortalBusinessException;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.application.dto.PortalProjectDto;
 import com.qa.portal.application.persistence.repository.PortalProjectRepository;
 import org.springframework.stereotype.Service;

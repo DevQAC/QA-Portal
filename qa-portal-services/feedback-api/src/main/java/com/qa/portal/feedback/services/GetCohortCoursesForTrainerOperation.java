@@ -6,7 +6,7 @@ import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.TrainerCourseHistoryDto;
 import com.qa.portal.feedback.persistence.entity.CohortCourseEvaluationEntity;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;

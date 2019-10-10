@@ -3,7 +3,7 @@ package com.qa.portal.cohort.services.user;
 import com.qa.portal.common.dto.TraineeDto;
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,6 +22,6 @@ public class GetTraineeOperation {
     public TraineeDto getTraineeById(Integer id) {
         return traineeRepository.findById(id)
                 .map((entity) -> baseMapper.mapObject(entity, TraineeDto.class))
-                .orElseThrow(() -> new QaResourceNotFoundException("Trainee not found"));
+                .orElseThrow(() -> new QaResourceNotFoundException("No trainee found for supplied id"));
     }
 }

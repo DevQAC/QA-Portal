@@ -1,4 +1,4 @@
-package com.qa.portal.common.util;
+package com.qa.portal.common.util.filemanager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -19,7 +19,7 @@ public class JsonPropertyUtil {
         }
         catch (Exception e) {
             LOGGER.error("Error accessing property from json string " + e.getMessage(), e);
-            throw new QaPortalBusinessException("Error creating folder on onedrive");
+            throw new QaPortalBusinessException("Error parsing JSON string");
         }
     }
 }

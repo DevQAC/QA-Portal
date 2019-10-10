@@ -7,7 +7,7 @@ import com.qa.portal.common.persistence.entity.CourseEntity;
 import com.qa.portal.common.persistence.entity.CourseTechnologyEntity;
 import com.qa.portal.common.persistence.repository.CourseRepository;
 import com.qa.portal.common.persistence.repository.CourseTechnologyRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -5,7 +5,7 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.TrainerEntity;
 import com.qa.portal.common.persistence.repository.QaTrainerRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.TrainerFeedbackSummaryDto;
 import com.qa.portal.feedback.dto.TrainerFeedbackSummaryRowDto;
 import com.qa.portal.feedback.persistence.entity.CohortCourseFeedbackEntity;

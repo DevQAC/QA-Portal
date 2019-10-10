@@ -1,4 +1,4 @@
-package com.qa.portal.common.util;
+package com.qa.portal.common.util.filemanager;
 
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import org.apache.http.HttpResponse;
@@ -13,8 +13,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
 
-import static com.qa.portal.common.util.HttpMethodRequestFactory.HttpRequestTypeEnum.AUTH;
-import static com.qa.portal.common.util.OneDriveConstants.*;
+import static com.qa.portal.common.util.filemanager.HttpMethodRequestFactory.HttpRequestTypeEnum.AUTH;
+import static com.qa.portal.common.util.filemanager.OneDriveConstants.*;
 
 // TODO - Need to handle refresh of the auth token - currently created when component is created then always used.
 @Component

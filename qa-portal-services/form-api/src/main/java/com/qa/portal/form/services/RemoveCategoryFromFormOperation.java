@@ -5,7 +5,7 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.FormTypeEntity;
 import com.qa.portal.common.persistence.entity.QuestionCategoryEntity;
 import com.qa.portal.common.persistence.repository.QuestionCategoryRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

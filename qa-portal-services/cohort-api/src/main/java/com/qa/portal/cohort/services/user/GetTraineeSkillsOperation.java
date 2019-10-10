@@ -8,7 +8,7 @@ import com.qa.portal.common.persistence.entity.TechnologyEntity;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.security.QaSecurityContext;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.*;

@@ -5,7 +5,7 @@ import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.reflection.persistence.repository.ReflectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

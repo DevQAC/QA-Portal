@@ -1,6 +1,6 @@
 package com.qa.portal.application.service.mapper;
 
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.application.dto.*;
 import com.qa.portal.application.persistence.entity.RoleProjectPageEntity;
 import org.slf4j.Logger;

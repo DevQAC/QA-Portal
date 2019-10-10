@@ -5,7 +5,7 @@ import com.qa.portal.common.exception.QaMultiStepCommitContext;
 import com.qa.portal.common.exception.QaPortalMultiStepCommitException;
 import com.qa.portal.common.persistence.entity.QaUserEntity;
 import com.qa.portal.common.persistence.repository.QaUserRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.common.dto.QaUserDetailsDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.qa.portal.common.util;
+package com.qa.portal.common.util.filemanager;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 
 import java.util.Objects;
 
-import static com.qa.portal.common.util.OneDriveConstants.*;
+import static com.qa.portal.common.util.filemanager.OneDriveConstants.*;
 
 @Component
 public class OneDriveConnectionManager {
