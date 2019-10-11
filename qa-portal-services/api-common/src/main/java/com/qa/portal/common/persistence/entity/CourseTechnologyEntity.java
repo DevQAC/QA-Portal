@@ -2,7 +2,6 @@ package com.qa.portal.common.persistence.entity;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(schema = "training", name = "course_technology")
 public class CourseTechnologyEntity extends QaBaseEntity {
@@ -19,7 +18,7 @@ public class CourseTechnologyEntity extends QaBaseEntity {
 	@JoinColumn(name = "course_id")
 	private CourseEntity course;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "technology_id")
     private TechnologyEntity technology;
 

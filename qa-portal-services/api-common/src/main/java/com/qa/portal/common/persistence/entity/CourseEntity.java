@@ -25,7 +25,7 @@ public class CourseEntity extends QaBaseEntity {
     @Column(name = "duration")
     private Integer duration;
 
-	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, orphanRemoval = true)
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<CourseTechnologyEntity> courseTechnologies;
 
     public Integer getId() {
