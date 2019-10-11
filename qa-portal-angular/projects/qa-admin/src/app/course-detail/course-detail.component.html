@@ -23,9 +23,9 @@
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Technologies</mat-label>
-        <mat-select formControlName="technologies" multiple>
+        <mat-select formControlName="courseTechnologies" multiple>
           <mat-optgroup *ngFor="let category of availableTechCategories" [label]="category.categoryName">
-            <mat-option *ngFor="let tech of category.technologies" [value]="tech">
+            <mat-option *ngFor="let tech of category.technologies" [value]="tech.id">
               {{tech.technologyName}}
             </mat-option>
           </mat-optgroup>

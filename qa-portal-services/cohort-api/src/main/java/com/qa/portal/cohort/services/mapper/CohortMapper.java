@@ -64,10 +64,9 @@ public class CohortMapper {
     }
 
     public QaCohortEntity mapToNewQaCohortEntity(QaCohortDto qaCohortDto) {
-        cohortRepository.findByName(qaCohortDto.getName())
-                .ifPresent(c -> {
-                    throw new QaPortalBusinessException("Cohort already exists");
-                });
+        if (cohortExists(qaCohortDto)) {
+            throw new QaPortalBusinessException("Cohort already exists with supplied cohort name");
+        }
         QaCohortEntity cohortEntity = baseMapper.mapObject(qaCohortDto, QaCohortEntity.class);
         trainerRepository.findByUserName(qaCohortDto.getTrainerUserName())
                 .ifPresent(t -> cohortEntity.setTrainer(t));
@@ -175,5 +174,11 @@ public class CohortMapper {
     private void assignTrainee(String traineeName, QaCohortEntity cohortEntity) {
         traineeRepository.findByUserName(traineeName)
                 .ifPresent(te -> cohortEntity.addTrainee(te));
+    }
+
+    private boolean cohortExists(QaCohortDto qaCohortDto) {
+       return cohortRepository.findByName(qaCohortDto.getName())
+                .map(c -> true)
+               .orElseGet(() -> false);
     }
 }

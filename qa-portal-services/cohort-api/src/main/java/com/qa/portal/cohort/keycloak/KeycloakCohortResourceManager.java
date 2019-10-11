@@ -6,10 +6,6 @@ import com.qa.portal.common.keycloak.KeycloakUserConstants;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 @Component
 public class KeycloakCohortResourceManager {
 
@@ -29,22 +25,12 @@ public class KeycloakCohortResourceManager {
 
     public RoleRepresentation createCohort(String cohortName) {
         String cohortRoleName = KeycloakUserConstants.COHORT_ROLE_PREFIX + cohortName;
-        keycloakCohortValidator.validateCohort(cohortRoleName);
-        RoleRepresentation roleRepresentation = keycloakCohortFactory.createCohort(cohortName);
-        keycloakAdminClient.getRealm().roles().create(roleRepresentation);
-        return getRoleRepresentation(cohortRoleName).orElseThrow(() -> new QaPortalBusinessException("Error creating cohort in keycloak"));
-    }
-
-    public List<RoleRepresentation> getAllCohorts() {
-        return keycloakAdminClient.getRealm().roles().list()
-                .stream()
-                .filter(roleRep -> roleRep.getName().startsWith(KeycloakUserConstants.COHORT_ROLE_PREFIX))
-                .collect(Collectors.toList());
-    }
-
-    public Optional<RoleRepresentation> getRoleRepresentation(String cohortName) {
-        return keycloakAdminClient.getRealm().roles().list().stream()
-                .filter(r -> r.getName().equals(cohortName))
-                .findFirst();
+        if (!keycloakCohortValidator.cohortExists(cohortRoleName)) {
+            RoleRepresentation roleRepresentation = keycloakCohortFactory.createCohort(cohortName);
+            keycloakAdminClient.getRealm().roles().create(roleRepresentation);
+            return roleRepresentation;
+        } else {
+            throw new QaPortalBusinessException("Cohort already exists with the supplied name");
+        }
     }
 }
