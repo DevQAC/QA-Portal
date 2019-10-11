@@ -69,7 +69,7 @@ export class CourseDetailComponent implements OnInit {
     return this.availableTechCategories
       .reduce<TechnologyModel[]>((prev, curr) => [...prev, ...curr.technologies], [])
       .filter(val => ids.some(id => id === val.id))
-      .map(tech => ({ technology: tech, id: tech.id } as CourseTechnologyModel));
+      .map(tech => ({ technology: tech } as CourseTechnologyModel));
   }
 
 
