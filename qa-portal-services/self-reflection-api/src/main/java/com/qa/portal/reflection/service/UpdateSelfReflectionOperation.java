@@ -26,7 +26,7 @@ public class UpdateSelfReflectionOperation {
 
     public ReflectionDto updateSelfReflection(ReflectionDto reflectionDto, String userName) {
         ReflectionEntity reflectionToUpdate = this.reflectionRepository.findById(reflectionDto.getId())
-                .orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));
+                .orElseThrow(() -> new QaResourceNotFoundException("No Reflection form found for supplied id"));
         reflectionToUpdate.setFormDate(Date.valueOf(reflectionDto.getFormDate()));
         reflectionToUpdate.setTrainerFeedback(reflectionDto.getTrainerFeedback());
         reflectionToUpdate.setLearningPathway(reflectionDto.getLearningPathway());

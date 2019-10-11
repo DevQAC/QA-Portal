@@ -6,6 +6,7 @@ create table if not exists training.form_type
 		constraint form_type_pk
 			primary key,
 	form_name varchar(255) not null,
+	description varchar(255),
 	last_updated_timestamp timestamp not null,
 	last_updated_by varchar(255) not null,
 	version integer default 1 not null

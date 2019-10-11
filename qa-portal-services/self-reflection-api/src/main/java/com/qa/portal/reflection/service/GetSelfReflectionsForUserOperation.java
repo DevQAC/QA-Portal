@@ -44,19 +44,19 @@ public class GetSelfReflectionsForUserOperation {
 	public List<ReflectionDto> getSelfReflectionsForTrainee(String userName) {
 		return traineeRepository.findByUserName(userName)
 				.map(t -> getReflectionsByResponder(t))
-				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
+				.orElseThrow(() -> new QaResourceNotFoundException("No Trainee found for supplied user name"));
 	}
 
 
 	public List<ReflectionDto> getSelfReflectionsForTrainee(Integer traineeId) {
 		return traineeRepository.findById(traineeId)
 				.map(t -> getReflectionsByResponder(t))
-				.orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
+				.orElseThrow(() -> new QaResourceNotFoundException("No Trainee found for supplied id"));
 	}
 
 	public Set<ReflectionDto> getSelfReflectionsForTrainer(String userName) {
 		TrainerEntity trainer = trainerRepository.findByUserName(userName)
-				.orElseThrow(() -> new QaResourceNotFoundException("Trainer does not exist"));
+				.orElseThrow(() -> new QaResourceNotFoundException("No Trainer found for supplied user name"));
 		return reflectionRepository.findAllByReviewer(trainer)
 				.stream().map(reflectionMapper::mapToReflectionDto)
 				.collect(Collectors.toSet());

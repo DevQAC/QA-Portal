@@ -34,7 +34,7 @@ public class QuestionService {
 	@Transactional
 	public Set<QuestionDto> getQuestionsForCohort(Integer cohortId) {
 		QaCohortEntity cohort = this.cohortRepo.findById(cohortId)
-				.orElseThrow(() -> new QaResourceNotFoundException("Cohort doesn't exist"));
+				.orElseThrow(() -> new QaResourceNotFoundException("No Cohort found for supplied id"));
 		Set<CohortQuestionEntity> cohortQuestions = this.cohortQuestionRepo.findByCohort(cohort);
 		return cohortQuestions.stream().map(cq -> cq.getQuestion()).map(this.mapper::mapToQuestionDto)
 				.collect(Collectors.toSet());
