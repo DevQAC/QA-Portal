@@ -31,7 +31,7 @@ public class GetTraineesForReviewOperation {
 
     public List<QaUserDto> getTraineesToReviewForCohort(Integer cohortId) {
         QaCohortEntity cohort = this.cohortRepository.findById(cohortId)
-                .orElseThrow(() -> new QaResourceNotFoundException("Cohort does not exist"));
+                .orElseThrow(() -> new QaResourceNotFoundException("No Cohort found for supplied id"));
         return cohort.getTrainees()
                 .stream()
                 .filter(this::hasReflectionForReview)

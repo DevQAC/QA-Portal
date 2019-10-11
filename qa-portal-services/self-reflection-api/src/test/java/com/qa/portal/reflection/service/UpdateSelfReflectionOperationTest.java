@@ -1,21 +1,5 @@
 package com.qa.portal.reflection.service;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-
 import com.qa.portal.common.exception.QaResourceNotFoundException;
 import com.qa.portal.reflection.dto.ReflectionDto;
 import com.qa.portal.reflection.dto.ReflectionQuestionDto;
@@ -23,6 +7,18 @@ import com.qa.portal.reflection.persistence.entity.ReflectionEntity;
 import com.qa.portal.reflection.persistence.entity.ReflectionQuestionEntity;
 import com.qa.portal.reflection.persistence.repository.ReflectionRepository;
 import com.qa.portal.reflection.service.mapper.ReflectionMapper;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import java.time.LocalDate;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UpdateSelfReflectionOperationTest {
@@ -86,5 +82,4 @@ public class UpdateSelfReflectionOperationTest {
 		verify(reflectionRepository, times(1)).save(reflectionEntityToUpdate);
 		verify(reflectionMapper, times(1)).mapToReflectionDto(updatedReflectionEntity);
 	}
-
 }

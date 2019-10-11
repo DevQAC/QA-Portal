@@ -73,7 +73,7 @@ public class GetCohortSummaryOperation {
                 .map(rqs -> averageRatingForTrainee(rqs))
                 .filter( rating -> rating.getAsDouble() > 0.0)
                 .mapToDouble(x -> x.getAsDouble())
-                .average().orElseGet(() -> new Double(0.0));
+                .average().orElseGet(() -> 0.0);
     }
 
     private Set<ReflectionQuestionEntity> getReflectionQuestions(Set<ReflectionEntity> reflectionEntities, Date weekStartDate) {
@@ -83,26 +83,14 @@ public class GetCohortSummaryOperation {
                 .collect(Collectors.toSet());
     }
 
-    private CohortSummaryDto createEmptyCohortSummaryDto(QaCohortEntity qaCohortEntity) {
-        return createCohortSummaryDto(qaCohortEntity, Collections.emptyList());
-    }
-
     private CohortSummaryDto createCohortSummaryDto(QaCohortEntity qaCohortEntity, List<Double> cohortWeeklyAverages) {
         DecimalFormat df = new DecimalFormat("#.#");
         CohortSummaryDto cohortSummaryDto = new CohortSummaryDto();
         cohortSummaryDto.setCohortName(qaCohortEntity.getName());
         cohortSummaryDto.setAverageRatings(cohortWeeklyAverages.stream()
-                .map(d -> new Double(df.format(d)))
+                .map(d -> Double.valueOf(df.format(d)))
                 .collect(Collectors.toList()));
         return cohortSummaryDto;
-    }
-
-    private boolean anyReflectionsForWeek(Set<ReflectionEntity> reflections, Date weekStartDate) {
-        return reflections.stream()
-                .filter(r -> r.getFormDate().equals(weekStartDate))
-                .findAny()
-                .map(r -> true)
-                .orElseGet(() -> false);
     }
 
     private OptionalDouble averageRatingForTrainee(Set<ReflectionQuestionEntity> reflectionQuestions) {
