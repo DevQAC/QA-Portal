@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CourseService } from '../_common/services/course.service';
-import { ActivatedRoute } from '@angular/router';
-import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
-import { QaToastrService } from 'projects/portal-core/src/app/_common/services/qa-toastr.service';
-import { CourseModel } from 'projects/portal-core/src/app/_common/models/course.model';
-import { finalize } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
-import { TechnologyService } from '../_common/technology.service';
-import { TechnologyCategoryModel } from 'projects/portal-core/src/app/_common/models/technology-category.model';
-import { TechnologyModel } from 'projects/portal-core/src/app/_common/models/technology.model';
-import { CourseTechnologyModel } from 'projects/portal-core/src/app/_common/models/course-technology.model';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {CourseService} from '../_common/services/course.service';
+import {ActivatedRoute} from '@angular/router';
+import {QaErrorHandlerService} from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
+import {QaToastrService} from 'projects/portal-core/src/app/_common/services/qa-toastr.service';
+import {CourseModel} from 'projects/portal-core/src/app/_common/models/course.model';
+import {finalize} from 'rxjs/operators';
+import {forkJoin} from 'rxjs';
+import {TechnologyService} from '../_common/technology.service';
+import {TechnologyCategoryModel} from 'projects/portal-core/src/app/_common/models/technology-category.model';
+import {TechnologyModel} from 'projects/portal-core/src/app/_common/models/technology.model';
+import {CourseTechnologyModel} from 'projects/portal-core/src/app/_common/models/course-technology.model';
 
 @Component({
   selector: 'app-course-detail',
@@ -22,10 +22,10 @@ export class CourseDetailComponent implements OnInit {
   public courseForm: FormGroup;
 
   public course: CourseModel;
+
   public availableTechCategories: TechnologyCategoryModel[] = [];
 
   public isLoading = true;
-
 
   constructor(
     private courseService: CourseService,
@@ -59,19 +59,11 @@ export class CourseDetailComponent implements OnInit {
           this.availableTechCategories = techCats;
           this.courseForm.patchValue({
             ...this.course,
-            courseTechnologies: this.course.courseTechnologies.map(c => c.id)
+            courseTechnologies: this.course.courseTechnologies.map(c => c.technology.id)
           });
         }, err => this.errorService.handleError(err)
       );
   }
-
-  private techIdArrayToCourseTechArray(ids: number[]): CourseTechnologyModel[] {
-    return this.availableTechCategories
-      .reduce<TechnologyModel[]>((prev, curr) => [...prev, ...curr.technologies], [])
-      .filter(val => ids.some(id => id === val.id))
-      .map(tech => ({ technology: tech, id: tech.id } as CourseTechnologyModel));
-  }
-
 
   public onSaveCourseClicked() {
     this.course = {
@@ -85,7 +77,14 @@ export class CourseDetailComponent implements OnInit {
         this.courseForm.enable();
         this.isLoading = false;
       })).subscribe(() => {
-        this.toastr.showSuccess('Course updated');
-      }, err => this.errorService.handleError(err));
+      this.toastr.showSuccess('Course updated');
+    }, err => this.errorService.handleError(err));
+  }
+
+  private techIdArrayToCourseTechArray(ids: number[]): CourseTechnologyModel[] {
+    return this.availableTechCategories
+      .reduce<TechnologyModel[]>((prev, curr) => [...prev, ...curr.technologies], [])
+      .filter(val => ids.some(id => id === val.id))
+      .map(tech => ({technology: tech} as CourseTechnologyModel));
   }
 }

@@ -1,5 +1,6 @@
 package com.qa.portal.cohort.services.course;
 
+import com.qa.portal.cohort.services.course.mapper.CourseTechnologyMapper;
 import com.qa.portal.common.dto.CourseDto;
 import com.qa.portal.common.dto.CourseTechnologyDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
@@ -23,13 +24,17 @@ public class CourseManagementService {
 
     private CourseTechnologyRepository courseTechnologyRepository;
 
+    private CourseTechnologyMapper courseTechnologyMapper;
+
     private BaseMapper baseMapper;
 
     public CourseManagementService(CourseRepository courseRepository,
                                    CourseTechnologyRepository courseTechnologyRepository,
+                                   CourseTechnologyMapper courseTechnologyMapper,
                                    BaseMapper baseMapper) {
         this.courseRepository = courseRepository;
         this.courseTechnologyRepository = courseTechnologyRepository;
+        this.courseTechnologyMapper = courseTechnologyMapper;
         this.baseMapper = baseMapper;
     }
 
@@ -70,7 +75,8 @@ public class CourseManagementService {
                 .orElseGet(() -> Collections.emptyList());
          courseTechnologyDtos.stream()
                 .filter(ctDto -> !previousCourseTechnologies.contains(ctDto.getTechnology().getTechnologyName()))
-                .forEach(ctDto -> courseEntity.addCourseTechnology(baseMapper.mapObject(ctDto, CourseTechnologyEntity.class)));
+                .forEach(ctDto ->
+                        courseEntity.addCourseTechnology(courseTechnologyMapper.createCourseTechnologyEntity(courseEntity, ctDto.getTechnology())));
     }
 
     private List<String> getPreviousTechnologiesForCourse(CourseEntity courseEntity) {

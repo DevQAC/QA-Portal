@@ -1,4 +1,4 @@
-import { TechnologyModel } from './technology.model';
+import {CourseTechnologyModel} from './course-technology.model';
 
 export class CourseModel {
   id: number;
@@ -9,5 +9,5 @@ export class CourseModel {
 
   duration: number;
 
-  courseTechnologies: TechnologyModel[];
+  courseTechnologies: CourseTechnologyModel[];
 }
