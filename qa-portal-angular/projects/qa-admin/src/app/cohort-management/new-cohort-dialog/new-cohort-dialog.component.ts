@@ -4,17 +4,19 @@ import { CohortService } from '../../_common/services/cohort.service';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 import { finalize, take } from 'rxjs/operators';
 import { MatDialogRef } from '@angular/material';
+import { TrainerModel } from 'projects/portal-core/src/app/_common/models/trainer.model';
 
 @Component({
   selector: 'app-new-cohort-dialog',
   templateUrl: './new-cohort-dialog.component.html',
   styleUrls: ['./new-cohort-dialog.component.css']
 })
-export class NewCohortDialogComponent {
+export class NewCohortDialogComponent implements OnInit {
 
   public cohortForm: FormGroup;
+  public availableTrainers: TrainerModel[] = [];
 
-  public isLoading = false;
+  public isLoading = true;
 
   constructor(
     private cohortService: CohortService,
@@ -22,8 +24,18 @@ export class NewCohortDialogComponent {
     public dialogRef: MatDialogRef<NewCohortDialogComponent>) {
     this.cohortForm = new FormBuilder().group({
       name: ['', [Validators.required]],
-      startDate: [new Date(), [Validators.required]]
+      startDate: [new Date(), [Validators.required]],
+      trainerUserName: ['', [Validators.required]]
     });
+  }
+
+  ngOnInit(): void {
+    this.cohortService.getAvailableTrainersForCohort().pipe(
+      take(1),
+      finalize(() => this.isLoading = false)
+    ).subscribe(
+      trainers => this.availableTrainers = trainers,
+      err => this.errorService.handleError(err));
   }
 
 

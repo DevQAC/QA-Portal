@@ -58,7 +58,7 @@ export class CohortDetailComponent implements OnInit {
     forkJoin(
       this.cohortService.getCohortById(cohortId),
       this.courseService.getAllCourses(),
-      this.cohortService.getAvailableTrainersForCohort(cohortId)
+      this.cohortService.getAvailableTrainersForCohort()
     ).pipe(take(1))
       .subscribe(([cohort, courses, trainers]) => {
         this.cohort = cohort;

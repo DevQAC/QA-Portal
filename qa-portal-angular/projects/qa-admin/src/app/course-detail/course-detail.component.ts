@@ -10,6 +10,7 @@ import { forkJoin } from 'rxjs';
 import { TechnologyService } from '../_common/technology.service';
 import { TechnologyCategoryModel } from 'projects/portal-core/src/app/_common/models/technology-category.model';
 import { TechnologyModel } from 'projects/portal-core/src/app/_common/models/technology.model';
+import { CourseTechnologyModel } from 'projects/portal-core/src/app/_common/models/course-technology.model';
 
 @Component({
   selector: 'app-course-detail',
@@ -37,7 +38,7 @@ export class CourseDetailComponent implements OnInit {
       courseName: ['', Validators.required],
       duration: ['', [Validators.required, Validators.min(1), Validators.max(99)]],
       courseCode: ['', Validators.required],
-      technologies: [[]]
+      courseTechnologies: [[]]
     });
     this.courseForm.disable();
 
@@ -56,21 +57,27 @@ export class CourseDetailComponent implements OnInit {
         ([course, techCats]) => {
           this.course = course;
           this.availableTechCategories = techCats;
-          this.courseForm.patchValue(this.course);
+          this.courseForm.patchValue({
+            ...this.course,
+            courseTechnologies: this.course.courseTechnologies.map(c => c.id)
+          });
         }, err => this.errorService.handleError(err)
       );
   }
 
-  public getSelectedTechnologyCategories(selectedTech: TechnologyModel[]): TechnologyCategoryModel[] {
-    console.warn('getSelectedTechnologyCategories not implemented!');
-    return [];
+  private techIdArrayToCourseTechArray(ids: number[]): CourseTechnologyModel[] {
+    return this.availableTechCategories
+      .reduce<TechnologyModel[]>((prev, curr) => [...prev, ...curr.technologies], [])
+      .filter(val => ids.some(id => id === val.id))
+      .map(tech => ({ technology: tech, id: tech.id } as CourseTechnologyModel));
   }
+
 
   public onSaveCourseClicked() {
     this.course = {
       ...this.course,
       ...this.courseForm.value,
-      technologies: this.getSelectedTechnologyCategories(this.courseForm.value.technologies)
+      courseTechnologies: this.techIdArrayToCourseTechArray(this.courseForm.value.courseTechnologies)
     };
 
     this.courseService.saveCourse(this.course)
