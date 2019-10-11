@@ -242,11 +242,16 @@ public class KeycloakUserResourceManager {
     }
 
     private List<UserRepresentation> getNewCohortMembers(QaCohortDto cohortDto) {
-        return Stream.concat(cohortDto.getTraineeNames().stream(), Stream.of(cohortDto.getTrainerUserName()))
+        return Stream.concat(getTraineeNames(cohortDto).stream(), Stream.of(cohortDto.getTrainerUserName()))
                 .map(t -> getUserRepresentation(t))
                 .filter(t -> t.isPresent())
                 .map(t -> t.get())
                 .collect(Collectors.toList());
+    }
+
+    private List<String> getTraineeNames(QaCohortDto cohortDto) {
+        return Optional.ofNullable(cohortDto.getTraineeNames())
+                .orElseGet(() -> Collections.emptyList());
     }
 
     private Optional<UserRepresentation> getUserRepresentation(String userName) {

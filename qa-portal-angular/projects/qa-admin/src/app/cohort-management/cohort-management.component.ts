@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatTableDataSource, MatDialog} from '@angular/material';
 import {CohortModel} from '../../../../portal-core/src/app/_common/models/cohort.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CohortService } from '../_common/services/cohort.service';
-import { DataTableComponent } from 'projects/qa-common/src/app/data-table/data-table.component';
-import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
-import { NewCohortDialogComponent } from './new-cohort-dialog/new-cohort-dialog.component';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CohortService} from '../_common/services/cohort.service';
+import {DataTableComponent} from 'projects/qa-common/src/app/data-table/data-table.component';
+import {IRowClickEvent} from 'projects/qa-common/src/app/data-table/models/row-click-event';
+import {NewCohortDialogComponent} from './new-cohort-dialog/new-cohort-dialog.component';
 
 @Component({
   selector: 'app-cohort-management',
@@ -50,7 +50,7 @@ export class CohortManagementComponent implements OnInit {
 
   public onAddCohortButtonClicked(): void {
     this.dialog.open(NewCohortDialogComponent, {}).afterClosed().subscribe(data => {
-
+      this.performSearch();
     });
   }
 
