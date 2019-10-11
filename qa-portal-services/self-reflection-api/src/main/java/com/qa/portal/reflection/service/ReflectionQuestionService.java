@@ -47,15 +47,6 @@ public class ReflectionQuestionService {
     }
 
     @Transactional
-    public List<ReflectionQuestionDto> getReflectionQuestionsByReflectionId(Integer id) {
-        return this.reflectionQuestionRepo.findByReflectionId(id)
-                .stream()
-                .map(this.reflectionQuestionMapper::mapToReflectionQuestionDto)
-                .sorted(reflectionQuestionComparator)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional
     public List<ReflectionQuestionDto> updateReflectionQuestions(Set<ReflectionQuestionDto> reflectionQuestions) {
         return reflectionQuestions.stream()
                 .map(rqdto -> {

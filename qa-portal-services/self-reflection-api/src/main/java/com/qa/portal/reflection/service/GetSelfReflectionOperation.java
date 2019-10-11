@@ -38,13 +38,13 @@ public class GetSelfReflectionOperation {
 
     public ReflectionDto getSelfReflectionById(Integer id) {
         ReflectionEntity reflection = this.reflectionRepository.findById(id)
-                .orElseThrow(() -> new QaResourceNotFoundException("Reflection does not exist"));
+                .orElseThrow(() -> new QaResourceNotFoundException("No Reflection found for supplied id"));
         return this.reflectionMapper.mapToReflectionDto(reflection);
     }
 
     public ReflectionDto getSelfReflectionByUserAndStatus(String userName, String status){
         TraineeEntity trainee = this.traineeRepository.findByUserName(userName)
-                .orElseThrow(() -> new QaResourceNotFoundException("Trainee does not exist"));
+                .orElseThrow(() -> new QaResourceNotFoundException("No Trainee found for supplied user name"));
         return this.reflectionRepository.findByResponderAndStatus(trainee, status)
                 .map(entity -> this.reflectionMapper.mapToReflectionDto(entity))
                 .orElseGet(ReflectionDto::new);
@@ -52,7 +52,7 @@ public class GetSelfReflectionOperation {
 
     public ReflectionDto getSelfReflectionByUserAndDate(String userName, LocalDate date) {
         TrainerEntity trainer = this.trainerRepository.findByUserName(userName)
-                .orElseThrow(() -> new QaResourceNotFoundException("Trainer does not exist"));
+                .orElseThrow(() -> new QaResourceNotFoundException("No Trainer found for supplied user name"));
         return this.reflectionRepository.findByReviewerAndFormDate(trainer, date)
                 .map(entity -> this.reflectionMapper.mapToReflectionDto(entity))
                 .orElseGet(ReflectionDto::new);

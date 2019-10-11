@@ -20,21 +20,21 @@ import java.util.Set;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-//@RunWith(SpringRunner.class)
-//@ActiveProfiles("test")
-//@SpringBootTest(classes = SelfReflectionApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@RunWith(SpringRunner.class)
+@ActiveProfiles("test")
+@SpringBootTest(classes = SelfReflectionApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class QuestionControllerTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(QuestionControllerTest.class);
 
-//    @LocalServerPort
+    @LocalServerPort
     private int port;
 
-//    @Autowired
+    @Autowired
     private TestRestTemplate restTemplate;
 
-//	@Test
-//	@FlywayTest()
+	@Test
+	@FlywayTest()
 	public void testGetUserRoles() {
 		try {
 			ResponseEntity<Set> response =
