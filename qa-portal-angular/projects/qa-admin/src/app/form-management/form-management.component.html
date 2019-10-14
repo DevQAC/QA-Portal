@@ -22,6 +22,6 @@
   </ng-container>
   <ng-container matColumnDef="questions">
     <th mat-header-cell *matHeaderCellDef> Questions </th>
-    <td mat-cell *matCellDef="let form"> {{getQuestionCount(form.questionCategories)}} </td>
+    <td mat-cell *matCellDef="let form"> {{getQuestionCount(form.questionCategories) || 0}} </td>
   </ng-container>
 </app-data-table>

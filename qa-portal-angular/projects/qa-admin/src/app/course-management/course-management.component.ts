@@ -57,7 +57,7 @@ export class CourseManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(NewCourseDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.isLoading = true;
+        this.performSearch();
       }
     });
   }

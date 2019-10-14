@@ -4,6 +4,7 @@ import { MatTableDataSource, MatDialog } from '@angular/material';
 import { FormService } from '../_common/services/form.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
+import { NewFormDialogComponent } from './new-form-dialog/new-form-dialog.component';
 
 @Component({
   selector: 'app-form-management',
@@ -48,17 +49,19 @@ export class FormManagementComponent implements OnInit {
   }
 
   public onAddCohortButtonClicked(): void {
-    // this.dialog.open(NewFormDialogComponent, {}).afterClosed().subscribe(data => {
-    //   this.performSearch();
-    // });
+    this.dialog.open(NewFormDialogComponent, {}).afterClosed().subscribe(data => {
+      if (data) {
+        this.performSearch();
+      }
+    });
   }
 
   onRowClicked(event: IRowClickEvent<any>): void {
     this.router.navigate(['qa', 'portal', 'admin', 'manage', 'forms', event.data.id]);
   }
 
-  getQuestionCount(questionCats: any[]): number {
-    return questionCats.map(cat => cat.questions).reduce<number>((prev, curr) => prev + curr.length || 0, 0);
+  getQuestionCount(cats: any[]): number {
+    return cats ? cats.map(cat => cat.questions).reduce<number>((prev, curr) => prev + curr.length || 0, 0) : 0;
   }
 
 }
