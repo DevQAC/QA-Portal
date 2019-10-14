@@ -24,11 +24,11 @@ export class CohortManagementComponent implements OnInit {
   public rowSelection = [];
   public isLoading = true;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private cohortService: CohortService,
-    private dialog: MatDialog) {
-  }
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.searchInput = this.activatedRoute.snapshot.queryParams.search || this.searchInput;

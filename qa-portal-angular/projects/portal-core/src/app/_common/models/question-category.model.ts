@@ -1,6 +1,7 @@
-import { IQuestion } from './question.model';
+import { QuestionModel } from './question.model';
 
-export interface IQuestionCategory {
+
+export class QuestionCategoryModel {
     categoryName: string;
     commentLabel: string;
     displayDirection: string;
@@ -8,6 +9,6 @@ export interface IQuestionCategory {
     id: number;
     lastUpdatedBy: string;
     lastUpdatedTimestamp: string;
-    questions: IQuestion[];
+    questions: QuestionModel[];
     selectionType: string;
 }

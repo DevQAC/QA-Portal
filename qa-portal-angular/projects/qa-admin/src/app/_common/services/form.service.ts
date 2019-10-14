@@ -12,4 +12,8 @@ export class FormService {
   public getAllForms(): Observable<any[]> {
     return this.qaHttp.get({ref: 'GET_ALL_FORMS'});
   }
+
+  public addForm(form: any): Observable<any> {
+    return this.qaHttp.post({ref: 'CREATE_FORM'}, form);
+  }
 }
