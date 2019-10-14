@@ -1,15 +1,60 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DataTableComponent } from 'projects/qa-common/src/app/data-table/data-table.component';
+import { MatTableDataSource, MatDialog } from '@angular/material';
+import { FormService } from '../_common/services/form.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 
 @Component({
   selector: 'app-form-management',
-  templateUrl: './form-management.component.html',
-  styleUrls: ['./form-management.component.css']
+  templateUrl: './form-management.component.html'
 })
 export class FormManagementComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<any>;
+
+  // SEARCH
+  public searchInput = '';
+
+  // TABLE
+  public formsTableDataSource = new MatTableDataSource<any>();
+  public displayedColumns = ['formName'];
+  public rowSelection = [];
+  public isLoading = true;
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private formService: FormService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit() {
+    this.searchInput = this.activatedRoute.snapshot.queryParams.search || this.searchInput;
+    this.performSearch();
+  }
+
+  public performSearch() {
+    if (this.dataTable) { // Check if dataTable is defined. This isn't ready on first search (not that it matters)
+      this.dataTable.deselectAllRows();
+    }
+    this.isLoading = true;
+    this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { search: this.searchInput } });
+
+    this.formService.getAllForms().subscribe(results => {
+      this.formsTableDataSource.data = results;
+      this.isLoading = false;
+    });
+  }
+
+  public onAddCohortButtonClicked(): void {
+    // this.dialog.open(NewFormDialogComponent, {}).afterClosed().subscribe(data => {
+    //   this.performSearch();
+    // });
+  }
+
+  onRowClicked(event: IRowClickEvent<any>): void {
+    this.router.navigate(['qa', 'portal', 'admin', 'manage', 'forms', event.data.id]);
   }
 
 }
