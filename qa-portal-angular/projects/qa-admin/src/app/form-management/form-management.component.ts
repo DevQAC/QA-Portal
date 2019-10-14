@@ -18,7 +18,7 @@ export class FormManagementComponent implements OnInit {
 
   // TABLE
   public formsTableDataSource = new MatTableDataSource<any>();
-  public displayedColumns = ['formName'];
+  public displayedColumns = ['formName', 'questionCategories', 'questions'];
   public rowSelection = [];
   public isLoading = true;
 
@@ -55,6 +55,10 @@ export class FormManagementComponent implements OnInit {
 
   onRowClicked(event: IRowClickEvent<any>): void {
     this.router.navigate(['qa', 'portal', 'admin', 'manage', 'forms', event.data.id]);
+  }
+
+  getQuestionCount(questionCats: any[]): number {
+    return questionCats.map(cat => cat.questions).reduce<number>((prev, curr) => prev + curr.length || 0, 0);
   }
 
 }
