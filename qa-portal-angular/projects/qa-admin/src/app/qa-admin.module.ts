@@ -28,6 +28,7 @@ import { NewCategoryDialogComponent } from './technology-management/new-category
 import { NewCohortDialogComponent } from './cohort-management/new-cohort-dialog/new-cohort-dialog.component';
 import { FormManagementComponent } from './form-management/form-management.component';
 import { NewFormDialogComponent } from './form-management/new-form-dialog/new-form-dialog.component';
+import { FormDetailComponent } from './form-detail/form-detail.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { NewFormDialogComponent } from './form-management/new-form-dialog/new-fo
     NewCategoryDialogComponent,
     NewCohortDialogComponent,
     FormManagementComponent,
-    NewFormDialogComponent
+    NewFormDialogComponent,
+    FormDetailComponent
   ],
   imports: [
     QaCommonModule,

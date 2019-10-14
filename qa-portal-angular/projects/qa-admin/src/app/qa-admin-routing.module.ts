@@ -11,6 +11,7 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { TechnologyManagementComponent } from './technology-management/technology-management.component';
 import { TechnologyDetailComponent } from './technology-detail/technology-detail.component';
 import { FormManagementComponent } from './form-management/form-management.component';
+import { FormDetailComponent } from './form-detail/form-detail.component';
 
 const routes: Routes = [
   {
@@ -96,6 +97,16 @@ const routes: Routes = [
   {
     path: 'manage/forms',
     component: FormManagementComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
+  {
+    path: 'manage/forms/:id',
+    component: FormDetailComponent,
     canActivate: [AppAuthGuard],
     data: {
       roles: [
