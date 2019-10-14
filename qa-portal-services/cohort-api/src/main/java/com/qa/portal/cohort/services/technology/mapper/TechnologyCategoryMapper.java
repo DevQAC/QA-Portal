@@ -87,6 +87,7 @@ public class TechnologyCategoryMapper {
 
     private TechnologyEntity mapToNewTechnologyEntity(TechnologyDto technologyDto, Integer technologyCategoryId) {
         TechnologyEntity technologyEntity = baseMapper.mapObject(technologyDto, TechnologyEntity.class);
+        technologyEntity.setSearchString(technologyEntity.getTechnologyName().toLowerCase().replace(' ', '_'));
         technologyCategoryRepository.findById(technologyCategoryId)
                 .ifPresent(tc -> technologyEntity.setTechnologyCategory(tc));
         return technologyEntity;
