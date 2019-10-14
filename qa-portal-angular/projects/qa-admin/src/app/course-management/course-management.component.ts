@@ -52,7 +52,6 @@ export class CourseManagementComponent implements OnInit {
 
 
   public onAddCourseButtonClicked(): void {
-    console.warn('Add new course not implemented!');
 
     const dialogRef = this.dialog.open(NewCourseDialogComponent);
     dialogRef.afterClosed().subscribe(result => {

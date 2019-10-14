@@ -48,7 +48,7 @@ export class FormManagementComponent implements OnInit {
     });
   }
 
-  public onAddCohortButtonClicked(): void {
+  public onAddFormButtonClicked(): void {
     this.dialog.open(NewFormDialogComponent, {}).afterClosed().subscribe(data => {
       if (data) {
         this.performSearch();
