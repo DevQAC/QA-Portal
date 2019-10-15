@@ -9,6 +9,6 @@ export class QuestionCategoryModel {
     id: number;
     lastUpdatedBy: string;
     lastUpdatedTimestamp: string;
-    questions: QuestionModel[];
+    questions: QuestionModel[] = [];
     selectionType: string;
 }

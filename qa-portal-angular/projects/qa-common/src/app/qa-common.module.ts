@@ -39,6 +39,10 @@ import { CommonModule } from '@angular/common';
 import { DataTableComponent } from './data-table/data-table.component';
 import { SpinnerOverlayComponent } from './spinner-overlay/spinner-overlay.component';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { ListComponent } from './list/list.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ExpanderDirective } from './list/directives/expander.directive';
+import { TitleDirective } from './list/directives/title.directive';
 
 const iconsMap = [
   { name: 'qa-logo', path: 'assets/qa.svg' },
@@ -101,7 +105,10 @@ const materialModules = [
     SearchBarComponent,
     SearchBarBackdropComponent,
     DataTableComponent,
-    SpinnerOverlayComponent
+    SpinnerOverlayComponent,
+    ListComponent,
+    ExpanderDirective,
+    TitleDirective
   ],
   imports: [
     CommonModule,
@@ -114,7 +121,8 @@ const materialModules = [
         closeButton: true,
         timeOut: 7000
       }
-    )
+    ),
+    DragDropModule
   ],
   providers: [],
   exports: [
@@ -126,7 +134,10 @@ const materialModules = [
     SearchBarComponent,
     SearchBarBackdropComponent,
     DataTableComponent,
-    SpinnerOverlayComponent
+    SpinnerOverlayComponent,
+    ListComponent,
+    TitleDirective,
+    ExpanderDirective
   ]
 })
 export class QaCommonModule {

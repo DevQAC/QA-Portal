@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 
 import { UserManagementComponent } from './user-management-console/user-management.component';
-import { RoleChipsComponent } from './role-chips/role-chips.component';
 import { QaCommonModule } from '../../../qa-common/src/app/qa-common.module';
 
-import { CohortChipsComponent } from './cohort-chips/cohort-chips.component';
 import { QaAdminRoutingModule } from './qa-admin-routing.module';
 import { CohortManagementComponent } from './cohort-management/cohort-management.component';
 import { DeleteUserDialogComponent } from './user-management-console/delete-user-dialog/delete-user-dialog.component';
@@ -33,8 +31,6 @@ import { FormDetailComponent } from './form-detail/form-detail.component';
 @NgModule({
   declarations: [
     UserManagementComponent,
-    RoleChipsComponent,
-    CohortChipsComponent,
     AddUserDialogComponent,
     CohortManagementComponent,
     DeleteUserDialogComponent,

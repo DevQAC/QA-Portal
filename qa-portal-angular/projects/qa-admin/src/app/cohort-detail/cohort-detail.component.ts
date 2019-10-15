@@ -156,6 +156,6 @@ export class CohortDetailComponent implements OnInit {
     this.cohortService.saveCohort(this.cohort).subscribe(resp => {
       this.toastr.showSuccess('Cohort updated');
     },
-      err => this.errorService.handleError(err));
+    err => this.errorService.handleError(err));
   }
 }
