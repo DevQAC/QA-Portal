@@ -1,0 +1,15 @@
+<div cdkDropList class="form-question-categories-list w-100" (cdkDropListDropped)="drop($event)"
+  [cdkDropListData]="listDataSource">
+  <div class="form-question-categories-box" *ngFor="let item of listDataSource; i as index" cdkDrag
+    [cdkDragData]="item">
+    <div class="title-container" (click)="onListItemClicked(item)">
+      <ng-container *ngTemplateOutlet="title?.template || null; context: {item: item, index: i }"></ng-container>
+    </div>
+    <div class="expansion-panel-container w-100" style="position: relative; overflow: hidden;"
+      [@detailExpand]="item == expandedElement ? 'expanded' : 'collapsed'">
+      <div class="expansion-panel-content">
+        <ng-container *ngTemplateOutlet="expander?.template || null; context: {item: item, index: i }"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>

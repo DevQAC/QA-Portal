@@ -18,7 +18,7 @@ export interface AddCourseDialogData {
 })
 export class AddCourseDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: AddCourseDialogData) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: AddCourseDialogData) { }
 
   ngOnInit() {
   }

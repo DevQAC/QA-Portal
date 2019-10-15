@@ -1,3 +1,62 @@
-<p>
-  form-detail works!
-</p>
+<h1>Form</h1>
+
+
+<mat-card class="mb-1">
+  <mat-card-header>
+    <mat-card-title>Details</mat-card-title>
+  </mat-card-header>
+
+  <form [formGroup]="formForm">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="formName" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description">
+      </mat-form-field>
+    </mat-card-content>
+  </form>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Categories</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <app-list [listDataSource]="form?.questionCategories">
+      <div *appListTitle="let item = item">{{item?.categoryName}} - {{item?.questions.length}}</div>
+      <div *appListExpander="let item = item">
+        <ng-container *ngIf="item">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Category Name</mat-label>
+            <input matInput [(ngModel)]="item.categoryName" required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <input matInput [(ngModel)]="item.description" required>
+          </mat-form-field>
+          <mat-checkbox [(ngModel)]="item.canComment">Allow additional comments</mat-checkbox>
+
+          <h3 class="mt-1">Questions</h3>
+          <app-list [listDataSource]="item?.questions">
+            <div *appListTitle="let question = item">{{question?.body}}</div>
+          </app-list>
+          <button mat-button class="w-100 mt-1" (click)="onAddQuestionClicked(item)">
+            <mat-icon>add</mat-icon> Add Question
+          </button>
+        </ng-container>
+      </div>
+    </app-list>
+    <button mat-button class="w-100 mt-1" (click)="onAddCategoryClicked()">
+      <mat-icon>add</mat-icon> Add Category
+    </button>
+  </mat-card-content>
+</mat-card>
+
+<button mat-flat-button color="accent" class="w-100 mt-1" (click)="onSaveCourseClicked()"
+  [disabled]="isLoading || formForm.invalid || formForm.pristine">Update</button>
+
+
+<app-spinner-overlay [show]="isLoading" fadeBg="true"></app-spinner-overlay>
