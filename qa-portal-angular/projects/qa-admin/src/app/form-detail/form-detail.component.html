@@ -63,7 +63,7 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Technologies</mat-label>
+                  <mat-label>Options</mat-label>
                   <mat-chip-list #chipList>
                     <mat-chip *ngFor="let opt of question.selectionOptionsList" color="primary"
                       [removable]="true" (removed)="removeOption(opt, question)" selected>

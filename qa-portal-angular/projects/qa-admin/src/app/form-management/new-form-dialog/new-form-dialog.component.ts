@@ -20,7 +20,8 @@ export class NewFormDialogComponent {
     private errorService: QaErrorHandlerService
   ) {
     this.formForm = new FormBuilder().group({
-      formName: ['', Validators.required]
+      formName: ['', Validators.required],
+      description: ['']
     });
   }
 
