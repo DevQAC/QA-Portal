@@ -26,7 +26,8 @@
   </mat-card-header>
   <mat-card-content>
     <app-list [listDataSource]="form?.questionCategories">
-      <div *appListTitle="let item = item">{{item?.categoryName}} - {{item?.questions.length}}</div>
+      <div *appListTitle="let item = item">{{item?.categoryName || 'Click to expand'}} - {{item?.questions.length}}
+      </div>
       <div *appListExpander="let item = item">
         <ng-container *ngIf="item">
           <mat-form-field appearance="outline" class="w-100">
@@ -35,13 +36,48 @@
           </mat-form-field>
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Description</mat-label>
-            <input matInput [(ngModel)]="item.description" required>
+            <input matInput [(ngModel)]="item.description">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Selection Type</mat-label>
+            <mat-select [(ngModel)]="item.selectionType" required>
+              <mat-option *ngFor="let type of selectionTypes" [value]="type.value">
+                {{type.label}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
           <mat-checkbox [(ngModel)]="item.canComment">Allow additional comments</mat-checkbox>
 
           <h3 class="mt-1">Questions</h3>
           <app-list [listDataSource]="item?.questions">
-            <div *appListTitle="let question = item">{{question?.body}}</div>
+            <div *appListTitle="let question = item">{{question?.body || 'Click to expand'}}</div>
+            <div *appListExpander="let question = item">
+              <ng-container *ngIf="question">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Question</mat-label>
+                  <input matInput [(ngModel)]="question.body" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Comment Label</mat-label>
+                  <input matInput [(ngModel)]="question.commentLabel">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Technologies</mat-label>
+                  <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let opt of question.selectionOptionsList" color="primary"
+                      [removable]="true" (removed)="removeOption(opt, question)" selected>
+                      {{opt}}
+                      <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Add more..." [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                      (matChipInputTokenEnd)="addOption($event, question)">
+                  </mat-chip-list>
+                </mat-form-field>
+                <mat-checkbox [(ngModel)]="question.canComment">Allow additional comments</mat-checkbox>
+              </ng-container>
+            </div>
           </app-list>
           <button mat-button class="w-100 mt-1" (click)="onAddQuestionClicked(item)">
             <mat-icon>add</mat-icon> Add Question
@@ -55,7 +91,7 @@
   </mat-card-content>
 </mat-card>
 
-<button mat-flat-button color="accent" class="w-100 mt-1" (click)="onSaveCourseClicked()"
+<button mat-flat-button color="accent" class="w-100 mt-1" (click)="onSaveFormClicked()"
   [disabled]="isLoading || formForm.invalid || formForm.pristine">Update</button>
 
 

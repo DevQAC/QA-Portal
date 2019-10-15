@@ -7,6 +7,8 @@ import { FormModel } from 'projects/portal-core/src/app/_common/models/form.mode
 import { finalize } from 'rxjs/operators';
 import { QuestionCategoryModel } from 'projects/portal-core/src/app/_common/models/question-category.model';
 import { QuestionModel } from 'projects/portal-core/src/app/_common/models/question.model';
+import { MatChipInputEvent } from '@angular/material';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-form-detail',
@@ -15,14 +17,20 @@ import { QuestionModel } from 'projects/portal-core/src/app/_common/models/quest
 export class FormDetailComponent implements OnInit {
   public formForm: FormGroup;
   public isLoading = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   public form: FormModel;
+
+  public selectionTypes = [
+    { value: 'RADIO_BUTTON', label: 'Single' },
+    { value: 'CHECK_BOX', label: 'Multiple' }
+  ];
 
   constructor(
     private formService: FormService,
     private errorService: QaErrorHandlerService,
     private aR: ActivatedRoute
-  ) { 
+  ) {
     this.formForm = new FormBuilder().group({
       formName: ['', Validators.required],
       description: ['']
@@ -51,6 +59,31 @@ export class FormDetailComponent implements OnInit {
 
   public onAddQuestionClicked(category: QuestionCategoryModel): void {
     category.questions.push(new QuestionModel());
+  }
+
+  addOption(event: MatChipInputEvent, question: QuestionModel): void {
+    const input = event.input;
+    const value = event.value;
+
+    if ((value || '').trim()) {
+      question.selectionOptionsList.push(value);
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  removeOption(option: string, question: QuestionModel): void {
+    const index = question.selectionOptionsList.indexOf(option);
+    if (index >= 0) {
+      question.selectionOptionsList.splice(index, 1);
+    }
+  }
+
+  public onSaveFormClicked() {
+    debugger;
   }
 
 }
