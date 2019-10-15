@@ -10,6 +10,9 @@ import com.qa.portal.common.persistence.repository.QuestionCategoryRepository;
 import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
+
 @Component
 public class FormMapper {
 
@@ -44,8 +47,8 @@ public class FormMapper {
     }
 
     private void addNewCategoriesToForm(FormTypeEntity formTypeEntity, FormTypeDto formTypeDto) {
-        formTypeDto.getQuestionCategories().stream()
-                .forEach(qc -> formTypeEntity.addQuestionCategory(getQuestionCategoryEntity(qc)));
+        getQuestionCategories(formTypeDto)
+                .ifPresent(cats -> cats.stream().forEach(qc -> formTypeEntity.addQuestionCategory(getQuestionCategoryEntity(qc))));
     }
 
     private void removeExistingCategoriesFromForm(FormTypeEntity formTypeEntity) {
@@ -56,5 +59,9 @@ public class FormMapper {
     private QuestionCategoryEntity getQuestionCategoryEntity(QuestionCategoryDto questionCategoryDto) {
         return questionCategoryRepository.findById(questionCategoryDto.getId())
                 .orElseThrow(() -> new QaPortalBusinessException("Question Category not found for supplied id"));
+    }
+
+    private Optional<List<QuestionCategoryDto>> getQuestionCategories(FormTypeDto formTypeDto) {
+        return Optional.ofNullable(formTypeDto.getQuestionCategories());
     }
 }
