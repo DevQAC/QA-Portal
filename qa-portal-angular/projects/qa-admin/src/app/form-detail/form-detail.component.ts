@@ -9,6 +9,7 @@ import { QuestionCategoryModel } from 'projects/portal-core/src/app/_common/mode
 import { QuestionModel } from 'projects/portal-core/src/app/_common/models/question.model';
 import { MatChipInputEvent } from '@angular/material';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { QaToastrService } from 'projects/portal-core/src/app/_common/services/qa-toastr.service';
 
 @Component({
   selector: 'app-form-detail',
@@ -29,7 +30,8 @@ export class FormDetailComponent implements OnInit {
   constructor(
     private formService: FormService,
     private errorService: QaErrorHandlerService,
-    private aR: ActivatedRoute
+    private aR: ActivatedRoute,
+    private toastr: QaToastrService
   ) {
     this.formForm = new FormBuilder().group({
       formName: ['', Validators.required],
@@ -83,7 +85,14 @@ export class FormDetailComponent implements OnInit {
   }
 
   public onSaveFormClicked() {
-    debugger;
-  }
+    const form = {
+      ...this.form,
+      ...this.formForm.value
+    };
 
+    this.formService.saveForm(form).subscribe(resp => {
+      this.toastr.showSuccess('Form updated');
+    },
+      err => this.errorService.handleError(err));
+  }
 }

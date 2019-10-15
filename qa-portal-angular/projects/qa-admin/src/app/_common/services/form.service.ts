@@ -21,4 +21,8 @@ export class FormService {
   public getFormById(id: string | number): Observable<FormModel> {
     return this.qaHttp.get({ ref: 'GET_FORM_BY_ID', params: { id: id.toString() } });
   }
+
+  public saveForm(form: FormModel): Observable<FormModel> {
+    return this.qaHttp.put({ ref: 'SAVE_FORM' }, form);
+  }
 }
