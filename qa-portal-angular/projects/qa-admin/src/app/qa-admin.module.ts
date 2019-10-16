@@ -27,6 +27,9 @@ import { NewCohortDialogComponent } from './cohort-management/new-cohort-dialog/
 import { FormManagementComponent } from './form-management/form-management.component';
 import { NewFormDialogComponent } from './form-management/new-form-dialog/new-form-dialog.component';
 import { FormDetailComponent } from './form-detail/form-detail.component';
+import { ApplicationManagementComponent } from './application-management/application-management.component';
+import { ApplicationDetailComponent } from './application-detail/application-detail.component';
+import { NewAppDialogComponent } from './application-management/new-app-dialog/new-app-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { FormDetailComponent } from './form-detail/form-detail.component';
     NewCohortDialogComponent,
     FormManagementComponent,
     NewFormDialogComponent,
-    FormDetailComponent
+    FormDetailComponent,
+    ApplicationManagementComponent,
+    ApplicationDetailComponent,
+    NewAppDialogComponent
   ],
   imports: [
     QaCommonModule,
@@ -69,7 +75,8 @@ import { FormDetailComponent } from './form-detail/form-detail.component';
     NewCourseDialogComponent,
     NewCategoryDialogComponent,
     NewCohortDialogComponent,
-    NewFormDialogComponent
+    NewFormDialogComponent,
+    NewAppDialogComponent
   ]
 })
 export class QaAdminModule { }
