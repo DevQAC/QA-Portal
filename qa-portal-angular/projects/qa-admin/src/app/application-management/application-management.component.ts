@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 import { ApplicationService } from '../_common/services/application.service';
 import { PortalApplicationProjectsModel } from 'projects/portal-core/src/app/_common/models/portal-application-projects.model';
+import { NewAppDialogComponent } from './new-app-dialog/new-app-dialog.component';
 
 @Component({
   selector: 'app-application-management',
@@ -50,11 +51,11 @@ export class ApplicationManagementComponent implements OnInit {
   }
 
   public onAddAppButtonClicked(): void {
-    // this.dialog.open(NewAppDialogComponent, {}).afterClosed().subscribe(data => {
-    //   if (data) {
-    //     this.performSearch();
-    //   }
-    // });
+    this.dialog.open(NewAppDialogComponent, {}).afterClosed().subscribe(data => {
+      if (data) {
+        this.performSearch();
+      }
+    });
   }
 
   onRowClicked(event: IRowClickEvent<PortalApplicationProjectsModel>): void {
