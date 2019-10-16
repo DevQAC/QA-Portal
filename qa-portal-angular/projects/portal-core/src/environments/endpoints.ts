@@ -35,8 +35,8 @@ export const endpoints: Endpoints = {
   GET_FORM_BY_ID:  '/form-api/form/:id',
   CREATE_FORM: '/form-api/manage/form',
   SAVE_FORM: '/form-api/manage/form',
-  GET_ALL_APPLICATIONS: '/portal-application-api/portal/applications',
-  GET_APPLICATION_BY_ID: '/portal-application-api/portal/application/:id',
+  GET_ALL_APPLICATIONS: '/portal-application-api/manage/portal/applications',
+  GET_APPLICATION_BY_ID: '/portal-application-api/manage/portal/application/:id',
 };
 
 export type EndpointRef = keyof Endpoints;
