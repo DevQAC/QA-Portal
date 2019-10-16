@@ -68,6 +68,12 @@ public class TechnologyCategoryMapper {
                 .forEachRemaining(t -> technologyCategoryEntity.removeTechnology(t));
     }
 
+    private void removeTechnology(TechnologyCategoryEntity technologyCategoryEntity, TechnologyEntity technologyEntity) {
+        // TODO - If technology is associated with a course that is associated with a cohort, then throw a QAPortalBusinessException
+        // with an appropriate error message, otherwise remove the technology
+        technologyCategoryEntity.removeTechnology(technologyEntity);
+    }
+
     private void addNewTechnologies(TechnologyCategoryEntity technologyCategoryEntity,
                                     TechnologyCategoryDto technologyCategoryDto) {
         List<String> oldTechnologyNames = getOldTechnologyNames(technologyCategoryEntity);

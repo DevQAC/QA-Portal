@@ -25,7 +25,7 @@ public class TechnologyEntity extends QaBaseEntity {
     private TechnologyCategoryEntity technologyCategory;
 
     @OneToMany(mappedBy = "technology")
-    private List<CourseTechnologyEntity> courseTechnology;
+    private List<CourseTechnologyEntity> courseTechnologies;
 
     @Column(name = "search_string")
     private String searchString;
@@ -62,11 +62,11 @@ public class TechnologyEntity extends QaBaseEntity {
         this.technologyCategory = technologyCategory;
     }
 
-    public List<CourseTechnologyEntity> getCourseTechnology() {
-        return courseTechnology;
+    public List<CourseTechnologyEntity> getCourseTechnologies() {
+        return courseTechnologies;
     }
 
-    public void setCourseTechnology(List<CourseTechnologyEntity> courseTechnology) {
-        this.courseTechnology = courseTechnology;
+    public void setCourseTechnologies(List<CourseTechnologyEntity> courseTechnologies) {
+        this.courseTechnologies = courseTechnologies;
     }
 }
