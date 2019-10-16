@@ -17,4 +17,8 @@ export class ApplicationService {
   public getApplicationById(id: string | number): Observable<PortalApplicationModel> {
     return this.qaHttp.get({ ref: 'GET_APPLICATION_BY_ID', params: { id: id.toString() } });
   }
+
+  public saveApplication(app: PortalApplicationModel): Observable<PortalApplicationModel> {
+    return this.qaHttp.put({ ref: 'SAVE_APPLICATION' }, app);
+  }
 }
