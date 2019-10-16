@@ -11,6 +11,10 @@ export class ApplicationService {
   constructor(private qaHttp: QaHttpService) { }
 
   public getAllApplications(): Observable<PortalApplicationProjectsModel[]> {
-    return this.qaHttp.get({ref: 'GET_ALL_APPLICATIONS'});
+    return this.qaHttp.get({ ref: 'GET_ALL_APPLICATIONS' });
+  }
+
+  public getApplicationById(id: string | number): Observable<PortalApplicationProjectsModel> {
+    return this.qaHttp.get({ ref: 'GET_APPLICATION_BY_ID', params: { id: id.toString() } });
   }
 }

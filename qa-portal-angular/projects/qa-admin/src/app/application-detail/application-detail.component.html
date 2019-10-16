@@ -1,3 +1,25 @@
-<p>
-  application-detail works!
-</p>
+<h1>Application</h1>
+
+
+<mat-card class="mb-1">
+  <mat-card-header>
+    <mat-card-title>Details</mat-card-title>
+  </mat-card-header>
+
+  <form [formGroup]="appForm">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+    </mat-card-content>
+  </form>
+</mat-card>
+
+
+
+<button mat-flat-button color="accent" class="w-100 mt-1" (click)="onSaveAppClicked()"
+  [disabled]="isLoading || appForm.invalid || appForm.pristine">Update</button>
+
+
+<app-spinner-overlay [show]="isLoading" fadeBg="true"></app-spinner-overlay>
