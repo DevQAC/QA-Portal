@@ -4,6 +4,21 @@
 }
 
 
+.form-category-title-wrapper {
+    display: flex;
+    flex-direction: row;
+
+    .category-name {
+        width: 100%;
+
+    }
+
+    .question-count {
+        white-space: nowrap;
+    }
+}
+
+
 .form-question-categories-list {
     max-width: 100%;
     border: solid 1px #ccc;
@@ -21,9 +36,22 @@
     background: white;
     font-size: 14px;
 
+    &.expanded {
+        .title-container {
+            background: map-get($map: $mat-light-theme-background, $key: 'raised-button');
+        }
+    }
+
     .title-container {
         padding: 20px 10px;
-        width: 100%;
+        // width: 100%;x
+
+        cursor: pointer;
+
+        &:hover {
+            background: map-get($map: $mat-light-theme-background, $key: 'hover');
+        }
+
     }
 
     .expansion-panel-container {

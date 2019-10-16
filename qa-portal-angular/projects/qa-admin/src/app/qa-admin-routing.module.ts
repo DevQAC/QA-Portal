@@ -12,6 +12,7 @@ import { TechnologyManagementComponent } from './technology-management/technolog
 import { TechnologyDetailComponent } from './technology-detail/technology-detail.component';
 import { FormManagementComponent } from './form-management/form-management.component';
 import { FormDetailComponent } from './form-detail/form-detail.component';
+import { ApplicationManagementComponent } from './application-management/application-management.component';
 
 const routes: Routes = [
   {
@@ -107,6 +108,16 @@ const routes: Routes = [
   {
     path: 'manage/forms/:id',
     component: FormDetailComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
+  {
+    path: 'manage/applications',
+    component: ApplicationManagementComponent,
     canActivate: [AppAuthGuard],
     data: {
       roles: [

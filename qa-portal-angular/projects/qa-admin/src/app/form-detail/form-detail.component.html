@@ -26,7 +26,13 @@
   </mat-card-header>
   <mat-card-content>
     <app-list [listDataSource]="form?.questionCategories">
-      <div *appListTitle="let item = item">{{item?.categoryName || 'Click to expand'}} - {{item?.questions.length}}
+      <div *appListTitle="let item = item" class="form-category-title-wrapper">
+        <div class="category-name">
+          {{item?.categoryName || 'Click to expand'}}
+        </div>
+        <div class="question-count">
+          {{item?.questions.length}} questions
+        </div>
       </div>
       <div *appListExpander="let item = item">
         <ng-container *ngIf="item">
@@ -46,7 +52,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-checkbox [(ngModel)]="item.canComment">Allow additional comments</mat-checkbox>
+          <mat-checkbox [(ngModel)]="item.hasComment">Allow additional comments</mat-checkbox>
 
           <h3 class="mt-1">Questions</h3>
           <app-list [listDataSource]="item?.questions">
@@ -65,8 +71,8 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Options</mat-label>
                   <mat-chip-list #chipList>
-                    <mat-chip *ngFor="let opt of question.selectionOptionsList" color="primary"
-                      [removable]="true" (removed)="removeOption(opt, question)" selected>
+                    <mat-chip *ngFor="let opt of question.selectionOptionsList" color="primary" [removable]="true"
+                      (removed)="removeOption(opt, question)" selected>
                       {{opt}}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
@@ -75,7 +81,7 @@
                       (matChipInputTokenEnd)="addOption($event, question)">
                   </mat-chip-list>
                 </mat-form-field>
-                <mat-checkbox [(ngModel)]="question.canComment">Allow additional comments</mat-checkbox>
+                <mat-checkbox [(ngModel)]="question.hasComment">Allow additional comments</mat-checkbox>
               </ng-container>
             </div>
           </app-list>
