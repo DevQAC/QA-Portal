@@ -6,6 +6,7 @@ import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row
 import { ApplicationService } from '../_common/services/application.service';
 import { PortalApplicationProjectsModel } from 'projects/portal-core/src/app/_common/models/portal-application-projects.model';
 import { NewAppDialogComponent } from './new-app-dialog/new-app-dialog.component';
+import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 
 @Component({
   selector: 'app-application-management',
@@ -29,6 +30,7 @@ export class ApplicationManagementComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private appService: ApplicationService,
+    private errorService: QaErrorHandlerService,
     private dialog: MatDialog
   ) { }
 

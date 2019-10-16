@@ -1,6 +1,6 @@
-<div cdkDropList class="form-question-categories-list w-100" (cdkDropListDropped)="drop($event)" [cdkDropListDisabled]="!dragDrop"
+<div cdkDropList class="qa-list w-100" (cdkDropListDropped)="drop($event)" [cdkDropListDisabled]="!dragDrop"
   [cdkDropListData]="listDataSource">
-  <div class="form-question-categories-box" [class.expanded]="item == expandedElement ? 'expanded' : 'collapsed'"
+  <div class="qa-list-item-box" [class.expanded]="item == expandedElement ? 'expanded' : 'collapsed'"
     *ngFor="let item of listDataSource; i as index" cdkDrag [cdkDragData]="item">
     <div class="title-container" (click)="onListItemClicked(item)">
       <ng-container *ngTemplateOutlet="title?.template || null; context: {item: item, index: i }"></ng-container>

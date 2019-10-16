@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ContentChild, QueryList, AfterContentInit, ContentChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ContentChild } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TitleDirective } from './directives/title.directive';

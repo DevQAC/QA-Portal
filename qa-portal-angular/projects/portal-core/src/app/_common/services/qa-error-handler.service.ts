@@ -9,7 +9,8 @@ import { MatDialog } from '@angular/material';
 @Injectable()
 export class QaErrorHandlerService {
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private toastrService: QaToastrService,
     private dialog: MatDialog) {
   }
