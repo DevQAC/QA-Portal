@@ -8,9 +8,13 @@ import com.qa.portal.common.persistence.entity.QuestionEntity;
 import com.qa.portal.common.persistence.repository.QuestionCategoryRepository;
 import com.qa.portal.common.persistence.repository.QuestionRepository;
 import com.qa.portal.common.service.mapper.BaseMapper;
+import com.qa.portal.form.services.question.mapper.QuestionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class QuestionCategoryMapper {
@@ -21,13 +25,17 @@ public class QuestionCategoryMapper {
 
     private QuestionRepository questionRepository;
 
+    private QuestionMapper questionMapper;
+
     private BaseMapper baseMapper;
 
     public QuestionCategoryMapper(QuestionCategoryRepository questionCategoryRepository,
                                   QuestionRepository questionRepository,
+                                  QuestionMapper questionMapper,
                                   BaseMapper baseMapper) {
         this.questionCategoryRepository = questionCategoryRepository;
         this.questionRepository = questionRepository;
+        this.questionMapper = questionMapper;
         this.baseMapper = baseMapper;
     }
 
@@ -45,27 +53,49 @@ public class QuestionCategoryMapper {
     }
 
     public void updateQuestionCategoryEntity(QuestionCategoryEntity questionCategoryEntity,
-                                                               QuestionCategoryDto questionCategoryDto) {
+                                             QuestionCategoryDto questionCategoryDto) {
         questionCategoryEntity.setCommentLabel(questionCategoryDto.getCommentLabel());
         questionCategoryEntity.setDisplayDirection(questionCategoryDto.getDisplayDirection());
         questionCategoryEntity.setHasComment(questionCategoryDto.getHasComment());
         questionCategoryEntity.setSelectionType(questionCategoryDto.getSelectionType());
-        removeExistingQuestionsFromCategory(questionCategoryEntity);
+        updateExistingQuestions(questionCategoryEntity, questionCategoryDto);
+        removeDeletedQuestionsFromCategory(questionCategoryEntity, questionCategoryDto);
         addNewQuestionsToCategory(questionCategoryEntity, questionCategoryDto);
+     }
+
+    private void updateExistingQuestions(QuestionCategoryEntity questionCategoryEntity,
+                                         QuestionCategoryDto questionCategoryDto) {
+        questionCategoryEntity.getQuestions().stream()
+                .filter(q -> getNewQuestions(questionCategoryDto).contains(q.getId()))
+                .forEach(q -> questionMapper.mapUpdatedQuestionEntity(q, getQuestionDto(questionCategoryDto, q)));
     }
 
-    private void addNewQuestionsToCategory(QuestionCategoryEntity questionCategoryEntity, QuestionCategoryDto questionCategoryDto) {
-        questionCategoryDto.getQuestions().stream()
-                .forEach(q -> questionCategoryEntity.addQuestion(getQuestionEntity(q)));
-    }
-
-    private void removeExistingQuestionsFromCategory(QuestionCategoryEntity questionCategoryEntity) {
-        questionCategoryEntity.getQuestions().iterator()
+    private void removeDeletedQuestionsFromCategory(QuestionCategoryEntity questionCategoryEntity,
+                                                    QuestionCategoryDto questionCategoryDto) {
+        questionCategoryEntity.getQuestions().stream()
+                .filter(q -> !getNewQuestions(questionCategoryDto).contains(q.getId()))
+                .collect(Collectors.toList())
+                .iterator()
                 .forEachRemaining(q -> questionCategoryEntity.removeQuestion(q));
     }
 
-    private QuestionEntity getQuestionEntity(QuestionDto questionDto) {
-        return questionRepository.findById(questionDto.getId())
-                .orElseThrow(() -> new QaPortalBusinessException("Question not found for supplied id"));
+    private void addNewQuestionsToCategory(QuestionCategoryEntity questionCategoryEntity,
+                                           QuestionCategoryDto questionCategoryDto) {
+        questionCategoryDto.getQuestions().stream()
+                .filter(q -> q.getId() == null)
+                .forEach(q -> questionCategoryEntity.addQuestion(questionMapper.mapNewQuestionEntity(q)));
+    }
+
+    private QuestionDto getQuestionDto(QuestionCategoryDto questionCategoryDto, QuestionEntity questionEntity) {
+        return questionCategoryDto.getQuestions().stream()
+                .filter(q -> questionEntity.getId().equals(q.getId()))
+                .findFirst()
+                .orElseThrow(() -> new QaPortalBusinessException("No question found for the supplied id"));
+    }
+
+    private List<Integer> getNewQuestions(QuestionCategoryDto questionCategoryDto) {
+        return questionCategoryDto.getQuestions().stream()
+                .map(q -> q.getId())
+                .collect(Collectors.toList());
     }
 }

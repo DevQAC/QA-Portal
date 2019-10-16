@@ -17,6 +17,7 @@ export interface Endpoints {
   SAVE_FORM: string;
   GET_ALL_APPLICATIONS: string;
   GET_APPLICATION_BY_ID: string;
+  SAVE_APPLICATION: string;
 }
 
 export const endpoints: Endpoints = {
@@ -37,6 +38,7 @@ export const endpoints: Endpoints = {
   SAVE_FORM: '/form-api/manage/form',
   GET_ALL_APPLICATIONS: '/portal-application-api/manage/portal/applications',
   GET_APPLICATION_BY_ID: '/portal-application-api/manage/portal/application/:id',
+  SAVE_APPLICATION: '/portal-application-api/manage/portal/application'
 };
 
 export type EndpointRef = keyof Endpoints;

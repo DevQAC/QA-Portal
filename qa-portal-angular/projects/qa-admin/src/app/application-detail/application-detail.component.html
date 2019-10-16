@@ -2,24 +2,36 @@
 
 
 <mat-card class="mb-1">
-  <mat-card-header>
-    <mat-card-title>Details</mat-card-title>
-  </mat-card-header>
+    <mat-card-header>
+        <mat-card-title>Details</mat-card-title>
+    </mat-card-header>
 
-  <form [formGroup]="appForm">
-    <mat-card-content>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" required>
-      </mat-form-field>
-    </mat-card-content>
-  </form>
+    <form [formGroup]="appForm">
+        <mat-card-content>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Base URL</mat-label>
+                <input matInput formControlName="baseUrl" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Display Order</mat-label>
+                    <input matInput formControlName="displayOrder" type="number" required>
+                </mat-form-field>
+        </mat-card-content>
+    </form>
 </mat-card>
 
 
 
 <button mat-flat-button color="accent" class="w-100 mt-1" (click)="onSaveAppClicked()"
-  [disabled]="isLoading || appForm.invalid || appForm.pristine">Update</button>
+    [disabled]="isLoading || appForm.invalid || appForm.pristine">Update</button>
 
 
 <app-spinner-overlay [show]="isLoading" fadeBg="true"></app-spinner-overlay>
