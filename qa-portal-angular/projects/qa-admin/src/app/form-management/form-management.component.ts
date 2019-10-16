@@ -5,6 +5,7 @@ import { FormService } from '../_common/services/form.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 import { NewFormDialogComponent } from './new-form-dialog/new-form-dialog.component';
+import { FormModel } from 'projects/portal-core/src/app/_common/models/form.model';
 
 @Component({
   selector: 'app-form-management',
@@ -12,13 +13,13 @@ import { NewFormDialogComponent } from './new-form-dialog/new-form-dialog.compon
 })
 export class FormManagementComponent implements OnInit {
 
-  @ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<any>;
+  @ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<FormModel>;
 
   // SEARCH
   public searchInput = '';
 
   // TABLE
-  public formsTableDataSource = new MatTableDataSource<any>();
+  public formsTableDataSource = new MatTableDataSource<FormModel>();
   public displayedColumns = ['formName', 'questionCategories', 'questions'];
   public rowSelection = [];
   public isLoading = true;
