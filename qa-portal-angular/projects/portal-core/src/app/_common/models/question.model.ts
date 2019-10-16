@@ -27,5 +27,5 @@ export class QuestionModel {
     selectionType: ControlTypes;
 
 
-    selectionOptionsList: any[];
+    selectionOptionsList = [];
 }
