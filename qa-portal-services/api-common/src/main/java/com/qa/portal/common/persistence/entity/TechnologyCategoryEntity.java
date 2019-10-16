@@ -22,7 +22,7 @@ public class TechnologyCategoryEntity extends QaBaseEntity {
     @Column(name = "search_string")  
     private String searchString;
 
-	@OneToMany(mappedBy = "technologyCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "technologyCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TechnologyEntity> technologies;
 
 	public Integer getId() {
