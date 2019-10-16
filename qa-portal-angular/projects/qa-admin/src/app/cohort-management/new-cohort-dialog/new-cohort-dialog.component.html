@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>Add New Cohort</h1>
-<form [formGroup]="cohortForm">
+<form [formGroup]="cohortForm" (ngSubmit)="onSubmit()">
   <div mat-dialog-content>
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Cohort Name</mat-label>
@@ -23,8 +23,8 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions class="action-buttons">
-    <button mat-button [mat-dialog-close]="false" [disabled]="isLoading">Cancel</button>
-    <button mat-flat-button color="primary" (click)="onSubmit()"
+    <button mat-button type="button" [mat-dialog-close]="false" [disabled]="isLoading">Cancel</button>
+    <button mat-flat-button color="primary" type="submit"
       [disabled]="isLoading || cohortForm.invalid">Create</button>
   </div>
 </form>

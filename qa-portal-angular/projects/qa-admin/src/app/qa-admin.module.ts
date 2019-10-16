@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 
 import { UserManagementComponent } from './user-management-console/user-management.component';
-import { RoleChipsComponent } from './role-chips/role-chips.component';
 import { QaCommonModule } from '../../../qa-common/src/app/qa-common.module';
 
-import { CohortChipsComponent } from './cohort-chips/cohort-chips.component';
 import { QaAdminRoutingModule } from './qa-admin-routing.module';
 import { CohortManagementComponent } from './cohort-management/cohort-management.component';
 import { DeleteUserDialogComponent } from './user-management-console/delete-user-dialog/delete-user-dialog.component';
@@ -26,12 +24,16 @@ import { TechnologyManagementComponent } from './technology-management/technolog
 import { TechnologyDetailComponent } from './technology-detail/technology-detail.component';
 import { NewCategoryDialogComponent } from './technology-management/new-category-dialog/new-category-dialog.component';
 import { NewCohortDialogComponent } from './cohort-management/new-cohort-dialog/new-cohort-dialog.component';
+import { FormManagementComponent } from './form-management/form-management.component';
+import { NewFormDialogComponent } from './form-management/new-form-dialog/new-form-dialog.component';
+import { FormDetailComponent } from './form-detail/form-detail.component';
+import { ApplicationManagementComponent } from './application-management/application-management.component';
+import { ApplicationDetailComponent } from './application-detail/application-detail.component';
+import { NewAppDialogComponent } from './application-management/new-app-dialog/new-app-dialog.component';
 
 @NgModule({
   declarations: [
     UserManagementComponent,
-    RoleChipsComponent,
-    CohortChipsComponent,
     AddUserDialogComponent,
     CohortManagementComponent,
     DeleteUserDialogComponent,
@@ -46,7 +48,13 @@ import { NewCohortDialogComponent } from './cohort-management/new-cohort-dialog/
     TechnologyManagementComponent,
     TechnologyDetailComponent,
     NewCategoryDialogComponent,
-    NewCohortDialogComponent
+    NewCohortDialogComponent,
+    FormManagementComponent,
+    NewFormDialogComponent,
+    FormDetailComponent,
+    ApplicationManagementComponent,
+    ApplicationDetailComponent,
+    NewAppDialogComponent
   ],
   imports: [
     QaCommonModule,
@@ -66,7 +74,9 @@ import { NewCohortDialogComponent } from './cohort-management/new-cohort-dialog/
     AddCourseDialogComponent,
     NewCourseDialogComponent,
     NewCategoryDialogComponent,
-    NewCohortDialogComponent
+    NewCohortDialogComponent,
+    NewFormDialogComponent,
+    NewAppDialogComponent
   ]
 })
 export class QaAdminModule { }

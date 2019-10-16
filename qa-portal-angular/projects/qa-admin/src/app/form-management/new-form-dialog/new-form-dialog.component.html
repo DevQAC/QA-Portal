@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Add New Form</h1>
+<form [formGroup]="formForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="formName" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description">
+      </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button [mat-dialog-close]="false" [disabled]="isLoading" type="button">Cancel</button>
+    <button mat-flat-button color="primary" type="submit"
+      [disabled]="isLoading || formForm.invalid">Create</button>
+  </div>
+</form>
+<app-spinner-overlay [show]="isLoading"></app-spinner-overlay>

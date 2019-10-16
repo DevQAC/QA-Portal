@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CohortChipsComponent } from './cohort-chips.component';
+import { FormManagementComponent } from './form-management.component';
 
-describe('CohortChipsComponent', () => {
-  let component: CohortChipsComponent;
-  let fixture: ComponentFixture<CohortChipsComponent>;
+describe('FormManagementComponent', () => {
+  let component: FormManagementComponent;
+  let fixture: ComponentFixture<FormManagementComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CohortChipsComponent ]
+      declarations: [ FormManagementComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CohortChipsComponent);
+    fixture = TestBed.createComponent(FormManagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,27 @@
+<h1>
+  Forms
+  <button mat-icon-button style="float: right" color="primary" (click)="onAddFormButtonClicked()"
+    title="Add a new form">
+    <mat-icon>add</mat-icon>
+  </button>
+</h1>
+
+<!-- <app-search-bar [hasFilterPanel]="false" (search)="performSearch()" [(value)]="searchInput"></app-search-bar> -->
+
+<app-data-table #dataTable [displayedColumns]="displayedColumns" [dataSource]="formsTableDataSource"
+  [isLoading]="isLoading" (rowClick)="onRowClicked($event)">
+  <!-- <button bulk-action mat-button color="primary">Edit</button> -->
+
+  <ng-container matColumnDef="formName">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let form"> {{form.formName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="questionCategories">
+    <th mat-header-cell *matHeaderCellDef> Categories </th>
+    <td mat-cell *matCellDef="let form"> {{form.questionCategories?.length || 0}} </td>
+  </ng-container>
+  <ng-container matColumnDef="questions">
+    <th mat-header-cell *matHeaderCellDef> Questions </th>
+    <td mat-cell *matCellDef="let form"> {{getQuestionCount(form.questionCategories) || 0}} </td>
+  </ng-container>
+</app-data-table>

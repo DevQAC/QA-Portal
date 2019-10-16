@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RoleChipsComponent } from './role-chips.component';
+import { ApplicationDetailComponent } from './application-detail.component';
 
-describe('RoleChipsComponent', () => {
-  let component: RoleChipsComponent;
-  let fixture: ComponentFixture<RoleChipsComponent>;
+describe('ApplicationDetailComponent', () => {
+  let component: ApplicationDetailComponent;
+  let fixture: ComponentFixture<ApplicationDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoleChipsComponent ]
+      declarations: [ ApplicationDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RoleChipsComponent);
+    fixture = TestBed.createComponent(ApplicationDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

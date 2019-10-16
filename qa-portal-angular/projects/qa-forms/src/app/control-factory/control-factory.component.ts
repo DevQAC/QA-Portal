@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, ViewChild, ComponentFactoryResolver, EventEmitter, Output, OnDestroy} from '@angular/core';
 import {ControlHostDirective} from './control-host.directive';
 import {CONTROLS_MAP} from '../_common/models/control.constants';
-import {ControlTypes} from '../_common/types/control.types';
+import {ControlTypes} from '../../../../portal-core/src/app/_common/types/control.types';
 import {takeWhile} from 'rxjs/operators';
 import {IQuestionResponse, IQuestion} from '../_common/models';
 import {IGenericControl} from '../controls/generic-control/generic-control.component';

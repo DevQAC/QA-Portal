@@ -31,12 +31,13 @@ public class UpdatePortalApplicationOperation {
     private PortalApplicationDto updatePortalApplication(PortalApplicationEntity portalApplicationEntity,
                                                         PortalApplicationDto portalApplicationDto) {
         portalApplicationEntity.setBaseUrl(portalApplicationDto.getBaseUrl());
+        portalApplicationEntity.setName(portalApplicationDto.getName());
         portalApplicationEntity.setDescription(portalApplicationDto.getDescription());
         portalApplicationEntity.setDisplayOrder(portalApplicationDto.getDisplayOrder());
         return baseMapper.mapObject(portalApplicationEntity, PortalApplicationDto.class);
     }
 
     private Optional<PortalApplicationEntity> getPortalApplication(PortalApplicationDto portalApplicationDto) {
-        return portalApplicationRepository.findByName(portalApplicationDto.getName());
+        return portalApplicationRepository.findById(portalApplicationDto.getId());
     }
 }

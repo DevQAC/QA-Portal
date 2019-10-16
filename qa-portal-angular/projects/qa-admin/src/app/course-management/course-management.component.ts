@@ -23,7 +23,7 @@ export class CourseManagementComponent implements OnInit {
   public displayedColumns = ['courseName', 'courseCode', 'duration'];
   public rowSelection = [];
   public isLoading = true;
-  
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -52,12 +52,11 @@ export class CourseManagementComponent implements OnInit {
 
 
   public onAddCourseButtonClicked(): void {
-    console.warn('Add new course not implemented!');
 
     const dialogRef = this.dialog.open(NewCourseDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.isLoading = true;
+        this.performSearch();
       }
     });
   }

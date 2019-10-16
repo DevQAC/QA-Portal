@@ -25,7 +25,7 @@ public class CreateFormOperation {
             throw new QaPortalBusinessException("Form already exists with supplied name");
         }
 
-        FormTypeEntity formTypeEntity = formMapper.mapToNewFormTypeEntity(formTypeDto);
+        FormTypeEntity formTypeEntity = formMapper.createNewFormTypeEntity(formTypeDto);
         FormTypeEntity savedForm = formTypeRepository.save(formTypeEntity);
         return formMapper.createFormDto(savedForm);
     }

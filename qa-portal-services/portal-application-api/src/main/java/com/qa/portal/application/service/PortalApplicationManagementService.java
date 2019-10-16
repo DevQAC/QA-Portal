@@ -1,10 +1,17 @@
 package com.qa.portal.application.service;
 
+import com.qa.portal.application.dto.ApplicationProjectDto;
+import com.qa.portal.application.dto.ApplicationProjectsDto;
 import com.qa.portal.application.dto.PortalApplicationDto;
+import com.qa.portal.application.persistence.entity.RoleProjectPageEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class PortalApplicationManagementService {
@@ -33,7 +40,7 @@ public class PortalApplicationManagementService {
     }
 
     @Transactional
-    public PortalApplicationDto getPortalApplicationById(Integer id) {
+    public ApplicationProjectsDto getPortalApplicationById(Integer id) {
         return getPortalApplicationByIdOperation.getPortalApplicationById(id);
     }
 

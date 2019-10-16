@@ -29,11 +29,11 @@ public class UpdateFormOperation {
     }
 
     private FormTypeDto persistUpdatedForm(FormTypeEntity formTypeEntity, FormTypeDto formTypeDto) {
-        formMapper.updatedFormTypeEntity(formTypeEntity, formTypeDto);
-        return formMapper.createFormDto(formTypeEntity);
+        formMapper.updateExistingFormTypeEntity(formTypeEntity, formTypeDto);
+        return formMapper.createFormDto(formTypeRepository.save(formTypeEntity));
     }
 
     private Optional<FormTypeEntity> getForm(FormTypeDto formTypeDto) {
-        return formTypeRepository.findByFormName(formTypeDto.getFormName());
+        return formTypeRepository.findById(formTypeDto.getId());
     }
 }

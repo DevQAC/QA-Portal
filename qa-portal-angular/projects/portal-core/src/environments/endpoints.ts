@@ -11,6 +11,13 @@ export interface Endpoints {
   SAVE_TECHNOLOGY_CATEGORY: string;
   CREATE_TECHNOLOGY_CATEGORY: string;
   CREATE_COHORT: string;
+  GET_ALL_FORMS: string;
+  GET_FORM_BY_ID: string;
+  CREATE_FORM: string;
+  SAVE_FORM: string;
+  GET_ALL_APPLICATIONS: string;
+  GET_APPLICATION_BY_ID: string;
+  SAVE_APPLICATION: string;
 }
 
 export const endpoints: Endpoints = {
@@ -24,7 +31,14 @@ export const endpoints: Endpoints = {
   GET_ALL_TECHNOLOGY_CATEGORY_BY_ID: 'cohort-api/technology/category/:id',
   SAVE_TECHNOLOGY_CATEGORY: 'cohort-api/manage/technology/category',
   CREATE_TECHNOLOGY_CATEGORY: 'cohort-api/manage/technology/category',
-  CREATE_COHORT: 'cohort-api/manage/cohort'
+  CREATE_COHORT: 'cohort-api/manage/cohort',
+  GET_ALL_FORMS: '/form-api/forms',
+  GET_FORM_BY_ID:  '/form-api/form/:id',
+  CREATE_FORM: '/form-api/manage/form',
+  SAVE_FORM: '/form-api/manage/form',
+  GET_ALL_APPLICATIONS: '/portal-application-api/manage/portal/applications',
+  GET_APPLICATION_BY_ID: '/portal-application-api/manage/portal/application/:id',
+  SAVE_APPLICATION: '/portal-application-api/manage/portal/application'
 };
 
 export type EndpointRef = keyof Endpoints;

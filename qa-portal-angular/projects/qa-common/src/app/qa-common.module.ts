@@ -39,6 +39,10 @@ import { CommonModule } from '@angular/common';
 import { DataTableComponent } from './data-table/data-table.component';
 import { SpinnerOverlayComponent } from './spinner-overlay/spinner-overlay.component';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { ListComponent } from './list/list.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ExpanderDirective } from './list/directives/expander.directive';
+import { TitleDirective } from './list/directives/title.directive';
 
 const iconsMap = [
   { name: 'qa-logo', path: 'assets/qa.svg' },
@@ -49,10 +53,15 @@ const iconsMap = [
   { name: 'qa-manage-roles', path: 'assets/icons/qa_manage_roles_48px.svg' },
   { name: 'qa-manage-technology', path: 'assets/icons/qa_manage_technology_48px.svg' },
   { name: 'qa-manage-form', path: 'assets/icons/qa_manage_form_48px.svg' },
+  { name: 'qa-manage-question', path: 'assets/icons/qa_manage_question_48px.svg' },
+  { name: 'qa-manage-question-category', path: 'assets/icons/qa_manage_question_category_48px.svg' },
   { name: 'qa-role', path: 'assets/icons/qa_roles_48px.svg' },
+  { name: 'qa-course', path: 'assets/icons/qa_course_48px.svg' },
+  { name: 'qa-cohort', path: 'assets/icons/qa_cohort_48px.svg' },
   { name: 'qa-technology', path: 'assets/icons/qa_technology_48px.svg' },
-  { name: 'qa-form', path: 'assets/icons/qa_form_48px.svg' }
-
+  { name: 'qa-form', path: 'assets/icons/qa_form_48px.svg' },
+  { name: 'qa-question', path: 'assets/icons/qa_question_48px.svg' },
+  { name: 'qa-question-category', path: 'assets/icons/qa_question_category_48px.svg' }
 ];
 
 const materialModules = [
@@ -96,7 +105,10 @@ const materialModules = [
     SearchBarComponent,
     SearchBarBackdropComponent,
     DataTableComponent,
-    SpinnerOverlayComponent
+    SpinnerOverlayComponent,
+    ListComponent,
+    ExpanderDirective,
+    TitleDirective
   ],
   imports: [
     CommonModule,
@@ -109,7 +121,8 @@ const materialModules = [
         closeButton: true,
         timeOut: 7000
       }
-    )
+    ),
+    DragDropModule
   ],
   providers: [],
   exports: [
@@ -121,7 +134,10 @@ const materialModules = [
     SearchBarComponent,
     SearchBarBackdropComponent,
     DataTableComponent,
-    SpinnerOverlayComponent
+    SpinnerOverlayComponent,
+    ListComponent,
+    TitleDirective,
+    ExpanderDirective
   ]
 })
 export class QaCommonModule {

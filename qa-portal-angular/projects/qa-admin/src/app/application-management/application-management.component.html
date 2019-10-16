@@ -1,0 +1,27 @@
+<h1>
+    Applications
+    <button mat-icon-button style="float: right" color="primary" (click)="onAddAppButtonClicked()"
+      title="Add a new application">
+      <mat-icon>add</mat-icon>
+    </button>
+  </h1>
+  
+  <!-- <app-search-bar [hasFilterPanel]="false" (search)="performSearch()" [(value)]="searchInput"></app-search-bar> -->
+  
+  <app-data-table #dataTable [displayedColumns]="displayedColumns" [dataSource]="appsTableDataSource"
+    [isLoading]="isLoading" (rowClick)="onRowClicked($event)">
+    <!-- <button bulk-action mat-button color="primary">Edit</button> -->
+  
+    <ng-container matColumnDef="appName">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let app"> {{app.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="baseUrl">
+        <th mat-header-cell *matHeaderCellDef> Base URL </th>
+        <td mat-cell *matCellDef="let app"> {{app.baseUrl}} </td>
+      </ng-container>
+      <ng-container matColumnDef="displayOrder">
+          <th mat-header-cell *matHeaderCellDef> Order </th>
+          <td mat-cell *matCellDef="let app"> {{app.displayOrder}} </td>
+        </ng-container>
+  </app-data-table>
