@@ -23,7 +23,7 @@ export class CourseManagementComponent implements OnInit {
   public displayedColumns = ['courseName', 'courseCode', 'duration'];
   public rowSelection = [];
   public isLoading = true;
-  
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
