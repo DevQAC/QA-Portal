@@ -14,7 +14,7 @@ export class QuestionModel {
     /**
      * Determines the visibility of an additional comment field
      */
-    hasComment: boolean;
+    hasComment = false;
 
     /**
      * Additional user comment

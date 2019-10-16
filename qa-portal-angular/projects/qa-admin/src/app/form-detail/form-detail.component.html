@@ -46,7 +46,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-checkbox [(ngModel)]="item.canComment">Allow additional comments</mat-checkbox>
+          <mat-checkbox [(ngModel)]="item.hasComment">Allow additional comments</mat-checkbox>
 
           <h3 class="mt-1">Questions</h3>
           <app-list [listDataSource]="item?.questions">
@@ -75,7 +75,7 @@
                       (matChipInputTokenEnd)="addOption($event, question)">
                   </mat-chip-list>
                 </mat-form-field>
-                <mat-checkbox [(ngModel)]="question.canComment">Allow additional comments</mat-checkbox>
+                <mat-checkbox [(ngModel)]="question.hasComment">Allow additional comments</mat-checkbox>
               </ng-container>
             </div>
           </app-list>

@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, ContentChild, QueryList, AfterContentInit, ContentChild } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { TitleDirective } from './directives/title.directive';
-import { ExpanderDirective } from './directives/expander.directive';
+import {Component, ContentChild, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {TitleDirective} from './directives/title.directive';
+import {ExpanderDirective} from './directives/expander.directive';
 
 @Component({
   selector: 'app-list',
