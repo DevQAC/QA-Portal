@@ -68,4 +68,8 @@ export class ApplicationDetailComponent implements OnInit {
     this.app.portalProjects.push(new PortalProjectModel());
   }
 
+  onRemoveProjectClicked(): void {
+    
+  }
+
 }

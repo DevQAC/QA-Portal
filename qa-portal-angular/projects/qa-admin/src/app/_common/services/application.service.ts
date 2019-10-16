@@ -22,4 +22,9 @@ export class ApplicationService {
   public saveApplication(app: PortalApplicationModel): Observable<PortalApplicationModel> {
     return this.qaHttp.put({ ref: 'SAVE_APPLICATION' }, app);
   }
+
+
+  public getAllProjects(): Observable<PortalApplicationProjectsModel[]> {
+    return this.qaHttp.get({ref: 'GET_ALL_PORTAL_PROJECTS'});
+  }
 }
