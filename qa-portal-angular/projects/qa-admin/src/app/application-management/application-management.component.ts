@@ -4,9 +4,9 @@ import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 import { ApplicationService } from '../_common/services/application.service';
-import { PortalApplicationProjectsModel } from 'projects/portal-core/src/app/_common/models/portal-application-projects.model';
 import { NewAppDialogComponent } from './new-app-dialog/new-app-dialog.component';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
+import { PortalApplicationModel } from 'projects/portal-core/src/app/_common/models/portal-application.model';
 
 @Component({
   selector: 'app-application-management',
@@ -15,14 +15,14 @@ import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/serv
 })
 export class ApplicationManagementComponent implements OnInit {
 
-  @ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<PortalApplicationProjectsModel>;
+  @ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<PortalApplicationModel>;
 
   // SEARCH
   public searchInput = '';
 
   // TABLE
-  public appsTableDataSource = new MatTableDataSource<PortalApplicationProjectsModel>();
-  public displayedColumns = ['appName', 'projects'];
+  public appsTableDataSource = new MatTableDataSource<PortalApplicationModel>();
+  public displayedColumns = ['appName', 'baseUrl', 'displayOrder'];
   public rowSelection = [];
   public isLoading = true;
 
@@ -60,8 +60,8 @@ export class ApplicationManagementComponent implements OnInit {
     });
   }
 
-  onRowClicked(event: IRowClickEvent<PortalApplicationProjectsModel>): void {
-    this.router.navigate(['qa', 'portal', 'admin', 'manage', 'applications', event.data.portalApplication.id]);
+  onRowClicked(event: IRowClickEvent<PortalApplicationModel>): void {
+    this.router.navigate(['qa', 'portal', 'admin', 'manage', 'applications', event.data.id]);
   }
 
 }
