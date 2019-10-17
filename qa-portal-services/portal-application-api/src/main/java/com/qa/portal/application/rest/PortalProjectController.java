@@ -24,7 +24,7 @@ public class PortalProjectController {
     }
 
     @GetMapping("portal/project/{id}")
-    public ResponseEntity<PortalProjectDto> getPortalProject(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(portalProjectService.getPortalProject(id));
+    public ResponseEntity<PortalProjectDto> getPortalProject(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(portalProjectService.getPortalProject(Long.valueOf(id.longValue())));
     }
 }
