@@ -53,11 +53,8 @@ export class ApplicationDetailComponent implements OnInit {
 
   onSaveAppClicked(): void {
     const app = {
-      ...this.app,
-      portalApplication: {
         ...this.app.portalApplication,
         ...this.appForm.value
-      }
     };
     this.isLoading = true;
     this.appService.saveApplication(app)
