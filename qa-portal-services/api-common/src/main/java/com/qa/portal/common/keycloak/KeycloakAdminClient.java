@@ -60,7 +60,8 @@ public class KeycloakAdminClient {
                     .username(environment.getProperty(QA_KEYCLOAK_ADMIN_USER_PROP))
                     .password(environment.getProperty(QA_KEYCLOAK_AUTH_PASSWORD_PROP))
                     .clientId(environment.getProperty(QA_KEYCLOAK_AUTH_CLIENT_ID_PROP))
-                    .resteasyClient(new ResteasyClientBuilder().build()).build();
+                    .resteasyClient(new ResteasyClientBuilder().build())
+                    .build();
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.qa.portal.application.rest;
 
+import com.qa.portal.application.dto.ApplicationProjectsDto;
 import com.qa.portal.application.dto.PortalApplicationDto;
 import com.qa.portal.application.service.PortalApplicationManagementService;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class PortalApplicationManagementController {
     }
 
     @GetMapping("portal/application/{id}")
-    public ResponseEntity<PortalApplicationDto> getPortalApplicationById(@PathVariable("id") Integer id) {
+    public ResponseEntity<ApplicationProjectsDto> getPortalApplicationById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(portalApplicationManagementService.getPortalApplicationById(id));
     }
 

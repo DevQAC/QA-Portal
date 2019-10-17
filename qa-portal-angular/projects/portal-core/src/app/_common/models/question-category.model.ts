@@ -5,7 +5,7 @@ export class QuestionCategoryModel {
     categoryName: string;
     commentLabel: string;
     displayDirection: string;
-    hasComment: boolean;
+    hasComment = false;
     id: number;
     lastUpdatedBy: string;
     lastUpdatedTimestamp: string;
