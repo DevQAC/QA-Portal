@@ -1,13 +1,20 @@
 # QA Portal 
 
-Table of Contents
------
-- [Architecture](#architecture)
--- [Assumption](#assumption)
-- [Source Control](#source-control)
+**[1. Architecture](#Architecture)**
+- [High Level diagram](#high-level-diagram)
+- [Project Startup](#overview)
+
+**[2. Source Control](#source-control)**
+- [Assumption](#assumption)
+- [Project Startup](#project-startup)
+- [QA Portal Development](#qa-portal-development)
 
 
 ## Architecture
+
+### High Level diagram
+
+### Overview
 
 
 ## Source Control
