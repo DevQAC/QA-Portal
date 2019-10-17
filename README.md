@@ -15,32 +15,38 @@ The QA Portal architecture consists of the following components
 ## Contents
 
 **[1. Architecture](#architecture)**
-- [High Level diagram](#high-level-diagram)
+- [High Level Architecture Diagram](#high-level-architecture-diagram)
 - [Architecture Overview](#architecture-overview)
+- [Keycloak Integration](#keycloak-integration)
 
 **[2. Developer Environment Setup](#developer-environment-setup)**
 
 **[3. Source Control](#source-control)**
 - [Assumptions](#assumptions)
-- [Project Startup](#project-startup)
-- [QA Portal Development](#qa-portal-development)
+- [Local Workspace Setup](#local-workspace-setup)
+- [Portal Development](#portal-development)
 
 <a name="architecture"></a>
 ## 1. Architecture
 
-### High Level diagram
+<a name="high-level-architecture-diagram"></a>
+### 1.1. High Level Architecture Diagram
 ![](./docs/image/QA_Portal_High_Level_Architecture_Diagram.png)
 
-### Architecture Overview
+<a name="architecture-overview"></a>
+### 1.2. Architecture Overview
+
+<a name="keycloak-integration"></a>
+### 1.3. Keycloak Integration
 
 
 <a name="developer-environment-setup"></a>
 ## 2. Developer Environment Setup
 
-2.1. Clone this repository into your local workspace. See instructions in the [Source Control](#source-control) section below for instructions.
-2.2. Set up Postgres, Keycloak and Mongo DB. See [Local development environment setup](qa-portal-infra/README.md) for instructions.
-2.3. Build and run the Spring Boot microservices. See [Build and run microservices](qa-portal-services/README.md) for instructions
-2.4. Build and run the Angular client application. See [Build and run angular application](qa-portal-angular/README.md) for instructions
+a) Clone this repository into your local workspace. See instructions in the [Source Control](#source-control) section below for instructions.<br>
+b)Set up Postgres, Keycloak and Mongo DB. See [Local development environment setup](qa-portal-infra/README.md) for instructions.<br>
+c) Build and run the Spring Boot microservices. See [Build and run microservices](qa-portal-services/README.md) for instructions.<br>
+d) Build and run the Angular client application. See [Build and run angular application](qa-portal-angular/README.md) for instructions.<br>
 
 <a name="source-control"></a>
 ## 3. Source Control
@@ -56,8 +62,8 @@ a) It is assumed you already have a Git account set up. If this is not the case,
 
 b) It is also assumed that you have Git installed on your development machine (either command line or through your IDE). If not, download and install a Git client (or Git plugin for your IDE)
 
-<a name="project-startup"></a>
-### 3.2. Project Startup
+<a name="local-workspace-setup"></a>
+### 3.2. Local Workspace Setup
 
 #### 3.2.1. Clone the Git repository
 
@@ -74,8 +80,8 @@ git fetch
 
 git checkout -t origin/development
 
-<a name="qa-portal-development"></a>
-### 3.3. QA Portal Development
+<a name="portal-development"></a>
+### 3.3. Portal Development
 
 When starting work on a new Jira task, for each repository that you will have to amend, create a local feature branch (i.e. if you need to change both qa-portal-angular and qa-portal-services repos then you'll need to create a local feature branch for each of them)
 
