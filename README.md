@@ -1,4 +1,16 @@
-# QA Portal 
+# QA Portal :
+
+The QA Portal architecture consists of the following components
+
+-   [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/) for server side microservices
+
+-   [Angular 8](https://angular.io/docs) for client side user interfaces
+
+-   [Postgres](https://www.postgresql.org/docs/11/index.html) for relational data
+
+-   [Mongo](https://docs.mongodb.com/) for document based non-relational data
+
+-   [Keycloak](https://www.keycloak.org/archive/documentation-6.0.html) for authentication and access control
 
 **[1. Architecture](#Architecture)**
 - [High Level diagram](#high-level-diagram)
