@@ -3,8 +3,11 @@
 Index
 -----
 
+[Architecture](#architecture)
+[Source Control](#source-control)
 
-## Architecure
+
+## Architecture
 
 
 ## Source Control
