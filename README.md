@@ -36,6 +36,42 @@ The QA Portal architecture consists of the following components
 <a name="architecture-overview"></a>
 ### 1.2. Architecture Overview
 
+#### 1.2.1. Http Layer
+The Http layer exposes the portals RESTful API to clients. Each endpoint is implemented as a method in a [Spring Boot Rest Controller](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-spring-mvc), exposed through a Spring Boot application (microservice)
+
+Each endpoints responsibility is to accept requests for a resource, delegate the processing of that request to a Domain Service component, and return the response from that Domain service wrapped in an Http Response to the client.
+
+The Spring Boot framework utilises the Jackson JSON library to transform JSON requests from the client into data transfer objects (DTOs) that are passed to the Domain Service components.
+
+#### 1.2.2. Service Layer
+The Service layer provides the domain / business specific processing. Each service method called from a Spring Boot Rest Controller has the following responsibilities 
+- define the transaction boundary (by decorating the method with Springs @Transactional annotation)
+- accept a Data transfer object (or objects) from a Spring Boot Rest Controller
+- validate the Data transfer object (when required)
+- transform the Data transfer object to a JPA entity object (if using JPA entities)
+- retrieve data required for processing (from Database, File system or external services)
+- apply business / domain logic and apply updates to persistence objects (JPA entities, Mongo documents, etc)
+- create a data tranfer object representing the response to be sent back to the client
+- return this data transfer object to the calling Spring Boot Rest Controller
+
+#### 1.2.3. Peristence Layer
+In QA portal services there are 3 data stores being updated. 
+
+##### 1.2.3.1. qa-portal database 
+
+Postgres database for storage of the portal application data. Each spring boot application accessing or updating the qa-portal-database will do so through [Spring JPA Repositories](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.repositories) via [JPA entities](https://docs.oracle.com/cd/E16439_01/doc.1013/e13981/undejbs003.htm) 
+
+
+##### 1.2.3.2. qa-portal-cv database
+
+Mongo database for storage of CV versions created for trainees. This is accessed from spring boot applications through [Spring MongoDB Repositories](https://docs.spring.io/spring-data/mongodb/docs/1.2.0.RELEASE/reference/html/mongo.repositories.html) via [Spring Mongo documents](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#reference)
+
+
+##### 1.2.3.3. keycloak database
+
+Postgres database for storage of the keycloak access management data. This is only accessed through Keycloaks admin client library classes, which is being used in the QA Portal to maintain users and roles for the application. This is only used within the Portal Management area of the QA Portal which can only be accessed by a QA Portal administrator.
+
+
 <a name="keycloak-integration"></a>
 ### 1.3. Keycloak Integration
 
@@ -44,7 +80,7 @@ The QA Portal architecture consists of the following components
 ## 2. Developer Environment Setup
 
 a) Clone this repository into your local workspace. See instructions in the [Source Control](#source-control) section below for instructions.<br>
-b)Set up Postgres, Keycloak and Mongo DB. See [Local development environment setup](qa-portal-infra/README.md) for instructions.<br>
+b) Set up Postgres, Keycloak and Mongo DB. See [Local development environment setup](qa-portal-infra/README.md) for instructions.<br>
 c) Build and run the Spring Boot microservices. See [Build and run microservices](qa-portal-services/README.md) for instructions.<br>
 d) Build and run the Angular client application. See [Build and run angular application](qa-portal-angular/README.md) for instructions.<br>
 
