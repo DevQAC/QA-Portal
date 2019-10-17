@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { QaHttpService } from 'projects/portal-core/src/app/_common/services/qa-http.service';
 import { PortalApplicationModel } from 'projects/portal-core/src/app/_common/models/portal-application.model';
 import { PortalApplicationProjectsModel } from 'projects/portal-core/src/app/_common/models/portal-application-projects.model';
+import { PortalProjectModel } from 'projects/portal-core/src/app/_common/models/portal-project.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class ApplicationService {
   }
 
 
-  public getAllProjects(): Observable<PortalApplicationProjectsModel[]> {
+  public getAllProjects(): Observable<PortalProjectModel[]> {
     return this.qaHttp.get({ref: 'GET_ALL_PORTAL_PROJECTS'});
   }
 }
