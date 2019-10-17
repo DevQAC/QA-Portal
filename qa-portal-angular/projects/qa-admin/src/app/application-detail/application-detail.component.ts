@@ -4,11 +4,9 @@ import { ApplicationService } from '../_common/services/application.service';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
-import { PortalApplicationModel } from 'projects/portal-core/src/app/_common/models/portal-application.model';
 import { QaToastrService } from 'projects/portal-core/src/app/_common/services/qa-toastr.service';
 import { PortalApplicationProjectsModel } from 'projects/portal-core/src/app/_common/models/portal-application-projects.model';
 import { PortalProjectModel } from 'projects/portal-core/src/app/_common/models/portal-project.model';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-application-detail',
@@ -39,7 +37,6 @@ export class ApplicationDetailComponent implements OnInit {
 
   ngOnInit() {
     const appId = this.aR.snapshot.params.id;
-
     this.appService.getApplicationById(appId).pipe(
       take(1),
       finalize(() => this.isLoading = false)
@@ -65,13 +62,4 @@ export class ApplicationDetailComponent implements OnInit {
         this.toastr.showSuccess('Application updated');
       }, err => this.errorService.handleError(err));
   }
-
-  onNewProjectClicked(): void {
-    this.app.portalProjects.push(new PortalProjectModel());
-  }
-
-  onRemoveProjectClicked(): void {
-
-  }
-
 }
