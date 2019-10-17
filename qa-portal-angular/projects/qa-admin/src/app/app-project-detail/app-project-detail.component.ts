@@ -62,7 +62,6 @@ export class AppProjectDetailComponent implements OnInit {
   }
 
   onSaveProjectClicked(): void {
-    debugger;
   }
 
   onNewPageClicked(): void {
