@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 import { ApplicationService } from '../_common/services/application.service';
+import { NewProjectDialogComponent } from './new-project-dialog/new-project-dialog.component';
 
 @Component({
   selector: 'app-app-project-management',
@@ -53,12 +54,12 @@ export class AppProjectManagementComponent implements OnInit {
       }, err => this.errorService.handleError(err));
   }
 
-  public onAddAppButtonClicked(): void {
-    // this.dialog.open(NewProjectDialogComponent, {}).afterClosed().subscribe(data => {
-    //   if (data) {
-    //     this.performSearch();
-    //   }
-    // });
+  public onAddProjectButtonClicked(): void {
+    this.dialog.open(NewProjectDialogComponent, {}).afterClosed().subscribe(data => {
+      if (data) {
+        this.performSearch();
+      }
+    });
   }
 
   onRowClicked(event: IRowClickEvent<PortalProjectModel>): void {

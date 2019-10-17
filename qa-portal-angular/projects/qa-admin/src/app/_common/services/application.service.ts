@@ -12,6 +12,8 @@ export class ApplicationService {
 
   constructor(private qaHttp: QaHttpService) { }
 
+  // Application
+
   public getAllApplications(): Observable<PortalApplicationModel[]> {
     return this.qaHttp.get({ ref: 'GET_ALL_APPLICATIONS' });
   }
@@ -25,7 +27,13 @@ export class ApplicationService {
   }
 
 
+  // Project
+
   public getAllProjects(): Observable<PortalProjectModel[]> {
     return this.qaHttp.get({ref: 'GET_ALL_PORTAL_PROJECTS'});
+  }
+
+  public addProject(project: PortalProjectModel): Observable<PortalApplicationModel> {
+    return this.qaHttp.post({ref: 'CREATE_PORTAL_PROJECT'}, project);
   }
 }
