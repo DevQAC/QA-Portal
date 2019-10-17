@@ -1,0 +1,23 @@
+<h1>
+  Projects
+  <button mat-icon-button style="float: right" color="primary" (click)="onAddProjectButtonClicked()"
+    title="Add a new project">
+    <mat-icon>add</mat-icon>
+  </button>
+</h1>
+
+<!-- <app-search-bar [hasFilterPanel]="false" (search)="performSearch()" [(value)]="searchInput"></app-search-bar> -->
+
+<app-data-table #dataTable [displayedColumns]="displayedColumns" [dataSource]="projectsTableDataSource"
+  [isLoading]="isLoading" (rowClick)="onRowClicked($event)">
+  <!-- <button bulk-action mat-button color="primary">Edit</button> -->
+
+  <ng-container matColumnDef="projectName">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let project"> {{project.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="pages">
+    <th mat-header-cell *matHeaderCellDef> Pages </th>
+    <td mat-cell *matCellDef="let project"> {{project.projectPages?.length || 0}} </td>
+  </ng-container>
+</app-data-table>

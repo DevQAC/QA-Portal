@@ -14,6 +14,8 @@ import { FormManagementComponent } from './form-management/form-management.compo
 import { FormDetailComponent } from './form-detail/form-detail.component';
 import { ApplicationManagementComponent } from './application-management/application-management.component';
 import { ApplicationDetailComponent } from './application-detail/application-detail.component';
+import { AppProjectManagementComponent } from './app-project-management/app-project-management.component';
+import { AppProjectDetailComponent } from './app-project-detail/app-project-detail.component';
 
 const routes: Routes = [
   {
@@ -129,6 +131,26 @@ const routes: Routes = [
   {
     path: 'manage/applications/:id',
     component: ApplicationDetailComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
+  {
+    path: 'manage/app-projects',
+    component: AppProjectManagementComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
+  {
+    path: 'manage/app-projects/:id',
+    component: AppProjectDetailComponent,
     canActivate: [AppAuthGuard],
     data: {
       roles: [
