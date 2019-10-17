@@ -1,10 +1,9 @@
 # QA Portal 
 
-Index
+Table of Contents
 -----
-
-[Architecture](#architecture)
-[Source Control](#source-control)
+- [Architecture](#architecture)
+- [Source Control](#source-control)
 
 
 ## Architecture
