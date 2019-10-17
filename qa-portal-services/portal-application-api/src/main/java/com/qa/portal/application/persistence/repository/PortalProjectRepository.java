@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PortalProjectRepository extends JpaRepository<PortalProjectEntity, Long> {
+public interface PortalProjectRepository extends JpaRepository<PortalProjectEntity, Integer> {
 
     Optional<PortalProjectEntity> findByName(String name);
 }
