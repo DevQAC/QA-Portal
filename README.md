@@ -13,7 +13,7 @@
 ## Architecture
 
 ### High Level diagram
-
+![](./docs/image/QA_Portal_High_Level_Architecture_Diagram.png)
 
 ### Architecture Overview
 
