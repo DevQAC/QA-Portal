@@ -43,26 +43,7 @@ import { ListComponent } from './list/list.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ExpanderDirective } from './list/directives/expander.directive';
 import { TitleDirective } from './list/directives/title.directive';
-
-const iconsMap = [
-  { name: 'qa-logo', path: 'assets/qa.svg' },
-  { name: 'qa-manage-apps', path: 'assets/icons/qa_manage_apps_48px.svg' },
-  { name: 'qa-manage-cohorts', path: 'assets/icons/qa_manage_cohorts_48px.svg' },
-  { name: 'qa-manage-courses', path: 'assets/icons/qa_manage_courses_48px.svg' },
-  { name: 'qa-manage-users', path: 'assets/icons/qa_manage_users_48px.svg' },
-  { name: 'qa-manage-roles', path: 'assets/icons/qa_manage_roles_48px.svg' },
-  { name: 'qa-manage-technology', path: 'assets/icons/qa_manage_technology_48px.svg' },
-  { name: 'qa-manage-form', path: 'assets/icons/qa_manage_form_48px.svg' },
-  { name: 'qa-manage-question', path: 'assets/icons/qa_manage_question_48px.svg' },
-  { name: 'qa-manage-question-category', path: 'assets/icons/qa_manage_question_category_48px.svg' },
-  { name: 'qa-role', path: 'assets/icons/qa_roles_48px.svg' },
-  { name: 'qa-course', path: 'assets/icons/qa_course_48px.svg' },
-  { name: 'qa-cohort', path: 'assets/icons/qa_cohort_48px.svg' },
-  { name: 'qa-technology', path: 'assets/icons/qa_technology_48px.svg' },
-  { name: 'qa-form', path: 'assets/icons/qa_form_48px.svg' },
-  { name: 'qa-question', path: 'assets/icons/qa_question_48px.svg' },
-  { name: 'qa-question-category', path: 'assets/icons/qa_question_category_48px.svg' }
-];
+import { customIcons } from './_common/models/icons.model';
 
 const materialModules = [
   MatCheckboxModule,
@@ -145,7 +126,7 @@ export class QaCommonModule {
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    for (const icon of iconsMap) {
+    for (const icon of customIcons) {
       this.matIconRegistry.addSvgIcon(icon.name, this.domSanitizer.bypassSecurityTrustResourceUrl(icon.path));
     }
   }

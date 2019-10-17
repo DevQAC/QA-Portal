@@ -5,6 +5,13 @@ import { ActivatedRoute } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { PortalProjectModel } from 'projects/portal-core/src/app/_common/models/portal-project.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { customIcons, CustomIconModel } from 'projects/qa-common/src/app/_common/models/icons.model';
+import { ProjectPageModel } from 'projects/portal-core/src/app/_common/models/project-page.model';
+import { forkJoin } from 'rxjs';
+import { RoleService } from '../_common/services/role.service';
+import { RoleModel } from 'projects/portal-core/src/app/_common/models/role.model';
+import { MatDialog } from '@angular/material';
+import { DeletePageConfirmDialogComponent } from './delete-page-confirm-dialog/delete-page-confirm-dialog.component';
 
 @Component({
   selector: 'app-app-project-detail',
@@ -16,10 +23,15 @@ export class AppProjectDetailComponent implements OnInit {
   public projectForm: FormGroup;
   public isLoading = true;
   public project: PortalProjectModel;
+  public roles: string[];
+
+  public allIcons = customIcons;
 
   constructor(
     private appService: ApplicationService,
+    private roleService: RoleService,
     private aR: ActivatedRoute,
+    public dialog: MatDialog,
     private errorService: QaErrorHandlerService) {
     this.projectForm = new FormBuilder().group({
       name: ['', Validators.required]
@@ -29,16 +41,44 @@ export class AppProjectDetailComponent implements OnInit {
   ngOnInit() {
 
     const projectId = this.aR.snapshot.params.id;
-    this.appService.getProjectById(projectId).pipe(
+
+    forkJoin(
+      this.appService.getProjectById(projectId),
+      this.roleService.getPortalRoles()
+    ).pipe(
       take(1),
       finalize(() => this.isLoading = false)
     ).subscribe(
-      project => {
+      ([project, roles]) => {
         this.project = project;
+        this.roles = roles;
         this.projectForm.patchValue(this.project);
-        console.log(this.project);
       },
       err => this.errorService.handleError(err));
+  }
+
+  getIconByName(name: string): CustomIconModel {
+    return this.allIcons.find(icon => icon.name === name);
+  }
+
+  onSaveProjectClicked(): void {
+    debugger;
+  }
+
+  onNewPageClicked(): void {
+    this.project.projectPages.push(new ProjectPageModel());
+    this.projectForm.markAsDirty();
+  }
+
+  onRemovePageClicked(page: ProjectPageModel): void {
+    this.dialog.open(DeletePageConfirmDialogComponent).afterClosed().pipe(take(1)).subscribe(data => {
+      if (data) {
+        this.project.projectPages = this.project.projectPages.filter(p => p.id !== page.id);
+        this.projectForm.markAsDirty();
+      }
+    });
+
+
   }
 
 }
