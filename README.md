@@ -74,6 +74,23 @@ Postgres database for storage of the keycloak access management data. This is on
 
 <a name="keycloak-integration"></a>
 ### 1.3. Keycloak Integration
+![](./docs/image/QA_Keycloak_Overview.png)
+
+**Step 1**  - User requests a QA Portal Resource in the browser.<br>
+**Step 2**  - Browser makes request for for QA Portal Resource. QA Portal Resource deployed as an angular application on the Cloud or on a VM.<br>
+**Step 3**  - QA Portal resource returned to browser.<br>
+**Step 4**  - QA Portal resource (angular application) loads in the browser (this includes the angular-keycloak adapter used for integrating the angular application with keycloak). This is "bootstrapped" into the angular application by an [angular application initializer function](qa-portal-angular/app-init.ts).<br>
+**Step 5**  - Prior to accessing any angular application resources, the angular-keycloak adapter will verify that the user is authenticated. As user not authenticated, a service call is made to the keycloak server (running on a wildfly instance on the Cloud or a VM).<br>
+**Step 6**  - Keycloak authentication service establishes this is an unauthenticated request, so establishes the URL of the keycloak login page associated with the keycloak realm providing the authentication for the QA Portal angular application.<br>
+**Step 7**  - Keycloak service sends a redirect request to the browser for the QA Portal keycloak login page.<br>
+**Step 8**  - Login page is displayed and the user enters their username and password.<br>
+**Step 9**  - Login request sent to Keycloak Service to be authenticated.<br>
+**Step 10** - User authenticated, JWT created by keycloak authentication service and sends redirect to the URL of the QA Portal resource originally requested in Step 1.<br>
+**Step 11** - User invokes an action on a QA Portal angular component (e.g. button press), resulting in a call to an external REST service.<br>
+**Step 12** - QA Portal angular portal component delegates external service call to an angular service class which in turn delegates the call to angulars HttpClient. The angular-keycloak adapter provides an Http Interceptor that intercepts any Http requests sent from HttpClient and adds an authorization header to the request containing the JWT for the user currently logged into the QA Portal application.<br>
+**Step 13** - Prior to the request reaching the requested Spring Boot REST endpoint, the Spring-Keycloak adapter configured as part of the [Spring Boot applications web security](qa-portal-services/api-common/src/main/java/com/qa/portal/common/config/SecurityConfig.java) intercepts the request and validates the JWT supplied in the requests authorization header. The configuration for the keycloak server is defined in the keycloak.json file in the qa-portal-services/api-common/src/main/resources folder. **NOTE: keycloak.json and application.yml configurations for test and production environments should be external from the application and stored on a secure server**.<br>
+**Step 14** - Once the JWT is verified to be valid, the request is forwarded to the requested endpoint.<br>
+**Step 15** - The endpoint processes the request and sends the response back to the angular application running in the browser.<br>
 
 
 <a name="developer-environment-setup"></a>
