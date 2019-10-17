@@ -31,7 +31,7 @@ public class PortalProjectService {
     }
 
     @Transactional
-    public PortalProjectDto getPortalProject(Long id) {
+    public PortalProjectDto getPortalProject(Integer id) {
         return portalProjectRepository.findById(id)
                 .map(p -> baseMapper.mapObject(p, PortalProjectDto.class))
                 .orElseThrow(() -> new QaPortalBusinessException("No Portal Project found for supplied id"));
