@@ -1,4 +1,4 @@
-# QA Portal :
+# QA Portal
 
 The QA Portal architecture consists of the following components
 
