@@ -54,6 +54,7 @@ export class TechnologyManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(NewCategoryDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.performSearch();
         // this.isLoading = true;
       }
     });
