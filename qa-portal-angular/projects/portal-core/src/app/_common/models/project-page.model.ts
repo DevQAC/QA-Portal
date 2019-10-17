@@ -7,5 +7,5 @@ export class ProjectPageModel {
   displayOnMenu: boolean;
   icon: string;
   portalProjectName: string;
-  roles: string[];
+  roles: string[] = [];
 }

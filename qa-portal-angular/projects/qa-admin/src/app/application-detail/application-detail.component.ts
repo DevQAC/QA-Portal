@@ -4,7 +4,6 @@ import { ApplicationService } from '../_common/services/application.service';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
-import { PortalApplicationModel } from 'projects/portal-core/src/app/_common/models/portal-application.model';
 import { QaToastrService } from 'projects/portal-core/src/app/_common/services/qa-toastr.service';
 import { PortalApplicationProjectsModel } from 'projects/portal-core/src/app/_common/models/portal-application-projects.model';
 import { PortalProjectModel } from 'projects/portal-core/src/app/_common/models/portal-project.model';
@@ -19,6 +18,7 @@ export class ApplicationDetailComponent implements OnInit {
   public isLoading = true;
 
   public app: PortalApplicationProjectsModel;
+  public projects: PortalProjectModel[];
 
   constructor(
     private appService: ApplicationService,
@@ -31,6 +31,7 @@ export class ApplicationDetailComponent implements OnInit {
       description: ['', Validators.required],
       baseUrl: ['', Validators.required],
       displayOrder: [1, Validators.required]
+
     });
   }
 
@@ -41,9 +42,7 @@ export class ApplicationDetailComponent implements OnInit {
       finalize(() => this.isLoading = false)
     ).subscribe(
       app => {
-        this.app = new PortalApplicationProjectsModel();
-        this.app.portalApplication = app as any;
-        // this.app = app;
+        this.app = app;
         this.appForm.patchValue(this.app.portalApplication);
       },
       err => this.errorService.handleError(err));
@@ -51,8 +50,8 @@ export class ApplicationDetailComponent implements OnInit {
 
   onSaveAppClicked(): void {
     const app = {
-      ...this.app,
-      ...this.appForm.value
+        ...this.app.portalApplication,
+        ...this.appForm.value
     };
     this.isLoading = true;
     this.appService.saveApplication(app)
@@ -63,13 +62,4 @@ export class ApplicationDetailComponent implements OnInit {
         this.toastr.showSuccess('Application updated');
       }, err => this.errorService.handleError(err));
   }
-
-  onNewProjectClicked(): void {
-    this.app.portalProjects.push(new PortalProjectModel());
-  }
-
-  onRemoveProjectClicked(): void {
-    
-  }
-
 }

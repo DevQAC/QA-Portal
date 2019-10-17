@@ -33,6 +33,7 @@ import { NewAppDialogComponent } from './application-management/new-app-dialog/n
 import { AppProjectManagementComponent } from './app-project-management/app-project-management.component';
 import { AppProjectDetailComponent } from './app-project-detail/app-project-detail.component';
 import { NewProjectDialogComponent } from './app-project-management/new-project-dialog/new-project-dialog.component';
+import { DeletePageConfirmDialogComponent } from './app-project-detail/delete-page-confirm-dialog/delete-page-confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { NewProjectDialogComponent } from './app-project-management/new-project-
     NewAppDialogComponent,
     AppProjectManagementComponent,
     AppProjectDetailComponent,
-    NewProjectDialogComponent
+    NewProjectDialogComponent,
+    DeletePageConfirmDialogComponent
   ],
   imports: [
     QaCommonModule,
@@ -83,7 +85,8 @@ import { NewProjectDialogComponent } from './app-project-management/new-project-
     NewCohortDialogComponent,
     NewFormDialogComponent,
     NewAppDialogComponent,
-    NewProjectDialogComponent
+    NewProjectDialogComponent,
+    DeletePageConfirmDialogComponent
   ]
 })
 export class QaAdminModule { }
