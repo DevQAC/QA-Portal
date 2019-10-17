@@ -6,17 +6,21 @@ The QA Portal architecture consists of the following components
 
 -   [Angular 8](https://angular.io/docs) for client side user interfaces
 
--   [Postgres](https://www.postgresql.org/docs/11/index.html) for relational data
+-   [Postgres](https://www.postgresql.org/docs/11/index.html) for relational data.
 
 -   [Mongo](https://docs.mongodb.com/) for document based non-relational data
 
 -   [Keycloak](https://www.keycloak.org/archive/documentation-6.0.html) for authentication and access control
 
-**[1. Architecture](#Architecture)**
+## Contents
+
+**[1. Architecture](#architecture)**
 - [High Level diagram](#high-level-diagram)
 - [Architecture Overview](#architecture-overview)
 
-**[2. Source Control](#source-control)**
+**[2. Developer Environment Setup](#developer-environment-setup)**
+
+**[3. Source Control](#source-control)**
 - [Assumptions](#assumptions)
 - [Project Startup](#project-startup)
 - [QA Portal Development](#qa-portal-development)
@@ -30,9 +34,17 @@ The QA Portal architecture consists of the following components
 ### Architecture Overview
 
 
+## Developer Environment Setup
+
+1. Clone this repository into your local workspace. See instructions in the [Source Control](#source-control) section below for instructions.
+2. Set up Postgres, Keycloak and Mongo DB. See [Local development environment setup](https://github.com/DevQAC/QA-Portal/qa-portal-infra/README.md) for instructions.
+3. Build and run the Spring Boot microservices. See [Build and run microservices](https://github.com/DevQAC/QA-Portal/qa-portal-services/README.md) for instructions
+4. Build and run the Angular client application. See [Build and run angular application](https://github.com/DevQAC/QA-Portal/qa-portal-angular/README.md) for instructions
+
+
 ## Source Control
 
-Source code for the QA Portal will be managed in Github. The Qa Portal repository is located at 
+Source code for the QA Portal will be managed in Github. The QA Portal repository is located at 
 
 https://github.com/DevQAC/QA-Portal<br>
 
