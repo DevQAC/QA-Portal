@@ -37,9 +37,9 @@ The QA Portal architecture consists of the following components
 ## Developer Environment Setup
 
 1. Clone this repository into your local workspace. See instructions in the [Source Control](#source-control) section below for instructions.
-2. Set up Postgres, Keycloak and Mongo DB. See [Local development environment setup](https://github.com/DevQAC/QA-Portal/qa-portal-infra/README.md) for instructions.
-3. Build and run the Spring Boot microservices. See [Build and run microservices](https://github.com/DevQAC/QA-Portal/qa-portal-services/README.md) for instructions
-4. Build and run the Angular client application. See [Build and run angular application](https://github.com/DevQAC/QA-Portal/qa-portal-angular/README.md) for instructions
+2. Set up Postgres, Keycloak and Mongo DB. See [Local development environment setup](qa-portal-infra/README.md) for instructions.
+3. Build and run the Spring Boot microservices. See [Build and run microservices](qa-portal-services/README.md) for instructions
+4. Build and run the Angular client application. See [Build and run angular application](qa-portal-angular/README.md) for instructions
 
 
 ## Source Control
