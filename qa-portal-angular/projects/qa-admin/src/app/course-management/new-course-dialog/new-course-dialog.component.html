@@ -27,8 +27,8 @@
 
   </div>
   <div mat-dialog-actions class="action-buttons">
-    <button mat-button [mat-dialog-close]="false" [disabled]="isLoading">Cancel</button>
-    <button mat-flat-button color="primary" (click)="onSubmit()"
+    <button mat-button [mat-dialog-close]="false" [disabled]="isLoading" type="button">Cancel</button>
+    <button mat-flat-button color="primary" type="submit"
       [disabled]="isLoading || courseForm.invalid">Create</button>
   </div>
 </form>
