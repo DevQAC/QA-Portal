@@ -12,19 +12,17 @@ import { RoleService } from '../_common/services/role.service';
 import { RoleModel } from 'projects/portal-core/src/app/_common/models/role.model';
 import { MatDialog } from '@angular/material';
 import { DeletePageConfirmDialogComponent } from './delete-page-confirm-dialog/delete-page-confirm-dialog.component';
+import { QaToastrService } from 'projects/portal-core/src/app/_common/services/qa-toastr.service';
 
 @Component({
   selector: 'app-app-project-detail',
-  templateUrl: './app-project-detail.component.html',
-  styleUrls: ['./app-project-detail.component.css']
+  templateUrl: './app-project-detail.component.html'
 })
 export class AppProjectDetailComponent implements OnInit {
-
   public projectForm: FormGroup;
   public isLoading = true;
   public project: PortalProjectModel;
   public roles: string[];
-
   public allIcons = customIcons;
 
   constructor(
@@ -32,6 +30,7 @@ export class AppProjectDetailComponent implements OnInit {
     private roleService: RoleService,
     private aR: ActivatedRoute,
     public dialog: MatDialog,
+    private toastr: QaToastrService,
     private errorService: QaErrorHandlerService) {
     this.projectForm = new FormBuilder().group({
       name: ['', Validators.required]
@@ -39,9 +38,7 @@ export class AppProjectDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-
     const projectId = this.aR.snapshot.params.id;
-
     forkJoin(
       this.appService.getProjectById(projectId),
       this.roleService.getPortalRoles()
@@ -62,6 +59,18 @@ export class AppProjectDetailComponent implements OnInit {
   }
 
   onSaveProjectClicked(): void {
+    const project = {
+      ...this.project,
+      ...this.projectForm.value
+    };
+    this.isLoading = true;
+    this.appService.saveProject(project).pipe(
+      take(1),
+      finalize(() => this.isLoading = false)
+    ).subscribe(() => {
+      this.projectForm.markAsPristine();
+      this.toastr.showSuccess('Project updated');
+    }, err => this.errorService.handleError(err));
   }
 
   onNewPageClicked(): void {
@@ -76,8 +85,5 @@ export class AppProjectDetailComponent implements OnInit {
         this.projectForm.markAsDirty();
       }
     });
-
-
   }
-
 }

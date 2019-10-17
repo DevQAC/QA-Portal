@@ -40,4 +40,8 @@ export class ApplicationService {
   public getProjectById(id: string | number): Observable<PortalProjectModel> {
     return this.qaHttp.get({ ref: 'GET_PORTAL_PROJECT_BY_ID', params: { id: id.toString() } });
   }
+
+  public saveProject(project: PortalProjectModel): Observable<PortalProjectModel> {
+    return this.qaHttp.put({ ref: 'SAVE_PORTAL_PROJECT' }, project);
+  }
 }
