@@ -46,7 +46,7 @@ export const endpoints: Endpoints = {
   GET_APPLICATION_BY_ID: '/portal-application-api/manage/portal/application/:id',
   SAVE_APPLICATION: '/portal-application-api/manage/portal/application',
   GET_ALL_PORTAL_PROJECTS: '/portal-application-api/portal/projects',
-  CREATE_PORTAL_PROJECT: '/portal-application-api/portal/project',
+  CREATE_PORTAL_PROJECT: '/portal-application-api/manage/portal/project',
   GET_PORTAL_PROJECT_BY_ID: '/portal-application-api/portal/project/:id',
   SAVE_PORTAL_PROJECT: '/portal-application-api/manage/portal/project'
 
