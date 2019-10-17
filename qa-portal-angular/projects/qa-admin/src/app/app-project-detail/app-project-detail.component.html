@@ -1,3 +1,17 @@
-<p>
-  app-project-detail works!
-</p>
+<h1>Project</h1>
+
+
+<mat-card class="mb-1">
+    <mat-card-header>
+        <mat-card-title>Details</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="projectForm">
+        <mat-card-content>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+            </mat-form-field>
+        </mat-card-content>
+    </form>
+</mat-card> 
