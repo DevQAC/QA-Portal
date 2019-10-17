@@ -5,7 +5,7 @@
 - [Architecture Overview](#architecture-overview)
 
 **[2. Source Control](#source-control)**
-- [Assumption](#assumption)
+- [Assumptions](#assumptions)
 - [Project Startup](#project-startup)
 - [QA Portal Development](#qa-portal-development)
 
@@ -24,7 +24,7 @@ Source code for the QA Portal will be managed in Github. The Qa Portal repositor
 https://github.com/DevQAC/QA-Portal<br>
 
 
-### Assumption
+### Assumptions
 
 a) It is assumed you already have a Git account set up. If this is not the case, access http://www.github.com and register for an account
 
