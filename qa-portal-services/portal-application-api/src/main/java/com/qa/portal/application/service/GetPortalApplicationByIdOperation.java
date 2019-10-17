@@ -1,12 +1,14 @@
 package com.qa.portal.application.service;
 
 import com.qa.portal.application.dto.ApplicationProjectsDto;
+import com.qa.portal.application.dto.PortalApplicationDto;
 import com.qa.portal.application.persistence.entity.PortalApplicationEntity;
 import com.qa.portal.application.persistence.entity.RoleProjectPageEntity;
 import com.qa.portal.application.persistence.repository.PortalApplicationRepository;
 import com.qa.portal.application.persistence.repository.RoleRepository;
 import com.qa.portal.application.service.mapper.ApplicationProjectsMapper;
 import com.qa.portal.common.exception.QaPortalBusinessException;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -24,21 +26,28 @@ public class GetPortalApplicationByIdOperation {
 
     private ApplicationProjectsMapper applicationProjectsMapper;
 
+    private BaseMapper baseMapper;
+
     public GetPortalApplicationByIdOperation(PortalApplicationRepository portalApplicationRepository,
                                              RoleRepository roleRepository,
-                                             ApplicationProjectsMapper applicationProjectsMapper) {
+                                             ApplicationProjectsMapper applicationProjectsMapper,
+                                             BaseMapper baseMapper) {
         this.portalApplicationRepository = portalApplicationRepository;
         this.roleRepository = roleRepository;
         this.applicationProjectsMapper = applicationProjectsMapper;
+        this.baseMapper= baseMapper;
     }
 
     public ApplicationProjectsDto getPortalApplicationById(Integer id) {
         Set<RoleProjectPageEntity> roleProjectPages = getRoleProjectPages(getRolesForApplication(id));
+        if (roleProjectPages.isEmpty()) {
+            return getApplicationWithoutProject(id);
+        }
         return applicationProjectsMapper.createApplicationProjectsDto(roleProjectPages).get(0);
     }
 
     public List<String> getRolesForApplication(Integer id) {
-        return roleRepository.findByPortalApplication(getPortalApplication(id)).stream()
+        return roleRepository.findByPortalApplication(getPortalApplicationEntity(id)).stream()
                 .map(r -> r.getName())
                 .collect(Collectors.toList());
     }
@@ -55,7 +64,15 @@ public class GetPortalApplicationByIdOperation {
                 .orElseGet(() -> Collections.emptyList());
     }
 
-    private PortalApplicationEntity getPortalApplication(Integer id) {
+    private ApplicationProjectsDto getApplicationWithoutProject(Integer id) {
+        return new ApplicationProjectsDto(getPortalApplicationDto(id), Collections.emptySet());
+    }
+
+    private PortalApplicationDto getPortalApplicationDto(Integer id) {
+        return baseMapper.mapObject(getPortalApplicationEntity(id), PortalApplicationDto.class);
+    }
+
+    private PortalApplicationEntity getPortalApplicationEntity(Integer id) {
         return portalApplicationRepository.findById(id)
                 .orElseThrow(() -> new QaPortalBusinessException("No Portal application found for supplied id"));
     }
