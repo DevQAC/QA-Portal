@@ -20,6 +20,7 @@ export interface Endpoints {
   SAVE_APPLICATION: string;
   GET_ALL_PORTAL_PROJECTS: string;
   CREATE_PORTAL_PROJECT: string;
+  GET_PORTAL_PROJECT_BY_ID: string;
 }
 
 export const endpoints: Endpoints = {
@@ -42,7 +43,8 @@ export const endpoints: Endpoints = {
   GET_APPLICATION_BY_ID: '/portal-application-api/manage/portal/application/:id',
   SAVE_APPLICATION: '/portal-application-api/manage/portal/application',
   GET_ALL_PORTAL_PROJECTS: '/portal-application-api/portal/projects',
-  CREATE_PORTAL_PROJECT: '/portal-application-api/portal/project'
+  CREATE_PORTAL_PROJECT: '/portal-application-api/portal/project',
+  GET_PORTAL_PROJECT_BY_ID: '/portal-application-api/portal/project/:id'
 };
 
 export type EndpointRef = keyof Endpoints;

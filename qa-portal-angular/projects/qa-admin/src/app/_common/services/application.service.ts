@@ -30,10 +30,14 @@ export class ApplicationService {
   // Project
 
   public getAllProjects(): Observable<PortalProjectModel[]> {
-    return this.qaHttp.get({ref: 'GET_ALL_PORTAL_PROJECTS'});
+    return this.qaHttp.get({ ref: 'GET_ALL_PORTAL_PROJECTS' });
   }
 
-  public addProject(project: PortalProjectModel): Observable<PortalApplicationModel> {
-    return this.qaHttp.post({ref: 'CREATE_PORTAL_PROJECT'}, project);
+  public addProject(project: PortalProjectModel): Observable<PortalProjectModel> {
+    return this.qaHttp.post({ ref: 'CREATE_PORTAL_PROJECT' }, project);
+  }
+
+  public getProjectById(id: string | number): Observable<PortalProjectModel> {
+    return this.qaHttp.get({ ref: 'GET_PORTAL_PROJECT_BY_ID', params: { id: id.toString() } });
   }
 }
