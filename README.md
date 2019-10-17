@@ -18,6 +18,7 @@ The QA Portal architecture consists of the following components
 - [High Level Architecture Diagram](#high-level-architecture-diagram)
 - [Architecture Overview](#architecture-overview)
 - [Keycloak Integration](#keycloak-integration)
+- [Angular / Spring Boot Integration](#angular-spring-integration)
 
 **[2. Developer Environment Setup](#developer-environment-setup)**
 
@@ -91,6 +92,11 @@ Postgres database for storage of the keycloak access management data. This is on
 **Step 13** - Prior to the request reaching the requested Spring Boot REST endpoint, the Spring-Keycloak adapter configured as part of the [Spring Boot applications web security](qa-portal-services/api-common/src/main/java/com/qa/portal/common/config/SecurityConfig.java) intercepts the request and validates the JWT supplied in the requests authorization header. The configuration for the keycloak server is defined in the keycloak.json file in the qa-portal-services/api-common/src/main/resources folder. **NOTE: keycloak.json and application.yml configurations for test and production environments should be external from the application and stored on a secure server**.<br>
 **Step 14** - Once the JWT is verified to be valid, the request is forwarded to the requested endpoint.<br>
 **Step 15** - The endpoint processes the request and sends the response back to the angular application running in the browser.<br>
+
+
+<a name="angular-spring-integration"></a>
+### 1.4. Angular / Spring Boot Integration
+![](./docs/image/Angular_Spring_Boot_Integration_Sequence_Diagram.jpg)
 
 
 <a name="developer-environment-setup"></a>
