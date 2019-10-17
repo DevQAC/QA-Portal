@@ -1,8 +1,8 @@
 <h1>
-  User Details
+  User
 </h1>
 
-<mat-card>
+<mat-card class="mb-1">
   <mat-card-content style="margin-bottom: 0;">
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div formGroupName="user">
@@ -27,12 +27,11 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <div style="display: flex" >
-        <button mat-flat-button color="primary" (click)="onSubmit()" style="margin-left: auto"
-          [disabled]="isLoading || userForm.invalid">Update</button>
-      </div>
     </form>
   </mat-card-content>
-
-  <app-spinner-overlay [show]="isLoading"></app-spinner-overlay>
 </mat-card>
+
+<button mat-flat-button color="primary" (click)="onSubmit()" class="w-100"
+  [disabled]="isLoading || userForm.invalid">Update</button>
+
+<app-spinner-overlay [show]="isLoading" fadeBg="true"></app-spinner-overlay>
