@@ -76,7 +76,7 @@ sections 2.3 and 2.4 for full instructions
 
 
 <a name="import-keycloak-realm-files"></a>
-### 2.4. - Import Keycloak Realm files
+### 2.4. Import Keycloak Realm files
 
 a) Copy the exported_realms folder (and it's contents) into the KEYCLOAK_HOME/bin folder
 
@@ -117,6 +117,6 @@ appropriate for your platform. Version 4.2 is currently being used by the QA Por
 Once downloaded, run the installer, **supplying admin user and password (mongo / mongo)**
 
 <a name="create-qa-portal-cv-database"></a>
-### 3.2. - Create qa-portal-cv database
+### 3.2. Create qa-portal-cv database
 
 Open MongoDB Compass Community (or mongo shell) create database called qa-portal-cv and create a collection called cv-version
