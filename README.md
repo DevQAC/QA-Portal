@@ -2,7 +2,7 @@
 
 **[1. Architecture](#Architecture)**
 - [High Level diagram](#high-level-diagram)
-- [Project Startup](#overview)
+- [Architecture Overview](#architecture-overview)
 
 **[2. Source Control](#source-control)**
 - [Assumption](#assumption)
@@ -14,7 +14,7 @@
 
 ### High Level diagram
 
-### Overview
+### Architecture Overview
 
 
 ## Source Control
