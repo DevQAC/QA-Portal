@@ -26,15 +26,16 @@ The QA Portal architecture consists of the following components
 - [QA Portal Development](#qa-portal-development)
 
 <a name="architecture"></a>
-## 1 Architecture
+## 1. Architecture
 
 ### High Level diagram
 ![](./docs/image/QA_Portal_High_Level_Architecture_Diagram.png)
 
 ### Architecture Overview
 
+
 <a name="developer-environment-setup"></a>
-## 2 Developer Environment Setup
+## 2. Developer Environment Setup
 
 2.1. Clone this repository into your local workspace. See instructions in the [Source Control](#source-control) section below for instructions.
 2.2. Set up Postgres, Keycloak and Mongo DB. See [Local development environment setup](qa-portal-infra/README.md) for instructions.
@@ -42,30 +43,30 @@ The QA Portal architecture consists of the following components
 2.4. Build and run the Angular client application. See [Build and run angular application](qa-portal-angular/README.md) for instructions
 
 <a name="source-control"></a>
-## 3 Source Control
+## 3. Source Control
 
 Source code for the QA Portal will be managed in Github. The QA Portal repository is located at 
 
 https://github.com/DevQAC/QA-Portal<br>
 
 <a name="assumptions"></a>
-### 3.1 Assumptions
+### 3.1. Assumptions
 
 a) It is assumed you already have a Git account set up. If this is not the case, access http://www.github.com and register for an account
 
 b) It is also assumed that you have Git installed on your development machine (either command line or through your IDE). If not, download and install a Git client (or Git plugin for your IDE)
 
 <a name="project-startup"></a>
-### 3.2 Project Startup
+### 3.2. Project Startup
 
-#### 3.2.1 Clone the Git repository
+#### 3.2.1. Clone the Git repository
 
 Create a top level (workspace) folder to store the source code. From this folder run the following command
 
 git clone https://github.com/DevQAC/QA-Portal.git<br>
 
 
-#### 3.2.2 Pull the development branches
+#### 3.2.2. Pull the development branches
 
 Pull the development branch into your local workspace as follows
 
@@ -74,11 +75,11 @@ git fetch
 git checkout -t origin/development
 
 <a name="qa-portal-development"></a>
-### 3.3 QA Portal Development
+### 3.3. QA Portal Development
 
 When starting work on a new Jira task, for each repository that you will have to amend, create a local feature branch (i.e. if you need to change both qa-portal-angular and qa-portal-services repos then you'll need to create a local feature branch for each of them)
 
-#### 3.3.1 Create local feature branch
+#### 3.3.1. Create local feature branch
 
 Make sure you are in the development branch of the repository and get the latest changes by running the following commands
 
@@ -99,14 +100,14 @@ git checkout feature/JIRA-XXXX-Task-title
 Once you've created your local feature branch start making your changes to the feature branch(es). After you've made amendments to your code, it is advisable to push your local feature branch to the remote repo and create a pull request. This can be done as follows
 
 
-#### 3.3.2 Push your local feature branch(es)
+#### 3.3.2. Push your local feature branch(es)
 
 Repeat the following for each of your feature branches to push local branch to the remote repository
 
 git push origin feature/JIRA-XXXX-Task-title
 
 
-#### 3.3.3 Create a Pull Request
+#### 3.3.3. Create a Pull Request
 
 Log in to Github
 
@@ -125,7 +126,7 @@ Press the compare button and select your feature branch
 Press the 'Create Pull Request' button.
 
 
-#### 3.3.4 Complete development
+#### 3.3.4. Complete development
 
 Continue to develop your feature until you are happy that it is working and has been developed in accordance with the projects development guidelines, with unit and integration tests.
 
@@ -134,12 +135,12 @@ Ensure that your feature branch also contains the latest changes that have been 
 At this point, push the changes from your local branch to the branch in the remote repository and inform the development lead that your feature is ready for review.
 
 
-#### 3.3.5 Pull Request Review
+#### 3.3.5. Pull Request Review
 
 The development lead should then review your changes, ensure that there are no conflicts with the development branch, and that your work adheres to the project standards. 
 
 If there are any issues, these should be documented on the Pull request and returned to the developer to address. The review cycle is then repeated.
 
-#### 3.3.6 Approval and Merge
+#### 3.3.6. Approval and Merge
 
 Once the development lead is happy that your changes are acceptable, they should approve the Pull request and merge the changes into the development branch. The feature branches should then be deleted from the repository and you should delete the feature branches from your local workspace.
