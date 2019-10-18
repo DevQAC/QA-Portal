@@ -28,7 +28,7 @@ public class CohortManagementService {
 
     public QaCohortDto createCohort(QaCohortDto cohortDetails) {
         createCohortOperation.createCohort(cohortDetails);
-        keycloakCohortResourceManager.createCohort(cohortDetails.getName().replace(' ', '_'));
+        keycloakCohortResourceManager.createCohort(cohortDetails.getName());
         keycloakUserResourceManager.updateCohortMembers(cohortDetails);
         return cohortDetails;
     }

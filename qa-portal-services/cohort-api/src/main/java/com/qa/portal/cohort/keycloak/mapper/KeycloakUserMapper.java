@@ -47,7 +47,7 @@ public class KeycloakUserMapper {
     private List<String> getCohortNames(List<RoleRepresentation> realmRoles) {
         return realmRoles.stream()
                 .filter(r -> r.getName().startsWith(COHORT_ROLE_PREFIX))
-                .map(r -> r.getName())
+                .map(r -> r.getName().replace('_', ' ').substring(COHORT_ROLE_PREFIX.length()))
                 .collect(Collectors.toList());
     }
 

@@ -47,6 +47,11 @@ public class UserManagementController {
         return ResponseEntity.ok(userManagementService.getAvailableTrainersForCohort(cohortName));
     }
 
+    @GetMapping("users/available-trainees/cohort/{cohortId}")
+    public ResponseEntity<List<QaUserDetailsDto>> getAvailableTraineesForCohort(@PathVariable("cohortId") Integer cohortId) {
+        return ResponseEntity.ok(userManagementService.getTraineesAvailableForCohort(cohortId));
+    }
+
     @GetMapping("users/trainees")
     public ResponseEntity<List<QaUserDetailsDto>> getTrainees() {
         return ResponseEntity.ok(userManagementService.getTrainees());

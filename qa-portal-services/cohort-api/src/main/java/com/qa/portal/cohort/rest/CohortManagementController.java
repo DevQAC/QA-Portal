@@ -2,6 +2,7 @@ package com.qa.portal.cohort.rest;
 
 import com.qa.portal.cohort.services.CohortManagementService;
 import com.qa.portal.common.dto.QaCohortDto;
+import com.qa.portal.common.dto.QaUserDetailsDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

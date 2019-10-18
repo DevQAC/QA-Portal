@@ -35,7 +35,8 @@ public class CreateRoleOperation {
         RoleEntity roleEntity = baseMapper.mapObject(roleDto, RoleEntity.class);
         portalApplicationRepository.findByName(roleDto.getPortalApplication().getName())
                 .ifPresent(pa -> roleEntity.setPortalApplication(pa));
-        return baseMapper.mapObject(roleEntity, RoleDto.class);
+        RoleEntity savedRole = roleRepository.save(roleEntity);
+        return baseMapper.mapObject(savedRole, RoleDto.class);
     }
 
     private boolean roleExists(RoleDto roleDto) {

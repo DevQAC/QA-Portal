@@ -2,6 +2,8 @@ package com.qa.portal.cohort.services.user;
 
 import com.qa.portal.cohort.keycloak.KeycloakUserResourceManager;
 import com.qa.portal.common.dto.QaUserDetailsDto;
+import com.qa.portal.common.exception.QaPortalBusinessException;
+import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
 import org.springframework.stereotype.Service;
@@ -57,6 +59,14 @@ public class UserManagementService {
     public List<QaUserDetailsDto> getTraineesWithoutCohort() {
         return getTrainees().stream()
                 .filter(t -> StringUtils.isEmpty(t.getCohortNames()))
+                .collect(Collectors.toList());
+    }
+
+    public List<QaUserDetailsDto> getTraineesAvailableForCohort(Integer cohortId) {
+        QaCohortEntity cohortEntity = cohortRepository.findById(cohortId)
+                .orElseThrow(() -> new QaPortalBusinessException("No cohort found for supplied id"));
+        return getTrainees().stream()
+                .filter(t -> (StringUtils.isEmpty(t.getCohortNames()) || cohortEntity.getName().equals(t.getCohortNames().get(0))))
                 .collect(Collectors.toList());
     }
 
