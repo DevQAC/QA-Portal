@@ -3,6 +3,7 @@ package com.qa.portal.application.persistence.entity;
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -89,6 +90,9 @@ public class ProjectPageEntity extends QaBaseEntity {
     }
 
     public void addRoleProjectPageEntity(RoleProjectPageEntity roleProjectPageEntity) {
+        if (roleProjectPageEntities == null) {
+            roleProjectPageEntities = new ArrayList<>();
+        }
         roleProjectPageEntities.add(roleProjectPageEntity);
         roleProjectPageEntity.setProjectPage(this);
     }
@@ -143,7 +147,6 @@ public class ProjectPageEntity extends QaBaseEntity {
                 ", tooltip='" + tooltip + '\'' +
                 ", icon='" + icon + '\'' +
                 ", portalProject=" + portalProject +
-                ", deptRoleMenuItems=" + roleProjectPageEntities +
                 ", displayOnMenu=" + displayOnMenu +
                 '}';
     }
