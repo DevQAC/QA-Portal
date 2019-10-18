@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GET_COHORTS_URL } from '../models/user.constant';
 import { QaHttpService } from 'projects/portal-core/src/app/_common/services/qa-http.service';
 import { TrainerModel } from 'projects/portal-core/src/app/_common/models/trainer.model';
+import { UserModel } from 'projects/portal-core/src/app/_common/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,10 @@ export class CohortService {
 
   public addCohort(cohort: CohortModel): Observable<CohortModel> {
     return this.qaHttp.post({ref: 'CREATE_COHORT'}, cohort);
+  }
+
+
+  public getAvailableTraineesByCohortId(id): Observable<UserModel[]> {
+    return this.qaHttp.get({ ref: 'GET_AVAILABLE_TRAINEES_BY_COHORT_ID', params: { id: id.toString() } });
   }
 }

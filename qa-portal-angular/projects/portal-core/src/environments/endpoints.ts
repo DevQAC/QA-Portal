@@ -32,6 +32,7 @@ export interface Endpoints {
   GET_ROLE_BY_ID: string;
   SAVE_ROLE: string;
   CREATE_ROLE: string;
+  GET_AVAILABLE_TRAINEES_BY_COHORT_ID: string;
 }
 
 export const endpoints: Endpoints = {
@@ -47,7 +48,7 @@ export const endpoints: Endpoints = {
   CREATE_TECHNOLOGY_CATEGORY: 'cohort-api/manage/technology/category',
   CREATE_COHORT: 'cohort-api/manage/cohort',
   GET_ALL_FORMS: '/form-api/forms',
-  GET_FORM_BY_ID:  '/form-api/form/:id',
+  GET_FORM_BY_ID: '/form-api/form/:id',
   CREATE_FORM: '/form-api/manage/form',
   SAVE_FORM: '/form-api/manage/form',
   GET_ALL_APPLICATIONS: '/portal-application-api/manage/portal/applications',
@@ -66,7 +67,8 @@ export const endpoints: Endpoints = {
   GET_ALL_ROLE_NAMES: '/portal-application-api/manage/roles/names',
   GET_ROLE_BY_ID: '/portal-application-api/role/:id',
   SAVE_ROLE: '/portal-application-api/manage/role',
-  CREATE_ROLE: '/portal-application-api/manage/role'
+  CREATE_ROLE: '/portal-application-api/manage/role',
+  GET_AVAILABLE_TRAINEES_BY_COHORT_ID: '/cohort-api/manage/users/available-trainees/cohort/:id'
 };
 
 export type EndpointRef = keyof Endpoints;

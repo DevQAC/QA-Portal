@@ -21,6 +21,7 @@ import { TrainerModel } from 'projects/portal-core/src/app/_common/models/traine
 import { QaToastrService } from 'projects/portal-core/src/app/_common/services/qa-toastr.service';
 import { LocationService } from '../_common/services/location.service';
 import { LocationModel } from 'projects/portal-core/src/app/_common/models/location.model';
+import { UserModel } from 'projects/portal-core/src/app/_common/models/user.model';
 
 @Component({
   selector: 'app-cohort-detail',
@@ -33,11 +34,13 @@ export class CohortDetailComponent implements OnInit {
   public availableTrainers: TrainerModel[] = [];
   public availableCourses: CourseModel[] = [];
   public availableLocations: LocationModel[] = [];
+  public availableTrainees: UserModel[] = [];
   public calendarEvents: CalendarEvent<CohortCourseModel>[] = [];
   public viewDate: Date = new Date();
   public refreshCalendar = new Subject<any>();
   public cohortForm: FormGroup;
   public isLoading = true;
+
 
 
   constructor(
@@ -52,7 +55,8 @@ export class CohortDetailComponent implements OnInit {
     this.cohortForm = new FormBuilder().group({
       name: [''],
       startDate: [''],
-      trainerUserName: ['']
+      trainerUserName: [''],
+      traineeNames: [[]]
     });
     this.cohortForm.disable();
   }
@@ -63,13 +67,15 @@ export class CohortDetailComponent implements OnInit {
       this.cohortService.getCohortById(cohortId),
       this.courseService.getAllCourses(),
       this.cohortService.getAvailableTrainersForCohort(),
-      this.locationService.getAllLocations()
+      this.locationService.getAllLocations(),
+      this.cohortService.getAvailableTraineesByCohortId(cohortId)
     ).pipe(take(1))
-      .subscribe(([cohort, courses, trainers, locations]) => {
+      .subscribe(([cohort, courses, trainers, locations, trainees]) => {
         this.cohort = cohort;
         this.availableCourses = courses;
         this.availableTrainers = trainers;
         this.availableLocations = locations;
+        this.availableTrainees = trainees;
         this.calendarEvents = this.cohort.cohortCourses.map(c => this.cohortCourseToCalendarEvent(c));
 
         this.viewDate = moment(cohort.startDate).toDate();
