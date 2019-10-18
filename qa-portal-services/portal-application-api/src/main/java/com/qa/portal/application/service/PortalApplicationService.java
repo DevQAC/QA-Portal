@@ -48,6 +48,7 @@ public class PortalApplicationService {
     private Set<RoleProjectPageEntity> getRoleProjectPages(Collection<String> roles) {
         return roles.stream()
                 .flatMap(r -> getRoleProjectPages(r).stream())
+                .filter(rpp -> rpp.getProjectPage().getPortalProject() != null)
                 .collect(Collectors.toSet());
     }
 
