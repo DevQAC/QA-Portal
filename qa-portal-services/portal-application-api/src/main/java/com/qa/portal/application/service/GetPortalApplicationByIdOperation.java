@@ -3,6 +3,7 @@ package com.qa.portal.application.service;
 import com.qa.portal.application.dto.ApplicationProjectsDto;
 import com.qa.portal.application.dto.PortalApplicationDto;
 import com.qa.portal.application.persistence.entity.PortalApplicationEntity;
+import com.qa.portal.application.persistence.entity.RoleEntity;
 import com.qa.portal.application.persistence.entity.RoleProjectPageEntity;
 import com.qa.portal.application.persistence.repository.PortalApplicationRepository;
 import com.qa.portal.application.persistence.repository.RoleRepository;
@@ -60,8 +61,14 @@ public class GetPortalApplicationByIdOperation {
 
     private List<RoleProjectPageEntity> getRoleProjectPages(String roleName) {
         return roleRepository.findByName(roleName)
-                .map(r -> r.getRoleProjectPages())
+                .map(r -> getRoleProjectPagesInAProject(r))
                 .orElseGet(() -> Collections.emptyList());
+    }
+
+    private List<RoleProjectPageEntity> getRoleProjectPagesInAProject(RoleEntity roleEntity) {
+        return roleEntity.getRoleProjectPages().stream()
+                .filter(rpp -> rpp.getProjectPage().getPortalProject() != null)
+                .collect(Collectors.toList());
     }
 
     private ApplicationProjectsDto getApplicationWithoutProject(Integer id) {
