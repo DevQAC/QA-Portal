@@ -18,6 +18,10 @@ export class ApplicationService {
     return this.qaHttp.get({ ref: 'GET_ALL_APPLICATIONS' });
   }
 
+  public addApplication(app: PortalApplicationModel): Observable<PortalApplicationModel> {
+    return this.qaHttp.post({ref: 'CREATE_APPLICATION'}, app);
+  }
+
   public getApplicationById(id: string | number): Observable<PortalApplicationProjectsModel> {
     return this.qaHttp.get({ ref: 'GET_APPLICATION_BY_ID', params: { id: id.toString() } });
   }

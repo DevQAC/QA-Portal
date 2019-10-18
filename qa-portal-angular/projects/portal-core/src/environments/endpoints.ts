@@ -16,12 +16,17 @@ export interface Endpoints {
   CREATE_FORM: string;
   SAVE_FORM: string;
   GET_ALL_APPLICATIONS: string;
+  CREATE_APPLICATION: string;
   GET_APPLICATION_BY_ID: string;
   SAVE_APPLICATION: string;
   GET_ALL_PORTAL_PROJECTS: string;
   CREATE_PORTAL_PROJECT: string;
   GET_PORTAL_PROJECT_BY_ID: string;
   SAVE_PORTAL_PROJECT: string;
+  GET_ALL_LOCATIONS: string;
+  GET_LOCATION_BY_ID: string;
+  SAVE_LOCATION: string;
+  CREATE_LOCATION: string;
 }
 
 export const endpoints: Endpoints = {
@@ -41,12 +46,17 @@ export const endpoints: Endpoints = {
   CREATE_FORM: '/form-api/manage/form',
   SAVE_FORM: '/form-api/manage/form',
   GET_ALL_APPLICATIONS: '/portal-application-api/manage/portal/applications',
+  CREATE_APPLICATION: '/portal-application-api/manage/portal/application',
   GET_APPLICATION_BY_ID: '/portal-application-api/manage/portal/application/:id',
   SAVE_APPLICATION: '/portal-application-api/manage/portal/application',
   GET_ALL_PORTAL_PROJECTS: '/portal-application-api/portal/projects',
-  CREATE_PORTAL_PROJECT: '/portal-application-api/portal/project',
+  CREATE_PORTAL_PROJECT: '/portal-application-api/manage/portal/project',
   GET_PORTAL_PROJECT_BY_ID: '/portal-application-api/portal/project/:id',
-  SAVE_PORTAL_PROJECT: '/portal-application-api/manage/portal/project'
+  SAVE_PORTAL_PROJECT: '/portal-application-api/manage/portal/project',
+  GET_ALL_LOCATIONS: '/cohort-api/locations',
+  GET_LOCATION_BY_ID: '/cohort-api/location/:id',
+  SAVE_LOCATION: '/cohort-api/manage/location',
+  CREATE_LOCATION: '/cohort-api/manage/location'
 
 };
 

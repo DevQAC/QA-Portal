@@ -19,6 +19,8 @@ import { MatDialog } from '@angular/material';
 import { AddCourseDialogComponent } from './add-course-dialog/add-course-dialog.component';
 import { TrainerModel } from 'projects/portal-core/src/app/_common/models/trainer.model';
 import { QaToastrService } from 'projects/portal-core/src/app/_common/services/qa-toastr.service';
+import { LocationService } from '../_common/services/location.service';
+import { LocationModel } from 'projects/portal-core/src/app/_common/models/location.model';
 
 @Component({
   selector: 'app-cohort-detail',
@@ -30,6 +32,7 @@ export class CohortDetailComponent implements OnInit {
   public cohort: CohortModel;
   public availableTrainers: TrainerModel[] = [];
   public availableCourses: CourseModel[] = [];
+  public availableLocations: LocationModel[] = [];
   public calendarEvents: CalendarEvent<CohortCourseModel>[] = [];
   public viewDate: Date = new Date();
   public refreshCalendar = new Subject<any>();
@@ -40,6 +43,7 @@ export class CohortDetailComponent implements OnInit {
   constructor(
     private cohortService: CohortService,
     private courseService: CourseService,
+    private locationService: LocationService,
     private aR: ActivatedRoute,
     private dialog: MatDialog,
     private toastr: QaToastrService,
@@ -58,12 +62,14 @@ export class CohortDetailComponent implements OnInit {
     forkJoin(
       this.cohortService.getCohortById(cohortId),
       this.courseService.getAllCourses(),
-      this.cohortService.getAvailableTrainersForCohort()
+      this.cohortService.getAvailableTrainersForCohort(),
+      this.locationService.getAllLocations()
     ).pipe(take(1))
-      .subscribe(([cohort, courses, trainers]) => {
+      .subscribe(([cohort, courses, trainers, locations]) => {
         this.cohort = cohort;
         this.availableCourses = courses;
         this.availableTrainers = trainers;
+        this.availableLocations = locations;
         this.calendarEvents = this.cohort.cohortCourses.map(c => this.cohortCourseToCalendarEvent(c));
 
         this.viewDate = moment(cohort.startDate).toDate();
@@ -100,9 +106,9 @@ export class CohortDetailComponent implements OnInit {
     };
   }
 
-  private buildCohortCourse(course: CourseModel, startDate: Date, endDate: Date, trainer: TrainerModel): CohortCourseModel {
+  private buildCohortCourse(course: CourseModel, startDate: Date, endDate: Date, trainer: TrainerModel, location: LocationModel): CohortCourseModel {
     return {
-      course, startDate, endDate, trainer,
+      course, startDate, endDate, trainer, location
     } as CohortCourseModel;
   }
 
@@ -125,7 +131,13 @@ export class CohortDetailComponent implements OnInit {
   public dayClicked({ day }): void {
     const dialog = this.dialog.open(
       AddCourseDialogComponent,
-      { data: { availableCourses: this.availableCourses, availableTrainers: this.availableTrainers } }
+      {
+        data: {
+          availableCourses: this.availableCourses,
+          availableTrainers: this.availableTrainers,
+          availableLocations: this.availableLocations
+        }
+      }
     );
 
     dialog.beforeClosed().subscribe(data => {
@@ -136,7 +148,8 @@ export class CohortDetailComponent implements OnInit {
               data.selectedCourse,
               day.date,
               moment(day.date).add((data.selectedDuration || 1) - 1, 'days').toDate(),
-              data.selectedTrainer
+              data.selectedTrainer,
+              data.selectedLocation
             )
           )
         );
@@ -156,6 +169,6 @@ export class CohortDetailComponent implements OnInit {
     this.cohortService.saveCohort(this.cohort).subscribe(resp => {
       this.toastr.showSuccess('Cohort updated');
     },
-    err => this.errorService.handleError(err));
+      err => this.errorService.handleError(err));
   }
 }
