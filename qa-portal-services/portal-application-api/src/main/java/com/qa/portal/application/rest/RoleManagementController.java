@@ -22,7 +22,7 @@ public class RoleManagementController {
     }
 
     @GetMapping("roles")
-    public ResponseEntity<List<String>> getPortalRolesFromKeycloak() {
+    public ResponseEntity<List<RoleDto>> getPortalRolesFromKeycloak() {
         return ResponseEntity.ok(roleManagementService.getPortalRoles());
     }
 
