@@ -24,7 +24,7 @@ public class KeycloakCohortResourceManager {
     }
 
     public RoleRepresentation createCohort(String cohortName) {
-        String cohortRoleName = KeycloakUserConstants.COHORT_ROLE_PREFIX + cohortName;
+        String cohortRoleName = KeycloakUserConstants.COHORT_ROLE_PREFIX + cohortName.replace(' ', '_');
         if (!keycloakCohortValidator.cohortExists(cohortRoleName)) {
             RoleRepresentation roleRepresentation = keycloakCohortFactory.createCohort(cohortName);
             keycloakAdminClient.getRealm().roles().create(roleRepresentation);
