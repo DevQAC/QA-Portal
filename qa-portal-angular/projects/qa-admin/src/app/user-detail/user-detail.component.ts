@@ -45,7 +45,7 @@ export class UserDetailComponent implements OnInit {
 
   ngOnInit() {
     forkJoin(
-      this.rolesService.getPortalRoles(),
+      this.rolesService.getPortalRoleNames(),
       this.userService.getUserByUsername(this.aR.snapshot.params.id)
     ).pipe(take(1))
       .subscribe(([roles, user]) => {

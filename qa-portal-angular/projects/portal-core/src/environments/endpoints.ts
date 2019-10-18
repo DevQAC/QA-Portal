@@ -28,6 +28,7 @@ export interface Endpoints {
   SAVE_LOCATION: string;
   CREATE_LOCATION: string;
   GET_ALL_ROLES: string;
+  GET_ALL_ROLE_NAMES: string;
   GET_ROLE_BY_ID: string;
   SAVE_ROLE: string;
   CREATE_ROLE: string;
@@ -62,6 +63,7 @@ export const endpoints: Endpoints = {
   SAVE_LOCATION: '/cohort-api/manage/location',
   CREATE_LOCATION: '/cohort-api/manage/location',
   GET_ALL_ROLES: '/portal-application-api/manage/roles',
+  GET_ALL_ROLE_NAMES: '/portal-application-api/manage/roles/names',
   GET_ROLE_BY_ID: '/portal-application-api/role/:id',
   SAVE_ROLE: '/portal-application-api/manage/role',
   CREATE_ROLE: '/portal-application-api/manage/role'

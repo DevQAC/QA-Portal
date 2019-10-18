@@ -22,7 +22,7 @@ export class UpdateUserRoleDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.rolesService.getPortalRoles().subscribe((response: string[]) => {
+    this.rolesService.getPortalRoleNames().subscribe((response: string[]) => {
         this.roles = response;
       },
       (error) => {

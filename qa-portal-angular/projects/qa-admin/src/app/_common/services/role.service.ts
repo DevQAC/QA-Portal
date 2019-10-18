@@ -10,7 +10,11 @@ export class RoleService {
 
   constructor(private qaHttp: QaHttpService) { }
 
-  public getPortalRoles(): Observable<string[]> {
+  public getPortalRoleNames(): Observable<string[]> {
+    return this.qaHttp.get({ ref: 'GET_ALL_ROLE_NAMES' });
+  }
+
+  public getPortalRoles(): Observable<RoleModel[]> {
     return this.qaHttp.get({ ref: 'GET_ALL_ROLES' });
   }
 

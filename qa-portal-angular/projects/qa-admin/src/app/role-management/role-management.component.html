@@ -13,7 +13,12 @@
 
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let role"> {{role}} </td>
+    <td mat-cell *matCellDef="let role"> {{role.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="application">
+    <th mat-header-cell *matHeaderCellDef>Application</th>
+    <td mat-cell *matCellDef="let role"> {{role.portalApplication}} </td>
   </ng-container>
 
 </app-data-table>

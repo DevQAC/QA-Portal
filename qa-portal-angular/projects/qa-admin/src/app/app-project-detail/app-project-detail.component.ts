@@ -41,7 +41,7 @@ export class AppProjectDetailComponent implements OnInit {
     const projectId = this.aR.snapshot.params.id;
     forkJoin(
       this.appService.getProjectById(projectId),
-      this.roleService.getPortalRoles()
+      this.roleService.getPortalRoleNames()
     ).pipe(
       take(1),
       finalize(() => this.isLoading = false)

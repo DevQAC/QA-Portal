@@ -34,7 +34,7 @@ export class AddUserDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.rolesService.getPortalRoles().subscribe((response) => {
+    this.rolesService.getPortalRoleNames().subscribe((response) => {
         this.roles = response;
       },
       (error) => {

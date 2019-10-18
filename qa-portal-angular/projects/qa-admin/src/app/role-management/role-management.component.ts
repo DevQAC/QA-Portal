@@ -6,6 +6,7 @@ import { MatTableDataSource, MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
+import { RoleModel } from 'projects/portal-core/src/app/_common/models/role.model';
 
 @Component({
   selector: 'app-role-management',
@@ -13,14 +14,14 @@ import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row
 })
 export class RoleManagementComponent implements OnInit {
 
-@ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<string>;
+@ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<RoleModel>;
 
   // SEARCH
   public searchInput = '';
 
   // TABLE
-  public rolesTableDataSource = new MatTableDataSource<string>();
-  public displayedColumns = ['name'];
+  public rolesTableDataSource = new MatTableDataSource<RoleModel>();
+  public displayedColumns = ['name', 'application'];
   public rowSelection = [];
   public isLoading = true;
 
@@ -58,7 +59,7 @@ export class RoleManagementComponent implements OnInit {
     });
   }
 
-  onRowClicked(event: IRowClickEvent<string>): void {
-    this.router.navigate(['qa', 'portal', 'admin', 'manage', 'roles', event.data]);
+  onRowClicked(event: IRowClickEvent<RoleModel>): void {
+    this.router.navigate(['qa', 'portal', 'admin', 'manage', 'roles', event.data.id]);
   }
 }
