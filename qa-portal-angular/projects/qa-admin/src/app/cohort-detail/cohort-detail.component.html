@@ -31,11 +31,12 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Trainees</mat-label>
         <mat-select multiple formControlName="traineeNames">
+          <mat-select-trigger>{{cohortForm.value.traineeNames?.join(', ')}}</mat-select-trigger>
           <mat-option *ngFor="let trainee of availableTrainees"
-            [value]="trainee.userName" required>
-            <strong>{{trainee.firstName}}
-              {{trainee.lastName}}</strong> {{trainee.firstName || trainee.lastName ? '-' : ''}}
-            {{trainee.userName}}
+            [value]="trainee.user?.userName" required>
+            <strong>{{trainee.user?.firstName}}
+              {{trainee.user?.lastName}}</strong> {{trainee.user?.firstName || trainee.user?.lastName ? '-' : ''}}
+            {{trainee.user?.userName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
