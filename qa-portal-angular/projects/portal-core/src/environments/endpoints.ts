@@ -23,6 +23,10 @@ export interface Endpoints {
   CREATE_PORTAL_PROJECT: string;
   GET_PORTAL_PROJECT_BY_ID: string;
   SAVE_PORTAL_PROJECT: string;
+  GET_ALL_LOCATIONS: string;
+  GET_LOCATION_BY_ID: string;
+  SAVE_LOCATION: string;
+  CREATE_LOCATION: string;
 }
 
 export const endpoints: Endpoints = {
@@ -48,7 +52,11 @@ export const endpoints: Endpoints = {
   GET_ALL_PORTAL_PROJECTS: '/portal-application-api/portal/projects',
   CREATE_PORTAL_PROJECT: '/portal-application-api/manage/portal/project',
   GET_PORTAL_PROJECT_BY_ID: '/portal-application-api/portal/project/:id',
-  SAVE_PORTAL_PROJECT: '/portal-application-api/manage/portal/project'
+  SAVE_PORTAL_PROJECT: '/portal-application-api/manage/portal/project',
+  GET_ALL_LOCATIONS: '/cohort-api/locations',
+  GET_LOCATION_BY_ID: '/cohort-api/location/:id',
+  SAVE_LOCATION: '/cohort-api/manage/location',
+  CREATE_LOCATION: '/cohort-api/manage/location'
 
 };
 

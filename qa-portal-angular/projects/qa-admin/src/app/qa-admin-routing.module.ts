@@ -16,6 +16,8 @@ import { ApplicationManagementComponent } from './application-management/applica
 import { ApplicationDetailComponent } from './application-detail/application-detail.component';
 import { AppProjectManagementComponent } from './app-project-management/app-project-management.component';
 import { AppProjectDetailComponent } from './app-project-detail/app-project-detail.component';
+import { LocationManagementComponent } from './location-management/location-management.component';
+import { LocationDetailComponent } from './location-detail/location-detail.component';
 
 const routes: Routes = [
   {
@@ -151,6 +153,26 @@ const routes: Routes = [
   {
     path: 'manage/app-projects/:id',
     component: AppProjectDetailComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
+  {
+    path: 'manage/locations',
+    component: LocationManagementComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
+    {
+    path: 'manage/locations/:id',
+    component: LocationDetailComponent,
     canActivate: [AppAuthGuard],
     data: {
       roles: [
