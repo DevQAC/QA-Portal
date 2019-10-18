@@ -46,4 +46,9 @@ public class RoleManagementService {
                 .map(r -> getRoleByNameOperation.getRoleByName(r))
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public List<String> getPortalRolesNames() {
+        return keycloakRoleResourceManager.getPortalRoles();
+    }
 }
