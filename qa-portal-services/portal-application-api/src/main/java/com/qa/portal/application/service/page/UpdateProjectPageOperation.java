@@ -34,7 +34,9 @@ public class UpdateProjectPageOperation {
     }
 
     private ProjectPageDto persistUpdatedProjectPage(ProjectPageDto projectPageDto) {
-        ProjectPageEntity projectPageEntity = projectPageMapper.mapToUpdatedProjectPageEntity(projectPageDto);
+        ProjectPageEntity currentProjectPageEntity = getProjectPage(projectPageDto)
+                .orElseThrow(() -> new QaPortalBusinessException("No Project page found for supplied id"));
+        ProjectPageEntity projectPageEntity = projectPageMapper.mapToUpdatedProjectPageEntity(projectPageDto, currentProjectPageEntity);
         ProjectPageEntity savedEntity = projectPageRepository.save(projectPageEntity);
         return projectPageMapper.mapToProjectPageDto(savedEntity);
     }

@@ -3,6 +3,7 @@ package com.qa.portal.application.persistence.entity;
 import com.qa.portal.common.persistence.entity.QaBaseEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +21,7 @@ public class PortalProjectEntity extends QaBaseEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "portalProject")
+    @OneToMany(mappedBy = "portalProject", cascade = CascadeType.ALL)
     private List<ProjectPageEntity> projectPages;
 
     public Integer getId() {
@@ -45,6 +46,19 @@ public class PortalProjectEntity extends QaBaseEntity {
 
     public void setProjectPages(List<ProjectPageEntity> projectPages) {
         this.projectPages = projectPages;
+    }
+
+    public void addProjectPage(ProjectPageEntity projectPageEntity) {
+        if (projectPages == null) {
+            projectPages = new ArrayList<>();
+        }
+        projectPages.add(projectPageEntity);
+        projectPageEntity.setPortalProject(this);
+    }
+
+    public void removeProjectPage(ProjectPageEntity projectPageEntity) {
+        projectPages.remove(projectPageEntity);
+        projectPageEntity.setPortalProject(null);
     }
 
     @Override

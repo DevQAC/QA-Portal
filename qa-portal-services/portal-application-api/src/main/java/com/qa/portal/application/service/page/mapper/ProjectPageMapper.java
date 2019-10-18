@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -48,8 +49,9 @@ public class ProjectPageMapper {
 
     public ProjectPageEntity mapToNewProjectPageEntity(ProjectPageDto projectPageDto) {
         ProjectPageEntity projectPageEntity = baseMapper.mapObject(projectPageDto, ProjectPageEntity.class);
-        portalProjectRepository.findByName(projectPageDto.getPortalProjectName())
-                .ifPresent(p -> projectPageEntity.setPortalProject(p));
+        if (projectPageEntity.getDisplayOnMenu() == null) {
+            projectPageEntity.setDisplayOnMenu(Boolean.TRUE);
+        }
         projectPageEntity.setRoleProjectPageEntities(new ArrayList<>());
         projectPageDto.getRoles().stream()
                 .map(r -> createNewRoleProjectPageEntity(r, projectPageEntity))
@@ -57,11 +59,7 @@ public class ProjectPageMapper {
         return projectPageEntity;
     }
 
-    public ProjectPageEntity mapToUpdatedProjectPageEntity(ProjectPageDto projectPageDto) {
-        ProjectPageEntity projectPageEntity = projectPageRepository.findByName(projectPageDto.getName())
-                                                        .orElseThrow(() -> new QaPortalBusinessException("No Project page found for supplied name"));
-        portalProjectRepository.findByName(projectPageDto.getPortalProjectName())
-                .ifPresent(p -> projectPageEntity.setPortalProject(p));
+    public ProjectPageEntity mapToUpdatedProjectPageEntity(ProjectPageDto projectPageDto, ProjectPageEntity projectPageEntity) {
         projectPageEntity.setDisplayOnMenu(projectPageDto.getDisplayOnMenu());
         projectPageEntity.setIcon(projectPageDto.getIcon());
         projectPageEntity.setTooltip(projectPageDto.getTooltip());

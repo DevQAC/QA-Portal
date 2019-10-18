@@ -104,7 +104,7 @@ Postgres database for storage of the keycloak access management data. This is on
 
 a) Clone this repository into your local workspace. See instructions in the [Source Control](#source-control) section below for instructions.<br>
 b) Set up Postgres, Keycloak and Mongo DB. See [Local development environment setup](qa-portal-infra/README.md) for instructions.<br>
-c) Build and run the Spring Boot microservices. See [Build and run microservices](qa-portal-services/README.md) for instructions.<br>
+c) Build and run the Spring Boot microservices. See [Build and run microservices](qa-portal-services/README.md#build-and-run-services) for instructions.<br>
 d) Build and run the Angular client application. See [Build and run angular application](qa-portal-angular/README.md) for instructions.<br>
 
 <a name="source-control"></a>

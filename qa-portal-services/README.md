@@ -1,6 +1,20 @@
 # QA Portal Services 
 
-## Overview
+
+**[1. Overview](#overview)**
+
+**[2. Developer Guide](#developer-guide)**
+- [Common Library](#common-library)
+- [QA Portal Spring Boot microservices](#spring-boot-microservices)
+- [Adding a new Spring Boot project](#adding-spring-boot-project)
+- [Developing a new Spring boot endpoint](#developing-spring-boot-endpoint)
+
+**[3. Build and Run Services](#build-and-run-services)**
+- [Pre-requisites](#pre-requisites)
+- [Start microservices](#start-microservices)
+
+<a name="overview"></a>
+## 1. Overview
 
 The projects in this repository provide the business logic, service integration and persistence capabilities of the QA Portal application. The repository is structured as follows
 
@@ -9,10 +23,11 @@ a) A single library project (api-common) containing code to be used by all the Q
 b) Several Spring Boot micro-service projects that use the api-common library. Each micro-service project exposes the REST endpoints for a specific application domain. These micro-service projects should utilise the security, exception handling, persistence and mapper functionality provided by the common-api library. The REST endpoints will be accessed by the QA Portal angular client, but could be accessed from any client provided the client is configured with the appropriate keycloak security adapter. 
 
 
+<a name="developer-guide"></a>
+## 2. Developer Guide
 
-## Developer Guide
-
-### Common Library
+<a name="common-library"></a>
+### 2.1. Common Library
 
 The api-common project should be used by all the QA Portal micro-service projects, and provides the following common functionality
 
@@ -85,8 +100,8 @@ Dozer provides a facility to map a source object into an object of a specified t
 A DozerBeanMapper is instantiated in the Spring Boot configuration class com.qa.portal.common.config.CoreConfig, and is injected into the com.qa.portal.common.service.mapper.BaseMapper class. This wraps the DozerBeanMapper class and provides a few convenience methods for mapping QaUserEntity and QaUserDto objects. This could be extended in the future. To support Dozer mappings there are also some custom converters provided in the com.qa.portal.common.util.mapper.converters package.
 
 
-
-### Spring Boot micro-service projects
+<a name="spring-boot-microservices"></a>
+### 2.2. Spring Boot microservices
 
 core-api and self-reflection-api are examples of QA Portal Spring Boot micro-service projects. These have a standard structure that all QA Portal Spring Boot projects should adhere to 
 
@@ -118,7 +133,8 @@ TODO
 
 TODO
 
-### Adding a new Spring Boot Project
+<a name="adding-spring-boot-project"></a>
+### 2.3. Adding a new Spring Boot Project
 
 **Main Tasks**
 
@@ -173,8 +189,8 @@ TODO
 11. Push to Git repo  (Responsibility - Lead Dev)
 
     
-
-### Developing a new Spring Boot Endpoint
+<a name="developing-spring-boot-endpoint"></a>
+### 2.4. Developing a new Spring Boot Endpoint
 
 **Main Tasks**
 
@@ -205,24 +221,33 @@ TODO
 13. Create an Integration test to invoke RestController (Responsibility - Dev)
 
     
+<a name="build-and-run-services"></a>
+## 3. Build and Run Services
 
-## Building and Running Services
+<a name="pre-requisites"></a>
+### 3.1. Pre-Requisites
 
-### Pre-Requisites
+a) A local keycloak instance and Postgres DB has been installed and configured as per instructions in [qa-portal-infra project](../qa-portal-infra/README.md)
 
-a) A local keycloak instance and Postgres DB has been installed and configured. See instructions in 
-https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-infra/README.md
 
-### Build and Run Core Services
+<a name="start-microservices"></a>
+### 3.2. Start microservices
 
-a) Clone the qa-portal-services repo using command as per instructions on 
+a) Clone the qa-portal-services repo using command as per [QA-Portal](../README.md) instructions
 
-https://github.com/DevQAC/QA-Portal/blob/development/README.md
-
-b) From the base folder build with maven
+b) From the base folder (qa-portal-services) build all the sub projects with maven
 
 mvn clean install
 
-c) From the core-api folder start the core-api services as a spring boot application
+c) Start each of the following projects as Spring Boot applications
+
+portal-application-api (this will populate postgres database with any flyway script updates)<br>
+cohort-api<br>
+feedback-api<br>
+form-api<br>
+self-reflection-api<br>
+cv-api<br>
+
+using the following command
 
 mvn spring-boot:run
