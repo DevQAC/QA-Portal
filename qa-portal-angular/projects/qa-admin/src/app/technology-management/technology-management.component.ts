@@ -13,7 +13,7 @@ import { NewCategoryDialogComponent } from './new-category-dialog/new-category-d
   templateUrl: './technology-management.component.html'
 })
 export class TechnologyManagementComponent implements OnInit {
-  @ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<CourseModel>;
+  @ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<TechnologyCategoryModel>;
 
   // SEARCH
   public searchInput = '';

@@ -21,8 +21,8 @@ body {
     margin: 4rem;
     border: 0px;
     outline: none;
-    opacity: 0;
-    animation: fadein 0.2s ease-in-out;
+    /* opacity: 0; */
+    /* animation: fadein 0.2s ease-in-out; */
 
     background-image: url('/assets/qa_fill_primary.svg');
     background-repeat: no-repeat;
