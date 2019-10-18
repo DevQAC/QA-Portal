@@ -1,0 +1,33 @@
+<h1>Role</h1>
+
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Details</mat-card-title>
+  </mat-card-header>
+
+  <form [formGroup]="roleForm">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+
+       <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Application</mat-label>
+        <mat-select formControlName="portalApplication">
+            <mat-option *ngFor="let app of availableApps" [value]="app.id">
+              {{app.name}}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </mat-card-content>
+  </form>
+</mat-card>
+
+<button mat-flat-button color="accent" class="w-100 mt-1" (click)="onSaveRoleClicked()"
+  [disabled]="isLoading || roleForm.invalid || roleForm.pristine">Update</button>
+
+
+<app-spinner-overlay [show]="isLoading" fadeBg="true"></app-spinner-overlay>

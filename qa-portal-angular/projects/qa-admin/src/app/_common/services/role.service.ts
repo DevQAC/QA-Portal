@@ -1,20 +1,28 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {take} from 'rxjs/operators';
-import {GET_PORTAL_ROLES_URL} from '../models/user.constant';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { QaHttpService } from 'projects/portal-core/src/app/_common/services/qa-http.service';
+import { RoleModel } from 'projects/portal-core/src/app/_common/models/role.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoleService {
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private qaHttp: QaHttpService) { }
 
   public getPortalRoles(): Observable<string[]> {
-    return this.http.get<string[]>(GET_PORTAL_ROLES_URL).pipe(
-      take(1)
-    );
+    return this.qaHttp.get({ ref: 'GET_ALL_ROLES' });
+  }
+
+  public getRoleById(id: string | number): Observable<RoleModel> {
+    return this.qaHttp.get({ ref: 'GET_ROLE_BY_ID', params: { id: id.toString() } });
+  }
+
+  public saveRole(role: RoleModel): Observable<RoleModel> {
+    return this.qaHttp.put({ ref: 'SAVE_ROLE' }, role);
+  }
+
+  public addRole(role: RoleModel): Observable<RoleModel> {
+    return this.qaHttp.post({ ref: 'CREATE_ROLE' }, role);
   }
 }

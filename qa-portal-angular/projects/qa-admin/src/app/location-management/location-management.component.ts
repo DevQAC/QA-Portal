@@ -15,7 +15,7 @@ import { NewLocationDialogComponent } from './new-location-dialog/new-location-d
 })
 export class LocationManagementComponent implements OnInit {
 
-    @ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<LocationModel>;
+  @ViewChild('dataTable', { static: false }) dataTable: DataTableComponent<LocationModel>;
 
   // SEARCH
   public searchInput = '';
@@ -33,7 +33,7 @@ export class LocationManagementComponent implements OnInit {
     private router: Router,
     private errorService: QaErrorHandlerService
   ) { }
-    ngOnInit() {
+  ngOnInit() {
     this.searchInput = this.activatedRoute.snapshot.queryParams.search || this.searchInput;
     this.performSearch();
   }

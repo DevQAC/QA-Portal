@@ -18,6 +18,8 @@ import { AppProjectManagementComponent } from './app-project-management/app-proj
 import { AppProjectDetailComponent } from './app-project-detail/app-project-detail.component';
 import { LocationManagementComponent } from './location-management/location-management.component';
 import { LocationDetailComponent } from './location-detail/location-detail.component';
+import { RoleManagementComponent } from './role-management/role-management.component';
+import { RoleDetailComponent } from './role-detail/role-detail.component';
 
 const routes: Routes = [
   {
@@ -170,9 +172,29 @@ const routes: Routes = [
       ]
     }
   },
-    {
+  {
     path: 'manage/locations/:id',
     component: LocationDetailComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
+  {
+    path: 'manage/roles',
+    component: RoleManagementComponent,
+    canActivate: [AppAuthGuard],
+    data: {
+      roles: [
+        SUPER_USER
+      ]
+    }
+  },
+    {
+    path: 'manage/roles/:id',
+    component: RoleDetailComponent,
     canActivate: [AppAuthGuard],
     data: {
       roles: [

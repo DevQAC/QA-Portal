@@ -37,6 +37,9 @@ import { DeletePageConfirmDialogComponent } from './app-project-detail/delete-pa
 import { LocationManagementComponent } from './location-management/location-management.component';
 import { LocationDetailComponent } from './location-detail/location-detail.component';
 import { NewLocationDialogComponent } from './location-management/new-location-dialog/new-location-dialog.component';
+import { RoleManagementComponent } from './role-management/role-management.component';
+import { NewRoleDialogComponent } from './role-management/new-role-dialog/new-role-dialog.component';
+import { RoleDetailComponent } from './role-detail/role-detail.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,10 @@ import { NewLocationDialogComponent } from './location-management/new-location-d
     DeletePageConfirmDialogComponent,
     LocationManagementComponent,
     LocationDetailComponent,
-    NewLocationDialogComponent
+    NewLocationDialogComponent,
+    RoleManagementComponent,
+    NewRoleDialogComponent,
+    RoleDetailComponent
   ],
   imports: [
     QaCommonModule,
@@ -90,10 +96,11 @@ import { NewLocationDialogComponent } from './location-management/new-location-d
     NewCategoryDialogComponent,
     NewCohortDialogComponent,
     NewFormDialogComponent,
-    NewAppDialogComponent,
+    NewAppDialogComponent,  
     NewProjectDialogComponent,
     DeletePageConfirmDialogComponent,
-    NewLocationDialogComponent
+    NewLocationDialogComponent,
+    NewRoleDialogComponent
   ]
 })
 export class QaAdminModule { }
