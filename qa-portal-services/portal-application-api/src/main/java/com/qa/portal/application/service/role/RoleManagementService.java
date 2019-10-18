@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleManagementService {
@@ -16,12 +17,16 @@ public class RoleManagementService {
 
     private UpdateRoleOperation updateRoleOperation;
 
+    private GetRoleByNameOperation getRoleByNameOperation;
+
     public RoleManagementService(KeycloakRoleResourceManager keycloakRoleResourceManager,
                                  CreateRoleOperation createRoleOperation,
-                                 UpdateRoleOperation updateRoleOperation) {
+                                 UpdateRoleOperation updateRoleOperation,
+                                 GetRoleByNameOperation getRoleByNameOperation) {
         this.keycloakRoleResourceManager = keycloakRoleResourceManager;
         this.createRoleOperation = createRoleOperation;
         this.updateRoleOperation = updateRoleOperation;
+        this.getRoleByNameOperation = getRoleByNameOperation;
     }
 
     public RoleDto createRole(RoleDto roleDto) {
@@ -36,7 +41,14 @@ public class RoleManagementService {
     }
 
     @Transactional
-    public List<String> getPortalRoles() {
+    public List<RoleDto> getPortalRoles() {
+        return keycloakRoleResourceManager.getPortalRoles().stream()
+                .map(r -> getRoleByNameOperation.getRoleByName(r))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<String> getPortalRolesNames() {
         return keycloakRoleResourceManager.getPortalRoles();
     }
 }

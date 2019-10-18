@@ -21,8 +21,13 @@ public class RoleManagementController {
         this.roleManagementService = roleManagementService;
     }
 
+    @GetMapping("roles/names")
+    public ResponseEntity<List<String>> getPortalRolesNamesFromKeycloak() {
+        return ResponseEntity.ok(roleManagementService.getPortalRolesNames());
+    }
+
     @GetMapping("roles")
-    public ResponseEntity<List<String>> getPortalRolesFromKeycloak() {
+    public ResponseEntity<List<RoleDto>> getPortalRolesFromKeycloak() {
         return ResponseEntity.ok(roleManagementService.getPortalRoles());
     }
 
