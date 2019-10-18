@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -48,6 +49,9 @@ public class ProjectPageMapper {
 
     public ProjectPageEntity mapToNewProjectPageEntity(ProjectPageDto projectPageDto) {
         ProjectPageEntity projectPageEntity = baseMapper.mapObject(projectPageDto, ProjectPageEntity.class);
+        if (projectPageEntity.getDisplayOnMenu() == null) {
+            projectPageEntity.setDisplayOnMenu(Boolean.TRUE);
+        }
         projectPageEntity.setRoleProjectPageEntities(new ArrayList<>());
         projectPageDto.getRoles().stream()
                 .map(r -> createNewRoleProjectPageEntity(r, projectPageEntity))

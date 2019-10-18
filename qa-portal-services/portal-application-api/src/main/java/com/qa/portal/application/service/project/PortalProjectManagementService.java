@@ -24,6 +24,7 @@ public class PortalProjectManagementService {
 
     @Transactional
     public PortalProjectDto updatePortalProject(PortalProjectDto portalProjectDto) {
-        return updatePortalProjectOperation.updatePortalProject(portalProjectDto);
+        PortalProjectDto updatedPortalProject = updatePortalProjectOperation.updatePortalProject(portalProjectDto);
+        return updatedPortalProject;
     }
 }

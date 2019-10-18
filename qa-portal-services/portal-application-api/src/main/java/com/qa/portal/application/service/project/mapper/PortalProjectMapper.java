@@ -42,9 +42,9 @@ public class PortalProjectMapper {
 
     public PortalProjectEntity mapToUpdatedPortalProjectEntity(PortalProjectDto portalProjectDto) {
         PortalProjectEntity portalProjectEntity = getExistingPortalProject(portalProjectDto);
-        addNewProjectPages(portalProjectEntity, portalProjectDto);
         updateExistingProjectPages(portalProjectEntity, portalProjectDto);
         removeDeletedProjectPages(portalProjectEntity, portalProjectDto);
+        addNewProjectPages(portalProjectEntity, portalProjectDto);
         return portalProjectEntity;
     }
 
