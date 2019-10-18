@@ -9,6 +9,8 @@ import com.qa.portal.application.persistence.entity.RoleProjectPageEntity;
 import com.qa.portal.application.persistence.repository.PortalProjectRepository;
 import com.qa.portal.application.persistence.repository.ProjectPageRepository;
 import com.qa.portal.application.persistence.repository.RoleRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class ProjectPageMapper {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(ProjectPageMapper.class);
 
     private ProjectPageRepository projectPageRepository;
 
@@ -64,8 +68,8 @@ public class ProjectPageMapper {
         projectPageEntity.setIcon(projectPageDto.getIcon());
         projectPageEntity.setTooltip(projectPageDto.getTooltip());
         projectPageEntity.setUrl(projectPageDto.getUrl());
-        addNewRoleToProjectPage(projectPageEntity, projectPageDto);
         deleteRemovedRolesFromProjectPage(projectPageEntity, projectPageDto);
+        addNewRoleToProjectPage(projectPageEntity, projectPageDto);
         return projectPageEntity;
     }
 
@@ -83,7 +87,9 @@ public class ProjectPageMapper {
         List<String> newRoles = projectPageDto.getRoles();
         projectPageEntity.getRoleProjectPageEntities().stream()
                 .filter(rppe -> !newRoles.contains(rppe.getRole().getName()))
-                .forEach(rppe -> projectPageEntity.removeRoleProjectPageEntity(rppe));
+                .collect(Collectors.toList())
+                .iterator()
+                .forEachRemaining(rppe -> projectPageEntity.removeRoleProjectPageEntity(rppe));
     }
 
     private RoleProjectPageEntity createNewRoleProjectPageEntity(String role, ProjectPageEntity projectPageEntity) {
