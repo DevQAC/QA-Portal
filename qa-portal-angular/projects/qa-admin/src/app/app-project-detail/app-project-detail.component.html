@@ -26,8 +26,8 @@
         <div class="w-100">
           {{item?.name || 'Click to expand'}}
         </div>
-        <button mat-icon-button (click)="onRemovePageClicked(item)" style="margin: -10px 2px" matTooltip="Delete Page"
-          aria-label="Delete Page">
+        <button mat-icon-button color="warn" (click)="onRemovePageClicked(item)" style="margin: -10px 2px"
+          matTooltip="Delete Page" aria-label="Delete Page">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
@@ -35,15 +35,18 @@
         <div *ngIf="item">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Name</mat-label>
-            <input matInput [ngModel]="item.name" (ngModelChange)="item.name = $event; projectForm.markAsDirty()" required>
+            <input matInput [ngModel]="item.name" (ngModelChange)="item.name = $event; projectForm.markAsDirty()"
+              required>
           </mat-form-field>
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Tooltip</mat-label>
-            <input matInput [ngModel]="item.tooltip" (ngModelChange)="item.tooltip = $event; projectForm.markAsDirty()" required>
+            <input matInput [ngModel]="item.tooltip" (ngModelChange)="item.tooltip = $event; projectForm.markAsDirty()"
+              required>
           </mat-form-field>
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>URL</mat-label>
-            <input matInput [ngModel]="item.url" (ngModelChange)="item.url = $event; projectForm.markAsDirty()" required>
+            <input matInput [ngModel]="item.url" (ngModelChange)="item.url = $event; projectForm.markAsDirty()"
+              required>
           </mat-form-field>
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Icon</mat-label>
@@ -59,7 +62,8 @@
           </mat-form-field>
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Associated Roles</mat-label>
-            <mat-select [ngModel]="item.roles" (ngModelChange)="item.roles = $event; projectForm.markAsDirty()" multiple>
+            <mat-select [ngModel]="item.roles" (ngModelChange)="item.roles = $event; projectForm.markAsDirty()"
+              multiple>
               <mat-option *ngFor="let role of roles" [value]="role">
                 {{role}}
               </mat-option>
