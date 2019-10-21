@@ -64,6 +64,7 @@ public class ProjectPageMapper {
     }
 
     public ProjectPageEntity mapToUpdatedProjectPageEntity(ProjectPageDto projectPageDto, ProjectPageEntity projectPageEntity) {
+        projectPageEntity.setName(projectPageDto.getName());
         projectPageEntity.setDisplayOnMenu(projectPageDto.getDisplayOnMenu());
         projectPageEntity.setIcon(projectPageDto.getIcon());
         projectPageEntity.setTooltip(projectPageDto.getTooltip());
