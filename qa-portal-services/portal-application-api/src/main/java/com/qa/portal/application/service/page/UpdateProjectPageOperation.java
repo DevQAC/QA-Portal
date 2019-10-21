@@ -42,6 +42,6 @@ public class UpdateProjectPageOperation {
     }
 
     private Optional<ProjectPageEntity> getProjectPage(ProjectPageDto projectPageDto) {
-        return projectPageRepository.findByName(projectPageDto.getName());
+        return projectPageRepository.findById(projectPageDto.getId());
     }
 }
