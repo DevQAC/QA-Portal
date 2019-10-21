@@ -71,7 +71,7 @@ public class UserManagementService {
         QaCohortEntity cohortEntity = cohortRepository.findById(cohortId)
                 .orElseThrow(() -> new QaPortalBusinessException("No cohort found for supplied id"));
         return getTrainees().stream()
-                .filter(t -> traineeAvailableForCohort(t, cohortEntity))
+                .filter(t -> (StringUtils.isEmpty(t.getCohortNames()) || cohortEntity.getName().equals(t.getCohortNames().get(0))))
                 .collect(Collectors.toList());
     }
 

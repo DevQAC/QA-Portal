@@ -73,17 +73,16 @@
     </mat-card-content>
   </mat-card>
 
-
-  <mat-card class="mb-1">
-    <mat-card-header>
-      <mat-card-title>
-        Trainee Usernames
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p *ngFor="let trainee of cohort.traineeNames">{{trainee}}</p>
-    </mat-card-content>
-  </mat-card>
+<mat-card class="mb-1">
+  <mat-card-header>
+    <mat-card-title>
+      Trainee Usernames
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p *ngFor="let trainee of cohort?.traineeNames">{{trainee}}</p>
+  </mat-card-content>
+</mat-card>
 
   <div>
     <button mat-flat-button class="w-100" color="accent" (click)="onSaveCohortClicked()">Update</button>
