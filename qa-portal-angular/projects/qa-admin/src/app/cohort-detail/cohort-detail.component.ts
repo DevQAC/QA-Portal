@@ -75,6 +75,7 @@ export class CohortDetailComponent implements OnInit {
         this.availableCourses = courses;
         this.availableTrainers = trainers;
         this.availableLocations = locations;
+        console.log('Number of trainees ' + trainees.length);
         this.availableTrainees = trainees;
         this.calendarEvents = this.cohort.cohortCourses.map(c => this.cohortCourseToCalendarEvent(c));
 
