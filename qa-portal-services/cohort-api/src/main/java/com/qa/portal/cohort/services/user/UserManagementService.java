@@ -6,7 +6,10 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaCohortRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
@@ -19,6 +22,8 @@ import static com.qa.portal.common.keycloak.KeycloakUserConstants.TRAINER_USER_R
 
 @Service
 public class UserManagementService {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(UserManagementService.class);
 
     private static final Long COHORT_DURATION = 84L;  // TODO - Assumption is 12 weeks - can calculate from courses when this is added
 
@@ -66,7 +71,7 @@ public class UserManagementService {
         QaCohortEntity cohortEntity = cohortRepository.findById(cohortId)
                 .orElseThrow(() -> new QaPortalBusinessException("No cohort found for supplied id"));
         return getTrainees().stream()
-                .filter(t -> (t.getCohortNames().isEmpty() || cohortEntity.getName().equals(t.getCohortNames().get(0))))
+                .filter(t ->traineeAvailableForCohort(t, cohortEntity))
                 .collect(Collectors.toList());
     }
 
@@ -109,6 +114,12 @@ public class UserManagementService {
     public void deleteUsers(List<QaUserDetailsDto> users) {
         deleteUserOperation.deleteUsers(users);
         keycloakUserResourceManager.deleteUsers(users);
+    }
+
+    private boolean traineeAvailableForCohort(QaUserDetailsDto userDetailsDto, QaCohortEntity cohortEntity) {
+        LOGGER.info("Trainee cohorts empty " + CollectionUtils.isEmpty(userDetailsDto.getCohortNames()));
+        return CollectionUtils.isEmpty(userDetailsDto.getCohortNames()) ||
+                cohortEntity.getName().equals(userDetailsDto.getCohortNames().get(0));
     }
 
     private boolean isAvailableForCohort(String cohortName, String trainerName) {
