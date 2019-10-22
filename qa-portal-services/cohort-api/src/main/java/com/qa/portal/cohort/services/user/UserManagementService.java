@@ -117,7 +117,6 @@ public class UserManagementService {
     }
 
     private boolean traineeAvailableForCohort(QaUserDetailsDto userDetailsDto, QaCohortEntity cohortEntity) {
-        LOGGER.info("Trainee cohorts empty " + CollectionUtils.isEmpty(userDetailsDto.getCohortNames()));
         return CollectionUtils.isEmpty(userDetailsDto.getCohortNames()) ||
                 cohortEntity.getName().equals(userDetailsDto.getCohortNames().get(0));
     }
