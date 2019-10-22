@@ -9,6 +9,7 @@ import com.qa.portal.common.persistence.repository.*;
 import com.qa.portal.common.service.mapper.BaseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -25,15 +26,13 @@ public class CohortMapper {
 
     private QaCohortRepository cohortRepository;
 
-    private CohortCourseRepository cohortCourseRepository;
-
-    private LocationRepository locationRepository;
-
     private CourseRepository courseRepository;
 
     private QaTrainerRepository trainerRepository;
 
     private QaTraineeRepository traineeRepository;
+
+    private  CohortCourseMapper cohortCourseMapper;
 
     private BaseMapper baseMapper;
 
@@ -43,13 +42,13 @@ public class CohortMapper {
                         CourseRepository courseRepository,
                         CohortCourseRepository cohortCourseRepository,
                         LocationRepository locationRepository,
+                        CohortCourseMapper cohortCourseMapper,
                         BaseMapper baseMapper) {
         this.cohortRepository = cohortRepository;
         this.trainerRepository = trainerRepository;
         this.traineeRepository = traineeRepository;
         this.courseRepository = courseRepository;
-        this.cohortCourseRepository = cohortCourseRepository;
-        this.locationRepository = locationRepository;
+        this.cohortCourseMapper = cohortCourseMapper;
         this.baseMapper = baseMapper;
     }
 
@@ -93,6 +92,7 @@ public class CohortMapper {
     }
 
     private void updateCohortCourses(QaCohortDto cohortDto, QaCohortEntity cohortEntity) {
+        updateExistingCohortCourses(cohortDto, cohortEntity);
         deleteRemovedCohortCourses(cohortDto, cohortEntity);
         addNewCohortCourses(cohortDto, cohortEntity);
     }
@@ -109,7 +109,14 @@ public class CohortMapper {
         List<String> existingCourseNames = getExistingCourseNames(cohortEntity);
         cohortDto.getCohortCourses().stream()
                 .filter(cc -> !existingCourseNames.contains(cc.getCourse().getCourseName()))
-                .forEach(ccDto -> createNewCohortCourseEntity(ccDto, cohortEntity));
+                .forEach(ccDto -> cohortCourseMapper.mapToNewCohortCourseEntity(ccDto, cohortEntity));
+    }
+
+    private void updateExistingCohortCourses(QaCohortDto cohortDto, QaCohortEntity cohortEntity) {
+        List<String> existingCohortCourses = getExistingCourseNames(cohortEntity);
+        cohortDto.getCohortCourses().stream()
+                .filter(cc -> existingCohortCourses.contains(cc.getCourse().getCourseName()))
+                .forEach(cc -> cohortCourseMapper.mapToUpdatedCohortCourseEntity(cc, getCohortCourseEntity(cc, cohortEntity)));
     }
 
     private List<String> getNewCourseNames(QaCohortDto cohortDto) {
@@ -124,15 +131,11 @@ public class CohortMapper {
                 .collect(Collectors.toList());
     }
 
-    private void createNewCohortCourseEntity(CohortCourseDto cohortCourseDto, QaCohortEntity cohortEntity) {
-        CohortCourseEntity cohortCourseEntity = new CohortCourseEntity();
-        cohortCourseEntity.setStartDate(Date.valueOf(cohortCourseDto.getStartDate()));
-        cohortCourseEntity.setEndDate(Date.valueOf(cohortCourseDto.getEndDate()));
-        cohortCourseEntity.setCohort(cohortEntity);
-        cohortCourseEntity.setTrainer(cohortEntity.getTrainer());
-        courseRepository.findById(cohortCourseDto.getCourse().getId()).ifPresent(course -> cohortCourseEntity.setCourse(course));
-        locationRepository.findById(cohortCourseDto.getLocation().getId()).ifPresent(location -> cohortCourseEntity.setLocation(location));
-        cohortEntity.addCohortCourse(cohortCourseEntity);
+    private CohortCourseEntity getCohortCourseEntity(CohortCourseDto cohortCourseDto, QaCohortEntity cohortEntity) {
+        return cohortEntity.getCohortCourses().stream()
+                .filter(cc -> cc.getId().equals(cohortCourseDto.getId()))
+                .findFirst()
+                .orElseThrow(() -> new QaPortalBusinessException("No Cohort course found for supplied id"));
     }
 
     private void deleteCohortCourse(CohortCourseEntity cohortCourseEntity, QaCohortEntity cohortEntity) {

@@ -31,7 +31,7 @@ b) Several Spring Boot micro-service projects that use the api-common library. E
 
 The api-common project should be used by all the QA Portal micro-service projects, and provides the following common functionality
 
-**A security configuration and implementation (Keycloak)**
+#### 2.1.1. A security configuration and implementation (Keycloak)
 
 Keycloak (https://www.keycloak.org/documentation.html) has been selected to provide the authentication mechanism for the QA Portal application. Keycloak is an identity and access management provider with client adapter libraries our applications can use to integrate with the Keycloak provider. For our Spring Boot micro-services this requires a Spring security configuration to integrate with keycloak. This is achieved as follows:
 
@@ -58,8 +58,7 @@ vi) The JSON configuration will be displayed.
 vii) Copy and paste this into the keycloak.json file in the resources file. 
 
 
-
-**Standard Exception handling mechanism**
+#### 2.1.2. Standard Exception handling mechanism
 
 Spring Boot provides an Exception Handling mechanism that separates the exception handling from our business code. In the api-common project the com.qa.portal.common.exception.QaPortalExceptionHandler class has been created to provide this central exception handling mechanism. There are 3 QA Portal Exceptions that should be thrown from our Spring Boot micro-services: 
 
@@ -74,8 +73,7 @@ Any Runtime Exceptions will also be handled by the QAPortalExceptionHandler and 
 The current QAPortalExceptionHandler implementation is very basic. The intention is to extend this to source messages from a file external to the application and the facility to insert contextual information into those messages.
 
 
-
-**Optimistic Locking solution**
+#### 2.1.3. Optimistic Locking solution
 
 Optimistic Locking is the standard solution solution for dealing with concurrent updates of database records. It doesn't have the performance impact of pessimistic locking and is simple to implement using JPA annotations.
 
@@ -92,8 +90,7 @@ The version property is decorated with @Version which tells JPA providers that t
 Any entities created in the Spring Boot micro-service projects only have to extend this QaBaseEntity class in order to have optimistic locking automatically activated.
 
 
-
-**Utility classes**
+#### 2.1.4. Utility classes
 
 Dozer provides a facility to map a source object into an object of a specified target class, by providing XML configuration or using Dozer annotations. For our services we are using the XML configuration mechanism.
 
@@ -103,7 +100,8 @@ A DozerBeanMapper is instantiated in the Spring Boot configuration class com.qa.
 <a name="spring-boot-microservices"></a>
 ### 2.2. Spring Boot microservices
 
-core-api and self-reflection-api are examples of QA Portal Spring Boot micro-service projects. These have a standard structure that all QA Portal Spring Boot projects should adhere to 
+#### 2.2.1. Overview
+portal-application-api and self-reflection-api are examples of QA Portal Spring Boot micro-service projects. These have a standard structure that all QA Portal Spring Boot projects should adhere to 
 
 a) Spring Boot Application class placed in the com.qa.portal package. Spring Boot component scan will manage all beans that are at (or inside) the Spring Boot applications package. By placing the application class at the com.qa.portal package, all the beans from the api-common library will automatically be accessible from the micro-service application. 
 
@@ -125,18 +123,32 @@ c) Each Spring Boot micro-service project must have a dependency in their pom.xm
 
 **WARNING - All classes managed by Springs IOC container MUST be stateless (i.e. they cannot hold request specific (mutable) state. Immutable state available for the lifetime of the application is OK and can help performance when caching data).**
 
-#### core-api
+#### 2.2.2. portal-application-api
+
+![](../docs/image/portal-application-api.jpg)
+
+#### 2.2.3. cohort-api
+
+![](../docs/image/cohort-api.jpg)
+
+#### 2.2.4. cv-api
+
+![](../docs/image/cv-api.jpg)
+
+#### 2.2.5. feedback-api
 
 TODO
 
-#### self-reflection-api
+#### 2.2.6. form-api
+
+TODO
+
+#### 2.2.7. self-reflection-api
 
 TODO
 
 <a name="adding-spring-boot-project"></a>
 ### 2.3. Adding a new Spring Boot Project
-
-**Main Tasks**
 
 1. Create (or copy existing) Spring boot maven project (Responsibility - Lead Dev)
 
@@ -191,8 +203,6 @@ TODO
     
 <a name="developing-spring-boot-endpoint"></a>
 ### 2.4. Developing a new Spring Boot Endpoint
-
-**Main Tasks**
 
 1. Define REST interface (Responsibility - Lead Dev / Dev)
 
