@@ -40,6 +40,7 @@ import { NewLocationDialogComponent } from './location-management/new-location-d
 import { RoleManagementComponent } from './role-management/role-management.component';
 import { NewRoleDialogComponent } from './role-management/new-role-dialog/new-role-dialog.component';
 import { RoleDetailComponent } from './role-detail/role-detail.component';
+import { EditCourseDialogComponent } from './cohort-detail/edit-course-dialog/edit-course-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { RoleDetailComponent } from './role-detail/role-detail.component';
     NewLocationDialogComponent,
     RoleManagementComponent,
     NewRoleDialogComponent,
-    RoleDetailComponent
+    RoleDetailComponent,
+    EditCourseDialogComponent
   ],
   imports: [
     QaCommonModule,
@@ -96,11 +98,12 @@ import { RoleDetailComponent } from './role-detail/role-detail.component';
     NewCategoryDialogComponent,
     NewCohortDialogComponent,
     NewFormDialogComponent,
-    NewAppDialogComponent,  
+    NewAppDialogComponent,
     NewProjectDialogComponent,
     DeletePageConfirmDialogComponent,
     NewLocationDialogComponent,
-    NewRoleDialogComponent
+    NewRoleDialogComponent,
+    EditCourseDialogComponent
   ]
 })
 export class QaAdminModule { }

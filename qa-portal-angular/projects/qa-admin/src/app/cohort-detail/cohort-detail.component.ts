@@ -22,6 +22,7 @@ import { QaToastrService } from 'projects/portal-core/src/app/_common/services/q
 import { LocationService } from '../_common/services/location.service';
 import { LocationModel } from 'projects/portal-core/src/app/_common/models/location.model';
 import { UserModel } from 'projects/portal-core/src/app/_common/models/user.model';
+import { EditCourseDialogComponent } from './edit-course-dialog/edit-course-dialog.component';
 
 @Component({
   selector: 'app-cohort-detail',
@@ -75,10 +76,8 @@ export class CohortDetailComponent implements OnInit {
         this.availableCourses = courses;
         this.availableTrainers = trainers;
         this.availableLocations = locations;
-        console.log('Number of trainees ' + trainees.length);
         this.availableTrainees = trainees;
         this.calendarEvents = this.cohort.cohortCourses.map(c => this.cohortCourseToCalendarEvent(c));
-
         this.viewDate = moment(cohort.startDate).toDate();
 
         this.cohortForm.patchValue(cohort);
@@ -94,9 +93,11 @@ export class CohortDetailComponent implements OnInit {
   }
 
   private cohortCourseToCalendarEvent(course: CohortCourseModel): CalendarEvent<CohortCourseModel> {
+    const startMom = moment(course.startDate).utc().add(moment(course.startDate).utcOffset(), 'm');
+
     return {
-      start: moment(course.startDate).toDate(),
-      end: course.endDate ? moment(course.endDate).toDate() : moment(course.startDate).add(course.course.duration, 'days').toDate(),
+      start: startMom.toDate(),
+      end: course.endDate ? moment(course.endDate).utc().add(moment(course.startDate).utcOffset(), 'm').toDate() : startMom.add(course.course.duration, 'days').toDate(),
       title: course.course.courseName,
       draggable: true,
       allDay: true,
@@ -105,7 +106,7 @@ export class CohortDetailComponent implements OnInit {
     };
   }
 
-  private calendarEventToCohorCourse(calendarEvent: CalendarEvent<CohortCourseModel>): CohortCourseModel {
+  private calendarEventToCohortCourse(calendarEvent: CalendarEvent<CohortCourseModel>): CohortCourseModel {
     return {
       ...calendarEvent.meta,
       startDate: calendarEvent.start,
@@ -132,7 +133,21 @@ export class CohortDetailComponent implements OnInit {
   }
 
   public eventClicked({ event, ...rest }: { event: CalendarEvent }): void {
-    console.log('Event clicked', event, rest);
+    const dialog = this.dialog.open(EditCourseDialogComponent,
+      {
+        data: {
+          availableCourses: this.availableCourses,
+          availableTrainers: this.availableTrainers,
+          availableLocations: this.availableLocations,
+          meta: event.meta
+        }
+      }
+    );
+
+    dialog.afterClosed().subscribe(course => {
+      event.meta = course;
+      this.refreshCalendar.next();
+    });
   }
 
   public dayClicked({ day }): void {
@@ -170,7 +185,7 @@ export class CohortDetailComponent implements OnInit {
     this.cohort = {
       ...this.cohort,
       ...this.cohortForm.value,
-      cohortCourses: this.calendarEvents.map(e => this.calendarEventToCohorCourse(e))
+      cohortCourses: this.calendarEvents.map(e => this.calendarEventToCohortCourse(e))
     };
 
     this.cohortService.saveCohort(this.cohort).subscribe(resp => {
