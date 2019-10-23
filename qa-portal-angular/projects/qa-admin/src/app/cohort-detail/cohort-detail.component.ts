@@ -145,8 +145,17 @@ export class CohortDetailComponent implements OnInit {
     );
 
     dialog.afterClosed().subscribe(course => {
-      event.meta = course;
-      this.refreshCalendar.next();
+      if (course) {
+        if (course.remove) {
+          console.warn('Course removal not implemented!');
+        }
+
+        event.meta = course.meta;
+        event.start = event.meta.startDate;
+        event.end = event.meta.endDate;
+        this.refreshCalendar.next();
+
+      }
     });
   }
 
