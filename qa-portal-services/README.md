@@ -125,27 +125,63 @@ c) Each Spring Boot micro-service project must have a dependency in their pom.xm
 
 #### 2.2.2. portal-application-api
 
+##### 2.2.2.1. Overview
+
+##### 2.2.2.2. Class Diagram
+
 ![](../docs/image/portal-application-api.jpg)
+
+##### 2.2.2.3. REST API
 
 #### 2.2.3. cohort-api
 
+##### 2.2.3.1. Overview
+
+##### 2.2.3.2. Class Diagram
+
 ![](../docs/image/cohort-api.jpg)
+
+##### 2.2.3.3. REST API
 
 #### 2.2.4. cv-api
 
+##### 2.2.4.1. Overview
+
+##### 2.2.4.2. Class Diagram
+
 ![](../docs/image/cv-api.jpg)
+
+##### 2.2.4.3. REST API
 
 #### 2.2.5. feedback-api
 
+##### 2.2.5.1. Overview
+
+##### 2.2.5.2. Class Diagram
+
 ![](../docs/image/feedback-api.jpg)
+
+##### 2.2.5.3. REST API
 
 #### 2.2.6. form-api
 
-TODO
+##### 2.2.6.1. Overview
+
+##### 2.2.6.2. Class Diagram
+
+![](../docs/image/form-api.jpg)
+
+##### 2.2.6.3. REST API
 
 #### 2.2.7. self-reflection-api
 
-TODO
+##### 2.2.7.1. Overview
+
+##### 2.2.7.2. Class Diagram
+
+![](../docs/image/self-reflection-api.jpg)
+
+##### 2.2.7.3. REST API
 
 <a name="adding-spring-boot-project"></a>
 ### 2.3. Adding a new Spring Boot Project
