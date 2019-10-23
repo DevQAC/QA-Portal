@@ -24,5 +24,5 @@ export const customIcons: CustomIconModel[] = [
     { label: 'Question Category', name: 'qa-question-category', path: 'assets/icons/qa_question_category_48px.svg' },
     { label: 'Application Page', name: 'qa-app-page', path: 'assets/icons/qa_app_page_48px.svg' },
     { label: 'Application Project', name: 'qa-app-project', path: 'assets/icons/qa_app_project_48px.svg' },
-    { label: 'Application Project', name: 'qa-location', path: 'assets/icons/qa_location_48px.svg' }
+    { label: 'Location', name: 'qa-location', path: 'assets/icons/qa_location_48px.svg' }
 ];
