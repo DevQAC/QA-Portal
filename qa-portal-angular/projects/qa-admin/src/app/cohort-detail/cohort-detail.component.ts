@@ -109,8 +109,8 @@ export class CohortDetailComponent implements OnInit {
   private calendarEventToCohortCourse(calendarEvent: CalendarEvent<CohortCourseModel>): CohortCourseModel {
     return {
       ...calendarEvent.meta,
-      startDate: calendarEvent.start,
-      endDate: calendarEvent.end
+      startDate: moment(calendarEvent.start).format('YYYY-MM-DD'),
+      endDate: moment(calendarEvent.end).format('YYYY-MM-DD')
     };
   }
 
