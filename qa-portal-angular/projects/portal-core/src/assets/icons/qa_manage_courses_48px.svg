@@ -42,10 +42,10 @@
      id="namedview8"
      showgrid="false"
      inkscape:zoom="9.8333333"
-     inkscape:cx="-1.6129917"
-     inkscape:cy="9.9231233"
+     inkscape:cx="-19.663839"
+     inkscape:cy="9.7197335"
      inkscape:window-x="50"
-     inkscape:window-y="1107"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:current-layer="g941"
      showguides="false" />
@@ -66,10 +66,56 @@
        d="M 0,0 H 48 V 48 H 0 Z"
        inkscape:connector-curvature="0"
        style="fill:none" />
-    <path
-       id="path943"
-       d="m -15.841114,13.977397 h -15.683705 c -1.444208,0 -2.613951,1.169743 -2.613951,2.613951 v 20.911606 c 0,1.444208 1.169743,2.613951 2.613951,2.613951 h 15.683705 c 1.444208,0 2.613951,-1.169743 2.613951,-2.613951 V 16.591348 c 0,-1.444208 -1.169743,-2.613951 -2.613951,-2.613951 z m -15.683705,2.613951 h 6.534877 V 27.04715 l -3.267439,-1.960463 -3.267438,1.960463 z"
-       inkscape:connector-curvature="0"
-       style="stroke-width:0.65348774" />
+    <g
+       style="stroke-width:0.7411263"
+       transform="matrix(1.3492976,0,0,1.3492976,-36.806385,12.779611)"
+       id="g1173">
+      <g
+         style="stroke-width:0.7411263"
+         id="Bounding_Box">
+        <rect
+           style="fill:none;stroke-width:0.7411263"
+           y="0"
+           x="0"
+           width="24"
+           height="24"
+           id="rect1138" />
+      </g>
+      <g
+         style="stroke-width:0.7411263"
+         id="Flat">
+        <g
+           style="stroke-width:0.7411263"
+           id="ui_x5F_spec_x5F_header_copy_2" />
+        <g
+           style="stroke-width:0.7411263"
+           id="g1152">
+          <path
+             style="stroke-width:0.7411263"
+             inkscape:connector-curvature="0"
+             d="M 21,5 C 19.89,4.65 18.67,4.5 17.5,4.5 15.55,4.5 13.45,4.9 12,6 10.55,4.9 8.45,4.5 6.5,4.5 4.55,4.5 2.45,4.9 1,6 v 14.65 c 0,0.25 0.25,0.5 0.5,0.5 0.1,0 0.15,-0.05 0.25,-0.05 C 3.1,20.45 5.05,20 6.5,20 c 1.95,0 4.05,0.4 5.5,1.5 1.35,-0.85 3.8,-1.5 5.5,-1.5 1.65,0 3.35,0.3 4.75,1.05 0.1,0.05 0.15,0.05 0.25,0.05 0.25,0 0.5,-0.25 0.5,-0.5 V 6 C 22.4,5.55 21.75,5.25 21,5 Z m 0,13.5 C 19.9,18.15 18.7,18 17.5,18 15.8,18 13.35,18.65 12,19.5 V 8 c 1.35,-0.85 3.8,-1.5 5.5,-1.5 1.2,0 2.4,0.15 3.5,0.5 z"
+             id="path1142" />
+          <g
+             style="stroke-width:0.7411263"
+             id="g1150">
+            <path
+               style="stroke-width:0.7411263"
+               inkscape:connector-curvature="0"
+               d="m 17.5,10.5 c 0.88,0 1.73,0.09 2.5,0.26 V 9.24 C 19.21,9.09 18.36,9 17.5,9 15.8,9 14.26,9.29 13,9.83 v 1.66 c 1.13,-0.64 2.7,-0.99 4.5,-0.99 z"
+               id="path1144" />
+            <path
+               style="stroke-width:0.7411263"
+               inkscape:connector-curvature="0"
+               d="m 13,12.49 v 1.66 c 1.13,-0.64 2.7,-0.99 4.5,-0.99 0.88,0 1.73,0.09 2.5,0.26 V 11.9 c -0.79,-0.15 -1.64,-0.24 -2.5,-0.24 -1.7,0 -3.24,0.3 -4.5,0.83 z"
+               id="path1146" />
+            <path
+               style="stroke-width:0.7411263"
+               inkscape:connector-curvature="0"
+               d="m 17.5,14.33 c -1.7,0 -3.24,0.29 -4.5,0.83 v 1.66 c 1.13,-0.64 2.7,-0.99 4.5,-0.99 0.88,0 1.73,0.09 2.5,0.26 v -1.52 c -0.79,-0.16 -1.64,-0.24 -2.5,-0.24 z"
+               id="path1148" />
+          </g>
+        </g>
+      </g>
+    </g>
   </g>
 </svg>
