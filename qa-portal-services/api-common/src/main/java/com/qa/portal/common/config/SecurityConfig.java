@@ -32,6 +32,8 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     public static final String SWAGGER_UI_PAGE = "/swagger-ui.html";
 
+    public static final String SPRINGFOX = "/webjars/springfox-swagger-ui/**";
+
     public static final String MANAGEMENT_APIS = "/manage/**";
 
     public static final String PORTAL_ADMIN_ROLE = "super-user";
@@ -63,7 +65,9 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http.authorizeRequests()
-                .antMatchers(SWAGGER_DOCS,
+                .antMatchers(
+                        SPRINGFOX,
+                        SWAGGER_DOCS,
                         SWAGGER_UI,
                         SWAGGER_RESOURCES,
                         SWAGGER_RESOURCES_SECURITY,
