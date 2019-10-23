@@ -125,15 +125,12 @@ c) Each Spring Boot micro-service project must have a dependency in their pom.xm
 
 #### 2.2.2. portal-application-api
 
-![](../docs/image/portal-application-api.jpg)
 
 #### 2.2.3. cohort-api
 
-![](../docs/image/cohort-api.jpg)
 
 #### 2.2.4. cv-api
 
-![](../docs/image/cv-api.jpg)
 
 #### 2.2.5. feedback-api
 
