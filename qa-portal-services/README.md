@@ -131,7 +131,9 @@ c) Each Spring Boot micro-service project must have a dependency in their pom.xm
 
 ![](../docs/image/portal-application-api.jpg)
 
-##### 2.2.2.3. REST API
+##### 2.2.2.3. Rest Api
+
+The portal-application-api projects REST api can be viewed at http://{server}:8081/portal-application-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8081/portal-application-api/swagger-ui.html.
 
 #### 2.2.3. cohort-api
 
@@ -141,7 +143,10 @@ c) Each Spring Boot micro-service project must have a dependency in their pom.xm
 
 ![](../docs/image/cohort-api.jpg)
 
-##### 2.2.3.3. REST API
+##### 2.2.3.3. Rest API
+
+The cohort-api projects REST api can be viewed at http://{server}:8086/cohort-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8086/cohort-api/swagger-ui.html.
+
 
 #### 2.2.4. cv-api
 
@@ -151,7 +156,10 @@ c) Each Spring Boot micro-service project must have a dependency in their pom.xm
 
 ![](../docs/image/cv-api.jpg)
 
-##### 2.2.4.3. REST API
+##### 2.2.4.3. Rest Api
+
+The cv-api projects REST api can be viewed at http://{server}:8087/cv-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8087/cv-api/swagger-ui.html.
+
 
 #### 2.2.5. feedback-api
 
@@ -161,7 +169,9 @@ c) Each Spring Boot micro-service project must have a dependency in their pom.xm
 
 ![](../docs/image/feedback-api.jpg)
 
-##### 2.2.5.3. REST API
+##### 2.2.5.3. Rest Api
+
+The feedback-api projects REST api can be viewed at http://{server}:8084/feedback-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8084/feedback-api/swagger-ui.html.
 
 #### 2.2.6. form-api
 
@@ -171,7 +181,10 @@ c) Each Spring Boot micro-service project must have a dependency in their pom.xm
 
 ![](../docs/image/form-api.jpg)
 
-##### 2.2.6.3. REST API
+##### 2.2.6.3. Rest Api
+
+The form-api projects REST api can be viewed at http://{server}:8085/form-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8085/form-api/swagger-ui.html.
+
 
 #### 2.2.7. self-reflection-api
 
@@ -181,7 +194,10 @@ c) Each Spring Boot micro-service project must have a dependency in their pom.xm
 
 ![](../docs/image/self-reflection-api.jpg)
 
-##### 2.2.7.3. REST API
+##### 2.2.7.3. Rest Api
+
+The self-reflection-api projects REST api can be viewed at http://{server}:8082/self-reflection-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8082/self-reflection-api/swagger-ui.html.
+
 
 <a name="adding-spring-boot-project"></a>
 ### 2.3. Adding a new Spring Boot Project
