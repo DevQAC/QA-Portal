@@ -35,7 +35,7 @@ $margin-increments: 0 1rem 2rem 3rem;
     .mr-#{$i},
     .my-#{$i},
     .m-#{$i} {
-        margin-top: $margin !important;
+        margin-right: $margin !important;
     }
 }
 
@@ -47,6 +47,14 @@ $margin-increments: 0 1rem 2rem 3rem;
 .my-auto {
     margin-top: auto !important;
     margin-bottom: auto !important;
+}
+
+.mr-auto {
+    margin-right: auto !important;
+}
+
+.ml-auto {
+    margin-left: auto !important;
 }
 
 .m-auto {

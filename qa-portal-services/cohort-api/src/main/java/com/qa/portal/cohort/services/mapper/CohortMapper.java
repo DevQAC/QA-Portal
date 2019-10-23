@@ -40,8 +40,6 @@ public class CohortMapper {
                         QaTrainerRepository trainerRepository,
                         QaTraineeRepository traineeRepository,
                         CourseRepository courseRepository,
-                        CohortCourseRepository cohortCourseRepository,
-                        LocationRepository locationRepository,
                         CohortCourseMapper cohortCourseMapper,
                         BaseMapper baseMapper) {
         this.cohortRepository = cohortRepository;
@@ -59,6 +57,7 @@ public class CohortMapper {
         cohortDto.setTraineeNames(new ArrayList<>());
         qaCohortEntity.getTrainees().stream()
                 .forEach(te -> cohortDto.getTraineeNames().add(te.getUserName()));
+        setCohortCourseDtos(cohortDto, qaCohortEntity);
         return cohortDto;
     }
 
@@ -89,6 +88,13 @@ public class CohortMapper {
         updateCohortCourses(qaCohortDto, cohortEntity);
         updateCohortTrainees(qaCohortDto, cohortEntity);
         return cohortEntity;
+    }
+
+    private void setCohortCourseDtos(QaCohortDto cohortDto, QaCohortEntity cohortEntity) {
+        List<CohortCourseDto> cohortCourses =  cohortEntity.getCohortCourses().stream()
+                .map(cc -> cohortCourseMapper.mapToCohortCourseDto(cc))
+                .collect(Collectors.toList());
+        cohortDto.setCohortCourses(cohortCourses);
     }
 
     private void updateCohortCourses(QaCohortDto cohortDto, QaCohortEntity cohortEntity) {

@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Edit Course</h1>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Trainer</mat-label>
+    <mat-select [(ngModel)]="selectedTrainer" required>
+      <mat-option *ngFor="let trainer of data.availableTrainers" [value]="trainer.user.userName">
+        <strong>{{trainer.user?.firstName}}
+          {{trainer.user?.lastName}}</strong> {{trainer.user?.firstName || trainer.user?.lastName ? '-' : ''}}
+        {{trainer.user?.userName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Location</mat-label>
+    <mat-select [(ngModel)]="selectedLocation">
+      <mat-option *ngFor="let location of data.availableLocations" [value]="location.id" required>
+        <strong>{{location.name}}</strong> - {{location.address}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Duration</mat-label>
+    <input matInput type="number" required
+      [(ngModel)]="selectedDuration">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="warn" [mat-dialog-close]="{remove: true}" class="mr-auto">Remove</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" cdkFocusInitial
+    [disabled]="!(selectedDuration && selectedTrainer)">Update</button>
+</mat-dialog-actions>

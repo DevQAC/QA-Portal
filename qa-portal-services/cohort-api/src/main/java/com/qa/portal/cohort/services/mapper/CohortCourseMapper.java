@@ -1,6 +1,7 @@
 package com.qa.portal.cohort.services.mapper;
 
 import com.qa.portal.common.dto.CohortCourseDto;
+import com.qa.portal.common.dto.TrainerDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
@@ -36,7 +37,9 @@ public class CohortCourseMapper {
     }
 
     public CohortCourseDto mapToCohortCourseDto(CohortCourseEntity cohortCourseEntity) {
-        return baseMapper.mapObject(cohortCourseEntity, CohortCourseDto.class);
+        CohortCourseDto cohortCourseDto =  baseMapper.mapObject(cohortCourseEntity, CohortCourseDto.class);
+        cohortCourseDto.setTrainer(getTrainerDto(cohortCourseEntity.getTrainer()));
+        return cohortCourseDto;
     }
 
     public CohortCourseEntity mapToNewCohortCourseEntity(CohortCourseDto cohortCourseDto, QaCohortEntity cohortEntity) {
@@ -62,9 +65,18 @@ public class CohortCourseMapper {
     private Optional<TrainerEntity> getTrainer(CohortCourseDto cohortCourseDto) {
         TrainerEntity trainerEntity = null;
         if (cohortCourseDto.getTrainer() != null) {
-             trainerEntity = trainerRepository.findById(cohortCourseDto.getTrainer().getId())
-                    .orElseThrow(() -> new QaPortalBusinessException("No trainer found for supplied id"));
+             trainerEntity = trainerRepository.findByUserName(cohortCourseDto.getTrainer().getUserName())
+                    .orElseThrow(() -> new QaPortalBusinessException("No trainer found for supplied username"));
         }
         return Optional.ofNullable(trainerEntity);
+    }
+
+    private TrainerDto getTrainerDto(TrainerEntity trainerEntity) {
+        TrainerDto trainerDto = new TrainerDto();
+        trainerDto.setId(trainerEntity.getId());
+        trainerDto.setUserName(trainerEntity.getUserName());
+        trainerDto.setFirstName(trainerEntity.getFirstName());
+        trainerDto.setLastName(trainerEntity.getLastName());
+        return trainerDto;
     }
 }
