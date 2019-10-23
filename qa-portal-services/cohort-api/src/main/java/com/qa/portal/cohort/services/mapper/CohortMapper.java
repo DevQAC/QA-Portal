@@ -40,8 +40,6 @@ public class CohortMapper {
                         QaTrainerRepository trainerRepository,
                         QaTraineeRepository traineeRepository,
                         CourseRepository courseRepository,
-                        CohortCourseRepository cohortCourseRepository,
-                        LocationRepository locationRepository,
                         CohortCourseMapper cohortCourseMapper,
                         BaseMapper baseMapper) {
         this.cohortRepository = cohortRepository;
