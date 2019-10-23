@@ -65,8 +65,8 @@ public class CohortCourseMapper {
     private Optional<TrainerEntity> getTrainer(CohortCourseDto cohortCourseDto) {
         TrainerEntity trainerEntity = null;
         if (cohortCourseDto.getTrainer() != null) {
-             trainerEntity = trainerRepository.findById(cohortCourseDto.getTrainer().getId())
-                    .orElseThrow(() -> new QaPortalBusinessException("No trainer found for supplied id"));
+             trainerEntity = trainerRepository.findByUserName(cohortCourseDto.getTrainer().getUserName())
+                    .orElseThrow(() -> new QaPortalBusinessException("No trainer found for supplied username"));
         }
         return Optional.ofNullable(trainerEntity);
     }
