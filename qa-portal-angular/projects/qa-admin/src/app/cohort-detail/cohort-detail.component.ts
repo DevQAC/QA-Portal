@@ -114,7 +114,7 @@ export class CohortDetailComponent implements OnInit {
     };
   }
 
-  private buildCohortCourse(course: CourseModel, startDate: Date, endDate: Date, trainer: TrainerModel, location: LocationModel): CohortCourseModel {
+  private buildCohortCourse(course: CourseModel, startDate: Date, endDate: Date, trainer: UserModel, location: LocationModel): CohortCourseModel {
     return {
       course, startDate, endDate, trainer, location
     } as CohortCourseModel;

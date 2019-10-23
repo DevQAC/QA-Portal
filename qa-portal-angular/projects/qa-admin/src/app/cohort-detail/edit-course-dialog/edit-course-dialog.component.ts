@@ -31,7 +31,7 @@ export class EditCourseDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.selectedTrainer = this.data.meta.trainer ? this.data.meta.trainer.user.userName : null;
+    this.selectedTrainer = this.data.meta.trainer ? this.data.meta.trainer.userName : null;
 
     this.selectedLocation = this.data.meta.location ? this.data.meta.location.id : null;
 
@@ -40,7 +40,7 @@ export class EditCourseDialogComponent implements OnInit {
 
 
   onSubmit() {
-    this.data.meta.trainer = this.data.availableTrainers.find(t => t.user.userName = this.selectedTrainer).user;
+    this.data.meta.trainer = this.data.availableTrainers.find(t => t.user.userName === this.selectedTrainer).user;
     this.data.meta.location = this.data.availableLocations.find(l => l.id === this.selectedLocation);
     this.data.meta.endDate = moment(this.data.meta.startDate).add((this.selectedDuration || 1) - 1, 'days').toDate();
     this.dialogRef.close(this.data);
