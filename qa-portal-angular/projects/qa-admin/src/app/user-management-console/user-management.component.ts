@@ -9,6 +9,7 @@ import {UpdateUserRoleDialogComponent} from './update-user-role-dialog/update-us
 import {AddUserDialogComponent} from './add-user-dialog/add-user-dialog.component';
 import {UserDetailsModel} from '../../../../portal-core/src/app/_common/models/user-details.model';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
+import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 
 @Component({
   selector: 'app-user-management',
@@ -30,6 +31,7 @@ export class UserManagementComponent implements OnInit {
     public dialog: MatDialog,
     private userService: UserService,
     private activatedRoute: ActivatedRoute,
+    private errorService: QaErrorHandlerService,
     private router: Router) {
   }
 
@@ -72,7 +74,7 @@ export class UserManagementComponent implements OnInit {
       if (user) {
         this.performSearch();
       }
-    });
+    }, err => this.errorService.handleError(err));
   }
 
   public onRowClicked(event: IRowClickEvent<UserDetailsModel>): void {

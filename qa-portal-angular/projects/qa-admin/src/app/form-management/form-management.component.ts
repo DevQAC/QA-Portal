@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 import { NewFormDialogComponent } from './new-form-dialog/new-form-dialog.component';
 import { FormModel } from 'projects/portal-core/src/app/_common/models/form.model';
+import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 
 @Component({
   selector: 'app-form-management',
@@ -28,6 +29,7 @@ export class FormManagementComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formService: FormService,
+    private errorService: QaErrorHandlerService,
     private dialog: MatDialog
   ) { }
 
@@ -46,7 +48,7 @@ export class FormManagementComponent implements OnInit {
     this.formService.getAllForms().subscribe(results => {
       this.formsTableDataSource.data = results;
       this.isLoading = false;
-    });
+    }, err => this.errorService.handleError(err));
   }
 
   public onAddFormButtonClicked(): void {

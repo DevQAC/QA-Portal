@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CourseService } from '../_common/services/course.service';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 import { NewCourseDialogComponent } from './new-course-dialog/new-course-dialog.component';
+import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 
 @Component({
   selector: 'app-course-management',
@@ -28,6 +29,7 @@ export class CourseManagementComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private courseService: CourseService,
+    private errorService: QaErrorHandlerService,
     private dialog: MatDialog) {
   }
 
@@ -47,7 +49,7 @@ export class CourseManagementComponent implements OnInit {
     this.courseService.getAllCourses().subscribe(results => {
       this.coursesTableDataSource.data = results;
       this.isLoading = false;
-    });
+    }, err => this.errorService.handleError(err));
   }
 
 
