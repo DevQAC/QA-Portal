@@ -51,6 +51,8 @@ cv:
   hobbies:
     detail:
       max: 750
+  
+  enable_public_endpoints: false
 
 qa:
   keycloak:
