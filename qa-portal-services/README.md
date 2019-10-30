@@ -121,12 +121,16 @@ b) Under the com.qa.portal.projname package, the following packages should be cr
 
 c) Each Spring Boot micro-service project must have a dependency in their pom.xml to the api-common library, and the keycloak spring security adapter. By adding a keycloak.json file to the micro-service projects resources folder, keycloak authentication will automatically be activated for all endpoints.
 
+d) Endpoints that are only to be accessible by the super-user role should adhere to the url format /manage/**. This ensures that only a user with the super-user role can access the endpoint.
+
 **WARNING - All classes managed by Springs IOC container MUST be stateless (i.e. they cannot hold request specific (mutable) state. Immutable state available for the lifetime of the application is OK and can help performance when caching data).**
 
 #### 2.2.2. portal-application-api
 
 ##### 2.2.2.1. Overview
 
+The portal-application-api project manages the resources that control what menu items and pages are available to a user in the portal, through role based access.<br><br>Each Portal page is associated with one or more roles, and only users with one or more of these roles can access these pages. Each page is a member of a Portal Project (E.g. Feedback, Reflection) which is used to group portal pages on the portal UI menu.<br><br>The roles for a user are associated with a portal application, with the top level menu on the UI only showing the applications that the user has access to (e.g. Training). Each application (e.g. Training, HR) can have multiple roles (training-user, training-manager, training-admin), but a single user can only at most one role per portal application.<br><br>Portal applications and the associated resources can only be managed by a user with the super-user role through the administration application. 
+ 
 ##### 2.2.2.2. Class Diagram
 
 ![](../docs/image/portal-application-api.jpg)
@@ -139,6 +143,8 @@ The portal-application-api projects REST api can be viewed at http://{server}:80
 
 ##### 2.2.3.1. Overview
 
+The cohort-api manages all the resources associated with a cohort (cohort_course, course, trainer, trainee, technology, location). These resources are common across most of the spring boot services for the QA Portal, so are defined in the api-common project, but are managed through the cohort-api.<br><br>When a user is created (or updated) both the QA Portal application database, and the keycloak database are updated. These updates are performed in separate transactions, so there is the potential for the QA Portal database and keycloak to get into an inconsistent state if an error occurs. At the moment, any of these inconsistencies will have to be resolved manually, but a task should be added to JIRA to investigate the feasibility of an automated solution.<br><br>Currently cohorts, courses and technologies can be created and updated but there is no mechanism to delete them. If deletion is introduced in future, it should be a soft delete so associations with other resources (e.g. feedback forms) are preserved.<br><br>Cohorts and the associated resources can only be managed by a user with the super-user role through the administration application, but cohorts and associated resources are used by most of the services in the QA Portal. 
+
 ##### 2.2.3.2. Class Diagram
 
 ![](../docs/image/cohort-api.jpg)
@@ -146,7 +152,6 @@ The portal-application-api projects REST api can be viewed at http://{server}:80
 ##### 2.2.3.3. Rest API
 
 The cohort-api projects REST api can be viewed at http://{server}:8086/cohort-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8086/cohort-api/swagger-ui.html.
-
 
 #### 2.2.4. cv-api
 
