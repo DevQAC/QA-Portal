@@ -130,7 +130,7 @@ d) Endpoints that are only to be accessible by the super-user role should adhere
 ##### 2.2.2.1. Overview
 
 The portal-application-api project manages the resources that control what menu items and pages are available to a user in the portal, through role based access.<br><br>Each Portal page is associated with one or more roles, and only users with one or more of these roles can access these pages. Each page is a member of a Portal Project (E.g. Feedback, Reflection) which is used to group portal pages on the portal UI menu.<br><br>
-The roles for a user are associated with a portal application, with the top level menu on the UI only showing the applications that the user has access to (e.g. Training). Each application (e.g. Training, HR) can have multiple roles (training-user, training-manager, training-admin), but a single user can only at most one role per portal application.<br><br>
+The roles for a user are associated with a portal application, with the top level menu on the UI only showing the applications that the user has access to (e.g. Training). Each application (e.g. Training, HR) can have multiple roles (training-user, training-manager, training-admin), but a single user can have at most one role per portal application.<br><br>
 Portal applications and the associated resources can only be managed by a user with the super-user role through the administration application.<br><br>
 The portal-application-api manages the qa portal application database schema through the flyway library and scripts located in the src/main/resources/db/migration folder. Possible change for the future would be to move these into a database management project.<br> 
 
@@ -147,7 +147,10 @@ The portal-application-api projects REST api can be viewed at http://{server}:80
 
 ##### 2.2.3.1. Overview
 
-The cohort-api manages all the resources associated with a cohort (cohort_course, course, trainer, trainee, technology, location). These resources are common across most of the spring boot services for the QA Portal, so are defined in the api-common project, but are managed through the cohort-api.<br><br>When a user is created (or updated) both the QA Portal application database, and the keycloak database are updated. These updates are performed in separate transactions, so there is the potential for the QA Portal database and keycloak to get into an inconsistent state if an error occurs. At the moment, any of these inconsistencies will have to be resolved manually, but a task should be added to JIRA to investigate the feasibility of an automated solution.<br><br>Currently cohorts, courses and technologies can be created and updated but there is no mechanism to delete them. If deletion is introduced in future, it should be a soft delete so associations with other resources (e.g. feedback forms) are preserved.<br><br>Cohorts and the associated resources can only be managed by a user with the super-user role through the administration application, but cohorts and associated resources are used by most of the services in the QA Portal. 
+The cohort-api manages all the resources associated with a cohort (cohort_course, course, trainer, trainee, technology, location). These resources are common across most of the spring boot services for the QA Portal, so are defined in the api-common project, but are managed through the cohort-api.<br><br>
+When a user is created (or updated) both the QA Portal application database, and the keycloak database are updated. These updates are performed in separate transactions, so there is the potential for the QA Portal database and keycloak to get into an inconsistent state if an error occurs. At the moment, any of these inconsistencies will have to be resolved manually, but a task should be added to JIRA to investigate the feasibility of an automated solution.<br><br>
+Currently cohorts, courses and technologies can be created and updated but there is no mechanism to delete them. If deletion is introduced in future, it should be a soft delete so associations with other resources (e.g. feedback forms) are preserved.<br><br>
+Cohorts and the associated resources can only be managed by a user with the super-user role through the administration application, but they can be referenced by any of the other QA Portal services (through api-common). 
 
 ##### 2.2.3.2. Class Diagram
 
@@ -163,12 +166,11 @@ The cohort-api projects REST api can be viewed at http://{server}:8086/cohort-ap
 
 The cv-api manages CV versions for Trainees. A CV version consists of a Trainee Profile, Hobbies, Work Experience, Qualifications and Skills. The skills section is auto populated from the technologies associated with the courses the trainee has completed as part of their training within a cohort. Other skills can also be manually added by the trainee. A trainee can create a new CV or update an existing CV that has not yet been approved by an admin user. Once a CV version has been approved by a training administrator, the CV version is stored, and any amendments have to be made as a new CV Version.<br><br>
 The cv-api provides a facility to generate a PDF for the CV which can be viewed in a browser tab. Once a training administrator approves a CV version the generated PDF file is stored in a file system (at the moment this is expected to be one drive).<br><br>
-
 A CV version can have the following states:<br>
-In Progress - Trainee has created and saved the CV Version but has not submitted it for approval by a training administrator<br>
-For Review - Trainee has submitted the CV Version for review but the training administrator has not yet reviewed the CV Version<br>
-Failed Review - The training administrator has raised comment with the CV Version and the trainee has yet to address the comments and resubmit for review<br>
-Approved - The training administrator has reviewed and approved the CV Version, the CV version has been stored to a file system (one drive), and the CV version is no longer editable<br>
+**In Progress** - Trainee has created and saved the CV Version but has not submitted it for approval by a training administrator<br>
+**For Review** - Trainee has submitted the CV Version for review but the training administrator has not yet reviewed the CV Version<br>
+**Failed Review** - The training administrator has raised comment with the CV Version and the trainee has yet to address the comments and resubmit for review<br>
+**Approved** - The training administrator has reviewed and approved the CV Version, the CV version has been stored to a file system (one drive), and the CV version is no longer editable<br>
 
 ##### 2.2.4.2. Class Diagram
 
