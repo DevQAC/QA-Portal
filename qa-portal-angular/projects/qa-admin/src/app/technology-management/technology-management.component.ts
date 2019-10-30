@@ -7,6 +7,7 @@ import { TechnologyService } from '../_common/technology.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 import { NewCategoryDialogComponent } from './new-category-dialog/new-category-dialog.component';
+import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 
 @Component({
   selector: 'app-technology-management',
@@ -28,6 +29,7 @@ export class TechnologyManagementComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private techService: TechnologyService,
+    private errorService: QaErrorHandlerService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class TechnologyManagementComponent implements OnInit {
     this.techService.getAllCategories().subscribe(results => {
       this.categoriesTableDataSource.data = results;
       this.isLoading = false;
-    });
+    }, err => this.errorService.handleError(err));
   }
 
 

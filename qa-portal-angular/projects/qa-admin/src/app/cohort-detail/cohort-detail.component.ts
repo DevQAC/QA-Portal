@@ -109,8 +109,8 @@ export class CohortDetailComponent implements OnInit {
   private calendarEventToCohortCourse(calendarEvent: CalendarEvent<CohortCourseModel>): CohortCourseModel {
     return {
       ...calendarEvent.meta,
-      startDate: calendarEvent.start,
-      endDate: calendarEvent.end
+      startDate: moment(calendarEvent.start).format('YYYY-MM-DD'),
+      endDate: moment(calendarEvent.end).format('YYYY-MM-DD')
     };
   }
 
@@ -147,12 +147,13 @@ export class CohortDetailComponent implements OnInit {
     dialog.afterClosed().subscribe(course => {
       if (course) {
         if (course.remove) {
-          console.warn('Course removal not implemented!');
+          this.calendarEvents = this.calendarEvents.filter(e => e.meta.id !== event.meta.id);
+        } else {
+          event.meta = course.meta;
+          event.start = event.meta.startDate;
+          event.end = event.meta.endDate;
         }
 
-        event.meta = course.meta;
-        event.start = event.meta.startDate;
-        event.end = event.meta.endDate;
         this.refreshCalendar.next();
 
       }

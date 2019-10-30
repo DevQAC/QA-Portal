@@ -49,7 +49,7 @@ export class ApplicationManagementComponent implements OnInit {
     this.appService.getAllApplications().subscribe(results => {
       this.appsTableDataSource.data = results;
       this.isLoading = false;
-    });
+    }, err => this.errorService.handleError(err));
   }
 
   public onAddAppButtonClicked(): void {

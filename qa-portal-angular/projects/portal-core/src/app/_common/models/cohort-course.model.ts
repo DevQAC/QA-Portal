@@ -7,9 +7,9 @@ import { UserModel } from './user.model';
 export class CohortCourseModel {
   id: number;
 
-  startDate: Date;
+  startDate: Date | string;
 
-  endDate: Date;
+  endDate: Date | string;
 
   course: CourseModel;
 

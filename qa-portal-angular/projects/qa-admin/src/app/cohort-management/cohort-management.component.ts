@@ -6,6 +6,7 @@ import { CohortService } from '../_common/services/cohort.service';
 import { DataTableComponent } from 'projects/qa-common/src/app/data-table/data-table.component';
 import { IRowClickEvent } from 'projects/qa-common/src/app/data-table/models/row-click-event';
 import { NewCohortDialogComponent } from './new-cohort-dialog/new-cohort-dialog.component';
+import { QaErrorHandlerService } from 'projects/portal-core/src/app/_common/services/qa-error-handler.service';
 
 @Component({
   selector: 'app-cohort-management',
@@ -28,6 +29,7 @@ export class CohortManagementComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private cohortService: CohortService,
+    private errorService: QaErrorHandlerService,
     private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class CohortManagementComponent implements OnInit {
     this.cohortService.searchCohorts(this.searchInput).subscribe(results => {
       this.cohortsTableDataSource.data = results;
       this.isLoading = false;
-    });
+    }, err => this.errorService.handleError(err));
   }
 
   public onAddCohortButtonClicked(): void {
