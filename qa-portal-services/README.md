@@ -157,6 +157,15 @@ The cohort-api projects REST api can be viewed at http://{server}:8086/cohort-ap
 
 ##### 2.2.4.1. Overview
 
+The cv-api manages CV versions for Trainees. A CV version consists of a Trainee Profile, Hobbies, Work Experience, Qualifications and Skills. The skills section is auto populated from the technologies associated with the courses the trainee has completed as part of their training within a cohort. Other skills can also be manually added by the trainee. A trainee can create a new CV or update an existing CV that has not yet been approved by an admin user. Once a CV version has been approved by a training administrator, the CV version is stored, and any amendments have to be made as a new CV Version.<br><br>
+The cv-api provides a facility to generate a PDF for the CV which can be viewed in a browser tab. Once a training administrator approves a CV version the generated PDF file is stored in a file system (at the moment this is expected to be one drive).<br><br>
+
+A CV version can have the following states:<br>
+In Progress - Trainee has created and saved the CV Version but has not submitted it for approval by a training administrator<br>
+For Review - Trainee has submitted the CV Version for review but the training administrator has not yet reviewed the CV Version<br>
+Failed Review - The training administrator has raised comment with the CV Version and the trainee has yet to address the comments and resubmit for review<br>
+Approved - The training administrator has reviewed and approved the CV Version, the CV version has been stored to a file system (one drive), and the CV version is no longer editable<br>
+
 ##### 2.2.4.2. Class Diagram
 
 ![](../docs/image/cv-api.jpg)
@@ -164,7 +173,6 @@ The cohort-api projects REST api can be viewed at http://{server}:8086/cohort-ap
 ##### 2.2.4.3. Rest Api
 
 The cv-api projects REST api can be viewed at http://{server}:8087/cv-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8087/cv-api/swagger-ui.html.
-
 
 #### 2.2.5. feedback-api
 
