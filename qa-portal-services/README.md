@@ -129,7 +129,11 @@ d) Endpoints that are only to be accessible by the super-user role should adhere
 
 ##### 2.2.2.1. Overview
 
-The portal-application-api project manages the resources that control what menu items and pages are available to a user in the portal, through role based access.<br><br>Each Portal page is associated with one or more roles, and only users with one or more of these roles can access these pages. Each page is a member of a Portal Project (E.g. Feedback, Reflection) which is used to group portal pages on the portal UI menu.<br><br>The roles for a user are associated with a portal application, with the top level menu on the UI only showing the applications that the user has access to (e.g. Training). Each application (e.g. Training, HR) can have multiple roles (training-user, training-manager, training-admin), but a single user can only at most one role per portal application.<br><br>Portal applications and the associated resources can only be managed by a user with the super-user role through the administration application. 
+The portal-application-api project manages the resources that control what menu items and pages are available to a user in the portal, through role based access.<br><br>Each Portal page is associated with one or more roles, and only users with one or more of these roles can access these pages. Each page is a member of a Portal Project (E.g. Feedback, Reflection) which is used to group portal pages on the portal UI menu.<br><br>
+The roles for a user are associated with a portal application, with the top level menu on the UI only showing the applications that the user has access to (e.g. Training). Each application (e.g. Training, HR) can have multiple roles (training-user, training-manager, training-admin), but a single user can only at most one role per portal application.<br><br>
+Portal applications and the associated resources can only be managed by a user with the super-user role through the administration application.<br><br>
+The portal-application-api manages the qa portal application database schema through the flyway library and scripts located in the src/main/resources/db/migration folder. Possible change for the future would be to move these into a database management project.<br> 
+
  
 ##### 2.2.2.2. Class Diagram
 
