@@ -1,6 +1,7 @@
 package com.qa.portal.common.persistence.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,8 +22,10 @@ public class CourseEntity extends QaBaseEntity {
     @Column(name = "course_code")
     private String courseCode;
 
+    @Column(name = "duration")
+    private Integer duration;
 
-	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<CourseTechnologyEntity> courseTechnologies;
 
     public Integer getId() {
@@ -49,11 +52,32 @@ public class CourseEntity extends QaBaseEntity {
         this.courseCode = courseCode;
     }
 
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
     public List<CourseTechnologyEntity> getCourseTechnologies() {
         return courseTechnologies;
     }
 
     public void setCourseTechnologies(List<CourseTechnologyEntity> courseTechnologies) {
         this.courseTechnologies = courseTechnologies;
+    }
+
+    public void addCourseTechnology(CourseTechnologyEntity courseTechnology) {
+        if (this.courseTechnologies == null) {
+            this.courseTechnologies = new ArrayList<>();
+        }
+        this.courseTechnologies.add(courseTechnology);
+        courseTechnology.setCourse(this);
+    }
+
+    public void removeCourseTechnology(CourseTechnologyEntity courseTechnology) {
+        this.courseTechnologies.remove(courseTechnology);
+        courseTechnology.setCourse(null);
     }
 }

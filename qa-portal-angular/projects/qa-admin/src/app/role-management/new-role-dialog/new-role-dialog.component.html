@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>Add New Role</h1>
+<form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Application</mat-label>
+      <mat-select formControlName="portalApplication">
+        <mat-option *ngFor="let app of availableApps" [value]="app">
+          {{app.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button [mat-dialog-close]="false" [disabled]="isLoading" type="button">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="isLoading || roleForm.invalid">Create</button>
+  </div>
+</form>
+<app-spinner-overlay [show]="isLoading"></app-spinner-overlay>

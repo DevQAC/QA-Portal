@@ -1,11 +1,21 @@
+<div style="display: flex; width: 100%; flex-direction: row">
+  <div style="flex: 20;">
+  </div>
 
-<table>
-  <tr>
-    <td>Course: {{courseName}} {{courseId}}</td>
-    <td>Location: {{location}}</td>
-  </tr>
-  <tr>
-    <td>Start Date: {{startDate}}</td>
-    <td>Duration: {{duration}} {{duration !== 1 ? 'days' : 'day'}}</td>
-  </tr>
-</table>
+  <div style="flex: 60; width: 100%; justify-content: center">
+    <table style="width: 100%;">
+      <tr>
+        <td>Course: {{courseName}} {{courseId}}</td>
+        <td>Location: {{location}}</td>
+      </tr>
+      <div style="margin-bottom: 10px;"></div>
+      <tr>
+        <td>Start Date: {{startDate}}</td>
+        <td>Duration: {{duration}} {{duration !== 1 ? 'days' : 'day'}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="flex: 20;">
+  </div>
+</div>

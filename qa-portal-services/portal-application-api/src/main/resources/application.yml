@@ -1,0 +1,74 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /portal-application-api
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  flyway:
+    baseline-on-migrate: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qa-portal
+    username: postgres
+    password: postgres
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: qacportal2019@gmail.com
+    password: q@m@1l$1
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  level:
+    org.springframework.web: DEBUG
+
+qa:
+  keycloak:
+    config:
+      file: keycloak.json
+
+    admin:
+      enabled: true
+      url: http://localhost:8080/auth
+      realm: qa-portal
+      user: adminclient1@qa.com
+      password: pass1
+      clientId: admin-cli
+
+---
+spring:
+  profiles: test
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: qacportal2019@gmail.com
+    password: q@m@1l$1
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          starttls:
+            enable: true
+
+  flyway:
+    enabled: false
+
+  level:
+    org.springframework.web: DEBUG
+    com.qa.portal: DEBUG

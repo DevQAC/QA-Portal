@@ -1,0 +1,87 @@
+<h1>Project</h1>
+
+
+<mat-card class="mb-1">
+  <mat-card-header>
+    <mat-card-title>Details</mat-card-title>
+  </mat-card-header>
+
+  <form [formGroup]="projectForm">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+    </mat-card-content>
+  </form>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Pages</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <app-list [listDataSource]="project?.projectPages">
+      <div *appListTitle="let item = item" style="display:flex">
+        <div class="w-100">
+          {{item?.name || 'Click to expand'}}
+        </div>
+        <button mat-icon-button color="warn" (click)="onRemovePageClicked(item)" style="margin: -10px 2px"
+          matTooltip="Delete Page" aria-label="Delete Page">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+      <div *appListExpander="let item = item">
+        <div *ngIf="item">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Name</mat-label>
+            <input matInput [ngModel]="item.name" (ngModelChange)="item.name = $event; projectForm.markAsDirty()"
+              required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Tooltip</mat-label>
+            <input matInput [ngModel]="item.tooltip" (ngModelChange)="item.tooltip = $event; projectForm.markAsDirty()"
+              required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>URL</mat-label>
+            <input matInput [ngModel]="item.url" (ngModelChange)="item.url = $event; projectForm.markAsDirty()"
+              required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Icon</mat-label>
+            <mat-select [ngModel]="item.icon" (ngModelChange)="item.icon = $event; projectForm.markAsDirty()">
+              <mat-select-trigger>
+                {{getIconByName(item.icon)?.label || 'Unknown'}}
+              </mat-select-trigger>
+              <mat-option *ngFor="let icon of allIcons" [value]="icon.name" style="display:inline-block"
+                [matTooltip]="icon.label" [attr.aria-label]="icon.label">
+                <mat-icon style="margin-right: 0;" [svgIcon]="icon.name"></mat-icon>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Associated Roles</mat-label>
+            <mat-select [ngModel]="item.roles" (ngModelChange)="item.roles = $event; projectForm.markAsDirty()"
+              multiple>
+              <mat-option *ngFor="let role of roles" [value]="role">
+                {{role}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+    </app-list>
+    <button mat-button class="w-100" (click)="onNewPageClicked()">
+      <mat-icon>add</mat-icon>New Page
+    </button>
+  </mat-card-content>
+</mat-card>
+
+
+<button mat-flat-button color="accent" class="w-100 mt-1" (click)="onSaveProjectClicked()"
+  [disabled]="isLoading || projectForm.invalid || projectForm.pristine">Update</button>
+
+
+<app-spinner-overlay [show]="isLoading" fadeBg="true"></app-spinner-overlay>

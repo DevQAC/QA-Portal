@@ -1,0 +1,79 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /cohort-api
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qa-portal
+    username: postgres
+    password: postgres
+
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  level:
+    org.springframework.web: DEBUG
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: qacportal2019@gmail.com
+    password: q@m@1l$1
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+qa:
+  keycloak:
+    config:
+      file: keycloak.json
+
+    admin:
+      enabled: true
+      url: http://localhost:8080/auth
+      realm: qa-portal
+      user: adminclient1@qa.com
+      password: pass1
+      clientId: admin-cli
+
+  account:
+    setup:
+      message:
+        body: Click on the link %s to set up your QA Portal account. Your username is %s and your temporary password is %s.
+        url: http://localhost:4200/qa/portal/home
+
+
+---
+spring:
+  profiles: test
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:database_user;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: none
+        dialect: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+  level:
+    org.springframework.web: DEBUG
+    com.qa.portal: DEBUG

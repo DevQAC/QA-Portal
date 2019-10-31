@@ -12,12 +12,6 @@ public class Qualification {
 		super();
 	}
 
-	public Qualification(String qualificationDetails, List<Feedback> qualificationFeedback) {
-		super();
-		this.qualificationDetails = qualificationDetails;
-		this.qualificationFeedback = qualificationFeedback;
-	}
-
 	public String getQualificationDetails() {
 		return qualificationDetails;
 	}

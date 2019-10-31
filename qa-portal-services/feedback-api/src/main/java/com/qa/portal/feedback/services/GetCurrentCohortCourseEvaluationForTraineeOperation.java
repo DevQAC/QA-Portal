@@ -9,7 +9,7 @@ import com.qa.portal.common.persistence.entity.TraineeEntity;
 import com.qa.portal.common.persistence.repository.FormTypeRepository;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
 import com.qa.portal.common.service.mapper.QuestionCategoryResponseMapper;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
 import com.qa.portal.feedback.services.mapper.CohortCourseEvaluationMapper;

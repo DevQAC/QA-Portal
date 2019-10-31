@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { SelfReflectionService } from './self-reflection.service';
+import { DeprecatedTrainerReflectionService } from './deprecated-trainer-reflection.service';
 
 describe('Service: SelfReflection', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SelfReflectionService]
+      providers: [DeprecatedTrainerReflectionService]
     });
   });
 
-  it('should ...', inject([SelfReflectionService], (service: SelfReflectionService) => {
+  it('should ...', inject([DeprecatedTrainerReflectionService], (service: DeprecatedTrainerReflectionService) => {
     expect(service).toBeTruthy();
   }));
 });

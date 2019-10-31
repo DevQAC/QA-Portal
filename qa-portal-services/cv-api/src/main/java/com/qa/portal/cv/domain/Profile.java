@@ -12,12 +12,6 @@ public class Profile {
 		super();
 	}
 
-	public Profile(String profileDetails, List<Feedback> profileFeedback) {
-		super();
-		this.profileDetails = profileDetails;
-		this.profileFeedback = profileFeedback;
-	}
-
 	public String getProfileDetails() {
 		return profileDetails;
 	}

@@ -1,0 +1,25 @@
+<h1>
+  Technology Categories
+  <button mat-icon-button style="float: right" color="primary" (click)="onAddCategoryButtonClicked()"
+    title="Add a new category">
+    <mat-icon>add</mat-icon>
+  </button>
+</h1>
+
+<!-- <app-search-bar [hasFilterPanel]="false" (search)="performSearch()" [(value)]="searchInput"></app-search-bar> -->
+
+<app-data-table #dataTable [displayedColumns]="displayedColumns" [dataSource]="categoriesTableDataSource"
+  [isLoading]="isLoading" (rowClick)="onRowClicked($event)">
+
+  <ng-container matColumnDef="categoryName">
+    <th mat-header-cell *matHeaderCellDef> Category Name </th>
+    <td mat-cell *matCellDef="let category"> {{category.categoryName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="technologies">
+    <th mat-header-cell *matHeaderCellDef> Technologies </th>
+    <td mat-cell *matCellDef="let category"> {{category.technologies?.length || 0}} </td>
+  </ng-container>
+
+
+</app-data-table>

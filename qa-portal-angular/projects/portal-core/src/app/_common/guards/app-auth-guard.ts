@@ -35,7 +35,7 @@ export class AppAuthGuard extends KeycloakAuthGuard {
 
         if (granted === false) {
           this.router.navigate(['/qa/portal/home']);
-          this.toasterService.showError('User does not have permission to access requested page');
+          this.toasterService.showError('Returned to home page. User does not have permission to access requested page');
         }
 
         resolve(granted);

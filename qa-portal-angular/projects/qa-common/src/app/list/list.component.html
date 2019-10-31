@@ -1,0 +1,15 @@
+<div cdkDropList class="qa-list w-100" *ngIf="listDataSource && listDataSource.length > 0" (cdkDropListDropped)="drop($event)" [cdkDropListDisabled]="!dragDrop"
+  [cdkDropListData]="listDataSource">
+  <div class="qa-list-item-box" [class.expanded]="item == expandedElement ? 'expanded' : 'collapsed'"
+    *ngFor="let item of listDataSource; i as index" cdkDrag [cdkDragData]="item">
+    <div class="title-container" (click)="onListItemClicked(item)">
+      <ng-container *ngTemplateOutlet="title?.template || null; context: {item: item, index: i }"></ng-container>
+    </div>
+    <div class="expansion-panel-container w-100" style="position: relative; overflow: hidden;"
+      [@detailExpand]="item == expandedElement ? 'expanded' : 'collapsed'">
+      <div class="expansion-panel-content">
+        <ng-container *ngTemplateOutlet="expander?.template || null; context: {item: item, index: i }"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>

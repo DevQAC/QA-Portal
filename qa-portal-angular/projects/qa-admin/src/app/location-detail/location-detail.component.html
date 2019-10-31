@@ -1,0 +1,28 @@
+<h1>Location</h1>
+
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Details</mat-card-title>
+  </mat-card-header>
+
+  <form [formGroup]="locationForm">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address" required>
+      </mat-form-field>
+
+    </mat-card-content>
+  </form>
+</mat-card>
+
+<button mat-flat-button color="accent" class="w-100 mt-1" (click)="onSaveLocationClicked()"
+  [disabled]="isLoading || locationForm.invalid || locationForm.pristine">Update</button>
+
+
+<app-spinner-overlay [show]="isLoading" fadeBg="true"></app-spinner-overlay>

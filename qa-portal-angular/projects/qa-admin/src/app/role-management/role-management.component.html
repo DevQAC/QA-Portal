@@ -1,0 +1,24 @@
+<h1>
+  Roles
+  <button mat-icon-button style="float: right" color="primary" (click)="onAddRoleButtonClicked()"
+    title="Add a new role">
+    <mat-icon>add</mat-icon>
+  </button>
+</h1>
+
+<!-- <app-search-bar [hasFilterPanel]="false" (search)="performSearch()" [(value)]="searchInput"></app-search-bar> -->
+
+<app-data-table #dataTable [displayedColumns]="displayedColumns" [dataSource]="rolesTableDataSource"
+  [isLoading]="isLoading" (rowClick)="onRowClicked($event)">
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let role"> {{role.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="application">
+    <th mat-header-cell *matHeaderCellDef>Application</th>
+    <td mat-cell *matCellDef="let role"> {{role.portalApplication?.name}} </td>
+  </ng-container>
+
+</app-data-table>

@@ -1,78 +1,53 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { IUserModel } from '../models/user.model';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { GET_USERS, DEL_USER, ADD_USER, UPDATE_USER, TEST_USERS } from '../models/user.constant';
-import { tap, catchError } from 'rxjs/operators';
-import { MessageService } from './message.service';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {CREATE_USER_URL, DELETE_USERS_URL, GET_ALL_USERS_URL, GET_USER_BY_USERNAME_URL, UPDATE_USER_URL} from '../models/user.constant';
+import {take} from 'rxjs/operators';
+import {UserDetailsModel} from '../../../../../portal-core/src/app/_common/models/user-details.model';
+import {UserModel} from '../../../../../portal-core/src/app/_common/models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-
-  /* defines the urls for api requests*/
-  private get: string = TEST_USERS;
-  private delete: string = TEST_USERS;
-  private post: string = TEST_USERS;
-  private put: string = TEST_USERS;
-
-
-
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  constructor(private http: HttpClient,
-    private messageService: MessageService) { }
-
-  getAllUsers(): Observable<IUserModel[]> {
-    return this.http.get<IUserModel[]>(this.get, this.httpOptions).pipe(
-      catchError(this.handleError<IUserModel[]>(`retreving all registered users`)))
+  constructor(
+    private http: HttpClient) {
   }
 
-  deleteUserByUsername(id: number): Observable<IUserModel[]> {
-    return this.http.delete<IUserModel[]>(`${this.delete}/${id}`).pipe(
-      catchError(this.handleError<IUserModel[]>(`Deleting selected user`))
-    )
+  getAllUsers(): Observable<UserDetailsModel[]> {
+    return this.http.get<UserDetailsModel[]>(GET_ALL_USERS_URL, this.httpOptions).pipe(
+      take(1)
+    );
   }
 
-  addUser(user: IUserModel): Observable<IUserModel[]> {
-    return this.http.post<IUserModel[]>(this.post, user, this.httpOptions).pipe(
-      catchError(this.handleError<IUserModel[]>(`Adding a New user`))
-    )
+  deleteUsers(users: UserDetailsModel[]): Observable<any> {
+    return this.http.put<any>(DELETE_USERS_URL, users).pipe(
+      take(1)
+    );
   }
 
-  updateUser(user: IUserModel): Observable<IUserModel[]> {
-    return this.http.put<IUserModel[]>(this.put, user, this.httpOptions).pipe(
-      tap(_ => this.log(`updated username=${user.username}`)),
-      catchError(this.handleError<any>(`Updating Selected User`)))
+  addUser(user: UserModel): Observable<UserModel> {
+    const userDetails = new UserDetailsModel();
+    user.email = user.userName;
+    userDetails.user = user;
+    userDetails.roleNames = [user.role];
+    return this.http.post<UserModel>(CREATE_USER_URL, userDetails, this.httpOptions).pipe(
+      take(1)
+    );
   }
 
-
-  /**
-     * Handle Http operation that failed.
-     * Let the app continue.
-     * @param operation - name of the operation that failed
-     * @param result - optional value to return as the observable result
-     */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+  updateUser(user: UserDetailsModel): Observable<UserDetailsModel> {
+    return this.http.put<UserDetailsModel>(UPDATE_USER_URL, user, this.httpOptions).pipe(
+      take(1)
+    );
   }
 
-  /** Log a ViewCvService message with the MessageService */
-  private log(message: string) {
-    this.messageService.add(`ViewCvService: ${message}`);
+  getUserByUsername(username: string): Observable<UserDetailsModel> {
+    return this.http.get<UserDetailsModel>(GET_USER_BY_USERNAME_URL + username, this.httpOptions).pipe(take(1));
   }
 }

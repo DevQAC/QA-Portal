@@ -5,7 +5,7 @@ import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
 import com.qa.portal.common.persistence.entity.QaCohortEntity;
 import com.qa.portal.common.persistence.repository.QaTraineeRepository;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.TraineeEvaluationSummaryDto;
 import com.qa.portal.feedback.dto.TraineeEvaluationSummaryRowDto;
 import com.qa.portal.feedback.persistence.entity.CohortCourseEvaluationEntity;
@@ -13,6 +13,7 @@ import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepos
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,11 +44,16 @@ public class GetTraineeEvaluationSummaryOperation {
         traineeEvaluationSummaryDto.setEvaluationSummaryRows(
                 qaTraineeRepository.findByUserName(traineeUserName)
                         .map(te -> getTraineeEvaluationSummary(te.getCohort(), traineeUserName))
-                        .orElseThrow(() -> new QaPortalBusinessException("Error creating trainee evaluation summary")));
+                        .orElseThrow(() -> new QaPortalBusinessException("No trainee found for supplied user name")));
         return traineeEvaluationSummaryDto;
     }
 
     private List<TraineeEvaluationSummaryRowDto> getTraineeEvaluationSummary(QaCohortEntity qaCohortEntity, String traineeUserName) {
+        return Optional.ofNullable(qaCohortEntity).map(ce -> getTraineeEvaluationSummaryRows(ce, traineeUserName))
+                .orElseGet(() -> Collections.emptyList());
+    }
+
+    private List<TraineeEvaluationSummaryRowDto> getTraineeEvaluationSummaryRows(QaCohortEntity qaCohortEntity, String traineeUserName) {
         return qaCohortEntity.getCohortCourses().stream()
                 .map(cce -> createEvaluationSummary(cce, traineeUserName))
                 .collect(Collectors.toList());

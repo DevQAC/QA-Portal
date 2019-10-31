@@ -1,6 +1,7 @@
 package com.qa.portal.common.persistence.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,9 @@ public class FormTypeEntity extends QaBaseEntity {
 
     @Column(name = "form_name")
     private String formName;
+
+    @Column(name = "description")
+    private String description;
 
     @OneToMany(mappedBy = "formType", cascade = CascadeType.ALL)
     private List<QuestionCategoryEntity> questionCategories;
@@ -43,5 +47,26 @@ public class FormTypeEntity extends QaBaseEntity {
 
     public void setQuestionCategories(List<QuestionCategoryEntity> questionCategories) {
         this.questionCategories = questionCategories;
+    }
+
+    public void addQuestionCategory(QuestionCategoryEntity questionCategoryEntity) {
+        if (questionCategories == null) {
+            questionCategories = new ArrayList<>();
+        }
+        questionCategories.add(questionCategoryEntity);
+        questionCategoryEntity.setFormType(this);
+    }
+
+    public void removeQuestionCategory(QuestionCategoryEntity questionCategoryEntity) {
+        questionCategories.remove(questionCategoryEntity);
+        questionCategoryEntity.setFormType(null);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

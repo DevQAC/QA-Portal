@@ -1,6 +1,20 @@
 # QA Portal Services 
 
-## Overview
+
+**[1. Overview](#overview)**
+
+**[2. Developer Guide](#developer-guide)**
+- [Common Library](#common-library)
+- [QA Portal Spring Boot microservices](#spring-boot-microservices)
+- [Adding a new Spring Boot project](#adding-spring-boot-project)
+- [Developing a new Spring boot endpoint](#developing-spring-boot-endpoint)
+
+**[3. Build and Run Services](#build-and-run-services)**
+- [Pre-requisites](#pre-requisites)
+- [Start microservices](#start-microservices)
+
+<a name="overview"></a>
+## 1. Overview
 
 The projects in this repository provide the business logic, service integration and persistence capabilities of the QA Portal application. The repository is structured as follows
 
@@ -9,14 +23,15 @@ a) A single library project (api-common) containing code to be used by all the Q
 b) Several Spring Boot micro-service projects that use the api-common library. Each micro-service project exposes the REST endpoints for a specific application domain. These micro-service projects should utilise the security, exception handling, persistence and mapper functionality provided by the common-api library. The REST endpoints will be accessed by the QA Portal angular client, but could be accessed from any client provided the client is configured with the appropriate keycloak security adapter. 
 
 
+<a name="developer-guide"></a>
+## 2. Developer Guide
 
-## Developer Guide
-
-### Common Library
+<a name="common-library"></a>
+### 2.1. Common Library
 
 The api-common project should be used by all the QA Portal micro-service projects, and provides the following common functionality
 
-**A security configuration and implementation (Keycloak)**
+#### 2.1.1. A security configuration and implementation (Keycloak)
 
 Keycloak (https://www.keycloak.org/documentation.html) has been selected to provide the authentication mechanism for the QA Portal application. Keycloak is an identity and access management provider with client adapter libraries our applications can use to integrate with the Keycloak provider. For our Spring Boot micro-services this requires a Spring security configuration to integrate with keycloak. This is achieved as follows:
 
@@ -43,8 +58,7 @@ vi) The JSON configuration will be displayed.
 vii) Copy and paste this into the keycloak.json file in the resources file. 
 
 
-
-**Standard Exception handling mechanism**
+#### 2.1.2. Standard Exception handling mechanism
 
 Spring Boot provides an Exception Handling mechanism that separates the exception handling from our business code. In the api-common project the com.qa.portal.common.exception.QaPortalExceptionHandler class has been created to provide this central exception handling mechanism. There are 3 QA Portal Exceptions that should be thrown from our Spring Boot micro-services: 
 
@@ -59,8 +73,7 @@ Any Runtime Exceptions will also be handled by the QAPortalExceptionHandler and 
 The current QAPortalExceptionHandler implementation is very basic. The intention is to extend this to source messages from a file external to the application and the facility to insert contextual information into those messages.
 
 
-
-**Optimistic Locking solution**
+#### 2.1.3. Optimistic Locking solution
 
 Optimistic Locking is the standard solution solution for dealing with concurrent updates of database records. It doesn't have the performance impact of pessimistic locking and is simple to implement using JPA annotations.
 
@@ -77,18 +90,18 @@ The version property is decorated with @Version which tells JPA providers that t
 Any entities created in the Spring Boot micro-service projects only have to extend this QaBaseEntity class in order to have optimistic locking automatically activated.
 
 
-
-**Utility classes**
+#### 2.1.4. Utility classes
 
 Dozer provides a facility to map a source object into an object of a specified target class, by providing XML configuration or using Dozer annotations. For our services we are using the XML configuration mechanism.
 
-A DozerBeanMapper is instantiated in the Spring Boot configuration class com.qa.portal.common.config.CoreConfig, and is injected into the com.qa.portal.common.util.mapper.BaseMapper class. This wraps the DozerBeanMapper class and provides a few convenience methods for mapping QaUserEntity and QaUserDto objects. This could be extended in the future. To support Dozer mappings there are also some custom converters provided in the com.qa.portal.common.util.mapper.converters package.
+A DozerBeanMapper is instantiated in the Spring Boot configuration class com.qa.portal.common.config.CoreConfig, and is injected into the com.qa.portal.common.service.mapper.BaseMapper class. This wraps the DozerBeanMapper class and provides a few convenience methods for mapping QaUserEntity and QaUserDto objects. This could be extended in the future. To support Dozer mappings there are also some custom converters provided in the com.qa.portal.common.util.mapper.converters package.
 
 
+<a name="spring-boot-microservices"></a>
+### 2.2. Spring Boot microservices
 
-### Spring Boot micro-service projects
-
-core-api and self-reflection-api are examples of QA Portal Spring Boot micro-service projects. These have a standard structure that all QA Portal Spring Boot projects should adhere to 
+#### 2.2.1. Overview
+portal-application-api and self-reflection-api are examples of QA Portal Spring Boot micro-service projects. These have a standard structure that all QA Portal Spring Boot projects should adhere to 
 
 a) Spring Boot Application class placed in the com.qa.portal package. Spring Boot component scan will manage all beans that are at (or inside) the Spring Boot applications package. By placing the application class at the com.qa.portal package, all the beans from the api-common library will automatically be accessible from the micro-service application. 
 
@@ -110,17 +123,84 @@ c) Each Spring Boot micro-service project must have a dependency in their pom.xm
 
 **WARNING - All classes managed by Springs IOC container MUST be stateless (i.e. they cannot hold request specific (mutable) state. Immutable state available for the lifetime of the application is OK and can help performance when caching data).**
 
-#### core-api
+#### 2.2.2. portal-application-api
 
-TODO
+##### 2.2.2.1. Overview
 
-#### self-reflection-api
+##### 2.2.2.2. Class Diagram
 
-TODO
+![](../docs/image/portal-application-api.jpg)
 
-### Adding a new Spring Boot Project
+##### 2.2.2.3. Rest Api
 
-**Main Tasks**
+The portal-application-api projects REST api can be viewed at http://{server}:8081/portal-application-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8081/portal-application-api/swagger-ui.html.
+
+#### 2.2.3. cohort-api
+
+##### 2.2.3.1. Overview
+
+##### 2.2.3.2. Class Diagram
+
+![](../docs/image/cohort-api.jpg)
+
+##### 2.2.3.3. Rest API
+
+The cohort-api projects REST api can be viewed at http://{server}:8086/cohort-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8086/cohort-api/swagger-ui.html.
+
+
+#### 2.2.4. cv-api
+
+##### 2.2.4.1. Overview
+
+##### 2.2.4.2. Class Diagram
+
+![](../docs/image/cv-api.jpg)
+
+##### 2.2.4.3. Rest Api
+
+The cv-api projects REST api can be viewed at http://{server}:8087/cv-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8087/cv-api/swagger-ui.html.
+
+
+#### 2.2.5. feedback-api
+
+##### 2.2.5.1. Overview
+
+##### 2.2.5.2. Class Diagram
+
+![](../docs/image/feedback-api.jpg)
+
+##### 2.2.5.3. Rest Api
+
+The feedback-api projects REST api can be viewed at http://{server}:8084/feedback-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8084/feedback-api/swagger-ui.html.
+
+#### 2.2.6. form-api
+
+##### 2.2.6.1. Overview
+
+##### 2.2.6.2. Class Diagram
+
+![](../docs/image/form-api.jpg)
+
+##### 2.2.6.3. Rest Api
+
+The form-api projects REST api can be viewed at http://{server}:8085/form-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8085/form-api/swagger-ui.html.
+
+
+#### 2.2.7. self-reflection-api
+
+##### 2.2.7.1. Overview
+
+##### 2.2.7.2. Class Diagram
+
+![](../docs/image/self-reflection-api.jpg)
+
+##### 2.2.7.3. Rest Api
+
+The self-reflection-api projects REST api can be viewed at http://{server}:8082/self-reflection-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8082/self-reflection-api/swagger-ui.html.
+
+
+<a name="adding-spring-boot-project"></a>
+### 2.3. Adding a new Spring Boot Project
 
 1. Create (or copy existing) Spring boot maven project (Responsibility - Lead Dev)
 
@@ -173,10 +253,8 @@ TODO
 11. Push to Git repo  (Responsibility - Lead Dev)
 
     
-
-### Developing a new Spring Boot Endpoint
-
-**Main Tasks**
+<a name="developing-spring-boot-endpoint"></a>
+### 2.4. Developing a new Spring Boot Endpoint
 
 1. Define REST interface (Responsibility - Lead Dev / Dev)
 
@@ -205,24 +283,33 @@ TODO
 13. Create an Integration test to invoke RestController (Responsibility - Dev)
 
     
+<a name="build-and-run-services"></a>
+## 3. Build and Run Services
 
-## Building and Running Services
+<a name="pre-requisites"></a>
+### 3.1. Pre-Requisites
 
-### Pre-Requisites
+a) A local keycloak instance and Postgres DB has been installed and configured as per instructions in [qa-portal-infra project](../qa-portal-infra/README.md)
 
-a) A local keycloak instance and Postgres DB has been installed and configured. See instructions in 
-https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-infra/README.md
 
-### Build and Run Core Services
+<a name="start-microservices"></a>
+### 3.2. Start microservices
 
-a) Clone the qa-portal-services repo using command as per instructions on 
+a) Clone the qa-portal-services repo using command as per [QA-Portal](../README.md) instructions
 
-https://github.com/DevQAC/QA-Portal/blob/development/README.md
-
-b) From the base folder build with maven
+b) From the base folder (qa-portal-services) build all the sub projects with maven
 
 mvn clean install
 
-c) From the core-api folder start the core-api services as a spring boot application
+c) Start each of the following projects as Spring Boot applications
+
+portal-application-api (this will populate postgres database with any flyway script updates)<br>
+cohort-api<br>
+feedback-api<br>
+form-api<br>
+self-reflection-api<br>
+cv-api<br>
+
+using the following command
 
 mvn spring-boot:run

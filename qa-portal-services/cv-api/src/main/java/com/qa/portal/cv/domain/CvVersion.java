@@ -38,24 +38,24 @@ public class CvVersion {
     public CvVersion() {
         super();
     }
-
-    public CvVersion(String id, Integer versionNumber, String status, String userName, String firstName, String surname,
-                     String fullName, String cohort, Profile profile, List<Skills> allSkills,
-                     List<Qualification> allQualifications, List<WorkExperience> allWorkExperience, Hobbies hobbies) {
-        super();
-        this.id = id;
-        this.versionNumber = versionNumber;
-        this.status = status;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.surname = surname;
-        this.cohort = cohort;
-        this.profile = profile;
-        this.allSkills = allSkills;
-        this.allQualifications = allQualifications;
-        this.allWorkExperience = allWorkExperience;
-        this.hobbies = hobbies;
-    }
+//
+//    public CvVersion(String id, Integer versionNumber, String status, String userName, String firstName, String surname,
+//                     String fullName, String cohort, Profile profile, List<Skills> allSkills,
+//                     List<Qualification> allQualifications, List<WorkExperience> allWorkExperience, Hobbies hobbies) {
+//        super();
+//        this.id = id;
+//        this.versionNumber = versionNumber;
+//        this.status = status;
+//        this.userName = userName;
+//        this.firstName = firstName;
+//        this.surname = surname;
+//        this.cohort = cohort;
+//        this.profile = profile;
+//        this.allSkills = allSkills;
+//        this.allQualifications = allQualifications;
+//        this.allWorkExperience = allWorkExperience;
+//        this.hobbies = hobbies;
+//    }
 
     public String getId() {
         return id;

@@ -52,7 +52,7 @@ The angular-keycloak adapter by default provides an Http interceptor that will a
 
 The portal-core project manages navigation between applications within the portal and also manages which applications are available in the portal for a user.
 
-The portal-header components top navigation toolbar presents the user with the applications (grouped by department) available to the user based on the users roles. These roles were determined during keycloak authentication. The list of available applications is retrieved by a call to the core-api applications service.
+The portal-header components top navigation toolbar presents the user with the applications (grouped by department) available to the user based on the users roles. These roles were determined during keycloak authentication. The list of available applications is retrieved by a call to the portal-application-api applications service.
 
 Once the navigation toolbar has been loaded, the user navigates between applications by selecting an application from the menu. There are 2 events initiated when selecting an application from the menu
 
@@ -235,7 +235,7 @@ c) For communication between unrelated components (i.e. they don't have a parent
 a) A local keycloak instance and Postgres DB has been installed and configured. See instructions in 
 https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-infra/README.md
 
-b) An instance of core-api services are running locally. See instructions in
+b) An instance of portal-application-api services are running locally. See instructions in
 https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-services/README.md
 
 

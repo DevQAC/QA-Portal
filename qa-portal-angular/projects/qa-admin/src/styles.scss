@@ -1,0 +1,19 @@
+.cal-event {
+    height: 25px !important;
+    width: 25px !important;
+}
+
+
+.form-category-title-wrapper {
+    display: flex;
+    flex-direction: row;
+
+    .category-name {
+        width: 100%;
+
+    }
+
+    .question-count {
+        white-space: nowrap;
+    }
+}

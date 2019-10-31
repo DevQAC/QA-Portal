@@ -8,7 +8,7 @@ import com.qa.portal.common.persistence.entity.QuestionCategoryEntity;
 import com.qa.portal.common.persistence.repository.CohortCourseRepository;
 import com.qa.portal.common.persistence.repository.FormTypeRepository;
 import com.qa.portal.common.service.mapper.QuestionCategoryResponseMapper;
-import com.qa.portal.common.util.mapper.BaseMapper;
+import com.qa.portal.common.service.mapper.BaseMapper;
 import com.qa.portal.feedback.dto.CohortCourseEvaluationDto;
 import org.springframework.stereotype.Component;
 
@@ -43,7 +43,7 @@ public class GetEvaluationForTraineeAndCourseOperation {
     }
 
     public CohortCourseEvaluationDto getEvaluationForTraineeAndCourse(String traineeUserName, Integer cohortCourseId) {
-        return getCohortCourseEvaluationsForCourseOperation.getEvaluationsForCourse(cohortCourseId)
+        return getCohortCourseEvaluationsForCourseOperation.getAllEvaluationsForCourse(cohortCourseId)
                 .stream()
                 .filter(eval -> eval.getTrainee().getUserName().equals(traineeUserName))
                 .findFirst()
@@ -74,5 +74,4 @@ public class GetEvaluationForTraineeAndCourseOperation {
                 .map(e -> questionCategoryResponseMapper.createQuestionCategoryResponseDto(e))
                 .collect(Collectors.toList());
     }
-
 }

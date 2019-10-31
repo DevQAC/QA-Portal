@@ -1,0 +1,26 @@
+<h1>
+    Cohorts
+    <button mat-icon-button style="float: right" color="primary" (click)="onAddCohortButtonClicked()" title="Add a new cohort">
+        <mat-icon>add</mat-icon>
+    </button>
+</h1>
+
+<!-- <app-search-bar [hasFilterPanel]="false" (search)="performSearch()" [(value)]="searchInput"></app-search-bar> -->
+
+<app-data-table #dataTable [displayedColumns]="displayedColumns" [dataSource]="cohortsTableDataSource"
+    [isLoading]="isLoading" (rowClick)="onRowClicked($event)">
+    <!-- <button bulk-action mat-button color="primary">Edit</button> -->
+
+    <ng-container matColumnDef="cohortName">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let cohort"> {{cohort.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="trainer">
+        <th mat-header-cell *matHeaderCellDef> Trainer </th>
+        <td mat-cell *matCellDef="let cohort"> {{cohort.trainerUserName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="start">
+        <th mat-header-cell *matHeaderCellDef> Start Date </th>
+        <td mat-cell *matCellDef="let cohort"> {{cohort.startDate}} </td>
+    </ng-container>
+</app-data-table>

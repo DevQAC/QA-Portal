@@ -7,66 +7,66 @@ import java.util.List;
 @Table(schema = "training", name = "technology")
 
 public class TechnologyEntity extends QaBaseEntity {
-   
+
     @Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
-			generator = "technology_sequence")
-	@SequenceGenerator(name = "technology_sequence",
-			sequenceName = "training.technology_sequence",
-			allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "technology_sequence")
+    @SequenceGenerator(name = "technology_sequence",
+            sequenceName = "training.technology_sequence",
+            allocationSize = 1)
 
     private Integer id;
-    
-    @Column(name = "technology_name")    
+
+    @Column(name = "technology_name")
     private String technologyName;
 
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "technology_category_id")
     private TechnologyCategoryEntity technologyCategory;
 
-	@OneToMany(mappedBy = "technology")
-	private List<CourseTechnologyEntity> courseTechnology;
+    @OneToMany(mappedBy = "technology")
+    private List<CourseTechnologyEntity> courseTechnologyList;
 
-    @Column(name = "search_string")  
+    @Column(name = "search_string")
     private String searchString;
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getTechnologyName() {
-		return technologyName;
-	}
+    public String getTechnologyName() {
+        return technologyName;
+    }
 
-	public void setTechnologyName(String technologyName) {
-		this.technologyName = technologyName;
-	}
+    public void setTechnologyName(String technologyName) {
+        this.technologyName = technologyName;
+    }
 
-		public String getSearchString() {
-		return searchString;
-	}
+    public String getSearchString() {
+        return searchString;
+    }
 
-	public void setSearchString(String searchString) {
-		this.searchString = searchString;
-	}
+    public void setSearchString(String searchString) {
+        this.searchString = searchString;
+    }
 
-	public TechnologyCategoryEntity getTechnologyCategory() {
-		return technologyCategory;
-	}
+    public TechnologyCategoryEntity getTechnologyCategory() {
+        return technologyCategory;
+    }
 
-	public void setTechnologyCategory(TechnologyCategoryEntity technologyCategory) {
-		this.technologyCategory = technologyCategory;
-	}
+    public void setTechnologyCategory(TechnologyCategoryEntity technologyCategory) {
+        this.technologyCategory = technologyCategory;
+    }
 
-	public List<CourseTechnologyEntity> getCourseTechnology() {
-		return courseTechnology;
-	}
+    public List<CourseTechnologyEntity> getCourseTechnologyList() {
+        return courseTechnologyList;
+    }
 
-	public void setCourseTechnology(List<CourseTechnologyEntity> courseTechnology) {
-		this.courseTechnology = courseTechnology;
-	}
+    public void setCourseTechnologyList(List<CourseTechnologyEntity> courseTechnologyList) {
+        this.courseTechnologyList = courseTechnologyList;
+    }
 }

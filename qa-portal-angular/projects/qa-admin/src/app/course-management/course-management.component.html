@@ -1,0 +1,29 @@
+<h1>
+  Courses
+  <button mat-icon-button style="float: right" color="primary" (click)="onAddCourseButtonClicked()"
+    title="Add a new course">
+    <mat-icon>add</mat-icon>
+  </button>
+</h1>
+
+<!-- <app-search-bar [hasFilterPanel]="false" (search)="performSearch()" [(value)]="searchInput"></app-search-bar> -->
+
+<app-data-table #dataTable [displayedColumns]="displayedColumns" [dataSource]="coursesTableDataSource"
+  [isLoading]="isLoading" (rowClick)="onRowClicked($event)">
+  
+  <ng-container matColumnDef="courseName">
+    <th mat-header-cell *matHeaderCellDef> Code </th>
+    <td mat-cell *matCellDef="let course"> {{course.courseCode}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="courseCode">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let course"> {{course.courseName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="duration">
+    <th mat-header-cell *matHeaderCellDef> Suggested Duration </th>
+    <td mat-cell *matCellDef="let course"> {{course.duration}} </td>
+  </ng-container>
+
+</app-data-table>

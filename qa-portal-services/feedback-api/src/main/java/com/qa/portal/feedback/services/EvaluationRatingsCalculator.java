@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.qa.portal.common.dto.CohortCourseDto;
 import com.qa.portal.common.exception.QaPortalBusinessException;
 import com.qa.portal.common.persistence.entity.CohortCourseEntity;
-import com.qa.portal.common.persistence.entity.CourseEntity;
 import com.qa.portal.feedback.persistence.entity.CohortCourseEvaluationEntity;
 import com.qa.portal.feedback.persistence.entity.EvalQuestionCategoryResponseEntity;
 import com.qa.portal.feedback.persistence.repository.CohortCourseEvaluationRepository;
@@ -70,7 +69,7 @@ public class EvaluationRatingsCalculator {
                 .stream()
                 .findFirst()
                 .map(qr -> convertResponseValueToString(qr.getResponseValues()))
-                .orElseThrow(()  -> new QaPortalBusinessException("Error calculating Trainer evaluation"));
+                .orElseThrow(() -> new QaPortalBusinessException("Error calculating Trainer evaluation"));
     }
 
     private Integer getTqiForKnowledgeRating(String knowledgeRating) {
@@ -104,7 +103,6 @@ public class EvaluationRatingsCalculator {
 
     private String convertResponseValueToString(String responseValues) {
         try {
-            LOGGER.info("Response Values " + responseValues);
             ObjectMapper om = new ObjectMapper();
             TypeFactory typeFactory = om.getTypeFactory();
             List<String> values = om.readValue(responseValues, typeFactory.constructCollectionType(List.class, String.class));
@@ -112,8 +110,7 @@ public class EvaluationRatingsCalculator {
                 return values.get(0);
             }
             return NOT_APPLICABLE_STRING;
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             throw new QaPortalBusinessException("Error calculating Trainer evaluation");
         }
     }

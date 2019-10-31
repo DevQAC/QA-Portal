@@ -12,7 +12,11 @@ public class QaCohortDto extends QaBaseDto {
 
     private LocalDate startDate;
 
+    private String trainerUserName;
+
     private List<CohortCourseDto> cohortCourses;
+
+    private List<String> traineeNames;
 
     public Integer getId() {
         return id;
@@ -44,6 +48,22 @@ public class QaCohortDto extends QaBaseDto {
 
     public void setCohortCourses(List<CohortCourseDto> cohortCourses) {
         this.cohortCourses = cohortCourses;
+    }
+
+    public String getTrainerUserName() {
+        return trainerUserName;
+    }
+
+    public void setTrainerUserName(String trainerUserName) {
+        this.trainerUserName = trainerUserName;
+    }
+
+    public List<String> getTraineeNames() {
+        return traineeNames;
+    }
+
+    public void setTraineeNames(List<String> traineeNames) {
+        this.traineeNames = traineeNames;
     }
 
     @Override

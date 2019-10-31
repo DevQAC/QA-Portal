@@ -10,7 +10,9 @@ public class CourseDto extends QaBaseDto {
 
     private String courseCode;
 
-    private List<CourseTechnologyDto> technologies;
+    private Integer duration;
+
+    private List<CourseTechnologyDto> courseTechnologies;
 
     public Integer getId() {
         return id;
@@ -36,12 +38,19 @@ public class CourseDto extends QaBaseDto {
         this.courseCode = courseCode;
     }
 
-    public List<CourseTechnologyDto> getTechnologies() {
-        return technologies;
+    public List<CourseTechnologyDto> getCourseTechnologies() {
+        return courseTechnologies;
     }
 
-    public void setTechnologies(List<CourseTechnologyDto> technologies) {
-        this.technologies = technologies;
+    public void setCourseTechnologies(List<CourseTechnologyDto> courseTechnologies) {
+        this.courseTechnologies = courseTechnologies;
     }
 
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
 }

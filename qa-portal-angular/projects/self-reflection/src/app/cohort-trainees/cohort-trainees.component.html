@@ -2,16 +2,20 @@
   Trainer - Cohort Trainees
 </div>
 
-<div class='cohort-trainees'>
+<div style="display: flex; justify-content: center; margin-top: 20px">
+  <mat-spinner [diameter]="70" *ngIf="loadingCohorts"></mat-spinner>
+</div>
+
+<div *ngIf="!loadingCohorts" class='cohort-trainees'>
 
   <mat-expansion-panel expanded="true">
     <mat-expansion-panel-header>
       <mat-panel-title class="form-category-header">
         Cohorts
       </mat-panel-title>
-      <mat-panel-description>
-        Select a cohort to display the trainees with reflections for review
-      </mat-panel-description>
+<!--      <mat-panel-description>-->
+<!--        Select a cohort to display the trainees with reflections for review-->
+<!--      </mat-panel-description>-->
     </mat-expansion-panel-header>
 
     <table mat-table [dataSource]='dataSource' class="mat-elevation-z8">
@@ -30,14 +34,19 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="cohortColumns"></tr>
-      <tr  class="cohort-row" mat-row *matRowDef='let row; columns: cohortColumns;' (click)='updateTraineesTable(row)'></tr>
+      <tr  class="cohort-row" mat-row  matTooltip="Select cohort to display the trainees with reflections for review"
+           *matRowDef='let row; columns: cohortColumns;' (click)='updateTraineesTable(row)'></tr>
     </table>
   </mat-expansion-panel>
 
   <div style="margin-bottom: 20px;">
   </div>
 
-  <mat-card *ngIf="!!cohortSelected">
+  <div style="display: flex; justify-content: center; margin-top: 20px">
+    <mat-spinner [diameter]="70" *ngIf="loadingTrainees"></mat-spinner>
+  </div>
+
+  <mat-card *ngIf="!!cohortSelected && !loadingTrainees">
     <mat-card-subtitle *ngIf="dataSourceTrainees.data.length > 0">
       <span style="margin-left: 5px;">{{ cohortSelected }} has the following trainees with a reflection for review</span>
     </mat-card-subtitle>
@@ -68,7 +77,8 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="traineeColumns"></tr>
-        <tr class="trainee-row" mat-row *matRowDef="let row; columns: traineeColumns;" [routerLink]="reviewReflectionForm(row.id)"></tr>
+        <tr class="trainee-row" mat-row matTooltip="Select trainee to review their reflection form"
+            *matRowDef="let row; columns: traineeColumns;" [routerLink]="reviewReflectionForm(row.id)"></tr>
       </table>
     </mat-card-content>
   </mat-card>

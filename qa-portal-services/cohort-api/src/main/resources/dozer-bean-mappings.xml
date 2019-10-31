@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+      http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <configuration>
+        <custom-converters> <!-- these are always bi-directional -->
+            <converter type="com.qa.portal.common.util.mapper.converters.SqlTimestampInstantConverter">
+                <class-a>java.sql.Timestamp</class-a>
+                <class-b>java.time.Instant</class-b>
+            </converter>
+
+            <converter type="com.qa.portal.common.util.mapper.converters.LocalDateSqlDateConverter">
+                <class-a>java.time.LocalDate</class-a>
+                <class-b>java.sql.Date</class-b>
+            </converter>
+        </custom-converters>
+    </configuration>
+
+    <mapping>
+        <class-a>com.qa.portal.common.dto.CourseDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.CourseEntity</class-b>
+    </mapping>
+
+    <mapping>
+        <class-a>com.qa.portal.common.dto.CohortCourseDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.CohortCourseEntity</class-b>
+        <field-exclude>
+            <a>cohort</a>
+            <b>cohort</b>
+        </field-exclude>
+        <field-exclude>
+            <a>trainer</a>
+            <b>trainer</b>
+        </field-exclude>
+    </mapping>
+
+    <mapping>
+        <class-a>com.qa.portal.common.dto.TechnologyCategoryDto</class-a>
+        <class-b>com.qa.portal.common.persistence.entity.TechnologyCategoryEntity</class-b>
+        <field-exclude>
+            <a>technologies</a>
+            <b>technologies</b>
+        </field-exclude>
+    </mapping>
+</mappings>

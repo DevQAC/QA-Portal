@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Add New Location</h1>
+<form [formGroup]="locationForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+   <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address" required>
+      </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button [mat-dialog-close]="false" [disabled]="isLoading" type="button">Cancel</button>
+    <button mat-flat-button color="primary" type="submit"
+      [disabled]="isLoading || locationForm.invalid">Create</button>
+  </div>
+</form>
+<app-spinner-overlay [show]="isLoading"></app-spinner-overlay>

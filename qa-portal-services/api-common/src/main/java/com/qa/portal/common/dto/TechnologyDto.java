@@ -8,8 +8,6 @@ public class TechnologyDto extends QaBaseDto {
 
     private String technologyName ;
 
-    private TechnologyCategoryDto technologyCategory;
-
     private List<CourseTechnologyDto> courseTechnologies;
 
     private String searchString;
@@ -30,14 +28,6 @@ public class TechnologyDto extends QaBaseDto {
         this.technologyName = technologyName;
     }
 
-    public TechnologyCategoryDto getTechnologyCategory() {
-        return technologyCategory;
-    }
-
-    public void setTechnologyCategory(TechnologyCategoryDto technologyCategory) {
-        this.technologyCategory = technologyCategory;
-    }
-
     public List<CourseTechnologyDto> getCourseTechnologies() {
         return courseTechnologies;
     }
@@ -52,9 +42,5 @@ public class TechnologyDto extends QaBaseDto {
 
     public void setSearchString(String searchString) {
         this.searchString = searchString;
-    }
-
-    public String getTechnologyCategoryName() {
-        return technologyCategory.getSearchString();
     }
 }

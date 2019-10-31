@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Add New Cohort</h1>
+<form [formGroup]="cohortForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Cohort Name</mat-label>
+      <input formControlName="name" matInput required>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="startDatePicker" formControlName="startDate" required>
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Primary Trainer</mat-label>
+      <mat-select formControlName="trainerUserName">
+        <mat-option *ngFor="let trainer of availableTrainers" [value]="trainer.user.userName" required>
+          <strong>{{trainer.user?.firstName}}
+            {{trainer.user?.lastName}}</strong> {{trainer.user?.firstName || trainer.user?.lastName ? '-' : ''}}
+          {{trainer.user?.userName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button type="button" [mat-dialog-close]="false" [disabled]="isLoading">Cancel</button>
+    <button mat-flat-button color="primary" type="submit"
+      [disabled]="isLoading || cohortForm.invalid">Create</button>
+  </div>
+</form>
+<app-spinner-overlay [show]="isLoading"></app-spinner-overlay>

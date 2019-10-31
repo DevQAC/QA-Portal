@@ -1,0 +1,25 @@
+
+.overlay-container {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    pointer-events: none;
+
+    transition: all 0.2s ease-in-out;
+
+    // Hidden
+    opacity: 0;
+
+
+    &.fade-bg {
+        background-color: rgba(200, 200, 200, 0.333);
+    }
+    
+    &.show {
+        opacity: 1;
+    }
+}

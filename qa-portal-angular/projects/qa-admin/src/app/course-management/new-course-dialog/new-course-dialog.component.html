@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Add New Course</h1>
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Course Code</mat-label>
+      <input matInput formControlName="courseCode" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Course Name</mat-label>
+      <input matInput formControlName="courseName" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Suggested Duration</mat-label>
+      <input matInput formControlName="duration" type="number" min="1" step="1" max="99" pattern="\d*" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Technologies</mat-label>
+      <mat-select formControlName="courseTechnologies" multiple>
+        <mat-optgroup *ngFor="let category of availableTechCategories" [label]="category.categoryName">
+          <mat-option *ngFor="let tech of category.technologies" [value]="tech.id">
+            {{tech.technologyName}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions class="action-buttons">
+    <button mat-button [mat-dialog-close]="false" [disabled]="isLoading" type="button">Cancel</button>
+    <button mat-flat-button color="primary" type="submit"
+      [disabled]="isLoading || courseForm.invalid">Create</button>
+  </div>
+</form>
+<app-spinner-overlay [show]="isLoading"></app-spinner-overlay>

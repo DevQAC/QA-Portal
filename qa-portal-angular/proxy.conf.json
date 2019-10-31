@@ -1,5 +1,5 @@
 {
-  "/core-api": {
+  "/portal-application-api": {
     "target": "http://localhost:8081",
     "secure": false,
     "logLevel": "debug"
@@ -9,28 +9,28 @@
     "secure": false,
     "logLevel": "debug"
   },
-  "/user-api": {
-    "target": "http://localhost:8083",
-    "secure": false,
-    "logLevel": "debug"
-  },
   "/feedback-api": {
     "target": "http://localhost:8084",
     "secure": false,
     "logLevel": "debug"
   },
-  "/question-api": {
+  "/form-api": {
     "target": "http://localhost:8085",
     "secure": false,
     "logLevel": "debug"
   },
-  "/course-api": {
+  "/cohort-api": {
     "target": "http://localhost:8086",
     "secure": false,
     "logLevel": "debug"
   },
   "/cv-api": {
     "target": "http://localhost:8087",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/auth": {
+    "target": "http://localhost:8080",
     "secure": false,
     "logLevel": "debug"
   }

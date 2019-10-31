@@ -1,0 +1,42 @@
+.portal-apps {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+
+    &[num-of-apps="2"] {
+        grid-template-columns: 50% 50%;
+    }
+    &[num-of-apps="1"] {
+        grid-template-columns: 100%;
+    }
+
+    @media only screen and (max-width: 1280px) {
+        grid-template-columns: 50% 50%;
+    }
+
+    @media only screen and (max-width: 800px) {
+        grid-template-columns: 100%;
+    }
+
+    .app-card-container {
+        padding: 1rem;
+    }
+
+    .application-card {
+        max-width: 400px;
+        margin: auto;
+        
+    }
+
+    .mat-list-item {
+        cursor: pointer;
+
+        &:hover {
+            background: map-get($map: $mat-light-theme-background, $key: 'hover');
+        }
+    }
+}
+
+mat-divider {
+    margin: 1rem
+}
+

@@ -13,7 +13,7 @@ mat-cell.cdk-column-date{
 }
 
 .cohort-trainees {
-  margin-top: 20px;
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
 }

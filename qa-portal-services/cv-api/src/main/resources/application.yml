@@ -23,9 +23,10 @@ spring:
 
   jpa:
     properties:
-      jdbc:
-        lob:
-          non_contextual_creation=true:logging: true
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
   level:
     org.springframework.web: DEBUG
@@ -50,18 +51,30 @@ cv:
   hobbies:
     detail:
       max: 750
+  
+  enable_public_endpoints: false
 
 qa:
   keycloak:
     config:
       file: keycloak.json
 
+    admin:
+      enabled: false
+
 onedrive:
   isActive: true
   baseFolder: root/CVs
   clientId: 08478ba0-3a48-4179-9622-9b2d420a0846
   clientSecret: d48AYcXReGDfD8rNwkVu=BaD9Fh+ju./
+  authUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+  scopeUrl: https%3A%2F%2Fgraph.microsoft.com%2F.default
   url: https://graph.microsoft.com/v1.0/me/drive/
+  connections:
+    max:
+      total: 30
+    per:
+      route: 6
 
 ---
 spring:

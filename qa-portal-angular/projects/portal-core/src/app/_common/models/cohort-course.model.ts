@@ -2,19 +2,20 @@ import {CourseModel} from './course.model';
 import {TrainerModel} from './trainer.model';
 import {CohortModel} from './cohort.model';
 import {LocationModel} from './location.model';
+import { UserModel } from './user.model';
 
 export class CohortCourseModel {
   id: number;
 
-  startDate: Date;
+  startDate: Date | string;
 
-  endDate: Date;
+  endDate: Date | string;
 
   course: CourseModel;
 
   cohort: CohortModel;
 
-  trainer: TrainerModel;
+  trainer: UserModel;
 
   location: LocationModel;
 
