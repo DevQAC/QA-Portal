@@ -9,8 +9,8 @@ services:
   cv-ui:
     image: qa-cv-standalone:latest
     ports:
-      - target: 4200
-        published: 4200
+      - target: 9001
+        published: 9001
   cv-api:
     image: cv-api:latest
     ports:
