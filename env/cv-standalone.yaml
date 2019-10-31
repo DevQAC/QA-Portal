@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=qa-portal
+  cv-ui:
+    image: qa-cv-standalone:latest
+    ports:
+      - target: 9001
+        published: 9001
+  cv-api:
+    image: cv-api:latest
+    ports:
+      - target: 8080
+        published: 8080
+    build: 
+      context: ../qa-portal-services
+      args:
+        - PROJECT=cv-api
+    environment:
+      - POSTGRES_HOST=postgres
+      - ENABLE_PUBLIC_ENDPOINTS=true
+    depends_on:
+      - postgres

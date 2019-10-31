@@ -38,6 +38,8 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     public static final String PORTAL_ADMIN_ROLE = "super-user";
 
+    public static final String PUBLIC_APIS = "/public/**";
+
     private KeycloakConfigResolver configResolver;
 
     @Autowired
@@ -71,7 +73,8 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                         SWAGGER_UI,
                         SWAGGER_RESOURCES,
                         SWAGGER_RESOURCES_SECURITY,
-                        SWAGGER_UI_PAGE).permitAll()
+                        SWAGGER_UI_PAGE,
+                        PUBLIC_APIS).permitAll()
                 .antMatchers(MANAGEMENT_APIS).hasAuthority(PORTAL_ADMIN_ROLE)
                 .anyRequest().authenticated()
                 .and()
