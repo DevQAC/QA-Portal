@@ -134,14 +134,13 @@ The roles for a user are associated with a portal application, with the top leve
 Portal applications and the associated resources can only be managed by a user with the super-user role through the administration application.<br><br>
 The portal-application-api manages the qa portal application database schema through the flyway library and scripts located in the src/main/resources/db/migration folder. Possible change for the future would be to move these into a database management project.<br> 
 
- 
 ##### 2.2.2.2. Class Diagram
 
 ![](../docs/image/portal-application-api.jpg)
 
 ##### 2.2.2.3. Rest Api
 
-The portal-application-api projects REST api can be viewed at http://{server}:8081/portal-application-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8081/portal-application-api/swagger-ui.html.
+The portal-application-api projects REST api can be viewed at http://{server}:8081/portal-application-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8081/portal-application-api/swagger-ui.html.<br><br>
 
 #### 2.2.3. cohort-api
 
@@ -158,7 +157,7 @@ Cohorts and the associated resources can only be managed by a user with the supe
 
 ##### 2.2.3.3. Rest API
 
-The cohort-api projects REST api can be viewed at http://{server}:8086/cohort-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8086/cohort-api/swagger-ui.html.
+The cohort-api projects REST api can be viewed at http://{server}:8086/cohort-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8086/cohort-api/swagger-ui.html.<br><br>
 
 #### 2.2.4. cv-api
 
@@ -178,11 +177,14 @@ A CV version can have the following states:<br>
 
 ##### 2.2.4.3. Rest Api
 
-The cv-api projects REST api can be viewed at http://{server}:8087/cv-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8087/cv-api/swagger-ui.html.
+The cv-api projects REST api can be viewed at http://{server}:8087/cv-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8087/cv-api/swagger-ui.html.<br><br>
 
 #### 2.2.5. feedback-api
 
 ##### 2.2.5.1. Overview
+
+The feedback-api manages trainee course evaluations and trainer course feedback. The trainee evaluation and trainer feedback form templates are created and managed by the form-api spring boot service. The feedback-api is responsible for managing instances of these forms created from the form templates and the responses provided to the questions within these form instances.<br><br>
+The response classes are located in the api-common project as they can also be used by other spring boot projects (e.g. self-reflection-api), but the form specific information for the feedback and evaluation forms is defined within feedback-api.<br>
 
 ##### 2.2.5.2. Class Diagram
 
@@ -190,11 +192,14 @@ The cv-api projects REST api can be viewed at http://{server}:8087/cv-api/swagge
 
 ##### 2.2.5.3. Rest Api
 
-The feedback-api projects REST api can be viewed at http://{server}:8084/feedback-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8084/feedback-api/swagger-ui.html.
+The feedback-api projects REST api can be viewed at http://{server}:8084/feedback-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8084/feedback-api/swagger-ui.html.<br><br>
 
 #### 2.2.6. form-api
 
 ##### 2.2.6.1. Overview
+
+The form-api is responsible for managing the structure of the various forms used within the QA Portal. Each form is broken down into a group of question categories and each of these categories is further divided into a number of questions. Only a user with a super-user role is allowed to manage the form templates through the Form Management component of the Portals Administration application.<br><br>
+The resources managed by the form-api are defined in the api-common project as they are used across a number of the QA Portal spring boot services (e.g. feedback-api and self-reflection-api), but they are only created and updated through the form-api.<br>
 
 ##### 2.2.6.2. Class Diagram
 
@@ -202,7 +207,7 @@ The feedback-api projects REST api can be viewed at http://{server}:8084/feedbac
 
 ##### 2.2.6.3. Rest Api
 
-The form-api projects REST api can be viewed at http://{server}:8085/form-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8085/form-api/swagger-ui.html.
+The form-api projects REST api can be viewed at http://{server}:8085/form-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8085/form-api/swagger-ui.html.<br><br>
 
 
 #### 2.2.7. self-reflection-api
@@ -215,7 +220,7 @@ The form-api projects REST api can be viewed at http://{server}:8085/form-api/sw
 
 ##### 2.2.7.3. Rest Api
 
-The self-reflection-api projects REST api can be viewed at http://{server}:8082/self-reflection-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8082/self-reflection-api/swagger-ui.html.
+The self-reflection-api projects REST api can be viewed at http://{server}:8082/self-reflection-api/swagger-ui.html. If you are running the service locally then the API will be available at http://localhost:8082/self-reflection-api/swagger-ui.html.<br><br>
 
 
 <a name="adding-spring-boot-project"></a>
