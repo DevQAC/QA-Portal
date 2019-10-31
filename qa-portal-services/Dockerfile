@@ -7,5 +7,7 @@ FROM openjdk:8-alpine
 ARG PROJECT
 WORKDIR /opt/${PROJECT}
 COPY --from=build /build/${PROJECT}/target/${PROJECT}-*.jar app.jar
+RUN mkdir -p target/classes
+COPY --from=build /build/${PROJECT}/target/classes target/classes
 EXPOSE 8080
-ENTRYPOINT ["/usr/bin/java", "-Dspring.datasource.url=jdbc:postgresql://${POSTGRES_HOST}:5432/qa-portal", "-jar", "./app.jar"]
+ENTRYPOINT ["/usr/bin/java", "-Dserver.port=8080", "-Dspring.datasource.url=jdbc:postgresql://${POSTGRES_HOST}:5432/qa-portal", "-jar", "./app.jar"]
