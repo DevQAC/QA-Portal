@@ -45,8 +45,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
     private Map<String, Function<CvVersion, List<String>>> skillsMap;
 
-    private DateTimeFormatter dateTimeFormatter;
-
     private TrueTypeFont montserratTTF;
 
     private TrueTypeFont montserratBoldTTF;
@@ -57,7 +55,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     public void init() {
         createSkillsMap();
         createFonts();
-        createDateFormatter();
     }
 
 	@Override
@@ -276,10 +273,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         }
     }
 
-    private void createDateFormatter() {
-        dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY.MM");
-    }
-
     private CvPdfElement getCvPdfElement(Float width, Float height, Float xPos, Float yPos) {
         try {
             return new CvPdfElement(width, height, xPos, yPos);
@@ -293,10 +286,5 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         StringBuffer sb = new StringBuffer();
         sb.append(workExperience.getJobTitle());
         return sb.toString();
-    }
-
-    private String formatDateToMMYY(String dateString) {
-        Instant dateTime = Instant.parse(dateString);
-        return dateTime.atZone(ZoneId.systemDefault()).toLocalDate().format(dateTimeFormatter);
     }
 }
