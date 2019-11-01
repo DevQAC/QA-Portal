@@ -291,10 +291,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
 
     private String getWorkExperenceJobHeader(WorkExperience workExperience) {
         StringBuffer sb = new StringBuffer();
-        sb.append(formatDateToMMYY(workExperience.getStart()));
-        sb.append(" - ");
-        sb.append((workExperience.getEnd() == null || workExperience.getEnd().trim().length() == 0) ? "Present" : formatDateToMMYY(workExperience.getEnd()));
-        sb.append(" : ");
         sb.append(workExperience.getJobTitle());
         return sb.toString();
     }

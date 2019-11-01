@@ -36,7 +36,7 @@ cv:
     entries:
       max: 3
     detail:
-      max: 400
+      max: 1000
 
   qualification:
     entries:
@@ -52,7 +52,7 @@ cv:
     detail:
       max: 750
   
-  enable_public_endpoints: false
+  enable_public_endpoints: true
 
 qa:
   keycloak:
@@ -63,7 +63,7 @@ qa:
       enabled: false
 
 onedrive:
-  isActive: true
+  isActive: false
   baseFolder: root/CVs
   clientId: 08478ba0-3a48-4179-9622-9b2d420a0846
   clientSecret: d48AYcXReGDfD8rNwkVu=BaD9Fh+ju./

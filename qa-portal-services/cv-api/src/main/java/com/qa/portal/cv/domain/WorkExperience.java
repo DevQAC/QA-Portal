@@ -6,9 +6,6 @@ public class WorkExperience {
 
     private String jobTitle;
 
-    private String start;
-
-    private String end;
 
     private String workExperienceDetails;
 
@@ -24,22 +21,6 @@ public class WorkExperience {
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
-    }
-
-    public String getStart() {
-        return start;
-    }
-
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public String getEnd() {
-        return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
     }
 
     public String getWorkExperienceDetails() {
