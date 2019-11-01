@@ -1,6 +1,22 @@
 # QA Portal - Angular
 
-## Overview
+**[1. Overview](#overview)**
+
+**[2. Developer Guide](#developer-guide)**
+- [2.1. Portal Core Application](#portal-core)
+- [2.2. QA Common Application](#qa-common-app)
+- [2.3. QA Error Application](#qa-error-app)
+- [2.4. QA Home Application](#qa-home-app)
+- [2.5. Self Reflection Application](#qa-reflection-app) 
+- [2.6. Create Portal Application](#create-portal-application) 
+- [2.7. Develop Portal Components and Services](#develop-components-and-services)
+
+**[3. Build and Run Services](#build-and-run-services)**
+- [3.1. Pre-requisites](#build-run-portal-prereq)
+- [3.2. Start portal](#start-portal)
+
+<a name="overview"></a>
+## 1. Overview
 
 The projects in this repository provide the UI components of the QA Portal application. At the top level is an angular workspace containing each of the applications that are part of the QA Portal. These applications are all configured from the angular.json file defined in the workspace.
 
@@ -30,14 +46,16 @@ npm start
 
 This will use the proxy.conf.json file to route calls to external services. If the proxy.conf.json is not included in the start up configuration the external service calls will fail.
 
-## Developer Guide
+<a name="developer-guide"></a>
+## 2. Developer Guide
 
 The following provides a more detailed explanation of each of the portal projects, how they are structured, how to add a new application to the portal, and the associated development tasks.
 
-### Portal Core Application
+<a name="portal-core"></a>
+### 2.1. Portal Core Application
 
 
-#### Security
+#### 2.1.1. Security
 
 Security is managed by Keycloak with the application integrated with the Keycloak Identity and Access Management Provider through an angular-keycloak adapter. The portal-core app.module.ts has an APP_INITIALIZER provider that triggers the initializer function in app-init.ts. This initiates the keycloak authentication. If the user is not authenticated, then the application is redirected to the keycloak provider and a log in page for the QA Portal is presented to the user.
 
@@ -48,7 +66,7 @@ The angular-keycloak adapter by default provides an Http interceptor that will a
 **STILL TO BE DEVELOPED** - A user could enter a url into the browser address bar that they do not have sufficient privileges to access. In order to prevent this, we need to implement an Angular Guard and configure this to each of the routes in our application. The Guard will be invoked before the route is activated to prevent unauthorized access.
 
 
-#### Portal Navigation
+#### 2.1.2. Portal Navigation
 
 The portal-core project manages navigation between applications within the portal and also manages which applications are available in the portal for a user.
 
@@ -61,7 +79,7 @@ a) The side navigation menu items will update to contain the menu items for this
 b) The main content pane will display the home page of the selected application. This is default angular behaviour based on the routerLink anchor in the portal-header.component.html file
  
 
-#### Application Navigation
+#### 2.1.3. Application Navigation
 
 Navigation within an application is controlled from links within the application or from the menu items on the side navigation pane. 
 
@@ -70,7 +88,7 @@ Each application has an app-routing.module.ts file to define it's navigation rou
 The portal-core app-routing.module.ts loads the routing modules of each of the portal projects and all routing is controlled from the portal-core project. The intention is to lazy load these routing modules but at the moment they are directly loaded as there appears to be a problem with lazy loading from other applications in Angular 8. 
 
 
-#### Error Handling
+#### 2.1.4. Error Handling
 
 The portal-core application manages error handling through the QaErrorHandlingService (qa-error-handling.service.ts). This can be referenced from any of the portal applications. For an example of using the error handler service, see self-reflection-form.component.ts
 
@@ -78,7 +96,8 @@ The error handling service will redirect any severe errors to an error page advi
 
 Any application errors that can be resolved by the user will be displayed using the Toastr service.
 
-### QA Common Application
+<a name="qa-common-app"></a>
+### 2.2. QA Common Application
 
 Any UI components that can be reused across the various Portal applications should be placed in the QA Common Application. This application does not have routing configured. 
 
@@ -88,19 +107,20 @@ See rated-question component in the QA Common application for an example of a re
 
 For an example of using one of these components see the self-reflection-form component of the Trainee Reflection application. 
 
-### QA Error Application
+<a name="qa-error-app"></a>
+### 2.3. QA Error Application
 
 The Error application provides a basic error component and it's associated routing. The routing to this component should only be triggered through the QaErrorHandlerService in the portal-core application.
 
 This application is still under development.
 
- 
-### Portal Home Application
+<a name="qa-home-app"></a> 
+### 2.4. Portal Home Application
 
 This should be the default application when a user logs into the QA Portal. This application is still under development. 
 
-
-### Trainee Reflection Application
+<a name="qa-reflection-app"></a> 
+### 2.5. Trainee Reflection Application
 
 This has been developed to provide guidance for the future development of Portal applications. The application has basic functionality, but has examples of the following
 
@@ -120,8 +140,8 @@ d) Define routes
 
 Routes are defined in the app-routing.module.ts, as per the angular standard convention.
 
-
-### Adding a new application to the Portal
+<a name="create-portal-application"></a>
+### 2.6. Create Portal Application
 
 NOTE: Replace any references to {appname} and {AppName}SharedModule with the actual name of your application and module
 
@@ -180,8 +200,8 @@ _common/models<br>
 _common/services<br>
 _common/validators<br>
 
-
-### Developing Portal Components and Services
+<a name="develop-components-and-services"></a>
+### 2.7. Developing Portal Components and Services
 
 a) Generate a new component. From the workspace root folder run the following
 
@@ -194,7 +214,7 @@ services<br>
 validators<br>
 
 
-#### Component Guidelines
+#### 2.7.1. Component Guidelines
 
 When developing a {compname}.component.ts the following are useful guidelines to follow
 
@@ -213,7 +233,7 @@ f) For scenarios as described in e) where data is being loaded asynchronously it
 g) Any validation required for the component should be placed in a separate validate class, which should be injected into the component. Again this is to separate functionality and prevent the component from getting bloated and difficult to maintain and test.
  
  
-#### Service Guidelines
+#### 2.7.2. Service Guidelines
 
 a) Where to put the service code
 
@@ -227,10 +247,11 @@ b) Each service class should be decorated with the @Injectable annotation. This 
 
 c) For communication between unrelated components (i.e. they don't have a parent child relationship), services can be used along with subscriptions to rxjs Subjects (or BejaviourSubjects). See the ApplicationSelectionService class in the portal-core application for an example.
 
+<a name="build-run-portal"></a>
+## 3. Building and Running Portal
 
-## Building and Running Portal
-
-### Pre-Requisites
+<a name="build-run-portal-prereq"></a>
+### 3.1. Pre-Requisites
 
 a) A local keycloak instance and Postgres DB has been installed and configured. See instructions in 
 https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-infra/README.md
@@ -238,8 +259,8 @@ https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-infra/README.md
 b) An instance of portal-application-api services are running locally. See instructions in
 https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-services/README.md
 
-
-### Build and Run QA Portal
+<a name="start-portal"></a>
+### 3.2. Start QA Portal
 
 a) Clone the qa-portal-angular repo using command
 
@@ -247,8 +268,8 @@ See instruction in https://github.com/DevQAC/QA-Portal/blob/master/README.md
 
 b) From the base project folder install dependencies using npm
 
-npm install
+    npm install
 
 c) From the base project folder start the angular application
 
-npm start
+    npm start
