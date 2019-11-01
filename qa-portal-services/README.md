@@ -184,7 +184,7 @@ The cv-api projects REST api can be viewed at http://{server}:8087/cv-api/swagge
 ##### 2.2.5.1. Overview
 
 The feedback-api manages trainee course evaluations and trainer course feedback. The trainee evaluation and trainer feedback form templates are created and managed by the form-api spring boot service. The feedback-api is responsible for managing instances of these forms created from the form templates and the responses provided to the questions within these form instances.<br><br>
-The response classes are located in the api-common project as they can also be used by other spring boot projects (e.g. self-reflection-api), but the form specific information for the feedback and evaluation forms is defined within feedback-api.<br>
+The question  and category response classes are located in the api-common project as they can also be used by other spring boot projects (e.g. self-reflection-api), but the form specific information for the feedback and evaluation forms is defined within feedback-api.<br>
 
 ##### 2.2.5.2. Class Diagram
 
@@ -213,6 +213,9 @@ The form-api projects REST api can be viewed at http://{server}:8085/form-api/sw
 #### 2.2.7. self-reflection-api
 
 ##### 2.2.7.1. Overview
+
+The self-reflection-api manages trainee self reflection forms and the reviews of those forms by a trainer. The self reflection form template is managed by the form-api spring boot service. The self-reflection-api is responsible for managing instances of these self reflection forms created from the form template and the responses provided to the questions within these form instances.<br><br>
+The question response class (ReflectionQuestionEntity) is located in the self-reflection-api project, but a task has been raised in [JIRA](https://qacacademyred.atlassian.net/jira/software/projects/PG/boards/20) to refactor this code to use the same question and category response classes that are used in the feedback-api project.<br>
 
 ##### 2.2.7.2. Class Diagram
 
