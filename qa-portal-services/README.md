@@ -18,9 +18,9 @@
 
 The projects in this repository provide the business logic, service integration and persistence capabilities of the QA Portal application. The repository is structured as follows
 
-a) A single library project (api-common) containing code to be used by all the QA Portal micro-service projects. This should reduce the time to develop new micro-service projects, maximise code reuse and encourage a consistent approach to developing these micro-service projects. 
+   - A single library project (api-common) containing code to be used by all the QA Portal micro-service projects. This should reduce the time to develop new micro-service projects, maximise code reuse and encourage a consistent approach to developing these micro-service projects. 
 
-b) Several Spring Boot micro-service projects that use the api-common library. Each micro-service project exposes the REST endpoints for a specific application domain. These micro-service projects should utilise the security, exception handling, persistence and mapper functionality provided by the common-api library. The REST endpoints will be accessed by the QA Portal angular client, but could be accessed from any client provided the client is configured with the appropriate keycloak security adapter. 
+   - Several Spring Boot micro-service projects that use the api-common library. Each micro-service project exposes the REST endpoints for a specific application domain. These micro-service projects should utilise the security, exception handling, persistence and mapper functionality provided by the common-api library. The REST endpoints will be accessed by the QA Portal angular client, but could be accessed from any client provided the client is configured with the appropriate keycloak security adapter. 
 
 
 <a name="developer-guide"></a>
@@ -35,40 +35,40 @@ The api-common project should be used by all the QA Portal micro-service project
 
 Keycloak (https://www.keycloak.org/documentation.html) has been selected to provide the authentication mechanism for the QA Portal application. Keycloak is an identity and access management provider with client adapter libraries our applications can use to integrate with the Keycloak provider. For our Spring Boot micro-services this requires a Spring security configuration to integrate with keycloak. This is achieved as follows:
 
-a) A keycloak spring security dependency in the pom.xml file of the api-common project (and each of the Spring Boot micro-service projects).
+   - A keycloak spring security dependency in the pom.xml file of the api-common project (and each of the Spring Boot micro-service projects).
 
-b) A keycloak implementation of Spring Security Config (in api-common project). This is provided by the com.qa.portal.common.config.SecurityConfig class. The KeyclockConfigResolver injected into SecurityConfig returns a keycloak.json file. 
+   - A keycloak implementation of Spring Security Config (in api-common project). This is provided by the com.qa.portal.common.config.SecurityConfig class. The KeyclockConfigResolver injected into SecurityConfig returns a keycloak.json file. 
 
-c) A keycloak,json file added to the resources folder of each Spring Boot micro-service project. This specifies the configuration for the Keycloak adapter to connect to the Keycloak provider. 
+   - A keycloak.json file added to the resources folder of each Spring Boot micro-service project. This specifies the configuration for the Keycloak adapter to connect to the Keycloak provider. 
 
 This keycloak.json configuration can be obtained from the keycloak providers admin console as follows - 
 
-i) Log into the keycloak admin console (http://localhost:8080/auth/admin/)
+   - Log into the keycloak admin console (http://localhost:8080/auth/admin/)
 
-ii) Select the qa-portal realm
+   - Select the qa-portal realm
 
-iii) In Clients option, select the qa-portal-services-core client
+   - In Clients option, select the qa-portal-services-core client
 
-iv) Select the Installation option (right most option)
+   - Select the Installation option (right most option)
 
-v) Select Keycloak OIDC JSON format
+   - Select Keycloak OIDC JSON format
 
-vi) The JSON configuration will be displayed.
+   - The JSON configuration will be displayed.
 
-vii) Copy and paste this into the keycloak.json file in the resources file. 
+   - Copy and paste this into the keycloak.json file in the resources file. 
 
 
 #### 2.1.2. Standard Exception handling mechanism
 
 Spring Boot provides an Exception Handling mechanism that separates the exception handling from our business code. In the api-common project the com.qa.portal.common.exception.QaPortalExceptionHandler class has been created to provide this central exception handling mechanism. There are 3 QA Portal Exceptions that should be thrown from our Spring Boot micro-services: 
 
-QAPortalBusinessException - thrown if we encounter a business validation issue, or an error that is recoverable by user action within the application.
+   - QAPortalBusinessException - thrown if we encounter a business validation issue, or an error that is recoverable by user action within the application.
 
-QaResourceNotFoundException - thrown if an entity (resource) is not found. 
+   - QaResourceNotFoundException - thrown if an entity (resource) is not found. **THIS SHOULD NOW BE DEPRECATED AND EVENTUALLY REMOVED**
 
-QaPortalSevereException - thrown if the application encounters a serious error that user action could not resolve (e.g. Out of memory exception, cannot connect to external resource (database or service), etc). 
+   - QaPortalSevereException - thrown if the application encounters a serious error that user action could not resolve (e.g. Out of memory exception, cannot connect to external resource (database or service), etc). 
 
-Any Runtime Exceptions will also be handled by the QAPortalExceptionHandler and will be treated by the client in the same way as a QAPortalSevereException.
+   - Any Runtime Exceptions will also be handled by the QAPortalExceptionHandler and will be treated by the client in the same way as a QAPortalSevereException.
 
 The current QAPortalExceptionHandler implementation is very basic. The intention is to extend this to source messages from a file external to the application and the facility to insert contextual information into those messages.
 
@@ -79,11 +79,11 @@ Optimistic Locking is the standard solution solution for dealing with concurrent
 
 The com.qa.portal.common.persistence.entity.QaBaseEntity is a mapped superclass (fancy way of saying a superclass of an Entity class that has persistence mappings but is not itself an Entity). This class has the following 3 properties, all of which are automatically set
 
-last_updated_timestamp
+   - last_updated_timestamp
 
-last_updated_by
+   - last_updated_by
 
-version
+   - version
 
 The version property is decorated with @Version which tells JPA providers that this is the column to use to track the version of the entity instance. Everything else is taken care of by the JPA provider. If an entity cannot be updated due to concurrent access, an OptimisticLockException will be thrown, which will be handled by the central QaPortalExceptionHandler, returning a message to the client advising them to retry the operation. 
 
@@ -107,23 +107,23 @@ a) Spring Boot Application class placed in the com.qa.portal package. Spring Boo
 
 b) Under the com.qa.portal.projname package, the following packages should be created
 
-**config** - contains Spring Boot configuration classes for the instantiation of beans to be managed by Springs IOC container for this application (alternatively for classes that require no special initialisation, then decorating your class with @Component will have the same effect)
+   - **config** - contains Spring Boot configuration classes for the instantiation of beans to be managed by Springs IOC container for this application (alternatively for classes that require no special initialisation, then decorating your class with @Component will have the same effect)
 
-**dto** - data transfer objects passed across the wire from client to the service. Ideally these should be immutable (current micro-service projects have mutable DTOs)
+   - **dto** - data transfer objects passed across the wire from client to the service. Ideally these should be immutable (current micro-service projects have mutable DTOs)
 
-**persistence** - when using JPA, separated into entity and repository subpackages. Each entity requiring optimistic locking, last_updated_timestamp and last_updated_by properties should extend QABaseEntity. Ensure that all relationships are modelled (i.e. we don't want entities with ids representing foreign keys).
+   - **persistence** - when using JPA, separated into entity and repository subpackages. Each entity requiring optimistic locking, last_updated_timestamp and last_updated_by properties should extend QABaseEntity. Ensure that all relationships are modelled (i.e. we don't want entities with ids representing foreign keys).
 
-**rest** - Spring Boot RestControllers added to this package. The controller classes should have no business or exception handling logic, instead just delegating to the service classes to carry out the business logic. Exceptions should be handled centrally by QaPortalExceptionHandler. 
+   - **rest** - Spring Boot RestControllers added to this package. The controller classes should have no business or exception handling logic, instead just delegating to the service classes to carry out the business logic. Exceptions should be handled centrally by QaPortalExceptionHandler. 
 
-**service** - all business logic and management of persistence objects (entities) are performed by the classes in this package. A service class provides the entry point to this business processing, and provides the transaction boundary for the operation. The service class method called from a RestController should be decorated with the @Transactional annotation. These classes do the the bulk of the processing so it's worth breaking service classes down if there are several operations being performed by the service. See the self-reflection-api services package for an example where Operation classes provide the main processing and various mapper classes provide the transformation between entity and DTO classes.
+   - **service** - all business logic and management of persistence objects (entities) are performed by the classes in this package. A service class provides the entry point to this business processing, and provides the transaction boundary for the operation. The service class method called from a RestController should be decorated with the @Transactional annotation. These classes do the the bulk of the processing so it's worth breaking service classes down if there are several operations being performed by the service. See the self-reflection-api services package for an example where Operation classes provide the main processing and various mapper classes provide the transformation between entity and DTO classes.
 
-**NOTE: Entity classes should not leak outside the service classes (i.e. should never reference an Entity class in a DTO, or a Controller.)**
+**NOTE: Entity classes should not leak outside the service classes (i.e. should never reference an Entity class in a DTO, or a Controller).**
 
 c) Each Spring Boot micro-service project must have a dependency in their pom.xml to the api-common library, and the keycloak spring security adapter. By adding a keycloak.json file to the micro-service projects resources folder, keycloak authentication will automatically be activated for all endpoints.
 
 d) Endpoints that are only to be accessible by the super-user role should adhere to the url format /manage/**. This ensures that only a user with the super-user role can access the endpoint.
 
-**WARNING - All classes managed by Springs IOC container MUST be stateless (i.e. they cannot hold request specific (mutable) state. Immutable state available for the lifetime of the application is OK and can help performance when caching data).**
+**WARNING - All classes managed by Springs IOC container MUST be stateless (i.e. they cannot hold request specific (mutable) state. Immutable state available for the lifetime of the application is OK and can help performance when caching data).**<br><br>
 
 #### 2.2.2. portal-application-api
 
@@ -166,10 +166,10 @@ The cohort-api projects REST api can be viewed at http://{server}:8086/cohort-ap
 The cv-api manages CV versions for Trainees. A CV version consists of a Trainee Profile, Hobbies, Work Experience, Qualifications and Skills. The skills section is auto populated from the technologies associated with the courses the trainee has completed as part of their training within a cohort. Other skills can also be manually added by the trainee. A trainee can create a new CV or update an existing CV that has not yet been approved by an admin user. Once a CV version has been approved by a training administrator, the CV version is stored, and any amendments have to be made as a new CV Version.<br><br>
 The cv-api provides a facility to generate a PDF for the CV which can be viewed in a browser tab. Once a training administrator approves a CV version the generated PDF file is stored in a file system (at the moment this is expected to be one drive).<br><br>
 A CV version can have the following states:<br>
-**In Progress** - Trainee has created and saved the CV Version but has not submitted it for approval by a training administrator<br>
-**For Review** - Trainee has submitted the CV Version for review but the training administrator has not yet reviewed the CV Version<br>
-**Failed Review** - The training administrator has raised comment with the CV Version and the trainee has yet to address the comments and resubmit for review<br>
-**Approved** - The training administrator has reviewed and approved the CV Version, the CV version has been stored to a file system (one drive), and the CV version is no longer editable<br>
+   - **In Progress** - Trainee has created and saved the CV Version but has not submitted it for approval by a training administrator<br>
+   - **For Review** - Trainee has submitted the CV Version for review but the training administrator has not yet reviewed the CV Version<br>
+   - **Failed Review** - The training administrator has raised comment with the CV Version and the trainee has yet to address the comments and resubmit for review<br>
+   - **Approved** - The training administrator has reviewed and approved the CV Version, the CV version has been stored to a file system (one drive), and the CV version is no longer editable<br>
 
 ##### 2.2.4.2. Class Diagram
 
@@ -229,85 +229,85 @@ The self-reflection-api projects REST api can be viewed at http://{server}:8082/
 <a name="adding-spring-boot-project"></a>
 ### 2.3. Adding a new Spring Boot Project
 
-1. Create (or copy existing) Spring boot maven project (Responsibility - Lead Dev)
+a) Create (or copy existing) Spring boot maven project (Responsibility - Lead Dev)
 
-2. In pom.xml add dependencies (Responsibility - Lead Dev)
+b) In pom.xml add dependencies (Responsibility - Lead Dev)
 
-   keycloak spring security adapter
+   - keycloak spring security adapter
 
-   api-common
+   - api-common
 
-   spring boot jpa
+   - spring boot jpa
 
-   spring boot test
+   - spring boot test
 
-   postgresql
+   - postgresql
 
-3. Add spring boot maven plugin to pom.xml build plugins. (Responsibility - Lead Dev)
+c) Add spring boot maven plugin to pom.xml build plugins. (Responsibility - Lead Dev)
 
-4. Add standard folder structure under com.qa.portal.projname (Responsibility - Lead Dev)
+d) Add standard folder structure under com.qa.portal.projname (Responsibility - Lead Dev)
 
-   config
+   - config
 
-   dto
+   - dto
 
-   persistence
+   - persistence
 
-   persistence.entity
+   - persistence.entity
 
-   persistence.repository
+   - persistence.repository
 
-   rest 
+   - rest 
 
-   service
+   - service
 
-   service.mapper
+   - service.mapper
 
-   util
+   - util
 
-5. Add ProjNameApplication java file under com.qa.portal  (Responsibility - Lead Dev)
+e) Add ProjNameApplication java file under com.qa.portal  (Responsibility - Lead Dev)
 
-6. Add ProjNameConstants java file under com.qa.portal.projname (Responsibility - Lead Dev)
+f) Add ProjNameConstants java file under com.qa.portal.projname (Responsibility - Lead Dev)
 
-7. Add keycloak.json file to resources folder  (Responsibility - Lead Dev)
+g) Add keycloak.json file to resources folder  (Responsibility - Lead Dev)
 
-8. Add configuration to application.yml file to resources folder  (Responsibility - Lead Dev)
+h) Add configuration to application.yml file to resources folder  (Responsibility - Lead Dev)
 
-9. Add dozer mapping file to resources folder  (Responsibility - Lead Dev)
+i) Add dozer mapping file to resources folder  (Responsibility - Lead Dev)
 
-10. Add new project as a module to the parent pom.xml in services folder  (Responsibility - Lead Dev)
+j) Add new project as a module to the parent pom.xml in services folder  (Responsibility - Lead Dev)
 
-11. Push to Git repo  (Responsibility - Lead Dev)
-
+k) Push to Git repo  (Responsibility - Lead Dev)
+<br><br>
     
 <a name="developing-spring-boot-endpoint"></a>
 ### 2.4. Developing a new Spring Boot Endpoint
 
-1. Define REST interface (Responsibility - Lead Dev / Dev)
+a) Define REST interface (Responsibility - Lead Dev / Dev)
 
-2. Define Persistence Model (Responsibility - Tech Lead / Dev)
+b) Define Persistence Model (Responsibility - Tech Lead / Dev)
 
-3. Create or update DTOs in package com.qa.portal.projname.dto (Responsibility - Dev)
+c) Create or update DTOs in package com.qa.portal.projname.dto (Responsibility - Dev)
 
-4. (Optional) Create Junits for new or updated DTOs (Responsibility - Dev)
+d) (Optional) Create Junits for new or updated DTOs (Responsibility - Dev)
 
-5. Create or update entities in package com.qa.portal.projname.persistence.entity (Responsibility - Dev)
+e) Create or update entities in package com.qa.portal.projname.persistence.entity (Responsibility - Dev)
 
-6. Create or update repository interfaces in package com.qa.portal.projname.persistence.repository (Responsibility -  Dev)
+f) Create or update repository interfaces in package com.qa.portal.projname.persistence.repository (Responsibility -  Dev)
 
-7. (Optional) Create Junits for (new or amended) entities (Responsibility - Dev)
+g) (Optional) Create Junits for (new or amended) entities (Responsibility - Dev)
 
-8. Create or update mappers to map entities / DTOs (Responsibility - Dev)
+h) Create or update mappers to map entities / DTOs (Responsibility - Dev)
 
-9. Create Junit tests for (new or amended) mapper classes (Responsibility - Dev)
+i) Create Junit tests for (new or amended) mapper classes (Responsibility - Dev)
 
-10. Create or update service class in package com.qa.portal.projname.service (Responsibility - Dev)
+j) Create or update service class in package com.qa.portal.projname.service (Responsibility - Dev)
 
-11. Create Junit tests for (new or amended) service class (Responsibility - Dev)
+k) Create Junit tests for (new or amended) service class (Responsibility - Dev)
 
-12. Create or amend RestController class in com.qa.portal.projname.rest package (Responsibility - Dev)
+l) Create or amend RestController class in com.qa.portal.projname.rest package (Responsibility - Dev)
 
-13. Create an Integration test to invoke RestController (Responsibility - Dev)
+m) Create an Integration test to invoke RestController (Responsibility - Dev)
 
     
 <a name="build-and-run-services"></a>
@@ -326,17 +326,17 @@ a) Clone the qa-portal-services repo using command as per [QA-Portal](../README.
 
 b) From the base folder (qa-portal-services) build all the sub projects with maven
 
-mvn clean install
+    mvn clean install
 
 c) Start each of the following projects as Spring Boot applications
 
-portal-application-api (this will populate postgres database with any flyway script updates)<br>
-cohort-api<br>
-feedback-api<br>
-form-api<br>
-self-reflection-api<br>
-cv-api<br>
+   - **portal-application-api** (this will populate postgres database with any flyway script updates)<br>
+   - **cohort-api**<br>
+   - **feedback-api**<br>
+   - **form-api**<br>
+   - **self-reflection-api**<br>
+   - **cv-api**<br>
 
 using the following command
 
-mvn spring-boot:run
+    mvn spring-boot:run
