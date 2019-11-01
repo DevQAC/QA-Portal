@@ -278,7 +278,7 @@ i) Add dozer mapping file to resources folder  (Responsibility - Lead Dev)
 j) Add new project as a module to the parent pom.xml in services folder  (Responsibility - Lead Dev)
 
 k) Push to Git repo  (Responsibility - Lead Dev)
-
+<br><br>
     
 <a name="developing-spring-boot-endpoint"></a>
 ### 2.4. Developing a new Spring Boot Endpoint

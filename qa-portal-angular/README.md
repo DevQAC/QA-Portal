@@ -11,7 +11,7 @@
 - [2.6. Create Portal Application](#create-portal-application) 
 - [2.7. Develop Portal Components and Services](#develop-components-and-services)
 
-**[3. Build and Run Services](#build-and-run-services)**
+**[3. Build and Run Services](#build-run-portal)**
 - [3.1. Pre-requisites](#build-run-portal-prereq)
 - [3.2. Start portal](#start-portal)
 
