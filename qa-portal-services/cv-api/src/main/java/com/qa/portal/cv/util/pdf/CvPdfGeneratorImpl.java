@@ -187,11 +187,21 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
                 MainBody.Y_POSITION.value);
         Paragraph paragraph = body.getParagraph();
         Frame frame = body.getFrame();
+        
+        // Profile
         bodyTitle(paragraph, SECTION_HEADER_PROFILE, kranaFatB);
         paragraph.addMarkup(
                 "{color:" + ColourScheme.QA_GREY.value + "}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n",
                 FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+        
+        // Work Experience - QA
         bodyTitle(paragraph, SECTION_HEADER_WORK_EXPERIENCE, kranaFatB);
+        if(cvVersion.getSourceControlLink() != null && !cvVersion.getSourceControlLink().isEmpty()) {
+        	paragraph.addMarkup(
+                    "{color:" + ColourScheme.QA_BLUE.value + "}*"
+                            + SOURCE_CONTROL_LINK_PREFIX +cvVersion.getSourceControlLink() + "*\n\n",
+                    FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+        }
         for (int i = 0; i < cvVersion.getAllWorkExperience().size(); i++) {
             paragraph.addMarkup(
                     "{color:" + ColourScheme.QA_BLUE.value + "}*"
@@ -202,6 +212,23 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
             paragraph.addMarkup(
                     "{color:" + ColourScheme.QA_GREY.value + "}"
                             + cvVersion.getAllWorkExperience().get(i).getWorkExperienceDetails() + "\n\n",
+                    FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+        }
+        
+        // Work Experience - Other
+        if(!cvVersion.getOtherWorkExperience().isEmpty()) {
+        	bodyTitle(paragraph, SECTION_HEADER_OTHER_WORK_EXPERIENCE, kranaFatB);        	
+        }
+        for (int i = 0; i < cvVersion.getOtherWorkExperience().size(); i++) {
+            paragraph.addMarkup(
+                    "{color:" + ColourScheme.QA_BLUE.value + "}*"
+                            + getWorkExperenceJobHeader(cvVersion.getOtherWorkExperience().get(i)) + "*\n",
+                    FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
+            paragraph.addMarkup("\n", FontSize.BODY_SUBTITLE_CONTENT_SPACING.value, montserrat, montserratBold,
+                    montserrat, montserrat);
+            paragraph.addMarkup(
+                    "{color:" + ColourScheme.QA_GREY.value + "}"
+                            + cvVersion.getOtherWorkExperience().get(i).getWorkExperienceDetails() + "\n\n",
                     FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
         }
         paragraph.addMarkup("\n", FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
