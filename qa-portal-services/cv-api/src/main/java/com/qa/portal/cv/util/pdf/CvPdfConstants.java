@@ -24,17 +24,17 @@ public class CvPdfConstants {
 
     public static final String SKILLS_HEADER = "*Technologies*\n";
 
-    public static final String SKILLS_TITLE_PROGRAMMING_LANGUAGES = "Programming Languages:";
+    public static final String SKILLS_TITLE_PROGRAMMING_LANGUAGES = "Programming Languages";
 
-    public static final String SKILLS_TITLE_IDES = "IDEs:";
+    public static final String SKILLS_TITLE_IDES = "IDEs";
 
-    public static final String SKILLS_TITLE_DATABASES = "Database Technologies:";
+    public static final String SKILLS_TITLE_DATABASES = "Database Technologies";
 
-    public static final String SKILLS_TITLE_DEVOPS = "Devops Technologies:";
+    public static final String SKILLS_TITLE_DEVOPS = "Devops Technologies";
 
-    public static final String SKILLS_TITLE_OPERATING_SYSTEMS = "Operating Systems:";
+    public static final String SKILLS_TITLE_OPERATING_SYSTEMS = "Operating Systems";
 
-    public static final String SKILLS_TITLE_PROJECT_FRAMEWORKS = "Project Frameworks:";
+    public static final String SKILLS_TITLE_PROJECT_FRAMEWORKS = "Cloud Platforms";
 
-    public static final String SKILLS_TITLE_OTHER = "Other:";
+    public static final String SKILLS_TITLE_OTHER = "Other";
 }
