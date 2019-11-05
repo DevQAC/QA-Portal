@@ -216,8 +216,8 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         }
         
         // Work Experience - Other
-        if(!cvVersion.getOtherWorkExperience().isEmpty()) {
-        	bodyTitle(paragraph, SECTION_HEADER_OTHER_WORK_EXPERIENCE, kranaFatB);        	
+        if(cvVersion.getOtherWorkExperience() != null && !cvVersion.getOtherWorkExperience().isEmpty()) {
+        	bodyTitle(paragraph, SECTION_HEADER_OTHER_WORK_EXPERIENCE, kranaFatB);
         }
         for (int i = 0; i < cvVersion.getOtherWorkExperience().size(); i++) {
             paragraph.addMarkup(
