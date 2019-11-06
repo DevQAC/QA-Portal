@@ -16,7 +16,9 @@ public class CvPdfConstants {
 
     public static final String SECTION_HEADER_HOBBIES = "HOBBIES/INTERESTS";
 
-    public static final String SECTION_HEADER_WORK_EXPERIENCE = "WORK EXPERIENCE";
+    public static final String SECTION_HEADER_WORK_EXPERIENCE = "WORK EXPERIENCE - QA";
+    
+    public static final String SECTION_HEADER_OTHER_WORK_EXPERIENCE = "WORK EXPERIENCE - OTHER";
 
     public static final String CONSULTANT_HEADER = "{color:#89898b}";
 
@@ -37,4 +39,6 @@ public class CvPdfConstants {
     public static final String SKILLS_TITLE_PROJECT_FRAMEWORKS = "Cloud Platforms";
 
     public static final String SKILLS_TITLE_OTHER = "Other";
+
+    public static final String SOURCE_CONTROL_LINK_PREFIX = "CODE - ";
 }

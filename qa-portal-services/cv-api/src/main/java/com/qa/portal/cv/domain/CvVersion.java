@@ -32,6 +32,10 @@ public class CvVersion {
     private List<Qualification> allQualifications;
 
     private List<WorkExperience> allWorkExperience;
+    
+    private List<WorkExperience> otherWorkExperience;
+
+    private String sourceControlLink;
 
     private Hobbies hobbies;
 
@@ -162,5 +166,21 @@ public class CvVersion {
 
 	public void setHobbies(Hobbies hobbies) {
 		this.hobbies = hobbies;
+	}
+
+	public List<WorkExperience> getOtherWorkExperience() {
+		return otherWorkExperience;
+	}
+
+	public void setOtherWorkExperience(List<WorkExperience> otherWorkExperience) {
+		this.otherWorkExperience = otherWorkExperience;
+	}
+
+	public String getSourceControlLink() {
+		return sourceControlLink;
+	}
+
+	public void setSourceControlLink(String sourceControlLink) {
+		this.sourceControlLink = sourceControlLink;
 	}
 }
