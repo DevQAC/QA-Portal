@@ -110,10 +110,10 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
                 ConsultantNameBox.X_POSITION.value, ConsultantNameBox.Y_POSITION.value);
         Paragraph paragraph = consultantNameBox.getParagraph();
         Frame frame = consultantNameBox.getFrame();
-		paragraph.addMarkup("{color:" + ColourScheme.QA_PURPLE.value + "}Consultant\n",
-				FontSize.CONSULTANT_NAME.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
         paragraph.addMarkup(WHITE_COLOUR + cvVersion.getFirstName() + "\n" + cvVersion.getSurname() + "*",
                 FontSize.CONSULTANT_NAME.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
+        paragraph.addMarkup("{color:" + ColourScheme.QA_PURPLE.value + "}Consultant\n",
+        		FontSize.CONSULTANT_NAME.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
         frame.setBackgroundColor(Color.decode(ColourScheme.QA_RED.value));
         return frame;
     }
@@ -122,8 +122,6 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         CvPdfElement skillsBox = getCvPdfElement(SkillsBox.WIDTH.value, SkillsBox.HEIGHT.value,
                 SkillsBox.X_POSITION.value, SkillsBox.Y_POSITION.value);
         Paragraph paragraph = skillsBox.getParagraph();
-		paragraph.addMarkup(WHITE_COLOUR + SKILLS_HEADER + "\n", FontSize.SIDEBAR_TITLES.value, montserrat,
-				montserratBold, montserrat, montserrat);
 		paragraph.addMarkup("\n", FontSize.SIDEBAR_TITLE_CONTENT_SPACING.value, montserrat, montserratBold, montserrat,
 				montserrat);
         skillsMap.keySet().stream()
@@ -147,10 +145,10 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
                         montserrat);
                 for (int i = 0; i < list.size(); i++) {
                     if (i < list.size() - 1) {
-                        paragraph.addMarkup(WHITE_COLOUR + list.get(i) + ", ", FontSize.SIDEBAR_CONTENT.value, montserrat,
+                        paragraph.addMarkup(WHITE_COLOUR + "*" + list.get(i) + ", *", FontSize.SIDEBAR_CONTENT.value, montserrat,
                                 montserratBold, montserrat, montserrat);
                     } else {
-                        paragraph.addMarkup(WHITE_COLOUR + list.get(i) + "\n\n", FontSize.SIDEBAR_CONTENT.value,
+                        paragraph.addMarkup(WHITE_COLOUR + "*" + list.get(i) + "*\n\n", FontSize.SIDEBAR_CONTENT.value,
                                 montserrat, montserratBold, montserrat, montserrat);
                     }
                 }
@@ -198,10 +196,10 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         
         // Profile
         bodyTitle(paragraph, SECTION_HEADER_PROFILE, kranaFatB);
+        paragraph.setLineSpacing(1.5f);
         paragraph.addMarkup(
-                "{color:" + ColourScheme.QA_GREY.value + "}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n",
+                "{color:" + ColourScheme.QA_GREY.value +"}" + cvVersion.getProfile().getProfileDetails() + "\n\n\n",
                 FontSize.BODY_CONTENT.value, montserrat, montserratBold, montserrat, montserrat);
-        
         // Work Experience - QA
         bodyTitle(paragraph, SECTION_HEADER_WORK_EXPERIENCE, kranaFatB);
         if(cvVersion.getSourceControlLink() != null && !cvVersion.getSourceControlLink().isEmpty()) {
@@ -271,8 +269,8 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
                            PDFont kranaFatB) throws IOException {
         paragraph.addMarkup("{color:" + ColourScheme.QA_PURPLE.value + "}*" + title + "*\n", FontSize.BODY_TITLES.value,
                 kranaFatB, kranaFatB, kranaFatB, kranaFatB);
-        paragraph.addMarkup("\n", FontSize.BODY_TITLE_CONTENT_SPACING.value, kranaFatB, kranaFatB, kranaFatB,
-                kranaFatB);
+//        paragraph.addMarkup("\n", FontSize.BODY_TITLE_CONTENT_SPACING.value, kranaFatB, kranaFatB, kranaFatB,
+//                kranaFatB);
     }
 
     private Frame divider(float yPosition) {
