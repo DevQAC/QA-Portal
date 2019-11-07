@@ -87,6 +87,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
         document.add(divider(Dividers.Y_POSITION_TOP.value));
         document.add(divider(Dividers.Y_POSITION_BOTTOM.value));
         document.add(generateLogo());
+        document.add(generateArrow());
         return document;
     }
     
@@ -95,6 +96,13 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
     	logo.setAbsolutePosition(
     			new Position(Images.LOGO.xPosition - logo.getWidth(), Images.LOGO.yPosition + logo.getHeight()));
     	return logo;
+    }
+    
+    private ImageElement generateArrow() throws IOException {
+    	ImageElement arrow = loadImages(Images.ARROW.filePath, Images.ARROW.resizeFactor);
+    	arrow.setAbsolutePosition(
+    			new Position(Images.ARROW.xPosition, Images.ARROW.yPosition + arrow.getHeight()));
+    	return arrow;
     }
 
     private Frame generateConsultantNameBox(CvVersion cvVersion, PDFont kranaFatB) throws IOException {

@@ -21,7 +21,9 @@ enum Fonts {
 
 enum Images {
 	LOGO("target/classes/QA_Logo.png", 37, PageFormat.WIDTH.value - PageFormat.PADDING.value,
-			MainFooter.HEIGHT.value + MainBody.HEIGHT.value + 4);
+			MainFooter.HEIGHT.value + MainBody.HEIGHT.value + 4),
+	ARROW("target/classes/Arrow.png", 37, PageFormat.PADDING.value,
+			SkillsBox.HEIGHT.value + QualificationsBox.HEIGHT.value + PageFormat.PADDING.value);
 
 	final String filePath;
 	final float resizeFactor;
@@ -69,7 +71,7 @@ enum Dividers {
 
 
 enum ConsultantNameBox {
-	WIDTH(PageFormat.WIDTH_COL1.value), HEIGHT((PageFormat.HEIGHT.value / 8)), X_POSITION(0),
+	WIDTH(PageFormat.WIDTH_COL1.value), HEIGHT(((PageFormat.HEIGHT.value / 8) + 30)), X_POSITION(0),
 	Y_POSITION(PageFormat.HEIGHT.value);
 	final float value;
 
