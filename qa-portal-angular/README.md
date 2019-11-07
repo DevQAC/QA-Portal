@@ -122,130 +122,133 @@ This should be the default application when a user logs into the QA Portal. This
 <a name="qa-reflection-app"></a> 
 ### 2.5. Trainee Reflection Application
 
-This has been developed to provide guidance for the future development of Portal applications. The application has basic functionality, but has examples of the following
+This has been developed to provide guidance for the future development of Portal applications. The application has basic functionality, but has examples of the following.
 
-a) Invoke external REST services
+- Invoke external REST services.
 
-All REST service calls should be made using the Angular HttpClient service. There are examples of GET and POST requests in the self-reflection-form-state.service.ts and rated-questions.service.ts services. For more information on HttpClient see https://angular.io/guide/http#httpclient
+    All REST service calls should be made using the Angular HttpClient service. There are examples of GET and POST requests in the self-reflection-form-state.service.ts and rated-questions.service.ts services. For more information on HttpClient see https://angular.io/guide/http#httpclient.
 
-b) Include components from the QA Common application
+- Include components from the QA Common application.
 
-The self-reflection-form.component.html has an example of including the self rated question common component using the <app-rated-question> element. This demonstrates how to pass data to the component to control how it is rendered.
+    The self-reflection-form.component.html has an example of including the self rated question common component using the `<app-rated-question>` element. This demonstrates how to pass data to the component to control how it is rendered.
 
-c) Use the error handling service
+- Use the error handling service
 
-All error handling should be delegated to the QaErrorHandlerService so that all errors are processed in a consistent manner. The self-reflection-form.component.ts has examples of invoking the QaErrorHandlerService after service call failures.
+    All error handling should be delegated to the `QaErrorHandlerService` so that all errors are processed in a consistent manner. The self-reflection-form.component.ts has examples of invoking the QaErrorHandlerService after service call failures.
 
-d) Define routes
+- Define routes
 
-Routes are defined in the app-routing.module.ts, as per the angular standard convention.
+    Routes are defined in the app-routing.module.ts, as per the angular standard convention.
 
 <a name="create-portal-application"></a>
 ### 2.6. Create Portal Application
 
-NOTE: Replace any references to {appname} and {AppName}SharedModule with the actual name of your application and module
+***NOTE: Replace any references to {appname} with the actual name of your application***
 
-a) Generate a new application in the QA Portal workspace. In the top level folder run the following command
+1. Generate a new application in the QA Portal workspace. In **qa-portal-angular/** run the following command:
 
-ng generate application {appname} --routing
+    ```bash
+    ng generate application {appname} --routing
+    ```
 
-This will create a new Angular application with routing in the projects folder, and its configuration will be added to the angular.json file.
+    This will create a new Angular application with routing in the **projects/** folder, and its configuration will be added to the angular.json file.
 
-b) Create a new module with a name specific to this application, and return an empty providers array, as the services in this application should only be accessed from components within this application. 
+2. Update the name of the new application's app and routing module to match the name you've chosen. This while not required will help differentiate it from other applications in the project.
 
-To achieve this, edit the app.module.ts file in the projects/{appname}/src/app folder as follows:
+    So the modules located here:
+    ```
+    qa-portal-angular/projects/{appname}/src/app/app.module.ts
 
-Add the following to the end of the file
+    qa-portal-angular/projects/{appname}/src/app/app-routing.module.ts
+    ```
+    Should be renamed to:
+    ```
+    qa-portal-angular/projects/{appname}/src/app/{appname}.module.ts
 
-@NgModule({})<br>
-export class {AppName}SharedModule {<br>
-  static forRoot(): ModuleWithProviders {<br>
-    return {<br>
-      ngModule: AppModule,<br>
-      providers: []<br>
-    };<br>
-  }<br>
-}<br>
+    qa-portal-angular/projects/{appname}/src/app/{appname}-routing.module.ts
+    ```
+    Do this to the module definitions in these files too.
 
-c) Add the QACommonModule to your new application by adding it to the imports in the app.module.ts file.
 
-d) Make your new application module available in the portal-core application. In the projects/portal-core/src/app folder, edit the app.module.ts file, adding this new module at the end of the list of imports
+3. Add the **QACommonModule** to your new application by adding it to the imports in the {appname}.module.ts file.
+    ```javascript
+    // qa-portal-angular/projects/{appname}/src/app/{appname}-routing.module.ts
+    imports: [
+        QaCommonModule,
+        ...
+    ]
+    ```
 
-  imports: [<br>
-    QaCommonModule,<br>
-    AppRoutingModule,<br>
-    .......,<br>
-    {AppName}SharedModule
-    
+4. Connect the new application into the Portal Core by adding it to the Portal Core routing module routes array.
+    ```javascript
+    // qa-portal-angular/projects/portal-core/src/app/app-routing.module.ts
+    const routes: Routes = [
+        ...,
+        {
+            path: 'path/to/new/application/routing/module',
+            loadChildren: () => import('../../../{appname}/src/app/{appname}.module').then(mod => mod.{appname}Module)
+        }
+    ];
+    ```
 
-e) Make the routes in your new application available from portal-core application. In the projects/portal-core/src/app folder, edit the app-routing.module.ts file, adding a new route on the line before the comment
+5. Create application folder structure.
 
-// Add routes for new application here
+    Under the new application's root folder **projects/{appname}** the following structure is recommended for code that will be used by multiple components in the application
 
-the new route object should be as follows
-
-{<br>
-path: 'qa/portal/{department}',<br>
-loadChildren: () => {AppName}SharedModule<br> 
-}
-
-where {department} should be replaced by training, hr, etc
-
-f) Create application folder structure 
-
-Under the application root folder (projects/{appname}) the following structure is recommended for code that will be used by multiple components in the application
-
-_common<br>
-_common/models<br>
-_common/services<br>
-_common/validators<br>
+    ```
+        src/app/_common/
+        src/app/_common/models/
+        src/app/_common/services/
+    ```
 
 <a name="develop-components-and-services"></a>
 ### 2.7. Developing Portal Components and Services
 
-a) Generate a new component. From the workspace root folder run the following
+1. Generate a new component. From the workspace root folder run the following
 
-ng generate component {compname} --project={appname}
+    ```bash
+    ng generate component {compname} --project={appname}
+    ```
 
-b) Within the projects/{appname}/src/app/{compname} folder add the following folders
-
-models<br>
-services<br>
-validators<br>
-
+2. Within the **projects/{appname}/src/app/{compname}** folder add the following folders as required.
+    ```
+    models/
+    services/
+    validators/
+    ```
 
 #### 2.7.1. Component Guidelines
 
 When developing a {compname}.component.ts the following are useful guidelines to follow
 
-a) No manipulation of DOM elements - Any DOM updates should occur through the binding to the directives in the {compname}.component.html file
+-  No manipulation of DOM elements - Any DOM updates should occur through the binding to the directives in the {compname}.component.html file
 
-b) All data required by this component view should be contained in a view model class located in the ./models folder. This has the advantage of simplicity, but also allows us to easily store a components "state" in session or local storage if required.
+-  All data required by this component view should be contained in a view model class located in the ./models folder. This has the advantage of simplicity, but also allows us to easily store a components "state" in session or local storage if required.
 
-c) Any Http calls should be performed in a service class (in the ./services folder), and the component should use the service class to call REST services. By doing this, the mapping of data returned from the service into a format that can be added to our view model, can be done outside the component. If this is all done in the component it can become bloated and difficult to maintain and test.
+-  Any Http calls should be performed in a service class (in the ./services folder), and the component should use the service class to call REST services. By doing this, the mapping of data returned from the service into a format that can be added to our view model, can be done outside the component. If this is all done in the component it can become bloated and difficult to maintain and test.
 
-d) Error handling needs to be included for all service calls. This should be a simple addition of an error function, in the subscription to the service, and delegate the error handling to the QaErrorHandlerService.
+-  Error handling needs to be included for all service calls. This should be a simple addition of an error function, in the subscription to the service, and delegate the error handling to the QaErrorHandlerService.
 
-e) Generally a component will have to retrieve some data to prepopulate UI components. This functionality should be added to the ngOnInit method, with the component implementing the OnInit interface
+-  Generally a component will have to retrieve some data to prepopulate UI components. This functionality should be added to the ngOnInit method, with the component implementing the OnInit interface
 
-f) For scenarios as described in e) where data is being loaded asynchronously it can be useful to add a spinner to the UI. The boolean to control display of the spinner can be defined outside of the view model, and should be set to false as soon as all data has bee loaded. See self-reflection-history.component.ts (and html) for an example.
+-  For scenarios as described in e) where data is being loaded asynchronously it can be useful to add a spinner to the UI. The boolean to control display of the spinner can be defined outside of the view model, and should be set to false as soon as all data has bee loaded. See self-reflection-history.component.ts (and html) for an example.
 
-g) Any validation required for the component should be placed in a separate validate class, which should be injected into the component. Again this is to separate functionality and prevent the component from getting bloated and difficult to maintain and test.
+-  Any validation required for the component should be placed in a separate validate class, which should be injected into the component. Again this is to separate functionality and prevent the component from getting bloated and difficult to maintain and test.
  
  
 #### 2.7.2. Service Guidelines
 
-a) Where to put the service code
+-  Where to put the service code
 
-Services that can be used by all Portal applications should be defined in the portal-core project in the src/app/_common/services folder.
+    Services that can be used by all Portal applications should be defined in the portal-core project in the src/app/_common/services folder.
 
-Services that are used in a specific application, but by multiple components in that application should be placed in the projects/{appname}/src/app/_common/services folder.
+    Services that are used in a specific application, but by multiple components in that application should be placed in the projects/{appname}/src/app/_common/services folder.
 
-Services that used only in a specific component should be placed in the projects/{appname}/src/app/{compname}/services folder.
+    Services that used only in a specific component should be placed in the projects/{appname}/src/app/{compname}/services folder.
 
-b) Each service class should be decorated with the @Injectable annotation. This ensures that dependencies can be injected into this service. If this annotation is not specified, then any dependencies (e.g. HttpClient) will fail to be injected when the service is instantiated.
+-  Each service class should be decorated with the @Injectable annotation. This ensures that dependencies can be injected into this service. If this annotation is not specified, then any dependencies (e.g. HttpClient) will fail to be injected when the service is instantiated.
 
-c) For communication between unrelated components (i.e. they don't have a parent child relationship), services can be used along with subscriptions to rxjs Subjects (or BejaviourSubjects). See the ApplicationSelectionService class in the portal-core application for an example.
+-  For communication between unrelated components (i.e. they don't have a parent child relationship), services can be used along with subscriptions to rxjs Subjects (or BejaviourSubjects). See the ApplicationSelectionService class in the portal-core application for an example.
 
 <a name="build-run-portal"></a>
 ## 3. Building and Running Portal
@@ -253,23 +256,24 @@ c) For communication between unrelated components (i.e. they don't have a parent
 <a name="build-run-portal-prereq"></a>
 ### 3.1. Pre-Requisites
 
-a) A local keycloak instance and Postgres DB has been installed and configured. See instructions in 
+1.  A local keycloak instance and Postgres DB has been installed and configured. See instructions in 
 https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-infra/README.md
 
-b) An instance of portal-application-api services are running locally. See instructions in
+2.  An instance of portal-application-api services are running locally. See instructions in
 https://github.com/DevQAC/QA-Portal/blob/development/qa-portal-services/README.md
 
 <a name="start-portal"></a>
 ### 3.2. Start QA Portal
 
-a) Clone the qa-portal-angular repo using command
+1. Clone the qa-portal-angular repo using command.
 
-See instruction in https://github.com/DevQAC/QA-Portal/blob/master/README.md
+    See instructions in https://github.com/DevQAC/QA-Portal/blob/master/README.md
 
-b) From the base project folder install dependencies using npm
-
+2. From the base project folder install dependencies using **npm**.
+    ```bash
     npm install
-
-c) From the base project folder start the angular application
-
+    ```
+3. From the base project folder start the angular application.
+    ```bash
     npm start
+    ```
