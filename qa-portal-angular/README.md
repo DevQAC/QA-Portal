@@ -83,14 +83,14 @@ b) The main content pane will display the home page of the selected application.
 
 Navigation within an application is controlled from links within the application or from the menu items on the side navigation pane. 
 
-Each application has an app-routing.module.ts file to define it's navigation routes.
+Each application has an `app-routing.module.ts` file to define it's navigation routes.
  
-The portal-core app-routing.module.ts loads the routing modules of each of the portal projects and all routing is controlled from the portal-core project. The intention is to lazy load these routing modules but at the moment they are directly loaded as there appears to be a problem with lazy loading from other applications in Angular 8. 
+The portal-core `app-routing.module.ts` loads the routing modules of each of the portal projects and all routing is controlled from the portal-core project. The intention is to lazy load these routing modules but at the moment they are directly loaded as there appears to be a problem with lazy loading from other applications in Angular 8. 
 
 
 #### 2.1.4. Error Handling
 
-The portal-core application manages error handling through the QaErrorHandlingService (qa-error-handling.service.ts). This can be referenced from any of the portal applications. For an example of using the error handler service, see self-reflection-form.component.ts
+The portal-core application manages error handling through the  `QaErrorHandlingService`. This can be referenced from any of the portal applications. For an example of using the error handler service, see `self-reflection-form.component.ts`
 
 The error handling service will redirect any severe errors to an error page advising the user that there is a serious issue with the application and if the issue continues to contact support.
 
@@ -101,7 +101,7 @@ Any application errors that can be resolved by the user will be displayed using 
 
 Any UI components that can be reused across the various Portal applications should be placed in the QA Common Application. This application does not have routing configured. 
 
-It also imports all angular modules that are likely to be needed by the various portal applications, so each portal application should import QACommonModule in their app.module.ts for access to these modules.
+It also imports all angular modules that are likely to be needed by the various portal applications, so each portal application should import `QACommonModule` in their app.module.ts for access to these modules.
 
 See rated-question component in the QA Common application for an example of a reusable component. 
 
@@ -110,7 +110,7 @@ For an example of using one of these components see the self-reflection-form com
 <a name="qa-error-app"></a>
 ### 2.3. QA Error Application
 
-The Error application provides a basic error component and it's associated routing. The routing to this component should only be triggered through the QaErrorHandlerService in the portal-core application.
+The Error application provides a basic error component and it's associated routing. The routing to this component should only be triggered through the `QaErrorHandlerService` in the portal-core application.
 
 This application is still under development.
 
@@ -126,7 +126,7 @@ This has been developed to provide guidance for the future development of Portal
 
 - Invoke external REST services.
 
-    All REST service calls should be made using the Angular HttpClient service. There are examples of GET and POST requests in the self-reflection-form-state.service.ts and rated-questions.service.ts services. For more information on HttpClient see https://angular.io/guide/http#httpclient.
+    All REST service calls should be made using the Angular HttpClient service. There are examples of GET and POST requests in the `self-reflection-form-state.service.ts` and `rated-questions.service.ts` services. For more information on HttpClient see https://angular.io/guide/http#httpclient.
 
 - Include components from the QA Common application.
 
@@ -138,20 +138,20 @@ This has been developed to provide guidance for the future development of Portal
 
 - Define routes
 
-    Routes are defined in the app-routing.module.ts, as per the angular standard convention.
+    Routes are defined in the `app-routing.module.ts`, as per the angular standard convention.
 
 <a name="create-portal-application"></a>
 ### 2.6. Create Portal Application
 
 ***NOTE: Replace any references to {appname} with the actual name of your application***
 
-1. Generate a new application in the QA Portal workspace. In **qa-portal-angular/** run the following command:
+1. Generate a new application in the QA Portal workspace. In `qa-portal-angular/` run the following command:
 
     ```bash
     ng generate application {appname} --routing
     ```
 
-    This will create a new Angular application with routing in the **projects/** folder, and its configuration will be added to the angular.json file.
+    This will create a new Angular application with routing in the `projects/` folder, and its configuration will be added to the `angular.json` file.
 
 2. Update the name of the new application's app and routing module to match the name you've chosen. This while not required will help differentiate it from other applications in the project.
 
@@ -170,7 +170,7 @@ This has been developed to provide guidance for the future development of Portal
     Do this to the module definitions in these files too.
 
 
-3. Add the **QACommonModule** to your new application by adding it to the imports in the {appname}.module.ts file.
+3. Add the `QACommonModule` to your new application by adding it to the imports in the {appname}.module.ts file.
     ```javascript
     // qa-portal-angular/projects/{appname}/src/app/{appname}-routing.module.ts
     imports: [
@@ -193,7 +193,7 @@ This has been developed to provide guidance for the future development of Portal
 
 5. Create application folder structure.
 
-    Under the new application's root folder **projects/{appname}** the following structure is recommended for code that will be used by multiple components in the application
+    Under the new application's root folder `projects/{appname}` the following structure is recommended for code that will be used by multiple components in the application
 
     ```
         src/app/_common/
@@ -210,7 +210,7 @@ This has been developed to provide guidance for the future development of Portal
     ng generate component {compname} --project={appname}
     ```
 
-2. Within the **projects/{appname}/src/app/{compname}** folder add the following folders as required.
+2. Within the `projects/{appname}/src/app/{compname}` folder add the following folders as required.
     ```
     models/
     services/
@@ -219,13 +219,13 @@ This has been developed to provide guidance for the future development of Portal
 
 #### 2.7.1. Component Guidelines
 
-When developing a {compname}.component.ts the following are useful guidelines to follow
+When developing a `{compname}.component.ts` the following are useful guidelines to follow
 
 -  No manipulation of DOM elements - Any DOM updates should occur through the binding to the directives in the {compname}.component.html file
 
 -  All data required by this component view should be contained in a view model class located in the ./models folder. This has the advantage of simplicity, but also allows us to easily store a components "state" in session or local storage if required.
 
--  Any Http calls should be performed in a service class (in the ./services folder), and the component should use the service class to call REST services. By doing this, the mapping of data returned from the service into a format that can be added to our view model, can be done outside the component. If this is all done in the component it can become bloated and difficult to maintain and test.
+-  Any Http calls should be performed in a service class (in the `./services` folder), and the component should use the service class to call REST services. By doing this, the mapping of data returned from the service into a format that can be added to our view model, can be done outside the component. If this is all done in the component it can become bloated and difficult to maintain and test.
 
 -  Error handling needs to be included for all service calls. This should be a simple addition of an error function, in the subscription to the service, and delegate the error handling to the QaErrorHandlerService.
 
@@ -240,13 +240,13 @@ When developing a {compname}.component.ts the following are useful guidelines to
 
 -  Where to put the service code
 
-    Services that can be used by all Portal applications should be defined in the portal-core project in the src/app/_common/services folder.
+    Services that can be used by all Portal applications should be defined in the portal-core project in the `src/app/_common/services` folder.
 
-    Services that are used in a specific application, but by multiple components in that application should be placed in the projects/{appname}/src/app/_common/services folder.
+    Services that are used in a specific application, but by multiple components in that application should be placed in the `projects/{appname}/src/app/_common/services` folder.
 
-    Services that used only in a specific component should be placed in the projects/{appname}/src/app/{compname}/services folder.
+    Services that used only in a specific component should be placed in the `projects/{appname}/src/app/{compname}/services` folder.
 
--  Each service class should be decorated with the @Injectable annotation. This ensures that dependencies can be injected into this service. If this annotation is not specified, then any dependencies (e.g. HttpClient) will fail to be injected when the service is instantiated.
+-  Each service class should be decorated with the `@Injectable` annotation. This ensures that dependencies can be injected into this service. If this annotation is not specified, then any dependencies (e.g. HttpClient) will fail to be injected when the service is instantiated.
 
 -  For communication between unrelated components (i.e. they don't have a parent child relationship), services can be used along with subscriptions to rxjs Subjects (or BejaviourSubjects). See the ApplicationSelectionService class in the portal-core application for an example.
 
