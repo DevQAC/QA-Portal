@@ -11,6 +11,7 @@ public class CvPdfConstants {
     public static final String WHITE_COLOUR = "{color:#FFFFFF}*";
 
     public static final String FOOTER_CONTACT = "{color:#89898b}+44 1273 022670 / qa.com";
+    
 
     public static final String SECTION_HEADER_PROFILE = "PROFILE";
 
@@ -20,7 +21,7 @@ public class CvPdfConstants {
     
     public static final String SECTION_HEADER_OTHER_WORK_EXPERIENCE = "WORK EXPERIENCE - OTHER";
 
-    public static final String CONSULTANT_HEADER = "{color:#89898b}";
+    public static final String CONSULTANT_HEADER = "{color:#89898b} Consultant Profile";
 
     public static final String QUALIFICATION_HEADER = "*Qualifications*\n";
 

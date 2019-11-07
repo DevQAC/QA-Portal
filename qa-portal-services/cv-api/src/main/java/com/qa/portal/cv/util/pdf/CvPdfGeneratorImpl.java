@@ -110,7 +110,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
                 ConsultantNameBox.X_POSITION.value, ConsultantNameBox.Y_POSITION.value);
         Paragraph paragraph = consultantNameBox.getParagraph();
         Frame frame = consultantNameBox.getFrame();
-        paragraph.addMarkup(WHITE_COLOUR + cvVersion.getFirstName() + "\n" + cvVersion.getSurname() + "*",
+        paragraph.addMarkup(WHITE_COLOUR + cvVersion.getFirstName() + "\n" + cvVersion.getSurname() + "\n*",
                 FontSize.CONSULTANT_NAME.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
         paragraph.addMarkup("{color:" + ColourScheme.QA_PURPLE.value + "}Consultant\n",
         		FontSize.CONSULTANT_NAME.value, kranaFatB, kranaFatB, kranaFatB, kranaFatB);
@@ -180,7 +180,7 @@ public class CvPdfGeneratorImpl implements CvPdfGenerator {
                 MainHeader.X_POSITION.value, MainHeader.Y_POSITION.value);
         Paragraph paragraph = header.getParagraph();
         Frame frame = header.getFrame();
-        paragraph.addMarkup(CONSULTANT_HEADER + cvVersion.getFirstName() + " " + cvVersion.getSurname(), 8.8f, montserrat, montserratBold, montserrat,
+        paragraph.addMarkup(CONSULTANT_HEADER, 8.8f, montserrat, montserratBold, montserrat,
                 montserrat);
         return frame;
     }
